@@ -1,0 +1,3786 @@
+Developer Guide - Latest WildFly Documentation
+==============================================
+
+[[developer-guide]]
+Developer Guide
+---------------
+
+[[wildfly-developer-guide]]
+WildFly Developer Guide
+~~~~~~~~~~~~~~~~~~~~~~~
+
+[[target-audience]]
+Target Audience
+^^^^^^^^^^^^^^^
+
+Java Developers
+
+[[prerequisites]]
+Prerequisites
+^^^^^^^^^^^^^
+
+[[class-loading-in-wildfly]]
+Class loading in WildFly
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Since JBoss AS 7, Class loading is considerably different to previous
+versions of JBoss AS. Class loading is based on the
+https://docs.jboss.org/author/display/MODULES[JBoss Modules] project.
+Instead of the more familiar hierarchical class loading environment,
+WildFly's class loading is based on modules that have to define explicit
+dependencies on other modules. Deployments in WildFly are also modules,
+and do not have access to classes that are defined in jars in the
+application server unless an explicit dependency on those classes is
+defined.
+
+[[deployment-module-names]]
+Deployment Module Names
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Module names for top level deployments follow the format
+`deployment.myarchive.war` while sub deployments are named like
+`deployment.myear.ear.mywar.war`. 
+
+This means that it is possible for a deployment to import classes from
+another deployment using the other deployments module name, the details
+of how to add an explicit module dependency are explained below.
+
+[[automatic-dependencies]]
+Automatic Dependencies
+^^^^^^^^^^^^^^^^^^^^^^
+
+Even though in WildFly modules are isolated by default, as part of the
+deployment process some dependencies on modules defined by the
+application server are set up for you automatically. For instance, if
+you are deploying a Java EE application a dependency on the Java EE
+API's will be added to your module automatically. Similarly if your
+module contains a beans.xml file a dependency on
+http://seamframework.org/Weld[Weld]will be added automatically, along
+with any supporting modules that weld needs to operate.
+
+For a complete list of the automatic dependencies that are added, please
+see
+https://docs.jboss.org/author/display/WFLY10/Implicit+module+dependencies+for+deployments[Implicit
+module dependencies for deployments].
+
+Automatic dependencies can be excluded through the use of
+`jboss-deployment-structure.xml`.
+
+[[class-loadingprecedence]]
+Class Loading Precedence
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+A common source of errors in Java applications is including API classes
+in a deployment that are also provided by the container. This can result
+in multiple versions of the class being created and the deployment
+failing to deploy properly. To prevent this in WildFly, module
+dependencies are added in a specific order that should prevent this
+situation from occurring. 
+
+In order of highest priority to lowest priority
+
+1.  System Dependencies - These are dependencies that are added to the
+module automatically by the container, including the Java EE api's.
+2.  User Dependencies - These are dependencies that are added through 
+`jboss-deployment-structure.xml` or through the 
+`Dependencies:` manifest entry.
+3.  Local Resource - Class files packaged up inside the deployment
+itself, e.g. class files from `WEB-INF/classes` or `WEB-INF/lib` of a
+war.
+4.  Inter deployment dependencies - These are dependencies on other
+deployments in an ear deployment. This can include classes in an ear's
+lib directory, or classes defined in other ejb jars. 
+
+[[war-class-loading]]
+WAR Class Loading
+^^^^^^^^^^^^^^^^^
+
+The war is considered to be a single module, so classes defined in
+`WEB-INF/lib` are treated the same as classes in `WEB-INF/classes`. All
+classes packaged in the war will be loaded with the same class loader.
+
+[[ear-class-loading]]
+EAR Class Loading
+^^^^^^^^^^^^^^^^^
+
+Ear deployments are multi-module deployments. This means that not all
+classes inside an ear will necessarily have access to all other classes
+in the ear, unless explicit dependencies have been defined. By default
+the `EAR/lib` directory is a single module, and every WAR or EJB jar
+deployment is also a separate module. Sub deployments (wars and
+ejb-jars) always have a dependency on the parent module, which gives
+them access to classes in `EAR/lib`, however they do not always have an
+automatic dependency on each other. This behaviour is controlled via the
+`ear-subdeployments-isolated` setting in the ee subsystem
+configuration: 
+
+[source,brush:,xml;,gutter:,false;]
+----
+<subsystem xmlns="urn:jboss:domain:ee:1.0" >            
+  <ear-subdeployments-isolated>false</ear-subdeployments-isolated>
+</subsystem>
+----
+
+By default this is set to false, which allows the sub-deployments to see
+classes belonging to other sub-deployments within the .ear.
+
+For example, consider the following .ear deployment:
+
+[source,java]
+----
+myapp.ear
+ |
+ |--- web.war
+ |
+ |--- ejb1.jar
+ |
+ |--- ejb2.jar
+----
+
+If the ear-subdeployments-isolated is set to false, then the classes in
+web.war can access classes belonging to ejb1.jar and ejb2.jar.
+Similarly, classes from ejb1.jar can access classes from ejb2.jar (and
+vice-versa).
+
+The ear-subdeployments-isolated element value has no effect on the
+isolated classloader of the .war file(s). i.e. irrespective of whether
+this flag is set to true or false, the .war within a .ear will have a
+isolated classloader and other sub-deployments within that .ear will not
+be able to access classes from that .war. This is as per spec.
+
+If the ear-subdeployments-isolated is set to true then no automatic
+module dependencies between the sub-deployments are set up. User must
+manually setup the dependency with `Class-Path` entries, or by setting
+up explicit module dependencies.
+
+Portability
+
+The Java EE specification says that portable applications should not
+rely on sub deployments having access to other sub deployments unless an
+explicit Class-Path entry is set in the MANIFEST.MF. So portable
+applications should always use Class-Path entry to explicitly state
+their dependencies.
+
+It is also possible to override the ear-subdeployments-isolated element
+value at a per deployment level. See the section on
+jboss-deployment-structure.xml below.
+
+`Dependencies:` * Manifest Entries*
+
+Deployments (or more correctly modules within a deployment) may set up
+dependencies on other modules by adding a `Dependencies:` manifest
+entry. This entry consists of a comma separated list of module names
+that the deployment requires. The available modules can be seen under
+the `modules` directory in the application server distribution. For
+example to add a dependency on javassist and apache velocity you can add
+a manifest entry as follows:
+
+`Dependencies: org.javassist export,org.apache.velocity export services,org.antlr`
+
+Each dependency entry may also specify some of the following parameters
+by adding them after the module name:
+
+* `export` This means that the dependencies will be exported, so any
+module that depends on this module will also get access to the
+dependency.
+* `services` By default items in META-INF of a dependency are not
+accessible, this makes items from `META-INF/services` accessible so
+http://download.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html[services]
+in the modules can be loaded.
+* `optional` If this is specified the deployment will not fail if the
+module is not available.
+* `meta-inf` This will make the contents of the `META-INF` directory
+available (unlike `services`, which just makes `META-INF/services`
+available). In general this will not cause any deployment descriptors in
+META-INF to be processed, with the exception of `beans.xml`. If a
+`beans.xml` file is present this module will be scanned by Weld and any
+resulting beans will be available to the application.
+* `annotations` If a jandex index has be created for the module these
+annotations will be merged into the deployments annotation index. The
+https://github.com/jbossas/jandex[Jandex] index can be generated using
+the
+https://github.com/jbossas/jandex/blob/master/src/main/java/org/jboss/jandex/JandexAntTask.java[Jandex
+ant task], and must be named `META-INF/jandex.idx`. Note that it is not
+necessary to break open the jar being indexed to add this to the modules
+class path, a better approach is to create a jar containing just this
+index, and adding it as an additional resource root in the `module.xml`
+file.
+
+Adding a dependency to all modules in an EAR
+
+Using the `export` parameter it is possible to add a dependency to all
+sub deployments in an ear. If a module is exported from a
+`Dependencies:` entry in the top level of the ear (or by a jar in the
+`ear/lib` directory) it will be available to all sub deployments as
+well.
+
+To generate a MANIFEST.MF entry when using maven put the following in
+your pom.xml:
+
+pom.xml
+
+[source,brush:,xml;,gutter:,false;]
+----
+<build>
+   ...
+   <plugins>
+     <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-war-plugin</artifactId>
+       <configuration>
+          <archive>
+             <manifestEntries>
+                <Dependencies>org.slf4j</Dependencies>
+             </manifestEntries>
+          </archive>
+       </configuration>
+     </plugin>
+   </plugins>
+</build>
+----
+
+If your deployment is a jar you must use the `maven-jar-plugin` rather
+than the `maven-war-plugin`.
+
+[[class-path-entries]]
+Class Path Entries
+++++++++++++++++++
+
+It is also possible to add module dependencies on other modules inside
+the deployment using the `Class-Path` manifest entry. This can be used
+within an ear to set up dependencies between sub deployments, and also
+to allow modules access to additional jars deployed in an ear that are
+not sub deployments and are not in the `EAR/lib` directory. If a jar in
+the `EAR/lib` directory references a jar via `Class-Path:` then this
+additional jar is merged into the parent ear's module, and is accessible
+to all sub deployments in the ear. 
+
+[[global-modules]]
+Global Modules
+^^^^^^^^^^^^^^
+
+It is also possible to set up global modules, that are accessible to all
+deployments. This is done by modifying the configuration file
+(standalone/domain.xml).
+
+For example, to add javassist to all deployments you can use the
+following XML:
+
+standalone.xml/domain.xml
+
+[source,brush:,xml;,gutter:,false;]
+----
+<subsystem xmlns="urn:jboss:domain:ee:1.0" >            
+  <global-modules>
+    <module name="org.javassist" slot="main" />            
+  </global-modules> 
+</subsystem>
+----
+
+Note that the `slot` field is optional and defaults to `main`.
+
+[[jboss-deployment-structure-file]]
+JBoss Deployment Structure File
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+`jboss-deployment-structure.xml` is a JBoss specific deployment
+descriptor that can be used to control class loading in a fine grained
+manner. It should be placed in the top level deployment, in `META-INF`
+(or `WEB-INF` for web deployments). It can do the following:
+
+* Prevent automatic dependencies from being added
+* Add additional dependencies
+* Define additional modules 
+* Change an EAR deployments isolated class loading behaviour
+* Add additional resource roots to a module
+
+An example of a complete `jboss-deployment-structure.xml` file for an
+ear deployment is as follows:
+
+jboss-deployment-structure.xml
+
+[source,brush:,xml;,gutter:,false;]
+----
+<jboss-deployment-structure>
+  <!-- Make sub deployments isolated by default, so they cannot see each others classes without a Class-Path entry -->
+  <ear-subdeployments-isolated>true</ear-subdeployments-isolated>
+  <!-- This corresponds to the top level deployment. For a war this is the war's module, for an ear -->
+  <!-- This is the top level ear module, which contains all the classes in the EAR's lib folder     -->
+  <deployment>
+     <!-- exclude-subsystem prevents a subsystems deployment unit processors running on a deployment -->
+     <!-- which gives basically the same effect as removing the subsystem, but it only affects single deployment -->
+     <exclude-subsystems>
+        <subsystem name="resteasy" />
+    </exclude-subsystems>
+    <!-- Exclusions allow you to prevent the server from automatically adding some dependencies     -->
+    <exclusions>
+        <module name="org.javassist" />
+    </exclusions>
+    <!-- This allows you to define additional dependencies, it is the same as using the Dependencies: manifest attribute -->
+    <dependencies>
+      <module name="deployment.javassist.proxy" />
+      <module name="deployment.myjavassist" />
+      <!-- Import META-INF/services for ServiceLoader impls as well -->
+      <module name="myservicemodule" services="import"/>
+    </dependencies>
+    <!-- These add additional classes to the module. In this case it is the same as including the jar in the EAR's lib directory -->
+    <resources>
+      <resource-root path="my-library.jar" />
+    </resources>
+  </deployment>
+  <sub-deployment name="myapp.war">
+    <!-- This corresponds to the module for a web deployment -->
+    <!-- it can use all the same tags as the <deployment> entry above -->
+    <dependencies>
+      <!-- Adds a dependency on a ejb jar. This could also be done with a Class-Path entry -->
+      <module name="deployment.myear.ear.myejbjar.jar" />
+    </dependencies>
+    <!-- Set's local resources to have the lowest priority -->
+    <!-- If the same class is both in the sub deployment and in another sub deployment that -->
+    <!-- is visible to the war, then the Class from the other deployment will be loaded,  -->
+    <!-- rather than the class actually packaged in the war. -->
+    <!-- This can be used to resolve ClassCastExceptions  if the same class is in multiple sub deployments-->
+    <local-last value="true" />
+  </sub-deployment>
+  <!-- Now we are going to define two additional modules -->
+  <!-- This one is a different version of javassist that we have packaged -->
+  <module name="deployment.myjavassist" >
+    <resources>
+     <resource-root path="javassist.jar" >
+       <!-- We want to use the servers version of javassist.util.proxy.* so we filter it out-->
+       <filter>
+         <exclude path="javassist/util/proxy" />
+       </filter>
+     </resource-root>
+    </resources>
+  </module>
+  <!-- This is a module that re-exports the containers version of javassist.util.proxy -->
+  <!-- This means that there is only one version of the Proxy classes defined          -->
+  <module name="deployment.javassist.proxy" >
+    <dependencies>
+      <module name="org.javassist" >
+        <imports>
+          <include path="javassist/util/proxy" />
+          <exclude path="/**" />
+        </imports>
+      </module>
+    </dependencies>
+  </module>
+</jboss-deployment-structure>
+----
+
+The xsd for jboss-deployment-structure.xml is available at
+https://github.com/wildfly/wildfly-core/blob/e737eff554ee433ca54835154fd67725fd52f63e/server/src/main/resources/schema/jboss-deployment-structure-1_2.xsd[https://github.com/wildfly/wildfly/blob/master/build/src/main/resources/docs/schema/jboss-deployment-structure-1_2.xsd]
+
+[[accessing-jdk-classes]]
+Accessing JDK classes
+^^^^^^^^^^^^^^^^^^^^^
+
+Not all JDK classes are exposed to a deployment by default. If your
+deployment uses JDK classes that are not exposed you can get access to
+them using jboss-deployment-structure.xml with system dependencies:
+
+Using jboss-deployment-structure.xml to access JDK classes
+
+[source,brush:,xml;,gutter:,false;]
+----
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.1">
+    <deployment>
+        <dependencies>
+            <system export="true">
+                <paths>
+                    <path name="com/sun/corba/se/spi/legacy/connection"/>
+                </paths>
+            </system>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>
+----
+
+[[the-jboss.api-property-and-application-use-of-modules-shipped-with-wildfly]]
+The "jboss.api" property and application use of modules shipped with
+WildFly
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The WildFly distribution includes a large number of modules, a great
+many of which are included for use by WildFly internals, with no testing
+of the appropriateness of their direct use by applications or any
+commitment to continue to ship those modules in future releases if they
+are no longer needed by the internals. So how can a user know whether it
+is advisable for their application to specify an explicit dependency on
+a module WildFly ships? The "jboss.api" property specified in the
+module's module.xml file can tell you:
+
+Example declaration of the jboss.api property
+
+[source,brush:,xml;,gutter:,false;]
+----
+<module xmlns="urn:jboss:module:1.3" name="com.google.guava">
+    <properties>
+        <property name="jboss.api" value="private"/>
+    </properties>
+----
+
+If a module does not have a property element like the above, then it's
+equivalent to one with a value of "public".
+
+Following are the meanings of the various values you may see for the
+jboss.api property:
+
+Value
+
+Meaning
+
+public
+
+May be explicitly depended upon by end user applications. Will continue
+to be available in future releases within the same major series and
+should not have incompatible API changes in future releases within the
+same minor series, and ideally not within the same major series.
+
+private
+
+Intended for internal use only. Only tested according to internal usage.
+May not be safe for end user applications to use directly.Could change
+significantly or be removed in a future release without notice.
+
+unsupported
+
+If you see this value in a module.xml in a WildFly release, please file
+a bug report, as it is not applicable in WildFly. In EAP it has a
+meaning equivalent to "private" but that does not mean the module is
+"private" in WildFly; it could very easily be "public".
+
+preview
+
+May be explicitly depended upon by end user applications, but there are
+no guarantees of continued availability in future releases or that there
+will not be incompatible API changes. This is not a common
+classification in WildFly. It is not used in WildFly 10.
+
+deprecated
+
+May be explicitly depended upon by end user applications. Stable and
+reliable but an alternative should be sought. Will be removed in a
+future major release.
+
+Note that these definitions are only applicable to WildFly. In EAP and
+other Red Hat products based on WildFly the same classifiers are used,
+with generally similar meaning, but the precise meaning is per the
+definitions on the Red Hat customer support portal.
+
+If an application declares a direct dependency on a module marked
+"private", "unsupported" or "deprecated", during deployment a WARN
+message will be logged. The logging will be in log categories
+"org.jboss.as.dependency.private", "org.jboss.as.dependency.unsupported"
+and "org.jboss.as.dependency.deprecated" respectively. These categories
+are not used for other purposes, so once you feel sufficiently warned
+the logging can be safely suppressed by turning the log level for the
+relevant category to ERROR or higher.
+
+Other than the WARN messages noted above, declaring a direct dependency
+on a non-public module has no impact on how WildFly processes the
+deployment.
+
+[[implicit-module-dependencies-for-deployments]]
+Implicit module dependencies for deployments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As explained in the 
+https://docs.jboss.org/author/display/WFLY8/Class+Loading+in+WildFly[Class
+Loading in WildFly] article, WildFly 8 is based on module classloading.
+A class within a module B isn't visible to a class within a module A,
+unless module B adds a dependency on module A. Module dependencies can
+be explicitly (as explained in that classloading article) or can be
+"implicit". This article will explain what implicit module dependencies
+mean and how, when and which modules are added as implicit dependencies.
+
+[[whats-an-implicit-module-dependency]]
+What's an implicit module dependency?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Consider an application deployment which contains EJBs. EJBs typically
+need access to classes from the javax.ejb.* package and other Java EE
+API packages. The jars containing these packages are already shipped in
+WildFly and are available as "modules". The module which contains the
+javax.ejb.* classes has a specific name and so does the module which
+contains all the Java EE API classes. For an application to be able to
+use these classes, it has to add a dependency on the relevant modules.
+Forcing the application developers to add module dependencies like these
+(i.e. dependencies which can be "inferred") isn't a productive approach.
+Hence, whenever an application is being deployed, the deployers within
+the server, which are processing this deployment "implicitly" add these
+module dependencies to the deployment so that these classes are visible
+to the deployment at runtime. This way the application developer doesn't
+have to worry about adding them explicitly. How and when these implicit
+dependencies are added is explained in the next section.
+
+[[how-and-when-is-an-implicit-module-dependency-added]]
+How and when is an implicit module dependency added?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When a deployment is being processed by the server, it goes through a
+chain of "deployment processors". Each of these processors will have a
+way to check if the deployment meets a certain criteria and if it does,
+the deployment processor adds a implicit module dependency to that
+deployment. Let's take an example - Consider (again) an EJB3 deployment
+which has the following class:
+
+MySuperDuperBean.java
+
+[source,java]
+----
+@Stateless
+public class MySuperDuperBean {
+
+...
+
+}
+----
+
+As can be seen, we have a simple @Stateless EJB. When the deployment
+containing this class is being processed, the EJB deployment processor
+will see that the deployment contains a class with the @Stateless
+annotation and thus identifies this as a EJB deployment. *This is just
+one of the several ways, various deployment processors can identify a
+deployment of some specific type.* The EJB deployment processor will
+then add an implicit dependency on the Java EE API module, so that all
+the Java EE API classes are visible to the deployment.
+
+Some subsystems will always add a API classes, even if the trigger
+condition is not met. These are listed separately below. 
+
+In the next section, we'll list down the implicit module dependencies
+that are added to a deployment, by various deployers within WildFly.
+
+[[which-are-the-implicit-module-dependencies]]
+Which are the implicit module dependencies?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Subsystem responsible for adding the implicit dependency
+
+Dependencies that are always added
+
+Dependencies that are added if a trigger condition is met
+
+Trigger which leads to the implicit module dependency being added
+
+Core Server
+
+javax.api  sun.jdk org.jboss.vfs
+
+ 
+
+ 
+
+Batch Subsystem
+
+javax.batch.api
+
+ 
+
+ 
+
+EE Subsystem
+
+javaee.api
+
+ 
+
+ 
+
+EJB3 subsystem
+
+ 
+
+javaee.api
+
+The presence of ejb-jar.xml (in valid locations in the deployment, as
+specified by spec) or the presence of annotation based EJBs (ex:
+@Stateless, @Stateful, @MessageDriven etc)
+
+JAX-RS (Resteasy) subsystem
+
+javax.xml.bind.api
+
+org.jboss.resteasy.resteasy-atom-provider 
+org.jboss.resteasy.resteasy-cdi  org.jboss.resteasy.resteasy-jaxrs 
+org.jboss.resteasy.resteasy-jaxb-provider 
+org.jboss.resteasy.resteasy-jackson-provider 
+org.jboss.resteasy.resteasy-jsapi 
+org.jboss.resteasy.resteasy-multipart-provider 
+org.jboss.resteasy.async-http-servlet-30
+
+The presence of JAX-RS annotations in the deployment
+
+JCA subsystem
+
+javax.resource.api
+
+javax.jms.api  javax.validation.api  org.jboss.logging 
+org.jboss.ironjacamar.api  org.jboss.ironjacamar.impl 
+org.hibernate.validator
+
+If the deployment is a resource adaptor (RAR) deployment.
+
+JPA (Hibernate) subsystem
+
+javax.persistence.api
+
+javaee.api org.jboss.as.jpa org.hibernate
+
+The presence of an @PersistenceUnit or @PersistenceContext annotation,
+or a <persistence-unit-ref> or <persistence-context-ref> in a deployment
+descriptor..
+
+Logging Subsystem
+
+org.jboss.logging org.apache.commons.logging org.apache.log4j org.slf4j
+org.jboss.logging.jul-to-slf4j-stub
+
+ 
+
+ 
+
+SAR Subsystem
+
+ 
+
+org.jboss.logging org.jboss.modules
+
+The deployment is a SAR archive
+
+Security Subsystem
+
+org.picketbox
+
+ 
+
+ 
+
+Web Subsystem
+
+ 
+
+javaee.api com.sun.jsf-impl org.hibernate.validator org.jboss.as.web
+org.jboss.logging
+
+The deployment is a WAR archive. JSF is only added if used. Multiple
+version options exist for mojarra.
+
+Web Services Subsystem
+
+org.jboss.ws.api org.jboss.ws.spi
+
+ 
+
+ 
+
+Weld (CDI) Subsystem
+
+ 
+
+javax.persistence.api javaee.api org.javassist org.jboss.interceptor
+org.jboss.as.weld org.jboss.logging org.jboss.weld.core
+org.jboss.weld.api org.jboss.weld.spi
+
+If a beans.xml file is detected in the deployment
+
+[[how-do-i-migrate-my-application-from-jboss-as-5-or-as-6-to-wildfly]]
+How do I migrate my application from JBoss AS 5 or AS 6 to WildFly?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Couldn't find a page to include called:
+https://docs.jboss.org/author/pages/createpage.action?spaceKey=WFLY&title=How+do+I+migrate+my+application+from+AS5+or+AS6+to+WildFly&linkCreation=true&fromPageId=108626080[How
+do I migrate my application from AS5 or AS6 to WildFly]
+
+[[ejb-invocations-from-a-remote-standalone-client-using-jndi]]
+EJB invocations from a remote standalone client using JNDI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This chapter explains how to invoke EJBs from a remote client by using
+the JNDI API to first lookup the bean proxy and then invoke on that
+proxy.
+
+After you have read this article, do remember to take a look at
+https://docs.jboss.org/author/display/WFLY8/Remote+EJB+invocations+via+JNDI+-+EJB+client+API+or+remote-naming+project[Remote
+EJB invocations via JNDI - EJB client API or remote-naming project]
+
+Before getting into the details, we would like the users to know that we
+have introduced a new EJB client API, which is a WildFly-specific API
+and allows invocation on remote EJBs. This client API isn't based on
+JNDI. So remote clients need not rely on JNDI API to invoke on EJBs. A
+separate document covering the EJB remote client API will be made
+available. For now, you can refer to the javadocs of the EJB client
+project at http://docs.jboss.org/ejbclient/. In this document, we'll
+just concentrate on the traditional JNDI based invocation on EJBs. So
+let's get started:
+
+[[deploying-your-ejbs-on-the-server-side]]
+Deploying your EJBs on the server side:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Users who already have EJBs deployed on the server side can just skip to
+the next section.
+
+As a first step, you'll have to deploy your application containing the
+EJBs on the Wildfly server. If you want those EJBs to be remotely
+invocable, then you'll have to expose at least one remote view for that
+bean. In this example, let's consider a simple Calculator stateless bean
+which exposes a RemoteCalculator remote business interface. We'll also
+have a simple stateful CounterBean which exposes a RemoteCounter remote
+business interface. Here's the code:
+
+[source,java]
+----
+package org.jboss.as.quickstarts.ejb.remote.stateless;
+
+/**
+ * @author Jaikiran Pai
+ */
+public interface RemoteCalculator {
+
+    int add(int a, int b);
+
+    int subtract(int a, int b);
+}
+----
+
+[source,java]
+----
+package org.jboss.as.quickstarts.ejb.remote.stateless;
+
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
+/**
+ * @author Jaikiran Pai
+ */
+@Stateless
+@Remote(RemoteCalculator.class)
+public class CalculatorBean implements RemoteCalculator {
+
+    @Override
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    @Override
+    public int subtract(int a, int b) {
+        return a - b;
+    }
+}
+----
+
+[source,java]
+----
+package org.jboss.as.quickstarts.ejb.remote.stateful;
+
+/**
+ * @author Jaikiran Pai
+ */
+public interface RemoteCounter {
+
+    void increment();
+
+    void decrement();
+
+    int getCount();
+}
+----
+
+[source,java]
+----
+package org.jboss.as.quickstarts.ejb.remote.stateful;
+
+import javax.ejb.Remote;
+import javax.ejb.Stateful;
+
+/**
+ * @author Jaikiran Pai
+ */
+@Stateful
+@Remote(RemoteCounter.class)
+public class CounterBean implements RemoteCounter {
+
+    private int count = 0;
+
+    @Override
+    public void increment() {
+        this.count++;
+    }
+
+    @Override
+    public void decrement() {
+        this.count--;
+    }
+
+    @Override
+    public int getCount() {
+        return this.count;
+    }
+}
+----
+
+Let's package this in a jar (how you package it in a jar is out of scope
+of this chapter) named "jboss-as-ejb-remote-app.jar" and deploy it to
+the server. Make sure that your deployment has been processed
+successfully and there aren't any errors.
+
+[[writing-a-remote-client-application-for-accessing-and-invoking-the-ejbs-deployed-on-the-server]]
+Writing a remote client application for accessing and invoking the EJBs
+deployed on the server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The next step is to write an application which will invoke the EJBs that
+you deployed on the server. In WildFly, you can either choose to use the
+WildFly specific EJB client API to do the invocation or use JNDI to
+lookup a proxy for your bean and invoke on that returned proxy. In this
+chapter we will concentrate on the JNDI lookup and invocation and will
+leave the EJB client API for a separate chapter.
+
+So let's take a look at what the client code looks like for looking up
+the JNDI proxy and invoking on it. Here's the entire client code which
+invokes on a stateless bean:
+
+[source,java]
+----
+package org.jboss.as.quickstarts.ejb.remote.client;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import java.security.Security;
+import java.util.Hashtable;
+
+import org.jboss.as.quickstarts.ejb.remote.stateful.CounterBean;
+import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
+import org.jboss.as.quickstarts.ejb.remote.stateless.CalculatorBean;
+import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
+import org.jboss.sasl.JBossSaslProvider;
+
+/**
+ * A sample program which acts a remote client for a EJB deployed on Wildfly 10 server.
+ * This program shows how to lookup stateful and stateless beans via JNDI and then invoke on them
+ *
+ * @author Jaikiran Pai
+ */
+public class RemoteEJBClient {
+
+    public static void main(String[] args) throws Exception {
+        // Invoke a stateless bean
+        invokeStatelessBean();
+
+        // Invoke a stateful bean
+        invokeStatefulBean();
+    }
+
+    /**
+     * Looks up a stateless bean and invokes on it
+     *
+     * @throws NamingException
+     */
+    private static void invokeStatelessBean() throws NamingException {
+        // Let's lookup the remote stateless calculator
+        final RemoteCalculator statelessRemoteCalculator = lookupRemoteStatelessCalculator();
+        System.out.println("Obtained a remote stateless calculator for invocation");
+        // invoke on the remote calculator
+        int a = 204;
+        int b = 340;
+        System.out.println("Adding " + a + " and " + b + " via the remote stateless calculator deployed on the server");
+        int sum = statelessRemoteCalculator.add(a, b);
+        System.out.println("Remote calculator returned sum = " + sum);
+        if (sum != a + b) {
+            throw new RuntimeException("Remote stateless calculator returned an incorrect sum " + sum + " ,expected sum was " + (a + b));
+        }
+        // try one more invocation, this time for subtraction
+        int num1 = 3434;
+        int num2 = 2332;
+        System.out.println("Subtracting " + num2 + " from " + num1 + " via the remote stateless calculator deployed on the server");
+        int difference = statelessRemoteCalculator.subtract(num1, num2);
+        System.out.println("Remote calculator returned difference = " + difference);
+        if (difference != num1 - num2) {
+            throw new RuntimeException("Remote stateless calculator returned an incorrect difference " + difference + " ,expected difference was " + (num1 - num2));
+        }
+    }
+
+    /**
+     * Looks up a stateful bean and invokes on it
+     *
+     * @throws NamingException
+     */
+    private static void invokeStatefulBean() throws NamingException {
+        // Let's lookup the remote stateful counter
+        final RemoteCounter statefulRemoteCounter = lookupRemoteStatefulCounter();
+        System.out.println("Obtained a remote stateful counter for invocation");
+        // invoke on the remote counter bean
+        final int NUM_TIMES = 20;
+        System.out.println("Counter will now be incremented " + NUM_TIMES + " times");
+        for (int i = 0; i < NUM_TIMES; i++) {
+            System.out.println("Incrementing counter");
+            statefulRemoteCounter.increment();
+            System.out.println("Count after increment is " + statefulRemoteCounter.getCount());
+        }
+        // now decrementing
+        System.out.println("Counter will now be decremented " + NUM_TIMES + " times");
+        for (int i = NUM_TIMES; i > 0; i--) {
+            System.out.println("Decrementing counter");
+            statefulRemoteCounter.decrement();
+            System.out.println("Count after decrement is " + statefulRemoteCounter.getCount());
+        }
+    }
+
+    /**
+     * Looks up and returns the proxy to remote stateless calculator bean
+     *
+     * @return
+     * @throws NamingException
+     */
+    private static RemoteCalculator lookupRemoteStatelessCalculator() throws NamingException {
+        final Hashtable jndiProperties = new Hashtable();
+        jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+        final Context context = new InitialContext(jndiProperties);
+        // The app name is the application name of the deployed EJBs. This is typically the ear name
+        // without the .ear suffix. However, the application name could be overridden in the application.xml of the
+        // EJB deployment on the server.
+        // Since we haven't deployed the application as a .ear, the app name for us will be an empty string
+        final String appName = "";
+        // This is the module name of the deployed EJBs on the server. This is typically the jar name of the
+        // EJB deployment, without the .jar suffix, but can be overridden via the ejb-jar.xml
+        // In this example, we have deployed the EJBs in a jboss-as-ejb-remote-app.jar, so the module name is
+        // jboss-as-ejb-remote-app
+        final String moduleName = "jboss-as-ejb-remote-app";
+        // AS7 allows each deployment to have an (optional) distinct name. We haven't specified a distinct name for
+        // our EJB deployment, so this is an empty string
+        final String distinctName = "";
+        // The EJB name which by default is the simple class name of the bean implementation class
+        final String beanName = CalculatorBean.class.getSimpleName();
+        // the remote view fully qualified class name
+        final String viewClassName = RemoteCalculator.class.getName();
+        // let's do the lookup
+        return (RemoteCalculator) context.lookup("ejb:" + appName + "/" + moduleName + "/" + distinctName + "/" + beanName + "!" + viewClassName);
+    }
+
+    /**
+     * Looks up and returns the proxy to remote stateful counter bean
+     *
+     * @return
+     * @throws NamingException
+     */
+    private static RemoteCounter lookupRemoteStatefulCounter() throws NamingException {
+        final Hashtable jndiProperties = new Hashtable();
+        jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+        final Context context = new InitialContext(jndiProperties);
+        // The app name is the application name of the deployed EJBs. This is typically the ear name
+        // without the .ear suffix. However, the application name could be overridden in the application.xml of the
+        // EJB deployment on the server.
+        // Since we haven't deployed the application as a .ear, the app name for us will be an empty string
+        final String appName = "";
+        // This is the module name of the deployed EJBs on the server. This is typically the jar name of the
+        // EJB deployment, without the .jar suffix, but can be overridden via the ejb-jar.xml
+        // In this example, we have deployed the EJBs in a jboss-as-ejb-remote-app.jar, so the module name is
+        // jboss-as-ejb-remote-app
+        final String moduleName = "jboss-as-ejb-remote-app";
+        // AS7 allows each deployment to have an (optional) distinct name. We haven't specified a distinct name for
+        // our EJB deployment, so this is an empty string
+        final String distinctName = "";
+        // The EJB name which by default is the simple class name of the bean implementation class
+        final String beanName = CounterBean.class.getSimpleName();
+        // the remote view fully qualified class name
+        final String viewClassName = RemoteCounter.class.getName();
+        // let's do the lookup (notice the ?stateful string as the last part of the jndi name for stateful bean lookup)
+        return (RemoteCounter) context.lookup("ejb:" + appName + "/" + moduleName + "/" + distinctName + "/" + beanName + "!" + viewClassName + "?stateful");
+    }
+}
+----
+
+The entire server side and client side code is hosted at the github repo
+here
+https://github.com/wildfly/quickstart/tree/master/ejb-remote[ejb-remote]
+
+The code has some comments which will help you understand each of those
+lines. But we'll explain here in more detail what the code does. As a
+first step in the client code, we'll do a lookup of the EJB using a JNDI
+name. In AS7, for remote access to EJBs, you use the ejb: namespace with
+the following syntax:
+
+*For stateless beans:*
+
+[source,java]
+----
+ejb:<app-name>/<module-name>/<distinct-name>/<bean-name>!<fully-qualified-classname-of-the-remote-interface>
+----
+
+*For stateful beans:*
+
+[source,java]
+----
+ejb:<app-name>/<module-name>/<distinct-name>/<bean-name>!<fully-qualified-classname-of-the-remote-interface>?stateful
+----
+
+The ejb: namespace identifies it as a EJB lookup and is a constant (i.e.
+doesn't change) for doing EJB lookups. The rest of the parts in the jndi
+name are as follows:
+
+*app-name* : This is the name of the .ear (without the .ear suffix) that
+you have deployed on the server and contains your EJBs.
+
+* Java EE 6 allows you to override the application name, to a name of
+your choice by setting it in the application.xml. If the deployment uses
+uses such an override then the app-name used in the JNDI name should
+match that name.
+* EJBs can also be deployed in a .war or a plain .jar (like we did in
+step 1). In such cases where the deployment isn't an .ear file, then the
+app-name must be an empty string, while doing the lookup.
+
+*module-name* : This is the name of the .jar (without the .jar suffix)
+that you have deployed on the server and the contains your EJBs. If the
+EJBs are deployed in a .war then the module name is the .war name
+(without the .war suffix).
+
+* Java EE 6 allows you to override the module name, by setting it in the
+ejb-jar.xml/web.xml of your deployment. If the deployment uses such an
+override then the module-name used in the JNDI name should match that
+name.
+* Module name part cannot be an empty string in the JNDI name
+
+*distinct-name* : This is a WildFly-specific name which can be
+optionally assigned to the deployments that are deployed on the server.
+More about the purpose and usage of this will be explained in a separate
+chapter. If a deployment doesn't use distinct-name then, use an empty
+string in the JNDI name, for distinct-name
+
+*bean-name* : This is the name of the bean for which you are doing the
+lookup. The bean name is typically the unqualified classname of the bean
+implementation class, but can be overriden through either ejb-jar.xml or
+via annotations. The bean name part cannot be an empty string in the
+JNDI name.
+
+*fully-qualified-classname-of-the-remote-interface* : This is the fully
+qualified class name of the interface for which you are doing the
+lookup. The interface should be one of the remote interfaces exposed by
+the bean on the server. The fully qualified class name part cannot be an
+empty string in the JNDI name.
+
+For stateful beans, the JNDI name expects an additional "?stateful" to
+be appended after the fully qualified interface name part. This is
+because for stateful beans, a new session gets created on JNDI lookup
+and the EJB client API implementation doesn't contact the server during
+the JNDI lookup to know what kind of a bean the JNDI name represents
+(we'll come to this in a while). So the JNDI name itself is expected to
+indicate that the client is looking up a stateful bean, so that an
+appropriate session can be created.
+
+Now that we know the syntax, let's see our code and check what JNDI name
+it uses. Since our stateless EJB named CalculatorBean is deployed in a
+jboss-as-ejb-remote-app.jar (without any ear) and since we are looking
+up the org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator
+remote interface, our JNDI name will be:
+
+[source,java]
+----
+ejb:/jboss-as-ejb-remote-app//CalculatorBean!org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator
+----
+
+That's what the lookupRemoteStatelessCalculator() method in the above
+client code uses.
+
+For the stateful EJB named CounterBean which is deployed in hte same
+jboss-as-ejb-remote-app.jar and which exposes the
+org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter, the JNDI
+name will be:
+
+[source,java]
+----
+ejb:/jboss-as-ejb-remote-app//CounterBean!org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter?stateful
+----
+
+That's what the lookupRemoteStatefulCounter() method in the above client
+code uses.
+
+Now that we know of the JNDI name, let's take a look at the following
+piece of code in the lookupRemoteStatelessCalculator():
+
+[source,java]
+----
+final Hashtable jndiProperties = new Hashtable();
+jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+final Context context = new InitialContext(jndiProperties);
+----
+
+Here we are creating a JNDI InitialContext object by passing it some
+JNDI properties. The Context.URL_PKG_PREFIXES is set to
+org.jboss.ejb.client.naming. This is necessary because we should let the
+JNDI API know what handles the ejb: namespace that we use in our JNDI
+names for lookup. The "org.jboss.ejb.client.naming" has a
+URLContextFactory implementation which will be used by the JNDI APIs to
+parse and return an object for ejb: namespace lookups. You can either
+pass these properties to the constructor of the InitialContext class or
+have a jndi.properites file in the classpath of the client application,
+which (atleast) contains the following property:
+
+[source,java]
+----
+java.naming.factory.url.pkgs=org.jboss.ejb.client.naming
+----
+
+So at this point, we have setup the InitialContext and also have the
+JNDI name ready to do the lookup. You can now do the lookup and the
+appropriate proxy which will be castable to the remote interface that
+you used as the fully qualified class name in the JNDI name, will be
+returned. Some of you might be wondering, how the JNDI implementation
+knew which server address to look, for your deployed EJBs. The answer is
+in AS7, the proxies returned via JNDI name lookup for ejb: namespace do
+not connect to the server unless an invocation on those proxies is done.
+
+Now let's get to the point where we invoke on this returned proxy:
+
+[source,java]
+----
+// Let's lookup the remote stateless calculator
+        final RemoteCalculator statelessRemoteCalculator = lookupRemoteStatelessCalculator();
+        System.out.println("Obtained a remote stateless calculator for invocation");
+        // invoke on the remote calculator
+        int a = 204;
+        int b = 340;
+        System.out.println("Adding " + a + " and " + b + " via the remote stateless calculator deployed on the server");
+        int sum = statelessRemoteCalculator.add(a, b);
+----
+
+We can see here that the proxy returned after the lookup is used to
+invoke the add(...) method of the bean. It's at this point that the JNDI
+implementation (which is backed by the EJB client API) needs to know the
+server details. So let's now get to the important part of setting up the
+EJB client context properties.
+
+[[setting-up-ejb-client-context-properties]]
+Setting up EJB client context properties
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A EJB client context is a context which contains contextual information
+for carrying out remote invocations on EJBs. This is a WildFly-specific
+API. The EJB client context can be associated with multiple EJB
+receivers. Each EJB receiver is capable of handling invocations on
+different EJBs. For example, an EJB receiver "Foo" might be able to
+handle invocation on a bean identified by
+app-A/module-A/distinctinctName-A/Bar!RemoteBar, whereas a EJB receiver
+named "Blah" might be able to handle invocation on a bean identified by
+app-B/module-B/distinctName-B/BeanB!RemoteBean. Each such EJB receiver
+knows about what set of EJBs it can handle and each of the EJB receiver
+knows which server target to use for handling the invocations on the
+bean. For example, if you have a AS7 server at 10.20.30.40 IP address
+which has its remoting port opened at 4447 and if that's the server on
+which you deployed that CalculatorBean, then you can setup a EJB
+receiver which knows its target address is 10.20.30.40:4447. Such an EJB
+receiver will be capable enough to communicate to the server via the
+JBoss specific EJB remote client protocol (details of which will be
+explained in-depth in a separate chapter).
+
+Now that we know what a EJB client context is and what a EJB receiver
+is, let's see how we can setup a client context with 1 EJB receiver
+which can connect to 10.20.30.40 IP address at port 4447. That EJB
+client context will then be used (internally) by the JNDI implementation
+to handle invocations on the bean proxy.
+
+The client will have to place a jboss-ejb-client.properties file in the
+classpath of the application. The jboss-ejb-client.properties can
+contain the following properties:
+
+[source,java]
+----
+endpoint.name=client-endpoint
+remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
+
+remote.connections=default
+
+remote.connection.default.host=10.20.30.40
+remote.connection.default.port = 8080
+remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
+
+remote.connection.default.username=appuser
+remote.connection.default.password=apppassword
+----
+
+This file includes a reference to a default password. Be sure to change
+this as soon as possible.
+
+The above properties file is just an example. The actual file that was
+used for this sample program is available here for reference
+https://github.com/wildfly/quickstart/blob/master/ejb-remote/client/src/main/resources/jboss-ejb-client.properties[jboss-ejb-client.properties]
+
+We'll see what each of it means.
+
+First the endpoint.name property. We mentioned earlier that the EJB
+receivers will communicate with the server for EJB invocations.
+Internally, they use JBoss Remoting project to carry out the
+communication. The endpoint.name property represents the name that will
+be used to create the client side of the enpdoint. The endpoint.name
+property is optional and if not specified in the
+jboss-ejb-client.properties file, it will default to
+"config-based-ejb-client-endpoint" name.
+
+Next is the remote.connectionprovider.create.options.<....> properties:
+
+[source,java]
+----
+remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
+----
+
+The "remote.connectionprovider.create.options." property prefix can be
+used to pass the options that will be used while create the connection
+provider which will handle the "remote:" protocol. In this example we
+use the "remote.connectionprovider.create.options." property prefix to
+pass the "org.xnio.Options.SSL_ENABLED" property value as false. That
+property will then be used during the connection provider creation.
+Similarly other properties can be passed too, just append it to the
+"remote.connectionprovider.create.options." prefix
+
+Next we'll see:
+
+[source,java]
+----
+remote.connections=default
+----
+
+This is where you define the connections that you want to setup for
+communication with the remote server. The "remote.connections" property
+uses a comma separated value of connection "names". The connection names
+are just logical and are used grouping together the connection
+configuration properties later on in the properties file. The example
+above sets up a single remote connection named "default". There can be
+more than one connections that are configured. For example:
+
+[source,java]
+----
+remote.connections=one, two
+----
+
+Here we are listing 2 connections named "one" and "two". Ultimately,
+each of the connections will map to a EJB receiver. So if you have 2
+connections, that will setup 2 EJB receivers that will be added to the
+EJB client context. Each of these connections will be configured with
+the connection specific properties as follows:
+
+[source,java]
+----
+remote.connection.default.host=10.20.30.40
+remote.connection.default.port = 8080
+remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
+----
+
+As you can see we are using the "remote.connection.<connection-name>."
+prefix for specifying the connection specific property. The connection
+name here is "default" and we are setting the "host" property of that
+connection to point to 10.20.30.40. Similarly we set the "port" for that
+connection to 4447.
+
+By default WildFly uses 8080 as the remoting port. The EJB client API
+uses the http port, with the http-upgrade functionality, for
+communicating with the server for remote invocations, so that's the port
+we use in our client programs (unless the server is configured for some
+other http port)
+
+[source,java]
+----
+remote.connection.default.username=appuser
+remote.connection.default.password=apppassword
+----
+
+The given user/password must be set by using the command bin/add-user.sh
+﻿(or.bat). +
+The user and password must be set because the security-realm is enabled
+for the subsystem remoting (see standalone*.xml or domain.xml) by
+default. +
+If you do not need the security for remoting you might remove the
+attribute security-realm in the configuration.
+
+security-realm is enabled by default.
+
+We then use the "remote.connection.<connection-name>.connect.options."
+property prefix to setup options that will be used during the connection
+creation.
+
+Here's an example of setting up multiple connections with different
+properties for each of those:
+
+[source,java]
+----
+remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
+
+remote.connections=one, two
+
+remote.connection.one.host=localhost
+remote.connection.one.port=6999
+remote.connection.one.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
+
+remote.connection.two.host=localhost
+remote.connection.two.port=7999
+remote.connection.two.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
+----
+
+As you can see we setup 2 connections "one" and "two" which both point
+to "localhost" as the "host" but different ports. Each of these
+connections will internally be used to create the EJB receivers in the
+EJB client context.
+
+So that's how the jboss-ejb-client.properties file can be setup and
+placed in the classpath.
+
+[[108626080_DeveloperGuide-UsingadifferentfileforsettingupEJBclientcontext]]
+Using a different file for setting up EJB client context
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The EJB client code will by default look for jboss-ejb-client.properties
+in the classpath. However, you can specify a different file of your
+choice by setting the "jboss.ejb.client.properties.file.path" system
+property which points to a properties file on your filesystem,
+containing the client context configurations. An example for that would
+be
+"-Djboss.ejb.client.properties.file.path=/home/me/my-client/custom-jboss-ejb-client.properties"
+
+[[108626080_DeveloperGuide-Settinguptheclientclasspathwiththejarsthatarerequiredtoruntheclientapplication]]
+Setting up the client classpath with the jars that are required to run
+the client application
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+A jboss-client jar is shipped in the distribution. It's available at
+WILDFLY_HOME/bin/client/jboss-client.jar. Place this jar in the
+classpath of your client application.
+
+If you are using Maven to build the client application, then please
+follow the instructions in the WILDFLY_HOME/bin/client/README.txt to add
+this jar as a Maven dependency.
+
+[[summary]]
+Summary
+^^^^^^^
+
+In the above examples, we saw what it takes to invoke a EJB from a
+remote client. To summarize:
+
+* On the server side you need to deploy EJBs which expose the remote
+views.
+* On the client side you need a client program which:
+** Has a jboss-ejb-client.properties in its classpath to setup the
+server connection information
+** Either has a jndi.properties to specify the
+java.naming.factory.url.pkgs property or passes that as a property to
+the InitialContext constructor
+** Setup the client classpath to include the jboss-client jar that's
+required for remote invocation of the EJBs. The location of the jar is
+mentioned above. You'll also need to have your application's bean
+interface jars and other jars that are required by your application, in
+the client classpath
+
+[[ejb-invocations-from-a-remote-server]]
+EJB invocations from a remote server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The purpose of this chapter is to demonstrate how to lookup and invoke
+on EJBs deployed on an WildFly server instance *from another*
+WildFly server instance. This is different from invoking the EJBs
+https://docs.jboss.org/author/display/AS71/EJB+invocations+from+a+remote+client+using+JNDI[from
+a remote standalone client]
+
+Let's call the server, from which the invocation happens to the EJB, as
+"Client Server" and the server on which the bean is deployed as the
+"Destination Server".
+
+Note that this chapter deals with the case where the bean is deployed on
+the "Destination Server" but *not* on the "Client Server".
+
+[[application-packaging]]
+Application packaging
+^^^^^^^^^^^^^^^^^^^^^
+
+In this example, we'll consider a EJB which is packaged in a myejb.jar
+which is within a myapp.ear. Here's how it would look like:
+
+[source,java]
+----
+myapp.ear
+|
+|---- myejb.jar
+|        |
+|        |---- <org.myapp.ejb.*> // EJB classes
+----
+
+Note that packaging itself isn't really important in the context of this
+article. You can deploy the EJBs in any standard way (.ear, .war or
+.jar).
+
+[[beans]]
+Beans
+^^^^^
+
+In our example, we'll consider a simple stateless session bean which is
+as follows:
+
+[source,java]
+----
+package org.myapp.ejb;
+
+public interface Greeter {
+    
+    String greet(String user);
+}
+----
+
+[source,java]
+----
+package org.myapp.ejb;
+
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+
+@Stateless
+@Remote (Greeter.class)
+public class GreeterBean implements Greeter {
+
+    @Override
+    public String greet(String user) {
+        return "Hello " + user + ", have a pleasant day!";
+    }
+}
+----
+
+[[security]]
+Security
+^^^^^^^^
+
+WildFly 8 is secure by default. What this means is that no communication
+can happen with an WildFly instance from a remote client (irrespective
+of whether it is a standalone client or another server instance) without
+passing the appropriate credentials. Remember that in this example, our
+"client server" will be communicating with the "destination server". So
+in order to allow this communication to happen successfully, we'll have
+to configure user credentials which we will be using during this
+communication. So let's start with the necessary configurations for
+this.
+
+[[configuring-a-user-on-the-destination-server]]
+Configuring a user on the "Destination Server"
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As a first step we'll configure a user on the destination server who
+will be allowed to access the destination server. We create the user
+using the `add-user` script that's available in the JBOSS_HOME/bin
+folder. In this example, we'll be configuring a `Application User` named
+`ejb` and with a password `test` in the `ApplicationRealm`. Running the
+`add-user` script is an interactive process and you will see
+questions/output as follows:
+
+add-user
+
+[source,java]
+----
+jpai@jpai-laptop:bin$ ./add-user.sh
+
+What type of user do you wish to add?
+&nbsp;a) Management User (mgmt-users.properties)
+&nbsp;b) Application User (application-users.properties)
+(a): b
+
+Enter the details of the new user to add.
+Realm (ApplicationRealm) :
+Username : ejb
+Password :
+Re-enter Password :
+What roles do you want this user to belong to? (Please enter a comma separated list, or leave blank for none)\[&nbsp; \]:
+About to add user 'ejb' for realm 'ApplicationRealm'
+Is this correct yes/no? yes
+Added user 'ejb' to file '/jboss-as-7.1.1.Final/standalone/configuration/application-users.properties'
+Added user 'ejb' to file '/jboss-as-7.1.1.Final/domain/configuration/application-users.properties'
+Added user 'ejb' with roles to file '/jboss-as-7.1.1.Final/standalone/configuration/application-roles.properties'
+Added user 'ejb' with roles to file '/jboss-as-7.1.1.Final/domain/configuration/application-roles.properties'
+----
+
+As you can see in the output above we have now configured a user on the
+destination server who'll be allowed to access this server. We'll use
+this user credentials later on in the client server for communicating
+with this server. The important bits to remember are the user we have
+created in this example is `ejb` and the password  is `test.`
+
+Note that you can use any username and password combination you want to.
+
+You do *not* require the server to be started to add a user using the
+add-user script.
+
+[[start-the-destination-server]]
+Start the "Destination Server"
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As a next step towards running this example, we'll start the
+"Destination Server". In this example, we'll use the standalone server
+and use the _standalone-full.xml_ configuration. The startup command
+will look like:
+
+[source,java]
+----
+./standalone.sh -server-config=standalone-full.xml
+----
+
+Ensure that the server has started without any errors.
+
+It's very important to note that if you are starting both the server
+instances on the same machine, then each of those server instances
+*must* have a unique `jboss.node.name` system property. You can do that
+by passing an appropriate value for `-Djboss.node.name` system property
+to the startup script:
+
+[source,java]
+----
+./standalone.sh -server-config=standalone-full.xml -Djboss.node.name=<add appropriate value here>
+----
+
+[[deploying-the-application]]
+Deploying the application
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The application ( _myapp.ear_ in our case) will be deployed to
+"Destination Server". The process of deploying the application is out of
+scope of this chapter. You can either use the Command Line Interface or
+the Admin console or any IDE or manually copy it to
+JBOSS_HOME/standalone/deployments folder (for standalone server). Just
+ensure that the application has been deployed successfully.
+
+So far, we have built a EJB application and deployed it on the
+"Destination Server". Now let's move to the "Client Server" which acts
+as the client for the deployed EJBs on the "Destination Server".
+
+[[configuring-the-client-server-to-point-to-the-ejb-remoting-connector-on-the-destination-server]]
+Configuring the "Client Server" to point to the EJB remoting connector
+on the "Destination Server"
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As a first step on the "Client Server", we need to let the server know
+about the "Destination Server"'s EJB remoting connector, over which it
+can communicate during the EJB invocations. To do that, we'll have to
+add a " _remote-outbound-connection_" to the remoting subsystem on the
+"Client Server". The " _remote-outbound-connection_" configuration
+indicates that a outbound connection will be created to a remote server
+instance from that server. The " _remote-outbound-connection_" will be
+backed by a " _outbound-socket-binding_" which will point to a remote
+host and a remote port (of the "Destination Server"). So let's see how
+we create these configurations.
+
+[[start-the-client-server]]
+Start the "Client Server"
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In this example, we'll start the "Client Server" on the same machine as
+the "Destination Server". We have copied the entire server installation
+to a different folder and while starting the "Client Server" we'll use a
+port-offset (of 100 in this example) to avoid port conflicts:
+
+[source,java]
+----
+./standalone.sh -server-config=standalone-full.xml -Djboss.socket.binding.port-offset=100
+----
+
+[[create-a-security-realm-on-the-client-server]]
+Create a security realm on the client server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Remember that we need to communicate with a secure destination server.
+In order to do that the client server has to pass the user credentials
+to the destination server. Earlier we created a user on the destination
+server who'll be allowed to communicate with that server. Now on the
+"client server" we'll create a security-realm which will be used to pass
+the user information.
+
+In this example we'll use a security realm which stores a Base64 encoded
+password and then passes on that credentials when asked for. Earlier we
+created a user named `ejb` and password `test`. So our first task here
+would be to create the base64 encoded version of the password `test`.
+You can use any utility which generates you a base64 version for a
+string. I used http://www.base64encode.org/[this online site] which
+generates the base64 encoded string. So for the `test` password, the
+base64 encoded version is `dGVzdA==`
+
+While generating the base64 encoded string make sure that you don't have
+any trailing or leading spaces for the original password. That can lead
+to incorrect encoded versions being generated.
+
+With new versions the add-user script will show the base64 password if
+you type 'y' if you've been ask
+
+[source,java]
+----
+Is this new user going to be used for one AS process to connect to another AS process e.g. slave domain controller?
+----
+
+Now that we have generated that base64 encoded password, let's use in
+the in the security realm that we are going to configure on the "client
+server". I'll first shutdown the client server and edit the
+standalone-full.xml file to add the following in the `<management>`
+section
+
+Now let's create a " _security-realm_" for the base64 encoded password.
+
+[source,java]
+----
+/core-service=management/security-realm=ejb-security-realm:add()
+/core-service=management/security-realm=ejb-security-realm/server-identity=secret:add(value=dGVzdA==)
+----
+
+Notice that the CLI show the message _"process-state" =>
+"reload-required"_, so you have to restart the server before you can use
+this change.
+
+upon successful invocation of this command, the following configuration
+will be created in the _management_ section:
+
+standalone-full.xml
+
+[source,java]
+----
+<management>
+        <security-realms>
+            ...
+            <security-realm name="ejb-security-realm">
+                <server-identities>
+                    <secret value="dGVzdA=="/>
+                </server-identities>
+            </security-realm>
+        </security-realms>
+...
+----
+
+As you can see I have created a security realm named
+"ejb-security-realm" (you can name it anything) with the base64 encoded
+password. So that completes the security realm configuration for the
+client server. Now let's move on to the next step.
+
+[[create-a-outbound-socket-binding-on-the-client-server]]
+Create a outbound-socket-binding on the "Client Server"
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Let's first create a _outbound-socket-binding_ which points the
+"Destination Server"'s host and port. We'll use the CLI to create this
+configuration:
+
+[source,java]
+----
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=localhost, port=8080)
+----
+
+The above command will create a outbound-socket-binding named "
+_remote-ejb_" (we can name it anything) which points to "localhost" as
+the host and port 8080 as the destination port. Note that the host
+information should match the host/IP of the "Destination Server" (in
+this example we are running on the same machine so we use "localhost")
+and  the port information should match the http-remoting connector port
+used by the EJB subsystem (by default it's 8080). When this command is
+run successfully, we'll see that the standalone-full.xml (the file which
+we used to start the server) was updated with the following
+outbound-socket-binding in the socket-binding-group:
+
+[source,java]
+----
+<socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
+        ...
+        <outbound-socket-binding name="remote-ejb">
+            <remote-destination host="localhost" port="8080"/>
+        </outbound-socket-binding>
+    </socket-binding-group>
+----
+
+[[create-a-remote-outbound-connection-which-uses-this-newly-created-outbound-socket-binding]]
+Create a "remote-outbound-connection" which uses this newly created
+"outbound-socket-binding"
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Now let's create a " _remote-outbound-connection_" which will use the
+newly created outbound-socket-binding (pointing to the EJB remoting
+connector of the "Destination Server"). We'll continue to use the CLI to
+create this configuration:
+
+[source,java]
+----
+/subsystem=remoting/remote-outbound-connection=remote-ejb-connection:add(outbound-socket-binding-ref=remote-ejb, protocol=http-remoting, security-realm=ejb-security-realm, username=ejb)
+----
+
+The above command creates a remote-outbound-connection, named "
+_remote-ejb-connection_" (we can name it anything), in the remoting
+subsystem and uses the previously created " _remote-ejb_"
+outbound-socket-binding (notice the outbound-socket-binding-ref in that
+command) with the http-remoting protocol. Furthermore, we also set the
+security-realm attribute to point to the security-realm that we created
+in the previous step. Also notice that we have set the username
+attribute to use the user name who is allowed to communicate with the
+destination server.
+
+What this step does is, it creates a outbound connection, on the client
+server, to the remote destination server and sets up the username to the
+user who allowed to communicate with that destination server and also
+sets up the security-realm to a pre-configured security-realm capable of
+passing along the user credentials (in this case the password). This way
+when a connection has to be established from the client server to the
+destination server, the connection creation logic will have the
+necessary security credentials to pass along and setup a successful
+secured connection.
+
+Now let's run the following two operations to set some default
+connection creation options for the outbound connection:
+
+[source,java]
+----
+/subsystem=remoting/remote-outbound-connection=remote-ejb-connection/property=SASL_POLICY_NOANONYMOUS:add(value=false)
+----
+
+[source,java]
+----
+/subsystem=remoting/remote-outbound-connection=remote-ejb-connection/property=SSL_ENABLED:add(value=false)
+----
+
+Ultimately, upon successful invocation of this command, the following
+configuration will be created in the remoting subsystem:
+
+[source,java]
+----
+<subsystem xmlns="urn:jboss:domain:remoting:1.1">
+....
+            <outbound-connections>
+                <remote-outbound-connection name="remote-ejb-connection" outbound-socket-binding-ref="remote-ejb" protocol="http-remoting" security-realm="ejb-security-realm" username="ejb">
+                    <properties>
+                        <property name="SASL_POLICY_NOANONYMOUS" value="false"/>
+                        <property name="SSL_ENABLED" value="false"/>
+                    </properties>
+                </remote-outbound-connection>
+            </outbound-connections>
+        </subsystem>
+----
+
+From a server configuration point of view, that's all we need on the
+"Client Server". Our next step is to deploy an application on the
+"Client Server" which will invoke on the bean deployed on the
+"Destination Server".
+
+[[packaging-the-client-application-on-the-client-server]]
+Packaging the client application on the "Client Server"
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Like on the "Destination Server", we'll use .ear packaging for the
+client application too. But like previously mentioned, that's not
+mandatory. You can even use a .war or .jar deployments. Here's how our
+client application packaging will look like:
+
+[source,java]
+----
+client-app.ear
+|
+|--- META-INF
+|        |
+|        |--- jboss-ejb-client.xml
+|
+|--- web.war
+|        |
+|        |--- WEB-INF/classes
+|        |        |
+|        |        |---- <org.myapp.FooServlet> // classes in the web app
+----
+
+In the client application we'll use a servlet which invokes on the bean
+deployed on the "Destination Server". We can even invoke the bean on the
+"Destination Server" from a EJB on the "Client Server". The code remains
+the same (JNDI lookup, followed by invocation on the proxy). The
+important part to notice in this client application is the file
+_jboss-ejb-client.xml_ which is packaged in the META-INF folder of a top
+level deployment (in this case our client-app.ear). This
+_jboss-ejb-client.xml_ contains the EJB client configurations which will
+be used during the EJB invocations for finding the appropriate
+destinations (also known as, EJB receivers). The contents of the
+jboss-ejb-client.xml are explained next.
+
+If your application is deployed as a top level .war deployment, then the
+jboss-ejb-client.xml is expected to be placed in .war/WEB-INF/ folder
+(i.e. the same location where you place any web.xml file).
+
+[[contents-on-jboss-ejb-client.xml]]
+Contents on jboss-ejb-client.xml
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The jboss-ejb-client.xml will look like:
+
+[source,java]
+----
+<jboss-ejb-client xmlns="urn:jboss:ejb-client:1.0">
+    <client-context>
+        <ejb-receivers>
+            <remoting-ejb-receiver outbound-connection-ref="remote-ejb-connection"/>
+        </ejb-receivers>
+    </client-context>
+</jboss-ejb-client>
+----
+
+You'll notice that we have configured the EJB client context (for this
+application) to use a remoting-ejb-receiver which points to our earlier
+created " _remote-outbound-connection_" named "
+_remote-ejb-connection_". This links the EJB client context to use the "
+_remote-ejb-connection_" which ultimately points to the EJB remoting
+connector on the "Destination Server".
+
+[[deploy-the-client-application]]
+Deploy the client application
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Let's deploy the client application on the "Client Server". The process
+of deploying the application is out of scope, of this chapter. You can
+use either the CLI or the admin console or a IDE or deploy manually to
+JBOSS_HOME/standalone/deployments folder. Just ensure that the
+application is deployed successfully.
+
+[[client-code-invoking-the-bean]]
+Client code invoking the bean
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We mentioned that we'll be using a servlet to invoke on the bean, but
+the code to invoke the bean isn't servlet specific and can be used in
+other components (like EJB) too. So let's see how it looks like:
+
+[source,java]
+----
+import javax.naming.Context;
+import java.util.Hashtable;
+import javax.naming.InitialContext;
+
+...
+public void invokeOnBean() {
+        try {
+            final Hashtable props = new Hashtable();
+            // setup the ejb: namespace URL factory
+            props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+            // create the InitialContext
+            final Context context = new javax.naming.InitialContext(props);
+
+            // Lookup the Greeter bean using the ejb: namespace syntax which is explained here https://docs.jboss.org/author/display/AS71/EJB+invocations+from+a+remote+client+using+JNDI
+            final Greeter bean = (Greeter) context.lookup("ejb:" + "myapp" + "/" + "myejb" + "/" + "" + "/" + "GreeterBean" + "!" + org.myapp.ejb.Greeter.class.getName());
+
+   // invoke on the bean
+   final String greeting = bean.greet("Tom");
+
+            System.out.println("Received greeting: " + greeting);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+}
+----
+
+That's it! The above code will invoke on the bean deployed on the
+"Destination Server" and return the result.
+
+[[remote-ejb-invocations-via-jndi---which-approach-to-use]]
+Remote EJB invocations via JNDI - Which approach to use?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Couldn't find a page to include called:
+https://docs.jboss.org/author/pages/createpage.action?spaceKey=WFLY&title=Remote+EJB+invocations+via+JNDI+-+EJB+client+API+or+remote-naming+project%3F&linkCreation=true&fromPageId=108626080[Remote
+EJB invocations via JNDI - EJB client API or remote-naming project?]
+
+[[jboss-ejb-3-reference-guide]]
+JBoss EJB 3 reference guide
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This chapter details the extensions that are available when developing
+Enterprise Java Beans ^tm^ on WildFly 8.
+
+Currently there is no support for configuring the extensions using an
+implementation specific descriptor file.
+
+[[resource-adapter-for-message-driven-beans]]
+Resource Adapter for Message Driven Beans
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Each Message Driven Bean must be connected to a resource adapter.
+
+[[specification-of-resource-adapter-using-metadata-annotations]]
+Specification of Resource Adapter using Metadata Annotations
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The `ResourceAdapter` annotation is used to specify the resource adapter
+with which the MDB should connect.
+
+The `value` of the annotation is the name of the deployment unit
+containing the resource adapter. For example `jms-ra.rar`.
+
+For example:
+
+[source,java]
+----
+@MessageDriven(messageListenerInterface = PostmanPat.class)
+@ResourceAdapter("ejb3-rar.rar")
+----
+
+[[as-principal]]
+as Principal
+^^^^^^^^^^^^
+
+Whenever a run-as role is specified for a given method invocation the
+default anonymous principal is used as the caller principal. This
+principal can be overridden by specifying a run-as principal.
+
+[[specification-of-run-as-principal-using-metadata-annotations]]
+Specification of Run-as Principal using Metadata Annotations
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The `RunAsPrincipal` annotation is used to specify the run-as principal
+to use for a given method invocation.
+
+The `value` of the annotation specifies the name of the principal to
+use. The actual type of the principal is undefined and should not be
+relied upon.
+
+Using this annotation without specifying a run-as role is considered an
+error.
+
+For example:
+
+[source,java]
+----
+@RunAs("admin")
+@RunAsPrincipal("MyBean")
+----
+
+[[security-domain]]
+Security Domain
+^^^^^^^^^^^^^^^
+
+Each Enterprise Java Bean ^tm^ can be associated with a security domain.
+Only when an EJB is associated with a security domain will
+authentication and authorization be enforced.
+
+[[specification-of-security-domain-using-metadata-annotations]]
+Specification of Security Domain using Metadata Annotations
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The `SecurityDomain` annotation is used to specify the security domain
+to associate with the EJB.
+
+The `value` of the annotation is the name of the security domain to be
+used.
+
+For example:
+
+[source,java]
+----
+@SecurityDomain("other")
+----
+
+[[transaction-timeout]]
+Transaction Timeout
+^^^^^^^^^^^^^^^^^^^
+
+For any newly started transaction a transaction timeout can be specified
+in seconds.
+
+When a transaction timeout of `0` is used, then the actual transaction
+timeout will default to the domain configured default. +
+_TODO: add link to tx subsystem_
+
+Although this is only applicable when using transaction attribute
+`REQUIRED` or `REQUIRES_NEW` the application server will not detect
+invalid setups.
+
+New Transactions
+
+Take care that even when transaction attribute `REQUIRED` is specified,
+the timeout will only be applicable if a *new* transaction is started.
+
+[[specification-of-transaction-timeout-with-metadata-annotations]]
+Specification of Transaction Timeout with Metadata Annotations
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The `TransactionTimeout` annotation is used to specify the transaction
+timeout for a given method.
+
+The `value` of the annotation is the timeout used in the given `unit`
+granularity. It must be a positive integer or 0. Whenever 0 is specified
+the default domain configured timeout is used.
+
+The `unit` specifies the granularity of the `value`. The actual value
+used is converted to seconds. Specifying a granularity lower than
+`SECONDS` is considered an error, even when the computed value will
+result in an even amount of seconds.
+
+For example:@TransactionTimeout(value = 10, unit = TimeUnit.SECONDS)
+
+[[specification-of-transaction-timeout-in-the-deployment-descriptor]]
+Specification of Transaction Timeout in the Deployment Descriptor
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The `trans-timeout` element is used to define the transaction timeout
+for business, home, component, and message-listener interface methods;
+no-interface view methods; web service endpoint methods; and timeout
+callback methods.
+
+The `trans-timeout` element resides in the `urn:trans-timeout` namespace
+and is part of the standard `container-transaction` element as defined
+in the jboss namespace.
+
+For the rules when a `container-transaction` is applicable please refer
+to EJB 3.1 FR 13.3.7.2.1.
+
+[[example-of-trans-timeout]]
+Example of trans-timeout
+
+jboss-ejb3.xml
+
+[source,java]
+----
+<jboss:ejb-jar xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
+               xmlns="http://java.sun.com/xml/ns/javaee"
+               xmlns:tx="urn:trans-timeout"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd
+http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd
+urn:trans-timeout http://www.jboss.org/j2ee/schema/trans-timeout-1_0.xsd"
+               version="3.1"
+               impl-version="2.0">
+    <assembly-descriptor>
+        <container-transaction>
+            <method>
+                <ejb-name>BeanWithTimeoutValue</ejb-name>
+                <method-name>*</method-name>
+                <method-intf>Local</method-intf>
+            </method>
+            <tx:trans-timeout>
+                <tx:timeout>10</tx:timeout>
+                <tx:unit>Seconds</tx:unit>
+            </tx:trans-timeout>
+        </container-transaction>
+    </assembly-descriptor>
+</jboss:ejb-jar>
+----
+
+[[timer-service]]
+Timer service
+^^^^^^^^^^^^^
+
+The service is responsible to call the registered timeout methods of the
+different session beans.
+
+A persistent timer will be identified by the name of the EAR, the name
+of the sub-deployment JAR and the Bean's name. +
+If one of those names are changed (e.g. EAR name contain a version) the
+timer entry became orphaned and the timer event will not longer be
+fired.
+
+[[single-event-timer]]
+Single event timer
+++++++++++++++++++
+
+The timer is will be started once at the specified time.
+
+In case of a server restart the timeout method of a persistent timer
+will only be called directly if the specified time is elapsed. +
+If the timer is not persistent (since EJB3.1 see 18.2.3) it will be not
+longer available if JBoss is restarted or the application is redeployed.
+
+[[recurring-timer]]
+Recurring timer
++++++++++++++++
+
+The timer will be started at the specified first occurrence and after
+that point at each time if the interval is elapsed. +
+If the timer will be started during the last execution is not finished
+the execution will be suppressed with a warning to avoid concurrent
+execution.
+
+In case of server downtime for a persistent timer, the timeout method
+will be called only once if one, or more than one, interval is
+elapsed. +
+If the timer is not persistent (since EJB3.1 see 18.2.3) it will not
+longer be active after the server is restarted or the application is
+redeployed.
+
+[[calendar-timer]]
+Calendar timer
+++++++++++++++
+
+The timer will be started if the schedule expression match. It will be
+automatically deactivated and removed if there will be no next
+expiration possible, i.e. If you set a specific year.
+
+For example:
+
+________________________________________________________
+@Schedule( ... dayOfMonth="1", month="1", year="2012") +
+// start once at 01-01-2012 00:00:00
+________________________________________________________
+
+[[programmatic-calendar-timer]]
+Programmatic calendar timer
+
+If the timer is persistent it will be fetched at server start and the
+missed timeouts are called concurrent. +
+If a persistent timer contains an end date it will be executed once
+nevertheless how many times the execution was missed. Also a retry will
+be suppressed if the timeout method throw an Exception. +
+In case of such expired timer access to the given Timer object might
+throw a NoMoreTimeoutExcption or NoSuchObjectException.
+
+If the timer is non persistent it will not longer be active after the
+server is restarted or the application is redeployed.
+
+*TODO*: clarify whether this should happen concurrently/blocked or even
+fired only once like a recurring timer!
+
+[[annotated-calendar-timer]]
+Annotated calendar timer
+
+If the timer is non persistent it will not activated for missed events
+during the server is down. In case of server start the timer is
+scheduled based on the @Schedule annotation.
+
+If the timer is persistent (default if not deactivated by annotation)
+all missed events are fetched at server start and the annotated timeout
+method is called concurrent.
+
+*TODO*: clarify whether this should happen concurrently/blocked or even
+fired only once like a recurring timer!
+
+[[jpa-reference-guide]]
+JPA reference guide
+~~~~~~~~~~~~~~~~~~~
+
+[[introduction]]
+Introduction
+^^^^^^^^^^^^
+
+The WildFly JPA subsystem implements the JPA 2.1 container-managed
+requirements. Deploys the persistence unit definitions, the persistence
+unit/context annotations and persistence unit/context references in the
+deployment descriptor. JPA Applications use the Hibernate (version 5.1)
+persistence provider, which is included with WildFly. The JPA subsystem
+uses the standard SPI (javax.persistence.spi.PersistenceProvider) to
+access the Hibernate persistence provider and some additional extensions
+as well.
+
+During application deployment, JPA use is detected (e.g. persistence.xml
+or @PersistenceContext/Unit annotations) and injects Hibernate
+dependencies into the application deployment. This makes it easy to
+deploy JPA applications.
+
+In the remainder of this documentation, ”entity manager” refers to an
+instance of the _javax.persistence.EntityManager_ class.
+http://download.oracle.com/javaee/7/api/javax/persistence/package-summary.html[Javadoc
+for the JPA interfaces] and https://jcp.org/en/jsr/detail?id=338[JPA 2.1
+specification].
+
+The index of the Hibernate documentation is at
+http://hibernate.org/orm/documentation/5.1/.
+
+[[update-your-persistence.xml-for-hibernate-5.1]]
+Update your Persistence.xml for Hibernate 5.1
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The persistence provider class name in Hibernate 4.3.0 (and greater) is
+*org.hibernate.jpa.HibernatePersistenceProvider*.
+
+Instead of specifying:
+
+*<provider>org.hibernate.ejb.HibernatePersistence</provider>*
+
+Switch to:
+
+*<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>*
+
+Or remove the persistence provider class name from your persistence.xml
+(so the default provider will be used).
+
+[[entity-manager]]
+Entity manager
+^^^^^^^^^^^^^^
+
+The entity manager (javax.persistence.EntityManager class) is similar to
+the Hibernate Session class; applications use it to
+create/read/update/delete data (and related operations). Applications
+can use application-managed or container-managed entity managers. Keep
+in mind that the entity manager is not thread safe, don't share the same
+entity manager instance with multiple threads. 
+
+Internally, the entity manager, has a persistence context for managing
+entities.  You can think of the persistence context as being closely
+associated with the entity manager.
+
+[[container-managed-entity-manager]]
+Container-managed entity manager
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When you inject a container-managed entity managers into an application
+variable, it is treated like an (EE container controlled) Java proxy
+object, that will be associated with an underlying EntityManager
+instance, for each started JTA transaction and is flushed/closed when
+the JTA transaction commits.  Such that when your application code
+invokes EntityManager.anyMethod(), the current JTA transaction is
+searched (using persistence unit name as key) for the underlying
+EntityManager instance, if not found, a new EntityManager instance is
+created and associated with the current JTA transaction, to be reused
+for the next EntityManager invocation.  Use the @PersistenceContext
+annotation, to inject a container-managed entity manager into a
+javax.persistence.EntityManager variable.
+
+[[application-managed-entity-manager]]
+Application-managed entity manager
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+An application-managed entity manager is kept around until the
+application closes it. The scope of the application-managed entity
+manager is from when the application creates it and lasts until the
+application closes it. Use the _@PersistenceUnit_ annotation, to inject
+a persistence unit into a _javax.persistence.EntityManagerFactory
+variable_. The EntityManagerFactory can return an application-managed
+entity manager.
+
+[[persistence-context]]
+Persistence Context
+^^^^^^^^^^^^^^^^^^^
+
+The JPA persistence context contains the entities managed by the entity
+manager (via the JPA persistence provider).  The underlying entity
+manager maintains the persistence context.  The persistence context acts
+like a first level (transactional) cache for interacting with the
+datasource. Loaded entities are placed into the persistence context
+before being returned to the application. Entities changes are also
+placed into the persistence context (to be saved in the database when
+the transaction commits). 
+
+[[transaction-scoped-persistence-context]]
+Transaction-scoped Persistence Context
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The transaction-scoped persistence context coordinates with the (active)
+JTA transaction.  When the transaction commits, the persistence context
+is flushed to the datasource (entity objects are detached but may still
+be referenced by application code).  All entity changes that are
+expected to be saved to the datasource, must be made during a
+transaction.  Entities read outside of a transaction will be detached
+when the entity manager invocation completes.  Example
+transaction-scoped persistence context is below.
+
+[source,java]
+----
+@Stateful  // will use container managed transactions
+public class CustomerManager {
+  @PersistenceContext(unitName = "customerPU") // default type is PersistenceContextType.TRANSACTION
+  EntityManager em;
+  public customer createCustomer(String name, String address) {
+    Customer customer = new Customer(name, address);
+    em.persist(customer);  // persist new Customer when JTA transaction completes (when method ends).
+                           // internally:
+                           //    1. Look for existing "customerPU" persistence context in active JTA transaction and use if found.
+                           //    2. Else create new "customerPU" persistence context (e.g. instance of org.hibernate.ejb.HibernatePersistence)
+                           //       and put in current active JTA transaction.
+    return customer;       // return Customer entity (will be detached from the persistence context when caller gets control)
+  }  // Transaction.commit will be called, Customer entity will be persisted to the database and "customerPU" persistence context closed
+----
+
+[[extended-persistence-context]]
+Extended Persistence Context
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The (ee container managed) extended persistence context can span
+multiple transactions and allows data modifications to be queued up
+(like a shopping cart), without an active JTA transaction (to be applied
+during the next JTA TX). The Container-managed extended persistence
+context can only be injected into a stateful session bean. You can also
+think of the extended persistence context, as being an entity manager.
+
+[source,java]
+----
+@PersistenceContext(type = PersistenceContextType.EXTENDED, unitName = "inventoryPU")
+EntityManager em;
+----
+
+[[extended-persistence-context-inheritance]]
+Extended Persistence Context Inheritance
+++++++++++++++++++++++++++++++++++++++++
+
+[source,java]
+----
+JPA 2.0 specification section 7.6.2.1
+
+If a stateful session bean instantiates a stateful session bean (executing in the same EJB container instance) which also has such an extended persistence context, the extended persistence context of the first stateful session bean is inherited by the second stateful session bean and bound to it, and this rule recursively applies—independently of whether transactions are active or not at the point of the creation of the stateful session beans.
+----
+
+By default, the current stateful session bean being created, will (
+*deeply*) inherit the extended persistence context from any stateful
+session bean executing in the current Java thread.  The *deep*
+inheritance of extended persistence context includes walking multiple
+levels up the stateful bean call stack (inheriting from parent beans). 
+The *deep* inheritance of extended persistence context includes sibling
+beans.  For example, parentA references child beans beanBwithXPC & 
+beanCwithXPC.  Even though parentA doesn't have an extended persistence
+context, beanBwithXPC & beanCwithXPC will share the same extended
+persistence context. 
+
+Some other EE application servers, use *shallow* inheritance, where
+stateful session bean only inherit from the parent stateful session bean
+(if there is a parent bean).  Sibling beans do not share the same
+extended persistence context unless their (common) parent bean also has
+the same extended persistence context.
+
+Applications can include a (top-level) *jboss-all.xml* deployment
+descriptor that specifies either the (default) *DEEP* extended
+persistence context inheritance or *SHALLOW*.
+
+The WF/docs/schema/jboss-jpa_1_0.xsd describes the *jboss-jpa*
+deployment descriptor that may be included in the *jboss-all.xml*. 
+Below is an example of using *SHALLOW* extended persistence context
+inheritance:
+
+____________________________________________________________
+<jboss> +
+    <jboss-jpa xmlns="http://www.jboss.com/xml/ns/javaee"> +
+    <extended-persistence inheritance="SHALLOW"/> +
+    </jboss-jpa> +
+</jboss> 
+____________________________________________________________
+
+Below is an example of using *DEEP* extended persistence inheritance:
+
+____________________________________________________________
+<jboss> +
+    <jboss-jpa xmlns="http://www.jboss.com/xml/ns/javaee"> +
+    <extended-persistence inheritance="DEEP"/> +
+    </jboss-jpa> +
+</jboss>
+____________________________________________________________
+
+The AS console/cli can change the *default* extended persistence context
+setting (DEEP or SHALLOW).  The following cli commands will read the
+current JPA settings and enable SHALLOW extended persistence context
+inheritance for applications that do not include the *jboss-jpa*
+deployment descriptor:
+
+_______________________________________________________________________________
+./jboss-cli.sh +
+cd subsystem=jpa +
+:read-resource +
+:write-attribute(name=default-extended-persistence-inheritance,value="SHALLOW")
+_______________________________________________________________________________
+
+[[entities]]
+Entities
+^^^^^^^^
+
+JPA allows use of your (pojo) plain old Java class to represent a
+database table row.
+
+[source,java]
+----
+@PersistenceContext EntityManager em;
+Integer bomPk = getIndexKeyValue();
+BillOfMaterials bom = em.find(BillOfMaterials.class, bomPk); // read existing table row into BillOfMaterials class
+
+BillOfMaterials createdBom = new BillOfMaterials("...");     // create new entity
+em.persist(createdBom);  // createdBom is now managed and will be saved to database when the current JTA transaction completes
+----
+
+The entity lifecycle is managed by the underlying persistence provider.
+
+* New (transient): an entity is new if it has just been instantiated
+using the new operator, and it is not associated with a persistence
+context. It has no persistent representation in the database and no
+identifier value has been assigned.
+* Managed (persistent): a managed entity instance is an instance with a
+persistent identity that is currently associated with a persistence
+context.
+* Detached: the entity instance is an instance with a persistent
+identity that is no longer associated with a persistence context,
+usually because the persistence context was closed or the instance was
+evicted from the context.
+* Removed: a removed entity instance is an instance with a persistent
+identity, associated with a persistence context, but scheduled for
+removal from the database.
+
+[[deployment]]
+Deployment
+^^^^^^^^^^
+
+The persistence.xml contains the persistence unit configuration (e.g.
+datasource name) and as described in the JPA 2.0 spec (section 8.2), the
+jar file or directory whose META-INF directory contains the
+persistence.xml file is termed the root of the persistence unit. In Java
+EE environments, the root of a persistence unit must be one of the
+following (quoted directly from the JPA 2.0 specification):
+
+"
+
+* an EJB-JAR file
+* the WEB-INF/classes directory of a WAR file
+* a jar file in the WEB-INF/lib directory of a WAR file
+* a jar file in the EAR library directory
+* an application client jar file
+
+The persistence.xml can specify either a JTA datasource or a non-JTA
+datasource. The JTA datasource is expected to be used within the EE
+environment (even when reading data without an active transaction). If a
+datasource is not specified, the default-datasource will instead be used
+(must be configured).
+
+NOTE: Java Persistence 1.0 supported use of a jar file in the root of
+the EAR as the root of a persistence unit. This use is no longer
+supported. Portable applications should use the EAR library directory
+for this case instead.
+
+"
+
+Question: Can you have a EAR/META-INF/persistence.xml?
+
+Answer: No, the above may deploy but it could include other archives
+also in the EAR, so you may have deployment issues for other reasons. 
+Better to put the persistence.xml in an EAR/lib/somePuJar.jar.
+
+[[troubleshooting]]
+Troubleshooting
+^^^^^^^^^^^^^^^
+
+The *org.jboss.as.jpa* logging can be enabled to get the following
+information:
+
+* INFO - when persistence.xml has been parsed, starting of persistence
+unit service (per deployed persistence.xml), stopping of persistence
+unit service
+* DEBUG - informs about entity managers being injected, creating/reusing
+transaction scoped entity manager for active transaction
+* TRACE - shows how long each entity manager operation took in
+milliseconds, application searches for a persistence unit, parsing of
+persistence.xml
+
+To enable TRACE, open the as/standalone/configuration/standalone.xml (or
+as/domain/configuration/domain.xml) file. Search for *<subsystem
+xmlns="urn:jboss:domain:logging:1.0">* and add the *org.jboss.as.jpa*
+category.  You need to change the console-handler level from *INFO* to
+*TRACE*. 
+
+[source,brush:,xml;,gutter:,false;]
+----
+<subsystem xmlns="urn:jboss:domain:logging:1.0">
+     <console-handler name="CONSOLE">
+      <level name="TRACE" />
+      ...
+     </console-handler>
+
+     </periodic-rotating-file-handler>
+     <logger category="com.arjuna">
+        <level name="WARN" />
+     </logger>
+
+     <logger category="org.jboss.as.jpa">
+        <level name="TRACE" />
+     </logger>
+
+     <logger category="org.apache.tomcat.util.modeler">
+        <level name="WARN" />
+     </logger>
+     ...
+----
+
+To see what is going on at the JDBC level, enable *jboss.jdbc.spy* TRACE
+and add spy="true" to the datasource.
+
+[source,java]
+----
+<datasource jndi-name="java:jboss/datasources/..." pool-name="..." enabled="true" spy="true">
+<logger category="jboss.jdbc.spy">
+  <level name="TRACE"/>
+</logger>
+----
+
+To troubleshoot issues with the Hibernate second level cache, try
+enabling trace for *org.hibernate.SQL + org.hibernate.cache.infinispan +
+org.infinispan:*
+
+[source,java]
+----
+<subsystem xmlns="urn:jboss:domain:logging:1.0">
+     <console-handler name="CONSOLE">
+      <level name="TRACE" />
+      ...
+     </console-handler>
+
+     </periodic-rotating-file-handler>
+     <logger category="com.arjuna">
+        <level name="WARN" />
+     </logger>
+
+     <logger category="org.hibernate.SQL">
+        <level name="TRACE" />
+     </logger>
+
+     <logger category="org.hibernate">
+        <level name="TRACE" />
+     </logger>
+      <logger category="org.infinispan">
+        <level name="TRACE" />
+     </logger>
+
+     <logger category="org.apache.tomcat.util.modeler">
+        <level name="WARN" />
+     </logger>
+     ...
+----
+
+[[using-the-infinispan-second-level-cache]]
+Using the Infinispan second level cache
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To enable the second level cache with Hibernate 5.1, just set the
+*hibernate.cache.use_second_level_cache* property to true, as is done in
+the following example (also set the
+http://docs.oracle.com/javaee/6/api/javax/persistence/SharedCacheMode.html[shared-cache-mode]
+accordingly). By default the application server uses Infinispan as the
+cache provider for *JPA applications*, so you don't need specify
+anything on top of that.  The Infinispan version that is included in
+WildFly is expected to work with the Hibernate version that is included
+with WildFly.  Example persistence.xml settings:
+
+[source,brush:,xml;,gutter:,false;]
+----
+<?xml version="1.0" encoding="UTF-8"?><persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+<persistence-unit name="2lc_example_pu">
+   <description>example of enabling the second level cache.</description>
+   <jta-data-source>java:jboss/datasources/mydatasource</jta-data-source>
+   <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+   <properties>
+      <property name="hibernate.cache.use_second_level_cache" value="true"/>
+   </properties>
+</persistence-unit>
+</persistence>
+----
+
+Here is an example of enabling the second level cache for a Hibernate
+native API hibernate.cfg.xml file:
+
+[source,java]
+----
+<property name="hibernate.cache.region.factory_class" value="org.jboss.as.jpa.hibernate5.infinispan.InfinispanRegionFactory"/>
+<property name="hibernate.cache.infinispan.cachemanager" value="java:jboss/infinispan/container/hibernate"/>
+<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
+<property name="hibernate.cache.use_second_level_cache" value="true"/>
+----
+
+The Hibernate native API application will also need a MANIFEST.MF:
+
+[source,java]
+----
+Dependencies: org.infinispan,org.hibernate
+----
+
+http://infinispan.org/docs/8.0.x/user_guide/user_guide.html#_using_infinispan_as_jpa_hibernate_second_level_cache_provider[Infinispan
+Hibernate/JPA second level cache provider documentation] contains
+advanced configuration information but you should bear in mind that when
+Hibernate runs within WildFly 8, some of those configuration options,
+such as region factory, are not needed. Moreover, the application server
+providers you with option of selecting a different cache container for
+Infinispan via *hibernate.cache.infinispan.container* persistence
+property. To reiterate, this property is not mandatory and a default
+container is already deployed for by the application server to host the
+second level cache.
+
+Here is an example of what the Hibernate cache settings may currently be
+in your standalone.xml:
+
+[source,java]
+----
+ <cache-container name="hibernate" default-cache="local-query" module="org.hibernate.infinispan">
+    <local-cache name="entity">
+        <transaction mode="NON_XA"/>
+        <eviction strategy="LRU" max-entries="10000"/>
+        <expiration max-idle="100000"/>
+    </local-cache>
+    <local-cache name="local-query">
+        <eviction strategy="LRU" max-entries="10000"/>
+        <expiration max-idle="100000"/>
+    </local-cache>
+    <local-cache name="timestamps"/>
+</cache-container>
+----
+
+Below is an example of customizing the "entity", "immutable-entity",
+"local-query", "pending-puts", "timestamps" cache configuration may look
+like:
+
+[source,java]
+----
+ <cache-container name="hibernate" module="org.hibernate.infinispan" default-cache="immutable-entity">
+    <local-cache name="entity">
+        <transaction mode="NONE"/>
+        <eviction max-entries="-1"/>
+        <expiration max-idle="120000"/>
+    </local-cache>
+    <local-cache name="immutable-entity">
+        <transaction mode="NONE"/>
+        <eviction max-entries="-1"/>
+        <expiration max-idle="120000"/>
+    </local-cache>
+    <local-cache name="local-query">
+        <eviction max-entries="-1"/>
+        <expiration max-idle="300000"/>
+    </local-cache>
+    <local-cache name="pending-puts">
+        <transaction mode="NONE"/>
+        <eviction strategy="NONE"/>
+        <expiration max-idle="60000"/>
+    </local-cache>
+    <local-cache name="timestamps">
+        <transaction mode="NONE"/>
+        <eviction strategy="NONE"/>
+    </local-cache>
+</cache-container>
+----
+
+Persistence.xml to use the above custom settings:
+
+[source,java]
+----
+<properties>
+    <property name="hibernate.cache.use_second_level_cache" value="true"/>
+    <property name="hibernate.cache.use_query_cache" value="true"/>
+    <property name="hibernate.cache.infinispan.immutable-entity.cfg" value="immutable-entity"/>
+    <property name="hibernate.cache.infinispan.timestamps.cfg" value="timestamps"/>
+    <property name="hibernate.cache.infinispan.pending-puts.cfg" value="pending-puts"/>
+</properties>
+----
+
+[[replacing-the-current-hibernate-5.x-jars-with-a-newer-version]]
+Replacing the current Hibernate 5.x jars with a newer version
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Just update the current
+wildfly/modules/system/layers/base/org/hibernate/main folder to contain
+the newer version (after stopping your WildFly server instance). 
+
+1.  Delete *.index files in
+wildfly/modules/system/layers/base/org/hibernate/main and
+wildfly/modules/system/layers/base/org/hibernate/envers/main folders.
+2.  Backup the current contents of
+wildfly/modules/system/layers/base/org/hibernate in case you make a
+mistake.
+3.  Remove the older jars and copy new Hibernate jars into
+wildfly/modules/system/layers/base/org/hibernate/main +
+wildfly/modules/system/layers/base/org/hibernate/envers/main.
+4.  Update the
+wildfly/modules/system/layers/base/org/hibernate/main/module.xml +
+wildfly/modules/system/layers/base/org/hibernate/envers/main/module.xml
+to name the jars that you copied in.
+5.  Also update the hibernate-infinispan jars in
+wildfly/modules/system/layers/base/org/hibernate/infinispan.
+
+[[using-hibernate-search]]
+Using Hibernate Search
+^^^^^^^^^^^^^^^^^^^^^^
+
+WildFly includes Hibernate Search. If you want to use the bundled
+version of Hibernate Search - which requires to use the default
+Hibernate ORM 5.1 persistence provider - this will be automatically
+enabled. +
+Having this enabled means that, provided your application includes any
+entity which is annotated with
+*org.hibernate.search.annotations.Indexed*, the module
+*org.hibernate.search.orm:main* will be made available to your
+deployment; this will also include the required version of Apache
+Lucene.
+
+If you do not want this module to be exposed to your deployment, set the
+persistence property *wildfly.jpa.hibernate.search.module* to either
+*none* to not automatically inject any Hibernate Search module, or to
+any other module identifier to inject a different module. +
+For example you could set
+*wildfly.jpa.hibernate.search.module=org.hibernate.search.orm:5.4.0.Alpha1*
+to use the experimental version 5.4.0.Alpha1 instead of the provided
+module; in this case you'll have to download and add the custom modules
+to the application server as other versions are not included. +
+When setting *wildfly.jpa.hibernate.search.module=none* you might also
+opt to include Hibernate Search and its dependencies within your
+application but we highly recommend the modules approach.
+
+[[packaging-the-hibernate-jpa-persistence-provider-with-your-application]]
+Packaging the Hibernate JPA persistence provider with your application
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+WildFly  allows the packaging of Hibernate persistence provider jars
+with the application. The JPA deployer will detect the presence of a
+persistence provider in the application and
+*jboss.as.jpa.providerModule* needs to be set to *application*.<?xml
+version="1.0" encoding="UTF-8"?> +
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+version="1.0"> +
+<persistence-unit name="myOwnORMVersion_pu"> +
+<description>Hibernate Persistence Unit.</description> +
+<jta-data-source>java:jboss/datasources/PlannerDS</jta-data-source> +
+<properties> +
+    <property name="jboss.as.jpa.providerModule" value="application"
+/> +
+</properties> +
+</persistence-unit> +
+</persistence>
+
+[source,brush:,xml;,gutter:,false;]
+----
+----
+
+[[migrating-from-openjpa]]
+Migrating from OpenJPA
+^^^^^^^^^^^^^^^^^^^^^^
+
+You need to copy the OpenJPA jars (e.g. openjpa-all.jar serp.jar) into
+the WildFly modules/org/apache/openjpa/main folder and update
+modules/org/apache/openjpa/main/module.xml to include the same jar file
+names that you copied in.  This will help you get your application that
+depends on OpenJPA, to deploy on WildFly. 
+
+[source,java]
+----
+ <module xmlns="urn:jboss:module:1.1" name="org.apache.openjpa">
+    <resources>
+        <resource-root path="jipijapa-openjpa-1.0.1.Final.jar"/>
+        <resource-root path="openjpa-all.jar">
+           <filter>
+              <exclude path="javax/**" />
+           </filter>
+        </resource-root>
+        <resource-root path="serp.jar"/>
+    </resources>
+
+    <dependencies>
+        <module name="javax.api"/>
+        <module name="javax.annotation.api"/>
+        <module name="javax.enterprise.api"/>
+        <module name="javax.persistence.api"/>
+        <module name="javax.transaction.api"/>
+        <module name="javax.validation.api"/>
+        <module name="javax.xml.bind.api"/>
+        <module name="org.apache.commons.collections"/>
+        <module name="org.apache.commons.lang"/>
+        <module name="org.jboss.as.jpa.spi"/>
+        <module name="org.jboss.logging"/>
+        <module name="org.jboss.vfs"/>
+        <module name="org.jboss.jandex"/>
+    </dependencies>
+</module>
+----
+
+[[migrating-from-eclipselink]]
+Migrating from EclipseLink
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You need to copy the EclipseLink jar (e.g. eclipselink-2.6.0.jar or
+eclipselink.jar as in the example below) into the WildFly
+modules/org/eclipse/persistence/main folder and update
+modules/org/eclipse/persistence/main/module.xml to include the
+EclipseLink jar (take care to use the jar name that you copied in).  If
+you happen to leave the EclipseLink version number in the jar name, the
+module.xml should reflect that.  This will help you get your application
+that depends on EclipseLink, to deploy on WildFly.
+
+[source,java]
+----
+ <module xmlns="urn:jboss:module:1.1" name="org.eclipse.persistence">
+    <resources>
+        <resource-root path="jipijapa-eclipselink-10.0.0.Final.jar"/>
+        <resource-root path="eclipselink.jar">           <filter>
+              <exclude path="javax/**" />
+           </filter>
+        </resource-root>
+    </resources>
+
+    <dependencies>
+        <module name="asm.asm"/>
+        <module name="javax.api"/>
+        <module name="javax.annotation.api"/>
+        <module name="javax.enterprise.api"/>
+        <module name="javax.persistence.api"/>
+        <module name="javax.transaction.api"/>
+        <module name="javax.validation.api"/>
+        <module name="javax.xml.bind.api"/>
+        <module name="org.antlr"/>
+        <module name="org.apache.commons.collections"/>
+        <module name="org.dom4j"/>
+        <module name="org.jboss.as.jpa.spi"/>
+        <module name="org.jboss.logging"/>
+        <module name="org.jboss.vfs"/>
+    </dependencies>
+</module>
+----
+
+As a workaround for  issue
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=414974[id=414974], set
+(WildFly) system property "eclipselink.archive.factory" to value
+"org.jipijapa.eclipselink.JBossArchiveFactoryImpl" via jboss-cli.sh
+command (WildFly server needs to be running when this command is
+issued):
+
+[source,java]
+----
+jboss-cli.sh --connect '/system-property=eclipselink.archive.factory:add(value=org.jipijapa.eclipselink.JBossArchiveFactoryImpl)'
+----
+
+.  The following shows what the standalone.xml (or your WildFly
+configuration you are using) file might look like after updating the
+system properties:
+
+[source,java]
+----
+<system-properties>
+   ...
+   <property name="eclipselink.archive.factory" value="org.jipijapa.eclipselink.JBossArchiveFactoryImpl"/>
+</system-properties>
+----
+
+You should then be able to deploy applications with persistence.xml that
+include;
+
+[source,java]
+----
+<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+----
+
+Also refer to page
+https://community.jboss.org/wiki/HowToUseEclipseLinkWithAS7[how to use
+EclipseLink with WildFly guide here].
+
+[[migrating-from-datanucleus]]
+Migrating from DataNucleus
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Read the
+http://www.datanucleus.org/products/accessplatform_5_0/jpa/javaee.html[how
+to use DataNucleus with WildFly guide here].
+
+[[native-hibernate-use]]
+Native Hibernate use
+^^^^^^^^^^^^^^^^^^^^
+
+Applications that use the Hibernate API directly, are referred to here
+as native Hibernate applications. Native Hibernate applications, can
+choose to use the Hibernate jars included with WildFly or they can
+package their own copy of the Hibernate jars. Applications that utilize
+JPA will automatically have the Hibernate classes injected onto the
+application deployment classpath. Meaning that JPA applications, should
+expect to use the Hibernate jars included in WildFly.
+
+Example MANIFEST.MF entry to add dependency for Hibernate native
+applications:
+
+[source,java]
+----
+Manifest-Version: 1.0
+...
+Dependencies: org.hibernate
+----
+
+If you use the Hibernate native api in your application and also use the
+JPA api to access the same entities (from the same Hibernate
+session/EntityManager), you could get surprising results  (e.g.
+HibernateSession.saveOrUpdate(entity) is different than
+EntityManager.merge(entity).  Each entity should be managed by either
+Hibernate native API or JPA code.
+
+[[injection-of-hibernate-session-and-sessionfactoryinjection-of-hibernate-session-and-sessionfactory]]
+Injection of Hibernate Session and SessionFactoryInjection of Hibernate
+Session and SessionFactory
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can inject a org.hibernate.Session and org.hibernate.SessionFactory
+directly, just as you can do with EntityManagers and
+EntityManagerFactorys.
+
+[source,java]
+----
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+@Stateful public class MyStatefulBean ... {
+   @PersistenceContext(unitName="crm") Session session1;
+   @PersistenceContext(unitName="crm2", type=EXTENDED) Session extendedpc;
+   @PersistenceUnit(unitName="crm") SessionFactory factory;
+}
+----
+
+[[hibernate-properties]]
+Hibernate properties
+^^^^^^^^^^^^^^^^^^^^
+
+WildFly automatically sets the following Hibernate (5.x) properties (if
+not already set in persistence unit definition):
+
+Property
+
+Purpose
+
+hibernate.id.new_generator_mappings =true
+
+New applications should let this default to true, older applications
+with existing data might need to set to false (see note below).  It
+really depends on whether your application uses the
+@GeneratedValue(AUTO) which will generates new key values for newly
+created entities.  The application can override this value (in the
+persistence.xml).
+
+hibernate.transaction.jta.platform= instance of
+org.hibernate.service.jta.platform.spi.JtaPlatform interface
+
+The transaction manager, user transaction and transaction
+synchronization registry is passed into Hibernate via this class.
+
+hibernate.ejb.resource_scanner = instance of
+org.hibernate.ejb.packaging.Scanner interface
+
+Instance of entity scanning class is passed in that knows how to use the
+AS annotation indexer (for faster deployment).
+
+hibernate.transaction.manager_lookup_class
+
+This property is removed if found in the persistence.xml (could conflict
+with JtaPlatform)
+
+hibernate.session_factory_name = qualified persistence unit name
+
+Is set to the application name + persistence unit name (application can
+specify a different value but it needs to be unique across all
+application deployments on the AS instance).
+
+hibernate.session_factory_name_is_jndi = false
+
+only set if the application didn't specify a value for
+hibernate.session_factory_name.
+
+hibernate.ejb.entitymanager_factory_name =  qualified persistence unit
+name
+
+Is set to the application name + persistence unit name (application can
+specify a different value but it needs to be unique across all
+application deployments on the AS instance).
+
+hibernate.query.jpaql_strict_compliance=true
+
+ 
+
+hibernate.auto_quote_keyword=false
+
+ 
+
+hibernate.implicit_naming_strategy=org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+
+ 
+
+In Hibernate 4.x (and greater), if *new_generator_mappings* is *true*:
+
+* @GeneratedValue(AUTO) maps to
+org.hibernate.id.enhanced.SequenceStyleGenerator
+* @GeneratedValue(TABLE) maps to
+org.hibernate.id.enhanced.TableGenerator
+* @GeneratedValue(SEQUENCE) maps to
+org.hibernate.id.enhanced.SequenceStyleGenerator
+
+In Hibernate 4.x (and greater), if *new_generator_mappings* is *false*:
+
+* @GeneratedValue(AUTO) maps to Hibernate "native"
+* @GeneratedValue(TABLE) maps to
+org.hibernate.id.MultipleHiLoPerTableGenerator
+* @GeneratedValue(SEQUENCE) to Hibernate "seqhilo"
+
+[[persistence-unit-properties]]
+Persistence unit properties
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following properties are supported in the persistence unit
+definition (in the persistence.xml file):
+
+Property
+
+Purpose
+
+jboss.as.jpa.providerModule
+
+name of the persistence provider module (default is org.hibernate).
+Should be application, if a persistence provider is packaged with the
+application.  See note below about some module names that are built in
+(based on the provider).
+
+jboss.as.jpa.adapterModule
+
+name of the integration classes that help WildFly to work with the
+persistence provider.
+
+jboss.as.jpa.adapterClass
+
+class name of the integration adapter.
+
+jboss.as.jpa.managed
+
+set to false to disable container managed JPA access to the persistence
+unit.  The default is true, which enables container managed JPA access
+to the persistence unit.  This is typically set to false for Spring
+applications.
+
+jboss.as.jpa.classtransformer
+
+set to false to disable class transformers for the persistence unit. 
+Set to true, to allow entity class enhancing/rewriting. 
+
+wildfly.jpa.default-unit
+
+set to true to choose the default persistence unit in an application. 
+This is useful if you inject a persistence context without specifying
+the unitName (@PersistenceContext EntityManager em) but have multiple
+persistence units specified in your persistence.xml.
+
+wildfly.jpa.twophasebootstrap
+
+persistence providers (like Hibernate ORM 4.3+ via
+EntityManagerFactoryBuilder), allow a two phase persistence unit
+bootstrap, which improves JPA integration with CDI.  Setting the
+wildfly.jpa.twophasebootstrap hint to false, disables the two phase
+bootstrap (for the persistence unit that contains the hint).
+
+wildfly.jpa.allowdefaultdatasourceuse
+
+set to false to prevent persistence unit from using the default data
+source.  Defaults to true.  This is only important for persistence units
+that do not specify a datasource.
+
+jboss.as.jpa.deferdetach
+
+Controls whether transaction scoped persistence context used in non-JTA
+transaction thread, will detach loaded entities after each EntityManager
+invocation or when the persistence context is closed (e.g. business
+method ends).  Defaults to false (entities are cleared after
+EntityManager invocation) and if set to true, the detach is deferred
+until the context is closed.
+
+wildfly.jpa.hibernate.search.module
+
+Controls which version of Hibernate Search to include on classpath. Only
+makes sense when using Hibernate as JPA implementation. The default is
+auto; other valid values are none or a full module identifier to use an
+alternative version.
+
+jboss.as.jpa.scopedname
+
+Specify the qualified (application scoped) persistence unit name to be
+used.  By default, this is internally set to the application name +
+persistence unit name.  The hibernate.cache.region_prefix will default
+to whatever you set jboss.as.jpa.scopedname to.  Make sure you set the
+jboss.as.jpa.scopedname value to a value not already in use by other
+applications deployed on the same application server instance.
+
+wildfly.jpa.allowjoinedunsync
+
+If set to true, allows an SynchronizationType.UNSYNCHRONIZED persistence
+context that has been joined to the active JTA transaction, to be
+propagated into a SynchronizationType.SYNCHRONIZED persistence context. 
+Otherwise, an IllegalStateException exception would of been thrown that
+complains that an unsychronized persistence context cannot be propagated
+into a synchronized persistence context.  Defaults to false. 
+
+wildfly.jpa.skipmixedsynctypechecking
+
+Set to true to disable the throwing of an IllegalStateException
+exception when propagating an SynchronizationType.UNSYNCHRONIZED
+persistence context into a SynchronizationType.SYNCHRONIZED persistence
+context.  This is a workaround intended to allow applications that used
+to incorrectly not get IllegalStateException exception with extended
+persistence contexts, to avoid the IllegalStateException, so they don't
+have to change their application right away (for compatibility
+purposes).  This hint may be deprecated in a future release.  See
+WFLY-7108 for more details.  Defaults to false.
+
+[[determine-the-persistence-provider-module]]
+Determine the persistence provider module
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As mentioned above, if the *jboss.as.jpa.providerModule* property is not
+specified, the provider module name is determined by the *provider* name
+specified in the persistence.xml.  The mapping is:
+
+Provider Name
+
+Module name
+
+blank
+
+org.hibernate
+
+org.hibernate.ejb.HibernatePersistence
+
+org.hibernate
+
+org.hibernate.ogm.jpa.HibernateOgmPersistence
+
+org.hibernate.ogm
+
+oracle.toplink.essentials.PersistenceProvider
+
+oracle.toplink
+
+oracle.toplink.essentials.ejb.cmp3.EntityManagerFactoryProvider
+
+oracle.toplink
+
+org.eclipse.persistence.jpa.PersistenceProvider
+
+org.eclipse.persistence
+
+org.datanucleus.api.jpa.PersistenceProviderImpl
+
+org.datanucleus
+
+org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider
+
+org.datanucleus:appengine
+
+org.apache.openjpa.persistence.PersistenceProviderImpl
+
+org.apache.openjpa
+
+[[binding-entitymanagerfactoryentitymanager-to-jndi]]
+Binding EntityManagerFactory/EntityManager to JNDI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default WildFly does *not* bind the entity manager factory to JNDI.
+However, you can explicitly configure this in the persistence.xml of
+your application by setting the `jboss.entity.manager.factory.jndi.name`
+`hint. The value of that property should be the JNDI name to which the entity manager factory should be bound.`
+
+`You can also bind a container managed (transaction scoped) entity manager to JNDI as well, }}via hint`
+`jboss.entity.manager.jndi.name`\{
+`}{{.  As a reminder, a transaction scoped entity manager (persistence context), acts as a proxy that always gets an unique underlying entity manager (at the persistence provider level).`
+
+`Here's an example:`
+
+persistence.xml
+
+[source,java]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+   xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+   <persistence-unit name="myPU">
+      <!-- If you are running in a production environment, add a managed
+         data source, the example data source is just for proofs of concept! -->
+      <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+      <properties>
+         <!-- Bind entity manager factory to JNDI at java:jboss/myEntityManagerFactory -->
+         <property name="jboss.entity.manager.factory.jndi.name" value="java:jboss/myEntityManagerFactory" />
+         <property name="jboss.entity.manager.jndi.name" value="java:/myEntityManager"/>
+       </properties>
+   </persistence-unit>
+</persistence>
+----
+
+[source,java]
+----
+@Stateful
+public class ExampleSFSB {
+  public void createSomeEntityWithTransactionScopedEM(String name) {
+    Context context = new InitialContext();
+    javax.persistence.EntityManager entityManager = (javax.persistence.EntityManager) context.lookup("java:/myEntityManager");
+    SomeEntity someEntity = new SomeEntity();
+    someEntity.setName(name);    entityManager.persist(name);
+  }
+}
+----
+
+[[community]]
+Community
+^^^^^^^^^
+
+Many thanks to the community, for reporting issues, solutions and code
+changes. A number of people have been answering Wildfly forum questions
+related to JPA usage. I would like to thank them for this, as well as
+those reporting issues. For those of you that haven't downloaded the AS
+source code and started hacking patches together. I would like to
+encourage you to start by reading
+https://community.jboss.org/wiki/HackingOnWildFly[Hacking on WildFly].
+You will find that it easy very easy to find your way around the
+WildFly/JPA/* source tree and make changes. Also, new for WildFly, is
+the JipiJapa project that contains additional integration code that
+makes EE JPA application deployments work better.  The following list of
+contributors should grow over time, I hope to see more of you listed
+here.
+
+[[people-who-have-contributed-to-the-wildfly-jpa-layer]]
+People who have contributed to the WildFly JPA layer:
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+* https://community.jboss.org/people/wolfc[Carlo de Wolf] (lead of the
+EJB3 project)
+* *http://in.relation.to/Bloggers/Steve[Steve Ebersole]* (lead of the
+Hibernate ORM project)
+* *https://community.jboss.org/people/swd847[Stuart Douglas]* (lead of
+the Seam Persistence project, WildFly project team member/committer)
+* https://community.jboss.org/people/jaikiran[Jaikiran Pai] (Active
+member of JBoss forums and JBoss EJB3 project team member)
+* http://relation.to/Bloggers/StrongLiu[Strong Liu] (leads the
+productization effort of Hibernate in the EAP product)
+* *https://community.jboss.org/people/smarlow[Scott Marlow]* (lead of
+the WildFly container JPA sub-project)
+* *https://community.jboss.org/people/alaisi[Antti Laisi]* *(OpenJPA
+integration changes)*
+* https://docs.jboss.org/author/display/~galder.zamarreno[Galder
+Zamarreño] (Infinispan 2lc documentation)
+* https://docs.jboss.org/author/display/~sannegrinovero[Sanne Grinovero]
+(lead of the Hibernate Search project)
+* https://issues.jboss.org/secure/ViewProfile.jspa?name=pferraro[Paul
+Ferraro] (Infinispan 2lc integration)
+
+[[osgi-developer-guide]]
+OSGi developer guide
+~~~~~~~~~~~~~~~~~~~~
+
+Couldn't find a page to include called:
+https://docs.jboss.org/author/pages/createpage.action?spaceKey=WFLY&title=OSGi+Developer+Guide&linkCreation=true&fromPageId=108626080[OSGi
+Developer Guide]
+
+[[jndi-reference-guide]]
+JNDI reference guide
+~~~~~~~~~~~~~~~~~~~~
+
+[[overview]]
+Overview
+^^^^^^^^
+
+WildFly offers several mechanisms to retrieve components by name. Every
+WildFly instance has it's own local JNDI namespace ( `java:`) which is
+unique per JVM. The layout of this namespace is primarily governed by
+the Java EE specification. Applications which share the same WildFly
+instance can use this namespace to intercommunicate. In addition to
+local JNDI, a variety of mechanisms exist to access remote components.
+
+* Client JNDI - This is a mechanism by which remote components can be
+accessed using the JNDI APIs, but *_without network round-trips_* . This
+approach is the most efficient, and *_removes a potential single point
+of failure_* . For this reason, it is highly recommended to use Client
+JNDI over traditional remote JNDI access. However, to make this
+possible, it does require that all names follow a strict layout, so user
+customizations are not possible. Currently only access to remote EJBs is
+supported via the `ejb:` namespace. Future revisions will likely add a
+JMS client JNDI namespace.
+* Traditional Remote JNDI - This is a more familiar approach to EE
+application developers, where the client performs a remote component
+name lookup against a server, and a proxy/stub to the component is
+serialized as part of the name lookup and returned to the client. The
+client then invokes a method on the proxy which results in another
+remote network call to the underlying service. In a nutshell,
+traditional remote JNDI involves two calls to invoke an EE component,
+whereas Client JNDI requires one. It does however allow for customized
+names, and for a centralised directory for multiple application servers.
+This centralized directory is, however, _a single point of failure_. 
+* EE Application Client / Server-To-Server Delegation - This approach is
+where local names are bound as an _alias_ to a remote name using one of
+the above mechanisms. This is useful in that it allows applications to
+only ever reference standard portable Java EE names in both code and
+deployment descriptors. It also allows for the application to be unaware
+of network topology details/ This can even work with Java SE clients by
+using the little known EE Application Client feature. This feature
+allows you to run an extremely minimal AS server around your
+application, so that you can take advantage of certain core services
+such as naming and injection.  
+
+[[local-jndi]]
+Local JNDI
+^^^^^^^^^^
+
+The Java EE platform specification defines the following JNDI contexts:
+
+* `java:comp` - The namespace is scoped to the current component (i.e.
+EJB)
+* `java:module` - Scoped to the current module
+* `java:app` - Scoped to the current application
+* `java:global` - Scoped to the application server
+
+In addition to the standard namespaces, WildFly also provides the
+following two global namespaces:
+
+* java:jboss
+* java:/
+
+Only entries within the  `java:jboss/exported` context are accessible
+over remote JNDI.
+
+For web deployments `java:comp` is aliased to `java:module`, so EJB's
+deployed in a war do not have their own comp namespace.
+
+[[binding-entries-to-jndi]]
+Binding entries to JNDI
++++++++++++++++++++++++
+
+There are several methods that can be used to bind entries into JNDI in
+WildFly.
+
+[[using-a-deployment-descriptor]]
+Using a deployment descriptor
+
+For Java EE applications the recommended way is to use a
+https://docs.jboss.org/author/display/AS71/Deployment+Descriptors+used+In+AS7.1[deployment
+descriptor] to create the binding. For example the following `web.xml`
+binds the string `"Hello World"` to `java:global/mystring` and the
+string `"Hello Module"` to `java:comp/env/hello` (any non absolute JNDI
+name is relative to `java:comp/env` context).
+
+[source,brush:,xml;,gutter:,false;]
+----
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <env-entry>
+        <env-entry-name>java:global/mystring</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>Hello World</env-entry-value>
+    </env-entry>
+    <env-entry>
+        <env-entry-name>hello</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>Hello Module</env-entry-value>
+    </env-entry>
+</web-app>
+----
+
+For more details, see the http://jcp.org/en/jsr/detail?id=342[Java EE
+Platform Specification].
+
+[[programatically]]
+Programatically
+
+[[java-ee-applications]]
+Java EE Applications
+
+[[section]]
+
+Standard Java EE applications may use the standard JNDI API, included
+with Java SE, to bind entries in the global namespaces (the standard
+`java:comp`, `java:module` and `java:app` namespaces are read-only, as
+mandated by the Java EE Platform Specification).
+
+[source,java]
+----
+  InitialContext initialContext = new InitialContext();
+  initialContext.bind("java:global/a", 100);
+----
+
+There is no need to unbind entries created programatically, since
+WildFly tracks which bindings belong to a deployment, and the bindings
+are automatically removed when the deployment is undeployed.
+
+WildFly Modules and Extensions
+
+[[section-1]]
+
+With respect to code in WildFly Modules/Extensions, which is executed
+out of a Java EE application context, using the standard JNDI API may
+result in a UnsupportedOperationException if the target namespace uses a
+WritableServiceBasedNamingStore. To work around that, the bind()
+invocation needs to be wrapped using WildFly proprietary APIs:
+
+[source,java]
+----
+  InitialContext initialContext = new InitialContext();
+  WritableServiceBasedNamingStore.pushOwner(serviceTarget);
+  try {
+    initialContext.bind("java:global/a", 100);
+  } finally {
+    WritableServiceBasedNamingStore.popOwner();
+  }
+----
+
+The ServiceTarget removes the bind when uninstalled, thus using one out
+of the module/extension domain usage should be avoided, unless entries
+are removed using unbind().
+
+[[naming-subsystem-configuration]]
+Naming Subsystem Configuration
+
+It is also possible to bind to one of the three global namespaces using
+configuration in the naming subsystem. This can be done by either
+editing the `standalone.xml/domain.xml` file directly, or through the
+management API.
+
+Four different types of bindings are supported:
+
+* Simple - A primitive or java.net.URL entry (default is 
+`java.lang.String`).
+* Object Factory - This allows to to specify the
+`javax.naming.spi.ObjectFactory` that is used to create the looked up
+value.
+* External Context - An external context to federate, such as an LDAP
+Directory Service 
+* Lookup - The allows to create JNDI aliases, when this entry is looked
+up it will lookup the target and return the result.
+
+An example standalone.xml might look like:
+
+[source,brush:,xml;,gutter:,false;]
+----
+<subsystem xmlns="urn:jboss:domain:naming:2.0" >
+  <bindings>
+    <simple name="java:global/a" value="100" type="int" />
+    <simple name="java:global/jbossDocs" value="https://docs.jboss.org" type="java.net.URL" />
+    <object-factory name="java:global/b" module="com.acme" class="org.acme.MyObjectFactory" />
+    <external-context name="java:global/federation/ldap/example” class="javax.naming.directory.InitialDirContext" cache="true">
+      <environment>
+        <property name="java.naming.factory.initial" value=“com.sun.jndi.ldap.LdapCtxFactory” />
+        <property name="java.naming.provider.url" value=“ldap://ldap.example.com:389” />
+        <property name="java.naming.security.authentication" value=“simple” />
+        <property name="java.naming.security.principal" value=“uid=admin,ou=system” />
+        <property name="java.naming.security.credentials" value=“secret” />
+      </environment>
+    </external-context>
+    <lookup name="java:global/c" lookup="java:global/b" />
+ </bindings>
+</subsystem>
+----
+
+The CLI may also be used to bind an entry. As an example:
+
+[source,java]
+----
+/subsystem=naming/binding=java\:global\/mybinding:add(binding-type=simple, type=long, value=1000)
+----
+
+WildFly's Administrator Guide includes a section describing in detail
+the Naming subsystem configuration.
+
+[[retrieving-entries-from-jndi]]
+Retrieving entries from JNDI
+++++++++++++++++++++++++++++
+
+[[resource-injection]]
+Resource Injection
+
+For Java EE applications the recommended way to lookup a JNDI entry is
+to use `@Resource` injection:
+
+[source,java]
+----
+  @Resource(lookup = "java:global/mystring")
+  private String myString;
+
+  @Resource(name = "hello")
+  private String hello;
+
+  @Resource
+  ManagedExecutorService executor;
+----
+
+Note that `@Resource` is more than a JNDI lookup, it also binds an entry
+in the component's JNDI environment. The new bind JNDI name is defined
+by `@Resource`'s `name` attribute, which value, if unspecified, is the
+Java type concatenated with  `/` and the field's name, for instance
+`java.lang.String/myString`. More, similar to when using deployment
+descriptors to bind JNDI entries. unless the name is an absolute JNDI
+name, it is considered relative to  `java:comp/env`. For instance, with
+respect to the field named `myString` above, the `@Resource`'s `lookup`
+attribute instructs WildFly to lookup the value in
+`java:global/mystring`, bind it in
+`java:comp/env/java.lang.String/myString`, and then inject such value
+into the field.
+
+With respect to the field named `hello`, there is no `lookup` attribute
+value defined, so the responsibility to provide the entry's value is
+delegated to the deployment descriptor. Considering that the deployment
+descriptor was the `web.xml` previously shown, which defines an
+environment entry with same `hello` name, then WildFly inject the valued
+defined in the deployment descriptor into the field.
+
+The `executor` field has no attributes specified, so the bind's name
+would default to
+`java:comp/env/javax.enterprise.concurrent.ManagedExecutorService/executor`,
+but there is no such entry in the deployment descriptor, and when that
+happens it's up to WildFly to provide a default value or null, depending
+on the field's Java type. In this particular case WildFly would inject
+the default instance of a managed executor service, the value in
+`java:comp/DefaultManagedExecutorService`, as mandated by the EE
+Concurrency Utilities 1.0 Specification (JSR 236).
+
+[[standard-java-se-jndi-api]]
+Standard Java SE JNDI API
+
+Java EE applications may use, without any additional configuration
+needed, the standard JNDI API to lookup an entry from JNDI:
+
+[source,java]
+----
+  String myString = (String) new InitialContext().lookup("java:global/mystring");
+----
+
+or simply
+
+[source,java]
+----
+  String myString = InitialContext.doLookup("java:global/mystring");
+----
+
+[[remote-jndi]]
+Remote JNDI
+^^^^^^^^^^^
+
+WildFly supports two different types of remote JNDI. The old jnp based
+JNDI implementation used in JBoss AS versions prior to 7.x is no longer
+supported.
+
+[[remote]]
+remote:
++++++++
+
+The `remote:` protocol uses the WildFly remoting protocol to lookup
+items from the servers local JNDI. To use it, you must have the
+appropriate jars on the class path, if you are maven user can be done
+simply by adding the following to your `pom.xml`:
+
+[source,brush:,xml;,gutter:,false;]
+----
+<dependency>
+  <groupId>org.wildfly</groupId>
+  <artifactId>wildfly-ejb-client-bom</artifactId>
+  <version>8.0.0.Final</version>
+  <type>pom</type>
+  <scope>compile</scope>
+</dependency>
+----
+
+If you are not using maven a shaded jar that contains all required
+classes +
+can be found in the `bin/client` directory of WildFly's distribution.
+
+[source,java]
+----
+final Properties env = new Properties();
+env.put(Context.INITIAL_CONTEXT_FACTORY, org.jboss.naming.remote.client.InitialContextFactory.class.getName());
+env.put(Context.PROVIDER_URL, "remote://localhost:4447");
+remoteContext = new InitialContext(env);
+----
+
+[[ejb]]
+ejb:
+++++
+
+The ejb: namespace is provided by the jboss-ejb-client library. This
+protocol allows you to look up EJB's, using their application name,
+module name, ejb name and interface type.
+
+This is a client side JNDI implementation. Instead of looking up an EJB
+on the server the lookup name contains enough information for the client
+side library to generate a proxy with the EJB information. When you
+invoke a method on this proxy it will use the current EJB client context
+to perform the invocation. If the current context does not have a
+connection to a server with the specified EJB deployed then an error
+will occur. Using this protocol it is possible to look up EJB's that do
+not actually exist, and no error will be thrown until the proxy is
+actually used. The exception to this is stateful session beans, which
+need to connect to a server when they are created in order to create the
+session bean instance on the server.
+
+Some examples are:
+
+`ejb:myapp/myejbjar/MyEjbName!com.test.MyRemoteInterface` +
+`ejb:myapp/myejbjar/MyStatefulName!comp.test.MyStatefulRemoteInterface?stateful`
+
+The first example is a lookup of a singleton, stateless or EJB 2.x home
+interface. This lookup will not hit the server, instead a proxy will be
+generated for the remote interface specified in the name. The second
+example is for a stateful session bean, in this case the JNDI lookup
+will hit the server, in order to tell the server to create the SFSB
+session.
+
+For more details on how the server connections are configured, please
+see link:EJB_invocations_from_a_remote_client_using_JNDI.html[EJB
+invocations from a remote client using JNDI].
+
+[[spring-applications-development-and-migration-guide]]
+Spring applications development and migration guide
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This document details the main points that need to be considered by
+Spring developers that wish to develop new applications or to migrate
+existing applications to be run into WildFly 8.
+
+[[dependencies-and-modularity]]
+Dependencies and Modularity
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+WildFly 8 has a modular class loading strategy, different from previous
+versions of JBoss AS, which enforces a better class loading isolation
+between deployments and the application server itself. A detailed
+description can be found in the documentation dedicated to 
+https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7[class
+loading in WildFly 8].
+
+This reduces significantly the risk of running into a class loading
+conflict and allows applications to package their own dependencies if
+they choose to do so. This makes it easier for Spring applications that
+package their own dependencies - such as logging frameworks or
+persistence providers to run on WildFly 8. 
+
+At the same time, this does not mean that duplications and conflicts
+cannot exist on the classpath. Some module dependencies are implicit,
+depending on the type of deployment as shown 
+https://docs.jboss.org/author/display/AS7/Implicit+module+dependencies+for+deployments[here]. 
+
+[[persistence-usage-guide]]
+Persistence usage guide
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Depending on the strategy being used, Spring applications can be:
+
+* native Hibernate applications;
+* JPA-based applications;
+* native JDBC applications;
+
+[[native-springhibernate-applications]]
+Native Spring/Hibernate applications
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Applications that use the Hibernate API directly with Spring (i.e.
+through either one of LocalSessionFactoryBean or
+AnnotationSessionFactoryBean) may use a version of Hibernate 3 packaged
+inside the application. Hibernate 4 (which is provided through the
+'org.hibernate' module of WildFly 8) is not supported by Spring 3.0 and
+Spring 3.1 (and may be supported by Spring 3.2 as described in 
+https://jira.springsource.org/browse/SPR-8096[SPR-8096]), so adding this
+module as a dependency is not a solution.
+
+[[based-applications]]
+based applications
+^^^^^^^^^^^^^^^^^^
+
+Spring applications using JPA may choose between:
+
+* using a server-deployed persistence unit;
+* using a Spring-managed persistence unit.
+
+[[using-server-deployed-persistence-units]]
+Using server-deployed persistence units
++++++++++++++++++++++++++++++++++++++++
+
+Applications that use a server-deployed persistence unit must observe
+the typical Java EE rules in what concerns dependency management,
+i.e. the javax.persistence classes and persistence provider (Hibernate)
+are contained in modules which are added automatically by the
+application when the persistence unit is deployed.
+
+In order to use the server-deployed persistence units from within
+Spring, either the persistence context or the persistence unit need to
+be registered in JNDI via web.xml as follows:
+
+[source,java]
+----
+<persistence-context-ref>
+    <persistence-context-ref-name>persistence/petclinic-em</persistence-unit-ref-name>
+    <persistence-unit-name>petclinic</persistence-unit-name>
+</persistence-context-ref>
+----
+
+or, respectively:
+
+[source,java]
+----
+<persistence-unit-ref>
+    <persistence-unit-ref-name>persistence/petclinic-emf</persistence-unit-ref-name>
+    <persistence-unit-name>petclinic</persistence-unit-name>
+</persistence-unit-ref>
+----
+
+When doing so, the persistence context or persistence unit are available
+to be looked up in JNDI, as follows:
+
+[source,java]
+----
+<jee:jndi-lookup id="entityManager" jndi-name="java:comp/env/persistence/petclinic-em" 
+            expected-type="javax.persistence.EntityManager"/>
+----
+
+or
+
+[source,java]
+----
+<jee:jndi-lookup id="entityManagerFactory" jndi-name="java:comp/env/persistence/petclinic-emf" 
+            expected-type="javax.persistence.EntityManagerFactory"/>
+----
+
+JNDI binding
+
+JNDI binding via persistence.xml properties is not supported in WildFly
+8.
+
+[[using-spring-managed-persistence-units]]
+Using Spring-managed persistence units
+++++++++++++++++++++++++++++++++++++++
+
+Spring applications running in WildFly 8 may also create persistence
+units on their own, using the LocalContainerEntityManagerFactoryBean.
+This is what these applications need to consider:
+
+[[placement-of-the-persistence-unit-definitions]]
+Placement of the persistence unit definitions
+
+When the application server encounters a deployment that has a file
+named META-INF/persistence.xml (or, for that matter,
+WEB-INF/classes/META-INF/persistence.xml), it will attempt to create a
+persistence unit based on what is provided in the file. In most cases,
+such definition files are not compliant with the Java EE requirements,
+mostly because required elements such as the datasource of the
+persistence unit are supposed to be provided by the Spring context
+definitions, which will fail the deployment of the persistence unit, and
+consequently of the entire deployment.
+
+Spring applications can easily avoid this type of conflict, by using a
+feature of the LocalContainerEntityManagerFactoryBean which is designed
+for this purpose. Persistence unit definition files can exist in other
+locations than META-INF/persistence.xml and the location can be
+indicated through the persistenceXmlLocation property of the factory
+bean class.
+
+Assuming that the persistence unit is in the
+META-INF/jpa-persistence.xml, the corresponding definition can be:
+
+[source,java]
+----
+<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
+       <property name="persistenceXmlLocation" value="classpath*:META-INF/jpa-persistence.xml"/> 
+       <!-- other definitions -->
+</bean>
+----
+
+[[managing-dependencies]]
+Managing dependencies
++++++++++++++++++++++
+
+Since the LocalContainerEntityManagerFactoryBean and the corresponding
+HibernateJpaVendorAdapter are based on Hibernate 3, it is required to
+use that version with the application. Therefore, the Hibernate 3 jars
+must be included in the deployment. At the same time, due the presence
+of @PersistenceUnit or @PersistenceContext annotations on the
+application classes, the application server will automatically add the
+'org.hibernate' module as a dependency.
+
+This can be avoided by instructing the server to exclude the module from
+the deployment's list of dependencies. In order to do so, include a
+META-INF/jboss-deployment-structure.xml or, for web applications,
+WEB-INF/jboss-deployment-structure.xml with the following content:
+
+[source,java]
+----
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
+  <deployment>
+    <exclusions>
+       <module name="org.hibernate"/>
+    </exclusions>
+  </deployment>
+</jboss-deployment-structure>
+----
+
+[[all-wildfly-documentation]]
+All WildFly documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Couldn't find a page to include called:
+https://docs.jboss.org/author/pages/createpage.action?spaceKey=WFLY&title=All+JBoss+AS+7+documentation&linkCreation=true&fromPageId=108626080[All
+JBoss AS 7 documentation]

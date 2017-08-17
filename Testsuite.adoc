@@ -1,0 +1,22 @@
+Testsuite - Latest WildFly Documentation
+========================================
+
+[[testsuite]]
+Testsuite
+---------
+
+[[jboss-as-7-testsuite]]
+JBoss AS 7 Testsuite
+~~~~~~~~~~~~~~~~~~~~
+
+Where to go next?
+
+* *link:WildFly_Integration_Testsuite_User_Guide.html[WildFly
+Integration Testsuite User Guide]* if you changed JBoss AS 7 code and
+want to check for regressions.
+* *https://docs.jboss.org/author/display/AS71/AS+7+Testsuite+Harness+Developer+Guide[AS
+7 Testsuite Harness Developer Guide]* to learn how the testsuite works
+(shell scripts, Ant scripts, pom.xml files)
+* *https://docs.jboss.org/author/display/AS71/AS+7+Testsuite+Test+Developer+Guide[AS
+7 Testsuite Test Developer Guide]*  if you want to add a new test case
+to the testsuite (to increase code coverage or to reproduce a bug)

@@ -1,0 +1,39 @@
+JavaEE 6 Tutorial - Latest WildFly Documentation
+================================================
+
+[[javaee-6-tutorial]]
+JavaEE 6 Tutorial
+-----------------
+
+Coming Soon
+
+This guide is still under development, check back soon!
+
+[[standard-javaee-6-technologies]]
+Standard JavaEE 6 Technologies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1.  Enterprise JavaBeans Technology (EJB)
+2.  Java Servlet Technology
+3.  Java Server Faces Technology (JSF)
+4.  Java Persistence API (JPA)
+5.  Java Transaction API (JTA)
+6.  link:Java_API_for_RESTful_Web_Services_(JAX-RS).html[Java API for
+RESTful Web Services (JAX-RS)]
+7.  Java API for XML Web Services (JAX-WS)
+8.  Managed Beans
+9.  Contexts and Dependency Injection (CDI)
+10. Bean Validation
+11. Java Message Service API (JMS)
+12. JavaEE Connector Architecture (JCA)
+13. JavaMail API
+14. Java Authorization Contract for Containers (JACC)
+15. Java Authentication Service Provider Interface for Containers
+(JASPIC)
+
+[[jboss-as7-extension-technologies]]
+JBoss AS7 Extension Technologies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1.  OSGi Technology
+2.  Management Interface

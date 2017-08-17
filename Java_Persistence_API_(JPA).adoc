@@ -1,0 +1,6 @@
+Java Persistence API (JPA) - Latest WildFly Documentation
+=========================================================
+
+[[java-persistence-api-jpa]]
+Java Persistence API (JPA)
+--------------------------

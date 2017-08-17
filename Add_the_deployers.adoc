@@ -1,0 +1,172 @@
+Add the deployers - Latest WildFly Documentation
+================================================
+
+[[add-the-deployers]]
+Add the deployers
+-----------------
+
+When discussing `SubsystemAddHandler` we did not mention the work done
+to install the deployers, which is done in the following method:
+
+[source,java]
+----
+    @Override
+    public void performBoottime(OperationContext context, ModelNode operation, ModelNode model,
+            ServiceVerificationHandler verificationHandler, List<ServiceController<?>> newControllers)
+            throws OperationFailedException {
+
+        log.info("Populating the model");
+
+        //Add deployment processors here
+        //Remove this if you don't need to hook into the deployers, or you can add as many as you like
+        //see SubDeploymentProcessor for explanation of the phases
+        context.addStep(new AbstractDeploymentChainStep() {
+            public void execute(DeploymentProcessorTarget processorTarget) {
+                processorTarget.addDeploymentProcessor(SubsystemDeploymentProcessor.PHASE, SubsystemDeploymentProcessor.priority, new SubsystemDeploymentProcessor());
+
+            }
+        }, OperationContext.Stage.RUNTIME);
+
+    }
+----
+
+This adds an extra step which is responsible for installing deployment
+processors. You can add as many as you like, or avoid adding any all
+together depending on your needs. Each processor has a `Phase` and a
+`priority`. Phases are sequential, and a deployment passes through each
+phases deployment processors. The `priority` specifies where within a
+phase the processor appears. See `org.jboss.as.server.deployment.Phase`
+for more information about phases.
+
+In our case we are keeping it simple and staying with one deployment
+processor with the phase and priority created for us by the maven
+archetype. The phases will be explained in the next section. The
+deployment processor is as follows:
+
+[source,java]
+----
+public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
+    ...
+
+    @Override
+    public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
+        String name = phaseContext.getDeploymentUnit().getName();
+        TrackerService service = getTrackerService(phaseContext.getServiceRegistry(), name);
+        if (service != null) {
+            ResourceRoot root = phaseContext.getDeploymentUnit().getAttachment(Attachments.DEPLOYMENT_ROOT);
+            VirtualFile cool = root.getRoot().getChild("META-INF/cool.txt");
+            service.addDeployment(name);
+            if (cool.exists()) {
+                service.addCoolDeployment(name);
+            }
+        }
+    }
+
+    @Override
+    public void undeploy(DeploymentUnit context) {
+        context.getServiceRegistry();
+        String name = context.getName();
+        TrackerService service = getTrackerService(context.getServiceRegistry(), name);
+        if (service != null) {
+            service.removeDeployment(name);
+        }
+    }
+
+    private TrackerService getTrackerService(ServiceRegistry registry, String name) {
+        int last = name.lastIndexOf(".");
+        String suffix = name.substring(last + 1);
+        ServiceController<?> container = registry.getService(TrackerService.createServiceName(suffix));
+        if (container != null) {
+            TrackerService service = (TrackerService)container.getValue();
+            return service;
+        }
+        return null;
+    }
+}
+----
+
+The `deploy()` method is called when a deployment is being deployed. In
+this case we look for the `TrackerService` instance for the service name
+created from the deployment's suffix. If there is one it means that we
+are meant to be tracking deployments with this suffix (i.e.
+`TypeAddHandler` was called for this suffix), and if we find one we add
+the deployment's name to it. Similarly `undeploy()` is called when a
+deployment is being undeployed, and if there is a `TrackerService`
+instance for the deployment's suffix, we remove the deployment's name
+from it.
+
+[[deployment-phases-and-attachments]]
+Deployment phases and attachments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The code in the SubsystemDeploymentProcessor uses an _attachment_, which
+is the means of communication between the individual deployment
+processors. A deployment processor belonging to a phase may create an
+attachment which is then read further along the chain of deployment unit
+processors. In the above example we look for the
+`Attachments.DEPLOYMENT_ROOT` attachment, which is a view of the file
+structure of the deployment unit put in place before the chain of
+deployment unit processors is invoked.
+
+As mentioned above, the deployment unit processors are organized in
+phases, and have a relative order within each phase. A deployment unit
+passes through all the deployment unit processors in that order. A
+deployment unit processor may choose to take action or not depending on
+what attachments are available. Let's take a quick look at what the
+deployment unit processors for in the phases described in
+`org.jboss.as.server.deployment.Phase`.
+
+[[structure]]
+STRUCTURE
+^^^^^^^^^
+
+The deployment unit processors in this phase determine the structure of
+a deployment, and looks for sub deployments and metadata files.
+
+[[parse]]
+PARSE
+^^^^^
+
+In this phase the deployment unit processors parse the deployment
+descriptors and build up the annotation index. `Class-Path` entries from
+the META-INF/MANIFEST.MF are added.
+
+[[dependencies]]
+DEPENDENCIES
+^^^^^^^^^^^^
+
+Extra class path dependencies are added. For example if deploying a
+`war` file, the commonly needed dependencies for a web application are
+added.
+
+[[configure_module]]
+CONFIGURE_MODULE
+^^^^^^^^^^^^^^^^
+
+In this phase the modular class loader for the deployment is created. No
+attempt should be made loading classes from the deployment until *after*
+this phase.
+
+[[post_module]]
+POST_MODULE
+^^^^^^^^^^^
+
+Now that our class loader has been constructed we have access to the
+classes. In this stage deployment processors may use the
+`Attachments.REFLECTION_INDEX` attachment which is a deployment index
+used to obtain members of classes in the deployment, and to invoke upon
+them, bypassing the inefficiencies of using `java.lang.reflect`
+directly.
+
+[[install]]
+INSTALL
+^^^^^^^
+
+Install new services coming from the deployment.
+
+[[cleanup]]
+CLEANUP
+^^^^^^^
+
+Attachments put in place earlier in the deployment unit processor chain
+may be removed here.

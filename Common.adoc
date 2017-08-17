@@ -1,0 +1,6 @@
+Common - Latest WildFly Documentation
+=====================================
+
+[[common]]
+Common
+------

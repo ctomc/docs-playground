@@ -1,0 +1,10 @@
+Deploying the Kitchensink example using Eclipse - Latest WildFly
+Documentation
+==============================================================================
+
+[[deploying-the-kitchensink-example-using-eclipse]]
+Deploying the Kitchensink example using Eclipse
+-----------------------------------------------
+
+This page has moved to
+http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/KitchensinkQuickstart/#_deploying_the_kitchensink_quickstart_using_jboss_developer_studio_or_eclipse_with_jboss_tools

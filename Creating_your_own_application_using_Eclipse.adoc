@@ -1,0 +1,10 @@
+Creating your own application using Eclipse - Latest WildFly
+Documentation
+==========================================================================
+
+[[creating-your-own-application-using-eclipse]]
+Creating your own application using Eclipse
+-------------------------------------------
+
+This page has moved to
+http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Archetype/

@@ -1,0 +1,9 @@
+Deploying the Login example using Eclipse - Latest WildFly Documentation
+========================================================================
+
+[[deploying-the-login-example-using-eclipse]]
+Deploying the Login example using Eclipse
+-----------------------------------------
+
+This page has moved to
+http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/GreeterQuickstart/

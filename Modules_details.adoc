@@ -1,0 +1,53 @@
+Integration tests - Latest WildFly Documentation
+================================================
+
+[[integration-tests]]
+Integration tests
+-----------------
+
+[[smoke--dts.smoke--dts.nosmoke]]
+Smoke           -Dts.smoke, -Dts.noSmoke
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Contains smoke tests.
+
+Runs by default;  use -Dts.noSmoke to prevent running.
+
+Tests should execute quickly.
+
+Divided into two Surefire executions:
+
+* One with full profile
+* Second with web profile (majority of tests).
+
+[[basic--dts.basic]]
+Basic             -Dts.basic
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Basic integration tests - those which do not need special configuration
+like cluster.
+
+Divided into three Surefire executions:
+
+* One with full profile,
+* Second with web profile (majority of tests).
+* Third with web profile, but needs to be run after server restart to
+check whether persistent data are really persisted.
+
+[[cluster--dts.clust]]
+Cluster          -Dts.clust
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sets up a cluster of two nodes.
+
+[[iiop--dts.iiop]]
+IIOP                -Dts.iiop
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[xts--dts.xts]]
+XTS                -Dts.XTS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[[multinode--dts.multinode]]
+Multinode      -Dts.multinode
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

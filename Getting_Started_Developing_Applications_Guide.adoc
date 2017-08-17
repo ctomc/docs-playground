@@ -1,0 +1,10 @@
+Getting Started Developing Applications Guide - Latest WildFly
+Documentation
+============================================================================
+
+[[getting-started-developing-applications-guide]]
+Getting Started Developing Applications Guide
+---------------------------------------------
+
+This guide has moved to
+https://github.com/wildfly/quickstart/blob/10.x/guide/Introduction.asciidoc

@@ -1,0 +1,515 @@
+Handlers - Latest WildFly Documentation
+=======================================
+
+[[handlers]]
+Handlers
+--------
+
+WIP
+
+This is still a work in progress. Please feel free to edit any mistakes
+you find
+image:images/author/images/icons/emoticons/smile.gif[images/author/images/icons/emoticons/smile.gif]
+.
+
+[[overview]]
+Overview
+~~~~~~~~
+
+Handlers are used to determine what happens with a log message if the
+link:Loggers.html#108626033_Loggers-Logger[logger] determines the
+message is loggable.
+
+There are 6 main handlers provided with WildFly and 1 generic handler;
+
+* link:Handlers.html#108626034_Handlers-asynchandler[async-handler]
+* link:Handlers.html#108626034_Handlers-consolehandler[console-handler]
+* link:Handlers.html#108626034_Handlers-filehandler[file-handler]
+* link:Handlers.html#108626034_Handlers-periodicrotatingfilehandler[periodic-rotating-file-handler]
+* link:Handlers.html#108626034_Handlers-sizerotatingfilehandler[size-rotating-file-handler]
+* link:Handlers.html#108626034_Handlers-sysloghandler[syslog-handler]
+* link:Handlers.html#108626034_Handlers-customhandler[custom-handler]
+
+[[async-handler]]
+async-handler
+^^^^^^^^^^^^^
+
+An `async-handler` is a handler that asynchronously writes log messages
+to it's child handlers. This type of handler is generally used for other
+handlers that take a substantial time to write logged messages.
+
+[[attributes]]
+Attributes
+++++++++++
+
+* link:Handlers.html#108626034_Handlers-enabled[enabled]
+* link:Handlers.html#108626034_Handlers-filterspec[filter-spec]
+* link:Handlers.html#108626034_Handlers-level[level]
+* link:Handlers.html#108626034_Handlers-overflowaction[overflow-action]
+* link:Handlers.html#108626034_Handlers-queuelength[queue-length]
+* link:Handlers.html#108626034_Handlers-subhandlers[subhandlers]
+
+[[console-handler]]
+console-handler
+^^^^^^^^^^^^^^^
+
+A `console-handler` is a handler that writes log messages to the
+console. Generally this writes to `stdout`, but can be set to write to
+`stderr`.
+
+[[attributes-1]]
+Attributes
+++++++++++
+
+* link:Handlers.html#108626034_Handlers-autoflush[autoflush]
+* link:Handlers.html#108626034_Handlers-enabled[enabled]
+* link:Handlers.html#108626034_Handlers-encoding[encoding]
+* link:Handlers.html#108626034_Handlers-filterspec[filter-spec]
+* link:Handlers.html#108626034_Handlers-formatter[formatter]
+* link:Handlers.html#108626034_Handlers-level[level]
+* link:Handlers.html#108626034_Handlers-namedformatter[named-formatter]
+* link:Handlers.html#108626034_Handlers-target[target]
+
+[[file-handler]]
+file-handler
+^^^^^^^^^^^^
+
+A `file-handler` is a handler that writes log messages to the specified
+file.
+
+[[attributes-2]]
+Attributes
+++++++++++
+
+* link:Handlers.html#108626034_Handlers-autoflush[autoflush]
+* link:Handlers.html#108626034_Handlers-enabled[enabled]
+* link:Handlers.html#108626034_Handlers-encoding[encoding]
+* link:Handlers.html#108626034_Handlers-filterspec[filter-spec]
+* link:Handlers.html#108626034_Handlers-formatter[formatter]
+* link:Handlers.html#108626034_Handlers-level[level]
+* link:Handlers.html#108626034_Handlers-namedformatter[named-formatter]
+* link:Handlers.html#108626034_Handlers-file[file]
+
+[[periodic-rotating-file-handler]]
+periodic-rotating-file-handler
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A `periodic-rotating-file-handler` is a handler that writes log messages
+to the specified file. The file rotates on the date pattern specified in
+the link:Handlers.html#108626034_Handlers-suffix[suffix] attribute. The
+suffix must be a valid pattern recognized by the
+http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[`java.text.SimpleDateFormat`]
+and must not rotate on seconds or milliseconds.
+
+The rotate happens before the next message is written by the handler.
+
+[[attributes-3]]
+Attributes
+++++++++++
+
+* link:Handlers.html#108626034_Handlers-autoflush[autoflush]
+* link:Handlers.html#108626034_Handlers-enabled[enabled]
+* link:Handlers.html#108626034_Handlers-encoding[encoding]
+* link:Handlers.html#108626034_Handlers-filterspec[filter-spec]
+* link:Handlers.html#108626034_Handlers-formatter[formatter]
+* link:Handlers.html#108626034_Handlers-level[level]
+* link:Handlers.html#108626034_Handlers-namedformatter[named-formatter]
+* link:Handlers.html#108626034_Handlers-file[file]
+* link:Handlers.html#108626034_Handlers-suffix[suffix]
+
+[[size-rotating-file-handler]]
+size-rotating-file-handler
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A `size-rotating-file-handler` is a handler that writes log messages to
+the specified file. The file rotates when the file size is greater than
+the link:Handlers.html#108626034_Handlers-rotatesize[rotate-size]
+attribute. The rotated file will be kept and the index appended to the
+name moving previously rotated file indexes up by 1 until the
+link:Handlers.html#108626034_Handlers-maxbackupindex[max-backup-index]
+is reached. Once the
+link:Handlers.html#108626034_Handlers-maxbackupindex[max-backup-index]
+is reached, the indexed files will be overwritten.
+
+The rotate happens before the next message is written by the handler.
+
+[[attributes-4]]
+Attributes
+++++++++++
+
+* link:Handlers.html#108626034_Handlers-autoflush[autoflush]
+* link:Handlers.html#108626034_Handlers-enabled[enabled]
+* link:Handlers.html#108626034_Handlers-encoding[encoding]
+* link:Handlers.html#108626034_Handlers-filterspec[filter-spec]
+* link:Handlers.html#108626034_Handlers-formatter[formatter]
+* link:Handlers.html#108626034_Handlers-level[level]
+* link:Handlers.html#108626034_Handlers-namedformatter[named-formatter]
+* link:Handlers.html#108626034_Handlers-file[file]
+* link:Handlers.html#108626034_Handlers-maxbackupindex[max-backup-index]
+* link:Handlers.html#108626034_Handlers-rotatesize[rotate-size]
+* link:Handlers.html#108626034_Handlers-rotateonboot[rotate-on-boot]
+
+[[syslog-handler]]
+syslog-handler
+^^^^^^^^^^^^^^
+
+A `syslog-handler` is a handler that writes to a syslog server. The
+handler support http://www.ietf.org/rfc/rfc3164.txt[RFC3164] or
+http://www.ietf.org/rfc/rfc5424.txt[RFC5424] formats.
+
+[[attributes-5]]
+Attributes
+++++++++++
+
+* link:Handlers.html#108626034_Handlers-port[port]
+* link:Handlers.html#108626034_Handlers-appname[app-name]
+* link:Handlers.html#108626034_Handlers-enabled[enabled]
+* link:Handlers.html#108626034_Handlers-level[level]
+* link:Handlers.html#108626034_Handlers-facility[facility]
+* link:Handlers.html#108626034_Handlers-serveraddress[server-address]
+* link:Handlers.html#108626034_Handlers-hostname[hostname]
+* link:Handlers.html#108626034_Handlers-syslogformat[syslog-format]
+
+The syslog-handler is missing some configuration properties that may be
+useful in some scenarios like setting a formatter. Use the
+`org.jboss.logmanager.handlers.SyslogHandler` in module
+`org.jboss.logmanager` as a
+link:Handlers.html#108626034_Handlers-customhandler[custom-handler] to
+exploit these benefits. Additional attributes will be added at some
+point so this will no longer be necessary.
+
+[[custom-handler]]
+custom-handler
+^^^^^^^^^^^^^^
+
+[[attributes-6]]
+Attributes
+^^^^^^^^^^
+
+[[autoflush]]
+autoflush
++++++++++
+
+Description:
+
+Indicates whether a flush should happen after each write.
+
+Type:
+
+boolean
+
+Default Value:
+
+true
+
+Allowed Values:
+
+true or false
+
+[[enabled]]
+enabled
++++++++
+
+Description:
+
+If set to true the handler is enabled and functioning as normal, if set
+to false the handler is ignored when processing log messages.
+
+Type:
+
+boolean
+
+Default Value:
+
+true
+
+Allowed Values:
+
+true or false
+
+[[encoding]]
+encoding
+++++++++
+
+Description:
+
+The character encoding used by this Handler.
+
+Type:
+
+string
+
+Default Value:
+
+null
+
+Allowed Values:
+
+Any valid encoding
+
+[[file]]
+file
+++++
+
+Description:
+
+An object describing the file the handler should write to.
+
+Type:
+
+object
+
+Default Value:
+
+null
+
+Allowed Values:
+
+An object optionally containing a relative-to property and a path. The
+path is a required property of the object.
+
+[[named-formatter]]
+named-formatter
++++++++++++++++
+
+Description:
+
+The name of a defined formatter to be used on the handler.
+
+Type:
+
+string
+
+Default Value:
+
+null
+
+Allowed Values:
+
+TODO add link
+
+[[formatter]]
+formatter
++++++++++
+
+Description:
+
+Defines a pattern for a pattern formatter.
+
+Type:
+
+string
+
+Default Value:
+
+%d\{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n
+
+Allowed Values:
+
+TODO add link
+
+[[filter-spec]]
+filter-spec
++++++++++++
+
+Description:
+
+A filter expression value to define a filter.
+
+Type:
+
+string
+
+Default Value:
+
+null
+
+Allowed Values:
+
+See Filter Expression
+
+[[level]]
+level
++++++
+
+Description :
+
+The log level specifying which message levels will be logged by this
+logger. Message levels lower than this value will be discarded.
+
+Type:
+
+string
+
+Default Value:
+
+ALL
+
+Allowed Values:
+
+ALL FINEST FINER TRACE DEBUG FINE CONFIG INFO WARN WARNING ERROR SEVERE
+FATAL OFF
+
+[[backup-index]]
+backup-index
+++++++++++++
+
+Description:
+
+The maximum number of rotated files to keep.
+
+Type:
+
+integer
+
+Default Value:
+
+1
+
+Allowed Values:
+
+any integer greater than 0
+
+[[overflow-action]]
+overflow-action
++++++++++++++++
+
+Description:
+
+Specify what action to take when the overflowing.
+
+Type:
+
+string
+
+Default Value:
+
+BLOCK
+
+Allowed Values:
+
+BLOCK or DISCARD
+
+[[queue-length]]
+queue-length
+++++++++++++
+
+Description:
+
+The queue length to use before flushing writing
+
+Type:
+
+integer
+
+Default Value:
+
+0
+
+Allowed Values:
+
+any positive integer
+
+[[rotate-on-boot]]
+rotate-on-boot
+++++++++++++++
+
+Description:
+
+Indicates whether or not the file should be rotated each time the file
+attribute is changed. If set to true will rotate on each boot of the
+server.
+
+Type:
+
+boolean
+
+Default Value:
+
+false
+
+Allowed Values:
+
+true or false
+
+[[rotate-size]]
+rotate-size
++++++++++++
+
+Description:
+
+The size at which the file should be rotated.
+
+Type:
+
+string
+
+Default Value:
+
+2m
+
+Allowed Values:
+
+Any positive integer with a size type appended to the end. Valid types
+are b for bytes, k for kilobytes, m for megabytes, g for gigabytes or t
+for terabytes. Type character is not case sensitive.
+
+[[subhandlers]]
+subhandlers
++++++++++++
+
+Description:
+
+The handlers to associate with the async handler
+
+Type:
+
+list of strings
+
+Default Value:
+
+null
+
+Allowed Values:
+
+An array of valid handler names
+
+[[suffix]]
+suffix
+++++++
+
+Description:
+
+The pattern used to determine when the file should be rotated.
+
+Type:
+
+string
+
+Default Value:
+
+null
+
+Allowed Values:
+
+Any valid java.text.SimpleDateFormat pattern.
+
+[[target]]
+target
+++++++
+
+Description:
+
+Defines the target of the console handler.
+
+Type:
+
+string
+
+Default Value:
+
+System.out
+
+Allowed Values:
+
+System.out or System.err

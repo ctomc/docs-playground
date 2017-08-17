@@ -1,0 +1,146 @@
+Expressions - Latest WildFly Documentation
+==========================================
+
+[[expressions]]
+Expressions
+-----------
+
+Expressions are mechanism that enables you to support variables in your
+attributes, for instance when you want the value of attribute to be
+resolved using system / environment properties.
+
+An example expression is
+
+[source,java]
+----
+${jboss.bind.address.management:127.0.0.1}
+----
+
+which means that the value should be taken from a system property named
+`jboss.bind.address.management` and if it is not defined use
+`127.0.0.1`.
+
+[[what-expression-types-are-supported]]
+What expression types are supported
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* System properties, which are resolved using
+`java.lang.System.getProperty(String key)`
+* Environment properties, which are resolved using
+`java.lang.System.getEnv(String name)`.
+* Security vault expressions, resolved against the security vault
+configured for the server or Host Controller that needs to resolve the
+expression.
+
+In all cases, the syntax for the expression is
+
+[source,java]
+----
+${expression_to_resolve}
+----
+
+For an expression meant to be resolved against environment properties,
+the `expression_to_resolve` must be prefixed with `env.`. The portion
+after `env.` will be the name passed to
+`java.lang.System.getEnv(String name)`.
+
+Security vault expressions do not support default values (i.e. the
+`127.0.0.1` in the `jboss.bind.address.management:127.0.0.1` example
+above.)
+
+[[how-to-support-expressions-in-subsystems]]
+How to support expressions in subsystems
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The easiest way is by using AttributeDefinition, which provides support
+for expressions just by using it correctly.
+
+When we create an AttributeDefinition all we need to do is mark that is
+allows expressions. Here is an example how to define an attribute that
+allows expressions to be used.
+
+[source,java]
+----
+SimpleAttributeDefinition MY_ATTRIBUTE =
+            new SimpleAttributeDefinitionBuilder("my-attribute", ModelType.INT, true)
+                    .setAllowExpression(true)
+                    .setFlags(AttributeAccess.Flag.RESTART_ALL_SERVICES)
+                    .setDefaultValue(new ModelNode(1))
+                    .build();
+----
+
+Then later when you are parsing the xml configuration you should use the
+MY_ATTRIBUTE attribute definition to set the value to the management
+operation ModelNode you are creating.
+
+[source,java]
+----
+....
+      String attr = reader.getAttributeLocalName(i);
+      String value = reader.getAttributeValue(i);
+      if (attr.equals("my-attribute")) {
+          MY_ATTRIBUTE.parseAndSetParameter(value, operation, reader);
+      } else if (attr.equals("suffix")) {
+.....
+----
+
+Note that this just helps you to properly set the value to the model
+node you are working on, so no need to additionally set anything to the
+model for this attribute. Method parseAndSetParameter parses the value
+that was read from xml for possible expressions in it and if it finds
+any it creates special model node that defines that node is of type
+`ModelType.EXPRESSION`.
+
+Later in your operation handlers where you implement populateModel and
+have to store the value from the operation to the configuration model
+you also use this MY_ATTRIBUTE attribute definition.
+
+[source,java]
+----
+ @Override
+ protected void populateModel(ModelNode operation, ModelNode model) throws OperationFailedException {
+        MY_ATTRIBUTE.validateAndSet(operation,model);
+ }
+----
+
+This will make sure that the attribute that is stored from the operation
+to the model is valid and nothing is lost. It also checks the value
+stored in the operation `ModelNode`, and if it isn't already
+`ModelType.EXPRESSION`, it checks if the value is a string that contains
+the expression syntax. If so, the value stored in the model will be of
+type `ModelType.EXPRESSION`. Doing this ensures that expressions are
+properly handled when they appear in operations that weren't created by
+the subsystem parser, but are instead passed in from CLI or admin
+console users.
+
+As last step we need to use the value of the attribute. This is usually
+needed inside of the `performRuntime` method
+
+[source,java]
+----
+ protected void performRuntime(OperationContext context, ModelNode operation, ModelNode model, ServiceVerificationHandler verificationHandler, List<ServiceController<?>> newControllers) throws OperationFailedException {
+       ....
+        final int attributeValue = MY_ATTRIBUTE.resolveModelAttribute(context, model).asInt();     
+        ...
+
+    }
+----
+
+As you can see resolving of attribute's value is not done until it is
+needed for use in the subsystem's runtime services. The resolved value
+is not stored in the configuration model, the unresolved expression is.
+That way we do not lose any information in the model and can assure that
+also marshalling is done properly, where we must marshall back the
+unresolved value.
+
+Attribute definitinon also helps you with that:
+
+[source,java]
+----
+ public void writeContent(XMLExtendedStreamWriter writer, SubsystemMarshallingContext context) throws XMLStreamException {
+    ....
+      MY_ATTRIBUTE.marshallAsAttribute(sessionData, writer);
+      MY_OTHER_ATTRIBUTE.marshallAsElement(sessionData, false, writer);
+    ...
+}
+----

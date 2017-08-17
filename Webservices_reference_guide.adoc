@@ -1,0 +1,42 @@
+Webservices reference guide - Latest WildFly Documentation
+==========================================================
+
+[[webservices-reference-guide]]
+Webservices reference guide
+---------------------------
+
+The Web Services functionalities of WildFly are provided by the JBossWS
+project integration.
+
+The latest project documentation is available
+https://docs.jboss.org/author/display/JBWS[here].
+
+This section covers the most relevant topics for the JBossWS version
+available on WildFly 9.
+
+* link:JAX-WS_User_Guide.html[JAX-WS User Guide]
+* link:JAX-WS_Tools.html[JAX-WS Tools]
+** link:wsconsume.html[wsconsume]
+** link:wsprovide.html[wsprovide]
+* link:Advanced_User_Guide.html[Advanced User Guide]
+** link:Predefined_client_and_endpoint_configurations.html[Predefined
+client and endpoint configurations]
+** link:Authentication.html[Authentication]
+** link:Apache_CXF_integration.html[Apache CXF integration]
+** link:WS-Addressing.html[WS-Addressing]
+** link:WS-Security.html[WS-Security]
+** link:WS-Trust_and_STS.html[WS-Trust and STS]
+*** link:ActAs_WS-Trust_Scenario.html[ActAs WS-Trust Scenario]
+*** link:OnBehalfOf_WS-Trust_Scenario.html[OnBehalfOf WS-Trust Scenario]
+*** link:SAML_Bearer_Assertion_Scenario.html[SAML Bearer Assertion
+Scenario]
+*** link:SAML_Holder-Of-Key_Assertion_Scenario.html[SAML Holder-Of-Key
+Assertion Scenario]
+** link:WS-Reliable_Messaging.html[WS-Reliable Messaging]
+** link:SOAP_over_JMS.html[SOAP over JMS]
+** link:HTTP_Proxy.html[HTTP Proxy]
+** link:WS-Discovery.html[WS-Discovery]
+** link:WS-Policy.html[WS-Policy]
+** link:Published_WSDL_customization.html[Published WSDL customization]
+* link:JBoss_Modules_and_WS_applications.html[JBoss Modules and WS
+applications]

@@ -1,0 +1,10 @@
+Java Transaction API (JTA) - Latest WildFly Documentation
+=========================================================
+
+[[java-transaction-api-jta]]
+Java Transaction API (JTA)
+--------------------------
+
+Coming Soon
+
+This guide is still under development, check back soon!

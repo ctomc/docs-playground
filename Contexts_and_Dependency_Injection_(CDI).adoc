@@ -1,0 +1,6 @@
+Contexts and Dependency Injection (CDI) - Latest WildFly Documentation
+======================================================================
+
+[[contexts-and-dependency-injection-cdi]]
+Contexts and Dependency Injection (CDI)
+---------------------------------------

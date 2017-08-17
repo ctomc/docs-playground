@@ -1,0 +1,11 @@
+EJB Timer - Latest WildFly Documentation
+========================================
+
+[[ejb-timer]]
+EJB Timer
+---------
+
+Wildfly now supports clustered database backed timers. For details have
+a look to the
+https://docs.jboss.org/author/display/WFLY/EJB3+Clustered+Database+Timers[EJB3
+reference section]

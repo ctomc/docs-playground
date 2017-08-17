@@ -1,0 +1,9 @@
+The numberguess example in depth - Latest WildFly Documentation
+===============================================================
+
+[[the-numberguess-example-in-depth]]
+The numberguess example in depth
+--------------------------------
+
+This page has moved to
+http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/NumberguessQuickstart/#_the_numberguess_quickstart_in_depth

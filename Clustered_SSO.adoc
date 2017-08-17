@@ -1,0 +1,6 @@
+Clustered SSO - Latest WildFly Documentation
+============================================
+
+[[clustered-sso]]
+Clustered SSO
+-------------

@@ -1,0 +1,6 @@
+JavaEE Connector Architecture (JCA) - Latest WildFly Documentation
+==================================================================
+
+[[javaee-connector-architecture-jca]]
+JavaEE Connector Architecture (JCA)
+-----------------------------------
