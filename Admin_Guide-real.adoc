@@ -26,7 +26,7 @@ include::Core_management_concepts.adoc[]
 
 include::Interfaces_and_ports.adoc[]
 
-= Administrative security
+== Administrative security
 
 include::Security_Realms.adoc[]
 
