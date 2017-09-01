@@ -1,9 +1,5 @@
-Kitchensink quickstart - Latest WildFly Documentation
-=====================================================
-
-[[kitchensink-quickstart]]
 Kitchensink quickstart
-----------------------
+======================
 
 This page has moved to
 https://github.com/wildfly/quickstart/blob/10.x/guide/KitchensinkQuickstart.asciidoc

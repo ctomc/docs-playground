@@ -1,25 +1,20 @@
-Singleton subsystem - Latest WildFly Documentation
-==================================================
-
-[[singleton-subsystem]]
 Singleton subsystem
--------------------
+===================
 
-WildFly 10 introduces a “singleton” subsystem, which defines a set of
+WildFly 10 introduces a "singleton" subsystem, which defines a set of
 policies that define how an HA singleton should behave. A singleton
 policy can be used to instrument singleton deployments or to create
 singleton MSC services.
 
 [[configuration]]
-Configuration
-~~~~~~~~~~~~~
+= Configuration
 
 The
 https://github.com/wildfly/wildfly/blob/10.0.0.Final/clustering/singleton/extension/src/main/resources/schema/wildfly-singleton_1_0.xsd[default
-subsystem configuration] from WildFly’s ha and full-ha profile looks
+subsystem configuration] from WildFly's ha and full-ha profile looks
 like:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <subsystem xmlns="urn:jboss:domain:singleton:1.0">
     <singleton-policies default="default">
@@ -47,8 +42,7 @@ operation:
 ----
 
 [[cache-configuration]]
-Cache configuration
-^^^^^^^^^^^^^^^^^^^
+== Cache configuration
 
 The cache-container and cache attributes of a singleton policy must
 reference a valid cache from the Infinispan subsystem. If no specific
@@ -57,8 +51,7 @@ This cache is used as a registry of which nodes can provide a given
 service and will typically use a replicated-cache configuration.
 
 [[election-policies]]
-Election policies
-^^^^^^^^^^^^^^^^^
+== Election policies
 
 WildFly 10 includes 2 singleton election policy implementations:
 
@@ -74,6 +67,7 @@ e.g.
 ----
 /subsystem=singleton/singleton-policy=foo/election-policy=simple:add(position=-1)
 ----
+
 * *random* +
 Elects a random member to be the provider of a singleton service +
 e.g.
@@ -84,8 +78,7 @@ e.g.
 ----
 
 [[preferences]]
-Preferences
-+++++++++++
+=== Preferences
 
 Additionally, any singleton election policy may indicate a preference
 for one or more members of a cluster. Preferences may be defined either
@@ -100,8 +93,7 @@ e.g.
 ----
 
 [[quorum]]
-Quorum
-^^^^^^
+== Quorum
 
 Network partitions are particularly problematic for singleton services,
 since they can trigger multiple singleton providers for the same service
@@ -118,9 +110,8 @@ e.g.
 /subsystem=singleton/singleton-policy=foo:write-attribute(name=quorum, value=3)
 ----
 
-[[ha-environments]]
-HA environments
-~~~~~~~~~~~~~~~
+[[non-ha-environments]]
+= Non-HA environments
 
 The singleton subsystem can be used in a non-HA profile, so long as the
 cache that it references uses a local-cache configuration. In this

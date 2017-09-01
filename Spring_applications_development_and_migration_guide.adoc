@@ -1,23 +1,17 @@
-Spring applications development and migration guide - Latest WildFly
-Documentation
-==================================================================================
-
-[[spring-applications-development-and-migration-guide]]
 Spring applications development and migration guide
----------------------------------------------------
+===================================================
 
 This document details the main points that need to be considered by
 Spring developers that wish to develop new applications or to migrate
 existing applications to be run into WildFly 8.
 
 [[dependencies-and-modularity]]
-Dependencies and Modularity
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Dependencies and Modularity
 
-WildFly 8 has a modular class loading strategy, different from previous
+WildFly 8 has a modular class loading strategy, different from previous
 versions of JBoss AS, which enforces a better class loading isolation
 between deployments and the application server itself. A detailed
-description can be found in the documentation dedicated to 
+description can be found in the documentation dedicated to
 https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7[class
 loading in WildFly 8].
 
@@ -25,16 +19,15 @@ This reduces significantly the risk of running into a class loading
 conflict and allows applications to package their own dependencies if
 they choose to do so. This makes it easier for Spring applications that
 package their own dependencies - such as logging frameworks or
-persistence providers to run on WildFly 8. 
+persistence providers to run on WildFly 8.
 
 At the same time, this does not mean that duplications and conflicts
 cannot exist on the classpath. Some module dependencies are implicit,
-depending on the type of deployment as shown 
-https://docs.jboss.org/author/display/AS7/Implicit+module+dependencies+for+deployments[here]. 
+depending on the type of deployment as shown
+https://docs.jboss.org/author/display/AS7/Implicit+module+dependencies+for+deployments[here].
 
 [[persistence-usage-guide]]
-Persistence usage guide
-~~~~~~~~~~~~~~~~~~~~~~~
+= Persistence usage guide
 
 Depending on the strategy being used, Spring applications can be:
 
@@ -43,21 +36,19 @@ Depending on the strategy being used, Spring applications can be:
 * native JDBC applications;
 
 [[native-springhibernate-applications]]
-Native Spring/Hibernate applications
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Native Spring/Hibernate applications
 
 Applications that use the Hibernate API directly with Spring (i.e.
 through either one of LocalSessionFactoryBean or
 AnnotationSessionFactoryBean) may use a version of Hibernate 3 packaged
 inside the application. Hibernate 4 (which is provided through the
 'org.hibernate' module of WildFly 8) is not supported by Spring 3.0 and
-Spring 3.1 (and may be supported by Spring 3.2 as described in 
+Spring 3.1 (and may be supported by Spring 3.2 as described in
 https://jira.springsource.org/browse/SPR-8096[SPR-8096]), so adding this
 module as a dependency is not a solution.
 
-[[based-applications]]
-based applications
-~~~~~~~~~~~~~~~~~~
+[[jpa-based-applications]]
+= JPA-based applications
 
 Spring applications using JPA may choose between:
 
@@ -65,14 +56,13 @@ Spring applications using JPA may choose between:
 * using a Spring-managed persistence unit.
 
 [[using-server-deployed-persistence-units]]
-Using server-deployed persistence units
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Using server-deployed persistence units
 
 Applications that use a server-deployed persistence unit must observe
-the typical Java EE rules in what concerns dependency management,
-i.e. the javax.persistence classes and persistence provider (Hibernate)
-are contained in modules which are added automatically by the
-application when the persistence unit is deployed.
+the typical Java EE rules in what concerns dependency management, i.e.
+the javax.persistence classes and persistence provider (Hibernate) are
+contained in modules which are added automatically by the application
+when the persistence unit is deployed.
 
 In order to use the server-deployed persistence units from within
 Spring, either the persistence context or the persistence unit need to
@@ -115,20 +105,20 @@ or
 
 JNDI binding
 
-JNDI binding via persistence.xml properties is not supported in WildFly
+[IMPORTANT]
+
+JNDI binding via persistence.xml properties is not supported in WildFly
 8.
 
 [[using-spring-managed-persistence-units]]
-Using Spring-managed persistence units
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Using Spring-managed persistence units
 
-Spring applications running in WildFly 8 may also create persistence
+Spring applications running in WildFly 8 may also create persistence
 units on their own, using the LocalContainerEntityManagerFactoryBean.
 This is what these applications need to consider:
 
 [[placement-of-the-persistence-unit-definitions]]
-Placement of the persistence unit definitions
-+++++++++++++++++++++++++++++++++++++++++++++
+=== Placement of the persistence unit definitions
 
 When the application server encounters a deployment that has a file
 named META-INF/persistence.xml (or, for that matter,
@@ -159,8 +149,7 @@ META-INF/jpa-persistence.xml, the corresponding definition can be:
 ----
 
 [[managing-dependencies]]
-Managing dependencies
-^^^^^^^^^^^^^^^^^^^^^
+== Managing dependencies
 
 Since the LocalContainerEntityManagerFactoryBean and the corresponding
 HibernateJpaVendorAdapter are based on Hibernate 3, it is required to

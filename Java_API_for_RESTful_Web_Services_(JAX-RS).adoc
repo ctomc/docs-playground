@@ -1,18 +1,11 @@
-Java API for RESTful Web Services (JAX-RS) - Latest WildFly
-Documentation
-=========================================================================
-
-[[java-api-for-restful-web-services-jax-rs]]
 Java API for RESTful Web Services (JAX-RS)
-------------------------------------------
+==========================================
 
 [[content]]
-Content
-~~~~~~~
+= Content
 
 [[tutorial-overview]]
-Tutorial Overview
-~~~~~~~~~~~~~~~~~
+= Tutorial Overview
 
 This chapter describes the Java API for RESTful web services (JAX-RS,
 defined in http://jcp.org/en/jsr/detail?id=311[JSR331]).
@@ -47,10 +40,11 @@ The following topics are addressed
 * RESTEasy client running on an Android mobile device
 
 [[what-are-restful-web-services]]
-What are RESTful Web Services?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= What are RESTful Web Services?
 
 Coming Soon
+
+[IMPORTANT]
 
 This section is still under development.
 
@@ -73,7 +67,7 @@ The following is a summary of RESTful design principles:
 access the resource using the URL.
 * Create, Read, Update, and Delete (CRUD) operations are accessed via
 `PUT`, `GET`, `POST`, and `DELETE` requests in the HTTP protocol.
-** `PUT` creates a new resource. 
+** `PUT` creates a new resource.
 ** `DELETE` deletes a resource.
 ** `GET` retrieves the current state of a resource.
 ** `POST` updates a resources's state.
@@ -84,8 +78,7 @@ URL rewriting, cookies, and hidden form fields. State can also be
 embedded in response messages.
 
 [[creating-a-restful-endpoint]]
-Creating a RESTful endpoint
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Creating a RESTful endpoint
 
 A RESTful endpoint is deployed as JavaEE web archive (WAR). For this
 tutorial we use a simple library application to manage some books. There
@@ -100,10 +93,10 @@ a simple Java representation of a RESTful entity.
 [source,java]
 ----
 public class Book {
-
+ 
     private String isbn;
     private String title;
-
+ 
     ...
 }
 ----
@@ -121,31 +114,31 @@ JAX-RS annotations to define
 @Consumes({ "application/json" })
 @Produces({ "application/json" })
 public class Library {
-
+ 
     @GET
     @Path("/books")
     public Collection<Book> getBooks() {
     ...
     }
-
+ 
     @GET
     @Path("/book/{isbn}")
     public Book getBook(@PathParam("isbn") String id) {
     ...
     }
-
+ 
     @PUT
     @Path("/book/{isbn}")
     public Book addBook(@PathParam("isbn") String id, @QueryParam("title") String title) {
     ...
     }
-
+ 
     @POST
     @Path("/book/{isbn}")
     public Book updateBook(@PathParam("isbn") String id, String title) {
     ...
     }
-
+ 
     @DELETE
     @Path("/book/{isbn}")
     public Book removeBook(@PathParam("isbn") String id) {
@@ -156,57 +149,48 @@ public class Library {
 
 The Library root resource uses these JAX-RS annotations:
 
-Annotation
+[cols=",",]
+|=======================================================================
+|Annotation |Description
 
-Description
+|@Path |Identifies the URI path that a resource class or class method
+will serve requests for
 
-@Path
+|@Consumes |Defines the media types that the methods of a resource class
+can accept
 
-Identifies the URI path that a resource class or class method will serve
-requests for
+|@Produces |Defines the media type(s) that the methods of a resource
+class can produce
 
-@Consumes
+|@GET |Indicates that the annotated method responds to HTTP GET requests
 
-Defines the media types that the methods of a resource class can accept
+|@PUT |Indicates that the annotated method responds to HTTP PUT requests
 
-@Produces
+|@POST |Indicates that the annotated method responds to HTTP POST
+requests
 
-Defines the media type(s) that the methods of a resource class can
-produce
-
-@GET
-
-Indicates that the annotated method responds to HTTP GET requests
-
-@PUT
-
-Indicates that the annotated method responds to HTTP PUT requests
-
-@POST
-
-Indicates that the annotated method responds to HTTP POST requests
-
-@DELETE
-
-Indicates that the annotated method responds to HTTP DELETE requests
+|@DELETE |Indicates that the annotated method responds to HTTP DELETE
+requests
+|=======================================================================
 
 For a full description of the available JAX-RS annotations, see the
 http://download.oracle.com/javaee/6/api/javax/ws/rs/package-summary.html[JAX-RS
 API] documentation.
 
 [[package-and-build-the-endpoint]]
-Package and build the endpoint
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Package and build the endpoint
 
 To package the endpoint we create a simple web archive and include a
 web.xml with the following content
 
 Review
 
+[IMPORTANT]
+
 https://issues.jboss.org/browse/AS7-1674[AS7-1674] Remove or explain why
 web.xml is needed for RESTful endpoints
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -220,7 +204,7 @@ web.xml is needed for RESTful endpoints
 
 The root context is defined in jboss-web.xml
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <jboss-web>
   <context-root>jaxrs-sample</context-root>
@@ -244,7 +228,7 @@ log output the deployment phase and JAX-RS endpoint invocations produce.
 ----
 $ git clone git://github.com/tdiesler/javaee-tutorial.git
 Cloning into javaee-tutorial...
-
+ 
 $ cd javaee-tutorial/jaxrs
 $ export JBOSS_HOME=~/workspace/jboss-as-7.0.1.Final
 $ mvn install
@@ -262,8 +246,7 @@ $ mvn install
 ----
 
 [[deploy-the-endpoint-to-openshift]]
-Deploy the endpoint to OpenShift
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Deploy the endpoint to OpenShift
 
 First we need to create a free
 https://openshift.redhat.com/app/express[OpenShift Express] account and
@@ -283,17 +266,17 @@ repository is configured that gives access to your deployed application.
 ----
 $ rhc-create-app -a tutorial -t jbossas-7.0
 Password:
-
+ 
 Attempting to create remote application space: tutorial
 Successfully created application: tutorial
 Now your new domain name is being propagated worldwide (this might take a minute)...
-
+ 
 Success!  Your application is now published here:
-
+ 
       http://tutorial-tdiesler.rhcloud.com/
-
+ 
 The remote repository is located here:
-
+ 
     ssh://79dcb9db5e134cccb9d1ba33e6089667@tutorial-tdiesler.rhcloud.com/~/git/tutorial.git/
 ----
 
@@ -307,7 +290,7 @@ remote: Counting objects: 24, done.
 remote: Compressing objects: 100% (14/14), done.
 remote: Total 24 (delta 0), reused 0 (delta 0)
 Receiving objects: 100% (24/24), 21.84 KiB, done.
-
+ 
 ls -1 tutorial
 deployments
 pom.xml
@@ -342,7 +325,7 @@ $ cd tutorial; git commit -a -m "Initial jaxrs endpoint deployment"
  delete mode 100644 src/main/webapp/images/jbosscorp_logo.png
  delete mode 100644 src/main/webapp/index.html
  delete mode 100644 src/main/webapp/snoop.jsp
-
+ 
 $ git push origin
 Counting objects: 6, done.
 ...
@@ -365,8 +348,7 @@ $ curl http://tutorial-tdiesler.rhcloud.com/jaxrs-sample/library/books
 ----
 
 [[building-the-mobile-client]]
-Building the mobile client
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Building the mobile client
 
 The source associated with this tutorial contains a fully working mobile
 client application for the Android framework. If not done so already
@@ -380,36 +362,36 @@ http://www.eclipse.org/downloads/packages/eclipse-classic-37/indigor[Eclipse].
 First, go to File|Import... and choose "Existing Maven Projects" to
 import the tutorial sources
 
-image:images/author/download/attachments/108626341/ImportExistingMavenProject.png[images/author/download/attachments/108626341/ImportExistingMavenProject.png]
+image:images/download/attachments/557124/ImportExistingMavenProject.png[images/download/attachments/557124/ImportExistingMavenProject.png]
 
 You project view should look like this
 
-image:images/author/download/attachments/108626341/ProjectExplorerA.png[images/author/download/attachments/108626341/ProjectExplorerA.png]
+image:images/download/attachments/557124/ProjectExplorerA.png[images/download/attachments/557124/ProjectExplorerA.png]
 
 Then go to File|New|Android Project and fill out the first wizard page
 like this
 
-image:images/author/download/attachments/108626341/NewAndroidProject.png[images/author/download/attachments/108626341/NewAndroidProject.png]
+image:images/download/attachments/557124/NewAndroidProject.png[images/download/attachments/557124/NewAndroidProject.png]
 
 Click Finish. Next, go to Project|Properties|Build Path|Libraries and
 add these external libraries to your android project.
 
-image:images/author/download/attachments/108626341/AndroidLibraries.png[images/author/download/attachments/108626341/AndroidLibraries.png]
+image:images/download/attachments/557124/AndroidLibraries.png[images/download/attachments/557124/AndroidLibraries.png]
 
 You final project view should look like this
 
-image:images/author/download/attachments/108626341/ProjectExplorerB.png[images/author/download/attachments/108626341/ProjectExplorerB.png]
+image:images/download/attachments/557124/ProjectExplorerB.png[images/download/attachments/557124/ProjectExplorerB.png]
 
 To run the application in the emulator, we need an Android Virtual
 Device (AVD). Go to Window|Android SDK and AVD Manager and create a new
 AVD like this
 
-image:images/author/download/attachments/108626341/CreateAVD_.png[images/author/download/attachments/108626341/CreateAVD_.png]
+image:images/download/attachments/557124/CreateAVD_.png[images/download/attachments/557124/CreateAVD_.png]
 
 Now go to Run|Configuration to create a new run configuration for the
 client app.
 
-image:images/author/download/attachments/108626341/RunConfiguration.png[images/author/download/attachments/108626341/RunConfiguration.png]
+image:images/download/attachments/557124/RunConfiguration.png[images/download/attachments/557124/RunConfiguration.png]
 
 Now you should be able to launch the application in the debugger. Right
 click on the javaee-tutorial-jaxrs-android project and select Debug
@@ -418,28 +400,28 @@ though a series of boot screens until it eventually displays the Android
 home screen. This will take a minute or two if you do this for the first
 time.
 
-image:images/author/download/attachments/108626341/2_2_HVGA_Initial.png[images/author/download/attachments/108626341/2_2_HVGA_Initial.png]
+image:images/download/attachments/557124/2_2_HVGA_Initial.png[images/download/attachments/557124/2_2_HVGA_Initial.png]
 
-image:images/author/download/attachments/108626341/2_2_HVGA_Next.png[images/author/download/attachments/108626341/2_2_HVGA_Next.png]
+image:images/download/attachments/557124/2_2_HVGA_Next.png[images/download/attachments/557124/2_2_HVGA_Next.png]
 
-image:images/author/download/attachments/108626341/2_2_HVGA_Final.png[images/author/download/attachments/108626341/2_2_HVGA_Final.png]
+image:images/download/attachments/557124/2_2_HVGA_Final.png[images/download/attachments/557124/2_2_HVGA_Final.png]
 
 When you unlock the home screen by dragging the little green lock to the
 right. You should see the the running JAX-RS client application.
 
-image:images/author/download/attachments/108626341/NoBooks.png[images/author/download/attachments/108626341/NoBooks.png]
+image:images/download/attachments/557124/NoBooks.png[images/download/attachments/557124/NoBooks.png]
 
 Finally, you need to configure the host that the client app connects to.
 This would be the same as you used above to curl the library list. In
 the emulator click Menu|Host Settings and enter the host address of your
 OpenShift application.
 
-image:images/author/download/attachments/108626341/HostSettings.png[images/author/download/attachments/108626341/HostSettings.png]
+image:images/download/attachments/557124/HostSettings.png[images/download/attachments/557124/HostSettings.png]
 
 When going back to the application using the little back arrow next to
 Menu, you should see a list of books.
 
-image:images/author/download/attachments/108626341/ListOfBooks.png[images/author/download/attachments/108626341/ListOfBooks.png]
+image:images/download/attachments/557124/ListOfBooks.png[images/download/attachments/557124/ListOfBooks.png]
 
 You can now add, edit and delete books and switch between your browser
 and the emulator to verify that the client app is not cheating and that
@@ -459,8 +441,7 @@ as from this client app
 ----
 
 [[exploring-the-mobile-client]]
-Exploring the mobile client
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Exploring the mobile client
 
 There is a lot to writing high quality mobile applications. The goal of
 this little application is to get you started with JBossAS 7 / Android
@@ -479,23 +460,23 @@ The JAX-RS client application uses an annotated library client interface
 @Consumes({ "application/json" })
 @Produces({ "application/json" })
 public interface LibraryClient {
-
+ 
     @GET
     @Path("/books")
     public List<Book> getBooks();
-
+ 
     @GET
     @Path("/book/{isbn}")
     public Book getBook(@PathParam("isbn") String id);
-
+ 
     @PUT
     @Path("/book/{isbn}")
     public Book addBook(@PathParam("isbn") String id, @QueryParam("title") String title);
-
+ 
     @POST
     @Path("/book/{isbn}")
     public Book updateBook(@PathParam("isbn") String id, String title);
-
+ 
     @DELETE
     @Path("/book/{isbn}")
     public Book removeBook(@PathParam("isbn") String id);
@@ -536,7 +517,7 @@ size of the application is considerably smaller in size (i.e. 40k)
         Log.i(LOG_TAG, "getBooks: " + result);
         return result;
     }
-
+ 
     private String get(String path) {
         try {
             HttpGet request = new HttpGet(getRequestURI(path));

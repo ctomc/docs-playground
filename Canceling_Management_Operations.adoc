@@ -1,16 +1,11 @@
-Canceling Management Operations - Latest WildFly Documentation
-==============================================================
-
-[[canceling-management-operations]]
 Canceling Management Operations
--------------------------------
+===============================
 
 WildFly includes the ability to use the CLI to cancel management
 requests that are not proceeding normally.
 
 [[the-cancel-non-progressing-operation-operation]]
-The cancel-non-progressing-operation operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The cancel-non-progressing-operation operation
 
 The `cancel-non-progressing-operation` operation instructs the target
 process to find any operation that isn't proceeding normally and cancel
@@ -75,8 +70,7 @@ will be a failure response:
 ----
 
 [[the-find-non-progressing-operation-operation]]
-The find-non-progressing-operation operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The find-non-progressing-operation operation
 
 To simply learn the id of an operation that isn't proceeding normally,
 but not cancel it, use the `find-non-progressing-operation` operation:
@@ -97,8 +91,7 @@ Once the id of the operation is known, the management resource for the
 operation can be examined to learn more about its status.
 
 [[examining-the-status-of-an-active-operation]]
-Examining the status of an active operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Examining the status of an active operation
 
 There is a management resource for any currently executing operation
 that can be queried:
@@ -125,74 +118,53 @@ that can be queried:
 
 The response includes the following attributes:
 
-Field
+[cols=",",]
+|=======================================================================
+|Field |Meaning
 
-Meaning
+|access-mechanism |The mechanism used to submit a request to the server.
+NATIVE, JMX, HTTP
 
-access-mechanism
+|address |The address of the resource targeted by the operation. The
+value in the final element of the address will be '<hidden>' if the
+caller is not authorized to address the operation's target resource.
 
-The mechanism used to submit a request to the server. NATIVE, JMX, HTTP
+|caller-thread |The name of the thread that is executing the operation.
 
-address
+|cancelled |Whether the operation has been cancelled.
 
-The address of the resource targeted by the operation. The value in the
-final element of the address will be '<hidden>' if the caller is not
-authorized to address the operation's target resource.
+|exclusive-running-time |Amount of time in nanoseconds the operation has
+been executing with the exclusive operation execution lock held, or -1
+if the operation does not hold the exclusive execution lock.
 
-caller-thread
+|execution-status |The current activity of the operation. See below for
+details.
 
-The name of the thread that is executing the operation.
+|operation |The name of the operation, or '<hidden>' if the caller is
+not authorized to address the operation's target resource.
 
-cancelled
-
-Whether the operation has been cancelled.
-
-exclusive-running-time
-
-Amount of time in nanoseconds the operation has been executing with the
-exclusive operation execution lock held, or -1 if the operation does not
-hold the exclusive execution lock.
-
-execution-status
-
-The current activity of the operation. See below for details.
-
-operation
-
-The name of the operation, or '<hidden>' if the caller is not authorized
-to address the operation's target resource.
-
-running-time
-
-Amount of time the operation has been executing, in nanoseconds.
+|running-time |Amount of time the operation has been executing, in
+nanoseconds.
+|=======================================================================
 
 The following are the values for the `exclusive-running-time` attribute:
 
-Value
+[cols=",",]
+|=======================================================================
+|Value |Meaning
 
-Meaning
+|executing |The caller thread is actively executing
 
-executing
+|awaiting-other-operation |The caller thread is blocking waiting for
+another operation to release the exclusive execution lock
 
-The caller thread is actively executing
+|awaiting-stability |The caller thread has made changes to the service
+container and is waiting for the service container to stabilize
 
-awaiting-other-operation
+|completing |The operation is committed and is completing execution
 
-The caller thread is blocking waiting for another operation to release
-the exclusive execution lock
-
-awaiting-stability
-
-The caller thread has made changes to the service container and is
-waiting for the service container to stabilize
-
-completing
-
-The operation is committed and is completing execution
-
-rolling-back
-
-The operation is rolling back
+|rolling-back |The operation is rolling back
+|=======================================================================
 
 All currently executing operations can be viewed in one request using
 the `read-children-resources` operation:
@@ -231,8 +203,7 @@ the `read-children-resources` operation:
 ----
 
 [[canceling-a-specific-operation]]
-Canceling a specific operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Canceling a specific operation
 
 The `cancel-non-progressing-operation` operation is a convenience
 operation for identifying and canceling an operation. However, an
@@ -250,8 +221,7 @@ operation on the resource for the desired operation.
 ----
 
 [[controlling-operation-blocking-time]]
-Controlling operation blocking time
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Controlling operation blocking time
 
 As an operation executes, the execution thread may block at various
 points, particularly while waiting for the service container to

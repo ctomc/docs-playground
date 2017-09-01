@@ -1,9 +1,5 @@
-AIO - NIO for messaging journal - Latest WildFly Documentation
-==============================================================
-
-[[aio---nio-for-messaging-journal]]
 AIO - NIO for messaging journal
--------------------------------
+===============================
 
 Apache ActiveMQ Artemis (like HornetQ beforehand) ships with a *high
 performance journal*. Since Apache ActiveMQ Artemis handles its own
@@ -46,8 +42,7 @@ encrypted partitions, thus you have to move to NIO on those.*
 What are the symptoms of an AIO isssue ?
 
 [[aio-issue-on-wildfly-10]]
-AIO issue on WildFly 10
-~~~~~~~~~~~~~~~~~~~~~~~
+= AIO issue on WildFly 10
 
 If you see the following exception in your WildFly log file / console
 
@@ -75,8 +70,7 @@ INFO  [org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 6
 ----
 
 [[aio-issue-on-wildfly-9]]
-AIO issue on WildFly 9
-~~~~~~~~~~~~~~~~~~~~~~
+= AIO issue on WildFly 9
 
 [source,java]
 ----

@@ -1,9 +1,5 @@
-The helloworld example in depth - Latest WildFly Documentation
-==============================================================
-
-[[the-helloworld-example-in-depth]]
 The helloworld example in depth
--------------------------------
+===============================
 
 This page has moved to
 http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/HelloworldQuickstart/#_the_helloworld_quickstart_in_depth

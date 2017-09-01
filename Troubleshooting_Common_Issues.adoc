@@ -1,13 +1,8 @@
-Troubleshooting Common Issues - Latest WildFly Documentation
-============================================================
-
-[[troubleshooting-common-issues]]
 Troubleshooting Common Issues
------------------------------
+=============================
 
 [[timeouts]]
-Timeouts
-~~~~~~~~
+= Timeouts
 
 May happen especially on slower computers. Try setting a different
 timeout (in seconds) :
@@ -15,8 +10,7 @@ timeout (in seconds) :
 -Dsurefire.forked.process.timeout=9999
 
 [[server-already-running]]
-"Server already running"
-~~~~~~~~~~~~~~~~~~~~~~~~
+= "Server already running"
 
 Known issue: https://issues.jboss.org/browse/JBPAPP-8368[JBPAPP-8368]
 Arquillian should wait until a port is free after AS JVM process ends to
@@ -27,12 +21,10 @@ fixed in 7.1.2, see pull request
 https://github.com/jbossas/jboss-as/pull/1999 .
 
 [[database-failures]]
-Database failures
-~~~~~~~~~~~~~~~~~
+= Database failures
 
 [[build-gets-stuck-at-first-test-of-a-module]]
-Build gets stuck at first test of a module
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Build gets stuck at first test of a module
 
 If you use NFS (Network file system), it might be a file locking issue.
 

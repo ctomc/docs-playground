@@ -1,13 +1,8 @@
-WildFly 9 JNDI Implementation - Latest WildFly Documentation
-============================================================
-
-[[wildfly-9-jndi-implementation]]
 WildFly 9 JNDI Implementation
------------------------------
+=============================
 
 [[introduction]]
-Introduction
-~~~~~~~~~~~~
+= Introduction
 
 This page proposes a reworked WildFly JNDI implementation, and
 new/updated APIs for WildFly subsystem and EE deployment processors
@@ -19,8 +14,7 @@ should later evolve to the prime guide for WildFly developers needing to
 interact with JNDI at subsystem level.
 
 [[architecture]]
-Architecture
-~~~~~~~~~~~~
+= Architecture
 
 WildFly relies on MSC to provide the data source for the JNDI tree. Each
 resource bound in JNDI is stored in a MSC service (BinderService), and
@@ -63,16 +57,14 @@ invocation, which means that entries such as java:comp/DefaultDatasource
 will always be available.
 
 [[binding-apis]]
-Binding APIs
-~~~~~~~~~~~~
+= Binding APIs
 
 WildFly Naming subsystem exposes high level APIs to bind new JNDI
 resources, there is no need to deal with the low level BinderService
 type anymore.
 
 [[subsystem]]
-Subsystem
-^^^^^^^^^
+== Subsystem
 
 At the lowest level a JNDI entry is bound by installing a BinderService
 to a ServiceTarget:
@@ -123,14 +115,14 @@ Using the new high level API, it's as simple as:
 ----
 // bind an immediate value
 ContextNames.bindInfoFor("java:comp/ORB").bind(serviceTarget, this.orb);
-
-
+ 
+ 
 // bind value from another JNDI entry (an alias/linkref)
-ContextNames.bindInfoFor(“java:global/x").bind(serviceTarget, new JndiName(“java:jboss/x"));
-
-
+ContextNames.bindInfoFor("java:global/x").bind(serviceTarget, new JndiName("java:jboss/x"));
+ 
+ 
 // bind value obtained from a MSC service
-ContextNames.bindInfoFor(“java:global/z").bind(serviceTarget, serviceName);
+ContextNames.bindInfoFor("java:global/z").bind(serviceTarget, serviceName);
 ----
 
 If there is the need to access the binder's service builder, perhaps to
@@ -143,8 +135,7 @@ ContextNames.bindInfoFor("java:comp/ORB").builder(serviceTarget, verificationHan
 ----
 
 [[ee-deployment]]
-EE Deployment
-^^^^^^^^^^^^^
+== EE Deployment
 
 With respect to EE deployments, the subsystem API should not be used,
 since bindings may need to be discarded/overridden, thus a EE deployment
@@ -156,10 +147,10 @@ or not. An example of a deployment processor adding a binding:
 [source,java]
 ----
 public class ModuleNameBindingProcessor implements DeploymentUnitProcessor {
-
+ 
     // jndi name objects are immutable
     private static final JndiName JNDI_NAME_java_module_ModuleName = new JndiName("java:module/ModuleName");
-
+ 
     @Override
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
         
@@ -184,10 +175,12 @@ public class ModuleNameBindingProcessor implements DeploymentUnitProcessor {
         moduleDescription.getBindingConfigurations()
                 .addDeploymentBinding(new BindingConfiguration(JNDI_NAME_java_module_ModuleName, injectionSource));
     }
-
+ 
     //...
 }
 ----
+
+[IMPORTANT]
 
 When adding the binding configuration use:
 
@@ -206,12 +199,16 @@ components in a module:
 moduleDescription.getBindingConfigurations().addPlatformBindingToAllComponents(bindingConfiguration);
 ----
 
+[IMPORTANT]
+
 In the reworked implementation there is now no need to behave
 differently considering the deployment type, for instance if deployment
 is a WAR or app client, the Module/Component BindingConfigurations
 objects handle all of that. The processor should simply go for the 3 use
 cases: module binding, component binding or binding shared by all
 components.
+
+[IMPORTANT]
 
 All deployment binding configurations MUST be added before INSTALL
 phase, this is needed because on such phase, when the bindings are
@@ -237,7 +234,7 @@ processors for both XML descriptor and annotations, an example for each:
  * @author Eduardo Martins
  */
 public class AdministeredObjectDefinitionDescriptorProcessor extends ResourceDefinitionDescriptorProcessor {
-
+ 
     @Override
     protected void processEnvironment(RemoteEnvironment environment, ResourceDefinitionInjectionSources injectionSources) throws DeploymentUnitProcessingException {
         final AdministeredObjectsMetaData metaDatas = environment.getAdministeredObjects();
@@ -247,7 +244,7 @@ public class AdministeredObjectDefinitionDescriptorProcessor extends ResourceDef
             }
         }
     }
-
+ 
     private ResourceDefinitionInjectionSource getResourceDefinitionInjectionSource(final AdministeredObjectMetaData metaData) {
         final String name = metaData.getName();
         final String className = metaData.getClassName();
@@ -260,7 +257,7 @@ public class AdministeredObjectDefinitionDescriptorProcessor extends ResourceDef
         resourceDefinitionInjectionSource.addProperties(metaData.getProperties());
         return resourceDefinitionInjectionSource;
     }
-
+ 
 }
 ----
 
@@ -275,20 +272,20 @@ and
  * @author Eduardo Martins
  */
 public class AdministeredObjectDefinitionAnnotationProcessor extends ResourceDefinitionAnnotationProcessor {
-
+ 
     private static final DotName ANNOTATION_NAME = DotName.createSimple(AdministeredObjectDefinition.class.getName());
     private static final DotName COLLECTION_ANNOTATION_NAME = DotName.createSimple(AdministeredObjectDefinitions.class.getName());
-
+ 
     @Override
     protected DotName getAnnotationDotName() {
         return ANNOTATION_NAME;
     }
-
+ 
     @Override
     protected DotName getAnnotationCollectionDotName() {
         return COLLECTION_ANNOTATION_NAME;
     }
-
+ 
     @Override
     protected ResourceDefinitionInjectionSource processAnnotation(AnnotationInstance annotationInstance) throws DeploymentUnitProcessingException {
         final String name = AnnotationElement.asRequiredString(annotationInstance, AnnotationElement.NAME);
@@ -304,15 +301,16 @@ public class AdministeredObjectDefinitionAnnotationProcessor extends ResourceDef
                 AdministeredObjectDefinitionInjectionSource.PROPERTIES));
         return directAdministeredObjectInjectionSource;
     }
-
+ 
 }
 ----
+
+[IMPORTANT]
 
 The abstract processors with respect to Resource Definitions are already
 submitted through WFLY-3292's PR.
 
 [[resource-ref-processing]]
-Resource Ref Processing
-~~~~~~~~~~~~~~~~~~~~~~~
+= Resource Ref Processing
 
-  TODO for now no changes on this in the reworked WildFly Naming.
+TODO for now no changes on this in the reworked WildFly Naming.

@@ -1,6 +1,4 @@
-Java Server Faces Technology (JSF) - Latest WildFly Documentation
-=================================================================
-
-[[java-server-faces-technology-jsf]]
 Java Server Faces Technology (JSF)
-----------------------------------
+==================================
+
+

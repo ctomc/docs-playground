@@ -1,9 +1,7 @@
-Writing a quickstart - Latest WildFly Documentation
-===================================================
-
-[[writing-a-quickstart]]
 Writing a quickstart
---------------------
+====================
+
+[IMPORTANT]
 
 Please note: The content for this page has moved.
 

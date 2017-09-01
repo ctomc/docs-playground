@@ -1,12 +1,5 @@
-LDAP Authentication Migration - Latest WildFly Documentation
-============================================================
-
-[[ldap-authentication-migration]]
 LDAP Authentication Migration
------------------------------
-
-[[119308468_LDAPBasedAuthenticationMigration-LDAPAuthentication]]
-[[119308468_LDAPBasedAuthenticationMigration-LDAPAuthentication]]
+=============================
 
 The section describing how to migrate from properties based
 authentication using either PicketBox or legacy security realms to
@@ -53,8 +46,7 @@ For authentication purposes the username will be matched against the
 'uid' attribute of the group entry.
 
 [[legacy-security-realm]]
-Legacy Security Realm
-~~~~~~~~~~~~~~~~~~~~~
+= Legacy Security Realm
 
 A connection to the LDAP server and related security realm can be
 created with the following commands: -
@@ -63,11 +55,11 @@ created with the following commands: -
 ----
 batch
 ./core-service=management/ldap-connection=MyLdapConnection:add(url="ldap://localhost:10389", search-dn="uid=admin,ou=system", search-credential="secret")
-
+ 
 ./core-service=management/security-realm=LDAPRealm:add
 ./core-service=management/security-realm=LDAPRealm/authentication=ldap:add(connection="MyLdapConnection", username-attribute=uid, base-dn="ou=users,dc=group-to-principal,dc=wildfly,dc=org")
-
-
+ 
+ 
 ./core-service=management/security-realm=LDAPRealm/authorization=ldap:add(connection=MyLdapConnection)
 ./core-service=management/security-realm=LDAPRealm/authorization=ldap/username-to-dn=username-filter:add(attribute=uid, base-dn="ou=users,dc=group-to-principal,dc=wildfly,dc=org")
 ./core-service=management/security-realm=LDAPRealm/authorization=ldap/group-search=group-to-principal:add(base-dn="ou=groups,dc=group-to-principal,dc=wildfly,dc=org", iterative=true, prefer-original-connection=true, principal-attribute=uniqueMember, search-by=DISTINGUISHED_NAME, group-name=SIMPLE, group-name-attribute=uid)
@@ -109,8 +101,7 @@ This results in the following configuration.
 ----
 
 [[picketbox-ldapextloginmodule]]
-PicketBox LdapExtLoginModule
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= PicketBox LdapExtLoginModule
 
 The following commands can create a PicketBox security domain configured
 to use the LdapExtLoginModule to verify a username and password.
@@ -161,8 +152,7 @@ This results in the following configuration.
 ----
 
 [[migrated]]
-Migrated
-~~~~~~~~
+= Migrated
 
 Within the Elytron subsystem a directory context can be defined for the
 connection to LDAP: -
@@ -189,6 +179,8 @@ directly as groups or roles, in the Elytron case information can be
 loaded from LDAP to associate with the identity as attributes - these
 can subsequently be mapped to roles but attributes can be loaded for
 other purposes as well.
+
+[IMPORTANT]
 
 By default, if no `role-decoder` is defined for given `security-domain`,
 identity attribute " `Roles`" is mapped to the identity roles.

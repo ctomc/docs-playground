@@ -1,6 +1,4 @@
-Clustered Web Sessions - Latest WildFly Documentation
-=====================================================
-
-[[clustered-web-sessions]]
 Clustered Web Sessions
-----------------------
+======================
+
+

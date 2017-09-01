@@ -1,13 +1,8 @@
-Logging Configuration - Latest WildFly Documentation
-====================================================
-
-[[logging-configuration]]
 Logging Configuration
----------------------
+=====================
 
 [[overview]]
-Overview
-~~~~~~~~
+= Overview
 
 The overall server logging configuration is represented by the logging
 subsystem. It consists of four notable parts: `handler` configurations,
@@ -52,37 +47,33 @@ handlers). Each handler declares the log format and output:
 ----
 
 [[attributes]]
-Attributes
-~~~~~~~~~~
+= Attributes
 
 The root resource contains two notable attributes
 `add-logging-api-dependencies` and `use-deployment-logging-config`.
 
-[[logging-api-dependencies]]
-logging-api-dependencies
-^^^^^^^^^^^^^^^^^^^^^^^^
+[[add-logging-api-dependencies]]
+== add-logging-api-dependencies
 
 The `add-logging-api-dependencies` controls whether or not the container
 adds
-link:Implicit_module_dependencies_for_deployments.html#108626090_Implicitmoduledependenciesfordeployments-ImplicitmoduledependenciesfordeploymentsWhicha...[implicit]
+link:Implicit_module_dependencies_for_deployments.html#src-557203_safe-id-SW1wbGljaXRtb2R1bGVkZXBlbmRlbmNpZXNmb3JkZXBsb3ltZW50cy1JbXBsaWNpdG1vZHVsZWRlcGVuZGVuY2llc2ZvcmRlcGxveW1lbnRzLVdoaWNoYXJldGhlaW1wbGljaXRtb2R1bGVkZXBlbmRlbmNpZXMlM0Y[implicit]
 logging API dependencies to your deployments. If set to `true`, the
 default, all the implicit logging API dependencies are added. If set to
 `false` the dependencies are not added to your deployments.
 
-[[deployment-logging-config]]
-deployment-logging-config
-^^^^^^^^^^^^^^^^^^^^^^^^^
+[[use-deployment-logging-config]]
+== use-deployment-logging-config
 
 The `use-deployment-logging-config` controls whether or not your
 deployment is scanned for
-link:Logging_Configuration.html#108626026_LoggingConfiguration-PerdeploymentLogging[per-deployment
+link:#src-557095_LoggingConfiguration-Per-deploymentLogging[per-deployment
 logging]. If set to `true`, the default,
-link:Logging_Configuration.html#108626026_LoggingConfiguration-PerdeploymentLogging[per-deployment
+link:#src-557095_LoggingConfiguration-Per-deploymentLogging[per-deployment
 logging] is enabled. Set to `false` to disable this feature.
 
-[[deployment-logging]]
-deployment Logging
-~~~~~~~~~~~~~~~~~~
+[[per-deployment-logging]]
+= Per-deployment Logging
 
 Per-deployment logging allows you to add a logging configuration file to
 your deployment and have the logging for that deployment configured
@@ -103,8 +94,7 @@ You can also disable this functionality by changing the
 `use-deployment-logging-config` attribute to `false`.
 
 [[logging-profiles]]
-Logging Profiles
-~~~~~~~~~~~~~~~~
+= Logging Profiles
 
 Logging profiles are like additional logging subsystems. Each logging
 profile constists of three of the four notable parts listed above:
@@ -128,12 +118,10 @@ This is an advantage over the per-deployment logging configuration as
 the redeploy is not required for logging changes to take affect.
 
 [[default-log-file-locations]]
-Default Log File Locations
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Default Log File Locations
 
 [[managed-domain]]
-Managed Domain
-^^^^^^^^^^^^^^
+== Managed Domain
 
 In a managed domain two types of log files do exist: Controller and
 server logs. The controller components govern the domain as whole. It's
@@ -146,193 +134,94 @@ For the sake of simplicity we look at the default setup for managed
 domain. In this case, both the domain controller components and the
 servers are located on the same host:
 
-Process
-
-Log File
-
-Host Controller
-
-./domain/log/host-controller.log
-
-Process Controller
-
-./domain/log/process-controller.log
-
-"Server One"
-
-./domain/servers/server-one/log/server.log
-
-"Server Two"
-
-./domain/servers/server-two/log/server.log
-
-"Server Three"
-
-./domain/servers/server-three/log/server.log
+[cols=",",]
+|============================================================
+|Process |Log File
+|Host Controller |./domain/log/host-controller.log
+|Process Controller |./domain/log/process-controller.log
+|"Server One" |./domain/servers/server-one/log/server.log
+|"Server Two" |./domain/servers/server-two/log/server.log
+|"Server Three" |./domain/servers/server-three/log/server.log
+|============================================================
 
 [[standalone-server]]
-Standalone Server
-^^^^^^^^^^^^^^^^^
+== Standalone Server
 
 The default log files for a standalone server can be found in the log
 subdirectory of the distribution:
 
-Process
-
-Log File
-
-Server
-
-./standalone/log/server.log
+[cols=",",]
+|===================================
+|Process |Log File
+|Server |./standalone/log/server.log
+|===================================
 
 [[filter-expressions]]
-Filter Expressions
-~~~~~~~~~~~~~~~~~~
+= Filter Expressions
 
-Filter Type
+[cols=",,,,",]
+|=======================================================================
+|Filter Type |Expression |Description |Parameter(s) |Examples
 
-Expression
+|accept |accept |Accepts all log messages. |None |accept
 
-Description
+|deny |deny |enies all log messages. |None |deny
 
-Parameter(s)
+|not |not(filterExpression) |Accepts a filter as an argument and inverts
+the returned value. |The expression takes a single filter for it's
+argument. |not(match("JBAS"))
 
-Examples
+|all |all(filterExpressions) |A filter consisting of several filters in
+a chain. If any filter find the log message to be unloggable, the
+message will not be logged and subsequent filters will not be checked.
+|The expression takes a comma delimited list of filters for it's
+argument. |all(match("JBAS"), match("WELD"))
 
-accept
+|any |any(filterExpressions) |A filter consisting of several filters in
+a chain. If any filter fins the log message to be loggable, the message
+will be logged and the subsequent filters will not be checked. |The
+expression takes a comma delimited list of filters for it's argument.
+|any(match("JBAS"), match("WELD"))
 
-accept
+|levelChange |levelChange(level) |A filter which modifies the log record
+with a new level. |The expression takes a single string based level for
+it's argument. |levelChange(WARN)
 
-Accepts all log messages.
+|levels |levels(levels) |A filter which includes log messages with a
+level that is listed in the list of levels. |The expression takes a
+comma delimited list of string based levels for it's argument.
+|levels(DEBUG, INFO, WARN, ERROR)
 
-None
-
-accept
-
-deny
-
-deny
-
-enies all log messages.
-
-None
-
-deny
-
-not
-
-not(filterExpression)
-
-Accepts a filter as an argument and inverts the returned value.
-
-The expression takes a single filter for it's argument.
-
-not(match("JBAS"))
-
-all
-
-all(filterExpressions)
-
-A filter consisting of several filters in a chain. If any filter find
-the log message to be unloggable, the message will not be logged and
-subsequent filters will not be checked.
-
-The expression takes a comma delimited list of filters for it's
-argument.
-
-all(match("JBAS"), match("WELD"))
-
-any
-
-any(filterExpressions)
-
-A filter consisting of several filters in a chain. If any filter fins
-the log message to be loggable, the message will be logged and the
-subsequent filters will not be checked.
-
-The expression takes a comma delimited list of filters for it's
-argument.
-
-any(match("JBAS"), match("WELD"))
-
-levelChange
-
-levelChange(level)
-
-A filter which modifies the log record with a new level.
-
-The expression takes a single string based level for it's argument.
-
-levelChange(WARN)
-
-levels
-
-levels(levels)
-
-A filter which includes log messages with a level that is listed in the
-list of levels.
-
-The expression takes a comma delimited list of string based levels for
-it's argument.
-
-levels(DEBUG, INFO, WARN, ERROR)
-
-levelRange
-
-levelRange([minLevel,maxLevel])
-
-A filter which logs records that are within the level range.
-
-The filter expression uses a "[" to indicate a minimum inclusive level
-and a "]" to indicate a maximum inclusive level. Otherwise use "(" or
-")" respectively indicate exclusive. The first argument for the
-expression is the minimum level allowed, the second argument is the
-maximum level allowed.
-
-minimum level must be less than ERROR and the maximum level must be
-greater than DEBUGlevelRange(ERROR, DEBUG) minimum level must be less
-than or equal to ERROR and the maximum level must be greater than
+|levelRange |levelRange([minLevel,maxLevel]) |A filter which logs
+records that are within the level range. |The filter expression uses a
+"[" to indicate a minimum inclusive level and a "]" to indicate a
+maximum inclusive level. Otherwise use "(" or ")" respectively indicate
+exclusive. The first argument for the expression is the minimum level
+allowed, the second argument is the maximum level allowed. |minimum
+level must be less than ERROR and the maximum level must be greater than
+DEBUGlevelRange(ERROR, DEBUG) minimum level must be less than or equal
+to ERROR and the maximum level must be greater than
 DEBUGlevelRange[ERROR, DEBUG) minimum level must be less than or equal
 to ERROR and the maximum level must be greater or equal to
 INFOlevelRange[ERROR, INFO]
 
-match
+|match |match("pattern") |A regular-expression based filter. The raw
+unformatted message is used against the pattern. |The expression takes a
+regular expression for it's argument. match("JBAS\d+") |
 
-match("pattern")
+|substitute |substitute("pattern", "replacement value") |A filter which
+replaces the first match to the pattern with the replacement value. |The
+first argument for the expression is the pattern the second argument is
+the replacement text. |substitute("JBAS", "EAP")
 
-A regular-expression based filter. The raw unformatted message is used
-against the pattern.
-
-The expression takes a regular expression for it's argument.
-match("JBAS\d+")
-
-substitute
-
-substitute("pattern", "replacement value")
-
-A filter which replaces the first match to the pattern with the
-replacement value.
-
-The first argument for the expression is the pattern the second argument
-is the replacement text.
-
-substitute("JBAS", "EAP")
-
-substituteAll
-
-substituteAll("pattern", "replacement value")
-
-A filter which replaces all matches of the pattern with the replacement
-value.
-
-The first argument for the expression is the pattern the second argument
-is the replacement text.
-
-substituteAll("JBAS", "EAP")
+|substituteAll |substituteAll("pattern", "replacement value") |A filter
+which replaces all matches of the pattern with the replacement value.
+|The first argument for the expression is the pattern the second
+argument is the replacement text. |substituteAll("JBAS", "EAP")
+|=======================================================================
 
 [[list-log-files-and-reading-log-files]]
-List Log Files and Reading Log Files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= List Log Files and Reading Log Files
 
 Log files can be listed and viewed via management operations. The log
 files allowed to be viewed are intentionally limited to files that exist
@@ -342,8 +231,7 @@ handler. Known file handler types include `file-handler`,
 operations are valid in both standalone and domain modes.
 
 [[list-log-files]]
-List Log Files
-^^^^^^^^^^^^^^
+== List Log Files
 
 The logging subsystem has a `log-file` resource off the subsystem root
 resource and off each `logging-profile` resource to list each log file.
@@ -364,32 +252,25 @@ CLI command and output
 ----
 
 [[read-log-file]]
-Read Log File
-^^^^^^^^^^^^^
+== Read Log File
 
 The `read-log-file` operation is available on each `log-file` resource.
 This operation has 4 optional parameters.
 
-Name
+[cols=",",]
+|=======================================================================
+|Name |Description
 
-Description
+|encoding |the encoding the file should be read in
 
-encoding
+|lines |the number of lines from the file. A value of -1 indicates all
+lines should be read.
 
-the encoding the file should be read in
+|skip |the number of lines to skip before reading.
 
-lines
-
-the number of lines from the file. A value of -1 indicates all lines
-should be read.
-
-skip
-
-the number of lines to skip before reading.
-
-tail
-
-true to read from the end of the file up or false to read top down.
+|tail |true to read from the end of the file up or false to read top
+down.
+|=======================================================================
 
 CLI command and output
 
@@ -414,18 +295,18 @@ CLI command and output
 ----
 
 [[faq]]
-FAQ
-~~~
+= FAQ
 
 [[why-is-there-a-logging.properties-file]]
-Why is there a logging.properties file?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Why is there a logging.properties file?
 
 You may have noticed that there is a `logging.properties` file in the
 configuration directory. This is logging configuration is used when the
 server boots up until the logging subsystem kicks in. If the logging
 subsystem is not included in your configuration, then this would act as
 the logging configuration for the entire server.
+
+[IMPORTANT]
 
 The `logging.properties` file is overwritten at boot and with each
 change to the logging subsystem. Any changes made to the file are not

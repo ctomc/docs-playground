@@ -1,35 +1,27 @@
-Advanced User Guide - Latest WildFly Documentation
-==================================================
-
-[[advanced-user-guide]]
 Advanced User Guide
--------------------
+===================
 
 [[logging]]
-Logging
-~~~~~~~
+= Logging
 
 Logging of inbound and outbound messages is a common need. Different
 approaches are available for achieving that:
 
-[[ws-handler-approach]]
-WS Handler approach
-^^^^^^^^^^^^^^^^^^^
+[[jax-ws-handler-approach]]
+== JAX-WS Handler approach
 
 A portable way of performing logging is writing a simple JAX-WS handler
 dumping the messages that are passed in it; the handler can be added to
 the desired client/endpoints (programmatically / using `@HandlerChain`
 JAX-WS annotation).
 
-The
-https://docs.jboss.org/author/display/WFLY8/Predefined+client+and+endpoint+configurations[predefined
-client and endpoint configuration] mechanism allows user to add the
-logging handler to any client/endpoint or to some of them only (in which
-case the `@EndpointConfig` annotation / JBossWS API is required though).
+The link:#src-557254[predefined client and endpoint configuration]
+mechanism allows user to add the logging handler to any client/endpoint
+or to some of them only (in which case the `@EndpointConfig` annotation
+/ JBossWS API is required though).
 
 [[apache-cxf-approach]]
-Apache CXF approach
-^^^^^^^^^^^^^^^^^^^
+== Apache CXF approach
 
 Apache CXF also comes with logging interceptors that can be easily used
 to log messages to the console or configured client/server log files.
@@ -37,12 +29,13 @@ Those interceptors can be added to client, endpoint and buses in
 multiple ways:
 
 [[system-property]]
-System property
-+++++++++++++++
+=== System property
 
-Setting the `org.apache.cxf.logging.enabled`  system property to true
+Setting the `org.apache.cxf.logging.enabled` system property to true
 causes the logging interceptors to be added to any `Bus` instance being
 created on the JVM.
+
+[IMPORTANT]
 
 On WildFly, the system property is easily set by adding what follows to
 the standalone / domain server configuration just after the extensions
@@ -56,8 +49,7 @@ section:
 ----
 
 [[manual-interceptor-addition-and-logging-feature]]
-Manual interceptor addition and logging feature
-+++++++++++++++++++++++++++++++++++++++++++++++
+=== Manual interceptor addition and logging feature
 
 Logging interceptors can be selectively added to endpoints using the
 Apache CXF annotations `@org.apache.cxf.interceptor.InInterceptors` and
@@ -75,9 +67,8 @@ Please refer to the
 http://cxf.apache.org/docs/debugging-and-logging.html#DebuggingandLogging-LoggingMessages[Apache
 CXF documentation] for more details.
 
-[[support]]
-* support
-~~~~~~~~~
+[[ws--support]]
+= WS-* support
 
 JBossWS includes most of the WS-* specification functionalities through
 the integration with Apache CXF. In particular, the whole WS-Security
@@ -88,21 +79,19 @@ In details information available further down in this documentation
 book.
 
 [[address-rewrite]]
-Address rewrite
-~~~~~~~~~~~~~~~
+= Address rewrite
 
 JBossWS allows users to configure the _soap:address_ attribute in the
 wsdl contract of deployed services.
 
 [[server-configuration-options]]
-Server configuration options
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Server configuration options
 
 The configuration options are part of the
 https://docs.jboss.org/author/display/WFLY8/Web+services+configuration[webservices
 subsystem section] of the application server domain model.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <subsystem xmlns="urn:jboss:domain:webservices:1.1" xmlns:javaee="http://java.sun.com/xml/ns/javaee"
   xmlns:jaxwsconfig="urn:jboss:jbossws-jaxws-config:4.0">
@@ -129,8 +118,7 @@ list of installed connectors. If multiple connectors are found the port
 of the first connector is used.
 
 [[dynamic-rewrite]]
-Dynamic rewrite
-^^^^^^^^^^^^^^^
+== Dynamic rewrite
 
 When the application server is bound to multiple addresses or
 non-trivial real-world network architectures cause request for different
@@ -143,22 +131,20 @@ endpoint they're looking for. To trigger this behaviour, the
 _jbossws.undefined.host_ value has to be specified for the _wsdl-host_
 element.
 
-[source,java]
-----
+....
 <wsdl-host>jbossws.undefined.host</wsdl-host>
 <modify-wsdl-address>true</modify-wsdl-address>
-----
+....
 
 Of course, when a confidential transport address is required, the
 addresses are always rewritten using https protocol and the port
 currently configured for the https/ssl connector.
 
 [[configuration-through-deployment-descriptor]]
-Configuration through deployment descriptor
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Configuration through deployment descriptor
 
 The `jboss-webservices.xml` deployment descriptor can be used to provide
-additional configuration for a given deployment. The expected location
+additional configuration for a given deployment. The expected location
 of it is:
 
 * `META-INF/jboss-webservices.xml` for EJB webservice deployments
@@ -168,7 +154,7 @@ EJB webservice endpoints bundled in `war` archives
 The structure of file is the following (schemas are available
 http://anonsvn.jboss.org/repos/jbossws/spi/trunk/src/main/resources/schema/[here]):
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <webservices>
   <context-root/>?
@@ -194,13 +180,12 @@ http://anonsvn.jboss.org/repos/jbossws/spi/trunk/src/main/resources/schema/[here
 ----
 
 [[context-root-element]]
-context-root element
-^^^^^^^^^^^^^^^^^^^^
+== context-root element
 
 Element `<context-root>` can be used to customize context root of
 webservices deployment.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <webservices>
   <context-root>foo</context-root>
@@ -208,19 +193,18 @@ webservices deployment.
 ----
 
 [[config-name-and-config-file-elements]]
-config-name and config-file elements
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== config-name and config-file elements
 
 Elements `<config-name>` and `<config-file>` can be used to associate
 any endpoint provided in the deployment with a given
-https://docs.jboss.org/author/display/WFLY8/Predefined+client+and+endpoint+configurations[endpoint
-configuration]. Endpoint configuration are either specified in the
-referenced config file or in the WildFly domain model (webservices
-subsystem). For further details on the endpoint configurations and their
-management in the domain model, please see the related
+link:#src-557254[endpoint configuration]. Endpoint configuration are
+either specified in the referenced config file or in the WildFly domain
+model (webservices subsystem). For further details on the endpoint
+configurations and their management in the domain model, please see the
+related
 https://docs.jboss.org/author/display/WFLY8/Web+services+configuration[documentation].
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <webservices>
   <config-name>Standard WSSecurity Endpoint</config-name>
@@ -229,14 +213,13 @@ https://docs.jboss.org/author/display/WFLY8/Web+services+configuration[documenta
 ----
 
 [[property-element]]
-property element
-^^^^^^^^^^^^^^^^
+== property element
 
 `<property>` elements can be used to setup simple property values to
 configure the ws stack behavior. Allowed property names and values are
 mentioned in the guide under related topics.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <property>
   <name>prop.name</name>
@@ -245,13 +228,12 @@ mentioned in the guide under related topics.
 ----
 
 [[port-component-element]]
-port-component element
-^^^^^^^^^^^^^^^^^^^^^^
+== port-component element
 
 Element `<port-component>` can be used to customize EJB endpoint target
 URI or to configure security related properties.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <webservices>
   <port-component>
@@ -266,13 +248,12 @@ URI or to configure security related properties.
 ----
 
 [[webservice-description-element]]
-webservice-description element
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== webservice-description element
 
 Element `<webservice-description>` can be used to customize (override)
 webservice WSDL publish location.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <webservices>
   <webservice-description>
@@ -283,8 +264,7 @@ webservice WSDL publish location.
 ----
 
 [[schema-validation-of-soap-messages]]
-Schema validation of SOAP messages
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Schema validation of SOAP messages
 
 Apache CXF has a feature for validating incoming and outgoing SOAP
 messages on both client and server side. The validation is performed
@@ -306,7 +286,7 @@ on server side
 ----
 import javax.jws.WebService;
 import org.apache.cxf.annotations.SchemaValidation;
-
+ 
 @WebService(...)
 @SchemaValidation
 public class ValidatingHelloImpl implements Hello {
@@ -315,13 +295,12 @@ public class ValidatingHelloImpl implements Hello {
 ----
 
 Alternatively, any endpoint and client running in-container can be
-associated to a JBossWS
-https://docs.jboss.org/author/display/WFLY8/Predefined+client+and+endpoint+configurations[predefined
-configuration] having the `schema-validation-enabled` property set to
-`true` in the referenced config file.
+associated to a JBossWS link:#src-557254[predefined configuration]
+having the `schema-validation-enabled` property set to `true` in the
+referenced config file.
 
 Finally, JBossWS also allows for server-wide (default) setup of schema
-validation by using the  _Standard-Endpoint-Config_ and 
+validation by using the _Standard-Endpoint-Config_ and
 _Standard-Client-Config_ special configurations (which apply to any
 client / endpoint unless a different configuration is specified for
 them)
@@ -341,8 +320,7 @@ them)
 ----
 
 [[jaxb-introductions]]
-JAXB Introductions
-~~~~~~~~~~~~~~~~~~
+= JAXB Introductions
 
 As Kohsuke Kawaguchi wrote on
 http://weblogs.java.net/blog/kohsuke/archive/2007/07/binding_3rd_par.html[his
@@ -364,9 +342,6 @@ Take a look at the http://community.jboss.org/docs/DOC-10075[JAXB
 Introductions page] on the wiki and at the examples in the sources.
 
 [[wsdl-system-properties-expansion]]
-WSDL system properties expansion
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= WSDL system properties expansion
 
-See
-https://docs.jboss.org/author/display/WFLY9/Published+WSDL+customization[Published
-WSDL customization]
+See link:#src-557254[Published WSDL customization]

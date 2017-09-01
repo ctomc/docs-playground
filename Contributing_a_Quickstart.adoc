@@ -1,9 +1,7 @@
-Contributing a Quickstart - Latest WildFly Documentation
-========================================================
-
-[[contributing-a-quickstart]]
 Contributing a Quickstart
--------------------------
+=========================
+
+[IMPORTANT]
 
 Please note: The content for this page has moved.
 

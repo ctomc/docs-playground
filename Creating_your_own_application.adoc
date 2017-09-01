@@ -1,9 +1,5 @@
-Creating your own application - Latest WildFly Documentation
-============================================================
-
-[[creating-your-own-application]]
 Creating your own application
------------------------------
+=============================
 
 This page has moved to
 https://github.com/wildfly/quickstart/blob/10.x/guide/Archetype.asciidoc

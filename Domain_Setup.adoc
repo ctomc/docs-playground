@@ -1,21 +1,16 @@
-Domain Setup - Latest WildFly Documentation
-===========================================
-
-[[domain-setup]]
 Domain Setup
-------------
+============
 
 To run a group of servers as a managed domain you need to configure both
 the domain controller and each host that joins the domain. This sections
 focuses on the network configuration for the domain and host controller
 components. For background information users are encouraged to review
 the link:Operating_modes.html[Operating modes] and
-link:Management_Clients.html#108625990_ManagementClients-ConfigurationFiles[Configuration
+link:Management_Clients.html#src-557081_ManagementClients-ConfigurationFiles[Configuration
 Files] sections.
 
 [[domain-controller-configuration]]
-Domain Controller Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Domain Controller Configuration
 
 The domain controller is the central government for a managed domain. A
 domain controller configuration requires two steps:
@@ -26,6 +21,8 @@ whole domain
 the managed hosts to communicate with it
 
 Example IP Addresses
+
+[IMPORTANT]
 
 In this example the domain controller uses 192.168.0.101 and the host
 controller 192.168.0.10
@@ -60,9 +57,9 @@ recommended as it allows the Administration Console to work:
 </management-interfaces>
 ----
 
- The interface attributes above refer to a named interface declaration
+The interface attributes above refer to a named interface declaration
 later in the host.xml file. This interface declaration will be used to
-resolve a corresponding network interface. 
+resolve a corresponding network interface.
 
 [source,java]
 ----
@@ -75,8 +72,8 @@ resolve a corresponding network interface. 
 
 ~(See domain/configuration/host.xml)~
 
- Please consult the chapter "Interface Configuration" for a more
-detailed explanation on how to configure network interfaces.
+Please consult the chapter "Interface Configuration" for a more detailed
+explanation on how to configure network interfaces.
 
 Next by default the master domain controller is configured to require
 authentication so a user needs to be added that can be used by the slave
@@ -84,6 +81,8 @@ domain controller to connect.
 
 Make use of the `add-user` utility to add a new user, for this example I
 am adding a new user called slave.
+
+[IMPORTANT]
 
 `add-user` MUST be run on the master domain controller and NOT the
 slave.
@@ -102,8 +101,7 @@ Make a note of the XML Element output as that is going to be required
 within the slave configuration.
 
 [[host-controller-configuration]]
-Host Controller Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Host Controller Configuration
 
 Once the domain controller is configured correctly you can proceed with
 any host that should join the domain. The host controller configuration
@@ -149,8 +147,8 @@ The `<secret />` element here is the one output from `add-user`
 previously. To create the `<secret />` element yourself the `value`
 needs to be the password encoded using Base64.
 
- Tell it how to find the domain controller so it can register itself
-with the domain:
+Tell it how to find the domain controller so it can register itself with
+the domain:
 
 [source,java]
 ----
@@ -169,11 +167,13 @@ use :
 </domain-controller>
 ----
 
- ~(See domain/configuration/host.xml)~
+~(See domain/configuration/host.xml)~
 
 The username attribute here is optional, if it is omitted then the name
 of the host will be used instead, in this example that was already set
 to name.
+
+[IMPORTANT]
 
 The name of each host needs to be unique when registering with the
 domain controller, however the username does not - using the username
@@ -183,9 +183,8 @@ makes sense in your environment.
 The `<remote />` element is also associated with the security realm
 `SlaveRealm`, this is how it picks up the password from the `<secret />`
 element. +
-[[108626068_DomainSetup-ignoreunusedconfiguration]]
-[[108626068_DomainSetup-ignoreunusedconfiguration]]  +
- *Ignoring domain wide resources*
+ +
+*Ignoring domain wide resources*
 
 WildFly 10 and later make it easy for slave host controllers to "ignore"
 parts of the domain wide configuration. What does the mean and why is it
@@ -310,8 +309,7 @@ installed on the Domain Controller and on some slaves, but not this one:
 ----
 
 [[server-groups]]
-Server groups
-~~~~~~~~~~~~~
+= Server groups
 
 The domain controller defines one or more server groups and associates
 each of these with a profile and a socket binding group, and also :
@@ -395,8 +393,7 @@ various subsystems could be different in each profile), and adds the
 socket binding.
 
 [[servers]]
-Servers
-~~~~~~~
+= Servers
 
 The host controller defines one or more servers:
 
@@ -407,14 +404,14 @@ The host controller defines one or more servers:
         <\!-\- server-one inherits the default socket-group declared in the server-group \-->
         <jvm name="default"/>
     </server>
-
+ 
     <server name="server-two" group="main-server-group" auto-start="true">
         <socket-binding-group ref="standard-sockets" port-offset="150"/>
         <jvm name="default">
             <heap size="64m" max-size="256m"/>
         </jvm>
     </server>
-
+ 
     <server name="server-three" group="other-server-group" auto-start="false">
         <socket-binding-group ref="bigger-sockets" port-offset="250"/>
     </server>
@@ -443,8 +440,7 @@ were changed to `true` it would start up using the subsystems from the
 group.
 
 [[jvm]]
-JVM
-^^^
+== JVM
 
 The host controller contains the main `jvm` definitions with arguments:
 
@@ -473,18 +469,10 @@ takes precedence if the same parameter is given in all places.
 
 Following these rules the jvm parameters to start each server would be
 
-Server
-
-JVM parameters
-
-server-one
-
--Xms64m -Xmx128m
-
-server-two
-
--Xms64m -Xmx256m
-
-server-three
-
--Xms64m -Xmx128m
+[cols=",",]
+|==============================
+|Server |JVM parameters
+|server-one |-Xms64m -Xmx128m
+|server-two |-Xms64m -Xmx256m
+|server-three |-Xms64m -Xmx128m
+|==============================

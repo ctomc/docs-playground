@@ -1,13 +1,8 @@
-JSF Configuration - Latest WildFly Documentation
-================================================
-
-[[jsf-configuration]]
 JSF Configuration
------------------
+=================
 
 [[overview]]
-Overview
-~~~~~~~~
+= Overview
 
 JSF configuration is handled by the JSF subsystem. The JSF subsystem
 allows multiple JSF implementations to be installed on the same WildFly
@@ -21,14 +16,12 @@ that WildFly should use is defined by the `default-jsf-impl-slot`
 attribute.
 
 [[installing-a-new-jsf-implementation-manually]]
-Installing a new JSF implementation manually
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Installing a new JSF implementation manually
 
 A new JSF implementation can be manually installed as follows:
 
 [[add-a-module-slot-for-the-new-jsf-implementation-jar]]
-Add a module slot for the new JSF implementation JAR
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Add a module slot for the new JSF implementation JAR
 
 * Create the following directory structure under the
 WILDFLY_HOME/modules directory: +
@@ -48,8 +41,7 @@ JSF implementation JAR and fill in appropriate values for $\{
 `jsf-impl-name`} and $\{ `jsf-version`}.
 
 [[add-a-module-slot-for-the-new-jsf-api-jar]]
-Add a module slot for the new JSF API JAR
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Add a module slot for the new JSF API JAR
 
 * Create the following directory structure under the
 WILDFLY_HOME/modules directory: +
@@ -66,8 +58,7 @@ JSF API JAR and fill in appropriate values for $\{ `jsf-impl-name`} and
 $\{ `jsf-version`}.
 
 [[add-a-module-slot-for-the-jsf-injection-jar]]
-Add a module slot for the JSF injection JAR
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Add a module slot for the JSF injection JAR
 
 * Create the following directory structure under the
 WILDFLY_HOME/modules directory: +
@@ -89,8 +80,7 @@ versions of the wildfly-jsf-injection and weld-core-jsf JARs that were
 copied over in the previous step.)
 
 [[for-myfaces-only---add-a-module-for-the-commons-digester-jar]]
-For MyFaces only - add a module for the commons-digester JAR
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== For MyFaces only - add a module for the commons-digester JAR
 
 * Create the following directory structure under the
 WILDFLY_HOME/modules directory: +
@@ -104,8 +94,7 @@ https://github.com/wildfly/wildfly/blob/master/jsf/multi-jsf-installer/src/main/
 Fill in the appropriate value for $\{ `version.commons-digester`}.
 
 [[start-the-server]]
-Start the server
-^^^^^^^^^^^^^^^^
+== Start the server
 
 After starting the server, the following CLI command can be used to
 verify that your new JSF implementation has been installed successfully.
@@ -117,8 +106,7 @@ The new JSF implementation should appear in the output of this command.
 ----
 
 [[changing-the-default-jsf-implementation]]
-Changing the default JSF implementation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Changing the default JSF implementation
 
 The following CLI command can be used to make a newly installed JSF
 implementation the default JSF implementation used by WildFly:
@@ -131,8 +119,7 @@ implementation the default JSF implementation used by WildFly:
 A server restart will be required for this change to take effect.
 
 [[configuring-a-jsf-app-to-use-a-non-default-jsf-implementation]]
-Configuring a JSF app to use a non-default JSF implementation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Configuring a JSF app to use a non-default JSF implementation
 
 A JSF app can be configured to use an installed JSF implementation
 that's not the default implementation by adding a

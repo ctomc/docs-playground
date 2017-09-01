@@ -1,17 +1,11 @@
-CLI Recipes - Latest WildFly Documentation
-==========================================
-
-[[cli-recipes]]
 CLI Recipes
------------
+===========
 
 [[properties]]
-Properties
-~~~~~~~~~~
+= Properties
 
 [[adding-reading-and-removing-system-property-using-cli]]
-Adding, reading and removing system property using CLI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Adding, reading and removing system property using CLI
 
 For standalone mode:
 
@@ -58,8 +52,7 @@ Just one server instance
 ----
 
 [[overview-of-all-system-properties]]
-Overview of all system properties
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Overview of all system properties
 
 Overview of all system properties in WildFly including OS system
 properties and properties specified on command line using -D, -P or
@@ -81,12 +74,10 @@ Domain
 ----
 
 [[configuration]]
-Configuration
-~~~~~~~~~~~~~
+= Configuration
 
 [[list-subsystems]]
-List Subsystems
-^^^^^^^^^^^^^^^
+== List Subsystems
 
 [source,java]
 ----
@@ -125,8 +116,7 @@ List Subsystems
 ----
 
 [[list-description-of-available-attributes-and-childs]]
-List description of available attributes and childs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== List description of available attributes and childs
 
 Descriptions, possible attribute type and values, permission and whether
 expressions ( _$\{ ... }_ ) are allowed from the underlying model are
@@ -188,8 +178,7 @@ shown by the read-resource-description command.
 ----
 
 [[view-configuration-as-xml-for-domain-model-or-host-model]]
-View configuration as XML for domain model or host model
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== View configuration as XML for domain model or host model
 
 Assume you have a host that is called master
 
@@ -206,8 +195,7 @@ Just for the domain or standalone
 ----
 
 [[take-a-snapshot-of-what-the-current-domain-is]]
-Take a snapshot of what the current domain is
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Take a snapshot of what the current domain is
 
 [source,java]
 ----
@@ -222,8 +210,7 @@ Take a snapshot of what the current domain is
 ----
 
 [[take-the-latest-snapshot-of-the-host.xml-for-a-particular-host]]
-Take the latest snapshot of the host.xml for a particular host
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Take the latest snapshot of the host.xml for a particular host
 
 Assume you have a host that is called master
 
@@ -240,8 +227,7 @@ Assume you have a host that is called master
 ----
 
 [[how-to-get-interface-address]]
-How to get interface address
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== How to get interface address
 
 The attribute for interface is named "resolved-address". It's a runtime
 attribute so it does not show up in :read-resource by default. You have
@@ -298,12 +284,10 @@ It's similar for domain, just specify path to server instance:
 ----
 
 [[runtime]]
-Runtime
-~~~~~~~
+= Runtime
 
 [[get-all-configuration-and-runtime-details-from-cli]]
-Get all configuration and runtime details from CLI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Get all configuration and runtime details from CLI
 
 [source,java]
 ----
@@ -311,12 +295,10 @@ Get all configuration and runtime details from CLI
 ----
 
 [[scripting]]
-Scripting
-~~~~~~~~~
+= Scripting
 
 [[windows-and-press-any-key-to-continue-...-issue]]
-Windows and "Press any key to continue ..." issue
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Windows and "Press any key to continue ..." issue
 
 WildFly scripts for Windows end with "Press any key to continue ...".
 This behavior is useful when script is executed by double clicking the
@@ -325,16 +307,14 @@ script (e.g. 'bin/jboss-admin.bat --connect command=:shutdown').
 
 To avoid "Press any key to continue ..." message you need to specify
 NOPAUSE variable. Call 'set NOPAUSE=true' in command line before running
-any WildFly 8 .bat script or include it in your custom script before
+any WildFly 8 .bat script or include it in your custom script before
 invoking scripts from WildFly.
 
 [[statistics]]
-Statistics
-~~~~~~~~~~
+= Statistics
 
 [[read-statistics-of-active-datasources]]
-Read statistics of active datasources
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Read statistics of active datasources
 
 [source,java]
 ----
@@ -350,12 +330,10 @@ or
 ----
 
 [[deployment]]
-Deployment
-~~~~~~~~~~
+= Deployment
 
 [[undeploying-and-redeploying-multiple-deployments]]
-Undeploying and redeploying multiple deployments
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Undeploying and redeploying multiple deployments
 
 CLI offers a way to efficiently undeploy or redeploy deployments in one
 simple command.
@@ -364,8 +342,7 @@ simple command.
 * To redeploy all disabled deployments: _deploy --name=*_
 
 [[incremental-deployment-with-the-cli]]
-Incremental deployment with the CLI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Incremental deployment with the CLI
 
 It can be desirable to incrementally create and(or) update a WildFly
 deployment. This chapter details how this can be achieved using the
@@ -379,37 +356,42 @@ Steps to create an empty deployment and add an index html file.
 ----
 [standalone@localhost:9990 /] /deployment=myapp:add(content=[{empty=true}])
 ----
-2.  Add an index.html to my app:
+
+* Add an index.html to my app:
 +
 [source,java]
 ----
 [standalone@localhost:9990 /] /deployment=myapp:add-content(content=[{input-stream-index=<press TAB>
 ----
-+
+
 Then use completion to navigate to your index.html file.
-3.  Provide a target name for index.html inside the deployment and
-execute the operation:
-+
+
+Provide a target name for index.html inside the deployment and execute
+the operation:
+
 [source,java]
 ----
 [standalone@localhost:9990 /] /deployment=myapp:add-content(content=[{input-stream-index=./index.html, target-path=index.xhtml}]
 ----
-4.  Your content has been added, you can browse the content of a
-deployment using the browse-content operation:
-+
+
+Your content has been added, you can browse the content of a deployment
+using the browse-content operation:
+
 [source,java]
 ----
 [standalone@localhost:9990 /] /deployment=myapp:browse-content(path=./)
 ----
-5.  You can display (or save) the content of a deployed file using the
+
+You can display (or save) the content of a deployed file using the
 _attachement_ command:
-+
+
 [source,java]
 ----
 attachment display --operation=/deployment=myapp:read-content(path=index.xhtml)
 ----
-6.  You can remove content from a deployment:
-+
+
+You can remove content from a deployment:
+
 [source,java]
 ----
 /deployment=myapp:remove-content(paths=[./index.xhtml])
@@ -417,21 +399,24 @@ attachment display --operation=/deployment=myapp:read-content(path=index.xhtml)
 
 Tips
 
+[IMPORTANT]
+
 * _add-content_ operation allows you to add more than one file (
-_content_ argument is a list of complex types). 
+_content_ argument is a list of complex types).
 * CLI offers completion for __browse-conten__t's _path_ and
 _remove-content_'s _paths_ argument.
 * You can safely use operations that are using attached streams in batch
 operations. In the case of batch operations, streams are attached to the
 composite operation.
 
+[IMPORTANT]
+
 On Windows, path separator '\' needs to be escaped, this is a limitation
 of CLI handling complex types. The file path completion is automatically
 escaping the paths it is proposing.
 
 [[notes-for-server-side-operation-handler-implementors]]
-Notes for server side operation Handler implementors
-++++++++++++++++++++++++++++++++++++++++++++++++++++
+=== Notes for server side operation Handler implementors
 
 In order to benefit from CLI support for attached file streams and file
 system completion, you need to properly structure your operation
@@ -449,13 +434,12 @@ system paths will be automatically converted onto the index of the
 attached streams.
 
 [[downloading-files-with-the-cli]]
-Downloading files with the CLI
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Downloading files with the CLI
 
 Some management resources are exposing the content of files in the
 matter of _streams_. Streams returned by a management operation are
 attached to the headers of the management response. The CLI command
-_attachment_ (see CLI help for a detailed description of this command)
+_attachment_ (see CLI help for a detailed description of this command)
 allows to display or save the content of the attached streams.
 
 * Displaying the content of server.log file:
@@ -464,19 +448,23 @@ allows to display or save the content of the attached streams.
 ----
 attachment display --operation=/subsystem=logging/log-file=server.log:read-resource(include-runtime)
 ----
-* Saving locally the server.log file:
-+
+
+Saving locally the server.log file:
+
 [source,java]
 ----
 attachment save --operation=/subsystem=logging/log-file=server.log:read-resource(include-runtime) --file=./server.log
 ----
-* Displaying the content of a deployed file:
-+
+
+Displaying the content of a deployed file:
+
 [source,java]
 ----
 attachment display --operation=/deployment=myapp:read-content(path=index.xhtml)
 ----
 
+[IMPORTANT]
+
 * By default existing files will be preserved. Use the option
-_--overwrite_ to overwrite existing file.
+_--overwrite_ to overwrite existing file.
 * _attachment_ can be used in batch mode.

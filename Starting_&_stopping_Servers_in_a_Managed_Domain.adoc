@@ -1,10 +1,5 @@
-Starting & stopping Servers in a Managed Domain - Latest WildFly
-Documentation
-==============================================================================
-
-[[starting-stopping-servers-in-a-managed-domain]]
 Starting & stopping Servers in a Managed Domain
------------------------------------------------
+===============================================
 
 Starting a standalone server is done through the `bin/standalone.sh`
 script. However in a managed domain server instances are managed by the
@@ -20,8 +15,8 @@ First of all, get to know which `servers` are configured on a particular
    "outcome" => "success",
    "result" => ["local"]
 }
-
-
+ 
+ 
 [domain@localhost:9990 /] /host=local:read-children-names(child-type=server-config)
 {
    "outcome" => "success",
@@ -67,6 +62,8 @@ operations
    "result" => "STOPPING"
 }
 ----
+
+[IMPORTANT]
 
 Navigating through the domain topology is much more simple when you use
 the web interface.

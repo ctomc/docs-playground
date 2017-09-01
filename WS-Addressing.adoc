@@ -1,9 +1,5 @@
-Addressing - Latest WildFly Documentation
-=========================================
-
-[[addressing]]
-Addressing
-----------
+WS-Addressing
+=============
 
 JBoss Web Services inherits full WS-Addressing capabilities from the
 underlying Apache CXF implementation. Apache CXF provides support for
@@ -11,8 +7,7 @@ underlying Apache CXF implementation. Apache CXF provides support for
 WS-Addressing.
 
 [[enabling-ws-addressing]]
-Enabling WS-Addressing
-~~~~~~~~~~~~~~~~~~~~~~
+= Enabling WS-Addressing
 
 WS-Addressing can be turned on in multiple standard ways:
 
@@ -21,19 +16,20 @@ policy
 * using the `@javax.xml.ws.soap.Addressing` annotation
 * using the `javax.xml.ws.soap.AddressingFeature` feature
 
+[IMPORTANT]
+
 The supported addressing policy elements are:
 
-[source,java]
-----
+....
 [http://www.w3.org/2005/02/addressing/wsdl]UsingAddressing
 [http://schemas.xmlsoap.org/ws/2004/08/addressing/policy]UsingAddressing
 [http://www.w3.org/2006/05/addressing/wsdl]UsingAddressing
 [http://www.w3.org/2007/05/addressing/metadata]Addressing
-----
+....
 
 Alternatively, Apache CXF proprietary ways are also available:
 
-* specifying the ﻿ _[http://cxf.apache.org/ws/addressing]addressing_
+* specifying the ﻿ _[http://cxf.apache.org/ws/addressing]addressing_
 feature for a given client/endpoint
 * using the `org.apache.cxf.ws.addressing.WSAddressingFeature` feature
 through the API
@@ -48,9 +44,8 @@ on the proprietary
 http://cxf.apache.org/docs/ws-addressing.html[WS-Addressing setup] and
 http://cxf.apache.org/docs/wsaconfiguration.html[configuration details].
 
-[[addressing-policy]]
-Addressing Policy
-~~~~~~~~~~~~~~~~~
+[[ws-addressing-policy]]
+= WS-Addressing Policy
 
 The WS-Addressing support is also perfectly integrated with the Apache
 CXF WS-Policy engine.
@@ -68,15 +63,13 @@ able to properly process the WS-Addressing policy in the consumed WSDL
 and turn on addressing as requested.
 
 [[example]]
-Example
-~~~~~~~
+= Example
 
 Here is an example showing how to simply enable WS-Addressing through
 WS-Policy.
 
 [[endpoint]]
-Endpoint
-^^^^^^^^
+== Endpoint
 
 A simple JAX-WS endpoint is prepared using a java-first approach;
 WS-Addressing is enforced through `@Addressing` annotation and no
@@ -85,11 +78,11 @@ WS-Addressing is enforced through `@Addressing` annotation and no
 [source,java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsa;
-
+ 
 import javax.jws.WebService;
 import javax.xml.ws.soap.Addressing;
 import org.jboss.logging.Logger;
-
+ 
 @WebService
 (
    portName = "AddressingServicePort",
@@ -101,7 +94,7 @@ import org.jboss.logging.Logger;
 public class ServiceImpl implements ServiceIface
 {
    private Logger log = Logger.getLogger(this.getClass());
-
+ 
    public String sayHello(String name)
    {
       return "Hello " + name + "!";
@@ -112,7 +105,7 @@ public class ServiceImpl implements ServiceIface
 The WSDL contract that's generated at deploy time and published looks
 like this:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <wsdl:definitions ....>
 ...
@@ -120,7 +113,7 @@ like this:
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsaw:UsingAddressing wsdl:required="true"/>
     <wsp:PolicyReference URI="#AddressingServiceSoapBinding_WSAM_Addressing_Policy"/>
-
+ 
     <wsdl:operation name="sayHello">
       <soap:operation soapAction="" style="document"/>
       <wsdl:input name="sayHello">
@@ -130,7 +123,7 @@ like this:
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-
+ 
   </wsdl:binding>
   <wsdl:service name="AddressingService">
     <wsdl:port binding="tns:AddressingServiceSoapBinding" name="AddressingServicePort">
@@ -147,8 +140,7 @@ like this:
 ----
 
 [[client]]
-Client
-^^^^^^
+== Client
 
 Since the WS-Policy engine is on by default, the client side code is
 basically a pure JAX-WS client app:

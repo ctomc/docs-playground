@@ -1,9 +1,5 @@
-Management resources - Latest WildFly Documentation
-===================================================
-
-[[management-resources]]
 Management resources
---------------------
+====================
 
 When WildFly parses your configuration files at boot, or when you use
 one of the AS's link:Management_Clients.html[Management Clients] you are
@@ -12,8 +8,7 @@ internal management model. A WildFly management resource has the
 following characteristics:
 
 [[address]]
-Address
-~~~~~~~
+= Address
 
 All WildFly management resources are organized in a tree. The path to
 the node in the tree for a particular resource is its _address_. Each
@@ -47,8 +42,7 @@ instead of an '=':
 * `http://localhost:9990/management/interface/public`
 
 [[operations]]
-Operations
-~~~~~~~~~~
+= Operations
 
 Querying or modifying the state of a resource is done via an operation.
 An operation has the following characteristics:
@@ -136,13 +130,11 @@ details of one of them, via the CLI one would:
 }
 ----
 
-See
-link:Management_resources.html#108625996_Managementresources-Descriptions[Descriptions]
+See link:#src-557064_Managementresources-Descriptions[#Descriptions]
 below for more on how to learn about the operations a resource exposes.
 
 [[attributes]]
-Attributes
-~~~~~~~~~~
+= Attributes
 
 Management resources expose information about their state as attributes.
 Attributes have string name, and a value of type
@@ -289,27 +281,25 @@ configuration:
 }
 ----
 
-See
-link:Management_resources.html#108625996_Managementresources-Descriptions[Descriptions]
+See link:#src-557064_Managementresources-Descriptions[#Descriptions]
 below for how to learn more about the attributes a particular resource
 exposes.
 
 [[children]]
-Children
-~~~~~~~~
+= Children
 
 Management resources may support child resources. The
-link:Management_resources.html#108625996_Managementresources-Address[_types_
-of children] a resource supports (e.g. `connector` for the web subsystem
-resource) can be obtained by querying the resource's description (see
-link:Management_resources.html#108625996_Managementresources-Descriptions[Descriptions]
-below) or by invoking the `read-children-types` operation. Once you know
-the legal child types, you can query the names of all children of a
-given type by using the global `read-children-types` operation. The
-operation takes a single parameter "child-type" whose value is the type.
-For example, a resource representing a socket binding group has
-children. To find the type of those children and the names of resources
-of that type via the CLI one could:
+link:#src-557064_Managementresources-Address[_types_ of children] a
+resource supports (e.g. `connector` for the web subsystem resource) can
+be obtained by querying the resource's description (see
+link:#src-557064_Managementresources-Descriptions[#Descriptions] below)
+or by invoking the `read-children-types` operation. Once you know the
+legal child types, you can query the names of all children of a given
+type by using the global `read-children-types` operation. The operation
+takes a single parameter "child-type" whose value is the type. For
+example, a resource representing a socket binding group has children. To
+find the type of those children and the names of resources of that type
+via the CLI one could:
 
 [source,java]
 ----
@@ -336,8 +326,7 @@ of that type via the CLI one could:
 ----
 
 [[descriptions]]
-Descriptions
-~~~~~~~~~~~~
+= Descriptions
 
 All resources expose metadata that describes their attributes,
 operations and child types. This metadata is itself obtained by invoking
@@ -410,8 +399,7 @@ details on other parameters supported by the `read-resource-description`
 operation and all the other globally available operations.
 
 [[comparison-to-jmx-mbeans]]
-Comparison to JMX MBeans
-~~~~~~~~~~~~~~~~~~~~~~~~
+= Comparison to JMX MBeans
 
 WildFly management resources are conceptually quite similar to Open
 MBeans. They have the following primary differences:
@@ -424,21 +412,19 @@ properties in a JMX `ObjectName` is not significant.
 operation return values must either be one of the simple JDK types
 (String, Boolean, Integer, etc) or implement either the
 `javax.management.openmbean.CompositeData` interface or the
-`javax.management.openmbean.TabularData` interface. WildFly management
+`javax.management.openmbean.TabularData` interface. WildFly management
 resource attribute values, operation parameter values and operation
 return values are all of type `org.jboss.dmr.ModelNode`.
 
 [[basic-structure-of-the-management-resource-trees]]
-Basic structure of the management resource trees
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Basic structure of the management resource trees
 
 As noted above, management resources are organized in a tree structure.
 The structure of the tree depends on whether you are running a
 standalone server or a managed domain.
 
 [[standalone-server]]
-Standalone server
-^^^^^^^^^^^^^^^^^
+== Standalone server
 
 The structure of the managed resource tree is quite close to the
 structure of the `standalone.xml` configuration file.
@@ -460,8 +446,7 @@ bindings
 ** `deployment` – available deployments on the server
 
 [[managed-domain]]
-Managed domain
-^^^^^^^^^^^^^^
+== Managed domain
 
 In a managed domain, the structure of the managed resource tree spans
 the entire domain, covering both the domain wide configuration (e.g.
@@ -493,7 +478,7 @@ profile
 can be applied to server groups
 *** `socket-binding` – individual socket binding configurations
 ** `deployment` – deployments available for assignment to server groups
-** deployment-overlay -- deployment-overlays content available to
+** deployment-overlay -- deployment-overlays content available to
 overlay deployments in server groups
 ** `server-group` – server group configurations
 ** host – the individual Host Controllers. Each child of this type
@@ -530,4 +515,4 @@ the management model will be children of type `subsystem`
 socket bindings
 ***** `socket-binding` – individual socket binding configurations
 **** `deployment` – available deployments on the server
-**** deployment-overlay -- available overlays on the server
+**** deployment-overlay -- available overlays on the server

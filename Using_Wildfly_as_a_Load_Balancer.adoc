@@ -1,9 +1,5 @@
-Using Wildfly as a Load Balancer - Latest WildFly Documentation
-===============================================================
-
-[[using-wildfly-as-a-load-balancer]]
 Using Wildfly as a Load Balancer
---------------------------------
+================================
 
 Wildfly 10 adds support for using the Undertow subsystem as a load
 balancer. Wildfly supports two different approaches, you can either
@@ -12,8 +8,7 @@ configuration, or use it as a mod_cluster frontend, and use mod_cluster
 to dynamically update the hosts.
 
 [[general-overview]]
-General Overview
-~~~~~~~~~~~~~~~~
+= General Overview
 
 Wildly uses Undertow's proxy capabilities to act as a load balancer.
 Undertow will connect to the back end servers using its built in client,
@@ -39,8 +34,7 @@ does not support it the server will send a X-Disable-Push header to let
 the backend know that it should not attempt to push for this request.
 
 [[using-wildly-as-a-static-load-balancer]]
-Using Wildly as a static load balancer
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Using Wildly as a static load balancer
 
 To use WildFly as a static load balancer the first step is to create a
 proxy handler in the Undertow subsystem. For the purposes of this

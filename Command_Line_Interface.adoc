@@ -1,18 +1,13 @@
-Command Line Interface - Latest WildFly Documentation
-=====================================================
-
-[[command-line-interface]]
 Command Line Interface
-----------------------
+======================
 
 The Command Line Interface (CLI) is a management tool for a managed
 domain or standalone server. It allows a user to connect to the domain
 controller or a standalone server and execute management operations
-available through the de-typed management model. 
+available through the de-typed management model.
 
 [[running-the-cli]]
-Running the CLI
-~~~~~~~~~~~~~~~
+= Running the CLI
 
 Depending on the operating system, the CLI is launched using
 `jboss-cli.sh` or `jboss-cli.bat` located in the WildFly `bin`
@@ -21,8 +16,7 @@ please consult the " link:Getting_Started_Guide.html[Getting Started
 Guide]".
 
 The first thing to do after the CLI has started is to connect to a
-managed WildFly instance. This is done using the command  _connect_,
-e.g.
+managed WildFly instance. This is done using the command _connect_, e.g.
 
 [source,java]
 ----
@@ -30,10 +24,10 @@ e.g.
 You are disconnected at the moment. Type 'connect' to connect to the server
 or 'help' for the list of supported commands.
 [disconnected /]
-
+ 
 [disconnected /] connect
 [domain@localhost:9990 /]
-
+ 
 [domain@localhost:9990 /] quit
 Closed connection to localhost:9990
 ----
@@ -55,7 +49,9 @@ Connected to standalone controller at 192.168.0.1:9990
 The :9990 is not required as the CLI will use port 9990 by default. The
 port needs to be provided if the server is listening on some other port.
 
- To terminate the session type  _quit_.
+To terminate the session type _quit_.
+
+[IMPORTANT]
 
 The jboss-cli script accepts a --connect parameter: ./jboss-cli.sh
 --connect
@@ -77,9 +73,8 @@ connect             deployment-info     history        �
 To read a description of a specific command execute 'command_name --help'.
 ----
 
-[[interactive-mode]]
-interactive Mode
-~~~~~~~~~~~~~~~~
+[[non-interactive-mode]]
+= Non-interactive Mode
 
 The CLI can also be run in non-interactive mode to support scripts and
 other types of command line or batch processing. The --command and
@@ -113,8 +108,7 @@ command + options in the output. With this option enabled, any executed
 command will be added to the output.
 
 [[command-timeout]]
-Command timeout
-~~~~~~~~~~~~~~~
+= Command timeout
 
 By default CLI command and operation executions are not timely bounded.
 It means that a command never ending its execution will make the CLI
@@ -122,8 +116,7 @@ process to be stuck and unresponsive. To protect the CLI from this
 behavior, one can set a command execution timeout.
 
 [[command-timeout-behavior]]
-Command Timeout behavior
-^^^^^^^^^^^^^^^^^^^^^^^^
+== Command Timeout behavior
 
 In interactive mode, when a timeout occurs, an error message is
 displayed then the console prompt is made available to type new
@@ -134,8 +127,7 @@ when a timeout occurs, the CLI will make a best effort to cancel the
 associated server side activities.
 
 [[configuring-the-command-timeout]]
-Configuring the Command timeout
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Configuring the Command timeout
 
 * Add the XML element _<command-timeout>\{num
 seconds}</command-timeout>_ to the CLI XML configuration file.
@@ -143,8 +135,7 @@ seconds}</command-timeout>_ to the CLI XML configuration file.
 line. This will override any value set in the XML configuration file.
 
 [[managing-the-command-timeout]]
-Managing the Command Timeout
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Managing the Command Timeout
 
 Once the CLI is running, the timeout can be adjusted to cope with the
 commands to execute. For example a batch command will need a longer
@@ -152,8 +143,7 @@ timeout than a non batch one. The command _command-timeout_ allows to
 get, set and reset the command timeout.
 
 [[retrieving-the-command-timeout]]
-Retrieving the command timeout
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Retrieving the command timeout
 
 The command _command-timeout get_ displays the current timeout in
 seconds. A timeout of 0 means no timeout.
@@ -165,8 +155,7 @@ seconds. A timeout of 0 means no timeout.
 ----
 
 [[setting-the-command-timeout]]
-Setting the command timeout
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Setting the command timeout
 
 The command _command-timeout set_ update the timeout value to a number
 of seconds. If a timeout has been set via configuration (XML file or
@@ -178,8 +167,7 @@ option), it is overridden by the _set_ action.
 ----
 
 [[resetting-the-command-timeout]]
-Resetting the command timeout
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Resetting the command timeout
 
 The command _command-timeout reset \{config|default}_ allows to set the
 timeout to its configuration value (XML file or option) or default value
@@ -193,27 +181,23 @@ configuration value sets the timeout to its default value (0 seconds).
 ----
 
 [[default-native-management-interface-security]]
-Default Native Management Interface Security
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Default Native Management Interface Security
 
 The native interface shares the same security configuration as the http
 interface, however we also support a local authentication mechanism
 which means that the CLI can authenticate against the local WildFly
-instance without prompting the user for a username and password.  This
+instance without prompting the user for a username and password. This
 mechanism only works if the user running the CLI has read access to the
 standalone/tmp/auth folder or domain/tmp/auth folder under the
 respective WildFly installation - if the local mechanism fails then the
 CLI will fallback to prompting for a username and password for a user
-configured as in 
-https://docs.jboss.org/author/display/AS71/Default+HTTP+Interface+Security[Default
-HTTP Interface Security].
+configured as in link:#src-557082[Default HTTP Interface Security].
 
 Establishing a CLI connection to a remote server will require a username
 and password by default.
 
 [[operation-requests]]
-Operation Requests
-~~~~~~~~~~~~~~~~~~
+= Operation Requests
 
 Operation requests allow for low level interaction with the management
 model. They are different from the high level commands (i.e.
@@ -242,6 +226,8 @@ For example:
 
 Tab Completion
 
+[IMPORTANT]
+
 Tab-completion is supported for all commands and options, i.e.
 node-types and node-names, operation names and parameter names. We are
 also considering adding aliases that are less verbose for the user, and
@@ -252,8 +238,7 @@ Whitespaces between the separators in the operation request strings are
 not significant.
 
 [[addressing-resources]]
-Addressing resources
-^^^^^^^^^^^^^^^^^^^^
+== Addressing resources
 
 Operation requests might not always have the address part or the
 parameters. E.g.
@@ -292,8 +277,7 @@ To execute an operation against the root node, e.g.
 ----
 
 [[available-operation-types-and-descriptions]]
-Available Operation Types and Descriptions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Available Operation Types and Descriptions
 
 The operation types can be distinguished between common operations that
 exist on any node and specific operations that belong to a particular
@@ -370,11 +354,12 @@ through the description:
 
 Full model
 
+[IMPORTANT]
+
 To see the full model enter `:read-resource(recursive=true)`.
 
 [[command-history]]
-Command History
-~~~~~~~~~~~~~~~
+= Command History
 
 Command (and operation request) history is enabled by default. The
 history is kept both in-memory and in a file on the disk, i.e. it is
@@ -382,6 +367,8 @@ preserved between command line sessions. The history file name is
 .jboss-cli-history and is automatically created in the user's home
 directory. When the command line interface is launched this file is read
 and the in-memory history is initialized with its content.
+
+[IMPORTANT]
 
 While in the command line session, you can use the arrow keys to go back
 and forth in the history of commands and operations.
@@ -391,7 +378,7 @@ without any arguments, it will print all the recorded commands and
 operations (up to the configured maximum, which defaults to 500) from
 the in-memory history.
 
-_history_ supports three optional arguments:
+_history_ supports three optional arguments:
 
 * _disable_ - will disable history expansion (but will not clear the
 previously recorded history);
@@ -400,8 +387,7 @@ recorded command before the history expansion was disabled);
 * _clear_ - will clear the in-memory history (but not the file one).
 
 [[batch-processing]]
-Batch Processing
-~~~~~~~~~~~~~~~~
+= Batch Processing
 
 The batch mode allows one to group commands and operations and execute
 them together as an atomic unit. If at least one of the commands or
@@ -414,7 +400,7 @@ don't translate into operation requests. Only the commands that
 translate into operation requests are allowed in the batch. The batch,
 actually, is executed as a composite operation request.
 
-The batch mode is entered by executing command  _batch_.
+The batch mode is entered by executing command _batch_.
 
 [source,java]
 ----

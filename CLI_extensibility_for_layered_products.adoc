@@ -1,11 +1,7 @@
-CLI extensibility for layered products - Latest WildFly Documentation
-=====================================================================
-
-[[cli-extensibility-for-layered-products]]
 CLI extensibility for layered products
---------------------------------------
+======================================
 
- In addition to supporting the ServiceLoader extension mechanism to load
+In addition to supporting the ServiceLoader extension mechanism to load
 command handlers coming from outside of the CLI codebase, starting from
 the wildfly-core-1.0.0.Beta1 release the CLI running in a modular
 classloading environment can be extended with commands exposed in server
@@ -16,25 +12,25 @@ on the extension modules. (Note, that this mechanism will work only for
 extensions available in the server installation the CLI is launched
 from.)
 
- Here is an example of a simple command handler and its integration.
+Here is an example of a simple command handler and its integration.
 
 [source,java]
 ----
 package org.jboss.as.test.cli.extensions;public class ExtCommandHandler extends org.jboss.as.cli.handlers.CommandHandlerWithHelp {     
-
+ 
 package org.jboss.as.test.cli.extensions;
 public class ExtCommandHandler extends org.jboss.as.cli.handlers.CommandHandlerWithHelp {
-
-
+ 
+ 
     public static final String NAME = "ext-command";
     public static final String OUTPUT = "hello world!";
-
-
+ 
+ 
     public CliExtCommandHandler() {
         super(NAME, false);
     }
-
-
+ 
+ 
     @Override
     protected void doHandle(CommandContext ctx) throws CommandLineException {
         ctx.printLine(OUTPUT);
@@ -42,21 +38,21 @@ public class ExtCommandHandler extends org.jboss.as.cli.handlers.CommandHandlerW
 }
 ----
 
- The command will simply print a message to the terminal. The next step
+The command will simply print a message to the terminal. The next step
 is to implement the CLI CommandHandlerProvider interface.
 
 [source,java]
 ----
 package org.jboss.as.test.cli.extensions;
 public class ExtCommandHandlerProvider implements org.jboss.as.cli.CommandHandlerProvider {
-
-
+ 
+ 
     @Override
     public CommandHandler createCommandHandler(CommandContext ctx) {
         return new ExtCommandHandler();
     }
-
-
+ 
+ 
     /**
      * Whether the command should be available in tab-completion.
      */
@@ -64,8 +60,8 @@ public class ExtCommandHandlerProvider implements org.jboss.as.cli.CommandHandle
     public boolean isTabComplete() {
         return true;
     }
-
-
+ 
+ 
     /**
      * Command name(s).
      */

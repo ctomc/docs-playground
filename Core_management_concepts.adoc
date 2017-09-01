@@ -1,21 +1,15 @@
-Core management concepts - Latest WildFly Documentation
-=======================================================
-
-[[core-management-concepts]]
 Core management concepts
-------------------------
+========================
 
 [[operating-modes]]
-Operating modes
-~~~~~~~~~~~~~~~
+= Operating modes
 
 WildFly can be booted in two different modes. A _managed domain_ allows
 you to run and manage a multi-server topology. Alternatively, you can
 run a _standalone server_ instance.
 
 [[standalone-server]]
-Standalone Server
-^^^^^^^^^^^^^^^^^
+== Standalone Server
 
 For many use cases, the centralized management capability available via
 a managed domain is not necessary. For these use cases, a WildFly
@@ -35,8 +29,7 @@ and have them form an HA cluster, just like it was possible with JBoss
 Application Server 3, 4, 5 and 6.
 
 [[managed-domain]]
-Managed Domain
-^^^^^^^^^^^^^^
+== Managed Domain
 
 One of the primary new features of WildFly is the ability to manage
 multiple WildFly instances from a single control point. A collection of
@@ -61,18 +54,16 @@ Controller. See link:Domain_Setup.html[Domain Setup] for details.
 
 The following is an example managed domain topology:
 
-image:images/author/download/attachments/108625994/DC-HC-Server.png[images/author/download/attachments/108625994/DC-HC-Server.png]
+image:images/download/attachments/557077/DC-HC-Server.png[images/download/attachments/557077/DC-HC-Server.png]
 
 [[host]]
-Host
-++++
+=== Host
 
 Each "Host" box in the above diagram represents a physical or virtual
 host. A physical host can contain zero, one or more server instances.
 
 [[host-controller]]
-Host Controller
-+++++++++++++++
+=== Host Controller
 
 When the domain.sh or domain.bat script is run on a host, a process
 known as a Host Controller is launched. The Host Controller is solely
@@ -101,8 +92,7 @@ address in `host.xml`. Abstract path names in `domain.xml` can be mapped
 to actual filesystem paths in `host.xml`.
 
 [[domain-controller]]
-Domain Controller
-+++++++++++++++++
+=== Domain Controller
 
 One Host Controller instance is configured to act as the central
 management point for the entire domain, i.e. to be the Domain
@@ -132,8 +122,7 @@ definition of groups of sockets that those subsystems may open. The
 domain configuration also includes the definition of "server groups":
 
 [[server-group]]
-Server Group
-++++++++++++
+=== Server Group
 
 A server group is set of server instances that will be managed and
 configured as one. In a managed domain each application server instance
@@ -189,8 +178,7 @@ derive the settings to use to launch the server's JVM. See
 link:JVM_settings.html[JVM settings] for further details.
 
 [[server]]
-Server
-++++++
+=== Server
 
 Each "Server" in the above diagram represents an actual application
 server instance. The server runs in a separate JVM process from the Host
@@ -198,13 +186,12 @@ Controller. The Host Controller is responsible for launching that
 process. (In a managed domain the end user cannot directly launch a
 server process from the command line.)
 
- The Host Controller synthesizes the server's configuration by combining
+The Host Controller synthesizes the server's configuration by combining
 elements from the domain wide configuration (from `domain.xml` ) and the
 host-specific configuration (from `host.xml` ).
 
 [[deciding-between-running-standalone-servers-or-a-managed-domain]]
-Deciding between running standalone servers or a managed domain
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Deciding between running standalone servers or a managed domain
 
 Which use cases are appropriate for managed domain and which are
 appropriate for standalone servers? A managed domain is all about
@@ -249,18 +236,13 @@ as members of a domain is an efficient way to launch a multi-server
 cluster.
 
 [[general-configuration-concepts]]
-General configuration concepts
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= General configuration concepts
 
 For both a managed domain or a standalone server, a number of common
 configuration concepts apply:
 
-[[108625993_Coremanagementconcepts-extensions]]
-[[108625993_Coremanagementconcepts-extensions]]
-
 [[extensions]]
-Extensions
-^^^^^^^^^^
+== Extensions
 
 An extension is a module that extends the core capabilities of the
 server. The WildFly core is very simple and lightweight; most of the
@@ -282,12 +264,8 @@ the `domain.xml` or `standalone.xml` file.
 </extensions>
 ----
 
-[[108625993_Coremanagementconcepts-profiles]]
-[[108625993_Coremanagementconcepts-profiles]]
-
 [[profiles-and-subsystems]]
-Profiles and Subsystems
-^^^^^^^^^^^^^^^^^^^^^^^
+== Profiles and Subsystems
 
 The most significant part of the configuration in `domain.xml` and
 `standalone.xml` is the configuration of one (in `standalone.xml`) or
@@ -310,12 +288,8 @@ each of which can be mapped to one or more groups of servers.
 The contents of individual subsystem configurations look exactly the
 same between `domain.xml` and `standalone.xml`.
 
-[[108625993_Coremanagementconcepts-paths]]
-[[108625993_Coremanagementconcepts-paths]]
-
 [[paths]]
-Paths
-^^^^^
+== Paths
 
 A logical name for a filesystem path. The `domain.xml`, `host.xml` and
 `standalone.xml` configurations all include a section where paths can be
@@ -362,7 +336,7 @@ above by adding a `<path/>` element to their configuration file.
 <path name="example" path="example" relative-to="jboss.server.data.dir"/>
 ----
 
- The attributes are:
+The attributes are:
 
 * `name` -- the name of the path.
 * `path` -- the actual filesystem path. Treated as an absolute path,
@@ -373,7 +347,7 @@ or of one of the standard paths provided by the system.
 
 A `<path/>` element in a `domain.xml` need not include anything more
 than the `name` attribute; i.e. it need not include any information
-indicating what the actual filesystem path is: 
+indicating what the actual filesystem path is:
 
 [source,java]
 ----
@@ -395,12 +369,8 @@ what the actual filesystem path is:
 A `<path/>` element in a `standalone.xml` must include the specification
 of the actual filesystem path.
 
-[[108625993_Coremanagementconcepts-interfaces]]
-[[108625993_Coremanagementconcepts-interfaces]]
-
 [[interfaces]]
-Interfaces
-^^^^^^^^^^
+== Interfaces
 
 A logical name for a network interface/IP address/host name to which
 sockets can be bound. The `domain.xml`, `host.xml` and `standalone.xml`
@@ -410,7 +380,7 @@ by their logical name, rather than having to include the full details of
 the interface (which may vary on different machines). An interface
 configuration includes the logical name of the interface as well as
 information specifying the criteria to use for resolving the actual
-physical address to use. See  link:Interfaces_and_ports.html[Interfaces
+physical address to use. See link:Interfaces_and_ports.html[Interfaces
 and ports] for further details.
 
 An `<interface/>` element in a `domain.xml` need not include anything
@@ -440,12 +410,8 @@ address:
 An `<interface/>` element in a `standalone.xml` must include the
 criteria for determining the IP address.
 
-[[108625993_Coremanagementconcepts-socketbindings]]
-[[108625993_Coremanagementconcepts-socketbindings]]
-
 [[socket-bindings-and-socket-binding-groups]]
-Socket Bindings and Socket Binding Groups
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Socket Bindings and Socket Binding Groups
 
 A socket binding is a named configuration for a socket.
 
@@ -456,12 +422,8 @@ logical name, rather than having to include the full details of the
 socket configuration (which may vary on different machines). See
 link:Interfaces_and_ports.html[Interfaces and ports] for full details.
 
-[[108625993_Coremanagementconcepts-systemproperties]]
-[[108625993_Coremanagementconcepts-systemproperties]]
-
 [[system-properties]]
-System Properties
-^^^^^^^^^^^^^^^^^
+== System Properties
 
 System property values can be set in a number of places in `domain.xml`,
 `host.xml` and `standalone.xml`. The values in `standalone.xml` are set
@@ -487,8 +449,7 @@ precedence over a value specified directly under the `domain.xml` root
 element.
 
 [[management-resources]]
-Management resources
-~~~~~~~~~~~~~~~~~~~~
+= Management resources
 
 When WildFly parses your configuration files at boot, or when you use
 one of the AS's link:Management_Clients.html[Management Clients] you are
@@ -497,8 +458,7 @@ internal management model. A WildFly management resource has the
 following characteristics:
 
 [[address]]
-Address
-^^^^^^^
+== Address
 
 All WildFly management resources are organized in a tree. The path to
 the node in the tree for a particular resource is its _address_. Each
@@ -532,8 +492,7 @@ instead of an '=':
 * `http://localhost:9990/management/interface/public`
 
 [[operations]]
-Operations
-^^^^^^^^^^
+== Operations
 
 Querying or modifying the state of a resource is done via an operation.
 An operation has the following characteristics:
@@ -621,13 +580,11 @@ details of one of them, via the CLI one would:
 }
 ----
 
-See
-link:Core_management_concepts.html#108625993_Coremanagementconcepts-Descriptions[Descriptions]
+See link:#src-557076_Coremanagementconcepts-Descriptions[#Descriptions]
 below for more on how to learn about the operations a resource exposes.
 
 [[attributes]]
-Attributes
-^^^^^^^^^^
+== Attributes
 
 Management resources expose information about their state as attributes.
 Attributes have string name, and a value of type
@@ -774,20 +731,18 @@ configuration:
 }
 ----
 
-See
-link:Core_management_concepts.html#108625993_Coremanagementconcepts-Descriptions[Descriptions]
+See link:#src-557076_Coremanagementconcepts-Descriptions[#Descriptions]
 below for how to learn more about the attributes a particular resource
 exposes.
 
 [[children]]
-Children
-^^^^^^^^
+== Children
 
 Management resources may support child resources. The
-link:Core_management_concepts.html#108625993_Coremanagementconcepts-Address[_types_
-of children] a resource supports (e.g. `connector` for the web subsystem
-resource) can be obtained by querying the resource's description (see
-link:Core_management_concepts.html#108625993_Coremanagementconcepts-Descriptions[Descriptions]
+link:#src-557076_Coremanagementconcepts-Address[_types_ of children] a
+resource supports (e.g. `connector` for the web subsystem resource) can
+be obtained by querying the resource's description (see
+link:#src-557076_Coremanagementconcepts-Descriptions[#Descriptions]
 below) or by invoking the `read-children-types` operation. Once you know
 the legal child types, you can query the names of all children of a
 given type by using the global `read-children-types` operation. The
@@ -821,8 +776,7 @@ of that type via the CLI one could:
 ----
 
 [[descriptions]]
-Descriptions
-^^^^^^^^^^^^
+== Descriptions
 
 All resources expose metadata that describes their attributes,
 operations and child types. This metadata is itself obtained by invoking
@@ -895,8 +849,7 @@ details on other parameters supported by the `read-resource-description`
 operation and all the other globally available operations.
 
 [[comparison-to-jmx-mbeans]]
-Comparison to JMX MBeans
-^^^^^^^^^^^^^^^^^^^^^^^^
+== Comparison to JMX MBeans
 
 WildFly management resources are conceptually quite similar to Open
 MBeans. They have the following primary differences:
@@ -909,21 +862,19 @@ properties in a JMX `ObjectName` is not significant.
 operation return values must either be one of the simple JDK types
 (String, Boolean, Integer, etc) or implement either the
 `javax.management.openmbean.CompositeData` interface or the
-`javax.management.openmbean.TabularData` interface. WildFly management
+`javax.management.openmbean.TabularData` interface. WildFly management
 resource attribute values, operation parameter values and operation
 return values are all of type `org.jboss.dmr.ModelNode`.
 
 [[basic-structure-of-the-management-resource-trees]]
-Basic structure of the management resource trees
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Basic structure of the management resource trees
 
 As noted above, management resources are organized in a tree structure.
 The structure of the tree depends on whether you are running a
 standalone server or a managed domain.
 
 [[standalone-server-1]]
-Standalone server
-+++++++++++++++++
+=== Standalone server
 
 The structure of the managed resource tree is quite close to the
 structure of the `standalone.xml` configuration file.
@@ -945,8 +896,7 @@ bindings
 ** `deployment` – available deployments on the server
 
 [[managed-domain-1]]
-Managed domain
-++++++++++++++
+=== Managed domain
 
 In a managed domain, the structure of the managed resource tree spans
 the entire domain, covering both the domain wide configuration (e.g.
@@ -978,7 +928,7 @@ profile
 can be applied to server groups
 *** `socket-binding` – individual socket binding configurations
 ** `deployment` – deployments available for assignment to server groups
-** deployment-overlay -- deployment-overlays content available to
+** deployment-overlay -- deployment-overlays content available to
 overlay deployments in server groups
 ** `server-group` – server group configurations
 ** host – the individual Host Controllers. Each child of this type
@@ -1015,4 +965,4 @@ the management model will be children of type `subsystem`
 socket bindings
 ***** `socket-binding` – individual socket binding configurations
 **** `deployment` – available deployments on the server
-**** deployment-overlay -- available overlays on the server
+**** deployment-overlay -- available overlays on the server

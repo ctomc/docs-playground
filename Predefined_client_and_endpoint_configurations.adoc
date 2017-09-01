@@ -1,14 +1,8 @@
-Predefined client and endpoint configurations - Latest WildFly
-Documentation
-============================================================================
-
-[[predefined-client-and-endpoint-configurations]]
 Predefined client and endpoint configurations
----------------------------------------------
+=============================================
 
 [[overview]]
-Overview
-~~~~~~~~
+= Overview
 
 JBossWS permits extra setup configuration data to be predefined and
 associated with an endpoint or a client. Configurations can include
@@ -20,7 +14,7 @@ Configurations can be defined in the webservice subsystem and in an
 application's deployment descriptor file. There can be many
 configuration definitions in the webservice subsystem and in an
 application. Each configuration must have a name that is unique within
-the server.  Configurations defined in an application are local to the
+the server. Configurations defined in an application are local to the
 application. Endpoint implementations declare the use of a specific
 configuration through the use of the
 `org.jboss.ws.api.annotation.EndpointConfig` annotation. An endpoint
@@ -42,14 +36,13 @@ chains are executed before any handler that is attached to the endpoint
 using the standard means and the PRE handler chains are executed after
 those objects have executed.
 
-[source,java]
-----
+....
 * Server inbound messages
 Client --> ... --> POST HANDLER --> ENDPOINT HANDLERS --> PRE HANDLERS --> Endpoint
 
 * Server outbound messages
 Endpoint --> PRE HANDLER --> ENDPOINT HANDLERS --> POST HANDLERS --> ... --> Client
-----
+....
 
 The same applies for client configurations.
 
@@ -60,8 +53,7 @@ internals and some JBossWS options. Specific supported values are
 mentioned where relevant in the rest of the documentation.
 
 [[assigning-configurations]]
-Assigning configurations
-~~~~~~~~~~~~~~~~~~~~~~~~
+= Assigning configurations
 
 Endpoints and clients are assigned configuration through different
 means. Users can explicitly require a given configuration or rely on
@@ -73,8 +65,7 @@ programmatic usage (for clients)
 * Automatic assignment of configurations from container
 
 [[endpoint-configuration-assignment]]
-Endpoint configuration assignment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Endpoint configuration assignment
 
 The explicit configuration assignment is meant for developer that know
 in advance their endpoint or client has to be setup according to a
@@ -84,8 +75,7 @@ included in the application server webservices subsystem management
 model.
 
 [[endpoint-configuration-deployment-descriptor]]
-Endpoint Configuration Deployment Descriptor
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Endpoint Configuration Deployment Descriptor
 
 Java EE archives that can contain JAX-WS client and endpoint
 implementations can also contain predefined client and endpoint
@@ -176,8 +166,7 @@ xsi:schemaLocation="urn:jboss:jbossws-jaxws-config:4.0 schema/jbossws-jaxws-conf
 ----
 
 [[application-server-configurations]]
-Application server configurations
-+++++++++++++++++++++++++++++++++
+=== Application server configurations
 
 WildFly allows declaring JBossWS client and server predefined
 configurations in the _webservices_ subsystem section of the server
@@ -195,18 +184,18 @@ https://github.com/jbossas/jboss-as/blob/7.2.0.Final/build/src/main/resources/do
 included in the application server.
 
 [[standard-configurations]]
-Standard configurations
+==== Standard configurations
 
 Clients running in-container as well as endpoints are assigned standard
 configurations by default. The defaults are used unless different
 configurations are set as described on this page. This enables
 administrators to tune the default handler chains for client and
 endpoint configurations. The names of the default client and endpoint
-configurations, used in the webservices subsystem are 
+configurations, used in the webservices subsystem are
 `Standard-Client-Config` and `Standard-Endpoint-Config` respectively.
 
 [[handlers-classloading]]
-Handlers classloading
+==== Handlers classloading
 
 When setting a server-wide handler, please note the handler class needs
 to be available through each ws deployment classloader. As a consequence
@@ -217,7 +206,7 @@ of the modules which are already automatically set as dependencies to
 any deployment, for instance `org.jboss.ws.spi`.
 
 [[examples]]
-Examples
+==== Examples
 
 JBoss AS 7.2 default configurations
 
@@ -286,14 +275,13 @@ schema-validation on
 ----
 
 [[endpointconfig-annotation]]
-EndpointConfig annotation
-+++++++++++++++++++++++++
+=== EndpointConfig annotation
 
 Once a configuration is available to a given application, the
 `org.jboss.ws.api.annotation.EndpointConfig` annotation is used to
 assign an endpoint configuration to a JAX-WS endpoint implementation.
 When assigning a configuration that is defined in the webservices
-subsystem only the configuration name is specified.  When assigning a
+subsystem only the configuration name is specified. When assigning a
 configuration that is defined in the application, the relative path to
 the deployment descriptor and the configuration name must be specified.
 
@@ -310,8 +298,7 @@ return "Secure Hello World!";
 ----
 
 [[jaxws-feature]]
-JAXWS Feature
-+++++++++++++
+=== JAXWS Feature
 
 The most practical way of setting a configuration is using
 `org.jboss.ws.api.configuration.ClientConfigFeature`, a JAXWS `Feature`
@@ -320,65 +307,64 @@ extension provided by JBossWS:
 [source,java]
 ----
 import org.jboss.ws.api.configuration.ClientConfigFeature;
-
+ 
 ...
-
+ 
 Service service = Service.create(wsdlURL, serviceName);
 Endpoint port = service.getPort(Endpoint.class, new ClientConfigFeature("META-INF/my-client-config.xml", "Custom Client Config"));
 port.echo("Kermit");
-
+ 
 ... or ....
-
+ 
 port = service.getPort(Endpoint.class, new ClientConfigFeature("META-INF/my-client-config.xml", "Custom Client Config"), true); //setup properties too from the configuration
 port.echo("Kermit");
 ... or ...
-
+ 
 port = service.getPort(Endpoint.class, new ClientConfigFeature(null, testConfigName)); //reads from current container configurations if available
 port.echo("Kermit");
 ----
 
-JBossWS parses the specified configuration file.  The configuration file
-must be found as a resource by the classloader of the current thread. 
-The 
+JBossWS parses the specified configuration file. The configuration file
+must be found as a resource by the classloader of the current thread.
+The
 http://anonsvn.jboss.org/repos/jbossws/spi/tags/jbossws-spi-2.1.0.Beta1/src/main/resources/schema/jbossws-jaxws-config_4_0.xsd[jbossws-jaxws-config
-schema] defines the descriptor contents and is included in the 
-_jbossws-spi_ artifact.
+schema] defines the descriptor contents and is included in the
+_jbossws-spi_ artifact.
 
 [[explicit-setup-through-api]]
-Explicit setup through API
-++++++++++++++++++++++++++
+=== Explicit setup through API
 
 Alternatively, JBossWS API comes with facility classes that can be used
-for assigning configurations when building a client.  JAXWS handlers
-read from client configurations as follows:
+for assigning configurations when building a client. JAXWS handlers read
+from client configurations as follows:
 
 [source,java]
 ----
 import org.jboss.ws.api.configuration.ClientConfigUtil;
 import org.jboss.ws.api.configuration.ClientConfigurer;
-
+ 
 ...
-
+ 
 Service service = Service.create(wsdlURL, serviceName);
 Endpoint port = service.getPort(Endpoint.class);
 BindingProvider bp = (BindingProvider)port;
 ClientConfigUtil.setConfigHandlers(bp, "META-INF/my-client-config.xml", "Custom Client Config 1");
 port.echo("Kermit");
-
+ 
 ...
-
+ 
 ClientConfigurer configurer = ClientConfigUtil.resolveClientConfigurer();
 configurer.setConfigHandlers(bp, "META-INF/my-client-config.xml", "Custom Client Config 2");
 port.echo("Kermit");
-
+ 
 ...
-
+ 
 configurer.setConfigHandlers(bp, "META-INF/my-client-config.xml", "Custom Client Config 3");
 port.echo("Kermit");
-
-
+ 
+ 
 ...
-
+ 
 configurer.setConfigHandlers(bp, null, "Container Custom Client Config"); //reads from current container configurations if available
 port.echo("Kermit");
 ----
@@ -390,43 +376,42 @@ follows:
 ----
 import org.jboss.ws.api.configuration.ClientConfigUtil;
 import org.jboss.ws.api.configuration.ClientConfigurer;
-
+ 
 ...
-
+ 
 Service service = Service.create(wsdlURL, serviceName);
 Endpoint port = service.getPort(Endpoint.class);
-
+ 
 ClientConfigUtil.setConfigProperties(port, "META-INF/my-client-config.xml", "Custom Client Config 1");
 port.echo("Kermit");
-
+ 
 ...
-
+ 
 ClientConfigurer configurer = ClientConfigUtil.resolveClientConfigurer();
 configurer.setConfigProperties(port, "META-INF/my-client-config.xml", "Custom Client Config 2");
 port.echo("Kermit");
-
+ 
 ...
-
+ 
 configurer.setConfigProperties(port, "META-INF/my-client-config.xml", "Custom Client Config 3");
 port.echo("Kermit");
-
-
+ 
+ 
 ...
-
+ 
 configurer.setConfigProperties(port, null, "Container Custom Client Config"); //reads from current container configurations if available
 port.echo("Kermit");
 ----
 
 The default `ClientConfigurer` implementation parses the specified
 configuration file, if any, after having resolved it as a resources
-using the current thread context classloader. The 
+using the current thread context classloader. The
 http://anonsvn.jboss.org/repos/jbossws/spi/tags/jbossws-spi-2.1.0.Beta1/src/main/resources/schema/jbossws-jaxws-config_4_0.xsd[jbossws-jaxws-config
-schema] defines the descriptor contents and is included in the 
-_jbossws-spi_ artifact.
+schema] defines the descriptor contents and is included in the
+_jbossws-spi_ artifact.
 
 [[automatic-configuration-from-default-descriptors]]
-Automatic configuration from default descriptors
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Automatic configuration from default descriptors
 
 In some cases, the application developer might not be aware of the
 configuration that will need to be used for its client and endpoint
@@ -459,8 +444,7 @@ _org.foo.bar.Endpoint_ named configuration in _jaxws-client-config.xml_
 descriptor.
 
 [[automatic-configuration-assignment-from-container-setup]]
-Automatic configuration assignment from container setup
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Automatic configuration assignment from container setup
 
 JBossWS fall-backs to getting predefined configurations from the
 container setup whenever no explicit configuration has been provided and

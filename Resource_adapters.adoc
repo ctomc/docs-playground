@@ -1,9 +1,5 @@
-Resource adapters - Latest WildFly Documentation
-================================================
-
-[[resource-adapters]]
 Resource adapters
------------------
+=================
 
 Resource adapters are configured through the _resource-adapters_
 subsystem. Declaring a new resource adapter consists of two separate
@@ -11,8 +7,7 @@ steps: You would need to deploy the .rar archive and define a resource
 adapter entry in the subsystem.
 
 [[resource-adapter-definitions]]
-Resource Adapter Definitions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Resource Adapter Definitions
 
 The resource adapter itself is defined within the subsystem
 _resource-adapters_:
@@ -58,15 +53,13 @@ Note, that only JNDI bindings under java:/ or java:jboss/ are supported.
 ~(See~ `standalone/configuration/standalone.xml` ~)~
 
 [[using-security-domains]]
-Using security domains
-~~~~~~~~~~~~~~~~~~~~~~
+= Using security domains
 
 Information about using security domains can be found at
 https://community.jboss.org/wiki/JBossAS7SecurityDomainModel
 
 [[automatic-activation-of-resource-adapter-archives]]
-Automatic activation of resource adapter archives
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Automatic activation of resource adapter archives
 
 A resource adapter archive can be automatically activated with a
 configuration by including an META-INF/ironjacamar.xml in the archive.
@@ -75,15 +68,14 @@ The schema can be found at
 http://docs.jboss.org/ironjacamar/schema/ironjacamar_1_0.xsd
 
 [[component-reference]]
-Component Reference
-~~~~~~~~~~~~~~~~~~~
+= Component Reference
 
 The resource adapter subsystem is provided by the
 http://www.jboss.org/ironjacamar[IronJacamar] project. For a detailed
 description of the available configuration properties, please consult
 the project documentation.
 
-* IronJacamar homepage:  http://www.jboss.org/ironjacamar
-* Project Documentation:   http://www.jboss.org/ironjacamar/docs
-* Schema description: 
+* IronJacamar homepage: http://www.jboss.org/ironjacamar
+* Project Documentation: http://www.jboss.org/ironjacamar/docs
+* Schema description:
 http://docs.jboss.org/ironjacamar/userguide/1.0/en-US/html/deployment.html#deployingra_descriptor

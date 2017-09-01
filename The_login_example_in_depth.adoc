@@ -1,9 +1,5 @@
-The login example in depth - Latest WildFly Documentation
-=========================================================
-
-[[the-login-example-in-depth]]
 The login example in depth
---------------------------
+==========================
 
 This page has moved to
 http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/GreeterQuickstart/#greeter_in_depth

@@ -1,32 +1,24 @@
-Client Authentication with Elytron Client - Latest WildFly Documentation
-========================================================================
-
-[[client-authentication-with-elytron-client]]
 Client Authentication with Elytron Client
------------------------------------------
+=========================================
 
 WildFly Elytron uses the Elytron Client project to enable remote clients
 to authenticate using Elytron. Elytron Client has the following
 components:
 
-Component
+[cols=",",]
+|=======================================================================
+|Component |Description
 
-Description
+|Authentication Configuration |Contains authentication information such
+as usernames, passwords, allowed SASL mechanisms, and the security realm
+to use during digest authentication.
 
-Authentication Configuration
+|MatchRule |Rule used for deciding which authentication configuration to
+use.
 
-Contains authentication information such as usernames, passwords,
-allowed SASL mechanisms, and the security realm to use during digest
-authentication.
-
-MatchRule
-
-Rule used for deciding which authentication configuration to use.
-
-Authentication Context
-
-Set of rules and authentication configurations to use with a client for
-establishing a connection.
+|Authentication Context |Set of rules and authentication configurations
+to use with a client for establishing a connection.
+|=======================================================================
 
 When a connection is established, the client makes use of an
 authentication context, which gives rules that match which
@@ -61,8 +53,7 @@ _Context.SECURITY_PRINCIPAL_ in the _javax.naming.InitialContext_, will
 override the Elytron Client configuration.
 
 [[the-configuration-file-approach]]
-The Configuration File Approach
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The Configuration File Approach
 
 The configuration file approach involves creating an XML file with your
 authentication configuration, authentication context, and match rules.
@@ -111,11 +102,11 @@ system property when running your client.
 
 [source,java]
 ----
-$ java -Dwildfly.config.url=/path/to/the.xml …..
+$ java -Dwildfly.config.url=/path/to/the.xml .....
 ----
 
 *IMPORTANT*: If you use the
-link:Client_Authentication_with_Elytron_Client.html#116129824_ClientAuthenticationwithElytronClient-TheProgrammaticApproach[The
+link:#src-557099_ClientAuthenticationwithElytronClient-TheProgrammaticApproach[The
 Programmatic Approach], it will override any provided configuration
 files even if the _wildfly.config.url_ system property is set.
 
@@ -127,58 +118,43 @@ Rules are evaluated in the order in which they are configured.
 
 *Common Rules*
 
-Rule
+[cols=",",]
+|=======================================================================
+|Rule |Description
 
-Description
+|match-domain |Takes a single name attribute specifying the security
+domain to match against.
 
-match-domain
-
-Takes a single name attribute specifying the security domain to match
-against.
-
-match-host
-
-Takes a single name attribute specifying the hostname to match against.
-For example, the host 127.0.0.1 would match on
+|match-host |Takes a single name attribute specifying the hostname to
+match against. For example, the host 127.0.0.1 would match on
 http://127.0.0.1:9990/my/path .
 
-match-no-userinfo
+|match-no-userinfo |Matches against URIs with no userinfo.
 
-Matches against URIs with no userinfo.
-
-match-path
-
-Takes a single name attribute specifying the path to match against. For
-example, the path /my/path/ would match on http://127.0.0.1:9990/my/path
-.
-
-match-port
-
-Takes a single name attribute specifying the port to match against. For
-example, the port 9990 would match on http://127.0.0.1:9990/my/path .
-
-match-protocol
-
-Takes a single name attribute specifying the protocol to match against.
-For example, the protocol http would match on
+|match-path |Takes a single name attribute specifying the path to match
+against. For example, the path /my/path/ would match on
 http://127.0.0.1:9990/my/path .
 
-match-purpose
+|match-port |Takes a single name attribute specifying the port to match
+against. For example, the port 9990 would match on
+http://127.0.0.1:9990/my/path .
 
-Takes a names attribute specifying the list of purposes to match
+|match-protocol |Takes a single name attribute specifying the protocol
+to match against. For example, the protocol http would match on
+http://127.0.0.1:9990/my/path .
+
+|match-purpose |Takes a names attribute specifying the list of purposes
+to match against.
+
+|match-urn |Takes a single name attribute specifying the URN to match
 against.
 
-match-urn
-
-Takes a single name attribute specifying the URN to match against.
-
-match-userinfo
-
-Takes a single name attribute specifying the userinfo to match against.
+|match-userinfo |Takes a single name attribute specifying the userinfo
+to match against.
+|=======================================================================
 
 [[the-programmatic-approach]]
-The Programmatic Approach
-~~~~~~~~~~~~~~~~~~~~~~~~~
+= The Programmatic Approach
 
 The programatic approach configures all the Elytron Client configuration
 in the client's code:
@@ -193,12 +169,12 @@ AuthenticationConfiguration adminConfig =
       .useRealm("ManagementRealm")
       .useName("administrator")
       .usePassword("password1!");
-
+ 
 //create your authentication context
 AuthenticationContext context = AuthenticationContext.empty();
 context = context.with(MatchRule.ALL.matchHost("127.0.0.1"), adminConfig);
-
-
+ 
+ 
 //create your runnable for establishing a connection
 Runnable runnable = 
     new Runnable() {
@@ -210,7 +186,7 @@ Runnable runnable =
         }
       }
     };
-
+ 
 //use your authentication context to run your client
 context.run(runnable);
 ----
@@ -228,7 +204,7 @@ AuthenticationConfiguration commonConfig =
       .useProviders(() -> new Provider[] { new WildFlyElytronProvider() })
       .allowSaslMechanisms("DIGEST-MD5")
       .useRealm("ManagementRealm");
-
+ 
 AuthenticationConfiguration administrator = 
     commonConfig
       .useName("administrator")
@@ -239,8 +215,8 @@ AuthenticationConfiguration monitor =
     commonConfig
       .useName("monitor")
       .usePassword("password1!");
-
-
+ 
+ 
 //create your authentication context
 AuthenticationContext context = AuthenticationContext.empty();
 context = context.with(MatchRule.ALL.matchHost("127.0.0.1"), administrator);
@@ -249,46 +225,37 @@ context = context.with(MatchRule.ALL.matchHost("localhost"), monitor);
 
 *Common Rules*
 
-Rule
+[cols=",",]
+|=======================================================================
+|Rule |Description
 
-Description
+|matchLocalSecurityDomain(String name) |This is the same as match-domain
+in the configuration file approach.
 
-matchLocalSecurityDomain(String name)
+|matchNoUser() |This is the same as match-no-user in the configuration
+file approach.
 
-This is the same as match-domain in the configuration file approach.
+|matchPath(String pathSpec) |This is the same as match-path in the
+configuration file approach.
 
-matchNoUser()
+|matchPort(int port) |This is the same as match-port in the
+configuration file approach.
 
-This is the same as match-no-user in the configuration file approach.
+|matchProtocol(String protoName) |This is the same as match-port in the
+configuration file approach.
 
-matchPath(String pathSpec)
+|matchPurpose(String purpose) |Create a new rule which is the same as
+this rule, but also matches the given purpose name.
 
-This is the same as match-path in the configuration file approach.
+|matchPurposes(String... purposes) |This is the same as match-purpose in
+the configuration file approach.
 
-matchPort(int port)
+|matchUrnName(String name) |This is the same as match-urn in the
+configuration file approach.
 
-This is the same as match-port in the configuration file approach.
-
-matchProtocol(String protoName)
-
-This is the same as match-port in the configuration file approach.
-
-matchPurpose(String purpose)
-
-Create a new rule which is the same as this rule, but also matches the
-given purpose name.
-
-matchPurposes(String... purposes)
-
-This is the same as match-purpose in the configuration file approach.
-
-matchUrnName(String name)
-
-This is the same as match-urn in the configuration file approach.
-
-matchUser(String userSpec)
-
-This is the same as match-userinfo in the configuration file approach.
+|matchUser(String userSpec) |This is the same as match-userinfo in the
+configuration file approach.
+|=======================================================================
 
 Also, instead of starting with an empty authentication configuration,
 you can start with the current configured one by using
@@ -306,11 +273,11 @@ authentication context is established once its been activated by calling
 _run()_. If _captureCurrent()_ is called and no context is currently
 active, it will try and use the default authentication if available. You
 can find more details about this in
-link:Client_Authentication_with_Elytron_Client.html#116129824_ClientAuthenticationwithElytronClient-TheConfigurationFileApproach[The
+link:#src-557099_ClientAuthenticationwithElytronClient-TheConfigurationFileApproach[The
 Configuration File Approach],
-link:Client_Authentication_with_Elytron_Client.html#116129824_ClientAuthenticationwithElytronClient-TheDefaultConfigurationApproach[The
+link:#src-557099_ClientAuthenticationwithElytronClient-TheDefaultConfigurationApproach[The
 Default Configuration Approach], and
-link:Client_Authentication_with_Elytron_Client.html#116129824_ClientAuthenticationwithElytronClient-UsingElytronClientwithClientsDeployedtoWildFly[Using
+link:#src-557099_ClientAuthenticationwithElytronClient-UsingElytronClientwithClientsDeployedtoWildFly[Using
 Elytron Client with Clients Deployed to WildFly] sections.
 
 Using _AuthenticationConfiguration.EMPTY_ should only be used as a base
@@ -330,8 +297,7 @@ authentication configuration. The provided rule and authentication
 configuration will appear after the ones in the current context.
 
 [[the-default-configuration-approach]]
-The Default Configuration Approach
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The Default Configuration Approach
 
 The default configuration approach relies completely on the
 configuration provided by Elytron Client:
@@ -349,7 +315,7 @@ Runnable runnable =
         }
       }
     };
-
+ 
 // run runnable directly  
 runnable.run();
 ----
@@ -390,8 +356,7 @@ _$WILDFLY_HOME/bin/client/jboss-client.jar_.
 ----
 
 [[using-elytron-client-with-clients-deployed-to-wildfly]]
-Using Elytron Client with Clients Deployed to WildFly
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Using Elytron Client with Clients Deployed to WildFly
 
 Clients deployed to WildFly can also make use of Elytron Client. In
 cases where you have included a _wildfly-config.xml_ with your
@@ -401,9 +366,9 @@ file.
 
 To load a configuration file outside of the deployment, you can use the
 _parseAuthenticationClientConfiguration(URI)_ method. This method will
-return an _AuthentcationContext_ which you can then use in your client’s
+return an _AuthentcationContext_ which you can then use in your client's
 code using the
-link:Client_Authentication_with_Elytron_Client.html#116129824_ClientAuthenticationwithElytronClient-TheProgrammaticApproach[The
+link:#src-557099_ClientAuthenticationwithElytronClient-TheProgrammaticApproach[The
 Programmatic Approach].
 
 Additionally, clients will also automatically parse and create an
@@ -412,4 +377,4 @@ _elytron_ subsystem. The client configuration in the _elytron_ subsystem
 can also take advantage of other components defined in the _elytron_
 subsystem such as credential stores. If client configuration is provided
 by BOTH the deployment and the _elytron_ subsystem, the _elytron_
-subsystem’s configuration is used.
+subsystem's configuration is used.

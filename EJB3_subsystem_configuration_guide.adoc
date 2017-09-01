@@ -1,9 +1,5 @@
-EJB3 subsystem configuration guide - Latest WildFly Documentation
-=================================================================
-
-[[ejb3-subsystem-configuration-guide]]
 EJB3 subsystem configuration guide
-----------------------------------
+==================================
 
 This page lists the options that are available for configuring the EJB
 subsystem.
@@ -11,7 +7,7 @@ subsystem.
 A complete example of the config is shown below, with a full explanation
 of each
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <subsystem xmlns="urn:jboss:domain:ejb3:1.2">
   <session-bean>
@@ -61,12 +57,10 @@ of each
 ----
 
 [[session-bean]]
-<session-bean>
-~~~~~~~~~~~~~~
+= <session-bean>
 
 [[stateless]]
-<stateless>
-^^^^^^^^^^^
+== <stateless>
 
 This element is used to configure the instance pool that is used by
 default for stateless session beans. If it is not present stateless
@@ -77,8 +71,7 @@ deployment or per bean level using `jboss-ejb3.xml` or the
 themselves are configured in the `<pools>` element.
 
 [[stateful]]
-<stateful>
-^^^^^^^^^^
+== <stateful>
 
 This element is used to configure Stateful Session Beans.
 
@@ -95,8 +88,7 @@ the `org.jboss.ejb3.annotation.Cache` annotation.
 for clustered beans.
 
 [[singleton]]
-<singleton>
-^^^^^^^^^^^
+== <singleton>
 
 This element is used to configure Singleton Session Beans.
 
@@ -106,18 +98,15 @@ overridden via the deployment descriptor or via the
 `javax.ejb.AccessTimeout` annotation.
 
 [[mdb]]
-<mdb>
-~~~~~
+= <mdb>
 
 [[resource-adaptor-ref]]
-<resource-adaptor-ref>
-^^^^^^^^^^^^^^^^^^^^^^
+== <resource-adaptor-ref>
 
 This element sets the default resource adaptor for Message Driven Beans.
 
 [[bean-instance-pool-ref]]
-<bean-instance-pool-ref>
-^^^^^^^^^^^^^^^^^^^^^^^^
+== <bean-instance-pool-ref>
 
 This element is used to configure the instance pool that is used by
 default for Message Driven Beans. If it is not present they are not
@@ -128,14 +117,12 @@ annotation. The instance pools themselves are configured in the
 `<pools>` element.
 
 [[entity-bean]]
-<entity-bean>
-~~~~~~~~~~~~~
+= <entity-bean>
 
 This element is used to configure the behavior for EJB2 EntityBeans.
 
 [[bean-instance-pool-ref-1]]
-<bean-instance-pool-ref>
-^^^^^^^^^^^^^^^^^^^^^^^^
+== <bean-instance-pool-ref>
 
 This element is used to configure the instance pool that is used by
 default for Entity Beans. If it is not present they are not pooled, but
@@ -144,59 +131,48 @@ can be overridden on a per deployment or per bean level using
 `jboss-ejb3.xml` or the `org.jboss.ejb3.annotation.Pool` annotation. The
 instance pools themselves are configured in the `<pools>` element.
 
-[[section]]
-
 [[pools]]
-<pools>
-~~~~~~~
+= <pools>
 
 [[caches]]
-<caches>
-~~~~~~~~
+= <caches>
 
 [[passivation-stores]]
-<passivation-stores>
-~~~~~~~~~~~~~~~~~~~~
+= <passivation-stores>
 
 [[async]]
-<async>
-~~~~~~~
+= <async>
 
 This element enables async EJB invocations. It is also used to specify
 the thread pool that these invocations will use.
 
 [[timer-service]]
-<timer-service>
-~~~~~~~~~~~~~~~
+= <timer-service>
 
 This element enables the EJB timer service. It is also used to specify
 the thread pool that these invocations will use.
 
 [[data-store]]
-<data-store>
-^^^^^^^^^^^^
+== <data-store>
 
 This is used to configure the directory that persistent timer
 information is saved to.
 
 [[remote]]
-<remote>
-~~~~~~~~
+= <remote>
 
 This is used to enable remote EJB invocations. It specifies the remoting
 connector to use (as defined in the remoting subsystem configuration),
 and the thread pool to use for remote invocations.
 
 [[thread-pools]]
-<thread-pools>
-~~~~~~~~~~~~~~
+= <thread-pools>
 
 This is used to configure the thread pools used by async, timer and
 remote invocations.
 
 [[iiop]]
-<iiop>
-~~~~~~
+= <iiop>
 
 This is used to enable IIOP (i.e. CORBA) invocation of EJB's. If this
 element is present then the JacORB subsystem must also be installed. It
@@ -212,26 +188,25 @@ modules name of the deployment (e.g. myear/myejbjar/MyBean), if this is
 false the default binding name is simply the bean name.
 
 [[in-vm-remote-interface-invocation]]
-<in-vm-remote-interface-invocation>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= <in-vm-remote-interface-invocation>
 
 By default remote interface invocations use pass by value, as required
 by the EJB spec. This element can use used to enable pass by reference,
-which can give you a performance boost. Note WildFly will do a shallow
+which can give you a performance boost. Note WildFly will do a shallow
 check to see if the caller and the EJB have access to the same class
 definitions, which means if you are passing something such as a
-List<MyObject>, WildFly only checks the List to see if it is the same
-class definition on the call & EJB side.  If the top level class
+List<MyObject>, WildFly only checks the List to see if it is the same
+class definition on the call & EJB side. If the top level class
 definition is the same, JBoss will make the call using pass by
 reference, which means that if MyObject or any objects beneath it are
-loaded from different classloaders, you would get a ClassCastException. 
+loaded from different classloaders, you would get a ClassCastException.
 If the top level class definitions are loaded from different
-classloaders, JBoss will use pass by value.  JBoss cannot do a deep
-check of all of the classes to ensure no ClassCastExceptions will occur
+classloaders, JBoss will use pass by value. JBoss cannot do a deep check
+of all of the classes to ensure no ClassCastExceptions will occur
 because doing a deep check would eliminate any performance boost you
-would have received by using call by reference.  It is recommended that
+would have received by using call by reference. It is recommended that
 you configure pass by reference only on callers that you are sure will
-use the same class definitions and not globally.  This can be done via a
+use the same class definitions and not globally. This can be done via a
 configuration in the jboss-ejb-client.xml as shown below.
 
 To configure a caller/client use pass by reference, you configure your

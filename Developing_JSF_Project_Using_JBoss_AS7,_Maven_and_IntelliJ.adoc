@@ -1,10 +1,5 @@
-Developing JSF Project Using JBoss AS7, Maven and IntelliJ - Latest
-WildFly Documentation
-=========================================================================================
-
-[[developing-jsf-project-using-jboss-as7-maven-and-intellij]]
 Developing JSF Project Using JBoss AS7, Maven and IntelliJ
-----------------------------------------------------------
+==========================================================
 
 JBoss AS7 is a very 'modern' application server that has very fast
 startup speed. So it's an excellent container to test your JSF project.
@@ -63,8 +58,7 @@ The version I'm using is IntelliJ IDEA Ultimate 11.1
 After all of these prepared, we can dive into the real work:
 
 [[create-a-project-using-maven]]
-Create a project using Maven
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Create a project using Maven
 
 Use the following maven command to create a web project:
 
@@ -80,13 +74,12 @@ mvn archetype:create -DarchetypeGroupId=org.apache.maven.archetypes \
 
 If everything goes fine maven will generate the project for us:
 
-image:images/author/download/attachments/108626325/8108c4f111aab2c3465472eb84cf1d9b7cf912d0.jpg[images/author/download/attachments/108626325/8108c4f111aab2c3465472eb84cf1d9b7cf912d0.jpg]
+image:images/download/attachments/557129/8108c4f111aab2c3465472eb84cf1d9b7cf912d0.jpg[images/download/attachments/557129/8108c4f111aab2c3465472eb84cf1d9b7cf912d0.jpg]
 
 The contents of the project is shown as above.
 
 [[add-jsf-into-project]]
-Add JSF into project
-~~~~~~~~~~~~~~~~~~~~
+= Add JSF into project
 
 The JSF library is now included in maven repo, so we can let maven to
 manage the download for us. First is to add repository into our pom.xml:
@@ -120,8 +113,7 @@ Then we run 'mvn install' to update the project, and maven will download
 jsf-api for us automatically.
 
 [[writing-code]]
-Writing Code
-~~~~~~~~~~~~
+= Writing Code
 
 Writing JSF code in this article is trivial, so I've put written a
 project called 'jsfdemo' onto github:
@@ -132,8 +124,7 @@ Please clone this project into your local machine, and import it into
 IntelliJ following the steps described as above.
 
 [[add-jboss-as-7-deploy-plugin-into-project]]
-Add JBoss AS 7 deploy plugin into project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Add JBoss AS 7 deploy plugin into project
 
 JBoss AS7 has provide a set of convenient maven plugins to perform daily
 tasks such as deploying project into AS7. In this step let's see how to
@@ -202,8 +193,7 @@ https://github.com/liweinan/jsfdemo/blob/master/pom.xml
 Now we have finished the setup work for maven.
 
 [[deploy-project-to-jboss-as-7]]
-Deploy project to JBoss AS 7
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Deploy project to JBoss AS 7
 
 To deploy the project to JBoss AS7, we should start AS7 firstly. In
 JBoss AS7 directory, run following command:
@@ -224,111 +214,107 @@ mvn -q jboss-as:deploy
 Maven will use some time to download necessary components for a while,
 so please wait patiently. After a while, we can see the result:
 
-image:images/author/download/attachments/108626325/97d781c6be9db755aef80a110f1d9b29590610d6.jpg[images/author/download/attachments/108626325/97d781c6be9db755aef80a110f1d9b29590610d6.jpg]
+image:images/download/attachments/557129/97d781c6be9db755aef80a110f1d9b29590610d6.jpg[images/download/attachments/557129/97d781c6be9db755aef80a110f1d9b29590610d6.jpg]
 
 And if you check the console output of AS7, you can see the project is
 deployed:
 
-image:images/author/download/attachments/108626325/2._java.jpg[images/author/download/attachments/108626325/2._java.jpg]
+image:images/download/attachments/557129/2._java.jpg[images/download/attachments/557129/2._java.jpg]
 
 Now we have learnt how to create a JSF project and deploy it to AS7
 without any help from graphical tools. Next let's see how to use
 IntelliJ IDEA to go on developing/debugging our project.
 
 [[import-project-into-intellij]]
-Import project into IntelliJ
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Import project into IntelliJ
 
 Now it's time to import the project into IntelliJ. Now let's open
 IntelliJ, and choose 'New Project...':
 
-image:images/author/download/attachments/108626325/05222f3059e387df96ce04d2aea156c82af15096.jpg[images/author/download/attachments/108626325/05222f3059e387df96ce04d2aea156c82af15096.jpg]
+image:images/download/attachments/557129/05222f3059e387df96ce04d2aea156c82af15096.jpg[images/download/attachments/557129/05222f3059e387df96ce04d2aea156c82af15096.jpg]
 
 The we choose 'Import project from external model':
 
-image:images/author/download/attachments/108626325/d68a0cdbc8c90db3db8af998f34616f73c7fe809.jpg[images/author/download/attachments/108626325/d68a0cdbc8c90db3db8af998f34616f73c7fe809.jpg]
+image:images/download/attachments/557129/d68a0cdbc8c90db3db8af998f34616f73c7fe809.jpg[images/download/attachments/557129/d68a0cdbc8c90db3db8af998f34616f73c7fe809.jpg]
 
 Next step is choosing 'Maven':
 
-image:images/author/download/attachments/108626325/0b3d1cb5794fb54a2465da93648b5a0d1a6643f3.jpg[images/author/download/attachments/108626325/0b3d1cb5794fb54a2465da93648b5a0d1a6643f3.jpg]
+image:images/download/attachments/557129/0b3d1cb5794fb54a2465da93648b5a0d1a6643f3.jpg[images/download/attachments/557129/0b3d1cb5794fb54a2465da93648b5a0d1a6643f3.jpg]
 
 Then IntelliJ will ask you the position of the project you want to
 import. In 'Root directory' input your project's directory and leave
 other options as default:
 
-image:images/author/download/attachments/108626325/2f192d02993248c97e2ac42ea8f3105d855e5cdf.jpg[images/author/download/attachments/108626325/2f192d02993248c97e2ac42ea8f3105d855e5cdf.jpg]
+image:images/download/attachments/557129/2f192d02993248c97e2ac42ea8f3105d855e5cdf.jpg[images/download/attachments/557129/2f192d02993248c97e2ac42ea8f3105d855e5cdf.jpg]
 
 For next step, just click 'Next':
 
-image:images/author/download/attachments/108626325/3a3ee36eb581930822c4a66362795345f5d2f9a7.jpg[images/author/download/attachments/108626325/3a3ee36eb581930822c4a66362795345f5d2f9a7.jpg]
+image:images/download/attachments/557129/3a3ee36eb581930822c4a66362795345f5d2f9a7.jpg[images/download/attachments/557129/3a3ee36eb581930822c4a66362795345f5d2f9a7.jpg]
 
 Finally click 'Finish':
 
-image:images/author/download/attachments/108626325/91e40cd0b1545cff4622857d6dc9959f96faf056.jpg[images/author/download/attachments/108626325/91e40cd0b1545cff4622857d6dc9959f96faf056.jpg]
+image:images/download/attachments/557129/91e40cd0b1545cff4622857d6dc9959f96faf056.jpg[images/download/attachments/557129/91e40cd0b1545cff4622857d6dc9959f96faf056.jpg]
 
 Hooray! We've imported the project into IntelliJ now
-image:images/author/images/icons/emoticons/smile.gif[images/author/images/icons/emoticons/smile.gif]
+image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png]
 
 [[adding-intellij-jsf-support-to-project]]
-Adding IntelliJ JSF support to project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Adding IntelliJ JSF support to project
 
 Let's see how to use IntelliJ and AS7 to debug the project. First we
 need to add 'JSF' facet into project. Open project setting:
 
-image:images/author/download/attachments/108626325/8b8d0051f4f15033f17cb859c65f2d8481914678.jpg[images/author/download/attachments/108626325/8b8d0051f4f15033f17cb859c65f2d8481914678.jpg]
+image:images/download/attachments/557129/8b8d0051f4f15033f17cb859c65f2d8481914678.jpg[images/download/attachments/557129/8b8d0051f4f15033f17cb859c65f2d8481914678.jpg]
 
 Click on 'Facets' section on left; Select 'Web' facet that we already
 have, and click the '+' on top, choose 'JSF':
 
-image:images/author/download/attachments/108626325/e6947b84a56a698ca1392a440081bddfb5cae284.jpg[images/author/download/attachments/108626325/e6947b84a56a698ca1392a440081bddfb5cae284.jpg]
+image:images/download/attachments/557129/e6947b84a56a698ca1392a440081bddfb5cae284.jpg[images/download/attachments/557129/e6947b84a56a698ca1392a440081bddfb5cae284.jpg]
 
 Select 'Web' as parent facet:
 
-image:images/author/download/attachments/108626325/6b2296be1bb2d8a81952caef0f025a139a39b381.jpg[images/author/download/attachments/108626325/6b2296be1bb2d8a81952caef0f025a139a39b381.jpg]
+image:images/download/attachments/557129/6b2296be1bb2d8a81952caef0f025a139a39b381.jpg[images/download/attachments/557129/6b2296be1bb2d8a81952caef0f025a139a39b381.jpg]
 
 Click 'Ok':
 
-image:images/author/download/attachments/108626325/9988c572bad281146f405e9287f645a3da201885.jpg[images/author/download/attachments/108626325/9988c572bad281146f405e9287f645a3da201885.jpg]
+image:images/download/attachments/557129/9988c572bad281146f405e9287f645a3da201885.jpg[images/download/attachments/557129/9988c572bad281146f405e9287f645a3da201885.jpg]
 
 Now we have enabled IntelliJ's JSF support for project.
 
 [[add-jboss-as7-to-intellij]]
-Add JBoss AS7 to IntelliJ
-~~~~~~~~~~~~~~~~~~~~~~~~~
+= Add JBoss AS7 to IntelliJ
 
 Let's add JBoss AS7 into IntelliJ and use it to debug our project. First
 please choose 'Edit Configuration' in menu tab:
 
-image:images/author/download/attachments/108626325/dc0550785aae11f9d3eb439fdc0c51069affd25d.jpg[images/author/download/attachments/108626325/dc0550785aae11f9d3eb439fdc0c51069affd25d.jpg]
+image:images/download/attachments/557129/dc0550785aae11f9d3eb439fdc0c51069affd25d.jpg[images/download/attachments/557129/dc0550785aae11f9d3eb439fdc0c51069affd25d.jpg]
 
 Click '+' and choose 'JBoss Server' -> 'Local':
 
-image:images/author/download/attachments/108626325/1231420c938f087030cb3dcd37237b5585beb154.jpg[images/author/download/attachments/108626325/1231420c938f087030cb3dcd37237b5585beb154.jpg]
+image:images/download/attachments/557129/1231420c938f087030cb3dcd37237b5585beb154.jpg[images/download/attachments/557129/1231420c938f087030cb3dcd37237b5585beb154.jpg]
 
 Click 'configure':
 
-image:images/author/download/attachments/108626325/d7e6ab58230b2d31fdcd8fd5f14cd4eb47b05f64.jpg[images/author/download/attachments/108626325/d7e6ab58230b2d31fdcd8fd5f14cd4eb47b05f64.jpg]
+image:images/download/attachments/557129/d7e6ab58230b2d31fdcd8fd5f14cd4eb47b05f64.jpg[images/download/attachments/557129/d7e6ab58230b2d31fdcd8fd5f14cd4eb47b05f64.jpg]
 
 and choose your JBoss AS7:
 
-image:images/author/download/attachments/108626325/f7b29ac8009f04fc7f209222ced0bcf54f4b8d9a.jpg[images/author/download/attachments/108626325/f7b29ac8009f04fc7f209222ced0bcf54f4b8d9a.jpg]
+image:images/download/attachments/557129/f7b29ac8009f04fc7f209222ced0bcf54f4b8d9a.jpg[images/download/attachments/557129/f7b29ac8009f04fc7f209222ced0bcf54f4b8d9a.jpg]
 
 Now we need to add our project into deployment. Click the 'Deployment'
 tab:
 
-image:images/author/download/attachments/108626325/6802fb7e29283d0e064a7cc4466b918995ba5645.jpg[images/author/download/attachments/108626325/6802fb7e29283d0e064a7cc4466b918995ba5645.jpg]
+image:images/download/attachments/557129/6802fb7e29283d0e064a7cc4466b918995ba5645.jpg[images/download/attachments/557129/6802fb7e29283d0e064a7cc4466b918995ba5645.jpg]
 
 Choose 'Artifact', and add our project:
 
-image:images/author/download/attachments/108626325/359484b8f6f2c655d94132e9cb6f9dbe5a058656.jpg[images/author/download/attachments/108626325/359484b8f6f2c655d94132e9cb6f9dbe5a058656.jpg]
+image:images/download/attachments/557129/359484b8f6f2c655d94132e9cb6f9dbe5a058656.jpg[images/download/attachments/557129/359484b8f6f2c655d94132e9cb6f9dbe5a058656.jpg]
 
 Leave everything as default and click 'Ok', now we've added JBoss AS7
 into IntelliJ
 
 [[debugging-project-with-intellij-and-as7]]
-Debugging project with IntelliJ and AS7
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Debugging project with IntelliJ and AS7
 
 Now comes the fun part. To debug our project, we cannot directly use the
 'debug' feature provided by IntelliJ right now(maybe in the future
@@ -354,6 +340,8 @@ Enable the above config by removing the leading hash sign:
 JAVA_OPTS="$JAVA_OPTS -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n"
 ----
 
+[IMPORTANT]
+
 With WildFly you can directly start the server in debug mode:
 
 [source,java]
@@ -363,7 +351,7 @@ bin/standalone.sh --debug --server-config=standalone.xml
 
 Now we start AS7 in IntelliJ:
 
-image:images/author/download/attachments/108626325/52369d67f9117c924213de24dd6642b48e47a436.png[images/author/download/attachments/108626325/52369d67f9117c924213de24dd6642b48e47a436.png]
+image:images/download/attachments/557129/52369d67f9117c924213de24dd6642b48e47a436.png[images/download/attachments/557129/52369d67f9117c924213de24dd6642b48e47a436.png]
 
 Please note we should undeploy the existing 'jsfdemo' project in AS7 as
 we've added by maven jboss deploy plugin before. Or AS7 will tell us
@@ -373,62 +361,60 @@ deploy the project anymore.
 If the project start correctly we can see from the IntelliJ console
 window, and please check the debug option is enabled:
 
-image:images/author/download/attachments/108626325/eaac5cb1a836809ab29513346b527fe051b7c7ac.png[images/author/download/attachments/108626325/eaac5cb1a836809ab29513346b527fe051b7c7ac.png]
+image:images/download/attachments/557129/eaac5cb1a836809ab29513346b527fe051b7c7ac.png[images/download/attachments/557129/eaac5cb1a836809ab29513346b527fe051b7c7ac.png]
 
 Now we will setup the debug configuration, click 'debug' option on menu:
 
-image:images/author/download/attachments/108626325/b8323caf6980c40c3d635db5e308b03847618d06.jpg[images/author/download/attachments/108626325/b8323caf6980c40c3d635db5e308b03847618d06.jpg]
+image:images/download/attachments/557129/b8323caf6980c40c3d635db5e308b03847618d06.jpg[images/download/attachments/557129/b8323caf6980c40c3d635db5e308b03847618d06.jpg]
 
 Choose 'Edit Configurations':
 
-image:images/author/download/attachments/108626325/8327bbe0e83cb7170dd84767631c98956e91c42c.jpg[images/author/download/attachments/108626325/8327bbe0e83cb7170dd84767631c98956e91c42c.jpg]
+image:images/download/attachments/557129/8327bbe0e83cb7170dd84767631c98956e91c42c.jpg[images/download/attachments/557129/8327bbe0e83cb7170dd84767631c98956e91c42c.jpg]
 
 Then we click 'Add' and choose Remote:
 
-image:images/author/download/attachments/108626325/7103da6b6323e515a03a04cafe111aa7c6b3169d.jpg[images/author/download/attachments/108626325/7103da6b6323e515a03a04cafe111aa7c6b3169d.jpg]
+image:images/download/attachments/557129/7103da6b6323e515a03a04cafe111aa7c6b3169d.jpg[images/download/attachments/557129/7103da6b6323e515a03a04cafe111aa7c6b3169d.jpg]
 
 Set the 'port' to the one you used in AS7 config file 'standalone.conf':
 
-image:images/author/download/attachments/108626325/30bbef45137c7d45ae300ba8d551423d1feefc96.png[images/author/download/attachments/108626325/30bbef45137c7d45ae300ba8d551423d1feefc96.png]
+image:images/download/attachments/557129/30bbef45137c7d45ae300ba8d551423d1feefc96.png[images/download/attachments/557129/30bbef45137c7d45ae300ba8d551423d1feefc96.png]
 
 Leave other configurations as default and click 'Ok'. Now we need to set
 breakpoints in project, let's choose TimeBean.java and set a breakpoint
 on 'getNow()' method by clicking the left side of that line of code:
 
-image:images/author/download/attachments/108626325/a96b7d32e04aa67956bd00a187f09b75a5af241e.jpg[images/author/download/attachments/108626325/a96b7d32e04aa67956bd00a187f09b75a5af241e.jpg]
+image:images/download/attachments/557129/a96b7d32e04aa67956bd00a187f09b75a5af241e.jpg[images/download/attachments/557129/a96b7d32e04aa67956bd00a187f09b75a5af241e.jpg]
 
 Now we can use the profile to do debug:
 
-image:images/author/download/attachments/108626325/5ea6987d1635c2c58d3ccdb1f5718f29d6a0fac3.png[images/author/download/attachments/108626325/5ea6987d1635c2c58d3ccdb1f5718f29d6a0fac3.png]
+image:images/download/attachments/557129/5ea6987d1635c2c58d3ccdb1f5718f29d6a0fac3.png[images/download/attachments/557129/5ea6987d1635c2c58d3ccdb1f5718f29d6a0fac3.png]
 
 If everything goes fine we can see the console output:
 
-image:images/author/download/attachments/108626325/1096ebbbf2b29e694e300e02a48d0fa4207cb746.jpg[images/author/download/attachments/108626325/1096ebbbf2b29e694e300e02a48d0fa4207cb746.jpg]
+image:images/download/attachments/557129/1096ebbbf2b29e694e300e02a48d0fa4207cb746.jpg[images/download/attachments/557129/1096ebbbf2b29e694e300e02a48d0fa4207cb746.jpg]
 
 Now we go to web browser and see our project's main page, try to click
 on 'Get current time':
 
-image:images/author/download/attachments/108626325/5ad5d0216d3326e9bc29705042db59f11c3c1e70.png[images/author/download/attachments/108626325/5ad5d0216d3326e9bc29705042db59f11c3c1e70.png]
+image:images/download/attachments/557129/5ad5d0216d3326e9bc29705042db59f11c3c1e70.png[images/download/attachments/557129/5ad5d0216d3326e9bc29705042db59f11c3c1e70.png]
 
 Then IntelliJ will popup and the code is pausing on break point:
 
-image:images/author/download/attachments/108626325/2499d43c0dce2cab72ba472c8452a2b57999ac84.jpg[images/author/download/attachments/108626325/2499d43c0dce2cab72ba472c8452a2b57999ac84.jpg]
+image:images/download/attachments/557129/2499d43c0dce2cab72ba472c8452a2b57999ac84.jpg[images/download/attachments/557129/2499d43c0dce2cab72ba472c8452a2b57999ac84.jpg]
 
 And we could inspect our project now.
 
 [[conclusion]]
-Conclusion
-~~~~~~~~~~
+= Conclusion
 
 In this article I've shown to you how to use maven to create a project
 using JSF and deploy it in JBoss AS7, and I've also talked about the
 usage of IntelliJ during project development phase. Hope the contents
 are practical and helpful to you
-image:images/author/images/icons/emoticons/smile.gif[images/author/images/icons/emoticons/smile.gif]
+image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png]
 
 [[references]]
-References
-~~~~~~~~~~
+= References
 
 * _https://community.jboss.org/wiki/JBossAS7UsingJPDAToDebugTheASSourceCode[JBoss
 AS7: Using JPDA to debug the AS source code]_
@@ -436,7 +422,7 @@ AS7: Using JPDA to debug the AS source code]_
 JBoss 7 Bundled Dependency Versions Through Maven]_
 * _https://community.jboss.org/wiki/MavenGettingStarted-Developers[Maven
 Getting Started - Developers]_
-* _https://docs.jboss.org/blog.v-s-f.co.uk/2010/09/jsf-2-1-project-using-eclipse-and-maven-2/[JSF
+* _http://localhost:8090/blog.v-s-f.co.uk/2010/09/jsf-2-1-project-using-eclipse-and-maven-2/[JSF
 2.1 project using Eclipse and Maven 2:http]_
 * _http://www.amazon.com/Practical-RichFaces-Max-Katz/dp/1430234490/ref=dp_ob_title_bk[Practical
 RichFaces]_

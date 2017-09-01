@@ -1,14 +1,11 @@
-EJB invocations from a remote client using JNDI - Latest WildFly
-Documentation
-==============================================================================
-
-[[ejb-invocations-from-a-remote-client-using-jndi]]
 EJB invocations from a remote client using JNDI
------------------------------------------------
+===============================================
 
 This chapter explains how to invoke EJBs from a remote client by using
 the JNDI API to first lookup the bean proxy and then invoke on that
 proxy.
+
+[IMPORTANT]
 
 After you have read this article, do remember to take a look at
 https://docs.jboss.org/author/display/WFLY8/Remote+EJB+invocations+via+JNDI+-+EJB+client+API+or+remote-naming+project[Remote
@@ -25,8 +22,9 @@ just concentrate on the traditional JNDI based invocation on EJBs. So
 let's get started:
 
 [[deploying-your-ejbs-on-the-server-side]]
-Deploying your EJBs on the server side:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Deploying your EJBs on the server side:
+
+[IMPORTANT]
 
 Users who already have EJBs deployed on the server side can just skip to
 the next section.
@@ -42,14 +40,14 @@ business interface. Here's the code:
 [source,java]
 ----
 package org.jboss.as.quickstarts.ejb.remote.stateless;
-
+ 
 /**
  * @author Jaikiran Pai
  */
 public interface RemoteCalculator {
-
+ 
     int add(int a, int b);
-
+ 
     int subtract(int a, int b);
 }
 ----
@@ -57,22 +55,22 @@ public interface RemoteCalculator {
 [source,java]
 ----
 package org.jboss.as.quickstarts.ejb.remote.stateless;
-
+ 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-
+ 
 /**
  * @author Jaikiran Pai
  */
 @Stateless
 @Remote(RemoteCalculator.class)
 public class CalculatorBean implements RemoteCalculator {
-
+ 
     @Override
     public int add(int a, int b) {
         return a + b;
     }
-
+ 
     @Override
     public int subtract(int a, int b) {
         return a - b;
@@ -83,16 +81,16 @@ public class CalculatorBean implements RemoteCalculator {
 [source,java]
 ----
 package org.jboss.as.quickstarts.ejb.remote.stateful;
-
+ 
 /**
  * @author Jaikiran Pai
  */
 public interface RemoteCounter {
-
+ 
     void increment();
-
+ 
     void decrement();
-
+ 
     int getCount();
 }
 ----
@@ -100,29 +98,29 @@ public interface RemoteCounter {
 [source,java]
 ----
 package org.jboss.as.quickstarts.ejb.remote.stateful;
-
+ 
 import javax.ejb.Remote;
 import javax.ejb.Stateful;
-
+ 
 /**
  * @author Jaikiran Pai
  */
 @Stateful
 @Remote(RemoteCounter.class)
 public class CounterBean implements RemoteCounter {
-
+ 
     private int count = 0;
-
+ 
     @Override
     public void increment() {
         this.count++;
     }
-
+ 
     @Override
     public void decrement() {
         this.count--;
     }
-
+ 
     @Override
     public int getCount() {
         return this.count;
@@ -136,9 +134,8 @@ the server. Make sure that your deployment has been processed
 successfully and there aren't any errors.
 
 [[writing-a-remote-client-application-for-accessing-and-invoking-the-ejbs-deployed-on-the-server]]
-Writing a remote client application for accessing and invoking the EJBs
-deployed on the server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Writing a remote client application for accessing and invoking the
+EJBs deployed on the server
 
 The next step is to write an application which will invoke the EJBs that
 you deployed on the server. In WildFly, you can either choose to use the
@@ -154,19 +151,19 @@ invokes on a stateless bean:
 [source,java]
 ----
 package org.jboss.as.quickstarts.ejb.remote.client;
-
+ 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.security.Security;
 import java.util.Hashtable;
-
+ 
 import org.jboss.as.quickstarts.ejb.remote.stateful.CounterBean;
 import org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter;
 import org.jboss.as.quickstarts.ejb.remote.stateless.CalculatorBean;
 import org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator;
 import org.jboss.sasl.JBossSaslProvider;
-
+ 
 /**
  * A sample program which acts a remote client for a EJB deployed on Wildfly 10 server.
  * This program shows how to lookup stateful and stateless beans via JNDI and then invoke on them
@@ -174,15 +171,15 @@ import org.jboss.sasl.JBossSaslProvider;
  * @author Jaikiran Pai
  */
 public class RemoteEJBClient {
-
+ 
     public static void main(String[] args) throws Exception {
         // Invoke a stateless bean
         invokeStatelessBean();
-
+ 
         // Invoke a stateful bean
         invokeStatefulBean();
     }
-
+ 
     /**
      * Looks up a stateless bean and invokes on it
      *
@@ -211,7 +208,7 @@ public class RemoteEJBClient {
             throw new RuntimeException("Remote stateless calculator returned an incorrect difference " + difference + " ,expected difference was " + (num1 - num2));
         }
     }
-
+ 
     /**
      * Looks up a stateful bean and invokes on it
      *
@@ -237,7 +234,7 @@ public class RemoteEJBClient {
             System.out.println("Count after decrement is " + statefulRemoteCounter.getCount());
         }
     }
-
+ 
     /**
      * Looks up and returns the proxy to remote stateless calculator bean
      *
@@ -268,7 +265,7 @@ public class RemoteEJBClient {
         // let's do the lookup
         return (RemoteCalculator) context.lookup("ejb:" + appName + "/" + moduleName + "/" + distinctName + "/" + beanName + "!" + viewClassName);
     }
-
+ 
     /**
      * Looks up and returns the proxy to remote stateful counter bean
      *
@@ -301,6 +298,8 @@ public class RemoteEJBClient {
     }
 }
 ----
+
+[IMPORTANT]
 
 The entire server side and client side code is hosted at the github repo
 here
@@ -462,8 +461,7 @@ server details. So let's now get to the important part of setting up the
 EJB client context properties.
 
 [[setting-up-ejb-client-context-properties]]
-Setting up EJB client context properties
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Setting up EJB client context properties
 
 A EJB client context is a context which contains contextual information
 for carrying out remote invocations on EJBs. This is a WildFly-specific
@@ -498,16 +496,18 @@ contain the following properties:
 ----
 endpoint.name=client-endpoint
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
-
+ 
 remote.connections=default
-
+ 
 remote.connection.default.host=10.20.30.40
 remote.connection.default.port = 8080
 remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
-
+ 
 remote.connection.default.username=appuser
 remote.connection.default.password=apppassword
 ----
+
+[IMPORTANT]
 
 This file includes a reference to a default password. Be sure to change
 this as soon as possible.
@@ -516,11 +516,13 @@ The above properties file is just an example. The actual file that was
 used for this sample program is available here for reference
 https://github.com/wildfly/quickstart/blob/master/ejb-remote/client/src/main/resources/jboss-ejb-client.properties[jboss-ejb-client.properties]
 
+[IMPORTANT]
+
 We'll see what each of it means.
 
 First the endpoint.name property. We mentioned earlier that the EJB
 receivers will communicate with the server for EJB invocations.
-Internally, they use JBoss Remoting project to carry out the
+Internally, they use JBoss Remoting project to carry out the
 communication. The endpoint.name property represents the name that will
 be used to create the client side of the enpdoint. The endpoint.name
 property is optional and if not specified in the
@@ -588,6 +590,8 @@ communicating with the server for remote invocations, so that's the port
 we use in our client programs (unless the server is configured for some
 other http port)
 
+[IMPORTANT]
+
 [source,java]
 ----
 remote.connection.default.username=appuser
@@ -604,6 +608,8 @@ attribute security-realm in the configuration.
 
 security-realm is enabled by default.
 
+[IMPORTANT]
+
 We then use the "remote.connection.<connection-name>.connect.options."
 property prefix to setup options that will be used during the connection
 creation.
@@ -614,13 +620,13 @@ properties for each of those:
 [source,java]
 ----
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
-
+ 
 remote.connections=one, two
-
+ 
 remote.connection.one.host=localhost
 remote.connection.one.port=6999
 remote.connection.one.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
-
+ 
 remote.connection.two.host=localhost
 remote.connection.two.port=7999
 remote.connection.two.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
@@ -634,9 +640,8 @@ EJB client context.
 So that's how the jboss-ejb-client.properties file can be setup and
 placed in the classpath.
 
-[[108626118_EJBinvocationsfromaremoteclientusingJNDI-UsingadifferentfileforsettingupEJBclientcontext]]
-Using a different file for setting up EJB client context
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[[section]]
+====
 
 The EJB client code will by default look for jboss-ejb-client.properties
 in the classpath. However, you can specify a different file of your
@@ -646,10 +651,8 @@ containing the client context configurations. An example for that would
 be
 "-Djboss.ejb.client.properties.file.path=/home/me/my-client/custom-jboss-ejb-client.properties"
 
-[[108626118_EJBinvocationsfromaremoteclientusingJNDI-Settinguptheclientclasspathwiththejarsthatarerequiredtoruntheclientapplication]]
-Setting up the client classpath with the jars that are required to run
-the client application
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[[section-1]]
+====
 
 A jboss-client jar is shipped in the distribution. It's available at
 WILDFLY_HOME/bin/client/jboss-client.jar. Place this jar in the
@@ -659,9 +662,10 @@ If you are using Maven to build the client application, then please
 follow the instructions in the WILDFLY_HOME/bin/client/README.txt to add
 this jar as a Maven dependency.
 
+[IMPORTANT]
+
 [[summary]]
-Summary
-~~~~~~~
+= Summary
 
 In the above examples, we saw what it takes to invoke a EJB from a
 remote client. To summarize:

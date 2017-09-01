@@ -1,14 +1,10 @@
-Create the schema - Latest WildFly Documentation
-================================================
-
-[[create-the-schema]]
 Create the schema
------------------
+=================
 
-First, let us define the schema for our subsystem. Rename 
-`src/main/resources/schema/mysubsystem.xsd` to 
-`src/main/resources/schema/acme.xsd`. Then open  `acme.xsd` and modify
-it to the following +
+First, let us define the schema for our subsystem. Rename
+`src/main/resources/schema/mysubsystem.xsd` to
+`src/main/resources/schema/acme.xsd`. Then open `acme.xsd` and modify it
+to the following
 
 [source,java]
 ----
@@ -18,7 +14,7 @@ it to the following +
             elementFormDefault="qualified"
             attributeFormDefault="unqualified"
             version="1.0">
-
+ 
    <!-- The subsystem root element -->
    <xs:element name="subsystem" type="subsystemType"/>
    <xs:complexType name="subsystemType">
@@ -38,19 +34,19 @@ it to the following +
 </xs:schema>
 ----
 
-Note that we modified the `xmlns` and `targetNamespace` values to ﻿
+Note that we modified the `xmlns` and `targetNamespace` values to ﻿
 `urn.com.acme.corp.tracker:1.0`. Our new `subsystem` element has a child
 called `deployment-types`, which in turn can have zero or more children
 called `deployment-type`. Each `deployment-type` has a required `suffix`
 attribute, and a `tick` attribute which defaults to `true.`
 
-Now modify the ﻿ `com.acme.corp.tracker.extension.SubsystemExtension`
+Now modify the ﻿ `com.acme.corp.tracker.extension.SubsystemExtension`
 class to contain the new namespace.
 
 [source,java]
 ----
 public class SubsystemExtension implements Extension {
-
+ 
     /** The name space used for the {@code substystem} element */
     public static final String NAMESPACE = "urn:com.acme.corp.tracker:1.0";
     ...

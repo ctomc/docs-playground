@@ -1,13 +1,8 @@
-Scoped EJB client contexts - Latest WildFly Documentation
-=========================================================
-
-[[scoped-ejb-client-contexts]]
 Scoped EJB client contexts
---------------------------
+==========================
 
 [[overview]]
-Overview
-~~~~~~~~
+= Overview
 
 WildFly 8 introduced the EJB client API for managing remote EJB
 invocations. The EJB client API works off EJBClientContext(s). An
@@ -17,7 +12,7 @@ which is capable of handling the EJB invocation. Typically EJB remote
 applications can be classified into:
 
 * A remote client which runs as a standalone Java application
-* A remote client which runs within another WildFly 8 instance
+* A remote client which runs within another WildFly 8 instance
 
 Depending on the kind of remote client, from an EJB client API point of
 view, there can potentially be more than 1 EJBClientContext(s) within a
@@ -29,19 +24,18 @@ mandatory. Certain standalone applications can potentially have more
 than one EJBClientContext(s) and a EJB client context selector will be
 responsible for returning the appropriate context.
 
-In case of remote clients which run within another WildFly 8 instance,
+In case of remote clients which run within another WildFly 8 instance,
 each deployed application will have a corresponding EJB client context.
 Whenever that application invokes on another EJB, the corresponding EJB
 client context will be used for finding the right EJB receiver and
 letting it handle the invocation.
 
 [[potential-shortcomings-of-a-single-ejb-client-context]]
-Potential shortcomings of a single EJB client context
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Potential shortcomings of a single EJB client context
 
 In the Overview section we briefly looked at the different types of
 remote clients. Let's focus on the standalone remote clients (the ones
-that don't run within another WildFly 8 instance) for some of the next
+that don't run within another WildFly 8 instance) for some of the next
 sections. Like mentioned earlier, typically a remote standalone client
 has just one EJB client context backed by any number of EJB receivers.
 Consider this example:
@@ -49,9 +43,9 @@ Consider this example:
 [source,java]
 ----
 public class MyApplication {
-
+ 
     public static void main(String args[]) {
-
+ 
         final javax.naming.Context ctxOne = new javax.naming.InitialContext();
         final MyBeanInterface beanOne = ctxOne.lookup("ejb:app/module/distinct/bean!interface");
         beanOne.doSomething();
@@ -74,28 +68,28 @@ invocation request. Since we just have a single EJB client context, that
 context is used by the above code to invoke the bean.
 
 Now let's consider a case where the user application wants to invoke on
-the bean more than once, but wants to connect to the WildFly 8 server
+the bean more than once, but wants to connect to the WildFly 8 server
 using different security credentials. Let's take a look at the following
 code:
 
 [source,java]
 ----
 public class MyApplication {
-
+ 
     public static void main(String args[]) {
-
+ 
         // let's say we want to use "foo" security credential while connecting to the AS7 server for invoking on this bean instance
         final javax.naming.Context ctxOne = new javax.naming.InitialContext();
         final MyBeanInterface beanOne = ctxOne.lookup("ejb:app/module/distinct/bean!interface");
         beanOne.doSomething();
         ...
-
+ 
         // let's say we want to use "bar" security credential while connecting to the AS7 server for invoking on this bean instance
         final javax.naming.Context ctxTwo = new javax.naming.InitialContext();
         final MyBeanInterface beanTwo = ctxTwo.lookup("ejb:app/module/distinct/bean!interface");
         beanTwo.doSomething();
         ...
-
+ 
     }
 }
 ----
@@ -115,9 +109,8 @@ proposal was to introduce a way, where you can have more control over
 the EJB client contexts and their association with JNDI contexts which
 are typically used for EJB invocations.
 
-[[scoped-ejb-client-contexts-1]]
-Scoped EJB client contexts
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+[[scoped-ejb-client-contexts]]
+= Scoped EJB client contexts
 
 Developers familiar with earlier versions of JBoss AS would remember
 that for invoking an EJB, you would typically create a JNDI context
@@ -138,9 +131,9 @@ Consider the following example:
 [source,java]
 ----
 public class MyApplication {
-
+ 
     public static void main(String args[]) {
-
+ 
         // let's say we want to use "foo" security credential while connecting to the AS7 server for invoking on this bean instance
         final Properties ejbClientContextPropsOne = getPropsForEJBClientContextOne():
         final javax.naming.Context ctxOne = new javax.naming.InitialContext(ejbClientContextPropsOne);
@@ -148,7 +141,7 @@ public class MyApplication {
         beanOne.doSomething();
         ...
         closeContext(ctxOne); // read on the entire article to understand more about closing scoped EJB client contexts
-
+ 
         // let's say we want to use "bar" security credential while connecting to the AS7 server for invoking on this bean instance
         final Properties ejbClientContextPropsTwo = getPropsForEJBClientContextTwo():
         final javax.naming.Context ctxTwo = new javax.naming.InitialContext(ejbClientContextPropsTwo);
@@ -189,7 +182,9 @@ This scoping of the EJB client context helps the user applications to
 have more control over which JNDI context "talks to" which server and
 connects to that server in "what way". This gives the user applications
 the flexibility that was associated with the JNP based JNDI invocations
-prior to WildFly 8 versions.
+prior to WildFly 8 versions.
+
+[IMPORTANT]
 
 *IMPORTANT:* *It is very important to remember that scoped EJB client
 contexts which are scoped to the JNDI contexts are NOT fire and forget
@@ -205,8 +200,7 @@ underlying physical connection will stay open.*
 the lifecycle management of such scoped contexts.*
 
 [[lifecycle-management-of-scoped-ejb-client-contexts]]
-Lifecycle management of scoped EJB client contexts
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Lifecycle management of scoped EJB client contexts
 
 Like you saw in the previous sections, in case of scoped EJB client
 contexts, the EJB client context is tied to the JNDI context. It's very
@@ -230,21 +224,21 @@ context to be usable for EJB invocations. The connections associated
 with the EJB client context are closed when the EJB client context
 itself is closed.
 
+[IMPORTANT]
+
 The connections that were manually added by the application to the EJB
 client context are *not* managed by the EJB client context. i.e. they
 won't be opened (obviously) nor closed by the EJB client API when the
 EJB client context is closed.
 
 [[how-to-close-ejb-client-contexts]]
-How to close EJB client contexts?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== How to close EJB client contexts?
 
 The answer to that is simple. Use the close() method on the appropriate
 EJB client context.
 
 [[how-to-close-scoped-ejb-client-contexts]]
-How to close scoped EJB client contexts?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== How to close scoped EJB client contexts?
 
 The answer is the same, use the close() method on the EJB client
 context. But the real question is how do you get the relevant scoped EJB
@@ -300,7 +294,7 @@ returned instance is used to lookup the rest of the JNDI string
 ("app/module/distinct/bean!interface"), which then returns the EJB
 proxy. Irrespective of whether the lookup is done in a single statement
 or multiple parts, the code works the same. i.e. an instance of
-javax.naming.Context gets  created for the ejb: URL string.
+javax.naming.Context gets created for the ejb: URL string.
 
 So why am I explaining all this when the section is titled
 `"How to close scoped EJB client contexts"`? The reason is because
@@ -367,7 +361,7 @@ try {
     } catch (Throwable t) {
         // log and ignore
     }
-
+ 
 }
 ----
 
@@ -382,8 +376,7 @@ this closes the connection(s) to the server(s) within that EJB client
 context.
 
 [[can-that-code-be-simplified-a-bit]]
-Can that code be simplified a bit?
-++++++++++++++++++++++++++++++++++
+=== Can that code be simplified a bit?
 
 If you are using that JNDI context only for EJB invocations, then yes
 you can get rid of some instances and code from the above code. You can
@@ -418,9 +411,8 @@ can only use this context for EJB lookups or any other EJB related JNDI
 lookups. So it depends on your application and how it's coded.
 
 [[cant-the-scoped-ejb-client-context-be-automatically-closed-by-the-ejb-client-api-when-the-jndi-context-is-no-longer-in-scope-i.e.-on-gc]]
-Can't the scoped EJB client context be automatically closed by the EJB
-client API when the JNDI context is no longer in scope (i.e. on GC)?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Can't the scoped EJB client context be automatically closed by the
+EJB client API when the JNDI context is no longer in scope (i.e. on GC)?
 
 That's one of the common questions that gets asked. No, the EJB client
 API can't take that decision. i.e. it cannot automatically go ahead and
@@ -437,7 +429,7 @@ void doEJBInvocation() {
     ... // do some other work
     bean.keepDoingSomething();
 }
-
+ 
 MyBean lookupEJB() {
     final Properties props = new Properties();
     // mark it for scoped EJB client context

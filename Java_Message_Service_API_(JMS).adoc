@@ -1,26 +1,23 @@
-Java Message Service API (JMS) - Latest WildFly Documentation
-=============================================================
-
-[[java-message-service-api-jms]]
 Java Message Service API (JMS)
-------------------------------
+==============================
 
 Coming Soon
+
+[IMPORTANT]
 
 This guide is still under development, check back soon!
 
 [[configure-jbossas-for-messaging]]
-Configure JBossAS for Messaging
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Configure JBossAS for Messaging
 
 Currently, the default configuration does not include the JMS subsystem.
 To enable JMS in the standalone server you need to add these
 configuration items to standalone.xml or simply use standalone-full.xml.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <extension module="org.jboss.as.messaging"/>
-
+ 
 <subsystem xmlns="urn:jboss:domain:messaging:1.0">
     <!-- Default journal file size is 10Mb, reduced here to 100k for faster first boot -->
     <journal-file-size>102400</journal-file-size>
@@ -28,7 +25,7 @@ configuration items to standalone.xml or simply use standalone-full.xml.
     <journal-type>NIO</journal-type>
     <!-- disable messaging persistence -->
     <persistence-enabled>false</persistence-enabled>
-
+ 
     <connectors>
        <netty-connector name="netty" socket-binding="messaging" />
        <netty-connector name="netty-throughput" socket-binding="messaging-throughput">
@@ -36,7 +33,7 @@ configuration items to standalone.xml or simply use standalone-full.xml.
        </netty-connector>
        <in-vm-connector name="in-vm" server-id="0" />
     </connectors>
-
+ 
     <acceptors>
        <netty-acceptor name="netty" socket-binding="messaging" />
        <netty-acceptor name="netty-throughput" socket-binding="messaging-throughput">
@@ -50,7 +47,7 @@ configuration items to standalone.xml or simply use standalone-full.xml.
        </acceptor>
        <in-vm-acceptor name="in-vm" server-id="0" />
     </acceptors>
-
+ 
     <security-settings>
        <security-setting match="#">
            <permission type="createNonDurableQueue" roles="guest"/>
@@ -59,7 +56,7 @@ configuration items to standalone.xml or simply use standalone-full.xml.
             <permission type="send" roles="guest"/>
        </security-setting>
     </security-settings>
-
+ 
     <address-settings>
        <!--default for catch all-->
        <address-setting match="#">
@@ -71,7 +68,7 @@ configuration items to standalone.xml or simply use standalone-full.xml.
           <address-full-policy>BLOCK</address-full-policy>
        </address-setting>
     </address-settings>
-
+ 
     <!--JMS Stuff-->
    <jms-connection-factories>
       <connection-factory name="InVmConnectionFactory">
@@ -102,7 +99,7 @@ configuration items to standalone.xml or simply use standalone-full.xml.
          </entries>
       </pooled-connection-factory>
    </jms-connection-factories>
-
+ 
    <jms-destinations>
       <jms-queue name="testQueue">
          <entry name="queue/test"/>
@@ -112,7 +109,7 @@ configuration items to standalone.xml or simply use standalone-full.xml.
       </jms-topic>
    </jms-destinations>
 </subsystem>
-
+ 
 <socket-binding name="messaging" port="5445" />
 <socket-binding name="messaging-throughput" port="5455"/>
 ----
@@ -125,8 +122,7 @@ $ bin/standalone.sh --server-config=standalone-preview.xml
 ----
 
 [[adding-the-message-destinations]]
-Adding the message destinations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Adding the message destinations
 
 For this tutorial we use two message destinations
 

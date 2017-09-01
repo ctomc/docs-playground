@@ -1,13 +1,8 @@
-The HTTP management API - Latest WildFly Documentation
-======================================================
-
-[[the-http-management-api]]
 The HTTP management API
------------------------
+=======================
 
 [[introduction]]
-Introduction
-~~~~~~~~~~~~
+= Introduction
 
 The Management API in WildFly is accessible through multiple channels,
 one of them being HTTP and JSON.
@@ -24,8 +19,7 @@ Thus *you need to create a user* with the
 link:add-user_utility.html[add-user.sh] script.
 
 [[interacting-with-the-model]]
-Interacting with the model
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Interacting with the model
 
 Since we must be authenticated , the client will have to support HTTP
 Digest authentication.
@@ -48,8 +42,7 @@ If you want to submit DMR in the request body then the *Content-Type* or
 the *Accept* header should be *"application/dmr-encoded"*.
 
 [[get-for-reading]]
-GET for Reading
-~~~~~~~~~~~~~~~
+= GET for Reading
 
 While you can do everything with *POST*, some operations can be called
 through a 'classical' *GET* request.
@@ -78,8 +71,7 @@ http://localhost:9990/management?operation=attribute&name=server-state&json.pret
 ----
 
 [[lets-read-some-resource]]
-Let's read some resource
-~~~~~~~~~~~~~~~~~~~~~~~~
+= Let's read some resource
 
 * This is simple operation that is equivalent of running
 :read-attribute(name=server-state) with CLI in root directory
@@ -89,7 +81,8 @@ Let's read some resource
 ----
 http://localhost:9990/management?operation=attribute&name=server-state&json.pretty=1
 ----
-** Using POST
+
+* Using POST
 +
 [source,java]
 ----
@@ -101,14 +94,14 @@ WWW-Authenticate: Digest realm="ManagementRealm",domain="/management",nonce="P80
 Content-Length: 77
 Content-Type: text/html
 Date: Fri, 01 Aug 2014 11:49:50 GMT
-
+ 
 HTTP/1.1 200 OK
 Connection: keep-alive
 Authentication-Info: nextnonce="M+h9aADejeINMTQwNjg5Mzc5MDQ2OPQbHKdAS8pRE8BbGEDY5uI="
 Content-Type: application/json; charset=utf-8
 Content-Length: 55
 Date: Fri, 01 Aug 2014 11:49:50 GMT
-
+ 
 {
     "outcome" : "success",
     "result" : "running"
@@ -126,7 +119,7 @@ HTTP/1.1 200 OK
 Transfer-encoding: chunked
 Content-type: application/json
 Date: Tue, 17 Apr 2012 04:02:24 GMT
-
+ 
 {
     "outcome" : "success",
     "result" : "running"
@@ -143,7 +136,7 @@ in CLI
 [source,java]
 ----
 http://localhost:9990/management/subsystem/undertow/server/default-server?operation=resource&recursive=true&json.pretty=1
-
+ 
 {
     "default-host" : "default-host",
     "servlet-container" : "default",
@@ -203,14 +196,14 @@ WWW-Authenticate: Digest realm="ManagementRealm",domain="/management",nonce="a3p
 Content-Length: 77
 Content-Type: text/html
 Date: Fri, 01 Aug 2014 13:25:44 GMT
-
+ 
 HTTP/1.1 200 OK
 Connection: keep-alive
 Authentication-Info: nextnonce="nTOSJd3ufO4NMTQwNjg5OTU0NDk5MeUsRw5rKXUT4Qvk1nbrG5c="
 Content-Type: application/json; charset=utf-8
 Content-Length: 1729
 Date: Fri, 01 Aug 2014 13:25:45 GMT
-
+ 
 {
     "outcome" : "success",
     "result" : {
@@ -289,8 +282,7 @@ curl --digest -u admin:admin -L --header "Content-Type: application/json" -d '{"
 ----
 
 [[using-some-jax-rs-code]]
-Using some JAX-RS code
-~~~~~~~~~~~~~~~~~~~~~~
+= Using some JAX-RS code
 
 [source,java]
 ----
@@ -305,7 +297,7 @@ String response = managementResource.request(MediaType.APPLICATION_JSON_TYPE)
     .header("Content-type", MediaType.APPLICATION_JSON)
     .post(operation, String.class);
 System.out.println(response);
-
-
+ 
+ 
 {"outcome" : "success", "result" : {"default-host" : "default-host", "servlet-container" : "default", "ajp-listener" : null, "host" : {"default-host" : {"alias" : ["localhost"], "default-web-module" : "ROOT.war", "filter-ref" : {"server-header" : {"predicate" : null}, "x-powered-by-header" : {"predicate" : null}}, "location" : {"/" : {"handler" : "welcome-content", "filter-ref" : null}}, "setting" : null}}, "http-listener" : {"default" : {"allow-encoded-slash" : false, "allow-equals-in-cookie-value" : false, "always-set-keep-alive" : true, "buffer-pipelined-data" : true, "buffer-pool" : "default", "certificate-forwarding" : false, "decode-url" : true, "enabled" : true, "max-buffered-request-size" : 16384, "max-cookies" : 200, "max-header-size" : 51200, "max-headers" : 200, "max-parameters" : 1000, "max-post-size" : 10485760, "proxy-address-forwarding" : false, "read-timeout" : null, "receive-buffer" : null, "record-request-start-time" : false, "redirect-socket" : "https", "send-buffer" : null, "socket-binding" : "http", "tcp-backlog" : null, "tcp-keep-alive" : null, "url-charset" : "UTF-8", "worker" : "default", "write-timeout" : null}}, "https-listener" : null}}
 ----

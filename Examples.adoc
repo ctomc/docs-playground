@@ -1,29 +1,24 @@
-Examples - Latest WildFly Documentation
-=======================================
-
-[[examples]]
 Examples
---------
+========
 
 This section of the document contains a couple of examples for the most
 common scenarios likely to be used with the security realms, please feel
 free to raise Jira issues requesting additional scenarios or if you have
 configured something not covered here please feel free to add your own
 examples - this document is editable after all
-image:images/author/images/icons/emoticons/wink.gif[images/author/images/icons/emoticons/wink.gif]
+image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/wink0.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/wink0.png]
 
 At the moment these examples are making use of the ' `ManagementRealm`'
 however the same can apply to the ' `ApplicationRealm`' or any custom
 realm you create for yourselves.
 
 [[ldap-authentication]]
-LDAP Authentication
-~~~~~~~~~~~~~~~~~~~
+= LDAP Authentication
 
 The following example demonstrates an example configuration making use
 of Active Directory to verify the users username and password.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <management>
   <security-realms>
@@ -34,25 +29,26 @@ of Active Directory to verify the users username and password.
         </ldap>
       </authentication>
     </security-realm>
-
+ 
   </security-realms>
-
+ 
   <outbound-connections>
     <ldap name="EC2" url="ldap://127.0.0.1:9797" search-dn="CN=wf8,CN=Users,DC=darranl,DC=jboss,DC=org" search-credential="password"/>
   </outbound-connections>
-
+ 
   ...
-
+ 
 </management>
 ----
+
+[IMPORTANT]
 
 For simplicity the `<local/>` configuration has been removed from this
 example, however there it is fine to leave that in place for local
 authentication to remain possible.
 
 [[enable-ssl]]
-Enable SSL
-~~~~~~~~~~
+= Enable SSL
 
 The first step is the creation of the key, by default this is going to
 be used for both the native management interface and the http management
@@ -78,6 +74,8 @@ In this example I choose ' `keystore_password`'.
 What is your first and last name?
   [Unknown]:  localhost
 ----
+
+[IMPORTANT]
 
 Of all of the questions asked this is the most important and should
 match the host name that will be entered into the web browser to connect
@@ -108,8 +106,7 @@ example so authentication still occurs using either the local mechanism
 or username/password authentication using Digest.
 
 [[add-client-cert-to-ssl]]
-Add Client-Cert to SSL
-~~~~~~~~~~~~~~~~~~~~~~
+= Add Client-Cert to SSL
 
 To enable Client-Cert style authentication we just now need to add a
 `<truststore />` element to the `<authentication />` element referencing

@@ -1,17 +1,12 @@
-Example subsystem - Latest WildFly Documentation
-================================================
-
-[[example-subsystem]]
 Example subsystem
------------------
+=================
 
 Our example subsystem will keep track of all deployments of certain
 types containing a special marker file, and expose operations to see how
 long these deployments have been deployed.
 
 [[create-the-skeleton-project]]
-Create the skeleton project
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Create the skeleton project
 
 To make your life easier we have provided a maven archetype which will
 create a skeleton project for implementing subsystems.
@@ -41,9 +36,9 @@ $ mvn archetype:generate \
 [INFO] Building Maven Stub Project (No POM) 1
 [INFO] ------------------------------------------------------------------------
 [INFO]
-
+ 
 .........
-
+ 
 Define value for property 'groupId': : com.acme.corp
 Define value for property 'artifactId': : acme-subsystem
 Define value for property 'version':  1.0-SNAPSHOT: :
@@ -68,41 +63,30 @@ name: WildFly subsystem project
 $
 ----
 
- 
+[cols=",",]
+|=======================================================================
+| |Instruction
 
-Instruction
+|1 |Enter the groupId you wish to use
 
-1
+|2 |Enter the artifactId you wish to use
 
-Enter the  groupId  you wish to use
+|3 |Enter the version you wish to use, or just hit Enter if you wish to
+accept the default 1.0-SNAPSHOT
 
-2
+|4 |Enter the java package you wish to use, or just hit Enter if you
+wish to accept the default (which is copied from groupId ).
 
-Enter the  artifactId  you wish to use
+|5 |Enter the module name you wish to use for your extension.
 
-3
-
-Enter the version you wish to use, or just hit  Enter  if you wish to
-accept the default  1.0-SNAPSHOT
-
-4
-
-Enter the java package you wish to use, or just hit  Enter  if you wish
-to accept the default (which is copied from  groupId ).
-
-5
-
-Enter the module name you wish to use for your extension.
-
-6
-
-Finally, if you are happy with your choices, hit  Enter  and Maven will
-generate the project for you.
+|6 |Finally, if you are happy with your choices, hit Enter and Maven
+will generate the project for you.
+|=======================================================================
 
 You can also do this in Eclipse, see
 link:Creating_your_own_application.html[Creating your own application]
 for more details. We now have a skeleton project that you can use to
-implement a subsystem. Import the ﻿ `acme-subsystem` project into your
+implement a subsystem. Import the ﻿ `acme-subsystem` project into your
 favourite IDE. A nice side-effect of running this in the IDE is that you
 can see the javadoc of WildFly classes and interfaces imported by the
 skeleton code. If you do a `mvn install` in the project it will work if
@@ -111,7 +95,7 @@ something more useful.
 
 The rest of this section modifies the skeleton project created by the
 archetype to do something more useful, and the full code can be found in
-link:attachments/108986524/1/acme-subsystem.zip[acme-subsystem.zip].
+link:attachments_852137_1_acme-subsystem.zip[acme-subsystem.zip].
 
 If you do a `mvn install` in the created project, you will see some
 tests being run
@@ -122,7 +106,7 @@ $mvn install
 [INFO] Scanning for projects...
 [...]
 [INFO] Surefire report directory: /Users/kabir/sourcecontrol/temp/archetype-test/acme-subsystem/target/surefire-reports
-
+ 
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
@@ -130,25 +114,24 @@ Running com.acme.corp.tracker.extension.SubsystemBaseParsingTestCase
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.424 sec
 Running com.acme.corp.tracker.extension.SubsystemParsingTestCase
 Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.074 sec
-
+ 
 Results :
-
+ 
 Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
 [...]
 ----
 
-We will talk about these later in the 
-link:Example_subsystem.html#108626362_Examplesubsystem-Testingtheparsers[Testing
-the parsers] section.
+We will talk about these later in the
+link:#src-557103_Examplesubsystem-Testingtheparsers[#Testing the
+parsers] section.
 
 [[create-the-schema]]
-Create the schema
-~~~~~~~~~~~~~~~~~
+= Create the schema
 
-First, let us define the schema for our subsystem. Rename 
-`src/main/resources/schema/mysubsystem.xsd` to 
-`src/main/resources/schema/acme.xsd`. Then open  `acme.xsd` and modify
-it to the following +
+First, let us define the schema for our subsystem. Rename
+`src/main/resources/schema/mysubsystem.xsd` to
+`src/main/resources/schema/acme.xsd`. Then open `acme.xsd` and modify it
+to the following
 
 [source,java]
 ----
@@ -158,7 +141,7 @@ it to the following +
             elementFormDefault="qualified"
             attributeFormDefault="unqualified"
             version="1.0">
-
+ 
    <!-- The subsystem root element -->
    <xs:element name="subsystem" type="subsystemType"/>
    <xs:complexType name="subsystemType">
@@ -178,27 +161,26 @@ it to the following +
 </xs:schema>
 ----
 
-Note that we modified the `xmlns` and `targetNamespace` values to ﻿
+Note that we modified the `xmlns` and `targetNamespace` values to ﻿
 `urn.com.acme.corp.tracker:1.0`. Our new `subsystem` element has a child
 called `deployment-types`, which in turn can have zero or more children
 called `deployment-type`. Each `deployment-type` has a required `suffix`
 attribute, and a `tick` attribute which defaults to `true.`
 
-Now modify the ﻿ `com.acme.corp.tracker.extension.SubsystemExtension`
+Now modify the ﻿ `com.acme.corp.tracker.extension.SubsystemExtension`
 class to contain the new namespace.
 
 [source,java]
 ----
 public class SubsystemExtension implements Extension {
-
+ 
     /** The name space used for the {@code substystem} element */
     public static final String NAMESPACE = "urn:com.acme.corp.tracker:1.0";
     ...
 ----
 
 [[design-and-define-the-model-structure]]
-Design and define the model structure
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Design and define the model structure
 
 The following example xml contains a valid subsystem configuration, we
 will see how to plug this in to WildFly later in this tutorial.
@@ -217,7 +199,7 @@ Now when designing our model, we can either do a one to one mapping
 between the schema and the model or come up with something slightly or
 very different. To keep things simple, let us stay pretty true to the
 schema so that when executing a `:read-resource(recursive=true)` against
-our subsystem we'll see something like: +
+our subsystem we'll see something like:
 
 [source,java]
 ----
@@ -235,8 +217,8 @@ of the subsystem's root resource. The child resource's child-type is
 `type`, and it is indexed by its `suffix`. Each `type` resource then
 contains the `tick` attribute.
 
-We also need a name for our subsystem, to do that change 
-`com.acme.corp.tracker.extension.SubsystemExtension`: +
+We also need a name for our subsystem, to do that change
+`com.acme.corp.tracker.extension.SubsystemExtension`:
 
 [source,java]
 ----
@@ -251,7 +233,7 @@ Once we are finished our subsystem will be available under
 `/subsystem=tracker`.
 
 The `SubsystemExtension.initialize()` method defines the model,
-currently it sets up the basics to add our subsystem to the model: +
+currently it sets up the basics to add our subsystem to the model:
 
 [source,java]
 ----
@@ -276,8 +258,7 @@ subsystem's model back to the main configuration file when it is
 modified. We will add more functionality to this method later.
 
 [[registering-the-core-subsystem-model]]
-Registering the core subsystem model
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Registering the core subsystem model
 
 Next we obtain a `ManagementResourceRegistration` by registering the
 subsystem model. This is a *compulsory* step for every new subsystem.
@@ -296,7 +277,7 @@ comes from model that is defined by `SubsystemDefinition.INSTANCE`.
 ----
 public class SubsystemDefinition extends SimpleResourceDefinition {
     public static final SubsystemDefinition INSTANCE = new SubsystemDefinition();
-
+ 
     private SubsystemDefinition() {
         super(SubsystemExtension.SUBSYSTEM_PATH,
                 SubsystemExtension.getResourceDescriptionResolver(null),
@@ -305,13 +286,13 @@ public class SubsystemDefinition extends SimpleResourceDefinition {
                 //Every resource that is added, normally needs a remove operation
                 SubsystemRemove.INSTANCE);
     }
-
+ 
     @Override
     public void registerOperations(ManagementResourceRegistration resourceRegistration) {
         super.registerOperations(resourceRegistration);
         //you can register aditional operations here
     }
-
+ 
     @Override
     public void registerAttributes(ManagementResourceRegistration resourceRegistration) {
         //you can register attributes here
@@ -325,7 +306,7 @@ ResourceDefinition,
 The `ManagementResourceRegistration` obtained in
 `SubsystemExtension.initialize()` is then used to add additional
 operations or to register submodels to the `/subsystem=tracker` address.
-Every subsystem and resource *must* have an `ADD` method which can be
+Every subsystem and resource *must* have an `ADD` method which can be
 achieved by the following line inside `registerOperations` in your
 `ResourceDefinition` or by providing it in constructor of your
 `SimpleResourceDefinition` just as we did in example above.
@@ -366,11 +347,11 @@ provider for ADD operation handler
     public static DescriptionProvider SUBSYSTEM_ADD = new DescriptionProvider() {
         public ModelNode getModelDescription(Locale locale) {
             //The locale is passed in so you can internationalize the strings used in the descriptions
-
+ 
             final ModelNode subsystem = new ModelNode();
             subsystem.get(OPERATION_NAME).set(ADD);
             subsystem.get(DESCRIPTION).set("Adds the tracker subsystem");
-
+ 
             return subsystem;
         }
     };
@@ -400,6 +381,8 @@ container.registerOperationHandler("add-mime",
                 new DefaultOperationDescriptionProvider("add-mime", Extension.getResourceDescriptionResolver("container.mime-mapping"), MIME_NAME, MIME_VALUE));
 ----
 
+[IMPORTANT]
+
 When descriping an operation its description provider's `OPERATION_NAME`
 must match the name used when calling
 `ManagementResourceRegistration.registerOperationHandler()`
@@ -411,12 +394,12 @@ the model.
 [source,java]
 ----
 class SubsystemAdd extends AbstractBoottimeAddStepHandler {
-
+ 
     static final SubsystemAdd INSTANCE = new SubsystemAdd();
-
+ 
     private SubsystemAdd() {
     }
-
+ 
     /** {@inheritDoc} */
     @Override
     protected void populateModel(ModelNode operation, ModelNode model) throws OperationFailedException {
@@ -453,11 +436,11 @@ services (services will be discussed later) so we can delete the
 [source,java]
 ----
 class SubsystemRemove extends AbstractRemoveStepHandler {
-
+ 
     static final SubsystemRemove INSTANCE = new SubsystemRemove();
-
+ 
     private final Logger log = Logger.getLogger(SubsystemRemove.class);
-
+ 
     private SubsystemRemove() {
     }
 }
@@ -468,8 +451,7 @@ similar to that of the add handler where just name of the method
 changes.
 
 [[registering-the-subsystem-child]]
-Registering the subsystem child
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Registering the subsystem child
 
 The `type` child does not exist in our skeleton project so we need to
 implement the operations to add and remove them from the model.
@@ -486,23 +468,23 @@ resource to the model.
 [source,java]
 ----
 class TypeAddHandler extends AbstractAddStepHandler implements DescriptionProvider {
-
+ 
     public static final TypeAddHandler INSTANCE = new TypeAddHandler();
-
+ 
     private TypeAddHandler() {
     }
 ----
 
 Then we define subsystem model. Lets call it `TypeDefinition` and for
 ease of use let it extend `SimpleResourceDefinition` instead just
-implement `ResourceDefinition`. +
+implement `ResourceDefinition`.
 
 [source,java]
 ----
 public class TypeDefinition extends SimpleResourceDefinition {
-
+ 
  public static final TypeDefinition INSTANCE = new TypeDefinition();
-
+ 
  //we define attribute named tick
 protected static final SimpleAttributeDefinition TICK =
 new SimpleAttributeDefinitionBuilder(TrackerExtension.TICK, ModelType.LONG)
@@ -512,16 +494,16 @@ new SimpleAttributeDefinitionBuilder(TrackerExtension.TICK, ModelType.LONG)
   .setDefaultValue(new ModelNode(1000))
   .setAllowNull(false)
   .build();
-
+ 
 private TypeDefinition(){
    super(TYPE_PATH, TrackerExtension.getResourceDescriptionResolver(TYPE),TypeAdd.INSTANCE,TypeRemove.INSTANCE);
 }
-
+ 
 @Override
 public void registerAttributes(ManagementResourceRegistration resourceRegistration){
    resourceRegistration.registerReadWriteAttribute(TICK, null, TrackerTickHandler.INSTANCE);
 }
-
+ 
 }
 ----
 
@@ -599,11 +581,11 @@ run outputs all the deployments registered with our service.
 [source,java]
 ----
 private AtomicLong tick = new AtomicLong(10000);
-
+ 
     private Set<String> deployments = Collections.synchronizedSet(new HashSet<String>());
     private Set<String> coolDeployments = Collections.synchronizedSet(new HashSet<String>());
     private final String suffix;
-
+ 
     private Thread OUTPUT = new Thread() {
         @Override
         public void run() {
@@ -619,7 +601,7 @@ private AtomicLong tick = new AtomicLong(10000);
             }
         }
     };
-
+ 
     public TrackerService(String suffix, long tick) {
         this.suffix = suffix;
         this.tick.set(tick);
@@ -638,12 +620,12 @@ the deployments.
     public TrackerService getValue() throws IllegalStateException, IllegalArgumentException {
         return this;
     }
-
+ 
     @Override
     public void start(StartContext context) throws StartException {
         OUTPUT.start();
     }
-
+ 
     @Override
     public void stop(StopContext context) {
         OUTPUT.interrupt();
@@ -668,20 +650,20 @@ and read the `tick`. The 'cool' deployments will be explained later.
 public void addDeployment(String name) {
         deployments.add(name);
     }
-
+ 
     public void addCoolDeployment(String name) {
         coolDeployments.add(name);
     }
-
+ 
     public void removeDeployment(String name) {
         deployments.remove(name);
         coolDeployments.remove(name);
     }
-
+ 
     void setTick(long tick) {
         this.tick.set(tick);
     }
-
+ 
     public long getTick() {
         return this.tick.get();
     }
@@ -701,20 +683,20 @@ the `performRuntime()` method.
 [source,java]
 ----
 public class TypeRemoveHandler extends AbstractRemoveStepHandler {
-
+ 
     public static final TypeRemoveHandler INSTANCE = new TypeRemoveHandler();
-
+ 
     private TypeRemoveHandler() {
     }
-
-
+ 
+ 
     @Override
     protected void performRuntime(OperationContext context, ModelNode operation, ModelNode model) throws OperationFailedException {
         String suffix = PathAddress.pathAddress(operation.get(ModelDescriptionConstants.ADDRESS)).getLastElement().getValue();
         ServiceName name = TrackerService.createServiceName(suffix);
         context.removeService(name);
     }
-
+ 
 }
 ----
 
@@ -729,7 +711,7 @@ class TypeDefinition{
 public void registerAttributes(ManagementResourceRegistration resourceRegistration){
     resourceRegistration.registerReadWriteAttribute(TICK, null, TrackerTickHandler.INSTANCE);
 }
-
+ 
 }
 ----
 
@@ -778,32 +760,32 @@ us to do just to deal with what we need to do.
 [source,java]
 ----
 class TrackerTickHandler extends AbstractWriteAttributeHandler<Void> {
-
+ 
     public static final TrackerTickHandler INSTANCE = new TrackerTickHandler();
-
+ 
     private TrackerTickHandler() {
         super(TypeDefinition.TICK);
     }
-
+ 
     protected boolean applyUpdateToRuntime(OperationContext context, ModelNode operation, String attributeName,
               ModelNode resolvedValue, ModelNode currentValue, HandbackHolder<Void> handbackHolder) throws OperationFailedException {
-
+ 
         modifyTick(context, operation, resolvedValue.asLong());
-
+ 
         return false;
     }
-
+ 
     protected void revertUpdateToRuntime(OperationContext context, ModelNode operation, String attributeName, ModelNode valueToRestore, ModelNode valueToRevert, Void handback){
         modifyTick(context, operation, valueToRestore.asLong());
     }
-
+ 
     private void modifyTick(OperationContext context, ModelNode operation, long value) throws OperationFailedException {
-
+ 
         final String suffix = PathAddress.pathAddress(operation.get(ModelDescriptionConstants.ADDRESS)).getLastElement().getValue();
         TrackerService service = (TrackerService) context.getServiceRegistry(true).getRequiredService(TrackerService.createServiceName(suffix)).getValue();
         service.setTick(value);
     }
-
+ 
 }
 ----
 
@@ -818,12 +800,13 @@ tick of the TrackerService for our suffix. This is essential since the
 call to `context.getServiceRegistry()` will fail unless the step
 accessing it belongs to the `RUNTIME` stage.
 
+[IMPORTANT]
+
 When implementing `execute()`, you *must* call `context.completeStep()`
 when you are done.
 
 [[parsing-and-marshalling-of-the-subsystem-xml]]
-Parsing and marshalling of the subsystem xml
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Parsing and marshalling of the subsystem xml
 
 WildFly uses the Stax API to parse the xml files. This is initialized in
 `SubsystemExtension` by mapping our parser onto our namespace:
@@ -831,16 +814,16 @@ WildFly uses the Stax API to parse the xml files. This is initialized in
 [source,java]
 ----
 public class SubsystemExtension implements Extension {
-
+ 
     /** The name space used for the {@code subsystem} element */
     public static final String NAMESPACE = "urn:com.acme.corp.tracker:1.0";
     ...
     protected static final PathElement SUBSYSTEM_PATH = PathElement.pathElement(SUBSYSTEM, SUBSYSTEM_NAME);
     protected static final PathElement TYPE_PATH = PathElement.pathElement(TYPE);
-
+ 
    /** The parser used for parsing our subsystem */
     private final SubsystemParser parser = new SubsystemParser();
-
+ 
    @Override
     public void initializeParsers(ExtensionParsingContext context) {
         context.setSubsystemXmlMapping(NAMESPACE, parser);
@@ -857,24 +840,24 @@ is the `readElement()` method.
 [source,java]
 ----
 public class SubsystemExtension implements Extension {
-
+ 
     /**
      * The subsystem parser, which uses stax to read and write to and from xml
      */
     private static class SubsystemParser implements XMLStreamConstants, XMLElementReader<List<ModelNode>>, XMLElementWriter<SubsystemMarshallingContext> {
-
+ 
         /** {@inheritDoc} */
         @Override
         public void readElement(XMLExtendedStreamReader reader, List<ModelNode> list) throws XMLStreamException {
             // Require no attributes
             ParseUtils.requireNoAttributes(reader);
-
+ 
             //Add the main subsystem 'add' operation
             final ModelNode subsystem = new ModelNode();
             subsystem.get(OP).set(ADD);
             subsystem.get(OP_ADDR).set(PathAddress.pathAddress(SUBSYSTEM_PATH).toModelNode());
             list.add(subsystem);
-
+ 
             //Read the children
             while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
                 if (!reader.getLocalName().equals("deployment-types")) {
@@ -887,14 +870,14 @@ public class SubsystemExtension implements Extension {
                 }
             }
         }
-
+ 
         private void readDeploymentType(XMLExtendedStreamReader reader, List<ModelNode> list) throws XMLStreamException {
             if (!reader.getLocalName().equals("deployment-type")) {
                 throw ParseUtils.unexpectedElement(reader);
             }
             ModelNode addTypeOperation = new ModelNode();
             addTypeOperation.get(OP).set(ModelDescriptionConstants.ADD);
-
+ 
             String suffix = null;
             for (int i = 0; i < reader.getAttributeCount(); i++) {
                 String attr = reader.getAttributeLocalName(i);
@@ -911,7 +894,7 @@ public class SubsystemExtension implements Extension {
             if (suffix == null) {
                 throw ParseUtils.missingRequiredElement(reader, Collections.singleton("suffix"));
             }
-
+ 
             //Add the 'add' operation for each 'type' child
             PathAddress addr = PathAddress.pathAddress(SUBSYSTEM_PATH, PathElement.pathElement(TYPE, suffix));
             addTypeOperation.get(OP_ADDR).set(addr.toModelNode());
@@ -950,7 +933,7 @@ private static class SubsystemParser implements XMLStreamConstants, XMLElementRe
             ModelNode node = context.getModelNode();
             ModelNode type = node.get(TYPE);
             for (Property property : type.asPropertyList()) {
-
+ 
                 //write each child element to xml
                 writer.writeStartElement("deployment-type");
                 writer.writeAttribute("suffix", property.getName());
@@ -981,16 +964,16 @@ that you can do it by implementing it like this.
 ----
 private static class SubsystemDescribeHandler implements OperationStepHandler, DescriptionProvider {
         static final SubsystemDescribeHandler INSTANCE = new SubsystemDescribeHandler();
-
+ 
         public void execute(OperationContext context, ModelNode operation) throws OperationFailedException {
             //Add the main operation
             context.getResult().add(createAddSubsystemOperation());
-
+ 
             //Add the operations to create each child
-
+ 
             ModelNode node = context.readModel(PathAddress.EMPTY_ADDRESS);
             for (Property property : node.get("type").asPropertyList()) {
-
+ 
                 ModelNode addType = new ModelNode();
                 addType.get(OP).set(ModelDescriptionConstants.ADD);
                 PathAddress addr = PathAddress.pathAddress(SUBSYSTEM_PATH, PathElement.pathElement("type", property.getName()));
@@ -1002,19 +985,17 @@ private static class SubsystemDescribeHandler implements OperationStepHandler, D
             }
             context.completeStep();
         }
-
-
+ 
+ 
 }
 ----
 
-[[108626362_Examplesubsystem-Testingtheparsers]]
-[[108626362_Examplesubsystem-Testingtheparsers]]
-
 [[testing-the-parsers]]
-Testing the parsers
-^^^^^^^^^^^^^^^^^^^
+== Testing the parsers
 
 Changes to tests between 7.0.0 and 7.0.1
+
+[IMPORTANT]
 
 The testing framework was moved from the archetype into the core JBoss
 AS 7 sources between JBoss AS 7.0.0 and JBoss AS 7.0.1, and has been
@@ -1184,7 +1165,7 @@ controller, and use that xml to start a second controller
 //Get the model and the persisted xml from the first controller
         ModelNode modelA = servicesA.readWholeModel();
         String marshalled = servicesA.getPersistedSubsystemXml();
-
+ 
         //Install the persisted xml from the first controller into a second controller
         KernelServices servicesB = super.installInController(marshalled);
 ----
@@ -1195,7 +1176,7 @@ the models are identical by calling `compare()` on the test superclass.
 [source,java]
 ----
 ModelNode modelB = servicesB.readWholeModel();
-
+ 
         //Make sure the models from the two controllers are identical
         super.compare(modelA, modelB);
     }
@@ -1247,7 +1228,7 @@ ModelNode modelB = servicesB.readWholeModel();
 ----
 //Make sure the models from the two controllers are identical
         super.compare(modelA, modelB);
-
+ 
     }
 ----
 
@@ -1417,8 +1398,7 @@ TrackerService service = (TrackerService)services.getContainer().getService(Trac
 TypeDefinition.TICK.
 
 [[add-the-deployers]]
-Add the deployers
-~~~~~~~~~~~~~~~~~
+= Add the deployers
 
 When discussing `SubsystemAddHandler` we did not mention the work done
 to install the deployers, which is done in the following method:
@@ -1429,19 +1409,19 @@ to install the deployers, which is done in the following method:
     public void performBoottime(OperationContext context, ModelNode operation, ModelNode model,
             ServiceVerificationHandler verificationHandler, List<ServiceController<?>> newControllers)
             throws OperationFailedException {
-
+ 
         log.info("Populating the model");
-
+ 
         //Add deployment processors here
         //Remove this if you don't need to hook into the deployers, or you can add as many as you like
         //see SubDeploymentProcessor for explanation of the phases
         context.addStep(new AbstractDeploymentChainStep() {
             public void execute(DeploymentProcessorTarget processorTarget) {
                 processorTarget.addDeploymentProcessor(SubsystemDeploymentProcessor.PHASE, SubsystemDeploymentProcessor.priority, new SubsystemDeploymentProcessor());
-
+ 
             }
         }, OperationContext.Stage.RUNTIME);
-
+ 
     }
 ----
 
@@ -1462,7 +1442,7 @@ deployment processor is as follows:
 ----
 public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
     ...
-
+ 
     @Override
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
         String name = phaseContext.getDeploymentUnit().getName();
@@ -1476,7 +1456,7 @@ public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
             }
         }
     }
-
+ 
     @Override
     public void undeploy(DeploymentUnit context) {
         context.getServiceRegistry();
@@ -1486,7 +1466,7 @@ public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
             service.removeDeployment(name);
         }
     }
-
+ 
     private TrackerService getTrackerService(ServiceRegistry registry, String name) {
         int last = name.lastIndexOf(".");
         String suffix = name.substring(last + 1);
@@ -1511,8 +1491,7 @@ instance for the deployment's suffix, we remove the deployment's name
 from it.
 
 [[deployment-phases-and-attachments]]
-Deployment phases and attachments
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Deployment phases and attachments
 
 The code in the SubsystemDeploymentProcessor uses an _attachment_, which
 is the means of communication between the individual deployment
@@ -1532,39 +1511,34 @@ deployment unit processors for in the phases described in
 `org.jboss.as.server.deployment.Phase`.
 
 [[structure]]
-STRUCTURE
-+++++++++
+=== STRUCTURE
 
 The deployment unit processors in this phase determine the structure of
 a deployment, and looks for sub deployments and metadata files.
 
 [[parse]]
-PARSE
-+++++
+=== PARSE
 
 In this phase the deployment unit processors parse the deployment
 descriptors and build up the annotation index. `Class-Path` entries from
 the META-INF/MANIFEST.MF are added.
 
 [[dependencies]]
-DEPENDENCIES
-++++++++++++
+=== DEPENDENCIES
 
 Extra class path dependencies are added. For example if deploying a
 `war` file, the commonly needed dependencies for a web application are
 added.
 
 [[configure_module]]
-CONFIGURE_MODULE
-++++++++++++++++
+=== CONFIGURE_MODULE
 
 In this phase the modular class loader for the deployment is created. No
 attempt should be made loading classes from the deployment until *after*
 this phase.
 
 [[post_module]]
-POST_MODULE
-+++++++++++
+=== POST_MODULE
 
 Now that our class loader has been constructed we have access to the
 classes. In this stage deployment processors may use the
@@ -1574,21 +1548,18 @@ them, bypassing the inefficiencies of using `java.lang.reflect`
 directly.
 
 [[install]]
-INSTALL
-+++++++
+=== INSTALL
 
 Install new services coming from the deployment.
 
 [[cleanup]]
-CLEANUP
-+++++++
+=== CLEANUP
 
 Attachments put in place earlier in the deployment unit processor chain
 may be removed here.
 
 [[integrate-with-wildfly]]
-Integrate with WildFly
-~~~~~~~~~~~~~~~~~~~~~~
+= Integrate with WildFly
 
 Now that we have all the code needed for our subsystem, we can build our
 project by running `mvn install`
@@ -1684,7 +1655,7 @@ And then we have to add our subsystem to the `<profile>` section:
 ----
     <profile>
     ...
-
+ 
         <subsystem xmlns="urn:com.acme.corp.tracker:1.0">
             <deployment-types>
                 <deployment-type suffix="sar" tick="10000"/>
@@ -1777,12 +1748,12 @@ and the WildFly console should show the messages coming from the war
 `TrackerService` again.
 
 Now let us deploy something. You can find two maven projects for test
-wars already built at link:attachments/108986525/1/test1.zip[test1.zip]
-and link:attachments/108986526/1/test2.zip[test2.zip]. If you download
-them and extract them to `/Downloads/test1` and `/Downloads/test2`, you
-can see that `/Downloads/test1/target/test1.war` contains a
-`META-INF/cool.txt` while `/Downloads/test2/target/test2.war` does not
-contain that file. From CLI deploy `test1.war` first:
+wars already built at link:attachments_852154_1_test1.zip[test1.zip] and
+link:attachments_852153_1_test2.zip[test2.zip]. If you download them and
+extract them to `/Downloads/test1` and `/Downloads/test2`, you can see
+that `/Downloads/test1/target/test1.war` contains a `META-INF/cool.txt`
+while `/Downloads/test2/target/test2.war` does not contain that file.
+From CLI deploy `test1.war` first:
 
 [source,java]
 ----
@@ -1881,8 +1852,7 @@ that our subsystem entry reflects the current state of the subsystem:
 ----
 
 [[expressions]]
-Expressions
-~~~~~~~~~~~
+= Expressions
 
 Expressions are mechanism that enables you to support variables in your
 attributes, for instance when you want the value of attribute to be
@@ -1900,8 +1870,7 @@ which means that the value should be taken from a system property named
 `127.0.0.1`.
 
 [[what-expression-types-are-supported]]
-What expression types are supported
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== What expression types are supported
 
 * System properties, which are resolved using
 `java.lang.System.getProperty(String key)`
@@ -1928,8 +1897,7 @@ Security vault expressions do not support default values (i.e. the
 above.)
 
 [[how-to-support-expressions-in-subsystems]]
-How to support expressions in subsystems
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== How to support expressions in subsystems
 
 The easiest way is by using AttributeDefinition, which provides support
 for expressions just by using it correctly.
@@ -2001,7 +1969,7 @@ needed inside of the `performRuntime` method
        ....
         final int attributeValue = MY_ATTRIBUTE.resolveModelAttribute(context, model).asInt();     
         ...
-
+ 
     }
 ----
 

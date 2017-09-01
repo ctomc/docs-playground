@@ -1,10 +1,5 @@
-Connect a pooled-connection-factory to a Remote Artemis Server - Latest
-WildFly Documentation
-=============================================================================================
-
-[[connect-a-pooled-connection-factory-to-a-remote-artemis-server]]
 Connect a pooled-connection-factory to a Remote Artemis Server
---------------------------------------------------------------
+==============================================================
 
 The `messaging-activemq` subsystem allows to configure a
 `pooled-connection-factory` resource to let a local client deployed in
@@ -19,6 +14,7 @@ server:
 [source,java]
 ----
    /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-artemis:add(host=<server host>, port=61616)
+   
 ----
 
 \2. create a remote-connector referencing the outbound-socket-binding
@@ -27,6 +23,7 @@ created at step (1).
 [source,java]
 ----
   /subsystem=messaging-activemq/server=default/remote-connector=remote-artemis:add(socket-binding=remote-artemis)
+   
 ----
 
 \3. create a pooled-connection-factory referencing the remote-connector
@@ -35,23 +32,23 @@ created at step (2).
 [source,java]
 ----
   /subsystem=messaging-activemq/server=default/pooled-connection-factory=remote-artemis:add(connectors=[remote-artemis], entries=[java:/jms/remoteCF])
+   
 ----
 
 [[configuration-of-a-mdb-using-a-pooled-connection-factory]]
-Configuration of a MDB using a pooled-connection-factory
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Configuration of a MDB using a pooled-connection-factory
 
 When a `pooled-connection-factory` is configured to connect to a remote
 Artemis, it is possible to configure Message-Driven Beans (MDB) to have
 them consume messages from this remote server.
 
-The MDB must be annotated with the `@ResourceAdapter` annotation using
+The MDB must be annotated with the `@ResourceAdapter` annotation using
 the *name* of the `pooled-connection-factory resource`
 
 [source,java]
 ----
 import org.jboss.ejb3.annotation.ResourceAdapter;
-
+ 
   @ResourceAdapter("remote-artemis")
  @MessageDriven(name = "MyMDB", activationConfig = {
     ...
@@ -75,8 +72,7 @@ one of its `entries`.
 ----
 
 [[configuration-of-the-destination]]
-Configuration of the destination
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Configuration of the destination
 
 A MDB must also specify which destination it will consume messages from.
 
@@ -85,9 +81,8 @@ property that corresponds to a JNDI lookup on the local server. +
 When the MDB is consuming from a remote Artemis server, there may not
 have such a JNDI binding in the local WildFly. +
 It is possible to use the naming subsystem to configure
-https://docs.jboss.org/author/display/WFLY10/Naming+Subsystem+Configuration[external
-context federation] to have local JNDI bindings delegating to external
-bindings.
+link:#src-557098[external context federation] to have local JNDI
+bindings delegating to external bindings.
 
 However there is a simpler solution to configure the destination when
 using the Artemis Resource Adapter. +

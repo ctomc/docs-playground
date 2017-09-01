@@ -1,6 +1,4 @@
-Hibernate - Latest WildFly Documentation
-========================================
-
-[[hibernate]]
 Hibernate
----------
+=========
+
+

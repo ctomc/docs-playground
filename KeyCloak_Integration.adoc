@@ -1,6 +1,4 @@
-Using KeyCloak with WildFly Elytron - Latest WildFly Documentation
-==================================================================
-
-[[using-keycloak-with-wildfly-elytron]]
 Using KeyCloak with WildFly Elytron
------------------------------------
+===================================
+
+

@@ -1,10 +1,5 @@
-Parsing and marshalling of the subsystem xml - Latest WildFly
-Documentation
-===========================================================================
-
-[[parsing-and-marshalling-of-the-subsystem-xml]]
 Parsing and marshalling of the subsystem xml
---------------------------------------------
+============================================
 
 WildFly uses the Stax API to parse the xml files. This is initialized in
 `SubsystemExtension` by mapping our parser onto our namespace:
@@ -12,16 +7,16 @@ WildFly uses the Stax API to parse the xml files. This is initialized in
 [source,java]
 ----
 public class SubsystemExtension implements Extension {
-
+ 
     /** The name space used for the {@code subsystem} element */
     public static final String NAMESPACE = "urn:com.acme.corp.tracker:1.0";
     ...
     protected static final PathElement SUBSYSTEM_PATH = PathElement.pathElement(SUBSYSTEM, SUBSYSTEM_NAME);
     protected static final PathElement TYPE_PATH = PathElement.pathElement(TYPE);
-
+ 
    /** The parser used for parsing our subsystem */
     private final SubsystemParser parser = new SubsystemParser();
-
+ 
    @Override
     public void initializeParsers(ExtensionParsingContext context) {
         context.setSubsystemXmlMapping(NAMESPACE, parser);
@@ -38,24 +33,24 @@ is the `readElement()` method.
 [source,java]
 ----
 public class SubsystemExtension implements Extension {
-
+ 
     /**
      * The subsystem parser, which uses stax to read and write to and from xml
      */
     private static class SubsystemParser implements XMLStreamConstants, XMLElementReader<List<ModelNode>>, XMLElementWriter<SubsystemMarshallingContext> {
-
+ 
         /** {@inheritDoc} */
         @Override
         public void readElement(XMLExtendedStreamReader reader, List<ModelNode> list) throws XMLStreamException {
             // Require no attributes
             ParseUtils.requireNoAttributes(reader);
-
+ 
             //Add the main subsystem 'add' operation
             final ModelNode subsystem = new ModelNode();
             subsystem.get(OP).set(ADD);
             subsystem.get(OP_ADDR).set(PathAddress.pathAddress(SUBSYSTEM_PATH).toModelNode());
             list.add(subsystem);
-
+ 
             //Read the children
             while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
                 if (!reader.getLocalName().equals("deployment-types")) {
@@ -68,14 +63,14 @@ public class SubsystemExtension implements Extension {
                 }
             }
         }
-
+ 
         private void readDeploymentType(XMLExtendedStreamReader reader, List<ModelNode> list) throws XMLStreamException {
             if (!reader.getLocalName().equals("deployment-type")) {
                 throw ParseUtils.unexpectedElement(reader);
             }
             ModelNode addTypeOperation = new ModelNode();
             addTypeOperation.get(OP).set(ModelDescriptionConstants.ADD);
-
+ 
             String suffix = null;
             for (int i = 0; i < reader.getAttributeCount(); i++) {
                 String attr = reader.getAttributeLocalName(i);
@@ -92,7 +87,7 @@ public class SubsystemExtension implements Extension {
             if (suffix == null) {
                 throw ParseUtils.missingRequiredElement(reader, Collections.singleton("suffix"));
             }
-
+ 
             //Add the 'add' operation for each 'type' child
             PathAddress addr = PathAddress.pathAddress(SUBSYSTEM_PATH, PathElement.pathElement(TYPE, suffix));
             addTypeOperation.get(OP_ADDR).set(addr.toModelNode());
@@ -131,7 +126,7 @@ private static class SubsystemParser implements XMLStreamConstants, XMLElementRe
             ModelNode node = context.getModelNode();
             ModelNode type = node.get(TYPE);
             for (Property property : type.asPropertyList()) {
-
+ 
                 //write each child element to xml
                 writer.writeStartElement("deployment-type");
                 writer.writeAttribute("suffix", property.getName());
@@ -162,16 +157,16 @@ that you can do it by implementing it like this.
 ----
 private static class SubsystemDescribeHandler implements OperationStepHandler, DescriptionProvider {
         static final SubsystemDescribeHandler INSTANCE = new SubsystemDescribeHandler();
-
+ 
         public void execute(OperationContext context, ModelNode operation) throws OperationFailedException {
             //Add the main operation
             context.getResult().add(createAddSubsystemOperation());
-
+ 
             //Add the operations to create each child
-
+ 
             ModelNode node = context.readModel(PathAddress.EMPTY_ADDRESS);
             for (Property property : node.get("type").asPropertyList()) {
-
+ 
                 ModelNode addType = new ModelNode();
                 addType.get(OP).set(ModelDescriptionConstants.ADD);
                 PathAddress addr = PathAddress.pathAddress(SUBSYSTEM_PATH, PathElement.pathElement("type", property.getName()));
@@ -183,19 +178,17 @@ private static class SubsystemDescribeHandler implements OperationStepHandler, D
             }
             context.completeStep();
         }
-
-
+ 
+ 
 }
 ----
 
-[[108626366_Parsingandmarshallingofthesubsystemxml-Testingtheparsers]]
-[[108626366_Parsingandmarshallingofthesubsystemxml-Testingtheparsers]]
-
 [[testing-the-parsers]]
-Testing the parsers
-~~~~~~~~~~~~~~~~~~~
+= Testing the parsers
 
 Changes to tests between 7.0.0 and 7.0.1
+
+[IMPORTANT]
 
 The testing framework was moved from the archetype into the core JBoss
 AS 7 sources between JBoss AS 7.0.0 and JBoss AS 7.0.1, and has been
@@ -365,7 +358,7 @@ controller, and use that xml to start a second controller
 //Get the model and the persisted xml from the first controller
         ModelNode modelA = servicesA.readWholeModel();
         String marshalled = servicesA.getPersistedSubsystemXml();
-
+ 
         //Install the persisted xml from the first controller into a second controller
         KernelServices servicesB = super.installInController(marshalled);
 ----
@@ -376,7 +369,7 @@ the models are identical by calling `compare()` on the test superclass.
 [source,java]
 ----
 ModelNode modelB = servicesB.readWholeModel();
-
+ 
         //Make sure the models from the two controllers are identical
         super.compare(modelA, modelB);
     }
@@ -428,7 +421,7 @@ ModelNode modelB = servicesB.readWholeModel();
 ----
 //Make sure the models from the two controllers are identical
         super.compare(modelA, modelB);
-
+ 
     }
 ----
 

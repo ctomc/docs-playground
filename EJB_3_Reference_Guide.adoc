@@ -1,9 +1,5 @@
-EJB 3 Reference Guide - Latest WildFly Documentation
-====================================================
-
-[[ejb-3-reference-guide]]
 EJB 3 Reference Guide
----------------------
+=====================
 
 This chapter details the extensions that are available when developing
 Enterprise Java Beans ^tm^ on WildFly 8.
@@ -12,14 +8,12 @@ Currently there is no support for configuring the extensions using an
 implementation specific descriptor file.
 
 [[resource-adapter-for-message-driven-beans]]
-Resource Adapter for Message Driven Beans
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Resource Adapter for Message Driven Beans
 
 Each Message Driven Bean must be connected to a resource adapter.
 
 [[specification-of-resource-adapter-using-metadata-annotations]]
-Specification of Resource Adapter using Metadata Annotations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Specification of Resource Adapter using Metadata Annotations
 
 The `ResourceAdapter` annotation is used to specify the resource adapter
 with which the MDB should connect.
@@ -35,17 +29,15 @@ For example:
 @ResourceAdapter("ejb3-rar.rar")
 ----
 
-[[as-principal]]
-as Principal
-~~~~~~~~~~~~
+[[run-as-principal]]
+= Run-as Principal
 
 Whenever a run-as role is specified for a given method invocation the
 default anonymous principal is used as the caller principal. This
 principal can be overridden by specifying a run-as principal.
 
 [[specification-of-run-as-principal-using-metadata-annotations]]
-Specification of Run-as Principal using Metadata Annotations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Specification of Run-as Principal using Metadata Annotations
 
 The `RunAsPrincipal` annotation is used to specify the run-as principal
 to use for a given method invocation.
@@ -66,16 +58,14 @@ For example:
 ----
 
 [[security-domain]]
-Security Domain
-~~~~~~~~~~~~~~~
+= Security Domain
 
 Each Enterprise Java Bean ^tm^ can be associated with a security domain.
 Only when an EJB is associated with a security domain will
 authentication and authorization be enforced.
 
 [[specification-of-security-domain-using-metadata-annotations]]
-Specification of Security Domain using Metadata Annotations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Specification of Security Domain using Metadata Annotations
 
 The `SecurityDomain` annotation is used to specify the security domain
 to associate with the EJB.
@@ -91,8 +81,7 @@ For example:
 ----
 
 [[transaction-timeout]]
-Transaction Timeout
-~~~~~~~~~~~~~~~~~~~
+= Transaction Timeout
 
 For any newly started transaction a transaction timeout can be specified
 in seconds.
@@ -107,12 +96,13 @@ invalid setups.
 
 New Transactions
 
+[IMPORTANT]
+
 Take care that even when transaction attribute `REQUIRED` is specified,
 the timeout will only be applicable if a *new* transaction is started.
 
 [[specification-of-transaction-timeout-with-metadata-annotations]]
-Specification of Transaction Timeout with Metadata Annotations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Specification of Transaction Timeout with Metadata Annotations
 
 The `TransactionTimeout` annotation is used to specify the transaction
 timeout for a given method.
@@ -129,8 +119,7 @@ result in an even amount of seconds.
 For example:@TransactionTimeout(value = 10, unit = TimeUnit.SECONDS)
 
 [[specification-of-transaction-timeout-in-the-deployment-descriptor]]
-Specification of Transaction Timeout in the Deployment Descriptor
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Specification of Transaction Timeout in the Deployment Descriptor
 
 The `trans-timeout` element is used to define the transaction timeout
 for business, home, component, and message-listener interface methods;
@@ -145,8 +134,7 @@ For the rules when a `container-transaction` is applicable please refer
 to EJB 3.1 FR 13.3.7.2.1.
 
 [[example-of-trans-timeout]]
-Example of trans-timeout
-++++++++++++++++++++++++
+=== Example of trans-timeout
 
 jboss-ejb3.xml
 
@@ -178,11 +166,12 @@ urn:trans-timeout http://www.jboss.org/j2ee/schema/trans-timeout-1_0.xsd"
 ----
 
 [[timer-service]]
-Timer service
-~~~~~~~~~~~~~
+= Timer service
 
 The service is responsible to call the registered timeout methods of the
 different session beans.
+
+[IMPORTANT]
 
 A persistent timer will be identified by the name of the EAR, the name
 of the sub-deployment JAR and the Bean's name. +
@@ -191,8 +180,7 @@ timer entry became orphaned and the timer event will not longer be
 fired.
 
 [[single-event-timer]]
-Single event timer
-^^^^^^^^^^^^^^^^^^
+== Single event timer
 
 The timer is will be started once at the specified time.
 
@@ -202,8 +190,7 @@ If the timer is not persistent (since EJB3.1 see 18.2.3) it will be not
 longer available if JBoss is restarted or the application is redeployed.
 
 [[recurring-timer]]
-Recurring timer
-^^^^^^^^^^^^^^^
+== Recurring timer
 
 The timer will be started at the specified first occurrence and after
 that point at each time if the interval is elapsed. +
@@ -219,8 +206,7 @@ longer be active after the server is restarted or the application is
 redeployed.
 
 [[calendar-timer]]
-Calendar timer
-^^^^^^^^^^^^^^
+== Calendar timer
 
 The timer will be started if the schedule expression match. It will be
 automatically deactivated and removed if there will be no next
@@ -234,8 +220,7 @@ ________________________________________________________
 ________________________________________________________
 
 [[programmatic-calendar-timer]]
-Programmatic calendar timer
-+++++++++++++++++++++++++++
+=== Programmatic calendar timer
 
 If the timer is persistent it will be fetched at server start and the
 missed timeouts are called concurrent. +
@@ -252,8 +237,7 @@ server is restarted or the application is redeployed.
 fired only once like a recurring timer!
 
 [[annotated-calendar-timer]]
-Annotated calendar timer
-++++++++++++++++++++++++
+=== Annotated calendar timer
 
 If the timer is non persistent it will not activated for missed events
 during the server is down. In case of server start the timer is

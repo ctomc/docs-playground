@@ -1,25 +1,14 @@
-Migrate Legacy Security to Elytron Security - Latest WildFly
-Documentation
-==========================================================================
-
-[[migrate-legacy-security-to-elytron-security]]
 Migrate Legacy Security to Elytron Security
--------------------------------------------
+===========================================
 
 [[authentication-configuration]]
-Authentication Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Authentication Configuration
 
 [[properties-based-authentication-authorization]]
-Properties Based Authentication / Authorization
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[[119144556_MigrateLegacySecuritytoElytronSecurity-PropertiesAuthentication]]
-[[119144556_MigrateLegacySecuritytoElytronSecurity-PropertiesAuthentication]]
+== Properties Based Authentication / Authorization
 
 [[picketbox-based-configuration]]
-PicketBox Based Configuration
-+++++++++++++++++++++++++++++
+=== PicketBox Based Configuration
 
 This migration example assumes a deployed web application is configured
 to require authentication using FORM based authentication and is
@@ -28,7 +17,7 @@ UsersRolesLoginModule to load user information from a pair or properties
 files.
 
 [[original-configuration]]
-Original Configuration
+==== Original Configuration
 
 A security domain can be defined in the legacy security subsystem using
 the following management operations: -
@@ -54,7 +43,7 @@ This would result in a security domain definition: -
 ----
 
 [[intermediate-configuration]]
-Intermediate Configuration
+==== Intermediate Configuration
 
 It is possible to take a previously defined PicketBox security domain
 and expose it as an Elytron security realm so it can be wired into a
@@ -177,7 +166,7 @@ LoginModule configuration but this is wrapped by Elytron components
 which take over authentication.
 
 [[fully-migrated-configuration]]
-Fully Migrated Configuration
+==== Fully Migrated Configuration
 
 Alternatively the configuration can be completely defined within the
 Elytron subsystem, in this case it is assumed none of the previous
@@ -261,11 +250,10 @@ At this stage the authentication is the equivalent of the original
 configuration however now Elytron components are used exclusively.
 
 [[legacy-security-realm]]
-Legacy Security Realm
-+++++++++++++++++++++
+=== Legacy Security Realm
 
 [[original-configuration-1]]
-Original Configuration
+==== Original Configuration
 
 A legacy security realm can be defined using the following commands to
 load users passwords and group information from properties files.
@@ -295,7 +283,7 @@ A legacy security realm would typically be used to secure either the
 management interfaces or remoting connectors.
 
 [[migrated-configuration]]
-Migrated Configuration
+==== Migrated Configuration
 
 One of the motivations for adding the Elytron based security to the
 application server is to allow a consistent security solution to be used
@@ -367,11 +355,7 @@ clear the existing security realm reference.
 ----
 
 [[ldap-authentication-migration]]
-LDAP Authentication Migration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[[119144556_MigrateLegacySecuritytoElytronSecurity-LDAPAuthentication]]
-[[119144556_MigrateLegacySecuritytoElytronSecurity-LDAPAuthentication]]
+== LDAP Authentication Migration
 
 The section describing how to migrate from properties based
 authentication using either PicketBox or legacy security realms to
@@ -418,8 +402,7 @@ For authentication purposes the username will be matched against the
 'uid' attribute of the group entry.
 
 [[legacy-security-realm-1]]
-Legacy Security Realm
-+++++++++++++++++++++
+=== Legacy Security Realm
 
 A connection to the LDAP server and related security realm can be
 created with the following commands: -
@@ -428,11 +411,11 @@ created with the following commands: -
 ----
 batch
 ./core-service=management/ldap-connection=MyLdapConnection:add(url="ldap://localhost:10389", search-dn="uid=admin,ou=system", search-credential="secret")
-
+ 
 ./core-service=management/security-realm=LDAPRealm:add
 ./core-service=management/security-realm=LDAPRealm/authentication=ldap:add(connection="MyLdapConnection", username-attribute=uid, base-dn="ou=users,dc=group-to-principal,dc=wildfly,dc=org")
-
-
+ 
+ 
 ./core-service=management/security-realm=LDAPRealm/authorization=ldap:add(connection=MyLdapConnection)
 ./core-service=management/security-realm=LDAPRealm/authorization=ldap/username-to-dn=username-filter:add(attribute=uid, base-dn="ou=users,dc=group-to-principal,dc=wildfly,dc=org")
 ./core-service=management/security-realm=LDAPRealm/authorization=ldap/group-search=group-to-principal:add(base-dn="ou=groups,dc=group-to-principal,dc=wildfly,dc=org", iterative=true, prefer-original-connection=true, principal-attribute=uniqueMember, search-by=DISTINGUISHED_NAME, group-name=SIMPLE, group-name-attribute=uid)
@@ -474,8 +457,7 @@ This results in the following configuration.
 ----
 
 [[picketbox-ldapextloginmodule]]
-PicketBox LdapExtLoginModule
-++++++++++++++++++++++++++++
+=== PicketBox LdapExtLoginModule
 
 The following commands can create a PicketBox security domain configured
 to use the LdapExtLoginModule to verify a username and password.
@@ -526,8 +508,7 @@ This results in the following configuration.
 ----
 
 [[migrated]]
-Migrated
-++++++++
+=== Migrated
 
 Within the Elytron subsystem a directory context can be defined for the
 connection to LDAP: -
@@ -554,6 +535,8 @@ directly as groups or roles, in the Elytron case information can be
 loaded from LDAP to associate with the identity as attributes - these
 can subsequently be mapped to roles but attributes can be loaded for
 other purposes as well.
+
+[IMPORTANT]
 
 By default, if no `role-decoder` is defined for given `security-domain`,
 identity attribute " `Roles`" is mapped to the identity roles.
@@ -584,8 +567,7 @@ This leads to the following configuration.
 ----
 
 [[database-authentication]]
-Database Authentication
-^^^^^^^^^^^^^^^^^^^^^^^
+== Database Authentication
 
 The section describing how to migrate from database accessible via JDBC
 datasource based authentication using PicketBox to Elytron. This section
@@ -615,8 +597,7 @@ For authentication purposes the username will be matched against the '
 from ' `role`' column.
 
 [[picketbox-database-loginmodule]]
-PicketBox Database LoginModule
-++++++++++++++++++++++++++++++
+=== PicketBox Database LoginModule
 
 The following commands can create a PicketBox security domain configured
 to use database accessible via JDBC datasource to verify a username and
@@ -657,8 +638,7 @@ This results in the following configuration.
 ----
 
 [[migrated-1]]
-Migrated
-++++++++
+=== Migrated
 
 Within the Elytron subsystem to use database accesible via JDBC you need
 to define `jdbc-realm`:
@@ -700,8 +680,7 @@ query to obtain all user attributes and credentials. Their extraction
 from SQL result specifies mappers.
 
 [[kerberos-authentication-migration]]
-Kerberos Authentication Migration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Kerberos Authentication Migration
 
 When working with Kerberos configuration it is possible for the
 application server to rely on configuration from the environment or the
@@ -730,11 +709,10 @@ Kerberos realm in use and the address of the KDC.
 ----
 
 [[http-authentication]]
-HTTP Authentication
-+++++++++++++++++++
+=== HTTP Authentication
 
 [[legacy-security-realm-2]]
-Legacy Security Realm
+==== Legacy Security Realm
 
 A legacy security realm can be define so that SPNEGO authentication can
 be enabled for the HTTP management interface.
@@ -767,7 +745,7 @@ This results in the following configuration: -
 ----
 
 [[application-spnego]]
-Application SPNEGO
+==== Application SPNEGO
 
 Alternatively deployed applications would make use of a pair of security
 domains.
@@ -829,7 +807,7 @@ An application can now be deployed referencing the SPNEGO security
 domain and secured with SPNEGO mechanism.
 
 [[migrated-spnego]]
-Migrated SPNEGO
+==== Migrated SPNEGO
 
 The equivalent configuration can be achieved with WildFly Elytron by
 first defining a security realm which will be used to load identity
@@ -908,11 +886,10 @@ https://docs.jboss.org/author/display/WFLY/Migrate+Legacy+Security+to+Elytron+Se
 authentication section].
 
 [[remoting-sasl-authentication]]
-Remoting / SASL Authentication
-++++++++++++++++++++++++++++++
+=== Remoting / SASL Authentication
 
 [[legacy-security-realm-3]]
-Legacy Security Realm
+==== Legacy Security Realm
 
 It is also possible to define a legacy security realm for Kerberos /
 GSSAPI SASL authenticatio for Remoting authentication such as the native
@@ -947,7 +924,7 @@ management interface.
 ----
 
 [[migrated-gssapi]]
-Migrated GSSAPI
+==== Migrated GSSAPI
 
 The steps to define the equivalent Elytron configuration are very
 similar to the HTTP example.
@@ -1020,26 +997,20 @@ specific authentication factories each referencing their own Kerberos
 security factory.
 
 [[clients]]
-Clients
-~~~~~~~
+= Clients
 
 [[application-client-migration]]
-Application Client Migration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[[119144556_MigrateLegacySecuritytoElytronSecurity-ApplicationClientMigration]]
-[[119144556_MigrateLegacySecuritytoElytronSecurity-ApplicationClientMigration]]
+== Application Client Migration
 
 [[naming-client]]
-Naming Client
-+++++++++++++
+=== Naming Client
 
 This migration example assumes a client application performs a remote
 JNDI lookup using an ﻿﻿ `InitialContext` backed by the
 `org.jboss.naming.remote.client.InitialContextFactory` class.
 
 [[original-configuration-2]]
-Original Configuration
+==== Original Configuration
 
 An `InitialContext` backed by the
 `org.jboss.naming.remote.client.InitialContextFactory` class can be
@@ -1059,7 +1030,7 @@ Bar bar = (Bar) context.lookup("foo/bar");
 ----
 
 [[migrated-configuration-1]]
-Migrated Configuration
+==== Migrated Configuration
 
 An `InitialContext` backed by the
 `org.wildfly.naming.client.WildFlyInitialContextFactory` class can be
@@ -1068,7 +1039,7 @@ provider to connect to. The user credentials can be specified using a
 WildFly client configuration file or programmatically.
 
 [[configuration-file-approach]]
-Configuration File Approach
+===== Configuration File Approach
 
 A `wildfly-config.xml` file that contains the user credentials to use
 when establishing a connection to the naming provider can be added to
@@ -1110,19 +1081,19 @@ Bar bar = (Bar) context.lookup("foo/bar");
 ----
 
 [[programmatic-approach]]
-Programmatic Approach
+===== Programmatic Approach
 
 The user credentials to use when establishing a connection to the naming
-provider can be specified directly in the client application’s code:
+provider can be specified directly in the client application's code:
 
 [source,java]
 ----
 // create your authentication configuration
 AuthenticationConfiguration namingConfig = AuthenticationConfiguration.empty().useName("bob").usePassword("secret");
-
+ 
 // create your authentication context
 AuthenticationContext context = AuthenticationContext.empty().with(MatchRule.ALL.matchHost("127.0.0.1"), namingConfig);
-
+ 
 // create a callable that creates and uses an InitialContext
 Callable<Void> callable = () -> {
     Properties properties = new Properties();
@@ -1133,25 +1104,24 @@ Callable<Void> callable = () -> {
     ...
     return null;
 };
-
+ 
 // use your authentication context to run your callable
 context.runCallable(callable);
 ----
 
 [[ejb-client]]
-EJB Client
-++++++++++
+=== EJB Client
 
 This migration example assumes a client application is configured to
 invoke an EJB deployed on a remote server using a
 `jboss-ejb-client.properties` file.
 
 [[original-configuration-3]]
-Original Configuration
+==== Original Configuration
 
 A `jboss-ejb-client.properties` file that contains the information
 needed to connect to the remote server can be specified in a client
-application’s `META-INF` directory:
+application's `META-INF` directory:
 
 *jboss-ejb-client.properties*
 
@@ -1175,7 +1145,7 @@ Properties properties = new Properties();
 properties.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
 properties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
 InitialContext context = new InitialContext(properties);
-
+ 
 // look up an EJB and invoke one of its methods
 RemoteCalculator statelessRemoteCalculator = (RemoteCalculator) context.lookup(
     "ejb:/ejb-remote-server-side//CalculatorBean!" + RemoteCalculator.class.getName());
@@ -1183,13 +1153,13 @@ int sum = statelessRemoteCalculator.add(101, 202);
 ----
 
 [[migrated-configuration-2]]
-Migrated Configuration
+==== Migrated Configuration
 
 The information needed to connect to the remote server can be specified
 using a WildFly client configuration file or programmatically.
 
 [[configuration-file-approach-1]]
-Configuration File Approach
+===== Configuration File Approach
 
 A `wildfly-config.xml` file that contains the information needed to
 connect to the remote server can be added to the client application's
@@ -1232,7 +1202,7 @@ follows:
 Properties properties = new Properties();
 properties.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
 InitialContext context = new InitialContext(properties);
-
+ 
 // look up an EJB and invoke one of its methods (same as before)
 RemoteCalculator statelessRemoteCalculator = (RemoteCalculator) context.lookup(
     "ejb:/ejb-remote-server-side//CalculatorBean!" + RemoteCalculator.class.getName());
@@ -1240,28 +1210,28 @@ int sum = statelessRemoteCalculator.add(101, 202);
 ----
 
 [[programmatic-approach-1]]
-Programmatic Approach
+===== Programmatic Approach
 
 The information needed to connect to the remote server can be specified
-directly in the client application’s code:
+directly in the client application's code:
 
 [source,java]
 ----
 // create your authentication configuration
 AuthenticationConfiguration ejbConfig = AuthenticationConfiguration.empty().useName("bob").usePassword("secret");
-
+ 
 // create your authentication context
 AuthenticationContext context = AuthenticationContext.empty().with(MatchRule.ALL.matchHost("127.0.0.1"), ejbConfig);
-
+ 
 // create a callable that invokes an EJB
 Callable<Void> callable = () -> {
-
+ 
     // create an InitialContext
     Properties properties = new Properties();
     properties.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
     properties.put(Context.PROVIDER_URL, "remote+http://127.0.0.1:8080");
     InitialContext context = new InitialContext(properties);
-
+ 
     // look up an EJB and invoke one of its methods (same as before)
     RemoteCalculator statelessRemoteCalculator = (RemoteCalculator) context.lookup(
         "ejb:/ejb-remote-server-side//CalculatorBean!" + RemoteCalculator.class.getName());
@@ -1269,18 +1239,16 @@ Callable<Void> callable = () -> {
     ...
     return null;
 };
-
+ 
 // use your authentication context to run your callable
 context.runCallable(callable);
 ----
 
 [[general-utilities]]
-General Utilities
-~~~~~~~~~~~~~~~~~
+= General Utilities
 
 [[security-vault-migration]]
-Security Vault Migration
-^^^^^^^^^^^^^^^^^^^^^^^^
+== Security Vault Migration
 
 Security Vault is primarily used in legacy configurations, a vault is
 used to store sensitive strings outside of the configuration files.
@@ -1301,8 +1269,7 @@ dependent on your platform of choice. One can use also simple form "java
 it better suites ones needs.
 
 [[single-security-vault-conversion]]
-Single Security Vault Conversion
-++++++++++++++++++++++++++++++++
+=== Single Security Vault Conversion
 
 To convert *single* security vault credential store use following
 example:
@@ -1312,9 +1279,15 @@ GitHub [1]
 
 Command to run actual conversion:
 
+--
+
 `./bin/elytron-tool.sh vault --enc-dir vault_data/ --keystore vault-jceks.keystore --keystore-password MASK-2hKo56F1a3jYGnJwhPmiF5 --iteration 34 --salt 12345678 --alias test --location cs-v1.store --summary`
 
+--
+
 Output:
+
+--
 
 `Vault (enc-dir="vault_data/";keystore="vault-jceks.keystore") converted to credential store "cs-v1.store"` +
 `Vault Conversion summary:` +
@@ -1323,10 +1296,12 @@ Output:
 `CLI command to add new credential store:` +
 `/subsystem=elytron/credential-store=test:add(relative-to=jboss.server.data.dir,create=true,modifiable=true,location="cs-v1.store",implementation-properties={"keyStoreType"=>"JCEKS"},credential-reference={clear-text="MASK-2hKo56F1a3jYGnJwhPmiF5;12345678;34"})`
 
+--
+
 Use elytron-tool.sh vault --help to get description of all parameters.
 
 [[notes]]
-Notes:
+==== Notes:
 
 - Elytron Tool cannot handle very first version of Security Vault data
 file. +
@@ -1340,12 +1315,13 @@ CLI command to be used in WildFly console to add converted credential
 store to the configuration.
 
 [[bulk-security-vault-conversion]]
-Bulk Security Vault Conversion
-++++++++++++++++++++++++++++++
+=== Bulk Security Vault Conversion
 
 There is possibility to convert multiple vaults to credential store
 using --bulk-convert parameter with description file. +
 Example of description file from our tests [2]:
+
+--
 
 `# Bulk conversion descriptor` +
 `keystore:target/test-classes/vault-v1/vault-jceks.keystore` +
@@ -1371,14 +1347,22 @@ Example of description file from our tests [2]:
 `location:target/v1-cs-more.store` +
 `alias:test`
 
+--
+
 After each "keystore:" option new conversion starts. All options are
 mandatory except "salt:", "iteration:" and "properties:"
 
 Execute following command:
 
+--
+
 `./bin/elytron-tool.sh vault --bulk-convert bulk-vault-conversion-desc --summary`
 
+--
+
 Output:
+
+--
 
 `Vault (enc-dir="vault-v1/vault_data/";keystore="vault-v1/vault-jceks.keystore") converted to credential store "v1-cs-1.store"` +
 `Vault Conversion summary:` +
@@ -1404,11 +1388,12 @@ Output:
 `/subsystem=elytron/credential-store=test:add(relative-to=jboss.server.data.dir,create=true,modifiable=true,location="v1-cs-more.store",implementation-properties={"keyStoreType"=>"JCEKS"},credential-reference={clear-text="MASK-2hKo56F1a3jYGnJwhPmiF5;12345678;34"})` +
 `--------------------------------------`
 
-The result is conversion of all vaults with proper CLI commands. 
+--
+
+The result is conversion of all vaults with proper CLI commands.
 
 [[references]]
-References:
-+++++++++++
+=== References:
 
 [1]
 https://github.com/wildfly-security/wildfly-elytron-tool/tree/master/src/test/resources/vault-v1 +
@@ -1416,8 +1401,7 @@ https://github.com/wildfly-security/wildfly-elytron-tool/tree/master/src/test/re
 https://github.com/wildfly-security/wildfly-elytron-tool/blob/master/src/test/java/org/wildfly/security/tool/VaultCommandTest.java
 
 [[security-properties]]
-Security Properties
-^^^^^^^^^^^^^^^^^^^
+== Security Properties
 
 Lets suppose security properties "a" and "c" defined in legacy security:
 
@@ -1473,18 +1457,16 @@ Output XML configuration will be:
 ----
 
 [[ssl-migration]]
-SSL Migration
-~~~~~~~~~~~~~
+= SSL Migration
 
 [[simple-ssl-migration]]
-Simple SSL Migration
-^^^^^^^^^^^^^^^^^^^^
+== Simple SSL Migration
 
 This section describe securing HTTP connections to the server using SSL
 using Elytron. +
 It suppose you have already configured SSL using legacy
 `security-realm`, for example by
-link:Admin_Guide.html#108625986_AdminGuide-EnableSSL[Admin Guide#Enable
+link:Admin_Guide.html#src-557075_AdminGuide-EnableSSL[Admin Guide#Enable
 SSL], and your configuration looks like:
 
 [source,java]
@@ -1508,37 +1490,37 @@ generated using keytool is JKS:
 ----
 /subsystem=elytron/key-store=LocalhostKeyStore:add(path=server.keystore,relative-to=jboss.server.config.dir,credential-reference={clear-text="keystore_password"},type=JKS)
 ----
-2.  Create Elytron `key-manager` - specifying keystore, alias (using
+
+* Create Elytron `key-manager` - specifying keystore, alias (using
 `alias-filter`) and password of key:
 +
 [source,java]
 ----
 /subsystem=elytron/key-manager=LocalhostKeyManager:add(key-store=LocalhostKeyStore,alias-filter=server,credential-reference={clear-text="key_password"})
 ----
-3.  Create Elytron `server-ssl-context` - specifying only reference to
+* Create Elytron `server-ssl-context` - specifying only reference to
 `key-manager` defined above:
 +
 [source,java]
 ----
 /subsystem=elytron/server-ssl-context=LocalhostSslContext:add(key-manager=LocalhostKeyManager)
 ----
-4.  Switch `https-listener` from legacy `security-realm` to newly
-created Elytron `ssl-context`:
+* Switch `https-listener` from legacy `security-realm` to newly created
+Elytron `ssl-context`:
 +
 [source,java]
 ----
 /subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
 /subsystem=undertow/server=default-server/https-listener=https:write-attribute(name=ssl-context,value=LocalhostSslContext)
 ----
-5.  And reload the server:
+* And reload the server:
 +
 [source,java]
 ----
 reload
 ----
-
-Output XML configuration of Elytron subsystem should look like:
-
+* Output XML configuration of Elytron subsystem should look like:
++
 [source,java]
 ----
         <subsystem xmlns="urn:wildfly:elytron:1.0" ...>
@@ -1562,21 +1544,20 @@ Output XML configuration of Elytron subsystem should look like:
             </tls>
         </subsystem>
 ----
-
++
 Output `https-listener` in Undertow subsystem should be:
-
++
 [source,java]
 ----
 <https-listener name="https" socket-binding="https" ssl-context="LocalhostSslContext" enable-http2="true"/>
 ----
-
++
 [[client-cert-ssl-authentication-migration]]
-Client-Cert SSL Authentication Migration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Client-Cert SSL Authentication Migration
 
 This suppose you have already configured Client-Cert SSL authentication
 using `truststore` in legacy `security-realm`, for example by
-link:Admin_Guide.html#108625986_AdminGuide-AddClientCerttoSSL[Admin
+link:Admin_Guide.html#src-557075_AdminGuide-AddClient-CerttoSSL[Admin
 Guide#Add Client-Cert to SSL], and your configuration looks like:
 
 [source,java]
@@ -1594,16 +1575,17 @@ Guide#Add Client-Cert to SSL], and your configuration looks like:
   </authentication>
 </security-realm>
 ----
++
+[IMPORTANT]
 
 Following configuration is sufficient to prevent users without valid
 certificate and private key to access the server, but it does not
 provide user identity to the application. That require to define
 `CLIENT_CERT` HTTP mechanism / `EXTERNAL` SASL mechanism, which will be
 described later.)
-
++
 At first use steps above to migrate basic part of the configuration.
 Then continue by following:
-
 1.  Create `key-store` of truststore - like for keystore above:
 +
 [source,java]
@@ -1635,9 +1617,9 @@ above:
 ----
 reload
 ----
-
++
 Output XML configuration of Elytron subsystem should look like:
-
++
 [source,java]
 ----
         <subsystem xmlns="urn:wildfly:elytron:1.0" ...>
@@ -1669,3 +1651,13 @@ Output XML configuration of Elytron subsystem should look like:
             </tls>
         </subsystem>
 ----
++
+[[documentation-still-needed]]
+= Documentation Still Needed
+
+** How to migrate application which uses different identity store for
+authentication and authorization (migration to Elytron aggregate-realm).
+** How migrate to using cache (migration to caching-realm)
+** Limitations for migration from PicketBox/legacy security to Elytron,
+for example, Infinispan cache cannot be used, login module stacking
+cannot be used, any others?

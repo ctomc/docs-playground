@@ -1,13 +1,8 @@
-Naming Subsystem Configuration - Latest WildFly Documentation
-=============================================================
-
-[[naming-subsystem-configuration]]
 Naming Subsystem Configuration
-------------------------------
+==============================
 
 [[overview]]
-Overview
-~~~~~~~~
+= Overview
 
 The Naming subsystem provides the JNDI implementation on WildFly, and
 its configuration allows to:
@@ -16,14 +11,14 @@ its configuration allows to:
 * turn off/on the remote JNDI interface
 
 The subsystem name is naming and this document covers Naming subsystem
-version `2.0`, which XML namespace within WildFly XML configurations is 
+version `2.0`, which XML namespace within WildFly XML configurations is
 `urn:jboss:domain:naming:2.0`. The path for the subsystem's XML schema,
 within WildFly's distribution, is `docs/schema/jboss-as-naming_2_0.xsd`.
 
 Subsystem XML configuration example with all elements and attributes
 specified:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <subsystem xmlns="urn:jboss:domain:naming:2.0">
     <bindings>
@@ -46,8 +41,7 @@ specified:
 ----
 
 [[global-bindings-configuration]]
-Global Bindings Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Global Bindings Configuration
 
 The Naming subsystem configuration allows binding entries into the
 following global JNDI namespaces:
@@ -55,6 +49,8 @@ following global JNDI namespaces:
 * `java:global`
 * `java:jboss`
 * `java:`
+
+[IMPORTANT]
 
 If WildFly is to be used as a Java EE application server, then it's
 recommended to opt for `java:global`, since it is a standard (i.e.
@@ -70,7 +66,7 @@ Four different types of bindings are supported:
 In the subsystem's XML configuration, global bindings are configured
 through the `<bindings />` XML element, as an example:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <bindings>
     <simple name="java:global/a" value="100" type="int" />
@@ -89,13 +85,12 @@ through the `<bindings />` XML element, as an example:
 ----
 
 [[simple-bindings]]
-Simple Bindings
-^^^^^^^^^^^^^^^
+== Simple Bindings
 
 A simple binding is a primitive or java.net.URL entry, and it is defined
 through the `simple` XML element. An example of its XML configuration:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <simple name="java:global/a" value="100" type="int" />
 ----
@@ -121,14 +116,13 @@ example above:
 ----
 
 [[object-factories]]
-Object Factories
-^^^^^^^^^^^^^^^^
+== Object Factories
 
 The Naming subsystem configuration allows the binding of
 `javax.naming.spi.ObjectFactory` entries, through the `object-factory`
 XML element, for instance:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <object-factory name="java:global/foo/bar/factory" module="org.foo.bar" class="org.foo.bar.ObjectFactory">
     <environment>
@@ -161,15 +155,14 @@ XML example above:
 ----
 
 [[external-context-federation]]
-External Context Federation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== External Context Federation
 
 Federation of external JNDI contexts, such as a LDAP context, are
 achieved by adding External Context bindings to the global bindings
 configuration, through the `external-context` XML element. An example of
 its XML configuration:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <external-context name="java:global/federation/ldap/example" class="javax.naming.directory.InitialDirContext" cache="true">
     <environment>
@@ -185,11 +178,11 @@ its XML configuration:
 The `name` attribute is mandatory and specifies the target JNDI name for
 the entry.
 
-The  `class` attribute is mandatory and indicates the Java initial
-naming context type used to create the federated context. Note that such
-type must have a constructor with a single environment map argument.
+The `class` attribute is mandatory and indicates the Java initial naming
+context type used to create the federated context. Note that such type
+must have a constructor with a single environment map argument.
 
-The optional  `module` attribute specifies the JBoss Module ID where any
+The optional `module` attribute specifies the JBoss Module ID where any
 classes required by the external JNDI context may be loaded from.
 
 The optional `cache` attribute, which value defaults to `false`,
@@ -205,7 +198,7 @@ the XML example above:
 [source,java]
 ----
 /subsystem=naming/binding=java\:global\/federation\/ldap\/example:add(binding-type=external-context, cache=true, class=javax.naming.directory.InitialDirContext, environment=[java.naming.factory.initial=com.sun.jndi.ldap.LdapCtxFactory, java.naming.provider.url=ldap\:\/\/ldap.example.com\:389, java.naming.security.authentication=simple, java.naming.security.principal=uid\=admin\,ou\=system, java.naming.security.credentials= secret])
-
+ 
 /subsystem=naming/binding=java\:global\/federation\/ldap\/example:remove
 ----
 
@@ -213,14 +206,17 @@ Some JNDI providers may fail when their resources are looked up if they
 do not implement properly the lookup(Name) method. Their errors would
 look like:
 
-11:31:49,047 ERROR org.jboss.resource.adapter.jms.inflow.JmsActivation
-(default-threads -1)  javax.naming.InvalidNameException: Only support
-CompoundName names     at
-com.tibco.tibjms.naming.TibjmsContext.lookup(TibjmsContext.java:504)   
- at javax.naming.InitialContext.lookup(InitialContext.java:421)
+[cols="",]
+|=======================================================================
+|11:31:49,047 ERROR org.jboss.resource.adapter.jms.inflow.JmsActivation
+(default-threads -1) javax.naming.InvalidNameException: Only support
+CompoundName namesat
+com.tibco.tibjms.naming.TibjmsContext.lookup(TibjmsContext.java:504)at
+javax.naming.InitialContext.lookup(InitialContext.java:421)
+|=======================================================================
 
-To work around their shortcomings, the 
-`org.jboss.as.naming.lookup.by.string` property can be specified in the
+To work around their shortcomings, the
+`org.jboss.as.naming.lookup.by.string` property can be specified in the
 external-context's environment to use instead the lookup(String) method
 (with a performance degradation):
 
@@ -229,14 +225,14 @@ external-context's environment to use instead the lookup(String) method
 <property name="org.jboss.as.naming.lookup.by.string" value="true"/>
 ----
 
- *Binding Aliases*
+*Binding Aliases*
 
 The Naming subsystem configuration allows the binding of existent
 entries into additional names, i.e. aliases. Binding aliases are
 specified through the `lookup` XML element. An example of its XML
 configuration:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <lookup name="java:global/c" lookup="java:global/b" />
 ----
@@ -261,12 +257,13 @@ example above:
 ----
 
 [[remote-jndi-configuration]]
-Remote JNDI Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~
+= Remote JNDI Configuration
 
 The Naming subsystem configuration may be used to (de)activate the
 remote JNDI interface, which allows clients to lookup entries present in
 a remote WildFly instance.
+
+[IMPORTANT]
 
 Only entries within the `java:jboss/exported` context are accessible
 over remote JNDI.
@@ -274,7 +271,7 @@ over remote JNDI.
 In the subsystem's XML configuration, remote JNDI access bindings are
 configured through the `<remote-naming />` XML element:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <remote-naming />
 ----

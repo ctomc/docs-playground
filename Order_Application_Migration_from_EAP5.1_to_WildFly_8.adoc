@@ -1,37 +1,28 @@
-Porting the Order Application from EAP 5.1 to WildFly 8 - Latest WildFly
-Documentation
-======================================================================================
-
-[[porting-the-order-application-from-eap-5.1-towildfly-8]]
-Porting the Order Application from EAP 5.1 to WildFly 8
--------------------------------------------------------
+Porting the Order Application from EAP 5.1 to WildFly 8
+=======================================================
 
 Andy Miller ported an example Order application that was used for
 performance testing from EAP 5.1 to WildFly 8. These are the notes he
 made during the migration process.
 
 [[overview-of-the-application]]
-Overview of the application
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Overview of the application
 
 The application is relatively simple. it contains three servlets, some
 stateless session beans, a stateful session bean, and some entities.
 
 In addition to application code changes, modifications were made to the
-way the EAR was packaged. This is because WildFly removed support of
+way the EAR was packaged. This is because WildFly removed support of
 some proprietary features that were available in EAP 5.1.
 
 [[summary-of-changes]]
-Summary of changes
-~~~~~~~~~~~~~~~~~~
+= Summary of changes
 
 [[code-changes]]
-Code Changes
-^^^^^^^^^^^^
+== Code Changes
 
 [[modify-jndi-lookup-code]]
-Modify JNDI lookup code
-+++++++++++++++++++++++
+=== Modify JNDI lookup code
 
 Since this application was first written for EAP 4.2/4.3, which did not
 support EJB reference injection, the servlets were using pre-EE 5
@@ -39,7 +30,7 @@ methods for looking up stateless and stateful session bean interfaces.
 While migrating to WildFly, it seemed a good time to change the code to
 use the @EJB annotation, although this was not a required change.
 
-The real difference is in the lookup name. WildFly only supports the new
+The real difference is in the lookup name. WildFly only supports the new
 EE 6 portable JNDI names rather than the old EAR structure based names.
 The JNDI lookup code changed as follows:
 
@@ -58,7 +49,7 @@ try {
 } catch(Exception lookupError) {
     throw new ServletException("Couldn't find CustomerManager bean", lookupError);
 }
-
+ 
 try {
     productManager = (ProductManager) context.lookup("OrderManagerApp/ProductManagerBean/local");
 } catch(Exception lookupError) {
@@ -72,10 +63,10 @@ Example of how this is now coded in WildFly:
 ----
 @EJB(lookup="java:app/OrderManagerEJB/DistributionCenterManagerBean!services.ejb.DistributionCenterManager")
 private DistributionCenterManager distributionCenterManager;
-
+ 
 @EJB(lookup="java:app/OrderManagerEJB/CustomerManagerBean!services.ejb.CustomerManager")
 private CustomerManager customerManager;
-
+ 
 @EJB(lookup="java:app/OrderManagerEJB/ProductManagerBean!services.ejb.ProductManager")
 private ProductManager productManager;
 ----
@@ -99,13 +90,12 @@ All the other beans were changed in a similar manner. They are now based
 on the portable JNDI names described in EE 6.
 
 [[modify-logging-code]]
-Modify logging code
-^^^^^^^^^^^^^^^^^^^
+== Modify logging code
 
 The next major change was to logging within the application. The old
 version was using the commons logging infrastructure and Log4J that is
 bundled in the application server. Rather than bundling third-party
-logging, the application was modified to use the new WildFly Logging
+logging, the application was modified to use the new WildFly Logging
 infrastructure.
 
 The code changes themselves are rather trivial, as this example
@@ -118,7 +108,7 @@ Old JBoss Commons Logging/Log4J:
 private static Log log = LogFactory.getLog(CustomerManagerBean.class);
 ----
 
-New WildFly Logging
+New WildFly Logging
 
 [source,java]
 ----
@@ -135,7 +125,7 @@ if(log.isTraceEnabled()) {
 }
 ----
 
-New WildFly Logging:
+New WildFly Logging:
 
 [source,java]
 ----
@@ -156,8 +146,7 @@ Dependencies: org.jboss.logmanager
 ----
 
 [[modify-the-code-to-use-infinispan-for-2nd-level-cache]]
-Modify the code to use Infinispan for 2nd level cache
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Modify the code to use Infinispan for 2nd level cache
 
 Jboss Cache has been replaced by Infinispan for 2nd level cache. This
 requires modification of the `persistence.xml` file.
@@ -190,7 +179,7 @@ configuration:
 ----
 
 Most of the properties are removed since they will default to the
-correct values for the second level cache.  See
+correct values for the second level cache. See
 https://docs.jboss.org/author/display/AS71/JPA+Reference+Guide#JPAReferenceGuide-UsingtheInfinispansecondlevelcache["Using
 the Infinispan second level cache"] for more details.
 
@@ -198,8 +187,7 @@ That was the extent of the code changes required to migrate the
 application to AS7.
 
 [[ear-packaging-changes]]
-EAR Packaging Changes
-^^^^^^^^^^^^^^^^^^^^^
+== EAR Packaging Changes
 
 Due to modular class loading changes, the structure of the existing EAR
 failed to deploy successfully in WildFly.
@@ -220,7 +208,7 @@ META-INF/
 In this structure, the entities and the `persistence.xml` were in one
 jar file, `OrderManagerEntities.jar`, and the stateless and stateful
 session beans were in another jar file, `OrderManagerEJB.jar`. This did
-not work due to modular class loading changes in WildFly. There are a
+not work due to modular class loading changes in WildFly. There are a
 couple of ways to resolve this issue:
 
 1.  Modify the class path in the `MANIFEST.MF`
@@ -256,8 +244,7 @@ The `Class-Path` entry tells the application to look in the
 `OrderManagerEJB.jar` file for the injected beans.
 
 [[summary]]
-Summary
-^^^^^^^
+== Summary
 
 Although the existing EAR structure could have worked with additional
 modifications to the `MANIFEST.MF` file, this approach seemed more

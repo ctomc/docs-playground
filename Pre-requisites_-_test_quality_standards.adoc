@@ -1,15 +1,11 @@
-Before you add a test - Latest WildFly Documentation
-====================================================
-
-[[before-you-add-a-test]]
 Before you add a test
----------------------
+=====================
 
 Every added test, whether ported or new should follow the same
 guidelines:
 
-* [[108626385_Pre-requisites-testqualitystandards-VerifythetestbelongsinWildFly8]]
-Verify the test belongs in WildFly 8
+* [[section]]
+=====
 
 AS6 has a lot of tests for things that are discontinued. For example
 the +
@@ -18,8 +14,8 @@ had tests for SPIs that no longer exist. None of these things should
 be +
 migrated.
 
-* [[108626385_Pre-requisites-testqualitystandards-OnlyaddCORRECTandUNDERSTANDABLEtests]]
-Only add CORRECT and UNDERSTANDABLE tests
+* [[section-1]]
+=====
 
 If you don't understand what a test is doing (perhaps too complex), or +
 it's going about things in a strange way that might not be correct,
@@ -27,15 +23,15 @@ THEN +
 DO NOT PORT IT. Instead we should have a simpler, understandable, and +
 correct test. Write a new one, ping the author, or skip it altogether.
 
-* [[108626385_Pre-requisites-testqualitystandards-Donotaddduplicatetests]]
-Do not add duplicate tests
+* [[section-2]]
+=====
 
 Always check that the test you are adding doesn't have coverage +
 elsewhere (try using "git grep"). As mentioned above we have some +
 overlap between 6 and 7. The 7 test version will likely be better.
 
-* [[108626385_Pre-requisites-testqualitystandards-Don%27tnametestsafterJIRAs]]
-Don't name tests after JIRAs
+* [[section-3]]
+=====
 
 A JIRA number is useless without an internet connection, and they are +
 hard to read. If I get a test failure thats XDGR-843534578 I have to
@@ -45,13 +41,13 @@ JIRA +
 number in the comments of the test. Also the commit log is always
 available.
 
-* [[108626385_Pre-requisites-testqualitystandards-Testsshouldcontainjavadocthatexplainswhatisbeingtested]]
-Tests should contain javadoc that explains what is being tested
+* [[section-4]]
+=====
 
 This is especially critical if the test is non-trivial
 
-* [[108626385_Pre-requisites-testqualitystandards-PreferexpandinganEXISTINGtestoveranewtestclass]]
-Prefer expanding an EXISTING test over a new test class
+* [[section-5]]
+=====
 
 If you are looking at migrating or creating a test with similar +
 functionality to an exiting test, it is better to +
@@ -61,8 +57,8 @@ new test class adds at least 300ms to execution time, so as long as it +
 makes sense it is better to add it to an +
 existing test case.
 
-* [[108626385_Pre-requisites-testqualitystandards-Organizetestsbysubsystem]]
-Organize tests by subsystem
+* [[section-6]]
+=====
 
 Integration tests should be packaged in subpackages under the relevant +
 subsystem (e.g org.jboss.as.test.integration.ejb.async). When a test +
@@ -72,16 +68,16 @@ the spec that defines the functionality (e.g. CDI based constructor +
 injection into an EJB, even though this involves CDI and EJB, +
 the CDI spec defines this behaviour)
 
-* [[108626385_Pre-requisites-testqualitystandards-Explainnonobviousspecbehaviorincomments]]
-Explain non-obvious spec behavior in comments
+* [[section-7]]
+=====
 
 The EE spec is full of odd requirements. If the test is covering +
 behavior that is not obvious then please add something like "Verifies
 EE +
 X.T.Z - The widget can't have a foobar if it is declared like blah"
 
-* [[108626385_Pre-requisites-testqualitystandards-Putintegrationtestresourcesinthesourcedirectoryofthetest]]
-Put integration test resources in the source directory of the test
+* [[section-8]]
+=====
 
 At the moment there is not real organization of these files. It makes +
 sense for most apps to have this separation, however the testsuite is +
@@ -96,8 +92,8 @@ the deployment are in one place, and that place tends to be small
 (only +
 a handful of files).
 
-* [[108626385_Pre-requisites-testqualitystandards-Donothardcodevalueslikelytoneedconfiguration%28URLs%2Cports%2C...%29]]
-Do not hard-code values likely to need configuration (URLs, ports, ...)
+* [[section-9]]
+=====
 
 URLs hardcoded to certain address (localhost) or port (like the default
 8080 for web) prevent running the test against different address or with
@@ -110,8 +106,8 @@ See
 https://github.com/arquillian/arquillian/blob/master/examples/junit/src/test/java/com/acme/web/LocalRunServletTestCase.java[@ArquillianResourrce
 usage example].
 
-* [[108626385_Pre-requisites-testqualitystandards-Followbestcommittingpractices]]
-Follow best committing practices
+* [[section-10]]
+=====
 ** Only do changes related to the topic of the jira/pull request.
 ** Do not clutter your pull request with e.g. reformatting, fixing typos
 spotted along the way - do another pull request for such.
@@ -124,8 +120,8 @@ history.
 ** If you're working on a jira issue, include it's ID in the commit
 message(s).
 
-* [[108626385_Pre-requisites-testqualitystandards-Donotuseblindtimeouts]]
-Do not use blind timeouts
+* [[section-11]]
+=====
 
 Do not use Thread.sleep() without checking for the actual condition you
 need to be fulfilled. +
@@ -135,10 +131,10 @@ the API/SPI you test where available.
 Make the timeouts configurable: For a group of similar test, use a
 configurable timeout value with a default if not set.
 
-* [[108626385_Pre-requisites-testqualitystandards-Providemessagesinassert%28%29andfail%28%29calls]]
-Provide messages in assert*() and fail() calls
+* [[section-12]]
+=====
 
-Definitely, it's better to see  "File x/y/z.xml not found" instead of:
+Definitely, it's better to see "File x/y/z.xml not found" instead of:
 
 [source,java]
 ----
@@ -149,8 +145,8 @@ junit.framework.AssertionFailedError
      at org.jboss.as.test.smoke.embedded.parse.ParseAndMarshalModelsTestCase.getOriginalStandaloneXml(ParseAndMarshalModelsTestCase.java:554) [bogus.jar:]
 ----
 
-* [[108626385_Pre-requisites-testqualitystandards-Provideconfigurationpropertieshintsinexceptions]]
-Provide configuration properties hints in exceptions
+* [[section-13]]
+=====
 
 If your test uses some configuration property and it fails possibly due
 to misconfiguration, note the property and it's value in the exception:
@@ -163,8 +159,8 @@ File jdbcJar = new File( System.getProperty("jbossas.ts.dir", "."),
         throw new IllegalStateException("Can't find " + jdbcJar + " using $\{jbossas.ts.dir} == " + System.getProperty("jbossas.ts.dir") );
 ----
 
-* [[108626385_Pre-requisites-testqualitystandards-Cleanup]]
-Clean up
+* [[section-14]]
+=====
 
 * ** Close sockets, connections, file descriptors;
 ** Don't put much data to static fields, or clean them in a finaly
@@ -172,8 +168,8 @@ Clean up
 ** Don't alter AS config (unless you are absolutely sure that it will
 reload in a final \{...} block or an @After* method)
 
-* [[108626385_Pre-requisites-testqualitystandards-Keepthetestsconfigurable]]
-Keep the tests configurable
+* [[section-15]]
+=====
 +
 Keep these things in properties, set them at the beginning of the test:
 ** Timeouts

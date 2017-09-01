@@ -1,9 +1,5 @@
-Deployment Scanner configuration - Latest WildFly Documentation
-===============================================================
-
-[[deployment-scanner-configuration]]
 Deployment Scanner configuration
---------------------------------
+================================
 
 The deployment scanner is only used in standalone mode. Its job is to
 monitor a directory for new files and to deploy those files. It can be
@@ -43,80 +39,45 @@ specified in the xml:
 
 The attributes are
 
-Name
+[cols=",,",]
+|=======================================================================
+|Name |Type |Description
 
-Type
+|name |STRING |The name of the scanner. default is used if not specified
 
-Description
+|path |STRING |The actual filesystem path to be scanned. Treated as an
+absolute path, unless the 'relative-to' attribute is specified, in which
+case the value is treated as relative to that path.
 
-name
+|relative-to |STRING |Reference to a filesystem path defined in the
+"paths" section of the server configuration, or one of the system
+properties specified on startup. In the example above
+jboss.server.base.dir resolves to JBOSS_HOME/standalone
 
-STRING
+|scan-enabled |BOOLEAN |If true scanning is enabled
 
-The name of the scanner. default is used if not specified
+|scan-interval |INT |Periodic interval, in milliseconds, at which the
+repository should be scanned for changes. A value of less than 1
+indicates the repository should only be scanned at initial startup.
 
-path
+|auto-deploy-zipped |BOOLEAN |Controls whether zipped deployment content
+should be automatically deployed by the scanner without requiring the
+user to add a .dodeploy marker file.
 
-STRING
+|auto-deploy-exploded |BOOLEAN |Controls whether exploded deployment
+content should be automatically deployed by the scanner without
+requiring the user to add a .dodeploy marker file. Setting this to
+'true' is not recommended for anything but basic development scenarios,
+as there is no way to ensure that deployment will not occur in the
+middle of changes to the content.
 
-The actual filesystem path to be scanned. Treated as an absolute path,
-unless the 'relative-to' attribute is specified, in which case the value
-is treated as relative to that path.
-
-relative-to
-
-STRING
-
-Reference to a filesystem path defined in the "paths" section of the
-server configuration, or one of the system properties specified on
-startup. In the example above jboss.server.base.dir resolves
-to JBOSS_HOME/standalone
-
-scan-enabled
-
-BOOLEAN
-
-If true scanning is enabled
-
-scan-interval
-
-INT
-
-Periodic interval, in milliseconds, at which the repository should be
-scanned for changes. A value of less than 1 indicates the repository
-should only be scanned at initial startup.
-
-auto-deploy-zipped
-
-BOOLEAN
-
-Controls whether zipped deployment content should be automatically
-deployed by the scanner without requiring the user to add a .dodeploy
+|auto-deploy-xml |BOOLEAN |Controls whether XML content should be
+automatically deployed by the scanner without requiring a .dodeploy
 marker file.
 
-auto-deploy-exploded
-
-BOOLEAN
-
-Controls whether exploded deployment content should be automatically
-deployed by the scanner without requiring the user to add a .dodeploy
-marker file. Setting this to 'true' is not recommended for anything but
-basic development scenarios, as there is no way to ensure that
-deployment will not occur in the middle of changes to the content.
-
-auto-deploy-xml
-
-BOOLEAN
-
-Controls whether XML content should be automatically deployed by the
-scanner without requiring a .dodeploy marker file.
-
-deployment-timeout
-
-LONG
-
-Timeout, in seconds, a deployment is allows to execute before being
-canceled. The default is 60 seconds.
+|deployment-timeout |LONG |Timeout, in seconds, a deployment is allows
+to execute before being canceled. The default is 60 seconds.
+|=======================================================================
 
 Deployment scanners can be added by modifying `standalone.xml` before
 starting up the server or they can be added and removed at runtime using

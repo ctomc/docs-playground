@@ -1,13 +1,8 @@
-Application deployment - Latest WildFly Documentation
-=====================================================
-
-[[application-deployment]]
 Application deployment
-----------------------
+======================
 
 [[managed-domain]]
-Managed Domain
-~~~~~~~~~~~~~~
+= Managed Domain
 
 In a managed domain, deployments are associated with a `server-group`
 (see ﻿ link:Core_management_concepts.html[Core management concepts]).
@@ -18,8 +13,7 @@ The domain and host controller components manage the distribution of
 binaries across network boundaries.
 
 [[deployment-commands]]
-Deployment Commands
-^^^^^^^^^^^^^^^^^^^
+== Deployment Commands
 
 Distributing deployment binaries involves two steps: uploading the
 deployment to the repository the domain controller will use to
@@ -32,7 +26,7 @@ You can do this in one sweep with the CLI:
 ----
 [domain@localhost:9990 /] deploy ~/Desktop/test-application.war
 Either --all-server-groups or --server-groups must be specified.
-
+ 
 [domain@localhost:9990 /] deploy ~/Desktop/test-application.war --all-server-groups
 'test-application.war' deployed successfully.
 ----
@@ -50,7 +44,7 @@ server group, and deployed on all running servers in that group:
        "test-application.war"
    ]
 }
-
+ 
 [domain@localhost:9990 /] /server-group=main-server-group/deployment=test-application.war:read-resource(include-runtime)
 {
    "outcome" => "success",
@@ -88,7 +82,7 @@ You can remove binaries from server groups with the `undeploy` command:
 ----
 [domain@localhost:9990 /] undeploy test-application.war --all-relevant-server-groups
 Successfully undeployed test-application.war.
-
+ 
 [domain@localhost:9990 /] /server-group=main-server-group:read-children-names(child-type=deployment)
 {
    "outcome" => "success",
@@ -109,12 +103,13 @@ control behavior. Use the `--help` parameter to learn more:
 [...]
 ----
 
+[IMPORTANT]
+
 Managing deployments through the web interface provides an alternate,
 sometimes simpler approach.
 
 [[exploded-managed-deployments]]
-Exploded managed deployments
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Exploded managed deployments
 
 Managed and unmanaged deployments can be 'exploded', i.e. on the
 filesystem in the form of a directory structure whose structure
@@ -389,8 +384,7 @@ File saved to /home/mjurc/wildfly/build/target/wildfly-11.0.0.Alpha1-SNAPSHOT/ex
 ----
 
 [[xml-configuration-file]]
-XML Configuration File
-^^^^^^^^^^^^^^^^^^^^^^
+== XML Configuration File
 
 When you deploy content, the domain controller adds two types of entries
 to the `domain.xml` configuration file, one showing global information
@@ -421,16 +415,14 @@ how it is used by that server group:
 ~(See domain/configuration/domain.xml)~
 
 [[standalone-server]]
-Standalone Server
-~~~~~~~~~~~~~~~~~
+= Standalone Server
 
 Deployments on a standalone server work in a similar way to those on
 managed domains. The main difference is that there are no server group
 associations.
 
 [[deployment-commands-1]]
-Deployment Commands
-^^^^^^^^^^^^^^^^^^^
+== Deployment Commands
 
 The same CLI commands used for managed domains work for standalone
 servers when deploying and removing an application:
@@ -439,17 +431,13 @@ servers when deploying and removing an application:
 ----
 [standalone@localhost:9990 /] deploy ~/Desktop/test-application.war
 'test-application.war' deployed successfully.
-
+ 
 [standalone@localhost:9990 /] undeploy test-application.war
 Successfully undeployed test-application.war.
 ----
 
-[[108626003_Applicationdeployment-filesystemdeployments]]
-[[108626003_Applicationdeployment-filesystemdeployments]]
-
 [[deploying-using-the-deployment-scanner]]
-Deploying Using the Deployment Scanner
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Deploying Using the Deployment Scanner
 
 Deployment content (for example, war, ear, jar, and sar files) can be
 placed in the standalone/deployments directory of the WildFly
@@ -458,14 +446,15 @@ runtime. For this to work the `deployment-scanner` subsystem must be
 present. The scanner periodically checks the contents of the deployments
 directory and reacts to changes by updating the server.
 
+[IMPORTANT]
+
 Users are encouraged to use the WildFly management APIs to upload and
 deploy deployment content instead of relying on the deployment scanner
 that periodically scans the directory, particularly if running
 production systems.
 
 [[deployment-scanner-modes]]
-Deployment Scanner Modes
-++++++++++++++++++++++++
+=== Deployment Scanner Modes
 
 The WildFly filesystem deployment scanner operates in one of two
 different modes, depending on whether it will directly monitor the
@@ -511,8 +500,7 @@ for exploded content, as exploded content is inherently vulnerable to
 the scanner trying to auto-deploy partially copied content.
 
 [[marker-files]]
-Marker Files
-++++++++++++
+=== Marker Files
 
 The marker files always have the same name as the deployment content to
 which they relate, but with an additional file suffix appended. For
@@ -522,65 +510,53 @@ have different meanings.
 
 The relevant marker file types are:
 
-File
+[cols=",",]
+|=======================================================================
+|File |Purpose
 
-Purpose
+|.dodeploy |Placed by the user to indicate that the given content
+shouldbe deployed into the runtime (or redeployed if alreadydeployed in
+the runtime.)
 
-.dodeploy
+|.skipdeploy |Disables auto-deploy of the content for as long as the
+fileis present. Most useful for allowing updates to explodedcontent
+without having the scanner initiate redeploy in themiddle of the update.
+Can be used with zipped content aswell, although the scanner will detect
+in-progress changesto zipped content and wait until changes are
+complete.
 
-Placed by the user to indicate that the given content shouldbe deployed
-into the runtime (or redeployed if alreadydeployed in the runtime.)
+|.isdeploying |Placed by the deployment scanner service to indicate that
+ithas noticed a .dodeploy file or new or updated auto-deploymode content
+and is in the process of deploying the content.This marker file will be
+deleted when the deployment processcompletes.
 
-.skipdeploy
+|.deployed |Placed by the deployment scanner service to indicate that
+thegiven content has been deployed into the runtime. If an enduser
+deletes this file, the content will be undeployed.
 
-Disables auto-deploy of the content for as long as the fileis present.
-Most useful for allowing updates to explodedcontent without having the
-scanner initiate redeploy in themiddle of the update. Can be used with
-zipped content aswell, although the scanner will detect in-progress
-changesto zipped content and wait until changes are complete.
+|.failed |Placed by the deployment scanner service to indicate that
+thegiven content failed to deploy into the runtime. The contentof the
+file will include some information about the cause ofthe failure. Note
+that with auto-deploy mode, removing thisfile will make the deployment
+eligible for deployment again.
 
-.isdeploying
+|.isundeploying |Placed by the deployment scanner service to indicate
+that ithas noticed a .deployed file has been deleted and thecontent is
+being undeployed. This marker file will be deletedwhen the undeployment
+process completes.
 
-Placed by the deployment scanner service to indicate that ithas noticed
-a .dodeploy file or new or updated auto-deploymode content and is in the
-process of deploying the content.This marker file will be deleted when
-the deployment processcompletes.
+|.undeployed |Placed by the deployment scanner service to indicate that
+thegiven content has been undeployed from the runtime. If an enduser
+deletes this file, it has no impact.
 
-.deployed
-
-Placed by the deployment scanner service to indicate that thegiven
-content has been deployed into the runtime. If an enduser deletes this
-file, the content will be undeployed.
-
-.failed
-
-Placed by the deployment scanner service to indicate that thegiven
-content failed to deploy into the runtime. The contentof the file will
-include some information about the cause ofthe failure. Note that with
-auto-deploy mode, removing thisfile will make the deployment eligible
-for deployment again.
-
-.isundeploying
-
-Placed by the deployment scanner service to indicate that ithas noticed
-a .deployed file has been deleted and thecontent is being undeployed.
-This marker file will be deletedwhen the undeployment process completes.
-
-.undeployed
-
-Placed by the deployment scanner service to indicate that thegiven
-content has been undeployed from the runtime. If an enduser deletes this
-file, it has no impact.
-
-.pending
-
-Placed by the deployment scanner service to indicate that ithas noticed
-the need to deploy content but has not yetinstructed the server to
-deploy it. This file is created ifthe scanner detects that some
-auto-deploy content is still inthe process of being copied or if there
-is some problem thatprevents auto-deployment. The scanner will not
+|.pending |Placed by the deployment scanner service to indicate that
+ithas noticed the need to deploy content but has not yetinstructed the
+server to deploy it. This file is created ifthe scanner detects that
+some auto-deploy content is still inthe process of being copied or if
+there is some problem thatprevents auto-deployment. The scanner will not
 instruct theserver to deploy or undeploy any content (not just
 thedirectly affected content) as long as this condition holds.
+|=======================================================================
 
 *Basic workflows:* +
 All examples assume variable $JBOSS_HOME points to the root of the
@@ -652,6 +628,8 @@ bounce it with no content change):
 
 1.  touch $JBOSS_HOME/standalone/deployments/example.war
 
+[IMPORTANT]
+
 The above examples use Unix shell commands. Windows equivalents are:
 
 cp src dest --> xcopy /y src dest +
@@ -663,8 +641,7 @@ Note that the behavior of 'touch' and 'echo' are different but the
 differences are not relevant to the usages in the examples above.
 
 [[managed-and-unmanaged-deployments]]
-Managed and Unmanaged Deployments
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Managed and Unmanaged Deployments
 
 WildFly supports two mechanisms for dealing with deployment content –
 managed and unmanaged deployments.
@@ -702,8 +679,7 @@ deployments. In WildFly 10 and earlier exploded deployments are always
 unmanaged, this is no longer the case since WildFly 11.
 
 [[content-repository]]
-Content Repository
-^^^^^^^^^^^^^^^^^^
+== Content Repository
 
 For a managed deployment, the actual file the server uses when creating
 runtime services is not the file provided to the CLI `deploy` command or
@@ -721,6 +697,8 @@ ls domain/data/content/
   |---/dd
   |-----a9881fa7811b22f1424b4c5acccb13c71202bd
 ----
+
+[IMPORTANT]
 
 The location of the content repository and its internal structure is
 subject to change at any time and should not be relied upon by end
@@ -754,8 +732,7 @@ controller and slave host controller processes take responsibility for
 ensuring each host has the needed content.
 
 [[unmanaged-deployments]]
-Unmanaged Deployments
-^^^^^^^^^^^^^^^^^^^^^
+== Unmanaged Deployments
 
 An unmanaged deployment is one where the server directly deploys the
 content at a path you specify instead of making an internal copy and
@@ -806,8 +783,7 @@ undeploy the deployment, replace the content, and then deploy again. Or
 you can stop the server, replace the deployment and deploy again.
 
 [[deployment-overlays]]
-Deployment overlays
-~~~~~~~~~~~~~~~~~~~
+= Deployment overlays
 
 Deployment overlays are our way of 'overlaying' content into an existing
 deployment, without physically modifying the contents of the deployment
@@ -828,8 +804,7 @@ When you modify or create an overlay it will not affect existing
 deployments, they must be redeployed in order to take effect
 
 [[creating-a-deployment-overlay]]
-Creating a deployment overlay
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Creating a deployment overlay
 
 To create a deployment overlay the CLI provides a high level command to
 do all the steps specified above in one go. An example command is given

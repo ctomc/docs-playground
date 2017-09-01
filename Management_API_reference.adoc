@@ -1,30 +1,24 @@
-Management API reference - Latest WildFly Documentation
-=======================================================
-
-[[management-api-reference]]
 Management API reference
-------------------------
+========================
 
 This section is an in depth reference to the WildFly management API.
 Readers are encouraged to read the
-link:Management_Clients.html[Management Clients] and
+link:Management_Clients.html[Management clients] and
 link:Core_management_concepts.html[Core management concepts] sections
 for fundamental background information, as well as the
 link:Management_tasks.html[Management tasks] and
-link:Domain_Setup.html[Domain Setup] sections for key task oriented
+link:Domain_Setup.html[Domain setup] sections for key task oriented
 information. This section is meant as an in depth reference to delve
 into some of the key details.
 
 [[global-operations]]
-Global operations
-~~~~~~~~~~~~~~~~~
+= Global operations
 
 The WildFly management API includes a number of operations that apply to
 every resource.
 
 [[the-read-resource-operation]]
-The read-resource operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The read-resource operation
 
 Reads a management resource's attribute values along with either basic
 or complete information about any child resources. Supports the +
@@ -50,8 +44,7 @@ such attributes in the result will be `undefined`. If `true` the result
 will include the default value for such parameters.
 
 [[the-read-attribute-operation]]
-The read-attribute operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The read-attribute operation
 
 Reads the value of an individual attribute. Takes a single, required,
 parameter:
@@ -65,8 +58,7 @@ such attributes in the result will be `undefined`. If `true` the result
 will include the default value for such parameters.
 
 [[the-write-attribute-operation]]
-The write-attribute operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The write-attribute operation
 
 Writes the value of an individual attribute. Takes two required
 parameters:
@@ -76,8 +68,7 @@ parameters:
 value.
 
 [[the-undefine-attribute-operation]]
-The undefine-attribute operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The undefine-attribute operation
 
 Sets the value of an individual attribute to the `undefined` value, if
 such a value is allowed for the attribute. The operation will fail if
@@ -86,8 +77,7 @@ the `undefined` value is not allowed. Takes a single required parameter:
 * `name` – (string) – the name of the attribute to write.
 
 [[the-list-add-operation]]
-The list-add operation
-^^^^^^^^^^^^^^^^^^^^^^
+== The list-add operation
 
 Adds an element to the value of a list attribute, adding the element to
 the end of the list unless the optional attribute `index` is passed:
@@ -103,8 +93,7 @@ zero based.
 This operation will fail if the specified attribute is not a list.
 
 [[the-list-remove-operation]]
-The list-remove operation
-^^^^^^^^^^^^^^^^^^^^^^^^^
+== The list-remove operation
 
 Removes an element from the value of a list attribute, either the
 element at a specified `index`, or the first element whose value matches
@@ -121,8 +110,7 @@ specified.
 This operation will fail if the specified attribute is not a list.
 
 [[the-list-get-operation]]
-The list-get operation
-^^^^^^^^^^^^^^^^^^^^^^
+== The list-get operation
 
 Gets one element from a list attribute by its index
 
@@ -132,8 +120,7 @@ Gets one element from a list attribute by its index
 This operation will fail if the specified attribute is not a list.
 
 [[the-list-clear-operation]]
-The list-clear operation
-^^^^^^^^^^^^^^^^^^^^^^^^
+== The list-clear operation
 
 Empties the list attribute. It is different from `:undefine-attribute`
 as it results in attribute of type list with 0 elements, whereas
@@ -144,8 +131,7 @@ as it results in attribute of type list with 0 elements, whereas
 This operation will fail if the specified attribute is not a list.
 
 [[the-map-put-operation]]
-The map-put operation
-^^^^^^^^^^^^^^^^^^^^^
+== The map-put operation
 
 Adds an key/value pair entry to the value of a map attribute:
 
@@ -158,8 +144,7 @@ new entry to be added to the attribute value.
 This operation will fail if the specified attribute is not a map.
 
 [[the-map-remove-operation]]
-The map-remove operation
-^^^^^^^^^^^^^^^^^^^^^^^^
+== The map-remove operation
 
 Removes an entry from the value of a map attribute:
 
@@ -170,8 +155,7 @@ entry from.
 This operation will fail if the specified attribute is not a map.
 
 [[the-map-get-operation]]
-The map-get operation
-^^^^^^^^^^^^^^^^^^^^^
+== The map-get operation
 
 Gets the value of one entry from a map attribute
 
@@ -181,8 +165,7 @@ Gets the value of one entry from a map attribute
 This operation will fail if the specified attribute is not a map.
 
 [[the-map-clear-operation]]
-The map-clear operation
-^^^^^^^^^^^^^^^^^^^^^^^
+== The map-clear operation
 
 Empties the map attribute. It is different from `:undefine-attribute` as
 it results in attribute of type map with 0 entries, whereas
@@ -193,8 +176,7 @@ it results in attribute of type map with 0 entries, whereas
 This operation will fail if the specified attribute is not a map.
 
 [[the-read-resource-description-operation]]
-The read-resource-description operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The read-resource-description operation
 
 Returns the description of a resource's attributes, types of children
 and, optionally, operations. Supports the +
@@ -219,15 +201,13 @@ See link:Description_of_the_Management_Model.html[Description of the
 Management Model] for details on the result of this operation.
 
 [[the-read-operation-names-operation]]
-The read-operation-names operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The read-operation-names operation
 
 Returns a list of the names of all the operations the resource supports.
 Takes no parameters.
 
 [[the-read-operation-description-operation]]
-The read-operation-description operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The read-operation-description operation
 
 Returns the description of an operation, along with details of its
 parameter types and its return value. Takes a single, required,
@@ -239,11 +219,10 @@ See link:Description_of_the_Management_Model.html[Description of the
 Management Model] for details on the result of this operation.
 
 [[the-read-children-types-operation]]
-The read-children-types operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The read-children-types operation
 
 Returns a list of the
-link:Management_resources.html#108625996_Managementresources-Address[types
+link:Management_resources.html#src-557064_Managementresources-Address[types
 of child resources] the resource supports. Takes two optional
 parameters:
 
@@ -258,22 +237,20 @@ http://lists.jboss.org/pipermail/wildfly-dev/2014-August/002701.html[wildfly-dev
 discussion around this topic].
 
 [[the-read-children-names-operation]]
-The read-children-names operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The read-children-names operation
 
 Returns a list of the names of all child resources of a given
-link:Management_resources.html#108625996_Managementresources-Address[type].
+link:Management_resources.html#src-557064_Managementresources-Address[type].
 Takes a single, required, parameter:
 
 * `child-type` – (string) – the name of the type
 
 [[the-read-children-resources-operation]]
-The read-children-resources operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The read-children-resources operation
 
 Returns information about all of a resource's children that are of a
 given
-link:Management_resources.html#108625996_Managementresources-Address[type].
+link:Management_resources.html#src-557064_Managementresources-Address[type].
 For each child resource, the returned information is equivalent to
 executing the `read-resource` operation on that resource. Takes the
 following parameters, of which only \{\{child-type} is required:
@@ -300,11 +277,10 @@ such attributes in the result will be `undefined`. If `true` the result
 will include the default value for such parameters.
 
 [[the-read-attribute-group-operation]]
-The read-attribute-group operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The read-attribute-group operation
 
 Returns a list of attributes of a
-link:Management_resources.html#108625996_Managementresources-Address[type]
+link:Management_resources.html#src-557064_Managementresources-Address[type]
 for a given attribute group name. For each attribute the returned
 information is equivalent to executing the `read-attribute` operation of
 that resource. Takes the following parameters, of which only \{\{name}
@@ -325,16 +301,14 @@ alias attributes (i.e. those which are alias of other attributes) in the
 response.
 
 [[the-read-attribute-group-names-operation]]
-The read-attribute-group-names operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The read-attribute-group-names operation
 
 Returns a list of attribute groups names for a given
-link:Management_resources.html#108625996_Managementresources-Address[type].
+link:Management_resources.html#src-557064_Managementresources-Address[type].
 Takes no parameters.
 
 [[standard-operations]]
-Standard Operations
-^^^^^^^^^^^^^^^^^^^
+== Standard Operations
 
 Besides the global operations described above, by convention nearly
 every resource should expose an `add` operation and a `remove`
@@ -345,23 +319,20 @@ mbeans or resources representing aspects of the running state of a
 deployment.)
 
 [[the-add-operation]]
-The add operation
-+++++++++++++++++
+=== The add operation
 
 The operation that creates a new resource must be named `add`. The
 operation may take zero or more parameters; what those parameters are
 depends on the resource being created.
 
 [[the-remove-operation]]
-The remove operation
-++++++++++++++++++++
+=== The remove operation
 
 The operation that removes an existing resource must be named `remove`.
 The operation should take no parameters.
 
 [[detyped-management-and-the-jboss-dmr-library]]
-Detyped management and the jboss-dmr library
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Detyped management and the jboss-dmr library
 
 The management model exposed by WildFly is very large and complex. There
 are dozens, probably hundreds of logical concepts involved – hosts,
@@ -410,8 +381,7 @@ https://github.com/jbossas/jboss-dmr[Github]. The maven coordinates for
 a jboss-dmr release are `org.jboss.jboss-dmr:jboss-dmr`.
 
 [[modelnode-and-modeltype]]
-ModelNode and ModelType
-^^^^^^^^^^^^^^^^^^^^^^^
+== ModelNode and ModelType
 
 The public API exposed by jboss-dmr is very simple: just three classes,
 one of which is an enum!
@@ -424,8 +394,7 @@ enum of all the valid types of values. And that's 95% of the public API;
 a class and an enum. (We'll get to the third class, `Property`, below.)
 
 [[basic-modelnode-manipulation]]
-Basic ModelNode manipulation
-++++++++++++++++++++++++++++
+=== Basic ModelNode manipulation
 
 To illustrate how to work with `ModelNode` s, we'll use the
 http://www.beanshell.org[Beanshell] scripting library. We won't get into
@@ -510,9 +479,9 @@ Not all type conversions are possible:
 bsh % node.set("A string");
 bsh % print(node.asInt());
 // Error: // Uncaught Exception: Method Invocation node.asInt : at Line: 20 : in file: <unknown file> : node .asInt ( )
-
+ 
 Target exception: java.lang.NumberFormatException: For input string: "A string"
-
+ 
 java.lang.NumberFormatException: For input string: "A string"
  at java.lang.NumberFormatException.forInputString(NumberFormatException.java:48)
  at java.lang.Integer.parseInt(Integer.java:449)
@@ -565,21 +534,17 @@ Use the `protect()` method to make a `ModelNode` immutable:
 bsh % clone.protect();
 bsh % clone.set("A different string");
 // Error: // Uncaught Exception: Method Invocation clone.set : at Line: 15 : in file: <unknown file> : clone .set ( "A different string" )
-
+ 
 Target exception: java.lang.UnsupportedOperationException
-
+ 
 java.lang.UnsupportedOperationException
  at org.jboss.dmr.ModelNode.checkProtect(ModelNode.java:1441)
  at org.jboss.dmr.ModelNode.set(ModelNode.java:351)
         ....
 ----
 
-[[108626070_ManagementAPIreference-typeLIST]]
-[[108626070_ManagementAPIreference-typeLIST]]
-
 [[lists]]
-Lists
-+++++
+=== Lists
 
 The above examples aren't particularly interesting; if all we can do
 with a `ModelNode` is wrap a simple Java primitive, what use is that?
@@ -698,9 +663,9 @@ some non-list type, you cannot use the `add` method:
 ----
 bsh % node.add(5);
 // Error: // Uncaught Exception: Method Invocation node.add : at Line: 18 : in file: <unknown file> : node .add ( 5 )
-
+ 
 Target exception: java.lang.IllegalArgumentException
-
+ 
 java.lang.IllegalArgumentException
  at org.jboss.dmr.ModelValue.addChild(ModelValue.java:120)
  at org.jboss.dmr.ModelNode.add(ModelNode.java:1007)
@@ -719,12 +684,8 @@ bsh % print(node.toString());
 [5]
 ----
 
-[[108626070_ManagementAPIreference-typePROPERTY]]
-[[108626070_ManagementAPIreference-typePROPERTY]]
-
 [[properties]]
-Properties
-++++++++++
+=== Properties
 
 The third public class in the jboss-dmr library is
 `org.jboss.dmr.Property`. A `Property` is a `String => ModelNode` tuple.
@@ -810,12 +771,8 @@ min = 1
 max = 10
 ----
 
-[[108626070_ManagementAPIreference-typeOBJECT]]
-[[108626070_ManagementAPIreference-typeOBJECT]]
-
 [[modeltype.object]]
-ModelType.OBJECT
-++++++++++++++++
+=== ModelType.OBJECT
 
 The most powerful and most commonly used complex value type in jboss-dmr
 is `ModelType.OBJECT`. A `ModelNode` whose value is `ModelType.OBJECT`
@@ -940,8 +897,7 @@ true
 ----
 
 [[modeltype.expression]]
-ModelType.EXPRESSION
-++++++++++++++++++++
+=== ModelType.EXPRESSION
 
 A value of type `ModelType.EXPRESSION` is stored as a string, but can
 later be _resolved_ to different value. The string has a special syntax
@@ -1080,8 +1036,7 @@ bsh % print(basic.asInt());
 ----
 
 [[modeltype.type]]
-ModelType.TYPE
-++++++++++++++
+=== ModelType.TYPE
 
 You can also pass one of the values of the `ModelType` enum to `set`:
 
@@ -1099,8 +1054,7 @@ This is useful when using a `ModelNode` data structure to describe
 another `ModelNode` data structure.
 
 [[full-list-of-modelnode-types]]
-Full list of ModelNode types
-++++++++++++++++++++++++++++
+=== Full list of ModelNode types
 
 BIG_DECIMAL +
 BIG_INTEGER +
@@ -1118,20 +1072,17 @@ TYPE +
 UNDEFINED
 
 [[text-representation-of-a-modelnode]]
-Text representation of a ModelNode
-++++++++++++++++++++++++++++++++++
+=== Text representation of a ModelNode
 
 TODO – document the grammar
 
 [[json-representation-of-a-modelnode]]
-JSON representation of a ModelNode
-++++++++++++++++++++++++++++++++++
+=== JSON representation of a ModelNode
 
 TODO – document the grammar
 
 [[description-of-the-management-model]]
-Description of the Management Model
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Description of the Management Model
 
 A detailed description of the resources, attributes and operations that
 make up the management model provided by an individual WildFly instance
@@ -1142,8 +1093,7 @@ in the link:Global_operations.html[Global operations] section. In this
 section we provide details on what's included in those descriptions.
 
 [[description-of-the-wildfly-managed-resources]]
-Description of the WildFly Managed Resources
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Description of the WildFly Managed Resources
 
 All portions of the management model exposed by WildFly are addressable
 via an ordered list of key/value pairs. For each addressable
@@ -1162,18 +1112,17 @@ i.e. there is no limit. If this value is some other string, the default
 value is 1.
 * `attributes` – Map of String (the attribute name) to complex structure
 – the configuration attributes available in this portion of the model.
-See
-link:Management_API_reference.html#108626070_ManagementAPIreference-attributedescription[below]
+See link:#src-557237_ManagementAPIreference-attribute-description[below]
 for the representation of each attribute.
 * `operations` – Map of String (the operation name) to complex structure
 – the operations that can be targetted at this address. See
-link:Management_API_reference.html#108626070_ManagementAPIreference-operationdescription[below]
-for the representation of each operation.
+link:#src-557237_ManagementAPIreference-operation-description[below] for
+the representation of each operation.
 * `children` – Map of String (the type of child) to complex structure –
 the relationship of this portion of the model to other addressable
 portions of the model. See
-link:Management_API_reference.html#108626070_ManagementAPIreference-childrendescription[below]
-for the representation of each child relationship.
+link:#src-557237_ManagementAPIreference-children-description[below] for
+the representation of each child relationship.
 * `head-comment-allowed` – boolean – indicates whether this portion of
 the model can store an XML comment that would be written in the
 persistent form of the model (e.g. domain.xml) before the start of the
@@ -1215,12 +1164,8 @@ For example:
 }
 ----
 
-[[108626070_ManagementAPIreference-attributedescription]]
-[[108626070_ManagementAPIreference-attributedescription]]
-
 [[description-of-an-attribute]]
-Description of an Attribute
-+++++++++++++++++++++++++++
+=== Description of an Attribute
 
 An attribute is a portion of the management model that is not directly
 addressable. Instead, it is conceptually a property of an addressable
@@ -1291,7 +1236,7 @@ access-type is read-write. Indicates whether execution of a
 write-attribute operation whose name parameter specifies this attribute
 requires a restart of services (or an entire JVM) in order for the
 change to take effect in the runtime . See discussion of "
-link:Management_API_reference.html#108626070_ManagementAPIreference-applyingruntimeupdates[Applying
+link:#src-557237_ManagementAPIreference-applying-runtime-updates[Applying
 Updates to Runtime Services]" below. Default value is "no-services".
 * `default` – the default value for the attribute that will be used in
 runtime services if the attribute is not explicitly defined and no other
@@ -1340,7 +1285,7 @@ attributes often map to XML attributes, which don't allow comments.)
 supported. This description key is for future use.)
 * arbitrary key/value pairs that further describe the attribute value,
 e.g. "max" => 2. See "
-link:Management_API_reference.html#108626070_ManagementAPIreference-arbitrarydescriptors[Arbitrary
+link:#src-557237_ManagementAPIreference-arbitrary-descriptors[Arbitrary
 Descriptors]" below.
 
 Some examples:
@@ -1366,12 +1311,8 @@ Some examples:
 }
 ----
 
-[[108626070_ManagementAPIreference-operationdescription]]
-[[108626070_ManagementAPIreference-operationdescription]]
-
 [[description-of-an-operation]]
-Description of an Operation
-+++++++++++++++++++++++++++
+=== Description of an Operation
 
 A management resource may have operations associated with it. The
 description of an operation will include the following information:
@@ -1381,26 +1322,22 @@ description of an operation will include the following information:
 * `request-properties` – Map of String to complex structure –
 description of the parameters of the operation. Keys are the names of
 the parameters, values are descriptions of the parameter value types.
-See
-link:Management_API_reference.html#108626070_ManagementAPIreference-paramdescription[below]
-for details on the description of parameter value types.
+See link:#src-557237_ManagementAPIreference-param-description[below] for
+details on the description of parameter value types.
 * `reply-properties` – complex structure, or empty – description of the
 return value of the operation, with an empty node meaning void. See
-link:Management_API_reference.html#108626070_ManagementAPIreference-paramdescription[below]
-for details on the description of operation return value types.
+link:#src-557237_ManagementAPIreference-param-description[below] for
+details on the description of operation return value types.
 * `restart-required` – String – One of "no-services", "all-services",
 "resource-services" or "jvm". Indicates whether the operation makes a
 configuration change that requires a restart of services (or an entire
 JVM) in order for the change to take effect in the runtime. See
 discussion of "
-link:Management_API_reference.html#108626070_ManagementAPIreference-applyingruntimeupdates[Applying
+link:#src-557237_ManagementAPIreference-applying-runtime-updates[Applying
 Updates to Runtime Services]" below. Default value is "no-services".
 
-[[108626070_ManagementAPIreference-paramdescription]]
-[[108626070_ManagementAPIreference-paramdescription]]
-
 [[description-of-an-operation-parameter-or-return-value]]
-Description of an Operation Parameter or Return Value
+==== Description of an Operation Parameter or Return Value
 
 * `description` – String – text description of the parameter or return
 value
@@ -1450,7 +1387,7 @@ access-type is read-write. Indicates whether execution of a
 write-attribute operation whose name parameter specifies this attribute
 requires a restart of services (or an entire JVM) in order for the
 change to take effect in the runtime . See discussion of "
-link:Management_API_reference.html#108626070_ManagementAPIreference-applyingruntimeupdates[Applying
+link:#src-557237_ManagementAPIreference-applying-runtime-updates[Applying
 Updates to Runtime Services]" below. Default value is "no-services".
 * `alternatives` – List of string – Indicates an exclusive relationship
 between parameters. If this attribute is defined, the other parameters
@@ -1471,15 +1408,11 @@ alternatives to each other; "c" and "d" are optional. But "b" requires
 Default is undefined; i.e. this does not apply to most parameters.
 * arbitrary key/value pairs that further describe the attribute value,
 e.g. "max" =>2. See "
-link:Management_API_reference.html#108626070_ManagementAPIreference-arbitrarydescriptors[Arbitrary
+link:#src-557237_ManagementAPIreference-arbitrary-descriptors[Arbitrary
 Descriptors]" below.
 
-[[108626070_ManagementAPIreference-arbitrarydescriptors]]
-[[108626070_ManagementAPIreference-arbitrarydescriptors]]
-
 [[arbitrary-descriptors]]
-Arbitrary Descriptors
-+++++++++++++++++++++
+=== Arbitrary Descriptors
 
 The description of an attribute, operation parameter or operation return
 value type can include arbitrary key/value pairs that provide extra
@@ -1538,12 +1471,8 @@ Some examples:
 }
 ----
 
-[[108626070_ManagementAPIreference-childdescription]]
-[[108626070_ManagementAPIreference-childdescription]]
-
 [[description-of-parentchild-relationships]]
-Description of Parent/Child Relationships
-+++++++++++++++++++++++++++++++++++++++++
+=== Description of Parent/Child Relationships
 
 The address used to target an addressable portion of the model must be
 an ordered list of key value pairs. The effect of this requirement is
@@ -1616,12 +1545,8 @@ If the recursive flag was false:
 }
 ----
 
-[[108626070_ManagementAPIreference-applyingruntimeupdates]]
-[[108626070_ManagementAPIreference-applyingruntimeupdates]]
-
 [[applying-updates-to-runtime-services]]
-Applying Updates to Runtime Services
-++++++++++++++++++++++++++++++++++++
+=== Applying Updates to Runtime Services
 
 An attribute or operation description may include a "
 `restart-required`" descriptor; this section is an explanation of the
@@ -1694,8 +1619,7 @@ state. (See the discussion of " `all-services`" above for more on the "
 `reload-required`" state.)
 
 [[the-native-management-api]]
-The native management API
-~~~~~~~~~~~~~~~~~~~~~~~~~
+= The native management API
 
 A standalone WildFly process, or a managed domain Domain Controller or
 slave Host Controller process can be configured to listen for remote
@@ -1717,8 +1641,7 @@ responses – information that should prove useful for users of the CLI
 tool as well.
 
 [[native-management-client-dependencies]]
-Native Management Client Dependencies
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Native Management Client Dependencies
 
 The native management interface uses an open protocol based on the JBoss
 Remoting library. JBoss Remoting is used to establish a communication
@@ -1731,45 +1654,30 @@ A custom Java-based client should have the maven artifact
 `org.jboss.as:jboss-as-controller-client` and its dependencies on the
 classpath. The other dependencies are:
 
-Maven Artifact
+[cols=",",]
+|=======================================================================
+|Maven Artifact |Purpose
 
-Purpose
+|org.jboss.remoting:jboss-remoting |Remote communication
 
-org.jboss.remoting:jboss-remoting
+|org.jboss:jboss-dmr |Detyped representation of the management model
 
-Remote communication
+|org.jboss.as:jboss-as-protocol |Wire protocol for remote WildFly
+management
 
-org.jboss:jboss-dmr
+|org.jboss.sasl:jboss-sasl |SASL authentication
 
-Detyped representation of the management model
+|org.jboss.xnio:xnio-api |Non-blocking IO
 
-org.jboss.as:jboss-as-protocol
+|org.jboss.xnio:xnio-nio |Non-blocking IO
 
-Wire protocol for remote WildFly management
+|org.jboss.logging:jboss-logging |Logging
 
-org.jboss.sasl:jboss-sasl
+|org.jboss.threads:jboss-threads |Thread management
 
-SASL authentication
-
-org.jboss.xnio:xnio-api
-
-Non-blocking IO
-
-org.jboss.xnio:xnio-nio
-
-Non-blocking IO
-
-org.jboss.logging:jboss-logging
-
-Logging
-
-org.jboss.threads:jboss-threads
-
-Thread management
-
-org.jboss.marshalling:jboss-marshalling
-
-Marshalling and unmarshalling data to/from streams
+|org.jboss.marshalling:jboss-marshalling |Marshalling and unmarshalling
+data to/from streams
+|=======================================================================
 
 The client API is entirely within the
 `org.jboss.as:jboss-as-controller-client` artifact; the other
@@ -1782,8 +1690,7 @@ client could be developed without using these libraries (e.g. using
 Python or some other language.)
 
 [[working-with-a-modelcontrollerclient]]
-Working with a ModelControllerClient
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Working with a ModelControllerClient
 
 The `org.jboss.as.controller.client.ModelControllerClient` class is the
 main class a custom client would use to manage a WildFly server instance
@@ -1794,8 +1701,7 @@ The custom client must have maven artifact
 classpath.
 
 [[creating-the-modelcontrollerclient]]
-Creating the ModelControllerClient
-++++++++++++++++++++++++++++++++++
+=== Creating the ModelControllerClient
 
 To create a management client that can connect to your target process's
 native management socket, simply:
@@ -1820,9 +1726,9 @@ in an implementation of the
 ----
 static ModelControllerClient createClient(final InetAddress host, final int port,
                   final String username, final char[] password, final String securityRealmName) {
-
+ 
     final CallbackHandler callbackHandler = new CallbackHandler() {
-
+ 
         public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
             for (Callback current : callbacks) {
                 if (current instanceof NameCallback) {
@@ -1840,14 +1746,13 @@ static ModelControllerClient createClient(final InetAddress host, final int port
             }
         }
     };
-
+ 
     return ModelControllerClient.Factory.create(host, port, callbackHandler);
 }
 ----
 
 [[creating-an-operation-request-object]]
-Creating an operation request object
-++++++++++++++++++++++++++++++++++++
+=== Creating an operation request object
 
 Management requests are formulated using the `org.jboss.dmr.ModelNode`
 class from the `jboss-dmr` library. The `jboss-dmr` library allows the
@@ -1859,18 +1764,18 @@ library.
 
 Let's show an example of creating an operation request object that can
 be used to
-link:Global_operations.html#108626071_Globaloperations-readresourcedescription[read
+link:Global_operations.html#src-557234_Globaloperations-read-resource-description[read
 the resource description] for the web subsystem's HTTP connector:
 
 [source,java]
 ----
 ModelNode op = new ModelNode();
 op.get("operation").set("read-resource-description");
-
+ 
 ModelNode address = op.get("address");
 address.add("subsystem", "web");
 address.add("connector", "http");
-
+ 
 op.get("recursive").set(true);
 op.get("operations").set(true);
 ----
@@ -1897,9 +1802,8 @@ exposed by the resource to be included. Default is false.
 Different operations take different parameters, and some take no
 parameters at all.
 
-See
-link:Management_API_reference.html#108626070_ManagementAPIreference-requestformat[Format
-of a Detyped Operation Request] for full details on the structure of a
+See link:#src-557237_ManagementAPIreference-request-format[Format of a
+Detyped Operation Request] for full details on the structure of a
 ModelNode that will represent an operation request.
 
 The example above produces an operation request ModelNode equivalent to
@@ -1912,8 +1816,7 @@ following low-level CLI command:
 ----
 
 [[execute-the-operation-and-manipulate-the-result]]
-Execute the operation and manipulate the result:
-++++++++++++++++++++++++++++++++++++++++++++++++
+=== Execute the operation and manipulate the result:
 
 The `execute` method sends the operation request ModelNode to the
 process being managed and returns a ModelNode the contains the process'
@@ -1925,10 +1828,9 @@ ModelNode returnVal = client.execute(op);
 System.out.println(returnVal.get("result").toString());
 ----
 
-See
-link:Management_API_reference.html#108626070_ManagementAPIreference-responseformat[Format
-of a Detyped Operation Response] for general details on the structure of
-the "returnVal" ModelNode.
+See link:#src-557237_ManagementAPIreference-response-format[Format of a
+Detyped Operation Response] for general details on the structure of the
+"returnVal" ModelNode.
 
 The `execute` operation shown above will block the calling thread until
 the response is received from the process being managed.
@@ -1944,8 +1846,7 @@ System.out.println(returnVal.get("result").toString());
 ----
 
 [[close-the-modelcontrollerclient]]
-Close the ModelControllerClient
-+++++++++++++++++++++++++++++++
+=== Close the ModelControllerClient
 
 A `ModelControllerClient` can be reused for multiple requests. Creating
 a new `ModelControllerClient` for each request is an anti-pattern.
@@ -1958,12 +1859,8 @@ to the process it was managing and release other resources:
 client.close();
 ----
 
-[[108626070_ManagementAPIreference-requestformat]]
-[[108626070_ManagementAPIreference-requestformat]]
-
 [[format-of-a-detyped-operation-request]]
-Format of a Detyped Operation Request
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Format of a Detyped Operation Request
 
 The basic method a user of the WildFly 8 programmatic management API
 would use is very simple:
@@ -1979,14 +1876,12 @@ invoked.
 
 The purpose of this section is to document the structure of `operation`.
 
-See
-link:Management_API_reference.html#108626070_ManagementAPIreference-responseformat[Format
-of a Detyped Operation Response] for a discussion of the format of the
+See link:#src-557237_ManagementAPIreference-response-format[Format of a
+Detyped Operation Response] for a discussion of the format of the
 response.
 
 [[simple-operations]]
-Simple Operations
-+++++++++++++++++
+=== Simple Operations
 
 A text representation of simple operation would look like this:
 
@@ -2032,15 +1927,14 @@ elements in the address occur is important.
 
 The other key/value pairs are parameter names and their values. The
 names and values should match what is specified in the
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-operationdescription[operation's
+link:Description_of_the_Management_Model.html#src-557210_DescriptionoftheManagementModel-operation-description[operation's
 description].
 
 Parameters may have any name, except for the reserved words `operation`,
 `address` and `operation-headers`.
 
 [[operation-headers]]
-Operation Headers
-+++++++++++++++++
+=== Operation Headers
 
 Besides the special operation and address values discussed above,
 operation requests can also include special "header" values that help
@@ -2099,13 +1993,13 @@ to the running state of a server (e.g. actually increasing the size of a
 runtime thread pool.)
 * `rollout-plan` – only relevant to requests made to a Domain Controller
 or Host Controller. See "
-link:Management_API_reference.html#108626070_ManagementAPIreference-rolloutplan[Operations
-with a Rollout Plan]" for details.
+link:#src-557237_ManagementAPIreference-rollout-plan[Operations with a
+Rollout Plan]" for details.
 * `allow-resource-service-restart` – boolean, optional, defaults to
 false. Whether an operation that requires restarting some runtime
 services in order to take effect should do so. See discussion of
 `resource-services` in the
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-applyingruntimeupdates["Applying
+link:Description_of_the_Management_Model.html#src-557210_DescriptionoftheManagementModel-applying-runtime-updates["Applying
 Updates to Runtime Services" section of the Description of the
 Management Model section] for further details.
 * `roles` – String or list of strings. Name(s) of RBAC role(s) the
@@ -2122,18 +2016,14 @@ Does not represent an overall maximum execution time for an operation;
 rather it is meant to serve as a sort of fail-safe measure to prevent
 problematic operations indefinitely tying up resources.
 
-[[108626070_ManagementAPIreference-compositeoperations]]
-[[108626070_ManagementAPIreference-compositeoperations]]
-
 [[composite-operations]]
-Composite Operations
-++++++++++++++++++++
+=== Composite Operations
 
 The root resource for a Domain or Host Controller or an individual
 server will expose an operation named " `composite`". This operation
 executes a list of other operations as an atomic unit (although the
 atomicity requirement can be
-link:Management_API_reference.html#108626070_ManagementAPIreference-rollbackonruntimefailure[relaxed].
+link:#src-557237_ManagementAPIreference-rollback-on-runtime-failure[relaxed].
 The structure of the request for the " `composite`" operation has the
 same fundamental structure as a simple operation (i.e. operation name,
 address, params as key value pairs).
@@ -2181,8 +2071,7 @@ that the `rollback-on-runtime-failure` and `rollout-plan` operation
 headers are not supported for the individual steps in a composite
 operation.
 
-[[108626070_ManagementAPIreference-rollbackonruntimefailure]]
-[[108626070_ManagementAPIreference-rollbackonruntimefailure]]  +
+ +
 The `rollback-on-runtime-failure` operation header discussed above has a
 particular meaning when applied to a composite operation, controlling
 whether steps that successfully execute should be reverted if other
@@ -2191,12 +2080,8 @@ configuration, and any of those steps fail, all steps will be reverted.
 Partial/incomplete changes to the persistent configuration are not
 allowed.
 
-[[108626070_ManagementAPIreference-rolloutplan]]
-[[108626070_ManagementAPIreference-rolloutplan]]
-
 [[operations-with-a-rollout-plan]]
-Operations with a Rollout Plan
-++++++++++++++++++++++++++++++
+=== Operations with a Rollout Plan
 
 Operations targeted at domain or host level resources can potentially
 impact multiple servers. Such operations can include a "rollout plan"
@@ -2328,7 +2213,7 @@ across that group. If any servers in groupE fail to apply the operation
 it will be rolled back across that group.
 
 [[default-rollout-plan]]
-Default Rollout Plan
+==== Default Rollout Plan
 
 All operations that impact multiple servers will be executed with a
 rollout plan. However, actually specifying the rollout plan in the
@@ -2346,7 +2231,7 @@ group.
 server groups.
 
 [[creating-and-reusing-a-rollout-plan]]
-Creating and reusing a Rollout Plan
+==== Creating and reusing a Rollout Plan
 
 Since a rollout plan may be quite complex, having to pass it as a header
 every time can become quickly painful. So instead we can store it in the
@@ -2398,12 +2283,8 @@ header just like this :
 deploy /quickstart/ejb-in-war/target/wildfly-ejb-in-war.war --all-server-groups --headers={rollout name=simple}
 ----
 
-[[108626070_ManagementAPIreference-responseformat]]
-[[108626070_ManagementAPIreference-responseformat]]
-
 [[format-of-a-detyped-operation-response]]
-Format of a Detyped Operation Response
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Format of a Detyped Operation Response
 
 As noted previously, the basic method a user of the WildFly 8
 programmatic management API would use is very simple:
@@ -2421,12 +2302,11 @@ The purpose of this section is to document the structure of the return
 value.
 
 For the format of the request, see
-link:Management_API_reference.html#108626070_ManagementAPIreference-requestformat[Format
-of a Detyped Operation Request].
+link:#src-557237_ManagementAPIreference-request-format[Format of a
+Detyped Operation Request].
 
 [[simple-responses]]
-Simple Responses
-++++++++++++++++
+=== Simple Responses
 
 Simple responses are provided by the following types of operations:
 
@@ -2498,8 +2378,7 @@ The response for a cancelled operation has no other fields:
 ----
 
 [[response-headers]]
-Response Headers
-++++++++++++++++
+=== Response Headers
 
 Besides the standard `outcome`, `result` and `failure-description`
 fields described above, the response may also include various headers
@@ -2522,7 +2401,7 @@ a field named `response-headers`. For example:
 A response header is typically related to whether an operation could be
 applied to the targeted runtime without requiring a restart of some or
 all services, or even of the target process itself. Please see the
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-applyingruntimeupdates["Applying
+link:Description_of_the_Management_Model.html#src-557210_DescriptionoftheManagementModel-applying-runtime-updates["Applying
 Updates to Runtime Services" section of the Description of the
 Management Model section] for a discussion of the basic concepts related
 to what happens if an operation requires a service restart to be
@@ -2555,12 +2434,11 @@ configuration change to take effect in the runtime.
 ** `stopping` – the process is stopping
 
 [[basic-composite-operation-responses]]
-Basic Composite Operation Responses
-+++++++++++++++++++++++++++++++++++
+=== Basic Composite Operation Responses
 
 A composite operation is one that incorporates more than one simple
 operation in a list and executes them atomically. See the
-link:Management_API_reference.html#108626070_ManagementAPIreference-compositeoperations["Composite
+link:#src-557237_ManagementAPIreference-composite-operations["Composite
 Operations" section] for more information.
 
 Basic composite responses are provided by the following types of
@@ -2701,8 +2579,7 @@ rollback of the others:
 ----
 
 [[multi-server-responses]]
-Multi-Server Responses
-++++++++++++++++++++++
+=== Multi-Server Responses
 
 Multi-server responses are provided by operations that target a Domain
 Controller or slave Host Controller and require the responder to apply

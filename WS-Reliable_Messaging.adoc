@@ -1,9 +1,5 @@
-Reliable Messaging - Latest WildFly Documentation
-=================================================
-
-[[reliable-messaging]]
-Reliable Messaging
-------------------
+WS-Reliable Messaging
+=====================
 
 JBoss Web Services inherits full WS-Reliable Messaging capabilities from
 the underlying Apache CXF implementation. At the time of writing, Apache
@@ -12,8 +8,7 @@ http://schemas.xmlsoap.org/ws/2005/02/rm/[WS-Reliable Messaging 1.0]
 (February 2005) version of the specification.
 
 [[enabling-ws-reliable-messaging]]
-Enabling WS-Reliable Messaging
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Enabling WS-Reliable Messaging
 
 WS-Reliable Messaging is implemented internally in Apache CXF through a
 set of interceptors that deal with the low level requirements of the
@@ -37,28 +32,26 @@ http://cxf.apache.org/docs/wsrmconfiguration.html[Apache CXF
 documentation].
 
 [[example]]
-Example
-~~~~~~~
+= Example
 
 In this example we configure WS-Reliable Messaging endpoint and client
 through the WS-Policy support.
 
 [[endpoint]]
-Endpoint
-^^^^^^^^
+== Endpoint
 
 We go with a contract-first approach, so we start by creating a proper
 WSDL contract, containing the WS-Reliable Messaging and WS-Addressing
 policies (the latter is a requirement of the former):
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions name="SimpleService" targetNamespace="http://www.jboss.org/jbossws/ws-extensions/wsrm"
   xmlns:tns="http://www.jboss.org/jbossws/ws-extensions/wsrm" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
   xmlns:wsp="http://www.w3.org/2006/07/ws-policy">
-
+ 
   <wsdl:types>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.jboss.org/jbossws/ws-extensions/wsrm"
   attributeFormDefault="unqualified" elementFormDefault="unqualified"
@@ -146,11 +139,11 @@ special in it:
 [source,java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsrm.service;
-
+ 
 import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-
+ 
 @WebService
 (
    name = "SimpleService",
@@ -166,7 +159,7 @@ public class SimpleServiceImpl
    {
       System.out.println("ping()");
    }
-
+ 
    @WebMethod
    public String echo(String s)
    {
@@ -182,8 +175,7 @@ webservices stack automatically detects the policies and enables
 WS-Reliable Messaging.
 
 [[client]]
-Client
-^^^^^^
+== Client
 
 The endpoint advertises his RM capabilities (and requirements) through
 the published WSDL and the client is required to also enable WS-RM for
@@ -202,8 +194,7 @@ proxy.echo("Hello World!");
 ----
 
 [[additional-configuration]]
-Additional configuration
-^^^^^^^^^^^^^^^^^^^^^^^^
+== Additional configuration
 
 Fine-grained tuning of WS-Reliable Messaging engine requires setting up
 proper RM features and attach them for instance to the client proxy.
@@ -212,17 +203,17 @@ Here is an example:
 [source,java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsrm.client;
-
+ 
 //...
 import javax.xml.ws.Service;
 import org.apache.cxf.ws.rm.feature.RMFeature;
 import org.apache.cxf.ws.rm.manager.AcksPolicyType;
 import org.apache.cxf.ws.rm.manager.DestinationPolicyType;
 import org.jboss.test.ws.jaxws.samples.wsrm.generated.SimpleService;
-
+ 
 // ...
 Service service = Service.create(wsdlURL, serviceName);
-
+ 
 RMFeature feature = new RMFeature();
 RMAssertion rma = new RMAssertion();
 RMAssertion.BaseRetransmissionInterval bri = new RMAssertion.BaseRetransmissionInterval();
@@ -237,7 +228,7 @@ AcksPolicyType ap = new AcksPolicyType();
 ap.setIntraMessageThreshold(0);
 dp.setAcksPolicy(ap);
 feature.setDestinationPolicy(dp);
-
+ 
 SimpleService proxy = (SimpleService)service.getPort(SimpleService.class, feature);
 proxy.echo("Hello World");
 ----
@@ -249,13 +240,13 @@ setting the obtained property in a client configuration:
 [source,java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsrm.client;
-
+ 
 import org.apache.cxf.ws.rm.feature.RMFeature;
 import org.apache.cxf.ws.rm.manager.AcksPolicyType;
 import org.apache.cxf.ws.rm.manager.DestinationPolicyType;
 import org.apache.cxf.ws.rmp.v200502.RMAssertion;
 import org.apache.cxf.ws.rmp.v200502.RMAssertion.AcknowledgementInterval;
-
+ 
 public class CustomRMFeature extends RMFeature
 {
   public CustomRMFeature() {
@@ -279,13 +270,13 @@ public class CustomRMFeature extends RMFeature
 
 ... this is how the `jaxws-client-config.xml` descriptor would look:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
-
+ 
 <jaxws-config xmlns="urn:jboss:jbossws-jaxws-config:4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:javaee="http://java.sun.com/xml/ns/javaee"
 xsi:schemaLocation="urn:jboss:jbossws-jaxws-config:4.0 schema/jbossws-jaxws-config_4_0.xsd">
-
+ 
 <client-config>
 <config-name>Custom Client Config</config-name>
 <property>
@@ -293,7 +284,7 @@ xsi:schemaLocation="urn:jboss:jbossws-jaxws-config:4.0 schema/jbossws-jaxws-conf
 <property-value>org.jboss.test.ws.jaxws.samples.wsrm.client.CustomRMFeature</property-value>
 </property>
 </client-config>
-
+ 
 </jaxws-config>
 ----
 
@@ -303,11 +294,11 @@ xsi:schemaLocation="urn:jboss:jbossws-jaxws-config:4.0 schema/jbossws-jaxws-conf
 ----
 import org.jboss.ws.api.configuration.ClientConfigUtil;
 import org.jboss.ws.api.configuration.ClientConfigurer;
-
+ 
 //...
 Service service = Service.create(wsdlURL, serviceName);
 SimpleService proxy = (SimpleService)service.getPort(SimpleService.class);
-
+ 
 ClientConfigurer configurer = ClientConfigUtil.resolveClientConfigurer();
 configurer.setConfigProperties(proxy, "META-INF/jaxws-client-config.xml", "Custom Client Config");
 proxy.echo("Hello World!");

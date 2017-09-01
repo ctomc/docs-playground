@@ -1,19 +1,11 @@
-General configuration concepts - Latest WildFly Documentation
-=============================================================
-
-[[general-configuration-concepts]]
 General configuration concepts
-------------------------------
+==============================
 
 For both a managed domain or a standalone server, a number of common
 configuration concepts apply:
 
-[[108625995_Generalconfigurationconcepts-extensions]]
-[[108625995_Generalconfigurationconcepts-extensions]]
-
 [[extensions]]
-Extensions
-~~~~~~~~~~
+= Extensions
 
 An extension is a module that extends the core capabilities of the
 server. The WildFly core is very simple and lightweight; most of the
@@ -35,12 +27,8 @@ the `domain.xml` or `standalone.xml` file.
 </extensions>
 ----
 
-[[108625995_Generalconfigurationconcepts-profiles]]
-[[108625995_Generalconfigurationconcepts-profiles]]
-
 [[profiles-and-subsystems]]
-Profiles and Subsystems
-~~~~~~~~~~~~~~~~~~~~~~~
+= Profiles and Subsystems
 
 The most significant part of the configuration in `domain.xml` and
 `standalone.xml` is the configuration of one (in `standalone.xml`) or
@@ -63,12 +51,8 @@ each of which can be mapped to one or more groups of servers.
 The contents of individual subsystem configurations look exactly the
 same between `domain.xml` and `standalone.xml`.
 
-[[108625995_Generalconfigurationconcepts-paths]]
-[[108625995_Generalconfigurationconcepts-paths]]
-
 [[paths]]
-Paths
-~~~~~
+= Paths
 
 A logical name for a filesystem path. The `domain.xml`, `host.xml` and
 `standalone.xml` configurations all include a section where paths can be
@@ -115,7 +99,7 @@ above by adding a `<path/>` element to their configuration file.
 <path name="example" path="example" relative-to="jboss.server.data.dir"/>
 ----
 
- The attributes are:
+The attributes are:
 
 * `name` -- the name of the path.
 * `path` -- the actual filesystem path. Treated as an absolute path,
@@ -126,7 +110,7 @@ or of one of the standard paths provided by the system.
 
 A `<path/>` element in a `domain.xml` need not include anything more
 than the `name` attribute; i.e. it need not include any information
-indicating what the actual filesystem path is: 
+indicating what the actual filesystem path is:
 
 [source,java]
 ----
@@ -148,12 +132,8 @@ what the actual filesystem path is:
 A `<path/>` element in a `standalone.xml` must include the specification
 of the actual filesystem path.
 
-[[108625995_Generalconfigurationconcepts-interfaces]]
-[[108625995_Generalconfigurationconcepts-interfaces]]
-
 [[interfaces]]
-Interfaces
-~~~~~~~~~~
+= Interfaces
 
 A logical name for a network interface/IP address/host name to which
 sockets can be bound. The `domain.xml`, `host.xml` and `standalone.xml`
@@ -163,7 +143,7 @@ by their logical name, rather than having to include the full details of
 the interface (which may vary on different machines). An interface
 configuration includes the logical name of the interface as well as
 information specifying the criteria to use for resolving the actual
-physical address to use. See  link:Interfaces_and_ports.html[Interfaces
+physical address to use. See link:Interfaces_and_ports.html[Interfaces
 and ports] for further details.
 
 An `<interface/>` element in a `domain.xml` need not include anything
@@ -193,12 +173,8 @@ address:
 An `<interface/>` element in a `standalone.xml` must include the
 criteria for determining the IP address.
 
-[[108625995_Generalconfigurationconcepts-socketbindings]]
-[[108625995_Generalconfigurationconcepts-socketbindings]]
-
 [[socket-bindings-and-socket-binding-groups]]
-Socket Bindings and Socket Binding Groups
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Socket Bindings and Socket Binding Groups
 
 A socket binding is a named configuration for a socket.
 
@@ -209,12 +185,8 @@ logical name, rather than having to include the full details of the
 socket configuration (which may vary on different machines). See
 link:Interfaces_and_ports.html[Interfaces and ports] for full details.
 
-[[108625995_Generalconfigurationconcepts-systemproperties]]
-[[108625995_Generalconfigurationconcepts-systemproperties]]
-
 [[system-properties]]
-System Properties
-~~~~~~~~~~~~~~~~~
+= System Properties
 
 System property values can be set in a number of places in `domain.xml`,
 `host.xml` and `standalone.xml`. The values in `standalone.xml` are set

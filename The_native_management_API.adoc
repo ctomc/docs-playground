@@ -1,9 +1,5 @@
-The native management API - Latest WildFly Documentation
-========================================================
-
-[[the-native-management-api]]
 The native management API
--------------------------
+=========================
 
 A standalone WildFly process, or a managed domain Domain Controller or
 slave Host Controller process can be configured to listen for remote
@@ -25,8 +21,7 @@ responses – information that should prove useful for users of the CLI
 tool as well.
 
 [[native-management-client-dependencies]]
-Native Management Client Dependencies
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Native Management Client Dependencies
 
 The native management interface uses an open protocol based on the JBoss
 Remoting library. JBoss Remoting is used to establish a communication
@@ -39,45 +34,30 @@ A custom Java-based client should have the maven artifact
 `org.jboss.as:jboss-as-controller-client` and its dependencies on the
 classpath. The other dependencies are:
 
-Maven Artifact
+[cols=",",]
+|=======================================================================
+|Maven Artifact |Purpose
 
-Purpose
+|org.jboss.remoting:jboss-remoting |Remote communication
 
-org.jboss.remoting:jboss-remoting
+|org.jboss:jboss-dmr |Detyped representation of the management model
 
-Remote communication
+|org.jboss.as:jboss-as-protocol |Wire protocol for remote WildFly
+management
 
-org.jboss:jboss-dmr
+|org.jboss.sasl:jboss-sasl |SASL authentication
 
-Detyped representation of the management model
+|org.jboss.xnio:xnio-api |Non-blocking IO
 
-org.jboss.as:jboss-as-protocol
+|org.jboss.xnio:xnio-nio |Non-blocking IO
 
-Wire protocol for remote WildFly management
+|org.jboss.logging:jboss-logging |Logging
 
-org.jboss.sasl:jboss-sasl
+|org.jboss.threads:jboss-threads |Thread management
 
-SASL authentication
-
-org.jboss.xnio:xnio-api
-
-Non-blocking IO
-
-org.jboss.xnio:xnio-nio
-
-Non-blocking IO
-
-org.jboss.logging:jboss-logging
-
-Logging
-
-org.jboss.threads:jboss-threads
-
-Thread management
-
-org.jboss.marshalling:jboss-marshalling
-
-Marshalling and unmarshalling data to/from streams
+|org.jboss.marshalling:jboss-marshalling |Marshalling and unmarshalling
+data to/from streams
+|=======================================================================
 
 The client API is entirely within the
 `org.jboss.as:jboss-as-controller-client` artifact; the other
@@ -90,8 +70,7 @@ client could be developed without using these libraries (e.g. using
 Python or some other language.)
 
 [[working-with-a-modelcontrollerclient]]
-Working with a ModelControllerClient
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Working with a ModelControllerClient
 
 The `org.jboss.as.controller.client.ModelControllerClient` class is the
 main class a custom client would use to manage a WildFly server instance
@@ -102,8 +81,7 @@ The custom client must have maven artifact
 classpath.
 
 [[creating-the-modelcontrollerclient]]
-Creating the ModelControllerClient
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Creating the ModelControllerClient
 
 To create a management client that can connect to your target process's
 native management socket, simply:
@@ -128,9 +106,9 @@ in an implementation of the
 ----
 static ModelControllerClient createClient(final InetAddress host, final int port,
                   final String username, final char[] password, final String securityRealmName) {
-
+ 
     final CallbackHandler callbackHandler = new CallbackHandler() {
-
+ 
         public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
             for (Callback current : callbacks) {
                 if (current instanceof NameCallback) {
@@ -148,14 +126,13 @@ static ModelControllerClient createClient(final InetAddress host, final int port
             }
         }
     };
-
+ 
     return ModelControllerClient.Factory.create(host, port, callbackHandler);
 }
 ----
 
 [[creating-an-operation-request-object]]
-Creating an operation request object
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Creating an operation request object
 
 Management requests are formulated using the `org.jboss.dmr.ModelNode`
 class from the `jboss-dmr` library. The `jboss-dmr` library allows the
@@ -167,18 +144,18 @@ library.
 
 Let's show an example of creating an operation request object that can
 be used to
-link:Global_operations.html#108626071_Globaloperations-readresourcedescription[read
+link:Global_operations.html#src-557234_Globaloperations-read-resource-description[read
 the resource description] for the web subsystem's HTTP connector:
 
 [source,java]
 ----
 ModelNode op = new ModelNode();
 op.get("operation").set("read-resource-description");
-
+ 
 ModelNode address = op.get("address");
 address.add("subsystem", "web");
 address.add("connector", "http");
-
+ 
 op.get("recursive").set(true);
 op.get("operations").set(true);
 ----
@@ -205,9 +182,8 @@ exposed by the resource to be included. Default is false.
 Different operations take different parameters, and some take no
 parameters at all.
 
-See
-link:The_native_management_API.html#108626075_ThenativemanagementAPI-requestformat[Format
-of a Detyped Operation Request] for full details on the structure of a
+See link:#src-557212_ThenativemanagementAPI-request-format[Format of a
+Detyped Operation Request] for full details on the structure of a
 ModelNode that will represent an operation request.
 
 The example above produces an operation request ModelNode equivalent to
@@ -220,8 +196,7 @@ following low-level CLI command:
 ----
 
 [[execute-the-operation-and-manipulate-the-result]]
-Execute the operation and manipulate the result:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Execute the operation and manipulate the result:
 
 The `execute` method sends the operation request ModelNode to the
 process being managed and returns a ModelNode the contains the process'
@@ -233,10 +208,9 @@ ModelNode returnVal = client.execute(op);
 System.out.println(returnVal.get("result").toString());
 ----
 
-See
-link:The_native_management_API.html#108626075_ThenativemanagementAPI-responseformat[Format
-of a Detyped Operation Response] for general details on the structure of
-the "returnVal" ModelNode.
+See link:#src-557212_ThenativemanagementAPI-response-format[Format of a
+Detyped Operation Response] for general details on the structure of the
+"returnVal" ModelNode.
 
 The `execute` operation shown above will block the calling thread until
 the response is received from the process being managed.
@@ -252,8 +226,7 @@ System.out.println(returnVal.get("result").toString());
 ----
 
 [[close-the-modelcontrollerclient]]
-Close the ModelControllerClient
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Close the ModelControllerClient
 
 A `ModelControllerClient` can be reused for multiple requests. Creating
 a new `ModelControllerClient` for each request is an anti-pattern.
@@ -266,12 +239,8 @@ to the process it was managing and release other resources:
 client.close();
 ----
 
-[[108626075_ThenativemanagementAPI-requestformat]]
-[[108626075_ThenativemanagementAPI-requestformat]]
-
 [[format-of-a-detyped-operation-request]]
-Format of a Detyped Operation Request
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Format of a Detyped Operation Request
 
 The basic method a user of the WildFly 8 programmatic management API
 would use is very simple:
@@ -287,14 +256,12 @@ invoked.
 
 The purpose of this section is to document the structure of `operation`.
 
-See
-link:The_native_management_API.html#108626075_ThenativemanagementAPI-responseformat[Format
-of a Detyped Operation Response] for a discussion of the format of the
+See link:#src-557212_ThenativemanagementAPI-response-format[Format of a
+Detyped Operation Response] for a discussion of the format of the
 response.
 
 [[simple-operations]]
-Simple Operations
-^^^^^^^^^^^^^^^^^
+== Simple Operations
 
 A text representation of simple operation would look like this:
 
@@ -340,15 +307,14 @@ elements in the address occur is important.
 
 The other key/value pairs are parameter names and their values. The
 names and values should match what is specified in the
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-operationdescription[operation's
+link:Description_of_the_Management_Model.html#src-557210_DescriptionoftheManagementModel-operation-description[operation's
 description].
 
 Parameters may have any name, except for the reserved words `operation`,
 `address` and `operation-headers`.
 
 [[operation-headers]]
-Operation Headers
-^^^^^^^^^^^^^^^^^
+== Operation Headers
 
 Besides the special operation and address values discussed above,
 operation requests can also include special "header" values that help
@@ -407,13 +373,13 @@ to the running state of a server (e.g. actually increasing the size of a
 runtime thread pool.)
 * `rollout-plan` – only relevant to requests made to a Domain Controller
 or Host Controller. See "
-link:The_native_management_API.html#108626075_ThenativemanagementAPI-rolloutplan[Operations
-with a Rollout Plan]" for details.
+link:#src-557212_ThenativemanagementAPI-rollout-plan[Operations with a
+Rollout Plan]" for details.
 * `allow-resource-service-restart` – boolean, optional, defaults to
 false. Whether an operation that requires restarting some runtime
 services in order to take effect should do so. See discussion of
 `resource-services` in the
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-applyingruntimeupdates["Applying
+link:Description_of_the_Management_Model.html#src-557210_DescriptionoftheManagementModel-applying-runtime-updates["Applying
 Updates to Runtime Services" section of the Description of the
 Management Model section] for further details.
 * `roles` – String or list of strings. Name(s) of RBAC role(s) the
@@ -430,18 +396,14 @@ Does not represent an overall maximum execution time for an operation;
 rather it is meant to serve as a sort of fail-safe measure to prevent
 problematic operations indefinitely tying up resources.
 
-[[108626075_ThenativemanagementAPI-compositeoperations]]
-[[108626075_ThenativemanagementAPI-compositeoperations]]
-
 [[composite-operations]]
-Composite Operations
-^^^^^^^^^^^^^^^^^^^^
+== Composite Operations
 
 The root resource for a Domain or Host Controller or an individual
 server will expose an operation named " `composite`". This operation
 executes a list of other operations as an atomic unit (although the
 atomicity requirement can be
-link:The_native_management_API.html#108626075_ThenativemanagementAPI-rollbackonruntimefailure[relaxed].
+link:#src-557212_ThenativemanagementAPI-rollback-on-runtime-failure[relaxed].
 The structure of the request for the " `composite`" operation has the
 same fundamental structure as a simple operation (i.e. operation name,
 address, params as key value pairs).
@@ -489,8 +451,7 @@ that the `rollback-on-runtime-failure` and `rollout-plan` operation
 headers are not supported for the individual steps in a composite
 operation.
 
-[[108626075_ThenativemanagementAPI-rollbackonruntimefailure]]
-[[108626075_ThenativemanagementAPI-rollbackonruntimefailure]]  +
+ +
 The `rollback-on-runtime-failure` operation header discussed above has a
 particular meaning when applied to a composite operation, controlling
 whether steps that successfully execute should be reverted if other
@@ -499,12 +460,8 @@ configuration, and any of those steps fail, all steps will be reverted.
 Partial/incomplete changes to the persistent configuration are not
 allowed.
 
-[[108626075_ThenativemanagementAPI-rolloutplan]]
-[[108626075_ThenativemanagementAPI-rolloutplan]]
-
 [[operations-with-a-rollout-plan]]
-Operations with a Rollout Plan
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Operations with a Rollout Plan
 
 Operations targeted at domain or host level resources can potentially
 impact multiple servers. Such operations can include a "rollout plan"
@@ -636,8 +593,7 @@ across that group. If any servers in groupE fail to apply the operation
 it will be rolled back across that group.
 
 [[default-rollout-plan]]
-Default Rollout Plan
-++++++++++++++++++++
+=== Default Rollout Plan
 
 All operations that impact multiple servers will be executed with a
 rollout plan. However, actually specifying the rollout plan in the
@@ -655,8 +611,7 @@ group.
 server groups.
 
 [[creating-and-reusing-a-rollout-plan]]
-Creating and reusing a Rollout Plan
-+++++++++++++++++++++++++++++++++++
+=== Creating and reusing a Rollout Plan
 
 Since a rollout plan may be quite complex, having to pass it as a header
 every time can become quickly painful. So instead we can store it in the
@@ -708,12 +663,8 @@ header just like this :
 deploy /quickstart/ejb-in-war/target/wildfly-ejb-in-war.war --all-server-groups --headers={rollout name=simple}
 ----
 
-[[108626075_ThenativemanagementAPI-responseformat]]
-[[108626075_ThenativemanagementAPI-responseformat]]
-
 [[format-of-a-detyped-operation-response]]
-Format of a Detyped Operation Response
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Format of a Detyped Operation Response
 
 As noted previously, the basic method a user of the WildFly 8
 programmatic management API would use is very simple:
@@ -731,12 +682,11 @@ The purpose of this section is to document the structure of the return
 value.
 
 For the format of the request, see
-link:The_native_management_API.html#108626075_ThenativemanagementAPI-requestformat[Format
-of a Detyped Operation Request].
+link:#src-557212_ThenativemanagementAPI-request-format[Format of a
+Detyped Operation Request].
 
 [[simple-responses]]
-Simple Responses
-^^^^^^^^^^^^^^^^
+== Simple Responses
 
 Simple responses are provided by the following types of operations:
 
@@ -808,8 +758,7 @@ The response for a cancelled operation has no other fields:
 ----
 
 [[response-headers]]
-Response Headers
-^^^^^^^^^^^^^^^^
+== Response Headers
 
 Besides the standard `outcome`, `result` and `failure-description`
 fields described above, the response may also include various headers
@@ -832,7 +781,7 @@ a field named `response-headers`. For example:
 A response header is typically related to whether an operation could be
 applied to the targeted runtime without requiring a restart of some or
 all services, or even of the target process itself. Please see the
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-applyingruntimeupdates["Applying
+link:Description_of_the_Management_Model.html#src-557210_DescriptionoftheManagementModel-applying-runtime-updates["Applying
 Updates to Runtime Services" section of the Description of the
 Management Model section] for a discussion of the basic concepts related
 to what happens if an operation requires a service restart to be
@@ -865,12 +814,11 @@ configuration change to take effect in the runtime.
 ** `stopping` – the process is stopping
 
 [[basic-composite-operation-responses]]
-Basic Composite Operation Responses
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Basic Composite Operation Responses
 
 A composite operation is one that incorporates more than one simple
 operation in a list and executes them atomically. See the
-link:The_native_management_API.html#108626075_ThenativemanagementAPI-compositeoperations["Composite
+link:#src-557212_ThenativemanagementAPI-composite-operations["Composite
 Operations" section] for more information.
 
 Basic composite responses are provided by the following types of
@@ -1011,8 +959,7 @@ rollback of the others:
 ----
 
 [[multi-server-responses]]
-Multi-Server Responses
-^^^^^^^^^^^^^^^^^^^^^^
+== Multi-Server Responses
 
 Multi-server responses are provided by operations that target a Domain
 Controller or slave Host Controller and require the responder to apply

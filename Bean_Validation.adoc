@@ -1,6 +1,4 @@
-Bean Validation - Latest WildFly Documentation
-==============================================
-
-[[bean-validation]]
 Bean Validation
----------------
+===============
+
+

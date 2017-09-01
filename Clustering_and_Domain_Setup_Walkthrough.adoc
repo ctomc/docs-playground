@@ -1,23 +1,17 @@
-Clustering and Domain Setup Walkthrough - Latest WildFly Documentation
-======================================================================
-
-[[clustering-and-domain-setup-walkthrough]]
 Clustering and Domain Setup Walkthrough
----------------------------------------
+=======================================
 
 In this article, I'd like to show you how to setup WildFly 9 in domain
 mode and enable clustering so we could get HA and session replication
 among the nodes. It's a step to step guide so you can follow the
 instructions in this article and build the sandbox by yourself
-image:images/author/images/icons/emoticons/smile.gif[images/author/images/icons/emoticons/smile.gif]
+image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png]
 
 [[preparation-scenario]]
-Preparation & Scenario
-~~~~~~~~~~~~~~~~~~~~~~
+= Preparation & Scenario
 
 [[preparation]]
-Preparation
-^^^^^^^^^^^
+== Preparation
 
 We need to prepare two hosts (or virtual hosts) to do the experiment. We
 will use these two hosts as following:
@@ -32,8 +26,7 @@ ports(better turn off firewall and disable SELinux during the experiment
 or they will cause network problems).
 
 [[scenario]]
-Scenario
-^^^^^^^^
+== Scenario
 
 Here are some details on what we are going to do:
 
@@ -46,7 +39,7 @@ domain controller, slave will under the domain management of master.
 mod_cluster module. The WildFly 9 on master and slave will form a
 cluster and discovered by httpd.
 
-image:images/author/download/attachments/108626200/Clustering.jpg[images/author/download/attachments/108626200/Clustering.jpg]
+image:images/download/attachments/557290/Clustering.jpg[images/download/attachments/557290/Clustering.jpg]
 
 * We will deploy a demo project into domain, and verify that the project
 is deployed into both master and slave by domain controller. Thus we
@@ -68,14 +61,13 @@ it. We should see the master is registered back into cluster, also we
 should see slave sees master as domain controller again and connect to
 it.
 
-image:images/author/download/attachments/108626200/test_scenario.jpg[images/author/download/attachments/108626200/test_scenario.jpg]
+image:images/download/attachments/557290/test_scenario.jpg[images/download/attachments/557290/test_scenario.jpg]
 
 Please don't worry if you cannot digest so many details currently. Let's
 move on and you will get the points step by step.
 
 [[download-wildfly-9]]
-Download WildFly 9
-~~~~~~~~~~~~~~~~~~
+= Download WildFly 9
 
 First we should download WildFly 9 from the website:
 
@@ -111,18 +103,18 @@ mode:
 ----
 wildfly-9.0.0.Final/bin$ ./domain.sh
 =========================================================================
-
+ 
   JBoss Bootstrap Environment
-
+ 
   JBOSS_HOME: /Users/weli/Downloads/wildfly-9.0.0.Final
-
+ 
   JAVA: /Library/Java/Home/bin/java
-
+ 
   JAVA_OPTS: -Xms64m -Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true
-
+ 
 =========================================================================
 ...
-
+ 
 [Server:server-two] 14:46:12,375 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 9.0.0.Final "Kenny" started in 8860ms - Started 210 of 258 services (89 services are lazy, passive or on-demand)
 ----
 
@@ -131,12 +123,10 @@ we get WildFly 9 run on both master and slave, then we could move on to
 next step.
 
 [[domain-configuration]]
-Domain Configuration
-~~~~~~~~~~~~~~~~~~~~
+= Domain Configuration
 
 [[interface-config-on-master]]
-Interface config on master
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Interface config on master
 
 In this section we'll setup both master and slave for them to run in
 domain mode. And we will configure master to be the domain controller.
@@ -187,8 +177,7 @@ config to:
 ----
 
 [[interface-config-on-slave]]
-Interface config on slave
-^^^^^^^^^^^^^^^^^^^^^^^^^
+== Interface config on slave
 
 Now we will setup interfaces on slave. Let's edit host.xml. Similar to
 the steps on master, open host.xml first:
@@ -263,13 +252,14 @@ management ports to public address:
 controller configuration above for an explanation of the management,
 public, and unsecured interfaces.
 
+[IMPORTANT]
+
 It is easier to turn off all firewalls for testing, but in production,
 you need to enable the firewall and allow access to the following ports:
 9999.
 
 [[security-configuration]]
-Security Configuration
-^^^^^^^^^^^^^^^^^^^^^^
+== Security Configuration
 
 If you start WildFly on both master and slave now, you will see the
 slave cannot be started with following error:
@@ -285,8 +275,7 @@ Because we haven't properly set up the authentication between master and
 slave. Now let's work on it:
 
 [[master]]
-Master
-++++++
+=== Master
 
 In bin directory there is a script called add-user.sh, we'll use it to
 add new users to the properties file used for domain management
@@ -295,7 +284,7 @@ authentication:
 [source,java]
 ----
 ./add-user.sh
-
+ 
 Enter the details of the new user to add.
 Realm (ManagementRealm) :
 Username : admin
@@ -319,7 +308,7 @@ As shown above, we have created a user named 'admin' and its password is
 [source,java]
 ----
 ./add-user.sh
-
+ 
 Enter the details of the new user to add.
 Realm (ManagementRealm) :
 Username : slave
@@ -347,8 +336,7 @@ add-user.sh will let you choose the type of the user. Here we need to
 choose 'Management User' type for both 'admin' and 'slave' account.
 
 [[slave]]
-Slave
-+++++
+=== Slave
 
 In slave we need to configure host.xml for authentication. We should
 change the security-realms section as following:
@@ -375,7 +363,7 @@ We've added server-identities into security-realm, which is used for
 authentication host when slave tries to connect to master. In secret
 value property we have 'cGFzc3cwcmQh', which is the base64 code for
 'passw0rd!'. You can generate this value by using a base64 calculator
-such as the one at  http://www.webutils.pl/index.php?idx=base64.
+such as the one at http://www.webutils.pl/index.php?idx=base64.
 
 Then in domain controller section we also need to add security-realm
 property:
@@ -391,8 +379,7 @@ So the slave host could use the authentication information we provided
 in 'ManagementRealm'.
 
 [[dry-run]]
-Dry Run
-+++++++
+=== Dry Run
 
 Now everything is set for the two hosts to run in domain mode. Let's
 start them by running domain.sh on both hosts. If everything goes fine,
@@ -407,8 +394,7 @@ That means all the configurations are correct and two hosts are run in
 domain mode now as expected. Hurrah!
 
 [[deployment]]
-Deployment
-~~~~~~~~~~
+= Deployment
 
 Now we can deploy a demo project into the domain. I have created a
 simple project located at:
@@ -508,6 +494,8 @@ establish cluster later(including infinispan, jgroup and mod_cluster
 modules). So we will deploy our demo project into a server that belongs
 to 'other-server-group', so 'server-three' is our choice.
 
+[IMPORTANT]
+
 In newer version of WildFly, the profile 'ha' changes to 'full-ha':
 
 [source,java]
@@ -534,6 +522,8 @@ currently. Click on the list, and click 'slave', then choose
 Then repeat the steps we've done on master to start 'server-three' on
 slave.
 
+[IMPORTANT]
+
 server-three on master and slave are two different hosts, their names
 can be different.
 
@@ -541,7 +531,7 @@ After server-three on both master and slave are started, we will add our
 cluster-demo.war for deployment. Click on the 'Manage Deployments' link
 at the bottom of left menu list.
 
-image:images/author/download/attachments/108626200/JBoss_Management.png[images/author/download/attachments/108626200/JBoss_Management.png] +
+image:images/download/attachments/557290/JBoss_Management.png[images/download/attachments/557290/JBoss_Management.png] +
 (We should ensure the server-three should be started on both master and
 slave)
 
@@ -555,7 +545,7 @@ button and add the war to 'other-server-group' and then click 'save'.
 Wait a few seconds, management console will tell you that the project is
 deployed into 'other-server-group'.：
 
-image:images/author/download/attachments/108626200/JBoss_Management_2.png[images/author/download/attachments/108626200/JBoss_Management_2.png]
+image:images/download/attachments/557290/JBoss_Management_2.png[images/download/attachments/557290/JBoss_Management_2.png]
 
 Please note we have two hosts participate in this server group, so the
 project should be deployed in both master and slave now - that's the
@@ -569,19 +559,21 @@ and slave, and they should all work now:
 http://10.211.55.7:8330/cluster-demo/
 ----
 
-image:images/author/download/attachments/108626200/http---10.211.55.7-8330-cluster-demo-.png[images/author/download/attachments/108626200/http---10.211.55.7-8330-cluster-demo-.png]
+image:images/download/attachments/557290/http---10.211.55.7-8330-cluster-demo-.png[images/download/attachments/557290/http---10.211.55.7-8330-cluster-demo-.png]
 
 [source,java]
 ----
 http://10.211.55.2:8330/cluster-demo/
 ----
 
-image:images/author/download/attachments/108626200/http---10.211.55.2-8330-cluster-demo-.png[images/author/download/attachments/108626200/http---10.211.55.2-8330-cluster-demo-.png]
+image:images/download/attachments/557290/http---10.211.55.2-8330-cluster-demo-.png[images/download/attachments/557290/http---10.211.55.2-8330-cluster-demo-.png]
 
 Now that we have finished the project deployment and see the usages of
 domain controller, we will then head up for using these two hosts to
 establish a cluster
-image:images/author/images/icons/emoticons/smile.gif[images/author/images/icons/emoticons/smile.gif]
+image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png]
+
+[IMPORTANT]
 
 Why is the port number 8330 instead of 8080? Please check the settings
 in host.xml on both master and slave:
@@ -643,12 +635,13 @@ After finishing the above configuration, let's restart two as7 hosts and
 go on cluster configuration.
 
 [[cluster-configuration]]
-Cluster Configuration
-~~~~~~~~~~~~~~~~~~~~~
+= Cluster Configuration
 
 We will use mod_cluster + apache httpd on master as our cluster
 controller here. Because WildFly 8 has been configured to support
 mod_cluster out of box so it's the easiest way.
+
+[IMPORTANT]
 
 The WildFly 8 domain controller and httpd are not necessary to be on
 same host. But in this article I just install them all on master for
@@ -675,6 +668,8 @@ The version I downloaded is:
 ----
 http://downloads.jboss.org/mod_cluster/1.1.3.Final/mod_cluster-1.1.3.Final-linux2-x86-so.tar.gz
 ----
+
+[IMPORTANT]
 
 Jean-Frederic has suggested to use mod_cluster 1.2.x. Because 1.1.x it
 is affected by CVE-2011-4608
@@ -732,16 +727,16 @@ Listen 10.211.55.7:10001
 # This directive only applies to Red Hat Enterprise Linux. It prevents the temmporary
 # files from being written to /etc/httpd/logs/ which is not an appropriate location.
 MemManagerFile /var/cache/httpd
-
+ 
 <VirtualHost 10.211.55.7:10001>
-
+ 
   <Directory />
     Order deny,allow
     Deny from all
     Allow from 10.211.55.
   </Directory>
-
-
+ 
+ 
   # This directive allows you to view mod_cluster status at URL http://10.211.55.4:10001/mod_cluster-manager
   <Location /mod_cluster-manager>
    SetHandler mod_cluster-manager
@@ -749,15 +744,17 @@ MemManagerFile /var/cache/httpd
    Deny from all
    Allow from 10.211.55.
   </Location>
-
+ 
   KeepAliveTimeout 60
   MaxKeepAliveRequests 0
-
+ 
   ManagerBalancerName other-server-group
   AdvertiseFrequency 5
-
+ 
 </VirtualHost>
 ----
+
+[IMPORTANT]
 
 For more details on mod_cluster configurations please see this document:
 
@@ -767,8 +764,7 @@ http://docs.jboss.org/mod_cluster/1.1.0/html/Quick_Start_Guide.html
 ----
 
 [[testing]]
-Testing
-~~~~~~~
+= Testing
 
 If everything goes fine we can start httpd service now:
 
@@ -784,7 +780,7 @@ Now we access the cluster:
 http://10.211.55.7/cluster-demo/put.jsp
 ----
 
-image:images/author/download/attachments/108626200/http---10.211.55.7-cluster-demo-put.jsp.png[images/author/download/attachments/108626200/http---10.211.55.7-cluster-demo-put.jsp.png]
+image:images/download/attachments/557290/http---10.211.55.7-cluster-demo-put.jsp.png[images/download/attachments/557290/http---10.211.55.7-cluster-demo-put.jsp.png]
 
 We should see the request is distributed to one of the hosts(master or
 slave) from the WildFly log. For me the request is sent to master:
@@ -810,7 +806,7 @@ Then wait for a few seconds and access cluster:
 http://10.211.55.7/cluster-demo/get.jsp
 ----
 
-image:images/author/download/attachments/108626200/http---10.211.55.7-cluster-demo-get.jsp.png[images/author/download/attachments/108626200/http---10.211.55.7-cluster-demo-get.jsp.png]
+image:images/download/attachments/557290/http---10.211.55.7-cluster-demo-get.jsp.png[images/download/attachments/557290/http---10.211.55.7-cluster-demo-get.jsp.png]
 
 Now the request should be served by slave and we should see the log from
 slave:
@@ -827,14 +823,15 @@ replicated to slave.
 Now we restart master and should see the host is registered back to
 cluster.
 
+[IMPORTANT]
+
 It doesn't matter if you found the request is distributed to slave at
 first time. Then just disconnect slave and do the testing, the request
 should be sent to master instead. The point is we should see the request
 is redirect from one host to another and the session is held.
 
 [[special-thanks]]
-Special Thanks
-~~~~~~~~~~~~~~
+= Special Thanks
 
 https://community.jboss.org/people/wdfink[Wolf-Dieter Fink] has
 contributed the updated add-user.sh usages and configs in host.xml from

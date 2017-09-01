@@ -1,18 +1,14 @@
-Java Servlet Technology - Latest WildFly Documentation
-======================================================
-
-[[java-servlet-technology]]
 Java Servlet Technology
------------------------
+=======================
 
 Coming Soon
+
+[IMPORTANT]
 
 This guide is still under development, check back soon!
 
 [[content]]
-Content
-~~~~~~~
+= Content
 
 [[asynchronous-support]]
-Asynchronous Support
-~~~~~~~~~~~~~~~~~~~~
+= Asynchronous Support

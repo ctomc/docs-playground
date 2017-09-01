@@ -1,9 +1,5 @@
-Deployment Overlays - Latest WildFly Documentation
-==================================================
-
-[[deployment-overlays]]
 Deployment Overlays
--------------------
+===================
 
 Deployment overlays are our way of 'overlaying' content into an existing
 deployment, without physically modifying the contents of the deployment
@@ -24,8 +20,7 @@ When you modify or create an overlay it will not affect existing
 deployments, they must be redeployed in order to take effect
 
 [[creating-a-deployment-overlay]]
-Creating a deployment overlay
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Creating a deployment overlay
 
 To create a deployment overlay the CLI provides a high level command to
 do all the steps specified above in one go. An example command is given

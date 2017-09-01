@@ -1,17 +1,12 @@
-Operating modes - Latest WildFly Documentation
-==============================================
-
-[[operating-modes]]
 Operating modes
----------------
+===============
 
 WildFly can be booted in two different modes. A _managed domain_ allows
 you to run and manage a multi-server topology. Alternatively, you can
 run a _standalone server_ instance.
 
 [[standalone-server]]
-Standalone Server
-~~~~~~~~~~~~~~~~~
+= Standalone Server
 
 For many use cases, the centralized management capability available via
 a managed domain is not necessary. For these use cases, a WildFly
@@ -31,8 +26,7 @@ and have them form an HA cluster, just like it was possible with JBoss
 Application Server 3, 4, 5 and 6.
 
 [[managed-domain]]
-Managed Domain
-~~~~~~~~~~~~~~
+= Managed Domain
 
 One of the primary new features of WildFly is the ability to manage
 multiple WildFly instances from a single control point. A collection of
@@ -57,18 +51,16 @@ Controller. See link:Domain_Setup.html[Domain Setup] for details.
 
 The following is an example managed domain topology:
 
-image:images/author/download/attachments/108625994/DC-HC-Server.png[images/author/download/attachments/108625994/DC-HC-Server.png]
+image:images/download/attachments/557077/DC-HC-Server.png[images/download/attachments/557077/DC-HC-Server.png]
 
 [[host]]
-Host
-^^^^
+== Host
 
 Each "Host" box in the above diagram represents a physical or virtual
 host. A physical host can contain zero, one or more server instances.
 
 [[host-controller]]
-Host Controller
-^^^^^^^^^^^^^^^
+== Host Controller
 
 When the domain.sh or domain.bat script is run on a host, a process
 known as a Host Controller is launched. The Host Controller is solely
@@ -97,8 +89,7 @@ address in `host.xml`. Abstract path names in `domain.xml` can be mapped
 to actual filesystem paths in `host.xml`.
 
 [[domain-controller]]
-Domain Controller
-^^^^^^^^^^^^^^^^^
+== Domain Controller
 
 One Host Controller instance is configured to act as the central
 management point for the entire domain, i.e. to be the Domain
@@ -128,8 +119,7 @@ definition of groups of sockets that those subsystems may open. The
 domain configuration also includes the definition of "server groups":
 
 [[server-group]]
-Server Group
-^^^^^^^^^^^^
+== Server Group
 
 A server group is set of server instances that will be managed and
 configured as one. In a managed domain each application server instance
@@ -185,8 +175,7 @@ derive the settings to use to launch the server's JVM. See
 link:JVM_settings.html[JVM settings] for further details.
 
 [[server]]
-Server
-^^^^^^
+== Server
 
 Each "Server" in the above diagram represents an actual application
 server instance. The server runs in a separate JVM process from the Host
@@ -194,13 +183,12 @@ Controller. The Host Controller is responsible for launching that
 process. (In a managed domain the end user cannot directly launch a
 server process from the command line.)
 
- The Host Controller synthesizes the server's configuration by combining
+The Host Controller synthesizes the server's configuration by combining
 elements from the domain wide configuration (from `domain.xml` ) and the
 host-specific configuration (from `host.xml` ).
 
 [[deciding-between-running-standalone-servers-or-a-managed-domain]]
-Deciding between running standalone servers or a managed domain
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Deciding between running standalone servers or a managed domain
 
 Which use cases are appropriate for managed domain and which are
 appropriate for standalone servers? A managed domain is all about

@@ -1,16 +1,10 @@
-Changes From Previous Versions - Latest WildFly Documentation
-=============================================================
-
-[[changes-from-previous-versions]]
 Changes From Previous Versions
-------------------------------
+==============================
 
 Describe here key changes between releases.
 
 [[key-changes]]
-Key changes
-~~~~~~~~~~~
+= Key changes
 
 [[migration-to-wildfly]]
-Migration to Wildfly
-~~~~~~~~~~~~~~~~~~~~
+= Migration to Wildfly

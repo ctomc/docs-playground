@@ -1,9 +1,5 @@
-jboss-ejb3.xml Reference - Latest WildFly Documentation
-=======================================================
-
-[[jboss-ejb3.xml-reference]]
 jboss-ejb3.xml Reference
-------------------------
+========================
 
 `jboss-ejb3.xml` is a custom deployment descriptor that can be placed in
 either ejb-jar or war archives. If it is placed in an ejb-jar then it
@@ -14,12 +10,11 @@ The contents of `jboss-ejb3.xml` are merged with the contents of
 `ejb-jar.xml`, with the `jboss-ejb3.xml` items taking precedence.
 
 [[example-file]]
-Example File
-~~~~~~~~~~~~
+= Example File
 
 A simple example is shown below:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <?xml version="1.1" encoding="UTF-8"?>
 <jboss:ejb-jar xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
@@ -60,25 +55,22 @@ documented elsewhere, this document will cover the non-standard
 namespaces.
 
 [[the-root-namespace-httpwww.jboss.comxmlnsjavaee]]
-The root namespace http://www.jboss.com/xml/ns/javaee
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== The root namespace http://www.jboss.com/xml/ns/javaee
 
 [[assembly-descriptor-namespaces]]
-Assembly descriptor namespaces
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Assembly descriptor namespaces
 
 The following namespaces can all be used in the `<assembly-descriptor>`
 element. They can be used to apply their configuration to a single bean,
 or to all beans in the deployment by using `*` as the `ejb-name`.
 
 [[the-security-namespace-urnsecurity]]
-The security namespace urn:security
-+++++++++++++++++++++++++++++++++++
+=== The security namespace urn:security
 
 This allows you to set the security domain and the run-as principal for
 an EJB.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <s:security>
   <ejb-name>*</ejb-name>
@@ -88,12 +80,11 @@ an EJB.
 ----
 
 [[the-resource-adaptor-namespace-urnresource-adapter-binding]]
-The resource adaptor namespace urn:resource-adapter-binding
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+=== The resource adaptor namespace urn:resource-adapter-binding
 
 This allows you to set the resource adaptor for an MDB.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <r:resource-adapter-binding>
   <ejb-name>*</ejb-name>
@@ -102,22 +93,20 @@ This allows you to set the resource adaptor for an MDB.
 ----
 
 [[the-iiop-namespace-urniiop]]
-The IIOP namespace urn:iiop
-+++++++++++++++++++++++++++
+=== The IIOP namespace urn:iiop
 
 The IIOP namespace is where IIOP settings are configured. As there are
 quite a large number of options these are covered in the
-https://docs.jboss.org/author/display/AS71/EJB+IIOP+Guide[IIOP guide].
+link:#src-557220[IIOP guide].
 
 [[the-pool-namespace-urnejb-pool1.0]]
-The pool namespace urn:ejb-pool:1.0
-+++++++++++++++++++++++++++++++++++
+=== The pool namespace urn:ejb-pool:1.0
 
 This allows you to select the pool that is used by the SLSB or MDB.
 Pools are defined in the server configuration (i.e. `standalone.xml` or
 `domain.xml`)
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <p:pool>
   <ejb-name>*</ejb-name>
@@ -126,14 +115,13 @@ Pools are defined in the server configuration (i.e. `standalone.xml` or
 ----
 
 [[the-cache-namespace-urnejb-cache1.0]]
-The cache namespace urn:ejb-cache:1.0
-+++++++++++++++++++++++++++++++++++++
+=== The cache namespace urn:ejb-cache:1.0
 
 This allows you to select the cache that is used by the SFSB. Caches are
 defined in the server configuration (i.e. `standalone.xml` or
 `domain.xml`)
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <c:cache>
   <ejb-name>*</ejb-name>
@@ -142,8 +130,7 @@ defined in the server configuration (i.e. `standalone.xml` or
 ----
 
 [[the-clustering-namespace-urnclustering1.0]]
-The clustering namespace urn:clustering:1.0
-+++++++++++++++++++++++++++++++++++++++++++
+=== The clustering namespace urn:clustering:1.0
 
 This namespace is deprecated and as of WildFly 8 its use has no effect.
 The clustering behavior of EJBs is determined by the profile in use on

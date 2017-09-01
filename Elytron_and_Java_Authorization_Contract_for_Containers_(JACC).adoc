@@ -1,21 +1,14 @@
-Elytron and Java Authorization Contract for Containers (JACC) - Latest
-WildFly Documentation
-============================================================================================
-
-[[elytron-and-java-authorization-contract-for-containers-jacc]]
 Elytron and Java Authorization Contract for Containers (JACC)
--------------------------------------------------------------
+=============================================================
 
 [[overview]]
-Overview
-~~~~~~~~
+= Overview
 
 This document will guide you on how to enable JACC using Elytron
 Subsystem.
 
 [[disabling-jacc-in-legacy-security-subsystem-picketbox]]
-Disabling JACC in Legacy Security Subsystem (PicketBox)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Disabling JACC in Legacy Security Subsystem (PicketBox)
 
 By default, the application server uses the legacy security subsystem
 (PicketBox) to configure the JACC policy provider and factory. The
@@ -36,8 +29,7 @@ any JACC related configuration, but rely on the policies defined via
 Elytron subsystem as we'll see in the next sections.
 
 [[defining-a-jacc-policy-provider]]
-Defining a JACC Policy Provider
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Defining a JACC Policy Provider
 
 Elytron subsystem provides a built-in policy provider based on JACC
 specification. To create the policy provider you can execute a CLI
@@ -57,8 +49,7 @@ configuration as follows:
 ----
 
 [[enabling-jacc-to-a-web-deployment]]
-Enabling JACC to a Web Deployment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Enabling JACC to a Web Deployment
 
 Once JACC Policy Provider is defined you can enable JACC to web
 deployments by executing the following command:
@@ -69,7 +60,7 @@ deployments by executing the following command:
 ----
 
 The command above defines a default security domain for applications if
-none is provided in *jboss-web.xml.* In case you already have a
+none is provided in *jboss-web.xml.* In case you already have a
 *application-security-domain* defined and just want to enable JACC you
 can execute a command as follows:
 
@@ -79,8 +70,7 @@ can execute a command as follows:
 ----
 
 [[enabling-jacc-to-a-ejb-deployment]]
-Enabling JACC to a EJB Deployment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Enabling JACC to a EJB Deployment
 
 Once JACC Policy Provider is defined you can enable JACC to EJB
 deployments by executing the following command:
@@ -91,7 +81,7 @@ deployments by executing the following command:
 ----
 
 The command above defines a default security domain for EJBs. In case
-you already have a *application-security-domain *defined and just want
+you already have a *application-security-domain *defined and just want
 to enable JACC you can execute a command as follows:
 
 [source,java]

@@ -1,9 +1,7 @@
-Maven POM Versions Checklist - Latest WildFly Documentation
-===========================================================
-
-[[maven-pom-versions-checklist]]
 Maven POM Versions Checklist
-----------------------------
+============================
+
+[IMPORTANT]
 
 Please note: The content for this page has moved.
 

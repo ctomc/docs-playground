@@ -1,13 +1,8 @@
-Suspend, Resume and Graceful shutdown - Latest WildFly Documentation
-====================================================================
-
-[[suspend-resume-and-graceful-shutdown]]
 Suspend, Resume and Graceful shutdown
--------------------------------------
+=====================================
 
 [[core-concepts]]
-Core Concepts
-~~~~~~~~~~~~~
+= Core Concepts
 
 Wildfly introduces the ability to suspend and resume servers. This can
 be combined with shutdown to enable the server to gracefully finish
@@ -32,21 +27,20 @@ management changes are taking place.
 
 When a server is suspending it goes through four different phases:
 
-* *RUNNING* - The normal state, the server is accepting requests and
+* *RUNNING* - The normal state, the server is accepting requests and
 running normally
-* *PRE_SUSPEND* - In PRE_SUSPEND the server will notify external parties
+* *PRE_SUSPEND* - In PRE_SUSPEND the server will notify external parties
 that it is about to suspend, for example mod_cluster will notify the
 load balancer that the deployment is suspending. Requests are still
 accepted in this phase.
 * *SUSPENDING* - All new requests are rejected, and the server is
 waiting for all active requests to finish. If there are no active
 requests at suspend time this phase will be skipped.
-* *SUSPENDED* - All requests have completed, and the server is
+* *SUSPENDED* - All requests have completed, and the server is
 suspended.
 
 [[starting-suspended]]
-Starting Suspended
-~~~~~~~~~~~~~~~~~~
+= Starting Suspended
 
 In order to start into suspended mode when using a standalone server you
 need to add *--start-mode=suspend* to the command line. It is also
@@ -59,14 +53,13 @@ In domain mode servers can be started in suspended mode by passing the
 restart or reload (e.g. :start-servers(suspend=true)).
 
 [[the-request-controller-subsystem]]
-The Request Controller Subsystem
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The Request Controller Subsystem
 
 Wildfly introduces a new subsystem called the Request Controller
 Subsystem. This optional subsystem tracks all requests at their entry
 point, which how the graceful shutdown mechanism know when all requests
 are done (it also allows you to provide a global limit on the total
-number of running requests). 
+number of running requests).
 
 If this subsystem is not present suspend/resume will be limited, in
 general things that happen in the PRE_SUSPEND phase will work as normal
@@ -80,8 +73,7 @@ do not require the suspend/resume functionality this subsystem can be
 removed to get a small performance boost.
 
 [[subsystem-integrations]]
-Subsystem Integrations
-~~~~~~~~~~~~~~~~~~~~~~
+= Subsystem Integrations
 
 Suspend/Resume is a service provided by the Wildfly platform that any
 subsystem may choose to integrate with. Some subsystems integrate
@@ -94,17 +86,17 @@ graceful shutdown support, for example the JAX-RS subsystem does not
 require suspend/resume support as all access to JAX-RS is through the
 web connector.
 
-* *Undertow* - Undertow will wait for all requests to finish
+* *Undertow* - Undertow will wait for all requests to finish
 * *mod_cluster* - The mod_cluster subsystem will notify the load
 balancer that the server is suspending in the PRE_SUSPEND phase.
 * *EJB* - EJB will wait for all remote EJB requests and MDB message
 deliveries to finish. Delivery to MDB's is stopped in the PRE_SUSPEND
 phase. EJB timers are suspended, and missed timers will be activated
-when the server is resumed. 
-* *Batch* - Batch jobs will be stopped at a checkpoint while the server
+when the server is resumed.
+* *Batch* - Batch jobs will be stopped at a checkpoint while the server
 is suspending. They will be restarted from that checkpoint when the
 server returns to running mode.
-* *EE Concurrency* - The server will wait for all active jobs to finish.
+* *EE Concurrency* - The server will wait for all active jobs to finish.
 All jobs that have already been queued will be skipped.
 * *Transactions* - transaction subsystem waits for all running
 transactions to finish while server is suspending. During that time
@@ -129,8 +121,7 @@ disable the graceful behavior and EJB clients will not attempt to invoke
 the node when it suspends, regardless of active transactions.
 
 [[standalone-mode]]
-Standalone Mode
-~~~~~~~~~~~~~~~
+= Standalone Mode
 
 Suspend/Resume can be controlled via the following CLI operations in
 standalone mode:
@@ -140,12 +131,12 @@ standalone mode:
 Suspends the server. If the timeout is specified it will wait up to the
 specified number of seconds for all requests to finish. If there is no
 timeout specified or the value is less than zero it will wait
-indefinitely. 
+indefinitely.
 
 `:resume`
 
 Resumes a previously suspended server. The server should be able to
-begin serving requests immediately. 
+begin serving requests immediately.
 
 `:read-attribute(name=suspend-state)`
 
@@ -157,11 +148,10 @@ If a timeout parameter is passed to the shutdown command then a graceful
 shutdown will be performed. The server will be suspended, and will wait
 up to the specified number of seconds for all requests to finish before
 shutting down. A timeout value of less than zero means it will wait
-indefinitely. 
+indefinitely.
 
 [[domain-mode]]
-Domain Mode
-~~~~~~~~~~~
+= Domain Mode
 
 Domain mode has similar commands as standalone mode, however they can be
 applied at both the global and server group levels:
@@ -182,7 +172,7 @@ applied at both the global and server group levels:
 
 `/server-group=main-server-group:stop-servers(timeout=x)`
 
-*Server* 
+*Server*
 
 `/host=master/server-config=server-one:suspend(timeout=x)`
 

@@ -1,9 +1,5 @@
-Default HTTP Interface Security - Latest WildFly Documentation
-==============================================================
-
-[[default-http-interface-security]]
 Default HTTP Interface Security
--------------------------------
+===============================
 
 WildFly is distributed secured by default. The default security
 mechanism is username / password based making use of HTTP Digest for the
@@ -17,13 +13,15 @@ default user in the distribution.
 If you attempt to connect to the admin console before you have added a
 user to the server you will be presented with the following screen.
 
-image:images/author/download/attachments/108625991/no-users.png[images/author/download/attachments/108625991/no-users.png]
+image:images/download/attachments/557078/no-users.png[images/download/attachments/557078/no-users.png,width=300]
 
 The user are stored in a properties file called mgmt-users.properties
 under standalone/configuration and domain/configuration depending on the
 running mode of the server, these files contain the users username along
 with a pre-prepared hash of the username along with the name of the
 realm and the users password.
+
+[IMPORTANT]
 
 Although the properties files do not contain the plain text passwords
 they should still be guarded as the pre-prepared hashes could be used to
@@ -33,7 +31,7 @@ the same password.
 To manipulate the files and add users we provide a utility add-user.sh
 and add-user.bat to add the users and generate the hashes, to add a user
 you should execute the script and follow the guided process.
-image:images/author/download/attachments/108625991/add-user.png[images/author/download/attachments/108625991/add-user.png] +
+image:images/download/attachments/557078/add-user.png[images/download/attachments/557078/add-user.png] +
 The full details of the add-user utility are described later but for the
 purpose of accessing the management interface you need to enter the
 following values: -

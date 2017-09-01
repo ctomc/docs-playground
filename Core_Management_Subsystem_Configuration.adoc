@@ -1,13 +1,8 @@
-Core Management Subsystem Configuration - Latest WildFly Documentation
-======================================================================
-
-[[core-management-subsystem-configuration]]
 Core Management Subsystem Configuration
----------------------------------------
+=======================================
 
 [[overview]]
-Overview
-~~~~~~~~
+= Overview
 
 The core management subsystem is composed services used to manage the
 server or monitor its status. +
@@ -17,8 +12,7 @@ The core management subsystem configuration may be used to:
 * list the last configuration changes on a server.
 
 [[lifecycle-listener]]
-Lifecycle listener
-~~~~~~~~~~~~~~~~~~
+= Lifecycle listener
 
 You can create an implementation of
 _org.wildfly.extension.core.management.client.ProcessStateListener_
@@ -33,11 +27,11 @@ For example let's create a simple listener :
 [source,java]
 ----
  public class SimpleListener implements ProcessStateListener {
-
+ 
     private File file;
     private FileWriter fileWriter;
     private ProcessStateListenerInitParameters parameters;
-
+ 
     @Override
     public void init(ProcessStateListenerInitParameters parameters) {
         this.parameters = parameters;
@@ -48,7 +42,7 @@ For example let's create a simple listener :
             e.printStackTrace();
         }
     }
-
+ 
     @Override
     public void cleanup() {
         try {
@@ -59,7 +53,7 @@ For example let's create a simple listener :
             fileWriter = null;
         }
     }
-
+ 
     @Override
     public void runtimeConfigurationStateChanged(RuntimeConfigurationStateChangeEvent evt) {
         try {
@@ -68,7 +62,7 @@ For example let's create a simple listener :
             e.printStackTrace();
         }
     }
-
+ 
     @Override
     public void runningStateChanged(RunningStateChangeEvent evt) {
         try {
@@ -84,56 +78,51 @@ To compile it you need to depend on the
 _org.wildfly.core:wildfly-core-management-client_ maven module. Now
 let's add the module to the wildfly modules :
 
-[source,java]
-----
+....
 module add --name=org.simple.lifecycle.events.listener --dependencies=org.wildfly.extension.core-management-client --resources=/home/ehsavoie/dev/demo/simple-listener/target/simple-process-state-listener.jar
-----
+....
 
 Now we can register or listener :
 
-[source,java]
-----
+....
 /subsystem=core-management/process-state-listener=simple-listener:add(class=org.simple.lifecycle.events.listener.SimpleListener, module=org.simple.lifecycle.events.listener, properties={file=/home/wildfly/tmp/events.txt})
-----
+....
 
 [[configuration-changes]]
-Configuration changes
-~~~~~~~~~~~~~~~~~~~~~
+= Configuration changes
 
 You can use the core management subsystem to enable and configure an
 *in-memory* history of the last configuration changes. +
 For example to track the last 5 configuration changes let's active this
 :
 
-[source,java]
-----
+....
 /subsystem=core-management/service=configuration-changes:add(max-history=5)
-----
+....
 
 Now we can list the last configuration changes :
 
-[source,java]
-----
+....
 /subsystem=core-management/service=configuration-changes:list-changes()
 {
-    "outcome" => "success",
-    "result" => [{
-        "operation-date" => "2016-12-05T11:05:12.867Z",
-        "access-mechanism" => "NATIVE",
-        "remote-address" => "/127.0.0.1",
-        "outcome" => "success",
-        "operations" => [{
-            "address" => [
-                ("subsystem" => "core-management"),
-                ("service" => "configuration-changes")
-            ],
-            "operation" => "add",
-            "max-history" => 5,
-            "operation-headers" => {
-                "caller-type" => "user",
-                "access-mechanism" => "NATIVE"
-            }
-        }]
-    }]
+    "outcome" => "success",
+    "result" => [{
+        "operation-date" => "2016-12-05T11:05:12.867Z",
+        "access-mechanism" => "NATIVE",
+        "remote-address" => "/127.0.0.1",
+        "outcome" => "success",
+        "operations" => [{
+            "address" => [
+                ("subsystem" => "core-management"),
+                ("service" => "configuration-changes")
+            ],
+            "operation" => "add",
+            "max-history" => 5,
+            "operation-headers" => {
+                "caller-type" => "user",
+                "access-mechanism" => "NATIVE"
+            }
+        }]
+    }]
 }
-----
+....

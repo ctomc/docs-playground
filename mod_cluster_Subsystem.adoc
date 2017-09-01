@@ -1,21 +1,15 @@
-mod_cluster Subsystem - Latest WildFly Documentation
-====================================================
-
-[[mod_cluster-subsystem]]
 mod_cluster Subsystem
----------------------
+=====================
 
 The mod_cluster integration is done via the
 http://docs.jboss.org/mod_cluster/1.1.0/html/java.AS7config.html[modcluster
 subsystem].
 
 [[configuration]]
-Configuration
-~~~~~~~~~~~~~
+= Configuration
 
 [[instance-id-or-jvmroute]]
-Instance ID or JVMRoute
-^^^^^^^^^^^^^^^^^^^^^^^
+== Instance ID or JVMRoute
 
 The instance-id or JVMRoute defaults to jboss.node.name property passed
 on server startup (e.g. via -Djboss.node.name=XYZ).
@@ -45,8 +39,7 @@ property in Undertow subsystem:
 ----
 
 [[proxies]]
-Proxies
-^^^^^^^
+== Proxies
 
 By default, mod_cluster is configured for multicast-based discovery. To
 specify a static list of proxies, create a remote-socket-binding for
@@ -82,8 +75,7 @@ following example for configuration in the domain mode:
 ----
 
 [[runtime-operations]]
-Runtime Operations
-~~~~~~~~~~~~~~~~~~
+= Runtime Operations
 
 The modcluster subsystem supports several operations:
 
@@ -131,14 +123,12 @@ of the subsystem, the one that just modify the behaviour temporarily and
 the ones that display information from the httpd part.
 
 [[operations-displaying-httpd-informations]]
-operations displaying httpd informations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== operations displaying httpd informations
 
 There are 2 operations that display how Apache httpd sees the node:
 
 [[read-proxies-configuration]]
-read-proxies-configuration
-++++++++++++++++++++++++++
+=== read-proxies-configuration
 
 Send a DUMP message to all Apache httpd the node is connected to and
 display the message received from Apache httpd.
@@ -172,8 +162,7 @@ context: 2 [/myapp] vhost: 1 node: 1 status: 1
 ----
 
 [[read-proxies-info]]
-read-proxies-info
-+++++++++++++++++
+=== read-proxies-info
 
 Send a INFO message to all Apache httpd the node is connected to and
 display the message received from Apache httpd.
@@ -204,18 +193,14 @@ Context: [1:1:2], Context: /myapp, Status: ENABLED
 }
 ----
 
-[[section]]
-
 [[operations-that-handle-the-proxies-the-node-is-connected-too]]
-operations that handle the proxies the node is connected too
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+=== operations that handle the proxies the node is connected too
 
 there are 3 operation that could be used to manipulate the list of
 Apache httpd the node is connected too.
 
 [[list-proxies]]
-list-proxies:
-+++++++++++++
+=== list-proxies:
 
 Displays the httpd that are connected to the node. The httpd could be
 discovered via the Advertise protocol or via the proxy-list attribute.
@@ -233,10 +218,9 @@ discovered via the Advertise protocol or via the proxy-list attribute.
 ----
 
 [[remove-proxy]]
-remove-proxy
-++++++++++++
+=== remove-proxy
 
-Remove a proxy from the discovered proxies or  temporarily from the
+Remove a proxy from the discovered proxies or temporarily from the
 proxy-list attribute.
 
 [source,java]
@@ -245,11 +229,10 @@ proxy-list attribute.
 {"outcome" => "success"}
 ----
 
-[[proxy]]
-proxy
-+++++
+[[add-proxy]]
+=== add-proxy
 
-Add a proxy to the discovered proxies or  temporarily to the proxy-list
+Add a proxy to the discovered proxies or temporarily to the proxy-list
 attribute.
 
 [source,java]
@@ -259,15 +242,13 @@ attribute.
 ----
 
 [[context-related-operations]]
-Context related operations
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Context related operations
 
 Those operations allow to send context related commands to Apache httpd.
-They are send automatically when deploying or undeploying  webapps.
+They are send automatically when deploying or undeploying webapps.
 
 [[enable-context]]
-enable-context
-++++++++++++++
+=== enable-context
 
 Tell Apache httpd that the context is ready receive requests.
 
@@ -278,8 +259,7 @@ Tell Apache httpd that the context is ready receive requests.
 ----
 
 [[disable-context]]
-disable-context
-+++++++++++++++
+=== disable-context
 
 Tell Apache httpd that it shouldn't send new session requests to the
 context of the virtualhost.
@@ -291,8 +271,7 @@ context of the virtualhost.
 ----
 
 [[stop-context]]
-stop-context
-++++++++++++
+=== stop-context
 
 Tell Apache httpd that it shouldn't send requests to the context of the
 virtualhost.
@@ -304,31 +283,26 @@ virtualhost.
 ----
 
 [[node-related-operations]]
-Node related operations
-^^^^^^^^^^^^^^^^^^^^^^^
+== Node related operations
 
 Those operations are like the context operation but they apply to all
 webapps running on the node and operation that affect the whole node.
 
 [[refresh]]
-refresh
-+++++++
+=== refresh
 
 Refresh the node by sending a new CONFIG message to Apache httpd.
 
 [[reset]]
-reset
-+++++
+=== reset
 
 reset the connection between Apache httpd and the node
 
 [[configuration-1]]
-Configuration
-^^^^^^^^^^^^^
+== Configuration
 
 [[metric-configuration]]
-Metric configuration
-++++++++++++++++++++
+=== Metric configuration
 
 There are 4 metric operations corresponding to add and remove load
 metrics to the dynamic-load-provider. Note that when nothing is defined
@@ -354,8 +328,8 @@ that corresponds to the following configuration:
  </subsystem>
 ----
 
-[[metric]]
-metric
+[[add-metric]]
+==== add-metric
 
 Add a metric to the dynamic-load-provider, the dynamic-load-provider in
 configuration is created if needed.
@@ -380,7 +354,7 @@ configuration is created if needed.
 ----
 
 [[remove-metric]]
-remove-metric
+==== remove-metric
 
 Remove a metric from the dynamic-load-provider.
 
@@ -390,8 +364,8 @@ Remove a metric from the dynamic-load-provider.
 {"outcome" => "success"}
 ----
 
-[[custom-metric-remove-custom-metric]]
-custom-metric / remove-custom-metric
+[[add-custom-metric-remove-custom-metric]]
+==== add-custom-metric / remove-custom-metric
 
 like the add-metric and remove-metric except they require a class
 parameter instead the type. Usually they needed additional properties

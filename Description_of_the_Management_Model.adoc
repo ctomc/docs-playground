@@ -1,9 +1,5 @@
-Description of the Management Model - Latest WildFly Documentation
-==================================================================
-
-[[description-of-the-management-model]]
 Description of the Management Model
------------------------------------
+===================================
 
 A detailed description of the resources, attributes and operations that
 make up the management model provided by an individual WildFly instance
@@ -14,8 +10,7 @@ in the link:Global_operations.html[Global operations] section. In this
 section we provide details on what's included in those descriptions.
 
 [[description-of-the-wildfly-managed-resources]]
-Description of the WildFly Managed Resources
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Description of the WildFly Managed Resources
 
 All portions of the management model exposed by WildFly are addressable
 via an ordered list of key/value pairs. For each addressable
@@ -35,16 +30,16 @@ value is 1.
 * `attributes` – Map of String (the attribute name) to complex structure
 – the configuration attributes available in this portion of the model.
 See
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-attributedescription[below]
+link:#src-557210_DescriptionoftheManagementModel-attribute-description[below]
 for the representation of each attribute.
 * `operations` – Map of String (the operation name) to complex structure
 – the operations that can be targetted at this address. See
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-operationdescription[below]
+link:#src-557210_DescriptionoftheManagementModel-operation-description[below]
 for the representation of each operation.
 * `children` – Map of String (the type of child) to complex structure –
 the relationship of this portion of the model to other addressable
 portions of the model. See
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-childrendescription[below]
+link:#src-557210_DescriptionoftheManagementModel-children-description[below]
 for the representation of each child relationship.
 * `head-comment-allowed` – boolean – indicates whether this portion of
 the model can store an XML comment that would be written in the
@@ -87,12 +82,8 @@ For example:
 }
 ----
 
-[[108626077_DescriptionoftheManagementModel-attributedescription]]
-[[108626077_DescriptionoftheManagementModel-attributedescription]]
-
 [[description-of-an-attribute]]
-Description of an Attribute
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Description of an Attribute
 
 An attribute is a portion of the management model that is not directly
 addressable. Instead, it is conceptually a property of an addressable
@@ -163,7 +154,7 @@ access-type is read-write. Indicates whether execution of a
 write-attribute operation whose name parameter specifies this attribute
 requires a restart of services (or an entire JVM) in order for the
 change to take effect in the runtime . See discussion of "
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-applyingruntimeupdates[Applying
+link:#src-557210_DescriptionoftheManagementModel-applying-runtime-updates[Applying
 Updates to Runtime Services]" below. Default value is "no-services".
 * `default` – the default value for the attribute that will be used in
 runtime services if the attribute is not explicitly defined and no other
@@ -212,7 +203,7 @@ attributes often map to XML attributes, which don't allow comments.)
 supported. This description key is for future use.)
 * arbitrary key/value pairs that further describe the attribute value,
 e.g. "max" => 2. See "
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-arbitrarydescriptors[Arbitrary
+link:#src-557210_DescriptionoftheManagementModel-arbitrary-descriptors[Arbitrary
 Descriptors]" below.
 
 Some examples:
@@ -238,12 +229,8 @@ Some examples:
 }
 ----
 
-[[108626077_DescriptionoftheManagementModel-operationdescription]]
-[[108626077_DescriptionoftheManagementModel-operationdescription]]
-
 [[description-of-an-operation]]
-Description of an Operation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Description of an Operation
 
 A management resource may have operations associated with it. The
 description of an operation will include the following information:
@@ -254,26 +241,22 @@ description of an operation will include the following information:
 description of the parameters of the operation. Keys are the names of
 the parameters, values are descriptions of the parameter value types.
 See
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-paramdescription[below]
+link:#src-557210_DescriptionoftheManagementModel-param-description[below]
 for details on the description of parameter value types.
 * `reply-properties` – complex structure, or empty – description of the
 return value of the operation, with an empty node meaning void. See
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-paramdescription[below]
+link:#src-557210_DescriptionoftheManagementModel-param-description[below]
 for details on the description of operation return value types.
 * `restart-required` – String – One of "no-services", "all-services",
 "resource-services" or "jvm". Indicates whether the operation makes a
 configuration change that requires a restart of services (or an entire
 JVM) in order for the change to take effect in the runtime. See
 discussion of "
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-applyingruntimeupdates[Applying
+link:#src-557210_DescriptionoftheManagementModel-applying-runtime-updates[Applying
 Updates to Runtime Services]" below. Default value is "no-services".
 
-[[108626077_DescriptionoftheManagementModel-paramdescription]]
-[[108626077_DescriptionoftheManagementModel-paramdescription]]
-
 [[description-of-an-operation-parameter-or-return-value]]
-Description of an Operation Parameter or Return Value
-+++++++++++++++++++++++++++++++++++++++++++++++++++++
+=== Description of an Operation Parameter or Return Value
 
 * `description` – String – text description of the parameter or return
 value
@@ -323,7 +306,7 @@ access-type is read-write. Indicates whether execution of a
 write-attribute operation whose name parameter specifies this attribute
 requires a restart of services (or an entire JVM) in order for the
 change to take effect in the runtime . See discussion of "
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-applyingruntimeupdates[Applying
+link:#src-557210_DescriptionoftheManagementModel-applying-runtime-updates[Applying
 Updates to Runtime Services]" below. Default value is "no-services".
 * `alternatives` – List of string – Indicates an exclusive relationship
 between parameters. If this attribute is defined, the other parameters
@@ -344,15 +327,11 @@ alternatives to each other; "c" and "d" are optional. But "b" requires
 Default is undefined; i.e. this does not apply to most parameters.
 * arbitrary key/value pairs that further describe the attribute value,
 e.g. "max" =>2. See "
-link:Description_of_the_Management_Model.html#108626077_DescriptionoftheManagementModel-arbitrarydescriptors[Arbitrary
+link:#src-557210_DescriptionoftheManagementModel-arbitrary-descriptors[Arbitrary
 Descriptors]" below.
 
-[[108626077_DescriptionoftheManagementModel-arbitrarydescriptors]]
-[[108626077_DescriptionoftheManagementModel-arbitrarydescriptors]]
-
 [[arbitrary-descriptors]]
-Arbitrary Descriptors
-^^^^^^^^^^^^^^^^^^^^^
+== Arbitrary Descriptors
 
 The description of an attribute, operation parameter or operation return
 value type can include arbitrary key/value pairs that provide extra
@@ -411,12 +390,8 @@ Some examples:
 }
 ----
 
-[[108626077_DescriptionoftheManagementModel-childdescription]]
-[[108626077_DescriptionoftheManagementModel-childdescription]]
-
 [[description-of-parentchild-relationships]]
-Description of Parent/Child Relationships
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Description of Parent/Child Relationships
 
 The address used to target an addressable portion of the model must be
 an ordered list of key value pairs. The effect of this requirement is
@@ -489,12 +464,8 @@ If the recursive flag was false:
 }
 ----
 
-[[108626077_DescriptionoftheManagementModel-applyingruntimeupdates]]
-[[108626077_DescriptionoftheManagementModel-applyingruntimeupdates]]
-
 [[applying-updates-to-runtime-services]]
-Applying Updates to Runtime Services
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Applying Updates to Runtime Services
 
 An attribute or operation description may include a "
 `restart-required`" descriptor; this section is an explanation of the

@@ -1,10 +1,5 @@
-Java Authentication Service Provider Interface for Containers (JASPIC) -
-Latest WildFly Documentation
-=====================================================================================================
-
-[[java-authentication-service-provider-interface-for-containers-jaspic]]
 Java Authentication Service Provider Interface for Containers (JASPIC)
-----------------------------------------------------------------------
+======================================================================
 
 JASPI is not available by default for deployments, and a specific
 Security Domain must be created to use it. For a simplified developer
@@ -13,7 +8,7 @@ experience, a default JASPI Domain is already bundled, called
 
 To make use of it, a Web Application only needs to specifiy the desired
 security domain in the `jboss-web.xml` deployment descriptor. This file
-should be located under the  `WEB-INF` directory. An example
+should be located under the `WEB-INF` directory. An example
 `jboss-web.xml` enabling the default JASPI domain:
 
 [source,java]

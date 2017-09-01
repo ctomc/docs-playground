@@ -1,9 +1,5 @@
-Greeter quickstart - Latest WildFly Documentation
-=================================================
-
-[[greeter-quickstart]]
 Greeter quickstart
-------------------
+==================
 
 This page has moved to
 https://github.com/wildfly/quickstart/blob/10.x/guide/GreeterQuickstart.asciidoc

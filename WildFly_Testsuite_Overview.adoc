@@ -1,9 +1,5 @@
-WildFly Testsuite Overview - Latest WildFly Documentation
-=========================================================
-
-[[wildfly-testsuite-overview]]
 WildFly Testsuite Overview
---------------------------
+==========================
 
 This document will detail the implementation of the testsuite
 Integration submodule as it guides you on adding your own test cases.
@@ -26,11 +22,10 @@ original server configuration) for post-execution debugging
 * the execution of a single test (for debugging purposes)
 * running test cases against different container modes (managed in the
 main, but also remote and embedded)
-* configuring client and server JVMs separately (e.g.,  IPv6 testing)
+* configuring client and server JVMs separately (e.g., IPv6 testing)
 
 [[test-suite-organization]]
-Test Suite Organization
-~~~~~~~~~~~~~~~~~~~~~~~
+= Test Suite Organization
 
 The testsuite module has a small number of submodules:
 
@@ -40,8 +35,7 @@ performance of specific feature
 * *integration* - holds all integration tests
 * *stress* - holds all stress tests
 
-It is expected that  test contributions fit into one of these
-categories.
+It is expected that test contributions fit into one of these categories.
 
 The pom.xml file located in the testsuite module is inherited by all
 submodules and is used to do the following:
@@ -60,13 +54,12 @@ It should not:
 
 These elements should be defined in logical profiles associated with
 each logical grouping of tests; e.g., in the pom for the module which
-contains the tests.  The submodule poms contain additional details of
+contains the tests. The submodule poms contain additional details of
 their function and purpose as well as expanded information as shown in
 this document.
 
 [[profiles]]
-Profiles
-~~~~~~~~
+= Profiles
 
 You should not activate the abovementioned profiles by -P, because that
 disables other profiles which are activated by default.
@@ -76,18 +69,18 @@ parenthesis in the lists below.
 
 *Testsuite profiles* are used to group tests into logical groups.
 
-* all-modules.module.profile  (all-modules)
-* integration.module.profile   (integration.module)
-* compat.module.profile       (compat.module)
-* domain.module.profile       (domain.module)
-* benchmark.module.profile  (benchmark.module)
-* stress.module.profile         (stress.module)
+* all-modules.module.profile (all-modules)
+* integration.module.profile (integration.module)
+* compat.module.profile (compat.module)
+* domain.module.profile (domain.module)
+* benchmark.module.profile (benchmark.module)
+* stress.module.profile (stress.module)
 
 They also pprepare WildFly instances and resources for respective
 testsuite submodules.
 
-* jpda.profile - sets surefire.jpda.args    (debug)
-* ds.profile  -sets database properties and prepares the datasource 
+* jpda.profile - sets surefire.jpda.args (debug)
+* ds.profile -sets database properties and prepares the datasource
 (ds=<db id>)
 ** Has related database-specific profiles, like mysql51.profile etc.
 

@@ -1,28 +1,23 @@
-Infinispan Subsystem - Latest WildFly Documentation
-===================================================
-
-[[infinispan-subsystem]]
 Infinispan Subsystem
---------------------
+====================
 
 [[purpose]]
-Purpose
-~~~~~~~
+= Purpose
 
 The Infinispan subsystem provides caching support for HA services in the
-form of Infinispan caches:  high-performance, transactional caches which
-can operate in both non-distributed and distributed
-scenarios. Distributed caching support is used in the provision of many
-key HA services. For example, the failover of a session-oriented client
-HTTP request from a failing node to a new (failover) node depends on
-session data for the client being available on the new node. In other
-words, the client session data needs to be replicated across nodes in
-the cluster. This is effectively achieved via a distributed Infinispan
-cache. This approach to providing fail-over also applies to EJB SFSB
-sessions. Over and above providing support for fail-over, an underlying
-cache is also required when providing second-level caching for entity
-beans using Hibernate, and this case is also handled through the use of
-an Infinispan cache.
+form of Infinispan caches: high-performance, transactional caches which
+can operate in both non-distributed and distributed scenarios.
+Distributed caching support is used in the provision of many key HA
+services. For example, the failover of a session-oriented client HTTP
+request from a failing node to a new (failover) node depends on session
+data for the client being available on the new node. In other words, the
+client session data needs to be replicated across nodes in the cluster.
+This is effectively achieved via a distributed Infinispan cache. This
+approach to providing fail-over also applies to EJB SFSB sessions. Over
+and above providing support for fail-over, an underlying cache is also
+required when providing second-level caching for entity beans using
+Hibernate, and this case is also handled through the use of an
+Infinispan cache.
 
 The Infinispan subsystem provides the following features:
 
@@ -33,6 +28,8 @@ instances
 
 In the following sections, we describe the Infinispan subsystem.
 
+[IMPORTANT]
+
 Infiispan cache containers and caches are created transparently as part
 of the clustering functionality (e.g. on clustered application
 deployment, cache containers and their associated caches will be created
@@ -40,20 +37,19 @@ behind the scenes to support clustered features such as session
 replication or caching of entities around the cluster).
 
 [[configuration-example]]
-Configuration Example
-~~~~~~~~~~~~~~~~~~~~~
+= Configuration Example
 
 In this section, we provide an example XML configuration of the
 infinispan subsystem and review the configuration elements and
 attributes.
 
+[IMPORTANT]
+
 The schema for the subsystem, describing all valid elements and
 attributes, can be found in the Wildfly distribution, in the docs/schema
 directory.
 
- 
-
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <subsystem xmlns="urn:jboss:domain:infinispan:2.0">
   <cache-container name="server" aliases="singleton cluster" default-cache="default" module="org.wildfly.clustering.server">
@@ -109,8 +105,7 @@ directory.
 ----
 
 [[cache-container]]
-<cache-container>
-^^^^^^^^^^^^^^^^^
+== <cache-container>
 
 This element is used to configure a cache container.
 
@@ -142,8 +137,7 @@ This element has the following child elements: *<transport>*,
 *<distributed-cache>*.
 
 [[transport]]
-<transport>
-+++++++++++
+=== <transport>
 
 This element is used to configure the JGroups transport used by the
 cache container, when required.
@@ -164,6 +158,8 @@ obtaining locks for the transport.
 * `machine` This attribute configures the machine id of the cache
 container.
 +
+[IMPORTANT]
+
 The presence of the transport element is required when operating in
 clustered mode
 
@@ -171,6 +167,8 @@ The remaining child elements of *<cache-container>*, namely
 *<local-cache>*, *<invalidation-cache>*, *<replicated-cache>* and
 *<distributed-cache>*, each configures one of four key cache types or
 classifications.
+
+[IMPORTANT]
 
 These cache-related elements are actually part of an xsd hierarchy with
 abstract complexTypes *cache*, *clustered-cache*, and *shared-cache*. In
@@ -181,11 +179,10 @@ hierarchy of base elements, and then show how the cache type elements
 relate to them.
 
 [[abstract-cache]]
-<abstract cache>
-++++++++++++++++
+=== <abstract cache>
 
 This abstract base element defines the attributes and child elements
-common to all non-clustered caches. 
+common to all non-clustered caches.
 
 * `name` This attribute configures the name of the cache. This name may
 be referenced by other subsystems.
@@ -209,12 +206,12 @@ elements: *<indexing-properties>, <locking>*, *<transaction>*,
 *<mixed-keyed-jdbc-store>*, *<remote-store>*.
 
 [[indexing-properties]]
-<indexing-properties>
+==== <indexing-properties>
 
 This child element defines properties to control indexing behaviour.
 
 [[locking]]
-<locking>
+==== <locking>
 
 This child element configures the locking behaviour of the cache.
 
@@ -232,7 +229,7 @@ concurrency level. Adjust this value according to the number of
 concurrent threads interacting with Infinispan.
 
 [[transaction]]
-<transaction>
+==== <transaction>
 
 This child element configures the transactional behaviour of the cache.
 
@@ -246,7 +243,7 @@ timeout.
 one of OPTIMISTIC or PESSIMISTIC.
 
 [[eviction]]
-<eviction>
+==== <eviction>
 
 This child element configures the eviction behaviour of the cache.
 
@@ -259,7 +256,7 @@ value will default to the least power of two larger than selected value.
 -1 means no limit.
 
 [[expiration]]
-<expiration>
+==== <expiration>
 
 This child element configures the expiration behaviour of the cache.
 
@@ -281,16 +278,18 @@ namely *<store>*, *<file-store>*, *<remote-store>*,
 *<mixed-keyed-jdbc-store>*, each configures one of six key cache store
 types.
 
+[IMPORTANT]
+
 These cache store-related elements are actually part of an xsd extension
 hierarchy with abstract complexTypes *base-store* and *base-jdbc-store*.
 As before, in order to simplify the presentation, we notate these as
 pseudo-elements *<abstract base-store>* and *<abstract
-base-jdbc-store>*.  In what follows, we first describe the extension
+base-jdbc-store>*. In what follows, we first describe the extension
 hierarchy of base elements, and then show how the cache store elements
 relate to them.
 
 [[abstract-base-store]]
-<abstract base-store>
+==== <abstract base-store>
 
 This abstract base element defines the attributes and child elements
 common to all cache stores.
@@ -338,7 +337,7 @@ properties.
 The abstract base element has one child element: *<write-behind>*
 
 [[write-behind]]
-<write-behind>
+==== <write-behind>
 
 This element is used to configure a cache store as write-behind instead
 of write-through. In write-through mode, writes to the cache are also
@@ -359,7 +358,7 @@ thread pool whose threads are responsible for applying the modifications
 to the cache store.
 
 [[abstract-base-jdbc-store-extends-abstract-base-store]]
-<abstract base-jdbc-store> extends <abstract base-store>
+==== <abstract base-jdbc-store> extends <abstract base-store>
 
 This abstract base element defines the attributes and child elements
 common to all JDBC-based cache stores.
@@ -372,11 +371,11 @@ store cache entries.
 store binary cache entries.
 
 [[file-store-extends-abstract-base-store]]
-<file-store> extends <abstract base-store>
+==== <file-store> extends <abstract base-store>
 
 This child element is used to configure a file-based cache store. This
 requires specifying the name of the file to be used as backing storage
-for the cache store. 
+for the cache store.
 
 * `relative-to` This attribute optionally configures a relative path
 prefix for the file store path. Can be null.
@@ -385,7 +384,7 @@ prefix for the file store path. Can be null.
 relation to the value for *relative-to*, otherwise.
 
 [[remote-store-extends-abstract-base-store]]
-<remote-store> extends <abstract base-store>
+==== <remote-store> extends <abstract base-store>
 
 This child element of cache is used to configure a remote cache store.
 It has a child <remote-servers>.
@@ -398,13 +397,13 @@ communication with the remote cache.
 communication with the remote cache.
 
 [[remote-servers]]
-<remote-servers>
+==== <remote-servers>
 
 This child element of cache configures a list of remote servers for this
 cache store.
 
 [[remote-server]]
-<remote-server>
+==== <remote-server>
 
 This element configures a remote server. A remote server is defined
 completely by a locally defined outbound socket binding, through which
@@ -413,17 +412,13 @@ communication is made with the server.
 * `outbound-socket-binding` This attribute configures an outbound socket
 binding for a remote server.
 
-[[section]]
-
 [[local-cache-extends-abstract-cache]]
-<local-cache> extends <abstract cache>
-++++++++++++++++++++++++++++++++++++++
+=== <local-cache> extends <abstract cache>
 
 This element configures a local cache.
 
 [[abstract-clustered-cache-extends-abstract-cache]]
-<abstract clustered-cache> extends <abstract cache>
-+++++++++++++++++++++++++++++++++++++++++++++++++++
+=== <abstract clustered-cache> extends <abstract cache>
 
 This abstract base element defines the attributes and child elements
 common to all clustered caches. A clustered cache is a cache which spans
@@ -446,17 +441,13 @@ milliseconds.
 an acknowledgement when making a remote call, after which the call is
 aborted and an exception is thrown.
 
-[[section-1]]
-
 [[invalidation-cache-extends-abstract-clustered-cache]]
-<invalidation-cache> extends <abstract clustered-cache>
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+=== <invalidation-cache> extends <abstract clustered-cache>
 
-This element configures an invalidation cache.  
+This element configures an invalidation cache.
 
 [[abstract-shared-cache-extends-abstract-clustered-cache]]
-<abstract shared-cache> extends <abstract clustered-cache>
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+=== <abstract shared-cache> extends <abstract clustered-cache>
 
 This abstract base element defines the attributes and child elements
 common to all shared caches. A shared cache is a clustered cache which
@@ -465,7 +456,7 @@ shares state with its cache peers in the cluster. It inherits from
 <clustered-cache> are also defined for <shared-cache>.
 
 [[state-transfer]]
-<state-transfer>
+==== <state-transfer>
 
 * `enabled` If enabled, this will cause the cache to ask neighbouring
 caches for state when it starts up, so the cache starts 'warm', although
@@ -477,10 +468,10 @@ and aborting start-up.
 batch the transfer of cache entries.
 
 [[backups]]
-<backups>
+==== <backups>
 
 [[backup]]
-<backup>
+==== <backup>
 
 * `strategy` This attribute configures the backup strategy for this
 cache. Allowable values are SYNC, ASYNC.
@@ -499,7 +490,7 @@ milliseconds) to wait after the max number of failures is reached, after
 which this backup site should go off-line.
 
 [[backup-for]]
-<backup-for>
+==== <backup-for>
 
 * `remote-cache` This attribute configures the name of the remote cache
 for which this cache acts as a backup.
@@ -507,16 +498,14 @@ for which this cache acts as a backup.
 for which this cache acts as a backup.
 
 [[replicated-cache-extends-abstract-shared-cache]]
-<replicated-cache> extends <abstract shared-cache>
-++++++++++++++++++++++++++++++++++++++++++++++++++
+=== <replicated-cache> extends <abstract shared-cache>
 
 This element configures a replicated cache. With a replicated cache, all
 contents (key-value pairs) of the cache are replicated on all nodes in
 the cluster.
 
 [[distributed-cache-extends-abstract-shared-cache]]
-<distributed-cache> extends <abstract shared-cache>
-+++++++++++++++++++++++++++++++++++++++++++++++++++
+=== <distributed-cache> extends <abstract shared-cache>
 
 This element configures a distributed cache. With a distributed cache,
 contents of the cache are selectively replicated on nodes in the
@@ -533,15 +522,14 @@ entry placed in the L1 cache. Configures the L1 cache behaviour in
 is ignored.
 
 [[use-cases]]
-Use Cases
-~~~~~~~~~
+= Use Cases
 
 In many cases, cache containers and caches will be configured via XML as
 in the example above, so that they will be available upon server
 start-up. However, cache containers and caches may also be added,
 removed or have their configurations changed in a running server by
-making use of the Wildfly management API command-line interface
-(CLI). In this section, we present some key use cases for the Infinispan
+making use of the Wildfly management API command-line interface (CLI).
+In this section, we present some key use cases for the Infinispan
 management API.
 
 The key use cases covered are:
@@ -550,13 +538,14 @@ The key use cases covered are:
 * adding a cache to an existing cache container
 * configuring the transaction subsystem of a cache
 +
+[IMPORTANT]
+
 The Wildfly management API command-line interface (CLI) can be used to
 provide extensive information on the attributes and commands available
 in the Infinispan subsystem interface used in these examples.
 
 [[add-a-cache-container]]
-Add a cache container
-^^^^^^^^^^^^^^^^^^^^^
+== Add a cache container
 
 [source,java]
 ----
@@ -565,8 +554,7 @@ Add a cache container
 ----
 
 [[add-a-cache]]
-Add a cache
-^^^^^^^^^^^
+== Add a cache
 
 [source,java]
 ----
@@ -574,8 +562,7 @@ Add a cache
 ----
 
 [[configure-the-transaction-component-of-a-cache]]
-Configure the transaction component of a cache
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Configure the transaction component of a cache
 
 [source,java]
 ----

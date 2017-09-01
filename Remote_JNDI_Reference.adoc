@@ -1,28 +1,22 @@
-Remote JNDI Reference - Latest WildFly Documentation
-====================================================
-
-[[remote-jndi-reference]]
 Remote JNDI Reference
----------------------
+=====================
 
 [[remote-jndi]]
-Remote JNDI
-~~~~~~~~~~~
+= Remote JNDI
 
 WildFly supports two different types of remote JNDI. The old jnp based
 JNDI implementation used in JBoss AS versions prior to 7.x is no longer
 supported.
 
 [[remote]]
-remote:
-^^^^^^^
+== remote:
 
-The `remote:` protocol uses the WildFly remoting protocol to lookup
+The `remote:` protocol uses the WildFly remoting protocol to lookup
 items from the servers local JNDI. To use it, you must have the
 appropriate jars on the class path, if you are maven user can be done
 simply by adding the following to your `pom.xml`:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <dependency>
   <groupId>org.wildfly</groupId>
@@ -46,8 +40,7 @@ remoteContext = new InitialContext(env);
 ----
 
 [[ejb]]
-ejb:
-^^^^
+== ejb:
 
 The ejb: namespace is provided by the jboss-ejb-client library. This
 protocol allows you to look up EJB's, using their application name,

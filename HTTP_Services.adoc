@@ -1,26 +1,19 @@
-HTTP Services - Latest WildFly Documentation
-============================================
-
-[[http-services]]
 HTTP Services
--------------
+=============
 
-This section summarises the HTTP-based clustering features.
+This section summarizes the HTTP-based clustering features.
 
 [[subsystem-support]]
-Subsystem Support
-~~~~~~~~~~~~~~~~~
+= Subsystem Support
 
 This section describes the key clustering subsystems, JGroups and
 Infinispan. Say a few words about how they work together.
 
 [[jgroups-subsystem]]
-JGroups Subsystem
-^^^^^^^^^^^^^^^^^
+== JGroups Subsystem
 
 [[purpose]]
-Purpose
-^^^^^^^
+== Purpose
 
 The JGroups subsystem provides group communication support for HA
 services in the form of JGroups channels.
@@ -43,25 +36,28 @@ The JGroups subsystem provides the following features:
 
 In the following sections, we describe the JGroups subsystem.
 
+[IMPORTANT]
+
 JGroups channels are created transparently as part of the clustering
 functionality (e.g. on clustered application deployment, channels will
 be created behind the scenes to support clustered features such as
 session replication or transmission of SSO contexts around the cluster).
 
 [[configuration-example]]
-Configuration example
-^^^^^^^^^^^^^^^^^^^^^
+== Configuration example
 
 What follows is a sample JGroups subsystem configuration showing all of
 the possible elements and attributes which may be configured. We shall
 use this example to explain the meaning of the various elements and
 attributes.
 
+[IMPORTANT]
+
 The schema for the subsystem, describing all valid elements and
 attributes, can be found in the Wildfly distribution, in the docs/schema
 directory.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <subsystem xmlns="urn:jboss:domain:jgroups:2.0" default-stack="udp">
     <stack name="udp">
@@ -123,8 +119,7 @@ directory.
 ----
 
 [[subsystem]]
-<subsystem>
-+++++++++++
+=== <subsystem>
 
 This element is used to configure the subsystem within a Wildfly system
 profile.
@@ -137,16 +132,14 @@ the JGroups subsystem. This default stack will be used whenever a stack
 is required but no stack is specified.
 
 [[stack]]
-<stack>
-+++++++
+=== <stack>
 
 This element is used to configure a JGroups protocol stack.
 
 * `name` This attribute is used to specify the name of the stack.
 
 [[transport]]
-<transport>
-+++++++++++
+=== <transport>
 
 This element is used to configure the transport layer (required) of the
 protocol stack.
@@ -179,6 +172,8 @@ tasks which are not handled by the executors above.
 * `rack` This attribute defines a rack (server rack) id for this node.
 * `machine` This attribute defines a machine (host) is for this node.
 
+[IMPORTANT]
+
 site, rack and machine ids are used by the Infinispan topology-aware
 consistent hash function, which when using dist mode, prevents dist mode
 replicas from being stored on the same host, rack or site
@@ -186,7 +181,7 @@ replicas from being stored on the same host, rack or site
 .
 
 [[property]]
-<property>
+==== <property>
 
 This element is used to configure a transport property.
 
@@ -194,8 +189,7 @@ This element is used to configure a transport property.
 value is provided as text for the property element.
 
 [[protocol]]
-<protocol>
-++++++++++
+=== <protocol>
 
 This element is used to configure a (non-transport) protocol layer in
 the JGroups stack. Protocol layers are ordered within the stack.
@@ -208,7 +202,7 @@ the server profile. It is used when JGroups needs to create general
 sockets internally for this protocol instance.
 
 [[property-1]]
-<property>
+==== <property>
 
 This element is used to configure a protocol property.
 
@@ -216,8 +210,7 @@ This element is used to configure a protocol property.
 value is provided as text for the property element.
 
 [[relay]]
-<relay>
-+++++++
+=== <relay>
 
 This element is used to configure the RELAY protocol for a JGroups
 stack. RELAY is a protocol which provides cross-site replication between
@@ -233,7 +226,7 @@ configuration elements, as well as backup configuration elements in the
 Infinispan subsystem)
 
 [[remote-site]]
-<remote-site>
+==== <remote-site>
 
 This element is used to configure a remote site for the RELAY protocol.
 
@@ -245,14 +238,13 @@ communication between this site and the remote site.
 use for communication between this site and the remote site.
 
 [[use-cases]]
-Use Cases
-^^^^^^^^^
+== Use Cases
 
 In many cases, channels will be configured via XML as in the example
 above, so that the channels will be available upon server startup.
 However, channels may also be added, removed or have their
 configurations changed in a running server by making use of the Wildfly
-management API command-line interface (CLI). In this section, we present
+management API command-line interface (CLI). In this section, we present
 some key use cases for the JGroups management API.
 
 The key use cases covered are:
@@ -261,13 +253,14 @@ The key use cases covered are:
 * adding a protocol to an existing stack
 * adding a property to a protocol
 
+[IMPORTANT]
+
 The Wildfly management API command-line interface (CLI) itself can be
 used to provide extensive information on the attributes and commands
 available in the JGroups subsystem interface used in these examples.
 
 [[add-a-stack]]
-Add a stack
-+++++++++++
+=== Add a stack
 
 [source,java]
 ----
@@ -275,8 +268,7 @@ Add a stack
 ----
 
 [[add-a-protocol-to-a-stack]]
-Add a protocol to a stack
-+++++++++++++++++++++++++
+=== Add a protocol to a stack
 
 [source,java]
 ----
@@ -289,8 +281,7 @@ Add a protocol to a stack
 ----
 
 [[add-a-property-to-a-protocol]]
-Add a property to a protocol
-++++++++++++++++++++++++++++
+=== Add a property to a protocol
 
 [source,java]
 ----
@@ -298,27 +289,25 @@ Add a property to a protocol
 ----
 
 [[infinispan-subsystem]]
-Infinispan Subsystem
-++++++++++++++++++++
+=== Infinispan Subsystem
 
 [[purpose-1]]
-Purpose
-^^^^^^^
+== Purpose
 
 The Infinispan subsystem provides caching support for HA services in the
-form of Infinispan caches:  high-performance, transactional caches which
-can operate in both non-distributed and distributed
-scenarios. Distributed caching support is used in the provision of many
-key HA services. For example, the failover of a session-oriented client
-HTTP request from a failing node to a new (failover) node depends on
-session data for the client being available on the new node. In other
-words, the client session data needs to be replicated across nodes in
-the cluster. This is effectively achieved via a distributed Infinispan
-cache. This approach to providing fail-over also applies to EJB SFSB
-sessions. Over and above providing support for fail-over, an underlying
-cache is also required when providing second-level caching for entity
-beans using Hibernate, and this case is also handled through the use of
-an Infinispan cache.
+form of Infinispan caches: high-performance, transactional caches which
+can operate in both non-distributed and distributed scenarios.
+Distributed caching support is used in the provision of many key HA
+services. For example, the failover of a session-oriented client HTTP
+request from a failing node to a new (failover) node depends on session
+data for the client being available on the new node. In other words, the
+client session data needs to be replicated across nodes in the cluster.
+This is effectively achieved via a distributed Infinispan cache. This
+approach to providing fail-over also applies to EJB SFSB sessions. Over
+and above providing support for fail-over, an underlying cache is also
+required when providing second-level caching for entity beans using
+Hibernate, and this case is also handled through the use of an
+Infinispan cache.
 
 The Infinispan subsystem provides the following features:
 
@@ -329,6 +318,8 @@ instances
 
 In the following sections, we describe the Infinispan subsystem.
 
+[IMPORTANT]
+
 Infiispan cache containers and caches are created transparently as part
 of the clustering functionality (e.g. on clustered application
 deployment, cache containers and their associated caches will be created
@@ -336,20 +327,19 @@ behind the scenes to support clustered features such as session
 replication or caching of entities around the cluster).
 
 [[configuration-example-1]]
-Configuration Example
-^^^^^^^^^^^^^^^^^^^^^
+== Configuration Example
 
 In this section, we provide an example XML configuration of the
 infinispan subsystem and review the configuration elements and
 attributes.
 
+[IMPORTANT]
+
 The schema for the subsystem, describing all valid elements and
 attributes, can be found in the Wildfly distribution, in the docs/schema
 directory.
 
- 
-
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <subsystem xmlns="urn:jboss:domain:infinispan:2.0">
   <cache-container name="server" aliases="singleton cluster" default-cache="default" module="org.wildfly.clustering.server">
@@ -405,8 +395,7 @@ directory.
 ----
 
 [[cache-container]]
-<cache-container>
-+++++++++++++++++
+=== <cache-container>
 
 This element is used to configure a cache container.
 
@@ -438,7 +427,7 @@ This element has the following child elements: *<transport>*,
 *<distributed-cache>*.
 
 [[transport-1]]
-<transport>
+==== <transport>
 
 This element is used to configure the JGroups transport used by the
 cache container, when required.
@@ -459,6 +448,8 @@ obtaining locks for the transport.
 * `machine` This attribute configures the machine id of the cache
 container.
 +
+[IMPORTANT]
+
 The presence of the transport element is required when operating in
 clustered mode
 
@@ -466,6 +457,8 @@ The remaining child elements of *<cache-container>*, namely
 *<local-cache>*, *<invalidation-cache>*, *<replicated-cache>* and
 *<distributed-cache>*, each configures one of four key cache types or
 classifications.
+
+[IMPORTANT]
 
 These cache-related elements are actually part of an xsd hierarchy with
 abstract complexTypes *cache*, *clustered-cache*, and *shared-cache*. In
@@ -476,10 +469,10 @@ hierarchy of base elements, and then show how the cache type elements
 relate to them.
 
 [[abstract-cache]]
-<abstract cache>
+==== <abstract cache>
 
 This abstract base element defines the attributes and child elements
-common to all non-clustered caches. 
+common to all non-clustered caches.
 
 * `name` This attribute configures the name of the cache. This name may
 be referenced by other subsystems.
@@ -503,12 +496,12 @@ elements: *<indexing-properties>, <locking>*, *<transaction>*,
 *<mixed-keyed-jdbc-store>*, *<remote-store>*.
 
 [[indexing-properties]]
-<indexing-properties>
+===== <indexing-properties>
 
 This child element defines properties to control indexing behaviour.
 
 [[locking]]
-<locking>
+===== <locking>
 
 This child element configures the locking behaviour of the cache.
 
@@ -526,7 +519,7 @@ concurrency level. Adjust this value according to the number of
 concurrent threads interacting with Infinispan.
 
 [[transaction]]
-<transaction>
+===== <transaction>
 
 This child element configures the transactional behaviour of the cache.
 
@@ -540,7 +533,7 @@ timeout.
 one of OPTIMISTIC or PESSIMISTIC.
 
 [[eviction]]
-<eviction>
+===== <eviction>
 
 This child element configures the eviction behaviour of the cache.
 
@@ -553,7 +546,7 @@ value will default to the least power of two larger than selected value.
 -1 means no limit.
 
 [[expiration]]
-<expiration>
+===== <expiration>
 
 This child element configures the expiration behaviour of the cache.
 
@@ -575,16 +568,18 @@ namely *<store>*, *<file-store>*, *<remote-store>*,
 *<mixed-keyed-jdbc-store>*, each configures one of six key cache store
 types.
 
+[IMPORTANT]
+
 These cache store-related elements are actually part of an xsd extension
 hierarchy with abstract complexTypes *base-store* and *base-jdbc-store*.
 As before, in order to simplify the presentation, we notate these as
 pseudo-elements *<abstract base-store>* and *<abstract
-base-jdbc-store>*.  In what follows, we first describe the extension
+base-jdbc-store>*. In what follows, we first describe the extension
 hierarchy of base elements, and then show how the cache store elements
 relate to them.
 
 [[abstract-base-store]]
-<abstract base-store>
+===== <abstract base-store>
 
 This abstract base element defines the attributes and child elements
 common to all cache stores.
@@ -632,7 +627,7 @@ properties.
 The abstract base element has one child element: *<write-behind>*
 
 [[write-behind]]
-<write-behind>
+===== <write-behind>
 
 This element is used to configure a cache store as write-behind instead
 of write-through. In write-through mode, writes to the cache are also
@@ -653,7 +648,7 @@ thread pool whose threads are responsible for applying the modifications
 to the cache store.
 
 [[abstract-base-jdbc-store-extends-abstract-base-store]]
-<abstract base-jdbc-store> extends <abstract base-store>
+===== <abstract base-jdbc-store> extends <abstract base-store>
 
 This abstract base element defines the attributes and child elements
 common to all JDBC-based cache stores.
@@ -666,11 +661,11 @@ store cache entries.
 store binary cache entries.
 
 [[file-store-extends-abstract-base-store]]
-<file-store> extends <abstract base-store>
+===== <file-store> extends <abstract base-store>
 
 This child element is used to configure a file-based cache store. This
 requires specifying the name of the file to be used as backing storage
-for the cache store. 
+for the cache store.
 
 * `relative-to` This attribute optionally configures a relative path
 prefix for the file store path. Can be null.
@@ -679,7 +674,7 @@ prefix for the file store path. Can be null.
 relation to the value for *relative-to*, otherwise.
 
 [[remote-store-extends-abstract-base-store]]
-<remote-store> extends <abstract base-store>
+===== <remote-store> extends <abstract base-store>
 
 This child element of cache is used to configure a remote cache store.
 It has a child <remote-servers>.
@@ -692,13 +687,13 @@ communication with the remote cache.
 communication with the remote cache.
 
 [[remote-servers]]
-<remote-servers>
+===== <remote-servers>
 
 This child element of cache configures a list of remote servers for this
 cache store.
 
 [[remote-server]]
-<remote-server>
+===== <remote-server>
 
 This element configures a remote server. A remote server is defined
 completely by a locally defined outbound socket binding, through which
@@ -707,15 +702,13 @@ communication is made with the server.
 * `outbound-socket-binding` This attribute configures an outbound socket
 binding for a remote server.
 
-[[section]]
-
 [[local-cache-extends-abstract-cache]]
-<local-cache> extends <abstract cache>
+==== <local-cache> extends <abstract cache>
 
 This element configures a local cache.
 
 [[abstract-clustered-cache-extends-abstract-cache]]
-<abstract clustered-cache> extends <abstract cache>
+==== <abstract clustered-cache> extends <abstract cache>
 
 This abstract base element defines the attributes and child elements
 common to all clustered caches. A clustered cache is a cache which spans
@@ -738,15 +731,13 @@ milliseconds.
 an acknowledgement when making a remote call, after which the call is
 aborted and an exception is thrown.
 
-[[section-1]]
-
 [[invalidation-cache-extends-abstract-clustered-cache]]
-<invalidation-cache> extends <abstract clustered-cache>
+==== <invalidation-cache> extends <abstract clustered-cache>
 
-This element configures an invalidation cache.  
+This element configures an invalidation cache.
 
 [[abstract-shared-cache-extends-abstract-clustered-cache]]
-<abstract shared-cache> extends <abstract clustered-cache>
+==== <abstract shared-cache> extends <abstract clustered-cache>
 
 This abstract base element defines the attributes and child elements
 common to all shared caches. A shared cache is a clustered cache which
@@ -755,7 +746,7 @@ shares state with its cache peers in the cluster. It inherits from
 <clustered-cache> are also defined for <shared-cache>.
 
 [[state-transfer]]
-<state-transfer>
+===== <state-transfer>
 
 * `enabled` If enabled, this will cause the cache to ask neighbouring
 caches for state when it starts up, so the cache starts 'warm', although
@@ -767,10 +758,10 @@ and aborting start-up.
 batch the transfer of cache entries.
 
 [[backups]]
-<backups>
+===== <backups>
 
 [[backup]]
-<backup>
+===== <backup>
 
 * `strategy` This attribute configures the backup strategy for this
 cache. Allowable values are SYNC, ASYNC.
@@ -789,7 +780,7 @@ milliseconds) to wait after the max number of failures is reached, after
 which this backup site should go off-line.
 
 [[backup-for]]
-<backup-for>
+===== <backup-for>
 
 * `remote-cache` This attribute configures the name of the remote cache
 for which this cache acts as a backup.
@@ -797,14 +788,14 @@ for which this cache acts as a backup.
 for which this cache acts as a backup.
 
 [[replicated-cache-extends-abstract-shared-cache]]
-<replicated-cache> extends <abstract shared-cache>
+==== <replicated-cache> extends <abstract shared-cache>
 
 This element configures a replicated cache. With a replicated cache, all
 contents (key-value pairs) of the cache are replicated on all nodes in
 the cluster.
 
 [[distributed-cache-extends-abstract-shared-cache]]
-<distributed-cache> extends <abstract shared-cache>
+==== <distributed-cache> extends <abstract shared-cache>
 
 This element configures a distributed cache. With a distributed cache,
 contents of the cache are selectively replicated on nodes in the
@@ -821,15 +812,14 @@ entry placed in the L1 cache. Configures the L1 cache behaviour in
 is ignored.
 
 [[use-cases-1]]
-Use Cases
-^^^^^^^^^
+== Use Cases
 
 In many cases, cache containers and caches will be configured via XML as
 in the example above, so that they will be available upon server
 start-up. However, cache containers and caches may also be added,
 removed or have their configurations changed in a running server by
-making use of the Wildfly management API command-line interface
-(CLI). In this section, we present some key use cases for the Infinispan
+making use of the Wildfly management API command-line interface (CLI).
+In this section, we present some key use cases for the Infinispan
 management API.
 
 The key use cases covered are:
@@ -838,13 +828,14 @@ The key use cases covered are:
 * adding a cache to an existing cache container
 * configuring the transaction subsystem of a cache
 +
+[IMPORTANT]
+
 The Wildfly management API command-line interface (CLI) can be used to
 provide extensive information on the attributes and commands available
 in the Infinispan subsystem interface used in these examples.
 
 [[add-a-cache-container]]
-Add a cache container
-+++++++++++++++++++++
+=== Add a cache container
 
 [source,java]
 ----
@@ -853,8 +844,7 @@ Add a cache container
 ----
 
 [[add-a-cache]]
-Add a cache
-+++++++++++
+=== Add a cache
 
 [source,java]
 ----
@@ -862,8 +852,7 @@ Add a cache
 ----
 
 [[configure-the-transaction-component-of-a-cache]]
-Configure the transaction component of a cache
-++++++++++++++++++++++++++++++++++++++++++++++
+=== Configure the transaction component of a cache
 
 [source,java]
 ----
@@ -871,446 +860,12 @@ Configure the transaction component of a cache
 ----
 
 [[clustered-web-sessions]]
-Clustered Web Sessions
-~~~~~~~~~~~~~~~~~~~~~~
+= Clustered Web Sessions
 
 [[clustered-sso]]
-Clustered SSO
-~~~~~~~~~~~~~
+= Clustered SSO
 
 [[load-balancing]]
-Load Balancing
-~~~~~~~~~~~~~~
+= Load Balancing
 
-This section describes load balancing via Apache + mod_jk and Apache +
-mod_cluster.
-
-[[load-balancing-with-apache-mod_jk]]
-Load balancing with Apache + mod_jk
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Describe load balancing with Apache using mod_jk.
-
-[[load-balancing-with-apache-mod_cluster]]
-Load balancing with Apache + mod_cluster
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Describe load balancing with Apache using mod_cluster.
-
-[[mod_cluster-subsystem]]
-mod_cluster Subsystem
-^^^^^^^^^^^^^^^^^^^^^
-
-The mod_cluster integration is done via the
-http://docs.jboss.org/mod_cluster/1.1.0/html/java.AS7config.html[modcluster
-subsystem].
-
-[[configuration]]
-Configuration
-~~~~~~~~~~~~~
-
-[[instance-id-or-jvmroute]]
-Instance ID or JVMRoute
-^^^^^^^^^^^^^^^^^^^^^^^
-
-The instance-id or JVMRoute defaults to jboss.node.name property passed
-on server startup (e.g. via -Djboss.node.name=XYZ).
-
-[source,java]
-----
-[standalone@localhost:9990 /] /subsystem=undertow/:read-attribute(name=instance-id)
-{
-    "outcome" => "success",
-    "result" => expression "${jboss.node.name}"
-}
-----
-
-To configure instance-id statically, configure the corresponding
-property in Undertow subsystem:
-
-[source,java]
-----
-[standalone@localhost:9990 /] /subsystem=undertow/:write-attribute(name=instance-id,value=myroute)
-{
-    "outcome" => "success",
-    "response-headers" => {
-        "operation-requires-reload" => true,
-        "process-state" => "reload-required"
-    }
-}
-----
-
-[[proxies]]
-Proxies
-^^^^^^^
-
-By default, mod_cluster is configured for multicast-based discovery. To
-specify a static list of proxies, create a remote-socket-binding for
-each proxy and then reference them in the 'proxies' attribute. See the
-following example for configuration in the domain mode:
-
-[source,java]
-----
-[domain@localhost:9990 /] /socket-binding-group=ha-sockets/remote-destination-outbound-socket-binding=proxy1:add(host=10.21.152.86, port=6666)
-{
-    "outcome" => "success",
-    "result" => undefined,
-    "server-groups" => undefined
-}
-[domain@localhost:9990 /] /socket-binding-group=ha-sockets/remote-destination-outbound-socket-binding=proxy2:add(host=10.21.152.87, port=6666)
-{
-    "outcome" => "success",
-    "result" => undefined,
-    "server-groups" => undefined
-}
-[domain@localhost:9990 /] /profile=ha/subsystem=modcluster/mod-cluster-config=configuration/:write-attribute(name=proxies, value=[proxy1, proxy2]
-{
-    "outcome" => "success",
-    "result" => undefined,
-    "server-groups" => undefined
-}
-[domain@localhost:9990 /] :reload-servers
-{
-    "outcome" => "success",
-    "result" => undefined,
-    "server-groups" => undefined
-}
-----
-
-[[runtime-operations]]
-Runtime Operations
-~~~~~~~~~~~~~~~~~~
-
-The modcluster subsystem supports several operations:
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :read-operation-names
-{
-    "outcome" => "success",
-    "result" => [
-        "add",
-        "add-custom-metric",
-        "add-metric",
-        "add-proxy",
-        "disable",
-        "disable-context",
-        "enable",
-        "enable-context",
-        "list-proxies",
-        "read-attribute",
-        "read-children-names",
-        "read-children-resources",
-        "read-children-types",
-        "read-operation-description",
-        "read-operation-names",
-        "read-proxies-configuration",
-        "read-proxies-info",
-        "read-resource",
-        "read-resource-description",
-        "refresh",
-        "remove-custom-metric",
-        "remove-metric",
-        "remove-proxy",
-        "reset",
-        "stop",
-        "stop-context",
-        "validate-address",
-        "write-attribute"
-    ]
-}
-----
-
-The operations specific to the modcluster subsystem are divided in 3
-categories the ones that affects the configuration and require a restart
-of the subsystem, the one that just modify the behaviour temporarily and
-the ones that display information from the httpd part.
-
-[[operations-displaying-httpd-informations]]
-operations displaying httpd informations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-There are 2 operations that display how Apache httpd sees the node:
-
-[[read-proxies-configuration]]
-read-proxies-configuration
-++++++++++++++++++++++++++
-
-Send a DUMP message to all Apache httpd the node is connected to and
-display the message received from Apache httpd.
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :read-proxies-configuration
-{
-    "outcome" => "success",
-    "result" => [
-        "neo3:6666",
-        "balancer: [1] Name: mycluster Sticky: 1 [JSESSIONID]/[jsessionid] remove: 0 force: 1 Timeout: 0 Maxtry: 1
-node: [1:1],Balancer: mycluster,JVMRoute: 498bb1f0-00d9-3436-a341-7f012bc2e7ec,Domain: [],Host: 127.0.0.1,Port: 8080,Type: http,flushpackets: 0,flushwait: 10,ping: 10,smax: 26,ttl: 60,timeout: 0
-host: 1 [example.com] vhost: 1 node: 1
-host: 2 [localhost] vhost: 1 node: 1
-host: 3 [default-host] vhost: 1 node: 1
-context: 1 [/myapp] vhost: 1 node: 1 status: 1
-context: 2 [/] vhost: 1 node: 1 status: 1
-",
-        "jfcpc:6666",
-        "balancer: [1] Name: mycluster Sticky: 1 [JSESSIONID]/[jsessionid] remove: 0 force: 1 Timeout: 0 maxAttempts: 1
-node: [1:1],Balancer: mycluster,JVMRoute: 498bb1f0-00d9-3436-a341-7f012bc2e7ec,LBGroup: [],Host: 127.0.0.1,Port: 8080,Type: http,flushpackets: 0,flushwait: 10,ping: 10,smax: 26,ttl: 60,timeout: 0
-host: 1 [default-host] vhost: 1 node: 1
-host: 2 [localhost] vhost: 1 node: 1
-host: 3 [example.com] vhost: 1 node: 1
-context: 1 [/] vhost: 1 node: 1 status: 1
-context: 2 [/myapp] vhost: 1 node: 1 status: 1
-"
-    ]
-}
-----
-
-[[read-proxies-info]]
-read-proxies-info
-+++++++++++++++++
-
-Send a INFO message to all Apache httpd the node is connected to and
-display the message received from Apache httpd.
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :read-proxies-info
-{
-    "outcome" => "success",
-    "result" => [
-        "neo3:6666",
-        "Node: [1],Name: 498bb1f0-00d9-3436-a341-7f012bc2e7ec,Balancer: mycluster,Domain: ,Host: 127.0.0.1,Port: 8080,Type: http,Flushpackets: Off,Flushwait: 10000,Ping: 10000000,Smax: 26,Ttl: 60000000,Elected: 0,Read: 0,Transfered: 0,Connected: 0,Load: -1
-Vhost: [1:1:1], Alias: example.com
-Vhost: [1:1:2], Alias: localhost
-Vhost: [1:1:3], Alias: default-host
-Context: [1:1:1], Context: /myapp, Status: ENABLED
-Context: [1:1:2], Context: /, Status: ENABLED
-",
-        "jfcpc:6666",
-        "Node: [1],Name: 498bb1f0-00d9-3436-a341-7f012bc2e7ec,Balancer: mycluster,LBGroup: ,Host: 127.0.0.1,Port: 8080,Type: http,Flushpackets: Off,Flushwait: 10,Ping: 10,Smax: 26,Ttl: 60,Elected: 0,Read: 0,Transfered: 0,Connected: 0,Load: 1
-Vhost: [1:1:1], Alias: default-host
-Vhost: [1:1:2], Alias: localhost
-Vhost: [1:1:3], Alias: example.com
-Context: [1:1:1], Context: /, Status: ENABLED
-Context: [1:1:2], Context: /myapp, Status: ENABLED
-"
-    ]
-}
-----
-
-[[section-2]]
-
-[[operations-that-handle-the-proxies-the-node-is-connected-too]]
-operations that handle the proxies the node is connected too
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-there are 3 operation that could be used to manipulate the list of
-Apache httpd the node is connected too.
-
-[[list-proxies]]
-list-proxies:
-+++++++++++++
-
-Displays the httpd that are connected to the node. The httpd could be
-discovered via the Advertise protocol or via the proxy-list attribute.
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :list-proxies
-{
-    "outcome" => "success",
-    "result" => [
-        "proxy1:6666",
-        "proxy2:6666"
-    ]
-}
-----
-
-[[remove-proxy]]
-remove-proxy
-++++++++++++
-
-Remove a proxy from the discovered proxies or  temporarily from the
-proxy-list attribute.
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :remove-proxy(host=jfcpc, port=6666)
-{"outcome" => "success"}
-----
-
-[[proxy]]
-proxy
-+++++
-
-Add a proxy to the discovered proxies or  temporarily to the proxy-list
-attribute.
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :add-proxy(host=jfcpc, port=6666)
-{"outcome" => "success"}
-----
-
-[[context-related-operations]]
-Context related operations
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Those operations allow to send context related commands to Apache httpd.
-They are send automatically when deploying or undeploying  webapps.
-
-[[enable-context]]
-enable-context
-++++++++++++++
-
-Tell Apache httpd that the context is ready receive requests.
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :enable-context(context=/myapp, virtualhost=default-host)
-{"outcome" => "success"}
-----
-
-[[disable-context]]
-disable-context
-+++++++++++++++
-
-Tell Apache httpd that it shouldn't send new session requests to the
-context of the virtualhost.
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :disable-context(context=/myapp, virtualhost=default-host)
-{"outcome" => "success"}
-----
-
-[[stop-context]]
-stop-context
-++++++++++++
-
-Tell Apache httpd that it shouldn't send requests to the context of the
-virtualhost.
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :stop-context(context=/myapp, virtualhost=default-host, waittime=50)
-{"outcome" => "success"}
-----
-
-[[node-related-operations]]
-Node related operations
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Those operations are like the context operation but they apply to all
-webapps running on the node and operation that affect the whole node.
-
-[[refresh]]
-refresh
-+++++++
-
-Refresh the node by sending a new CONFIG message to Apache httpd.
-
-[[reset]]
-reset
-+++++
-
-reset the connection between Apache httpd and the node
-
-[[configuration-1]]
-Configuration
-^^^^^^^^^^^^^
-
-[[metric-configuration]]
-Metric configuration
-++++++++++++++++++++
-
-There are 4 metric operations corresponding to add and remove load
-metrics to the dynamic-load-provider. Note that when nothing is defined
-a simple-load-provider is use with a fixed load factor of one.
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :read-resource(name=mod-cluster-config)
-{
-    "outcome" => "success",
-    "result" => {"simple-load-provider" => {"factor" => "1"}}
-}
-----
-
-that corresponds to the following configuration:
-
-[source,java]
-----
-<subsystem xmlns="urn:jboss:domain:modcluster:1.0">
-            <mod-cluster-config>
-                <simple-load-provider factor="1"/>
-            </mod-cluster-config>
- </subsystem>
-----
-
-[[metric]]
-metric
-
-Add a metric to the dynamic-load-provider, the dynamic-load-provider in
-configuration is created if needed.
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :add-metric(type=cpu)
-{"outcome" => "success"}
-[standalone@localhost:9999 subsystem=modcluster] :read-resource(name=mod-cluster-config)
-{
-    "outcome" => "success",
-    "result" => {
-        "dynamic-load-provider" => {
-            "history" => 9,
-            "decay" => 2,
-            "load-metric" => [{
-                "type" => "cpu"
-            }]
-        }
-    }
-}
-----
-
-[[remove-metric]]
-remove-metric
-
-Remove a metric from the dynamic-load-provider.
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :remove-metric(type=cpu)
-{"outcome" => "success"}
-----
-
-[[custom-metric-remove-custom-metric]]
-custom-metric / remove-custom-metric
-
-like the add-metric and remove-metric except they require a class
-parameter instead the type. Usually they needed additional properties
-which can be specified
-
-[source,java]
-----
-[standalone@localhost:9999 subsystem=modcluster] :add-custom-metric(class=myclass, property=[("pro1" => "value1"), ("pro2" => "value2")]
-{"outcome" => "success"}
-----
-
-which corresponds the following in the xml configuration file:
-
-[source,java]
-----
-<subsystem xmlns="urn:jboss:domain:modcluster:1.0">
-            <mod-cluster-config>
-                <dynamic-load-provider history="9" decay="2">
-                    <custom-load-metric class="myclass">
-                        <property name="pro1" value="value1"/>
-                        <property name="pro2" value="value2"/>
-                    </custom-load-metric>
-                </dynamic-load-provider>
-            </mod-cluster-config>
-</subsystem>
-----
+The included page could not be found.

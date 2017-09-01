@@ -1,18 +1,13 @@
-Messaging configuration - Latest WildFly Documentation
-======================================================
-
-[[messaging-configuration]]
 Messaging configuration
------------------------
+=======================
 
 The JMS server configuration is done through the _messaging-activemq_
 subsystem. In this chapter we are going outline the frequently used
 configuration options. For a more detailed explanation please consult
-the Artemis user guide (See "Component Reference"). 
+the Artemis user guide (See "Component Reference").
 
 [[required-extension]]
-Required Extension
-~~~~~~~~~~~~~~~~~~
+= Required Extension
 
 The configuration options discussed in this section assume that the the
 `org.wildfly.extension.messaging-activemq` extension is present in your
@@ -31,8 +26,7 @@ element to the xml or by using the following CLI operation:
 ----
 
 [[connectors]]
-Connectors
-~~~~~~~~~~
+= Connectors
 
 There are three kind of connectors that can be used to connect to
 WildFly JMS Server
@@ -45,75 +39,74 @@ TCP for the communication)
 Server to upgrade from a HTTP connection)
 
 [[jms-connection-factories]]
-JMS Connection Factories
-~~~~~~~~~~~~~~~~~~~~~~~~
+= JMS Connection Factories
 
 There are three kinds of _basic_ JMS `connection-factory` that depends
 on the type of connectors that is used.
 
-There is also a `pooled-connection-factory` which is special in that it
-is essentially a configuration facade for _both_ the inbound and
-outbound connectors of the the Artemis JCA Resource Adapter.  An MDB can
+There is also a `pooled-connection-factory` which is special in that it
+is essentially a configuration facade for _both_ the inbound and
+outbound connectors of the the Artemis JCA Resource Adapter. An MDB can
 be configured to use a `pooled-connection-factory` (e.g. using
-`@ResourceAdapter`).  In this context, the MDB leverages the _inbound
-connector_ of the Artemis JCA RA.  Other kinds of clients can look up
-the pooled-connection-factory in JNDI (or inject it) and use it to send
-messages.  In this context, such a client would leverage the _outbound
-connector_ of the Artemis JCA RA.  A `pooled-connection-factory` is also
+`@ResourceAdapter`). In this context, the MDB leverages the _inbound
+connector_ of the Artemis JCA RA. Other kinds of clients can look up the
+pooled-connection-factory in JNDI (or inject it) and use it to send
+messages. In this context, such a client would leverage the _outbound
+connector_ of the Artemis JCA RA. A `pooled-connection-factory` is also
 special because:
 
 * It is only available to local clients, although it can be configured
 to point to a remote server.
 * As the name suggests, it is pooled and therefore provides superior
-performance to the clients which are able to use it.  The pool size can
+performance to the clients which are able to use it. The pool size can
 be configured via the `max-pool-size` and `min-pool-size` attributes.
-* It should only be used to  _send_ (i.e. produce) messages when looked
+* It should only be used to _send_ (i.e. produce) messages when looked
 up in JNDI or injected.
 * It can be configured to use specific security credentials via the
-`user` and `password` attributes.  This is useful if the remote server
-to which it is pointing is secured.
+`user` and `password` attributes. This is useful if the remote server to
+which it is pointing is secured.
 * Resources acquired from it will be automatically enlisted any on-going
-JTA transaction.  If you want to send a message from an EJB using CMT
+JTA transaction. If you want to send a message from an EJB using CMT
 then this is likely the connection factory you want to use so the send
 operation will be atomically committed along with the rest of the EJB's
 transaction operations.
 
-To be clear, the _inbound connector_ of the Artemis JCA RA (which is for
+To be clear, the _inbound connector_ of the Artemis JCA RA (which is for
 consuming messages) is only used by MDBs and other JCA-based components.
- It is not available to traditional clients.
+It is not available to traditional clients.
 
-Both a  `connection-factory` and a `pooled-connection-factory` reference
-a `connector` declaration.  
+Both a `connection-factory` and a `pooled-connection-factory` reference
+a `connector` declaration.
 
-A `netty-connector` is associated with a `socket-binding` which tells
+A `netty-connector` is associated with a `socket-binding` which tells
 the client using the `connection-factory` where to connect.
 
 * A `connection-factory` referencing a `netty-connector` is suitable to
-be used by a  _remote_ client to send messages to or receive messages
+be used by a _remote_ client to send messages to or receive messages
 from the server (assuming the connection-factory has an appropriately
-exported `entry`).  
-* A `pooled-connection-factory` looked up in JNDI or injected which
-is referencing a `netty-connector` is suitable to be used by a _local_
-client to send messages to a remote server granted the
-`socket-binding` references an `outbound-socket-binding` pointing to the
-remote server in question.
-* A  `pooled-connection-factory` used by an MDB which is referencing a 
-`remote-connector` is suitable to consume messages from a remote server
-granted the  `socket-binding` references an 
-`outbound-socket-binding` pointing to the remote server in question.
+exported `entry`).
+* A `pooled-connection-factory` looked up in JNDI or injected which is
+referencing a `netty-connector` is suitable to be used by a _local_
+client to send messages to a remote server granted the `socket-binding`
+references an `outbound-socket-binding` pointing to the remote server in
+question.
+* A `pooled-connection-factory` used by an MDB which is referencing a
+`remote-connector` is suitable to consume messages from a remote server
+granted the `socket-binding` references an `outbound-socket-binding`
+pointing to the remote server in question.
 
 An `in-vm-connector` is associated with a `server-id` which tells the
 client using the `connection-factory` where to connect (since multiple
 Artemis servers can run in a single JVM).
 
-* A  `connection-factory` referencing an `in-vm-connector` is suitable
-to be used by a _local_ client to either send messages to or receive
-messages from a local server.  
-* A  `pooled-connection-factory` looked up in JNDI or injected which is
+* A `connection-factory` referencing an `in-vm-connector` is suitable to
+be used by a _local_ client to either send messages to or receive
+messages from a local server.
+* A `pooled-connection-factory` looked up in JNDI or injected which is
 referencing an `in-vm-connector` is suitable to be used by a _local_
 client only to send messages to a local server.
-* A  `pooled-connection-factory` used by an MDB which is referencing an 
-`in-vm-connector` is suitable only to consume messages from a local
+* A `pooled-connection-factory` used by an MDB which is referencing an
+`in-vm-connector` is suitable only to consume messages from a local
 server.
 
 A `http-connector` is associated with the `socket-binding` that
@@ -124,35 +117,35 @@ be used by a remote client to send messages to or receive messages from
 the server by connecting to its HTTP port before upgrading to the
 messaging protocol.
 * A `pooled-connection-factory` referencing a `http-connector` is
-suitable to be used by a local client to send messages to a remote
-server  granted the  `socket-binding` references an 
-`outbound-socket-binding` pointing to the remote server in question.
-* A  `pooled-connection-factory` used by an MDB which is referencing a 
-`http-connector` is suitable only to consume messages from a remote
-server granted the  `socket-binding` references an 
-`outbound-socket-binding` pointing to the remote server in question.
+suitable to be used by a local client to send messages to a remote
+server granted the `socket-binding` references an
+`outbound-socket-binding` pointing to the remote server in question.
+* A `pooled-connection-factory` used by an MDB which is referencing a
+`http-connector` is suitable only to consume messages from a remote
+server granted the `socket-binding` references an
+`outbound-socket-binding` pointing to the remote server in question.
 
 The `entry` declaration of a `connection-factory` or a
 `pooled-connection-factory` specifies the JNDI name under which the
-factory will be exposed.  Only JNDI names bound in the
-`"java:jboss/exported"` namespace are available to remote clients.  If a
-`connection-factory` has an entry bound in the  `"java:jboss/exported"`
+factory will be exposed. Only JNDI names bound in the
+`"java:jboss/exported"` namespace are available to remote clients. If a
+`connection-factory` has an entry bound in the `"java:jboss/exported"`
 namespace a remote client would look-up the `connection-factory` using
-the text _after_  `"java:jboss/exported"`.  For example, the "
-`RemoteConnectionFactory`" is bound by default to 
+the text _after_ `"java:jboss/exported"`. For example, the "
+`RemoteConnectionFactory`" is bound by default to
 `"java:jboss/exported/jms/RemoteConnectionFactory"` which means a remote
 client would look-up this `connection-factory` using "
-`jms/RemoteConnectionFactory`".  A `pooled-connection-factory` should
-_not_ have any `entry` bound in the " `java:jboss/exported`" namespace
+`jms/RemoteConnectionFactory`". A `pooled-connection-factory` should
+_not_ have any `entry` bound in the " `java:jboss/exported`" namespace
 because a `pooled-connection-factory` is not suitable for remote
 clients.
 
 Since JMS 2.0, a default JMS connection factory is accessible to EE
-application under the JNDI name `java:comp/DefaultJMSConnectionFactory.`
-WildFly messaging subsystem defines a  `pooled-connection-factory` that
+application under the JNDI name `java:comp/DefaultJMSConnectionFactory.`
+WildFly messaging subsystem defines a `pooled-connection-factory` that
 is used to provide this default connection factory. Any parameter change
 on this `pooled-connection-factory` will be take into account by any EE
-application looking the default JMS provider under the JNDI name 
+application looking the default JMS provider under the JNDI name
 `java:comp/DefaultJMSConnectionFactory.`
 
 [source,java]
@@ -187,11 +180,10 @@ application looking the default JMS provider under the JNDI name 
 ~(See standalone/configuration/standalone-full.xml)~
 
 [[jms-queues-and-topics]]
-JMS Queues and Topics
-~~~~~~~~~~~~~~~~~~~~~
+= JMS Queues and Topics
 
 JMS queues and topics are sub resources of the messaging-actively
-subsystem. One can define either a `jms-queue` or `jms-topic`.  Each
+subsystem. One can define either a `jms-queue` or `jms-topic`. Each
 destination _must_ be given a `name` and contain at least one entry in
 its `entries` element (separated by whitespace).
 
@@ -255,8 +247,7 @@ To read the description of a specific command execute 'jms-queue command_name --
 ----
 
 [[dead-letter-redelivery]]
-Dead Letter & Redelivery
-~~~~~~~~~~~~~~~~~~~~~~~~
+= Dead Letter & Redelivery
 
 Some of the settings are applied against an address wild card instead of
 a specific messaging destination. The dead letter queue and redelivery
@@ -276,8 +267,7 @@ settings belong into this group:
 ~(See standalone/configuration/standalone-full.xml)~
 
 [[security-settings-for-artemis-addresses-and-jms-destinations]]
-Security Settings for Artemis addresses and JMS destinations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Security Settings for Artemis addresses and JMS destinations
 
 Security constraints are matched against an address wildcard, similar to
 the DLQ and redelivery settings.
@@ -298,8 +288,7 @@ the DLQ and redelivery settings.
 ~(See standalone/configuration/standalone-full.xml)~
 
 [[security-domain-for-users]]
-Security Domain for Users
-~~~~~~~~~~~~~~~~~~~~~~~~~
+= Security Domain for Users
 
 By default, Artemis will use the " `other`" JAAS security domain. This
 domain is used to authenticate users making connections to Artemis and
@@ -316,8 +305,7 @@ changed by using the `security-domain`, e.g.:
 ----
 
 [[using-the-elytron-subsystem]]
-Using the Elytron Subsystem
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Using the Elytron Subsystem
 
 You can also use the elytron subsystem to secure the messaging-activemq
 subsystem.
@@ -330,48 +318,26 @@ To use an Elytron security domain:
 ----
 /subsystem=messaging-activemq/server=default:undefine-attribute(name=security-domain)
 ----
-2.  Set an Elytron security domain.
+
+* Set an Elytron security domain.
 +
 [source,java]
 ----
 /subsystem=messaging-activemq/server=default:write-attribute(name=elytron-domain, value=myElytronSecurityDomain)
 ----
-
-You can only define either `security-domain` or `elytron-domain`, but
-you cannot have both defined at the same time. If neither is defined,
-WildFly will use the `security-domain` default value of `other`, which
-maps to the `other` legacy security domain.
-
-[[cluster-authentication]]
-Cluster Authentication
-~~~~~~~~~~~~~~~~~~~~~~
-
- If the Artemis server is configured to be clustered, it will use the
-`cluster` 's `user` and `password` attributes to connect to other
-Artemis nodes in the cluster.
-
-If you do not change the default value of <cluster-password>, Artemis
-will fail to authenticate with the error:
-
-[source,java]
-----
-HQ224018: Failed to create session: HornetQExceptionerrorType=CLUSTER_SECURITY_EXCEPTION message=HQ119099: Unable to authenticate cluster user: HORNETQ.CLUSTER.ADMIN.USER
-----
-
-To prevent this error, you must specify a value for 
-`<cluster-password>`. It is possible to encrypt this value by following
+* To prevent this error, you must specify a value for
+`<cluster-password>`. It is possible to encrypt this value by following
 https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.1/html/Security_Guide/sect-Password_Vaults_for_Sensitive_Strings.html[this
 guide].
-
-Alternatively, you can use the system
-property jboss.messaging.cluster.password to specify the cluster
-password from the command line.
-
++
+Alternatively, you can use the system property
+jboss.messaging.cluster.password to specify the cluster password from
+the command line.
++
 [[deployment-of--jms.xml-files]]
-Deployment of -jms.xml files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Deployment of -jms.xml files
 
-Starting with WildFly 8, you have the ability to deploy a -jms.xml file
+Starting with WildFly 8, you have the ability to deploy a -jms.xml file
 defining JMS destinations, e.g.:
 
 [source,java]
@@ -388,14 +354,16 @@ defining JMS destinations, e.g.:
    </server>
 </messaging-deployment>
 ----
-
-This feature is primarily intended for development as destinations
++
+[cols=",",]
+|=======================================================================
+| |This feature is primarily intended for development as destinations
 deployed this way can not be managed with any of the provided management
 tools (e.g. console, CLI, etc).
-
+|=======================================================================
++
 [[jms-bridge]]
-JMS Bridge
-~~~~~~~~~~
+= JMS Bridge
 
 The function of a JMS bridge is to consume messages from a source JMS
 destination, and send them to a target JMS destination. Typically either
@@ -408,8 +376,7 @@ description of the available configuration properties, please consult
 the project documentation.
 
 [[modules-for-other-messaging-brokers]]
-Modules for other messaging brokers
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Modules for other messaging brokers
 
 Source and target JMS resources (destination and connection factories)
 are looked up using JNDI. +
@@ -424,13 +391,13 @@ create a module containing the jar of this provider.
 Let's suppose we want to use an hypothetical messaging provider named
 AcmeMQ. We want to bridge messages coming from a source AcmeMQ
 destination to a target destination on the local WildFly messaging
-server. To lookup AcmeMQ resources from JNDI, 2 jars are required,
+server. To lookup AcmeMQ resources from JNDI, 2 jars are required,
 acmemq-1.2.3.jar, mylogapi-0.0.1.jar (please note these jars do not
 exist, this is just for the example purpose). We must _not_ include a
 JMS jar since it will be provided by a WildFly module directly.
 
-To use these resources in a JMS bridge, we must bundle them in a
-WildFly module:
+To use these resources in a JMS bridge, we must bundle them in a WildFly
+module:
 
 in JBOSS_HOME/modules, we create the layout:
 
@@ -454,16 +421,16 @@ We define the module in `module.xml`:
     <properties>
         <property name="jboss.api" value="private"/>
     </properties>
-
-
+ 
+ 
     <resources>
         <!-- insert resources required to connect to the source or target   -->
         <!-- messaging brokers if it not another WildFly instance           -->
         <resource-root path="acmemq-1.2.3.jar" />
         <resource-root path="mylogapi-0.0.1.jar" />
     </resources>
-
-
+ 
+ 
     <dependencies>
        <!-- add the dependencies required by JMS Bridge code                -->
        <module name="javax.api" />
@@ -476,10 +443,9 @@ We define the module in `module.xml`:
     </dependencies>
 </module>
 ----
-
++
 [[configuration]]
-Configuration
-^^^^^^^^^^^^^
+== Configuration
 
 A JMS bridge is defined inside a `jms-bridge` section of the
 `messaging-activemq` subsystem in the XML configuration files.
@@ -511,7 +477,7 @@ A JMS bridge is defined inside a `jms-bridge` section of the
    </jms-bridge>
 </subsystem>
 ----
-
++
 The `source` and `target` sections contain the name of the JMS resource
 ( `connection-factory` and `destination`) that will be looked up in
 JNDI. +
@@ -523,12 +489,11 @@ It is also possible to define JNDI context properties in the
 absent, the JMS resources will be looked up in the local WildFly
 instance (as it is the case in the `target` section in the example
 above).
-
++
 [[management-commands]]
-Management commands
-^^^^^^^^^^^^^^^^^^^
+== Management commands
 
-A JMS Bridge can also be managed using the WildFly command line
+A JMS Bridge can also be managed using the WildFly command line
 interface:
 
 [source,java]
@@ -550,10 +515,10 @@ interface:
       add-messageID-in-header=true)
 {"outcome" => "success"}
 ----
-
++
 You can also see the complete JMS Bridge resource description from the
 CLI:
-
++
 [source,java]
 ----
 [standalone@localhost:9990 /] /subsystem=messaging/jms-bridge=*/:read-resource-description
@@ -573,15 +538,18 @@ CLI:
     }]
 }
 ----
-
++
 [[component-reference]]
-Component Reference
-~~~~~~~~~~~~~~~~~~~
+= Component Reference
 
 The messaging-activemq subsystem is provided by the Artemis project. For
 a detailed description of the available configuration properties, please
 consult the project documentation.
 
-* Artemis Homepage: http://activemq.apache.org/artemis/
-* Artemis User Documentation:
+--
+
+** Artemis Homepage: http://activemq.apache.org/artemis/
+** Artemis User Documentation:
 http://activemq.apache.org/artemis/docs.html
+
+--

@@ -1,9 +1,5 @@
-Audit logging - Latest WildFly Documentation
-============================================
-
-[[audit-logging]]
 Audit logging
--------------
+=============
 
 WildFly comes with audit logging built in for management operations
 affecting the management model. By default it is turned off. The
@@ -77,6 +73,8 @@ To enable it via CLI you need just
 
 Audit data are stored in standalone/data/audit-log.log.
 
+[IMPORTANT]
+
 The audit logging subsystem has a lot of internal dependencies, and it
 logs operations changing, enabling and disabling its components. When
 configuring or changing things at runtime it is a good idea to make
@@ -86,8 +84,7 @@ step. Similarly if you are using a file handler, and want to change its
 `path` and `relative-to` attributes, that needs to happen as one step.
 
 [[json-formatter]]
-JSON Formatter
-~~~~~~~~~~~~~~
+= JSON Formatter
 
 The first thing that needs configuring is the formatter, we currently
 support outputting log records as JSON. You can define several
@@ -119,106 +116,77 @@ presented:
 It includes an optional timestamp and then the following information in
 the json record
 
-Field name
+[cols=",",]
+|=======================================================================
+|Field name |Description
 
-Description
+|type |This can have the values core, meaning it is a management
+operation, or jmx meaning it comes from the jmx subsystem (see the jmx
+subsystem for configuration of the jmx subsystem's audit logging)
 
-type
-
-This can have the values core, meaning it is a management operation, or
-jmx meaning it comes from the jmx subsystem (see the jmx subsystem for
-configuration of the jmx subsystem's audit logging)
-
-r/o
-
-true if the operation does not change the management model, false
+|r/o |true if the operation does not change the management model, false
 otherwise
 
-booting
+|booting |true if the operation was executed during the bootup process,
+false if it was executed once the server is up and running
 
-true if the operation was executed during the bootup process, false if
-it was executed once the server is up and running
+|version |The version number of the WildFly instance
 
-version
+|user |The username of the authenticated user. In this case the
+operation has been logged via the CLI on the same machine as the running
+server, so the special $local user is used
 
-The version number of the WildFly instance
+|domainUUID |An ID to link together all operations as they are
+propagated from the Doman Controller to it servers, slave Host
+Controllers, and slave Host Controller servers
 
-user
+|access |This can have one of the following values:*NATIVE - The
+operation came in through the native management interface, for example
+the CLI*HTTP - The operation came in through the domain HTTP interface,
+for example the admin console*JMX - The operation came in through the
+JMX subsystem. See JMX for how to configure audit logging for JMX.
 
-The username of the authenticated user. In this case the operation has
-been logged via the CLI on the same machine as the running server, so
-the special $local user is used
+|remote-address |The address of the client executing this operation
 
-domainUUID
+|success |true if the operation succeeded, false if it was rolled back
 
-An ID to link together all operations as they are propagated from the
-Doman Controller to it servers, slave Host Controllers, and slave Host
-Controller servers
-
-access
-
-This can have one of the following values:*NATIVE - The operation came
-in through the native management interface, for example the CLI*HTTP -
-The operation came in through the domain HTTP interface, for example the
-admin console*JMX - The operation came in through the JMX subsystem. See
-JMX for how to configure audit logging for JMX.
-
-remote-address
-
-The address of the client executing this operation
-
-success
-
-true if the operation succeeded, false if it was rolled back
-
-ops
-
-The operations being executed. This is a list of the operations
+|ops |The operations being executed. This is a list of the operations
 serialized to JSON. At boot this will be all the operations resulting
 from parsing the xml. Once booted the list will typically just contain a
 single entry
+|=======================================================================
 
 The json formatter resource has the following attributes:
 
-Attribute
+[cols=",",]
+|=======================================================================
+|Attribute |Description
 
-Description
+|include-date |Boolan toggling whether or not to include the timestamp
+in the formatted log records
 
-include-date
+|date-separator |A string containing characters to separate the date and
+the rest of the formatted log message. Will be ignored if
+include-date=false
 
-Boolan toggling whether or not to include the timestamp in the formatted
-log records
-
-date-separator
-
-A string containing characters to separate the date and the rest of the
-formatted log message. Will be ignored if include-date=false
-
-date-format
-
-The date format to use for the timestamp as understood by
+|date-format |The date format to use for the timestamp as understood by
 java.text.SimpleDateFormat. Will be ignored if include-date=false
 
-compact
+|compact |If true will format the JSON on one line. There may still be
+values containing new lines, so if having the whole record on one line
+is important, set escape-new-line or escape-control-characters to true
 
-If true will format the JSON on one line. There may still be values
-containing new lines, so if having the whole record on one line is
-important, set escape-new-line or escape-control-characters to true
+|escape-control-characters |If true it will escape all control
+characters (ascii entries with a decimal value < 32) with the ascii code
+in octal, e.g. a new line becomes '#012'. If this is true, it will
+override escape-new-line=false
 
-escape-control-characters
-
-If true it will escape all control characters (ascii entries with a
-decimal value < 32) with the ascii code in octal, e.g. a new line
-becomes '#012'. If this is true, it will override escape-new-line=false
-
-escape-new-line
-
-If true it will escape all new lines with the ascii code in octal, e.g.
-"#012".
+|escape-new-line |If true it will escape all new lines with the ascii
+code in octal, e.g. "#012".
+|=======================================================================
 
 [[handlers]]
-Handlers
-~~~~~~~~
+= Handlers
 
 A handler is responsible for taking the formatted data and logging it to
 a location. There are currently two types of handlers, File and Syslog.
@@ -226,64 +194,41 @@ You can configure several of each type of handler and use them to log
 information.
 
 [[file-handler]]
-File handler
-^^^^^^^^^^^^
+== File handler
 
 The file handlers log the audit log records to a file on the server. The
 attributes for the file handler are
 
-Attribute
+[cols=",,",]
+|=======================================================================
+|Attribute |Description |Read Only
 
-Description
+|formatter |The name of a JSON formatter to use to format the log
+records |false
 
-Read Only
+|path |The path of the audit log file |false
 
-formatter
+|relative-to |The name of another previously named path, or of one of
+the standard paths provided by the system. If relative-to is provided,
+the value of the path attribute is treated as relative to the path
+specified by this attribute |false
 
-The name of a JSON formatter to use to format the log records
+|failure-count |The number of logging failures since the handler was
+initialized |true
 
-false
+|max-failure-count |The maximum number of logging failures before
+disabling this handler |false
 
-path
-
-The path of the audit log file
-
-false
-
-relative-to
-
-The name of another previously named path, or of one of the standard
-paths provided by the system. If relative-to is provided, the value of
-the path attribute is treated as relative to the path specified by this
-attribute
-
-false
-
-failure-count
-
-The number of logging failures since the handler was initialized
-
-true
-
-max-failure-count
-
-The maximum number of logging failures before disabling this handler
-
-false
-
-disabled-due-to-failure
-
-true if this handler was disabled due to logging failures
-
-true
+|disabled-due-to-failure |true if this handler was disabled due to
+logging failures |true
+|=======================================================================
 
 In our standard configuration `path=audit-log.log` and
 `relative-to=jboss.server.data.dir`, typically this will be
 `$JBOSS_HOME/standalone/data/audit-log.log`
 
 [[syslog-handler]]
-Syslog handler
-^^^^^^^^^^^^^^
+== Syslog handler
 
 The default configuration does not have syslog audit logging set up.
 Syslog is a better choice for audit logging since you can log to a
@@ -303,52 +248,33 @@ reference they can be found at: +
 
 The syslog handler resource has the following attributes:
 
-formatter
+[cols=",,",]
+|=======================================================================
+|formatter |The name of a JSON formatter to use to format the log
+records |false
 
-The name of a JSON formatter to use to format the log records
+|failure-count |The number of logging failures since the handler was
+initialized |true
 
-false
+|max-failure-count |The maximum number of logging failures before
+disabling this handler |false
 
-failure-count
+|disabled-due-to-failure |true if this handler was disabled due to
+logging failures |true
 
-The number of logging failures since the handler was initialized
+|syslog-format |Whether to set the syslog format to the one specified in
+RFC-5424 or RFC-3164 |false
 
-true
+|max-length |The maximum length in bytes a log message, including the
+header, is allowed to be. If undefined, it will default to 1024 bytes if
+the syslog-format is RFC3164, or 2048 bytes if the syslog-format is
+RFC5424. |false
 
-max-failure-count
-
-The maximum number of logging failures before disabling this handler
-
-false
-
-disabled-due-to-failure
-
-true if this handler was disabled due to logging failures
-
-true
-
-syslog-format
-
-Whether to set the syslog format to the one specified in RFC-5424 or
-RFC-3164
-
-false
-
-max-length
-
-The maximum length in bytes a log message, including the header, is
-allowed to be. If undefined, it will default to 1024 bytes if the
-syslog-format is RFC3164, or 2048 bytes if the syslog-format is RFC5424.
-
-false
-
-truncate
-
-Whether or not a message, including the header, should truncate the
-message if the length in bytes is greater than the maximum length. If
-set to false messages will be split and sent with the same header values
-
-false
+|truncate |Whether or not a message, including the header, should
+truncate the message if the length in bytes is greater than the maximum
+length. If set to false messages will be split and sent with the same
+header values |false
+|=======================================================================
 
 When adding a syslog handler you also need to add the protocol it will
 use to communicate with the syslog server. The valid choices for
@@ -357,81 +283,63 @@ same time as you add the syslog handler, or it will fail. Also, you can
 only add one protocol for the handler.
 
 [[udp]]
-UDP
-+++
+=== UDP
 
 Configures the handler to use UDP to communicate with the syslog server.
 The address of the `UDP` resource is
 `/core-service=management/access=audit/syslog-handler=*/protocol=udp`.
 The attributes of the `UDP` resource are:
 
-Attribute
-
-Description
-
-host
-
-The host of the syslog server for the udp requests
-
-port
-
-The port of the syslog server listening for the udp requests
+[cols=",",]
+|==================================================================
+|Attribute |Description
+|host |The host of the syslog server for the udp requests
+|port |The port of the syslog server listening for the udp requests
+|==================================================================
 
 [[tcp]]
-TCP
-+++
+=== TCP
 
 Configures the handler to use TCP to communicate with the syslog server.
 The address of the `TCP` resource is
 `/core-service=management/access=audit/syslog-handler=*/protocol=tcp`.
 The attributes of the `TCP` resource are:
 
-Attribute
+[cols=",",]
+|=======================================================================
+|Attribute |Description
 
-Description
+|host |The host of the syslog server for the tcp requests
 
-host
+|port |The port of the syslog server listening for the tcp requests
 
-The host of the syslog server for the tcp requests
-
-port
-
-The port of the syslog server listening for the tcp requests
-
-message-transfer
-
-The message transfer setting as described in section 3.4 of RFC-6587.
-This can either be OCTET_COUNTING as described in section 3.4.1 of
-RFC-6587, or NON_TRANSPARENT_FRAMING as described in section 3.4.1 of
-RFC-6587
+|message-transfer |The message transfer setting as described in section
+3.4 of RFC-6587. This can either be OCTET_COUNTING as described in
+section 3.4.1 of RFC-6587, or NON_TRANSPARENT_FRAMING as described in
+section 3.4.1 of RFC-6587
+|=======================================================================
 
 [[tls]]
-TLS
-+++
+=== TLS
 
 Configures the handler to use TLC to communicate securely with the
 syslog server. The address of the `TLS` resource is
 `/core-service=management/access=audit/syslog-handler=*/protocol=tls`.
 The attributes of the `TLS` resource are the same as for `TCP`:
 
-Attribute
+[cols=",",]
+|=======================================================================
+|Attribute |Description
 
-Description
+|host |The host of the syslog server for the tls requests
 
-host
+|port |The port of the syslog server listening for the tls requests
 
-The host of the syslog server for the tls requests
-
-port
-
-The port of the syslog server listening for the tls requests
-
-message-transfer
-
-The message transfer setting as described in section 3.4 of RFC-6587.
-This can either be OCTET_COUNTING as described in section 3.4.1 of
-RFC-6587, or NON_TRANSPARENT_FRAMING as described in section 3.4.1 of
-RFC-6587
+|message-transfer |The message transfer setting as described in section
+3.4 of RFC-6587. This can either be OCTET_COUNTING as described in
+section 3.4.1 of RFC-6587, or NON_TRANSPARENT_FRAMING as described in
+section 3.4.1 of RFC-6587
+|=======================================================================
 
 If the syslog server's TLS certificate is not signed by a certificate
 signing authority, you will need to set up a truststore to trust the
@@ -440,27 +348,22 @@ resource, and the full address is
 `/core-service=management/access=audit/syslog-handler=*/protocol=tls/authentication=truststore`.
 The attributes of the truststore resource are:
 
-Attribute
+[cols=",",]
+|=======================================================================
+|Attribute |Description
 
-Description
+|keystore-password |The password for the truststore
 
-keystore-password
+|keystore-path |The path of the truststore
 
-The password for the truststore
-
-keystore-path
-
-The path of the truststore
-
-keystore-relative-to
-
-The name of another previously named path, or of one of the standard
-paths provided by the system. If keystore-relative-to is provided, the
-value of the keystore-path attribute is treated as relative to the path
-specified by this attribute
+|keystore-relative-to |The name of another previously named path, or of
+one of the standard paths provided by the system. If
+keystore-relative-to is provided, the value of the keystore-path
+attribute is treated as relative to the path specified by this attribute
+|=======================================================================
 
 [[tls-with-client-certificate-authentication.]]
-TLS with Client certificate authentication.
+==== TLS with Client certificate authentication.
 
 If you have set up the syslog server to require client certificate
 authentication, when creating your handler you will also need to set up
@@ -470,62 +373,48 @@ is
 `/core-service=management/access=audit/syslog-handler=*/protocol=tls/authentication=client-certificate-store`
 and its attributes are:
 
-Attribute
+[cols=",",]
+|=======================================================================
+|Attribute |Description
 
-Description
+|keystore-password |The password for the keystore
 
-keystore-password
+|key-password |The password for the keystore key
 
-The password for the keystore
+|keystore-path |The path of the keystore
 
-key-password
-
-The password for the keystore key
-
-keystore-path
-
-The path of the keystore
-
-keystore-relative-to
-
-The name of another previously named path, or of one of the standard
-paths provided by the system. If keystore-relative-to is provided, the
-value of the keystore-path attribute is treated as relative to the path
-specified by this attribute
+|keystore-relative-to |The name of another previously named path, or of
+one of the standard paths provided by the system. If
+keystore-relative-to is provided, the value of the keystore-path
+attribute is treated as relative to the path specified by this attribute
+|=======================================================================
 
 [[logger-configuration]]
-Logger configuration
-~~~~~~~~~~~~~~~~~~~~
+= Logger configuration
 
 The final part that needs configuring is the logger for the management
 operations. This references one or more handlers and is configured at
 `/core-service=management/access=audit/logger=audit-log`. The attributes
 for this resource are:
 
-Attribute
+[cols=",",]
+|=======================================================================
+|Attribute |Description
 
-Description
+|enabled |true to enable logging of the management operations
 
-enabled
+|log-boot |true to log the management operations when booting the
+server, false otherwise
 
-true to enable logging of the management operations
-
-log-boot
-
-true to log the management operations when booting the server, false
-otherwise
-
-log-read-only
-
-If true all operations will be audit logged, if false only operations
-that change the model will be logged
+|log-read-only |If true all operations will be audit logged, if false
+only operations that change the model will be logged
+|=======================================================================
 
 Then which handlers are used to log the management operations are
 configured as `handler=*` children of the logger.
 
 [[domain-mode-host-specific-configuration]]
-Domain Mode (host specific configuration)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Domain Mode (host specific configuration)
 
 In domain mode audit logging is configured for each host in its
 `host.xml` file. This means that when connecting to the DC, the

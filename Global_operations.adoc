@@ -1,16 +1,11 @@
-Global operations - Latest WildFly Documentation
-================================================
-
-[[global-operations]]
 Global operations
------------------
+=================
 
 The WildFly management API includes a number of operations that apply to
 every resource.
 
 [[the-read-resource-operation]]
-The read-resource operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The read-resource operation
 
 Reads a management resource's attribute values along with either basic
 or complete information about any child resources. Supports the +
@@ -36,8 +31,7 @@ such attributes in the result will be `undefined`. If `true` the result
 will include the default value for such parameters.
 
 [[the-read-attribute-operation]]
-The read-attribute operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The read-attribute operation
 
 Reads the value of an individual attribute. Takes a single, required,
 parameter:
@@ -51,8 +45,7 @@ such attributes in the result will be `undefined`. If `true` the result
 will include the default value for such parameters.
 
 [[the-write-attribute-operation]]
-The write-attribute operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The write-attribute operation
 
 Writes the value of an individual attribute. Takes two required
 parameters:
@@ -62,8 +55,7 @@ parameters:
 value.
 
 [[the-undefine-attribute-operation]]
-The undefine-attribute operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The undefine-attribute operation
 
 Sets the value of an individual attribute to the `undefined` value, if
 such a value is allowed for the attribute. The operation will fail if
@@ -72,8 +64,7 @@ the `undefined` value is not allowed. Takes a single required parameter:
 * `name` – (string) – the name of the attribute to write.
 
 [[the-list-add-operation]]
-The list-add operation
-~~~~~~~~~~~~~~~~~~~~~~
+= The list-add operation
 
 Adds an element to the value of a list attribute, adding the element to
 the end of the list unless the optional attribute `index` is passed:
@@ -89,8 +80,7 @@ zero based.
 This operation will fail if the specified attribute is not a list.
 
 [[the-list-remove-operation]]
-The list-remove operation
-~~~~~~~~~~~~~~~~~~~~~~~~~
+= The list-remove operation
 
 Removes an element from the value of a list attribute, either the
 element at a specified `index`, or the first element whose value matches
@@ -107,8 +97,7 @@ specified.
 This operation will fail if the specified attribute is not a list.
 
 [[the-list-get-operation]]
-The list-get operation
-~~~~~~~~~~~~~~~~~~~~~~
+= The list-get operation
 
 Gets one element from a list attribute by its index
 
@@ -118,8 +107,7 @@ Gets one element from a list attribute by its index
 This operation will fail if the specified attribute is not a list.
 
 [[the-list-clear-operation]]
-The list-clear operation
-~~~~~~~~~~~~~~~~~~~~~~~~
+= The list-clear operation
 
 Empties the list attribute. It is different from `:undefine-attribute`
 as it results in attribute of type list with 0 elements, whereas
@@ -130,8 +118,7 @@ as it results in attribute of type list with 0 elements, whereas
 This operation will fail if the specified attribute is not a list.
 
 [[the-map-put-operation]]
-The map-put operation
-~~~~~~~~~~~~~~~~~~~~~
+= The map-put operation
 
 Adds an key/value pair entry to the value of a map attribute:
 
@@ -144,8 +131,7 @@ new entry to be added to the attribute value.
 This operation will fail if the specified attribute is not a map.
 
 [[the-map-remove-operation]]
-The map-remove operation
-~~~~~~~~~~~~~~~~~~~~~~~~
+= The map-remove operation
 
 Removes an entry from the value of a map attribute:
 
@@ -156,8 +142,7 @@ entry from.
 This operation will fail if the specified attribute is not a map.
 
 [[the-map-get-operation]]
-The map-get operation
-~~~~~~~~~~~~~~~~~~~~~
+= The map-get operation
 
 Gets the value of one entry from a map attribute
 
@@ -167,8 +152,7 @@ Gets the value of one entry from a map attribute
 This operation will fail if the specified attribute is not a map.
 
 [[the-map-clear-operation]]
-The map-clear operation
-~~~~~~~~~~~~~~~~~~~~~~~
+= The map-clear operation
 
 Empties the map attribute. It is different from `:undefine-attribute` as
 it results in attribute of type map with 0 entries, whereas
@@ -179,8 +163,7 @@ it results in attribute of type map with 0 entries, whereas
 This operation will fail if the specified attribute is not a map.
 
 [[the-read-resource-description-operation]]
-The read-resource-description operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The read-resource-description operation
 
 Returns the description of a resource's attributes, types of children
 and, optionally, operations. Supports the +
@@ -205,15 +188,13 @@ See link:Description_of_the_Management_Model.html[Description of the
 Management Model] for details on the result of this operation.
 
 [[the-read-operation-names-operation]]
-The read-operation-names operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The read-operation-names operation
 
 Returns a list of the names of all the operations the resource supports.
 Takes no parameters.
 
 [[the-read-operation-description-operation]]
-The read-operation-description operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The read-operation-description operation
 
 Returns the description of an operation, along with details of its
 parameter types and its return value. Takes a single, required,
@@ -225,11 +206,10 @@ See link:Description_of_the_Management_Model.html[Description of the
 Management Model] for details on the result of this operation.
 
 [[the-read-children-types-operation]]
-The read-children-types operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The read-children-types operation
 
 Returns a list of the
-link:Management_resources.html#108625996_Managementresources-Address[types
+link:Management_resources.html#src-557064_Managementresources-Address[types
 of child resources] the resource supports. Takes two optional
 parameters:
 
@@ -244,22 +224,20 @@ http://lists.jboss.org/pipermail/wildfly-dev/2014-August/002701.html[wildfly-dev
 discussion around this topic].
 
 [[the-read-children-names-operation]]
-The read-children-names operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The read-children-names operation
 
 Returns a list of the names of all child resources of a given
-link:Management_resources.html#108625996_Managementresources-Address[type].
+link:Management_resources.html#src-557064_Managementresources-Address[type].
 Takes a single, required, parameter:
 
 * `child-type` – (string) – the name of the type
 
 [[the-read-children-resources-operation]]
-The read-children-resources operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The read-children-resources operation
 
 Returns information about all of a resource's children that are of a
 given
-link:Management_resources.html#108625996_Managementresources-Address[type].
+link:Management_resources.html#src-557064_Managementresources-Address[type].
 For each child resource, the returned information is equivalent to
 executing the `read-resource` operation on that resource. Takes the
 following parameters, of which only \{\{child-type} is required:
@@ -286,11 +264,10 @@ such attributes in the result will be `undefined`. If `true` the result
 will include the default value for such parameters.
 
 [[the-read-attribute-group-operation]]
-The read-attribute-group operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The read-attribute-group operation
 
 Returns a list of attributes of a
-link:Management_resources.html#108625996_Managementresources-Address[type]
+link:Management_resources.html#src-557064_Managementresources-Address[type]
 for a given attribute group name. For each attribute the returned
 information is equivalent to executing the `read-attribute` operation of
 that resource. Takes the following parameters, of which only \{\{name}
@@ -311,16 +288,14 @@ alias attributes (i.e. those which are alias of other attributes) in the
 response.
 
 [[the-read-attribute-group-names-operation]]
-The read-attribute-group-names operation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= The read-attribute-group-names operation
 
 Returns a list of attribute groups names for a given
-link:Management_resources.html#108625996_Managementresources-Address[type].
+link:Management_resources.html#src-557064_Managementresources-Address[type].
 Takes no parameters.
 
 [[standard-operations]]
-Standard Operations
-~~~~~~~~~~~~~~~~~~~
+= Standard Operations
 
 Besides the global operations described above, by convention nearly
 every resource should expose an `add` operation and a `remove`
@@ -331,16 +306,14 @@ mbeans or resources representing aspects of the running state of a
 deployment.)
 
 [[the-add-operation]]
-The add operation
-^^^^^^^^^^^^^^^^^
+== The add operation
 
 The operation that creates a new resource must be named `add`. The
 operation may take zero or more parameters; what those parameters are
 depends on the resource being created.
 
 [[the-remove-operation]]
-The remove operation
-^^^^^^^^^^^^^^^^^^^^
+== The remove operation
 
 The operation that removes an existing resource must be named `remove`.
 The operation should take no parameters.

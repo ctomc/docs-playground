@@ -1,9 +1,5 @@
-Backward & Forward Compatibility - Latest WildFly Documentation
-===============================================================
-
-[[backward-forward-compatibility]]
 Backward & Forward Compatibility
---------------------------------
+================================
 
 WildFly 10 supports both backwards and forwards compatibility with
 legacy versions that were using HornetQ as their messaging brokers (such
@@ -17,8 +13,7 @@ connect to legacy app server (running HornetQ)
 to WildFly 10 app server (running Artemis).
 
 [[forward-compatibility]]
-Forward Compatibility
-~~~~~~~~~~~~~~~~~~~~~
+= Forward Compatibility
 
 Forward compatibility requires no code change in legacy JMS clients. It
 is provided by WildFly 10 messaging-activemq subsystem and its
@@ -64,8 +59,7 @@ To avoid any code change in the legacy JMS clients, the legacy JNDI
 entries must match the lookup expected by the legacy JMS client.
 
 [[migration]]
-Migration
-^^^^^^^^^
+== Migration
 
 During migration, the legacy `messaging` subsystem will create
 `legacy-connection-factory` resource and add `legacy-entries` to the
@@ -81,8 +75,7 @@ legacy JMS clients will not be able to communicate with WildFly 10
 servers.
 
 [[backward-compatibility]]
-Backward Compatibility
-~~~~~~~~~~~~~~~~~~~~~~
+= Backward Compatibility
 
 Backward compatibility requires no configuration change in the legacy
 server. +

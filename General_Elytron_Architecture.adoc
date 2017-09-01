@@ -1,9 +1,5 @@
-General Elytron Architecture - Latest WildFly Documentation
-===========================================================
-
-[[general-elytron-architecture]]
 General Elytron Architecture
-----------------------------
+============================
 
 The overall architecture for WildFly Elytron is building up a full
 security policy from assembling smaller components together, by default
@@ -20,8 +16,7 @@ level view, however the different resource definitions may use different
 dependencies depending on their purpose.
 
 [[security-domains]]
-Security Domains
-~~~~~~~~~~~~~~~~
+= Security Domains
 
 Within WildFly Elytron a SecurityDomain can be considered as a security
 policy backed by one or more SecurityRealm instances. Resources that
@@ -30,9 +25,6 @@ from the SecurityDomain a SecurityIdentity can be obtained which is a
 representation of the current identity, from this the identities roles
 and permissions can be checked to make the authorization decision for
 the resource.
-
-image:images/author/download/attachments/110231576/SecurityDomain.png[images/author/download/attachments/110231576/SecurityDomain.png] +
-SecurityDomain
 
 The SecurityDomain is the general wrapper around the policy describing a
 resulting SecurityIdentity and makes use of the following components to
@@ -100,16 +92,12 @@ calling different resources each of those resources could have a very
 different view.
 
 [[sasl-authentication]]
-SASL Authentication
-~~~~~~~~~~~~~~~~~~~
+= SASL Authentication
 
 The SaslAuthenticationFactory is an authentication policy for
 authentication using SASL authentication mechanisms, in addition to
 being a policy it is also a factory for configured authentication
 mechanisms backed by a SecurityDomain.
-
-image:images/author/download/attachments/110231576/SaslAuthenticationFactory.png[images/author/download/attachments/110231576/SaslAuthenticationFactory.png] +
-SaslAuthenticationFactory
 
 The SaslAuthenticationFactory references the following: -
 
@@ -137,16 +125,12 @@ The reason some of the components referenced by the SecurityDomain are
 duplicated is so that mechanism specific mappings can be applied.
 
 [[http-authentication]]
-HTTP Authentication
-~~~~~~~~~~~~~~~~~~~
+= HTTP Authentication
 
 The HttpAuthenticationFactory is an authentication policy for
 authentication using HTTP authentication mechanisms, in addition to
 being a policy it is also a factory for configured authentication
 mechanisms backed by a SecurityDomain.
-
-image:images/author/download/attachments/110231576/HttpAuthenticationFactory.png[images/author/download/attachments/110231576/HttpAuthenticationFactory.png] +
-HttpAuthenticationFactory
 
 The HttpAuthenticationFactory references the following: -
 
@@ -174,14 +158,10 @@ The reason some of the components referenced by the SecurityDomain are
 duplicated is so that mechanism specific mappings can be applied.
 
 [[ssl-tls]]
-SSL / TLS
-~~~~~~~~~
+= SSL / TLS
 
 The SSLContext defined within Elytron is a javax.net.ssl.SSLContext
 meaning it can be used by anything that uses an SSLContext directly.
-
-image:images/author/download/attachments/110231576/SSLContext.png[images/author/download/attachments/110231576/SSLContext.png] +
-SSLContext
 
 In addition to the usual configuration for an SSLContext it is possible
 to configure additional items such as cipher suites and protocols and

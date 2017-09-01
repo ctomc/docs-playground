@@ -1,9 +1,5 @@
-Singleton MSC services - Latest WildFly Documentation
-=====================================================
-
-[[singleton-msc-services]]
 Singleton MSC services
-----------------------
+======================
 
 WildFly allows any user MSC service to be installed as a singleton MSC
 service via a public API. Once installed, the service will only ever
@@ -12,8 +8,7 @@ service is shutdown, or fails, another node on which the service was
 installed will start automatically.
 
 [[installing-an-msc-service-using-an-existing-singleton-policy]]
-Installing an MSC service using an existing singleton policy
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Installing an MSC service using an existing singleton policy
 
 While singleton MSC services have been around since AS7, WildFly 10 adds
 the ability to leverage the singleton subsystem to create singleton MSC
@@ -23,7 +18,7 @@ The singleton subsystem exposes capabilities for each singleton policy
 it defines. These policies, represented via the
 `org.wildfly.clustering.singleton.SingletonPolicy` interface, can be
 referenced via the following name:
-“org.wildfly.clustering.singleton.policy” +
+"org.wildfly.clustering.singleton.policy" +
 e.g.
 
 [source,java]
@@ -31,7 +26,7 @@ e.g.
 public class MyServiceActivator implements ServiceActivator {
     @Override
     public void activate(ServiceActivatorContext context) {
-        ServiceName name = ServiceName.parse(“my.service.name”);
+        ServiceName name = ServiceName.parse("my.service.name");
         Service<?> service = new MyService();
         try {
             SingletonPolicy policy = (SingletonPolicy) context.getServiceRegistry().getRequiredService(ServiceName.parse(SingletonPolicy.CAPABILITY_NAME)).awaitValue();
@@ -44,8 +39,7 @@ public class MyServiceActivator implements ServiceActivator {
 ----
 
 [[installing-an-msc-service-using-dynamic-singleton-policy]]
-Installing an MSC service using dynamic singleton policy
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Installing an MSC service using dynamic singleton policy
 
 Alternatively, you can build singleton policy dynamically, which is
 particularly useful if you want to use a custom singleton election
@@ -60,10 +54,10 @@ e.g.
 public class MyServiceActivator implements ServiceActivator {
     @Override
     public void activate(ServiceActivatorContext context) {
-        String containerName = “server”;
+        String containerName = "server";
         ElectionPolicy policy = new MySingletonElectionPolicy();
         int quorum = 3;
-        ServiceName name = ServiceName.parse(“my.service.name”);
+        ServiceName name = ServiceName.parse("my.service.name");
         Service<?> service = new MyService();
         try {
             SingletonServiceBuilderFactory factory = (SingletonServiceBuilderFactory) context.getServiceRegistry().getRequiredService(SingletonServiceName.BUILDER.getServiceName(containerName))).awaitValue();

@@ -1,9 +1,5 @@
-Sharing sessions between wars in an ear - Latest WildFly Documentation
-======================================================================
-
-[[sharing-sessions-between-wars-in-an-ear]]
 Sharing sessions between wars in an ear
----------------------------------------
+=======================================
 
 Undertow allows you to share sessions between wars in an ear, if it is
 explicitly configured to do so. Note that if you use this feature your

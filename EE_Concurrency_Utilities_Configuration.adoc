@@ -1,9 +1,5 @@
-EE Concurrency Utilities - Latest WildFly Documentation
-=======================================================
-
-[[ee-concurrency-utilities]]
 EE Concurrency Utilities
-------------------------
+========================
 
 EE Concurrency Utilities (JSR 236) were introduced with Java EE 7, to
 ease the task of writing multithreaded Java EE applications. Instances
@@ -11,8 +7,7 @@ of these utilities are managed by WildFly, and the related configuration
 provided by the EE subsystem.
 
 [[context-services]]
-Context Services
-~~~~~~~~~~~~~~~~
+= Context Services
 
 The Context Service is a concurrency utility which creates contextual
 proxies from existent objects. WildFly Context Services are also used to
@@ -21,7 +16,7 @@ the threads internally used by the other EE Concurrency Utilities.
 Context Service instances may be created using the subsystem XML
 configuration:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
   <context-services>
     <context-service
@@ -53,16 +48,15 @@ one named `other`:
 ----
 
 [[managed-thread-factories]]
-Managed Thread Factories
-~~~~~~~~~~~~~~~~~~~~~~~~
+= Managed Thread Factories
 
 The Managed Thread Factory allows Java EE applications to create new
 threads. WildFly Managed Thread Factory instances may also, optionally,
 use a Context Service instance to propagate the Java EE application
-thread’s context to the new threads. Instance creation is done through
+thread's context to the new threads. Instance creation is done through
 the EE subsystem, by editing the subsystem XML configuration:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
   <managed-thread-factories>
     <managed-thread-factory
@@ -73,17 +67,17 @@ the EE subsystem, by editing the subsystem XML configuration:
   </managed-thread-factories>
 ----
 
-The  `name` attribute is mandatory, and it's value should be a unique
+The `name` attribute is mandatory, and it's value should be a unique
 name within all Managed Thread Factories.
 
-The  `jndi-name` attribute is also mandatory, and defines where in the
+The `jndi-name` attribute is also mandatory, and defines where in the
 JNDI the Managed Thread Factory should be placed.
 
-The optional  `context-service` references an existent Context Service
-by its `name`. If specified then thread created by the factory will
+The optional `context-service` references an existent Context Service by
+its `name`. If specified then thread created by the factory will
 propagate the invocation context, present when creating the thread.
 
-The optional  `priority` indicates the priority for new threads created
+The optional `priority` indicates the priority for new threads created
 by the factory, and defaults to `5`.
 
 Management clients, such as the WildFly CLI, may also be used to
@@ -97,8 +91,7 @@ configure Managed Thread Factory instances. An example to `add` and
 ----
 
 [[managed-executor-services]]
-Managed Executor Services
-~~~~~~~~~~~~~~~~~~~~~~~~~
+= Managed Executor Services
 
 The Managed Executor Service is the Java EE adaptation of Java SE
 Executor Service, providing to Java EE applications the functionality of
@@ -106,7 +99,7 @@ asynchronous task execution. WildFly is responsible to manage the
 lifecycle of Managed Executor Service instances, which are specified
 through the EE subsystem XML configuration:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
   <managed-executor-services>
     <managed-executor-service
@@ -123,31 +116,31 @@ through the EE subsystem XML configuration:
   </managed-executor-services>
 ----
 
-The  `name` attribute is mandatory, and it's value should be a unique
+The `name` attribute is mandatory, and it's value should be a unique
 name within all Managed Executor Services.
 
-The  `jndi-name` attribute is also mandatory, and defines where in the
+The `jndi-name` attribute is also mandatory, and defines where in the
 JNDI the Managed Executor Service should be placed.
 
-The optional  `context-service` references an existent Context Service
-by its  `name`. If specified then the referenced Context Service will
+The optional `context-service` references an existent Context Service by
+its `name`. If specified then the referenced Context Service will
 capture the invocation context present when submitting a task to the
 executor, which will then be used when executing the task.
 
-The optional  `thread-factory` references an existent Managed Thread
-Factory by its  `name`, to handle the creation of internal threads. If
+The optional `thread-factory` references an existent Managed Thread
+Factory by its `name`, to handle the creation of internal threads. If
 not specified then a Managed Thread Factory with default configuration
 will be created and used internally.
 
-The mandatory  `core-threads` provides the number of threads to keep in
-the executor's pool, even if they are idle. A value of  `0` means there
+The mandatory `core-threads` provides the number of threads to keep in
+the executor's pool, even if they are idle. A value of `0` means there
 is no limit.
 
-The optional  `queue-length` indicates the number of tasks that can be
+The optional `queue-length` indicates the number of tasks that can be
 stored in the input queue. The default value is `0`, which means the
 queue capacity is unlimited.
 
-The executor’s task queue is based on the values of the attributes 
+The executor's task queue is based on the values of the attributes
 `core-threads` and `queue-length`:
 
 * If `queue-length` is `0`, or `queue-length` is
@@ -159,24 +152,24 @@ created.
 * For any other valid value for `queue-length`, a bounded queue wil be
 created.
 
-The optional  `hung-task-threshold` defines a threshold value, in
-milliseconds, to hung a possibly blocked task. A value of  `0` will
-never hung a task, and is the default.
+The optional `hung-task-threshold` defines a threshold value, in
+milliseconds, to hung a possibly blocked task. A value of `0` will never
+hung a task, and is the default.
 
-The optional  `long-running-tasks` is a hint to optimize the execution
-of long running tasks, and defaults to `false`.
+The optional `long-running-tasks` is a hint to optimize the execution of
+long running tasks, and defaults to `false`.
 
-The optional  `max-threads` defines the the maximum number of threads
-used by the executor, which defaults to Integer.MAX_VALUE (2147483647).
+The optional `max-threads` defines the the maximum number of threads
+used by the executor, which defaults to Integer.MAX_VALUE (2147483647).
 
-The optional  `keepalive-time` defines the time, in milliseconds, that
-an internal thread may be idle. The attribute default value is `60000`.
+The optional `keepalive-time` defines the time, in milliseconds, that an
+internal thread may be idle. The attribute default value is `60000`.
 
-The optional reject-policy defines the policy to use when a task is
+The optional reject-policy defines the policy to use when a task is
 rejected by the executor. The attribute value may be the default
 `ABORT`, which means an exception should be thrown, or `RETRY_ABORT`,
 which means the executor will try to submit it once more, before
-throwing an exception. 
+throwing an exception.
 
 Management clients, such as the WildFly CLI, may also be used to
 configure Managed Executor Service instances. An example to `add` and
@@ -189,8 +182,7 @@ configure Managed Executor Service instances. An example to `add` and
 ----
 
 [[managed-scheduled-executor-services]]
-Managed Scheduled Executor Services
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Managed Scheduled Executor Services
 
 The Managed Scheduled Executor Service is the Java EE adaptation of Java
 SE Scheduled Executor Service, providing to Java EE applications the
@@ -198,7 +190,7 @@ functionality of scheduling task execution. WildFly is responsible to
 manage the lifecycle of Managed Scheduled Executor Service instances,
 which are specified through the EE subsystem XML configuration:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
   <managed-scheduled-executor-services>
     <managed-scheduled-executor-service
@@ -213,41 +205,41 @@ which are specified through the EE subsystem XML configuration:
   </managed-scheduled-executor-services>
 ----
 
-The  `name` attribute is mandatory, and it's value should be a unique
+The `name` attribute is mandatory, and it's value should be a unique
 name within all Managed Scheduled Executor Services.
 
-The  `jndi-name` attribute is also mandatory, and defines where in the
+The `jndi-name` attribute is also mandatory, and defines where in the
 JNDI the Managed Scheduled Executor Service should be placed.
 
-The optional  `context-service` references an existent Context Service
-by its  `name`. If specified then the referenced Context Service will
+The optional `context-service` references an existent Context Service by
+its `name`. If specified then the referenced Context Service will
 capture the invocation context present when submitting a task to the
 executor, which will then be used when executing the task.
 
-The optional  `thread-factory` references an existent Managed Thread
-Factory by its  `name`, to handle the creation of internal threads. If
+The optional `thread-factory` references an existent Managed Thread
+Factory by its `name`, to handle the creation of internal threads. If
 not specified then a Managed Thread Factory with default configuration
 will be created and used internally.
 
-The mandatory  `core-threads` provides the number of threads to keep in
-the executor's pool, even if they are idle. A value of  `0` means there
+The mandatory `core-threads` provides the number of threads to keep in
+the executor's pool, even if they are idle. A value of `0` means there
 is no limit.
 
-The optional  `hung-task-threshold` defines a threshold value, in
-milliseconds, to hung a possibly blocked task. A value of  `0` will
-never hung a task, and is the default.
+The optional `hung-task-threshold` defines a threshold value, in
+milliseconds, to hung a possibly blocked task. A value of `0` will never
+hung a task, and is the default.
 
-The optional  `long-running-tasks` is a hint to optimize the execution
-of long running tasks, and defaults to  `false`.
+The optional `long-running-tasks` is a hint to optimize the execution of
+long running tasks, and defaults to `false`.
 
-The optional  `keepalive-time` defines the time, in milliseconds, that
-an internal thread may be idle. The attribute default value is  `60000`.
+The optional `keepalive-time` defines the time, in milliseconds, that an
+internal thread may be idle. The attribute default value is `60000`.
 
-The optional reject-policy defines the policy to use when a task is
-rejected by the executor. The attribute value may be the default 
+The optional reject-policy defines the policy to use when a task is
+rejected by the executor. The attribute value may be the default
 `ABORT`, which means an exception should be thrown, or `RETRY_ABORT`,
 which means the executor will try to submit it once more, before
-throwing an exception. 
+throwing an exception.
 
 Management clients, such as the WildFly CLI, may also be used to
 configure Managed Scheduled Executor Service instances. An example to

@@ -1,11 +1,9 @@
-Standard JavaEE 6 Technologies - Latest WildFly Documentation
-=============================================================
-
-[[standard-javaee-6-technologies]]
 Standard JavaEE 6 Technologies
-------------------------------
+==============================
 
 Coming Soon
+
+[IMPORTANT]
 
 This guide is still under development, check back soon!
 
@@ -16,8 +14,7 @@ This guide is still under development, check back soon!
 5.  Java Transaction API (JTA)
 6.  link:Java_API_for_RESTful_Web_Services_(JAX-RS).html[Java API for
 RESTful Web Services (JAX-RS)]
-7.  https://docs.jboss.org/author/display/AS71/Java+API+for+XML+Web+Services+%28JAX-WS%29[Java
-API for XML Web Services (JAX-WS)]
+7.  link:#src-557122[Java API for XML Web Services (JAX-WS)]
 8.  Managed Beans
 9.  Contexts and Dependency Injection (CDI)
 10. Bean Validation

@@ -1,24 +1,19 @@
-DataSource configuration - Latest WildFly Documentation
-=======================================================
-
-[[datasource-configuration]]
 DataSource configuration
-------------------------
+========================
 
 Datasources are configured through the _datasource_ subsystem. Declaring
 a new datasource consists of two separate steps: You would need to
 provide a JDBC driver and define a datasource that references the driver
-you installed. 
+you installed.
 
 [[jdbc-driver-installation]]
-JDBC Driver Installation
-~~~~~~~~~~~~~~~~~~~~~~~~
+= JDBC Driver Installation
 
-The recommended way to install a JDBC driver into WildFly 8 is to deploy
-it as a regular JAR deployment.  The reason for this is that when you
-run WildFly in domain mode, deployments are automatically propagated to
-all servers to which the deployment applies; thus distribution of the
-driver JAR is one less thing for you to worry about!
+The recommended way to install a JDBC driver into WildFly 8 is to deploy
+it as a regular JAR deployment. The reason for this is that when you run
+WildFly in domain mode, deployments are automatically propagated to all
+servers to which the deployment applies; thus distribution of the driver
+JAR is one less thing for you to worry about!
 
 Any JDBC 4-compliant driver will automatically be recognized and
 installed into the system by name and version. A JDBC JAR is identified
@@ -46,13 +41,10 @@ jar \-uf jdbc-driver.jar META-INF/services/java.sql.Driver
 ----
 
 For a detailed explanation how to deploy JDBC 4 compliant driver jar,
-please refer to the chapter "
-https://docs.jboss.org/author/display/WFLY10/Application+deployment[Application
-Deployment]".
+please refer to the chapter " link:#src-557088[Application Deployment]".
 
 [[datasource-definitions]]
-Datasource Definitions
-~~~~~~~~~~~~~~~~~~~~~~
+= Datasource Definitions
 
 The datasource itself is defined within the subsystem _datasources_:
 
@@ -92,7 +84,7 @@ The datasource itself is defined within the subsystem _datasources_:
             </driver>
         </drivers>
   </datasources>
-
+ 
 </subsystem>
 ----
 
@@ -134,8 +126,8 @@ You can easily query the same information through the CLI:
         }}
     }
 }
-
-
+ 
+ 
 [standalone@localhost:9990 /] /subsystem=datasources:installed-drivers-list
 {
     "outcome" => "success",
@@ -153,6 +145,8 @@ You can easily query the same information through the CLI:
 }
 ----
 
+[IMPORTANT]
+
 Using the web console or the CLI greatly simplifies the deployment of
 JDBC drivers and the creation of datasources.
 
@@ -161,7 +155,7 @@ The CLI offers a set of commands to create and modify datasources:
 [source,java]
 ----
 [standalone@localhost:9990 /] data-source --help
-
+ 
 SYNOPSIS
   data-source --help [--properties | --commands] |
               (--name=<resource_id> (--<property>=<value>)*) |
@@ -170,42 +164,44 @@ SYNOPSIS
 DESCRIPTION
   The command is used to manage resources of type /subsystem=datasources/data-source.
 [...]
-
-
+ 
+ 
 [standalone@localhost:9990 /] xa-data-source --help
-
+ 
 SYNOPSIS
   xa-data-source --help [--properties | --commands] |
                  (--name=<resource_id> (--<property>=<value>)*) |
                  (<command> --name=<resource_id> (--<parameter>=<value>)*)
                  [--headers={<operation_header> (;<operation_header>)*}]
-
+ 
 DESCRIPTION
   The command is used to manage resources of type /subsystem=datasources/xa-data-source.
-
+ 
 RESOURCE DESCRIPTION
   A JDBC XA data-source configuration
-
+ 
 [...]
 ----
 
 [[using-security-domains]]
-Using security domains
-~~~~~~~~~~~~~~~~~~~~~~
+= Using security domains
 
 Information can be found at
 https://community.jboss.org/wiki/JBossAS7SecurityDomainModel
 
 [[component-reference]]
-Component Reference
-~~~~~~~~~~~~~~~~~~~
+= Component Reference
 
 The datasource subsystem is provided by the
 http://www.jboss.org/ironjacamar[IronJacamar] project. For a detailed
 description of the available configuration properties, please consult
 the project documentation.
 
+--
+
 * IronJacamar homepage: http://ironjacamar.org/
-* Project Documentation:  http://ironjacamar.org/documentation.html
+* Project Documentation: http://ironjacamar.org/documentation.html
 * Schema description:
 http://www.ironjacamar.org/doc/userguide/1.1/en-US/html_single/index.html#deployingds_descriptor
+
+--

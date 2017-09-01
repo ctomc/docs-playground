@@ -1,9 +1,5 @@
-OSGi - Latest WildFly Documentation
-===================================
-
-[[osgi]]
 OSGi
-----
+====
 
 WildFly does not include support for OSGi, such functionality is now
 responsibility of JBoss OSGi project.

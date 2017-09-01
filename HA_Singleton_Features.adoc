@@ -1,9 +1,5 @@
-HA Singleton Features - Latest WildFly Documentation
-====================================================
-
-[[ha-singleton-features]]
 HA Singleton Features
----------------------
+=====================
 
 In general, an HA or clustered singleton is a service that exists on
 multiple nodes in a cluster, but is active on just a single node at any
@@ -13,24 +9,22 @@ interval when one provider has stopped and another has yet to start, the
 service is always running on one node.
 
 [[singleton-subsystem]]
-Singleton subsystem
-~~~~~~~~~~~~~~~~~~~
+= Singleton subsystem
 
-WildFly 10 introduces a “singleton” subsystem, which defines a set of
+WildFly 10 introduces a "singleton" subsystem, which defines a set of
 policies that define how an HA singleton should behave. A singleton
 policy can be used to instrument singleton deployments or to create
 singleton MSC services.
 
 [[configuration]]
-Configuration
-^^^^^^^^^^^^^
+== Configuration
 
 The
 https://github.com/wildfly/wildfly/blob/10.0.0.Final/clustering/singleton/extension/src/main/resources/schema/wildfly-singleton_1_0.xsd[default
-subsystem configuration] from WildFly’s ha and full-ha profile looks
+subsystem configuration] from WildFly's ha and full-ha profile looks
 like:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <subsystem xmlns="urn:jboss:domain:singleton:1.0">
     <singleton-policies default="default">
@@ -58,8 +52,7 @@ operation:
 ----
 
 [[cache-configuration]]
-Cache configuration
-+++++++++++++++++++
+=== Cache configuration
 
 The cache-container and cache attributes of a singleton policy must
 reference a valid cache from the Infinispan subsystem. If no specific
@@ -68,8 +61,7 @@ This cache is used as a registry of which nodes can provide a given
 service and will typically use a replicated-cache configuration.
 
 [[election-policies]]
-Election policies
-+++++++++++++++++
+=== Election policies
 
 WildFly 10 includes 2 singleton election policy implementations:
 
@@ -85,6 +77,7 @@ e.g.
 ----
 /subsystem=singleton/singleton-policy=foo/election-policy=simple:add(position=-1)
 ----
+
 * *random* +
 Elects a random member to be the provider of a singleton service +
 e.g.
@@ -95,7 +88,7 @@ e.g.
 ----
 
 [[preferences]]
-Preferences
+==== Preferences
 
 Additionally, any singleton election policy may indicate a preference
 for one or more members of a cluster. Preferences may be defined either
@@ -110,8 +103,7 @@ e.g.
 ----
 
 [[quorum]]
-Quorum
-++++++
+=== Quorum
 
 Network partitions are particularly problematic for singleton services,
 since they can trigger multiple singleton providers for the same service
@@ -128,9 +120,8 @@ e.g.
 /subsystem=singleton/singleton-policy=foo:write-attribute(name=quorum, value=3)
 ----
 
-[[ha-environments]]
-HA environments
-^^^^^^^^^^^^^^^
+[[non-ha-environments]]
+== Non-HA environments
 
 The singleton subsystem can be used in a non-HA profile, so long as the
 cache that it references uses a local-cache configuration. In this
@@ -141,8 +132,7 @@ reasons, the use of a quorum does not make sense in such a
 configuration.
 
 [[singleton-deployments]]
-Singleton deployments
-~~~~~~~~~~~~~~~~~~~~~
+= Singleton deployments
 
 WildFly 10 resurrects the ability to start a given deployment on a
 single node in the cluster at any given time. If that node shuts down,
@@ -150,31 +140,30 @@ or fails, the application will automatically start on another node on
 which the given deployment exists. Long time users of JBoss AS will
 recognize this functionality as being akin to the
 https://docs.jboss.org/jbossclustering/cluster_guide/5.1/html/deployment.chapt.html#d0e1220[HASingletonDeployer],
-a.k.a. “
-https://docs.jboss.org/jbossclustering/cluster_guide/5.1/html/deployment.chapt.html#d0e1220[deploy-hasingleton]”,
+a.k.a. "
+https://docs.jboss.org/jbossclustering/cluster_guide/5.1/html/deployment.chapt.html#d0e1220[deploy-hasingleton]",
 feature of AS6 and earlier.
 
 [[usage]]
-Usage
-^^^^^
+== Usage
 
 A deployment indicates that it should be deployed as a singleton via a
 deployment descriptor. This can either be a standalone
-“/META-INF/singleton-deployment.xml” file or embedded within an existing
+"/META-INF/singleton-deployment.xml" file or embedded within an existing
 jboss-all.xml descriptor. This descriptor may be applied to any
 deployment type, e.g. JAR, WAR, EAR, etc., with the exception of a
 subdeployment within an EAR. +
 e.g.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <singleton-deployment xmlns="urn:jboss:singleton-deployment:1.0" policy="foo"/>
 ----
 
 The singleton deployment descriptor defines which
-https://docs.jboss.org/author/display/WFLY10/Singleton+subsystem[singleton
-policy] should be used to deploy the application. If undefined, the
-default singleton policy is used, as defined by the singleton subsystem.
+link:#src-557155[singleton policy] should be used to deploy the
+application. If undefined, the default singleton policy is used, as
+defined by the singleton subsystem.
 
 Using a standalone descriptor is often preferable, since it may be
 overlaid onto an existing deployment archive. +
@@ -186,8 +175,7 @@ deployment-overlay add --name=singleton-policy-foo --content=/META-INF/singleton
 ----
 
 [[singleton-msc-services]]
-Singleton MSC services
-~~~~~~~~~~~~~~~~~~~~~~
+= Singleton MSC services
 
 WildFly allows any user MSC service to be installed as a singleton MSC
 service via a public API. Once installed, the service will only ever
@@ -196,8 +184,7 @@ service is shutdown, or fails, another node on which the service was
 installed will start automatically.
 
 [[installing-an-msc-service-using-an-existing-singleton-policy]]
-Installing an MSC service using an existing singleton policy
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Installing an MSC service using an existing singleton policy
 
 While singleton MSC services have been around since AS7, WildFly 10 adds
 the ability to leverage the singleton subsystem to create singleton MSC
@@ -207,7 +194,7 @@ The singleton subsystem exposes capabilities for each singleton policy
 it defines. These policies, represented via the
 `org.wildfly.clustering.singleton.SingletonPolicy` interface, can be
 referenced via the following name:
-“org.wildfly.clustering.singleton.policy” +
+"org.wildfly.clustering.singleton.policy" +
 e.g.
 
 [source,java]
@@ -215,7 +202,7 @@ e.g.
 public class MyServiceActivator implements ServiceActivator {
     @Override
     public void activate(ServiceActivatorContext context) {
-        ServiceName name = ServiceName.parse(“my.service.name”);
+        ServiceName name = ServiceName.parse("my.service.name");
         Service<?> service = new MyService();
         try {
             SingletonPolicy policy = (SingletonPolicy) context.getServiceRegistry().getRequiredService(ServiceName.parse(SingletonPolicy.CAPABILITY_NAME)).awaitValue();
@@ -228,8 +215,7 @@ public class MyServiceActivator implements ServiceActivator {
 ----
 
 [[installing-an-msc-service-using-dynamic-singleton-policy]]
-Installing an MSC service using dynamic singleton policy
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Installing an MSC service using dynamic singleton policy
 
 Alternatively, you can build singleton policy dynamically, which is
 particularly useful if you want to use a custom singleton election
@@ -244,10 +230,10 @@ e.g.
 public class MyServiceActivator implements ServiceActivator {
     @Override
     public void activate(ServiceActivatorContext context) {
-        String containerName = “server”;
+        String containerName = "server";
         ElectionPolicy policy = new MySingletonElectionPolicy();
         int quorum = 3;
-        ServiceName name = ServiceName.parse(“my.service.name”);
+        ServiceName name = ServiceName.parse("my.service.name");
         Service<?> service = new MyService();
         try {
             SingletonServiceBuilderFactory factory = (SingletonServiceBuilderFactory) context.getServiceRegistry().getRequiredService(SingletonServiceName.BUILDER.getServiceName(containerName))).awaitValue();

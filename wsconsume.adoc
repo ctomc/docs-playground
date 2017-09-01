@@ -1,22 +1,16 @@
-wsconsume - Latest WildFly Documentation
-========================================
-
-[[wsconsume]]
 wsconsume
----------
+=========
 
 _wsconsume_ is a command line tool and ant task that "consumes" the
 abstract contract (WSDL file) and produces portable JAX-WS service and
 client artifacts.
 
 [[command-line-tool]]
-Command Line Tool
-~~~~~~~~~~~~~~~~~
+= Command Line Tool
 
 The command line tool has the following usage:
 
-[source,java]
-----
+....
 usage: wsconsume [options] <wsdl-url>
 options:
   -h, --help                  Show this help message
@@ -35,7 +29,9 @@ options:
   -e, --extension             Enable SOAP 1.2 binding extension
   -a, --additionalHeaders     Enables processing of implicit SOAP headers
   -n, --nocompile             Do not compile generated sources
-----
+....
+
+[IMPORTANT]
 
 The wsdlLocation is used when creating the Service to be used by clients
 and will be added to the @WebServiceClient annotation, for an endpoint
@@ -45,47 +41,40 @@ on your web service implementation and not the service endpoint
 interface.
 
 [[examples]]
-Examples
-^^^^^^^^
+== Examples
 
 Generate artifacts in Java class form only:
 
-[source,java]
-----
+....
 wsconsume Example.wsdl
-----
+....
 
 Generate source and class files:
 
-[source,java]
-----
+....
 wsconsume -k Example.wsdl
-----
+....
 
 Generate source and class files in a custom directory:
 
-[source,java]
-----
+....
 wsconsume -k -o custom Example.wsdl
-----
+....
 
 Generate source and class files in the org.foo package:
 
-[source,java]
-----
+....
 wsconsume -k -p org.foo Example.wsdl
-----
+....
 
 Generate source and class files using multiple binding files:
 
-[source,java]
-----
+....
 wsconsume -k -b wsdl-binding.xml -b schema1-binding.xml -b schema2-binding.xml
-----
+....
 
 [[maven-plugin]]
-Maven Plugin
-~~~~~~~~~~~~
+= Maven Plugin
 
 The wsconsume tools is included in the
 *org.jboss.ws.plugins:jaxws-tools-maven-plugin* plugin. The plugin has
@@ -96,107 +85,54 @@ latter during the _generate-test-sources_ one).
 
 The _wsconsume_ plugin has the following parameters:
 
-Attribute
+[cols=",,",]
+|=======================================================================
+|Attribute |Description |Default
 
-Description
+|bindingFiles |JAXWS or JAXB binding file |true
 
-Default
+|classpathElements |Each classpathElement provides alibrary file to be
+added to classpath
+|$\{project.compileClasspathElements}or$\{project.testClasspathElements}
 
-bindingFiles
+|catalog |Oasis XML Catalog file for entity resolution |none
 
-JAXWS or JAXB binding file
+|targetPackage |The target Java package for generated code. |generated
 
-true
+|bindingFiles |One or more JAX-WS or JAXB binding file |none
 
-classpathElements
+|wsdlLocation |Value to use for @WebServiceClient.wsdlLocation
+|generated
 
-Each classpathElement provides alibrary file to be added to classpath
+|outputDirectory |The output directory for generated artifacts.
+|$\{project.build.outputDirectory}or$\{project.build.testOutputDirectory}
 
-$\{project.compileClasspathElements}or$\{project.testClasspathElements}
+|sourceDirectory |The output directory for Java source.
+|$\{project.build.directory}/wsconsume/java
 
-catalog
+|verbose |Enables more informational output about command progress.
+|false
 
-Oasis XML Catalog file for entity resolution
+|wsdls |The WSDL files or URLs to consume |n/a
 
-none
+|extension |Enable SOAP 1.2 binding extension. |false
 
-targetPackage
+|encoding |The charset encoding to use for generated sources.
+|$\{project.build.sourceEncoding}
 
-The target Java package for generated code.
+|argLine |An optional additional argline to be used when running in fork
+mode;can be used to set endorse dir, enable debugging,
+etc.Example<argLine>-Djava.endorsed.dirs=...</argLine> |none
 
-generated
+|fork |Whether or not to run the generation task in a separate VM.
+|false
 
-bindingFiles
-
-One or more JAX-WS or JAXB binding file
-
-none
-
-wsdlLocation
-
-Value to use for @WebServiceClient.wsdlLocation
-
-generated
-
-outputDirectory
-
-The output directory for generated artifacts.
-
-$\{project.build.outputDirectory}or$\{project.build.testOutputDirectory}
-
-sourceDirectory
-
-The output directory for Java source.
-
-$\{project.build.directory}/wsconsume/java
-
-verbose
-
-Enables more informational output about command progress.
-
-false
-
-wsdls
-
-The WSDL files or URLs to consume
-
-n/a
-
-extension
-
-Enable SOAP 1.2 binding extension.
-
-false
-
-encoding
-
-The charset encoding to use for generated sources.
-
-$\{project.build.sourceEncoding}
-
-argLine
-
-An optional additional argline to be used when running in fork mode;can
-be used to set endorse dir, enable debugging,
-etc.Example<argLine>-Djava.endorsed.dirs=...</argLine>
-
-none
-
-fork
-
-Whether or not to run the generation task in a separate VM.
-
-false
-
-target
-
-A preference for the JAX-WS specification target
-
-Depends on the underlying stack and endorsed dirs if any
+|target |A preference for the JAX-WS specification target |Depends on
+the underlying stack and endorsed dirs if any
+|=======================================================================
 
 [[examples-1]]
-Examples
-^^^^^^^^
+== Examples
 
 You can use _wsconsume_ in your own project build simply referencing the
 _jaxws-tools-maven-plugin_ in the configured plugins in your pom.xml
@@ -310,113 +246,66 @@ proper tooling.
 </dependencies>
 ----
 
+[IMPORTANT]
+
 Be careful when using this plugin with the Maven War Plugin as that
 include any project dependency into the generated application war
-archive. You might want to set `<scope>provided</scope>` for the
+archive. You might want to set `<scope>provided</scope>` for the
 _JBossWS_ stack dependency to avoid that.
+
+[IMPORTANT]
 
 Up to version 1.1.2.Final, the _artifactId_ of the plugin was
 *maven-jaxws-tools-plugin*.
 
 [[ant-task]]
-Ant Task
-~~~~~~~~
+= Ant Task
 
- The _wsconsume_ Ant task ( _org.jboss.ws.tools.ant.WSConsumeTask_) has
+The _wsconsume_ Ant task ( _org.jboss.ws.tools.ant.WSConsumeTask_) has
 the following attributes:
 
-Attribute
+[cols=",,",]
+|=======================================================================
+|Attribute |Description |Default
 
-Description
+|fork |Whether or not to run the generation task in a separate VM. |true
 
-Default
+|keep |Keep/Enable Java source code generation. |false
 
-fork
+|catalog |Oasis XML Catalog file for entity resolution |none
 
-Whether or not to run the generation task in a separate VM.
+|package |The target Java package for generated code. |generated
 
-true
+|binding |A JAX-WS or JAXB binding file |none
 
-keep
+|wsdlLocation |Value to use for @WebServiceClient.wsdlLocation
+|generated
 
-Keep/Enable Java source code generation.
+|encoding |The charset encoding to use for generated sources |n/a
 
-false
+|destdir |The output directory for generated artifacts. |"output"
 
-catalog
+|sourcedestdir |The output directory for Java source. |value of destdir
 
-Oasis XML Catalog file for entity resolution
+|target |The JAX-WS specification target. Allowed values are 2.0, 2.1
+and 2.2 | 
 
-none
+|verbose |Enables more informational output about command progress.
+|false
 
-package
+|wsdl |The WSDL file or URL |n/a
 
-The target Java package for generated code.
+|extension |Enable SOAP 1.2 binding extension. |false
 
-generated
+|additionalHeaders |Enables processing of implicit SOAP headers |false
+|=======================================================================
 
-binding
-
-A JAX-WS or JAXB binding file
-
-none
-
-wsdlLocation
-
-Value to use for @WebServiceClient.wsdlLocation
-
-generated
-
-encoding
-
-The charset encoding to use for generated sources
-
-n/a
-
-destdir
-
-The output directory for generated artifacts.
-
-"output"
-
-sourcedestdir
-
-The output directory for Java source.
-
-value of destdir
-
-target
-
-The JAX-WS specification target. Allowed values are 2.0, 2.1 and 2.2
-
- 
-
-verbose
-
-Enables more informational output about command progress.
-
-false
-
-wsdl
-
-The WSDL file or URL
-
-n/a
-
-extension
-
-Enable SOAP 1.2 binding extension.
-
-false
-
-additionalHeaders
-
-Enables processing of implicit SOAP headers
-
-false
+[IMPORTANT]
 
 Users also need to put streamBuffer.jar and stax-ex.jar to the classpath
 of the ant task to generate the appropriate artefacts.
+
+[IMPORTANT]
 
 The wsdlLocation is used when creating the Service to be used by clients
 and will be added to the @WebServiceClient annotation, for an endpoint
@@ -427,27 +316,15 @@ interface.
 
 Also, the following nested elements are supported:
 
-Element
-
-Description
-
-Default
-
-binding
-
-A JAXWS or JAXB binding file
-
-none
-
-jvmarg
-
-Allows setting of custom jvm arguments
-
- 
+[cols=",,",]
+|=================================================
+|Element |Description |Default
+|binding |A JAXWS or JAXB binding file |none
+|jvmarg |Allows setting of custom jvm arguments | 
+|=================================================
 
 [[examples-2]]
-Examples
-^^^^^^^^
+== Examples
 
 Generate JAX-WS source and classes in a separate JVM with separate
 directories, a custom wsdl location attribute, and a list of binding

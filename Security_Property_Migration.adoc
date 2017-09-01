@@ -1,9 +1,5 @@
-Security Properties - Latest WildFly Documentation
-==================================================
-
-[[security-properties]]
 Security Properties
--------------------
+===================
 
 Lets suppose security properties "a" and "c" defined in legacy security:
 

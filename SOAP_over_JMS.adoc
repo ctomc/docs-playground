@@ -1,9 +1,5 @@
-SOAP over JMS - Latest WildFly Documentation
-============================================
-
-[[soap-over-jms]]
 SOAP over JMS
--------------
+=============
 
 JBoss Web Services allows communication over the _JMS_ transport. The
 functionality comes from Apache CXF support for the
@@ -19,8 +15,7 @@ _JMS_ enpdoints in the deployed archive and starts them delegating to
 the Apache CXF core similarly as with _HTTP_ endpoints.
 
 [[configuring-soap-over-jms]]
-Configuring SOAP over JMS
-~~~~~~~~~~~~~~~~~~~~~~~~~
+= Configuring SOAP over JMS
 
 As per specification, the _SOAP over JMS_ transport configuration is
 controlled by proper elements and attributes in the `binding` and
@@ -36,7 +31,7 @@ The minimum configuration implies:
 the queues [2]
 * setting the transport binding [3]
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <wsdl:definitions name="HelloWorldService" targetNamespace="http://org.jboss.ws/jaxws/cxf/jms"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
@@ -45,7 +40,7 @@ the queues [2]
   xmlns:soapjms="http://www.w3.org/2010/soapjms/"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 ...
-
+ 
 <wsdl:binding name="HelloWorldServiceSoapBinding" type="tns:HelloWorld">
   <soap:binding style="document" transport="http://www.w3.org/2010/soapjms/"/> <!-- 3 -->
   <wsdl:operation name="echo">
@@ -70,6 +65,8 @@ Apache CXF takes care of setting up the JMS transport for endpoint
 implementations whose `@WebService` annotation points to a port declared
 for JMS transport as explained above.
 
+[IMPORTANT]
+
 JBossWS currently supports POJO endpoints only for JMS transport use.
 The endpoint classes can be deployed as part of _jar_ or _war_ archives.
 
@@ -77,12 +74,10 @@ The _web.xml_ descriptor in _war_ archives doesn't need any entry for
 JMS endpoints.
 
 [[examples]]
-Examples
-~~~~~~~~
+= Examples
 
 [[jms-endpoint-only-deployment]]
-JMS endpoint only deployment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== JMS endpoint only deployment
 
 In this example we create a simple endpoint relying on _SOAP over JMS_
 and deploy it as part of a jar archive.
@@ -90,7 +85,7 @@ and deploy it as part of a jar archive.
 The endpoint is created using wsconsume tool from a WSDL contract such
 as:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <?xml version='1.0' encoding='UTF-8'?>
 <wsdl:definitions name="HelloWorldService" targetNamespace="http://org.jboss.ws/jaxws/cxf/jms"
@@ -161,6 +156,8 @@ as:
 </wsdl:definitions>
 ----
 
+[IMPORTANT]
+
 The _HelloWorldImplPort_ here is meant for using the _testQueue_ that
 has to be created before deploying the endpoint.
 
@@ -169,11 +166,13 @@ connection factory JNDI location on WildFly
 
 For allowing remote JNDI lookup of the connection factory, a specific
 service ( `HelloWorldService`) for remote clients is added to the WSDL.
-The  _java:jms/RemoteConnectionFactory_ is the JNDI location of the same
+The _java:jms/RemoteConnectionFactory_ is the JNDI location of the same
 connection factory mentioned above, except it's exposed for remote
 lookup. The `soapjms:jndiInitialContextFactory` and `soap:jmsjndiURL`
 complete the remote connection configuration, specifying the initial
 context factory class to use and the JNDI registry address.
+
+[IMPORTANT]
 
 Have a look at the application server domain for finding out the
 configured connection factory JNDI locations.
@@ -184,9 +183,9 @@ annotation to refer to the consumed contract:
 [source,java]
 ----
 package org.jboss.test.ws.jaxws.cxf.jms;
-
+ 
 import javax.jws.WebService;
-
+ 
 @WebService
 (
    portName = "HelloWorldImplPort",
@@ -204,6 +203,8 @@ public class HelloWorldImpl implements HelloWorld
 }
 ----
 
+[IMPORTANT]
+
 The endpoint implementation references the `HelloWorldServiceLocal` wsdl
 service, so that the local JNDI connection factory location is used for
 starting the endpoint on server side.
@@ -212,8 +213,7 @@ That's pretty much all. We just need to package the generated service
 endpoint interface, the endpoint implementation and the WSDL file in a
 _jar_ archive and deploy it:
 
-[source,java]
-----
+....
 alessio@inuyasha /dati/jbossws/stack/cxf/trunk $ jar -tvf ./modules/testsuite/cxf-tests/target/test-libs/jaxws-cxf-jms-only-deployment.jar
      0 Thu Jun 23 15:18:44 CEST 2011 META-INF/
    129 Thu Jun 23 15:18:42 CEST 2011 META-INF/MANIFEST.MF
@@ -228,13 +228,14 @@ alessio@inuyasha /dati/jbossws/stack/cxf/trunk $ jar -tvf ./modules/testsuite/cx
   1173 Thu Jun 23 15:18:42 CEST 2011 org/jboss/test/ws/jaxws/cxf/jms/HelloWorldImpl.class
      0 Thu Jun 23 15:18:40 CEST 2011 META-INF/wsdl/
   3074 Thu Jun 23 15:18:40 CEST 2011 META-INF/wsdl/HelloWorldService.wsdl
-----
+....
+
+[IMPORTANT]
 
 A dependency on `org.hornetq` module needs to be added in MANIFEST.MF
 when deploying to WildFly.
 
-[source,java]
-----
+....
 Manifest-Version: 1.0
 
 Ant-Version: Apache Ant 1.7.1
@@ -242,7 +243,7 @@ Ant-Version: Apache Ant 1.7.1
 Created-By: 17.0-b16 (Sun Microsystems Inc.)
 
 Dependencies: org.hornetq
-----
+....
 
 A JAX-WS client can interact with the JMS endpoint the usual way:
 
@@ -266,6 +267,8 @@ finally
 }
 ----
 
+[IMPORTANT]
+
 The WSDL location URL needs to be retrieved in a custom way, depending
 on the client application. Given the endpoint is JMS only, there's no
 automatically published WSDL contract.
@@ -287,10 +290,12 @@ private void setupProxy(HelloWorld proxy) {
 }
 ----
 
+[IMPORTANT]
+
 Have a look at the WildFly domain and messaging configuration for
 finding out the actual security requirements. At the time of writing, a
-user with `guest` role is required and that's internally checked using
-the `other` security domain.
+user with `guest` role is required and that's internally checked using
+the `other` security domain.
 
 Of course once the endpoint is exposed over JMS transport, any plain JMS
 client can also be used to send messages to the webservice endpoint. You
@@ -316,21 +321,20 @@ receiver.setMessageListener(responseListener);
 con.start();
 TextMessage message = session.createTextMessage(reqMessage);
 message.setJMSReplyTo(resQueue);
-
+ 
 //setup SOAP-over-JMS properties...
 message.setStringProperty("SOAPJMS_contentType", "text/xml");
 message.setStringProperty("SOAPJMS_requestURI", "jms:queue:testQueue");
-
+ 
 QueueSender sender = session.createSender(reqQueue);
 sender.send(message);
 sender.close();
-
+ 
 ...
 ----
 
 [[jms-and-http-endpoints-deployment]]
-JMS and HTTP endpoints deployment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== JMS and HTTP endpoints deployment
 
 In this example we create a deployment containing an endpoint that
 serves over both HTTP and JMS transports.
@@ -338,7 +342,7 @@ serves over both HTTP and JMS transports.
 We from a WSDL contract such as below (please note we've two `binding` /
 `portType` for the same `service`):
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <?xml version='1.0' encoding='UTF-8'?>
 <wsdl:definitions name="HelloWorldService" targetNamespace="http://org.jboss.ws/jaxws/cxf/jms"
@@ -434,9 +438,9 @@ implement the same service endpoint interface:
 [source,java]
 ----
 package org.jboss.test.ws.jaxws.cxf.jms_http;
-
+ 
 import javax.jws.WebService;
-
+ 
 @WebService
 (
    portName = "HelloWorldImplPort",
@@ -458,9 +462,9 @@ public class HelloWorldImpl implements HelloWorld
 [source,java]
 ----
 package org.jboss.test.ws.jaxws.cxf.jms_http;
-
+ 
 import javax.jws.WebService;
-
+ 
 @WebService
 (
    portName = "HttpHelloWorldImplPort",
@@ -482,8 +486,7 @@ public class HttpHelloWorldImpl implements HelloWorld
 Both classes are packaged together the service endpoint interface and
 the WSDL file in a _war_ archive:
 
-[source,java]
-----
+....
 alessio@inuyasha /dati/jbossws/stack/cxf/trunk $ jar -tvf ./modules/testsuite/cxf-spring-tests/target/test-libs/jaxws-cxf-jms-http-deployment.war
      0 Thu Jun 23 15:18:44 CEST 2011 META-INF/
    129 Thu Jun 23 15:18:42 CEST 2011 META-INF/MANIFEST.MF
@@ -502,12 +505,12 @@ alessio@inuyasha /dati/jbossws/stack/cxf/trunk $ jar -tvf ./modules/testsuite/cx
   1246 Thu Jun 23 15:18:42 CEST 2011 WEB-INF/classes/org/jboss/test/ws/jaxws/cxf/jms_http/HttpHelloWorldImpl.class
      0 Thu Jun 23 15:18:40 CEST 2011 WEB-INF/wsdl/
   3068 Thu Jun 23 15:18:40 CEST 2011 WEB-INF/wsdl/HelloWorldService.wsdl
-----
+....
 
 A trivial web.xml descriptor is also included to trigger the HTTP
 endpoint publish:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
@@ -525,6 +528,8 @@ endpoint publish:
 </web-app>
 ----
 
+[IMPORTANT]
+
 Here too the MANIFEST.MF needs to declare a dependency on _org.hornetq_
 module when deploying to WildFly.
 
@@ -540,7 +545,7 @@ try
 {
    QName serviceName = new QName("http://org.jboss.ws/jaxws/cxf/jms", "HelloWorldService");
    Service service = Service.create(wsdlUrl, serviceName);
-
+ 
    //JMS test
    HelloWorld proxy = (HelloWorld) service.getPort(new QName("http://org.jboss.ws/jaxws/cxf/jms", "HelloWorldImplPort"), HelloWorld.class);
    setupProxy(proxy);
@@ -556,8 +561,7 @@ finally
 ----
 
 [[use-of-endpoint.publish-api]]
-Use of Endpoint.publish() API
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Use of Endpoint.publish() API
 
 An alternative to deploying an archive containing JMS endpoints is in
 starting them directly using the JAX-WS `Endpoint.publish(..)` API.

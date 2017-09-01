@@ -1,25 +1,18 @@
-Configuration file history - Latest WildFly Documentation
-=========================================================
-
-[[configuration-file-history]]
 Configuration file history
---------------------------
+==========================
 
 The management operations may modify the model. When this occurs the xml
 backing the model is written out again reflecting the latest changes. In
 addition a full history of the file is maintained. The history of the
 file goes in a separate directory under the configuration directory.
 
-As mentioned in
-https://docs.jboss.org/author/display/WFLY10/Command+line+parameters#Commandlineparameters-parameters[Command
-line parameters#parameters] the default configuration file can be
-selected using a command-line parameter. For a standalone server
-instance the history of the active `standalone.xml` is kept in
-`jboss.server.config.dir`/standalone_xml_history (See
-https://docs.jboss.org/author/display/WFLY10/Command+line+parameters#Commandlineparameters-standalonesystemproperties[Command
-line parameters#standalone_system_properties] for more details). For a
-domain the active `domain.xml` and `host.xml` histories are kept in
-`jboss.domain.config.dir`/domain_xml_history and
+As mentioned in link:#src-557061[Command line parameters] the default
+configuration file can be selected using a command-line parameter. For a
+standalone server instance the history of the active `standalone.xml` is
+kept in `jboss.server.config.dir`/standalone_xml_history (See
+link:#src-557061[Command line parameters#standalone_system_properties]
+for more details). For a domain the active `domain.xml` and `host.xml`
+histories are kept in `jboss.domain.config.dir`/domain_xml_history and
 `jboss.domain.config.dir`/host_xml_history.
 
 The rest of this section will only discuss the history for
@@ -68,8 +61,7 @@ folder within the `standalone_xml_history`, and a new `current` folder
 is created. These timestamped folders are kept for 30 days.
 
 [[snapshots]]
-Snapshots
-~~~~~~~~~
+= Snapshots
 
 In addition to the backups taken by the server as described above you
 can manually take take snapshots which will be stored in the `snapshot`
@@ -110,7 +102,7 @@ You can also use the CLI to list all the snapshots
 }
 ----
 
- To delete a particular snapshot:
+To delete a particular snapshot:
 
 [source,java]
 ----
@@ -149,53 +141,31 @@ to navigate to the host in question:
 ----
 
 [[subsequent-starts]]
-Subsequent Starts
-~~~~~~~~~~~~~~~~~
+= Subsequent Starts
 
 For subsequent server starts it may be desirable to take the state of
 the server back to one of the previously known states, for a number of
 items an abbreviated reverence to the file can be used:
 
-Abreviation
+[cols=",,",]
+|=======================================================================
+|Abreviation |Parameter |Description
 
-Parameter
+|initial |--server-config=initial |This will start the server using the
+initial configuration first used to start the server.
 
-Description
+|boot |--server-config=boot |This will use the configuration from the
+last successful boot of the server.
 
-initial
+|last |--server-config=last |This will start the server using the
+configuration backed up from the last successful save.
 
---server-config=initial
+|v? |--server-config=v? |This will server the _xml_history/current
+folder for the configuration where ? is the number of the backup to use.
 
-This will start the server using the initial configuration first used to
-start the server.
-
-boot
-
---server-config=boot
-
-This will use the configuration from the last successful boot of the
-server.
-
-last
-
---server-config=last
-
-This will start the server using the configuration backed up from the
-last successful save.
-
-v?
-
---server-config=v?
-
-This will server the _xml_history/current folder for the configuration
-where ? is the number of the backup to use.
-
--?
-
---server-config=-?
-
-The server will be started after searching the snapshot folder for the
-configuration which matches this prefix.
+|-? |--server-config=-? |The server will be started after searching the
+snapshot folder for the configuration which matches this prefix.
+|=======================================================================
 
 In addition to this the `--server-config` parameter can always be used
 to specify a configuration relative to the `jboss.server.config.dir` and

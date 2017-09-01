@@ -1,6 +1,4 @@
-JavaMail API - Latest WildFly Documentation
-===========================================
-
-[[javamail-api]]
 JavaMail API
-------------
+============
+
+

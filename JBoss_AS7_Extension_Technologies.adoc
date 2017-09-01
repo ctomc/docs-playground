@@ -1,11 +1,9 @@
-JBoss AS7 Extension Technologies - Latest WildFly Documentation
-===============================================================
-
-[[jboss-as7-extension-technologies]]
 JBoss AS7 Extension Technologies
---------------------------------
+================================
 
 Coming Soon
+
+[IMPORTANT]
 
 This guide is still under development, check back soon!
 

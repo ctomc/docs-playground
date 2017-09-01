@@ -1,9 +1,5 @@
-AJP listeners - Latest WildFly Documentation
-============================================
-
-[[ajp-listeners]]
 AJP listeners
--------------
+=============
 
 The AJP listeners are child resources of the subsystem undertow. They
 are used with mod_jk, mod_proxy and mod_cluster of the Apache httpd
@@ -18,7 +14,7 @@ front-end. Each listener does reference a particular socket binding:
         "ajp-listener",
     ]
 }
-
+ 
 [standalone@localhost:9999 /] /subsystem=undertow/server=default-server/ajp-listener=*:read-resource(recursive=true)
 {
     "outcome" => "success",

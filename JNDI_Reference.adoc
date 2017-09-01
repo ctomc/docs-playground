@@ -1,16 +1,11 @@
-JNDI Reference - Latest WildFly Documentation
-=============================================
-
-[[jndi-reference]]
 JNDI Reference
---------------
+==============
 
 [[overview]]
-Overview
-~~~~~~~~
+= Overview
 
 WildFly offers several mechanisms to retrieve components by name. Every
-WildFly instance has it's own local JNDI namespace ( `java:`) which is
+WildFly instance has it's own local JNDI namespace ( `java:`) which is
 unique per JVM. The layout of this namespace is primarily governed by
 the Java EE specification. Applications which share the same WildFly
 instance can use this namespace to intercommunicate. In addition to
@@ -34,9 +29,9 @@ remote network call to the underlying service. In a nutshell,
 traditional remote JNDI involves two calls to invoke an EE component,
 whereas Client JNDI requires one. It does however allow for customized
 names, and for a centralised directory for multiple application servers.
-This centralized directory is, however, _a single point of failure_. 
+This centralized directory is, however, _a single point of failure_.
 * EE Application Client / Server-To-Server Delegation - This approach is
-where local names are bound as an _alias_ to a remote name using one of
+where local names are bound as an _alias_ to a remote name using one of
 the above mechanisms. This is useful in that it allows applications to
 only ever reference standard portable Java EE names in both code and
 deployment descriptors. It also allows for the application to be unaware
@@ -44,11 +39,10 @@ of network topology details/ This can even work with Java SE clients by
 using the little known EE Application Client feature. This feature
 allows you to run an extremely minimal AS server around your
 application, so that you can take advantage of certain core services
-such as naming and injection.  
+such as naming and injection.
 
 [[local-jndi]]
-Local JNDI
-~~~~~~~~~~
+= Local JNDI
 
 The Java EE platform specification defines the following JNDI contexts:
 
@@ -64,31 +58,33 @@ following two global namespaces:
 * java:jboss
 * java:/
 
-Only entries within the  `java:jboss/exported` context are accessible
+[IMPORTANT]
+
+Only entries within the `java:jboss/exported` context are accessible
 over remote JNDI.
+
+[IMPORTANT]
 
 For web deployments `java:comp` is aliased to `java:module`, so EJB's
 deployed in a war do not have their own comp namespace.
 
 [[binding-entries-to-jndi]]
-Binding entries to JNDI
-^^^^^^^^^^^^^^^^^^^^^^^
+== Binding entries to JNDI
 
 There are several methods that can be used to bind entries into JNDI in
 WildFly.
 
 [[using-a-deployment-descriptor]]
-Using a deployment descriptor
-+++++++++++++++++++++++++++++
+=== Using a deployment descriptor
 
 For Java EE applications the recommended way is to use a
-https://docs.jboss.org/author/display/AS71/Deployment+Descriptors+used+In+AS7.1[deployment
-descriptor] to create the binding. For example the following `web.xml`
-binds the string `"Hello World"` to `java:global/mystring` and the
-string `"Hello Module"` to `java:comp/env/hello` (any non absolute JNDI
-name is relative to `java:comp/env` context).
+link:#src-557267[deployment descriptor] to create the binding. For
+example the following `web.xml` binds the string `"Hello World"` to
+`java:global/mystring` and the string `"Hello Module"` to
+`java:comp/env/hello` (any non absolute JNDI name is relative to
+`java:comp/env` context).
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -111,13 +107,10 @@ For more details, see the http://jcp.org/en/jsr/detail?id=342[Java EE
 Platform Specification].
 
 [[programatically]]
-Programatically
-+++++++++++++++
+=== Programatically
 
 [[java-ee-applications]]
-Java EE Applications
-
-[[section]]
+==== Java EE Applications
 
 Standard Java EE applications may use the standard JNDI API, included
 with Java SE, to bind entries in the global namespaces (the standard
@@ -130,14 +123,14 @@ mandated by the Java EE Platform Specification).
   initialContext.bind("java:global/a", 100);
 ----
 
+[IMPORTANT]
+
 There is no need to unbind entries created programatically, since
 WildFly tracks which bindings belong to a deployment, and the bindings
 are automatically removed when the deployment is undeployed.
 
 [[wildfly-modules-and-extensions]]
-WildFly Modules and Extensions
-
-[[section-1]]
+==== WildFly Modules and Extensions
 
 With respect to code in WildFly Modules/Extensions, which is executed
 out of a Java EE application context, using the standard JNDI API may
@@ -156,13 +149,14 @@ invocation needs to be wrapped using WildFly proprietary APIs:
   }
 ----
 
+[IMPORTANT]
+
 The ServiceTarget removes the bind when uninstalled, thus using one out
 of the module/extension domain usage should be avoided, unless entries
 are removed using unbind().
 
 [[naming-subsystem-configuration]]
-Naming Subsystem Configuration
-++++++++++++++++++++++++++++++
+=== Naming Subsystem Configuration
 
 It is also possible to bind to one of the three global namespaces using
 configuration in the naming subsystem. This can be done by either
@@ -171,32 +165,32 @@ management API.
 
 Four different types of bindings are supported:
 
-* Simple - A primitive or java.net.URL entry (default is 
+* Simple - A primitive or java.net.URL entry (default is
 `java.lang.String`).
 * Object Factory - This allows to to specify the
 `javax.naming.spi.ObjectFactory` that is used to create the looked up
 value.
 * External Context - An external context to federate, such as an LDAP
-Directory Service 
+Directory Service
 * Lookup - The allows to create JNDI aliases, when this entry is looked
 up it will lookup the target and return the result.
 
 An example standalone.xml might look like:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <subsystem xmlns="urn:jboss:domain:naming:2.0" >
   <bindings>
     <simple name="java:global/a" value="100" type="int" />
     <simple name="java:global/jbossDocs" value="https://docs.jboss.org" type="java.net.URL" />
     <object-factory name="java:global/b" module="com.acme" class="org.acme.MyObjectFactory" />
-    <external-context name="java:global/federation/ldap/example” class="javax.naming.directory.InitialDirContext" cache="true">
+    <external-context name="java:global/federation/ldap/example" class="javax.naming.directory.InitialDirContext" cache="true">
       <environment>
-        <property name="java.naming.factory.initial" value=“com.sun.jndi.ldap.LdapCtxFactory” />
-        <property name="java.naming.provider.url" value=“ldap://ldap.example.com:389” />
-        <property name="java.naming.security.authentication" value=“simple” />
-        <property name="java.naming.security.principal" value=“uid=admin,ou=system” />
-        <property name="java.naming.security.credentials" value=“secret” />
+        <property name="java.naming.factory.initial" value="com.sun.jndi.ldap.LdapCtxFactory" />
+        <property name="java.naming.provider.url" value="ldap://ldap.example.com:389" />
+        <property name="java.naming.security.authentication" value="simple" />
+        <property name="java.naming.security.principal" value="uid=admin,ou=system" />
+        <property name="java.naming.security.credentials" value="secret" />
       </environment>
     </external-context>
     <lookup name="java:global/c" lookup="java:global/b" />
@@ -211,16 +205,16 @@ The CLI may also be used to bind an entry. As an example:
 /subsystem=naming/binding=java\:global\/mybinding:add(binding-type=simple, type=long, value=1000)
 ----
 
+[IMPORTANT]
+
 WildFly's Administrator Guide includes a section describing in detail
 the Naming subsystem configuration.
 
 [[retrieving-entries-from-jndi]]
-Retrieving entries from JNDI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Retrieving entries from JNDI
 
 [[resource-injection]]
-Resource Injection
-++++++++++++++++++
+=== Resource Injection
 
 For Java EE applications the recommended way to lookup a JNDI entry is
 to use `@Resource` injection:
@@ -229,10 +223,10 @@ to use `@Resource` injection:
 ----
   @Resource(lookup = "java:global/mystring")
   private String myString;
-
+ 
   @Resource(name = "hello")
   private String hello;
-
+ 
   @Resource
   ManagedExecutorService executor;
 ----
@@ -240,10 +234,10 @@ to use `@Resource` injection:
 Note that `@Resource` is more than a JNDI lookup, it also binds an entry
 in the component's JNDI environment. The new bind JNDI name is defined
 by `@Resource`'s `name` attribute, which value, if unspecified, is the
-Java type concatenated with  `/` and the field's name, for instance
+Java type concatenated with `/` and the field's name, for instance
 `java.lang.String/myString`. More, similar to when using deployment
 descriptors to bind JNDI entries. unless the name is an absolute JNDI
-name, it is considered relative to  `java:comp/env`. For instance, with
+name, it is considered relative to `java:comp/env`. For instance, with
 respect to the field named `myString` above, the `@Resource`'s `lookup`
 attribute instructs WildFly to lookup the value in
 `java:global/mystring`, bind it in
@@ -268,8 +262,7 @@ the default instance of a managed executor service, the value in
 Concurrency Utilities 1.0 Specification (JSR 236).
 
 [[standard-java-se-jndi-api]]
-Standard Java SE JNDI API
-+++++++++++++++++++++++++
+=== Standard Java SE JNDI API
 
 Java EE applications may use, without any additional configuration
 needed, the standard JNDI API to lookup an entry from JNDI:
@@ -287,23 +280,21 @@ or simply
 ----
 
 [[remote-jndi]]
-Remote JNDI
-~~~~~~~~~~~
+= Remote JNDI
 
 WildFly supports two different types of remote JNDI. The old jnp based
 JNDI implementation used in JBoss AS versions prior to 7.x is no longer
 supported.
 
 [[remote]]
-remote:
-^^^^^^^
+== remote:
 
-The `remote:` protocol uses the WildFly remoting protocol to lookup
+The `remote:` protocol uses the WildFly remoting protocol to lookup
 items from the servers local JNDI. To use it, you must have the
 appropriate jars on the class path, if you are maven user can be done
 simply by adding the following to your `pom.xml`:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <dependency>
   <groupId>org.wildfly</groupId>
@@ -327,8 +318,7 @@ remoteContext = new InitialContext(env);
 ----
 
 [[ejb]]
-ejb:
-^^^^
+== ejb:
 
 The ejb: namespace is provided by the jboss-ejb-client library. This
 protocol allows you to look up EJB's, using their application name,

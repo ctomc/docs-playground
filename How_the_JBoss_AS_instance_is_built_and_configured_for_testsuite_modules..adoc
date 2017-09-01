@@ -1,18 +1,12 @@
 How the JBoss AS instance is built and configured for testsuite modules.
-- Latest WildFly Documentation
-=======================================================================================================
+========================================================================
 
-[[how-the-jboss-as-instance-is-built-and-configured-for-testsuite-modules.]]
-How the JBoss AS instance is built and configured for testsuite modules.
-------------------------------------------------------------------------
+Refer to link:#src-557167[Shortened Maven Run Overview] to see the
+mentioned build steps.
 
-Refer to
-https://docs.jboss.org/author/display/AS71/Shortened+Maven+Run+Overview[Shortened
-Maven Run Overview] to see the mentioned build steps.
-
-1)  AS instance is copied from `${jboss.dist`} to
+\1) AS instance is copied from `${jboss.dist`} to
 `testsuite/target/jbossas`. +
-        Defaults to AS which is built by the project (
+Defaults to AS which is built by the project (
 `build/target/jboss-as-*`).
 
 2)
@@ -26,7 +20,7 @@ phase generate-test-resources: resource-plugin, goal copy-resources
 
 phase process-test-resources: antrun-plugin:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <ant antfile="$\{basedir}/src/test/scripts/basic-integration-build.xml">
     <target name="build-basic-integration"/>
@@ -36,7 +30,7 @@ phase process-test-resources: antrun-plugin:
 
 Which invokes
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <target name="build-basic-integration" description="Builds server configuration for basic-integration tests">
       <build-server-config name="jbossas"/>
@@ -44,7 +38,7 @@ Which invokes
 
 Which invokes
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <!-- Copy the base distribution. -->
 <!-- We exclude modules and bundles as they are read-only and we locate the via sys props. -->
@@ -54,7 +48,7 @@ Which invokes
         <exclude name="**/bundles/**"/>
     </fileset>
 </copy>
-
+ 
 <!-- overwrite with configs from test-configs and apply property filtering -->
 <copy todir="@{output.dir}/@{name}" overwrite="true" failonerror="false">
     <fileset dir="@{test.configs.dir}/@{name}"/>
@@ -68,10 +62,9 @@ Which invokes
 ----
 
 [[arquillian-config-file-location]]
-Arquillian config file location
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Arquillian config file location
 
-[source,brush:,bash;,gutter:,false;]
+[source,java]
 ----
 -Darquillian.xml=some-file-or-classpath-resource.xml
 ----

@@ -1,6 +1,4 @@
-Managed Beans - Latest WildFly Documentation
-============================================
-
-[[managed-beans]]
 Managed Beans
--------------
+=============
+
+

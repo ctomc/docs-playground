@@ -1,9 +1,5 @@
-Management Clients - Latest WildFly Documentation
-=================================================
-
-[[management-clients]]
 Management Clients
-------------------
+==================
 
 WildFly offers three different approaches to configure and manage
 servers: a web interface, a command line client and a set of XML
@@ -12,15 +8,13 @@ configuration is always synchronized across the different views and
 finally persisted to the XML files.
 
 [[web-management-interface]]
-Web Management Interface
-~~~~~~~~~~~~~~~~~~~~~~~~
+= Web Management Interface
 
 The web interface is a GWT application that uses the HTTP management API
 to configure a management domain or standalone server.
 
 [[http-management-endpoint]]
-HTTP Management Endpoint
-^^^^^^^^^^^^^^^^^^^^^^^^
+== HTTP Management Endpoint
 
 The HTTP API endpoint is the entry point for management clients that
 rely on the HTTP protocol to integrate with the management layer. It
@@ -53,22 +47,22 @@ interface:
 * Web Console: http://<host>:9990/console
 
 [[accessing-the-web-console]]
-Accessing the web console
-^^^^^^^^^^^^^^^^^^^^^^^^^
+== Accessing the web console
 
 The web console is served through the same port as the HTTP management
 API. It can be accessed by pointing your browser to:
 
-* http://<host>:9990/console 
+* http://<host>:9990/console
 
 Default URL
+
+[IMPORTANT]
 
 By default the web interface can be accessed here:
 http://localhost:9990/console.
 
 [[default-http-management-interface-security]]
-Default HTTP Management Interface Security
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Default HTTP Management Interface Security
 
 WildFly is distributed secured by default. The default security
 mechanism is username / password based making use of HTTP Digest for the
@@ -82,13 +76,15 @@ default user in the distribution.
 If you attempt to connect to the admin console before you have added a
 user to the server you will be presented with the following screen.
 
-image:images/author/download/attachments/108625991/no-users.png[images/author/download/attachments/108625991/no-users.png]
+image:images/download/attachments/557078/no-users.png[images/download/attachments/557078/no-users.png,width=300]
 
 The user are stored in a properties file called mgmt-users.properties
 under standalone/configuration and domain/configuration depending on the
 running mode of the server, these files contain the users username along
 with a pre-prepared hash of the username along with the name of the
 realm and the users password.
+
+[IMPORTANT]
 
 Although the properties files do not contain the plain text passwords
 they should still be guarded as the pre-prepared hashes could be used to
@@ -98,7 +94,7 @@ the same password.
 To manipulate the files and add users we provide a utility add-user.sh
 and add-user.bat to add the users and generate the hashes, to add a user
 you should execute the script and follow the guided process.
-image:images/author/download/attachments/108625991/add-user.png[images/author/download/attachments/108625991/add-user.png] +
+image:images/download/attachments/557078/add-user.png[images/download/attachments/557078/add-user.png] +
 The full details of the add-user utility are described later but for the
 purpose of accessing the management interface you need to enter the
 following values: -
@@ -124,8 +120,7 @@ navigate to the console again and you should then be prompted to enter
 the username and password to connect to the server.
 
 [[command-line-interface]]
-Command Line Interface
-~~~~~~~~~~~~~~~~~~~~~~
+= Command Line Interface
 
 The Command Line Interface (CLI) is a management tool for a managed
 domain or standalone server. It allows a user to connect to the domain
@@ -136,13 +131,14 @@ Details on how to use the CLI can be found in the
 link:Command_Line_Interface.html[Command Line Interface page].
 
 [[configuration-files]]
-Configuration Files
-~~~~~~~~~~~~~~~~~~~
+= Configuration Files
 
 WildFly stores its configuration in centralized XML configuration files,
 one per server for standalone servers and, for managed domains, one per
 host with an additional domain wide policy controlled by the master
 host. These files are meant to be human-readable and human editable.
+
+[IMPORTANT]
 
 The XML configuration files act as a central, authoritative source of
 configuration. Any configuration changes made via the web interface or
@@ -156,8 +152,7 @@ files while processes are running will not be detected, and may be
 overwritten.
 
 [[standalone-server-configuration-file]]
-Standalone Server Configuration File
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Standalone Server Configuration File
 
 The XML configuration for a standalone server can be found in the
 `standalone/configuration` directory. The default configuration file is
@@ -175,19 +170,17 @@ with the _[line-through]*c*_ or _-server-config_ command line argument:
 * `bin/standalone.sh --server-config=standalone-ha.xml`
 
 [[managed-domain-configuration-files]]
-Managed Domain Configuration Files
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Managed Domain Configuration Files
 
 In a managed domain, the XML files are found in the
 `domain/configuration` directory. There are two types of configuration
 files – one per host, and then a single domain-wide file managed by the
 master host, aka the Domain Controller. (For more on the types of
 processes in a managed domain, see link:Operating_modes.html[Operating
-modes].)
+Modes].)
 
 [[host-specific-configuration-host.xml]]
-Host Specific Configuration – host.xml
-++++++++++++++++++++++++++++++++++++++
+=== Host Specific Configuration – host.xml
 
 When you start a managed domain process, a Host Controller instance is
 launched, and it parses its own configuration file to determine its own
@@ -201,26 +194,24 @@ Each host will have its own variant `host.xml`, with settings
 appropriate for its role in the domain. WildFly ships with three
 standard variants:
 
-host-master.xml
+[cols=",",]
+|=======================================================================
+|host-master.xml |A configuration that specifies the Host Controller
+should become the master, aka the Domain Controller. No servers will be
+started by this Host Controller, which is a recommended setup for a
+production master.
 
-A configuration that specifies the Host Controller should become the
-master, aka the Domain Controller. No servers will be started by this
-Host Controller, which is a recommended setup for a production master.
+|host-slave.xml |A configuration that specifies the Host Controller
+should not become master and instead should register with a remote
+master and be controlled by it. This configuration launches servers,
+although a user will likely wish to modify how many servers are launched
+and what server groups they belong to.
 
-host-slave.xml
-
-A configuration that specifies the Host Controller should not become
-master and instead should register with a remote master and be
-controlled by it. This configuration launches servers, although a user
-will likely wish to modify how many servers are launched and what server
-groups they belong to.
-
-host.xml
-
-The default host configuration, tailored for an easy out of the box
-experience experimenting with a managed domain. This configuration
-specifies the Host Controller should become the master, aka the Domain
-Controller, but it also launches a couple of servers.
+|host.xml |The default host configuration, tailored for an easy out of
+the box experience experimenting with a managed domain. This
+configuration specifies the Host Controller should become the master,
+aka the Domain Controller, but it also launches a couple of servers.
+|=======================================================================
 
 Which host-specific configuration should be used can be controlled via
 the _ _--host-config__ command line argument:
@@ -231,8 +222,7 @@ $ bin/domain.sh --host-config=host-master.xml
 ----
 
 [[domain-wide-configuration-domain.xml]]
-Domain Wide Configuration – domain.xml
-++++++++++++++++++++++++++++++++++++++
+=== Domain Wide Configuration – domain.xml
 
 Once a Host Controller has processed its host-specific configuration, it
 knows whether it is configured to act as the master Domain Controller.

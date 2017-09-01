@@ -1,10 +1,5 @@
-Java Authorization Contract for Containers (JACC) - Latest WildFly
-Documentation
-================================================================================
-
-[[java-authorization-contract-for-containers-jacc]]
 Java Authorization Contract for Containers (JACC)
--------------------------------------------------
+=================================================
 
 In order to register your own JACC Module, you'll need to create a
 server module containing the required classes, and then set three system

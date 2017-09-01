@@ -1,20 +1,17 @@
-Loggers - Latest WildFly Documentation
-======================================
-
-[[loggers]]
 Loggers
--------
+=======
 
 WIP
 
+[IMPORTANT]
+
 This is still a work in progress. Please feel free to edit any mistakes
 you find
-image:images/author/images/icons/emoticons/smile.gif[images/author/images/icons/emoticons/smile.gif]
+image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png]
 .
 
 [[overview]]
-Overview
-~~~~~~~~
+= Overview
 
 Loggers are used to log messages. A logger is defined by a category
 generally consisting of a package name or a class name.
@@ -26,8 +23,7 @@ checked next and the rules of the filter will determine whether or not
 the messages is said to be loggable.
 
 [[logger-resource]]
-Logger Resource
-^^^^^^^^^^^^^^^
+== Logger Resource
 
 A logger resource uses the path `subsystem=logging/logger=$category`
 where `$category` is the of the logger. For example to a logger named
@@ -36,59 +32,57 @@ org.wildfly.example would have a resource path of
 
 A logger as 4 writeable attributes;
 
-* link:Loggers.html#108626033_Loggers-filterspec[filter-spec]
-* link:Loggers.html#108626033_Loggers-handlers[handlers]
-* link:Loggers.html#108626033_Loggers-level[level]
-* link:Loggers.html#108626033_Loggers-useparenthandlers[use-parent-handlers]
+* link:#src-557085_Loggers-filter-spec[filter-spec]
+* link:#src-557085_Loggers-handlers[#handlers]
+* link:#src-557085_Loggers-level[#level]
+* link:#src-557085_Loggers-use-parent-handlers[use-parent-handlers]
+
+[IMPORTANT]
 
 You may notice that the `category` and `filter` attributes are missing.
 While `filter` is writable it may be deprecated and removed in the
 future. Both attributes are still on the resource for legacy reasons.
 
 [[filter-spec]]
-filter-spec
-+++++++++++
+=== filter-spec
 
 The `filter-spec` attribute is an expression based string to define
 filters for the logger.
 
+[IMPORTANT]
+
 Filters on loggers are not inherited.
 
 [[handlers]]
-handlers
-++++++++
+=== handlers
 
 The `handlers` attribute is a list of handler names that should be
 attached to the logger. If the
-link:Loggers.html#108626033_Loggers-useparenthandlers[use-parent-handlers]
+link:#src-557085_Loggers-use-parent-handlers[use-parent-handlers]
 attribute is set to `true` and the log messages is determined to be
 loggable, parent loggers will continue to be processed.
 
 [[level]]
-level
-+++++
+=== level
 
 The `level` attribute allows the minimum level to allow messages to be
 logged at for the logger.
 
-[[parent-handlers]]
-parent-handlers
-+++++++++++++++
+[[use-parent-handlers]]
+=== use-parent-handlers
 
 The `use-parent-handlers` attribute is a boolean attribute to determine
 whether or not parent loggers should also process the log message.
 
 [[root-logger-resource]]
-Root Logger Resource
-^^^^^^^^^^^^^^^^^^^^
+== Root Logger Resource
 
 The `root-logger` is similar to a
-link:Loggers.html#108626033_Loggers-LoggerResource[Logger Resource] only
-it has no category and it's name is must be `ROOT`.
+link:#src-557085_Loggers-LoggerResource[#Logger Resource] only it has no
+category and it's name is must be `ROOT`.
 
 [[logger-hierarchy]]
-Logger Hierarchy
-^^^^^^^^^^^^^^^^
+== Logger Hierarchy
 
 A logger hierarchy is defined by it's category. The category is a `.`
 (dot) delimited string generally consisting of the package name or a

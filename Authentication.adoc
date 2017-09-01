@@ -1,13 +1,8 @@
-Authentication - Latest WildFly Documentation
-=============================================
+Authentication
+==============
 
 [[authentication]]
-Authentication
---------------
-
-[[authentication-1]]
-Authentication
-~~~~~~~~~~~~~~
+= Authentication
 
 Here the simplest way to authenticate a web service user with JBossWS is
 explained.
@@ -31,7 +26,7 @@ public class EndpointEJB implements EndpointInterface
 Similarly POJO endpoints are secured the same way as we do for normal
 web applications in web.xml:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <security-constraint>
   <web-resource-collection>
@@ -42,15 +37,14 @@ web applications in web.xml:
     <role-name>friend</role-name>
   </auth-constraint>
 </security-constraint>
-
+ 
 <security-role>
   <role-name>friend</role-name>
 </security-role>
 ----
 
 [[specify-the-security-domain]]
-Specify the security domain
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Specify the security domain
 
 Next, specify the security domain for this deployment. This is performed
 using the `@SecurityDomain` annotation for EJB3 endpoints
@@ -68,7 +62,7 @@ public class EndpointEJB implements EndpointInterface
 
 or modifying the jboss-web.xml for POJO endpoints
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <jboss-web>
 <security-domain>JBossWS</security-domain>
@@ -80,8 +74,7 @@ mechanisms are defined differently depending on the application server
 version in use.
 
 [[use-bindingprovider-to-set-principalcredential]]
-Use BindingProvider to set principal/credential
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Use BindingProvider to set principal/credential
 
 A web service client may use the `javax.xml.ws.BindingProvider`
 interface to set the username/password combination
@@ -92,15 +85,14 @@ URL wsdlURL = new File("resources/jaxws/samples/context/WEB-INF/wsdl/TestEndpoin
 QName qname = new QName("http://org.jboss.ws/jaxws/context", "TestEndpointService");
 Service service = Service.create(wsdlURL, qname);
 port = (TestEndpoint)service.getPort(TestEndpoint.class);
-
+ 
 BindingProvider bp = (BindingProvider)port;
 bp.getRequestContext().put(BindingProvider.USERNAME_PROPERTY, "kermit");
 bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, "thefrog");
 ----
 
 [[using-http-basic-auth-for-security]]
-Using HTTP Basic Auth for security
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Using HTTP Basic Auth for security
 
 To enable HTTP Basic authentication you use the `@WebContext` annotation
 on the bean class
@@ -120,7 +112,7 @@ public class EndpointEJB implements EndpointInterface
 For POJO endpoints, we modify the _web.xml_ adding the auth-method
 element:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <login-config>
   <auth-method>BASIC</auth-method>
@@ -129,13 +121,12 @@ element:
 ----
 
 [[jaspi-authentication]]
-JASPI Authentication
-~~~~~~~~~~~~~~~~~~~~
+= JASPI Authentication
 
 A Java Authentication SPI (JASPI) provider can be configured in WildFly
 security subsystem to authenticate SOAP messages:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <security-domain name="jaspi">
 <authentication-jaspi>
@@ -150,6 +141,8 @@ security subsystem to authenticate SOAP messages:
 </security-domain>
 ----
 
+[IMPORTANT]
+
 For further information on configuring security domains in WildFly,
 please refer to
 https://docs.jboss.org/author/display/WFLY9/Security+subsystem+configuration[here].
@@ -157,7 +150,7 @@ https://docs.jboss.org/author/display/WFLY9/Security+subsystem+configuration[her
 Here
 `org.jboss.wsf.stack.cxf.jaspi.module.UsernameTokenServerAuthModule` is
 the class implementing
-`javax.security.auth.message.module.ServerAuthModule`,  which delegates
+`javax.security.auth.message.module.ServerAuthModule`, which delegates
 to the proper login module to perform authentication using the
 credentials from WS-Security UsernameToken in the incoming SOAP message.
 Alternative implementations of `ServerAuthModule` can be implemented and
@@ -169,7 +162,7 @@ the security domain to use; that can be done in two different ways:
 * Setting the `jaspi.security.domain` property in the
 `jboss-webservices.xml` descriptor
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <?xml version="1.1" encoding="UTF-8"?>
 <webservices
@@ -177,12 +170,12 @@ xmlns="http://www.jboss.com/xml/ns/javaee"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 version="1.2"
 xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee">
-
+ 
 <property>
 <name>jaspi.security.domain</name>
 <value>jaspi</value>
 </property>
-
+ 
 </webservices>
 ----
 
@@ -198,7 +191,7 @@ public class ServiceEndpointImpl implements ServiceIface {
 The `jaspi.security.domain` property is specified as follows in the
 referenced descriptor:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <jaxws-config xmlns="urn:jboss:jbossws-jaxws-config:4.0"
@@ -213,6 +206,8 @@ xsi:schemaLocation="urn:jboss:jbossws-jaxws-config:4.0 schema/jbossws-jaxws-conf
 </endpoint-config>
 </jaxws-config>
 ----
+
+[IMPORTANT]
 
 If the JASPI security domain is specified in both
 `jboss-webservices.xml` and config file referenced by `@EndpointConfig`

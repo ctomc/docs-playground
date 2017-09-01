@@ -1,9 +1,5 @@
-Introduction - Latest WildFly Documentation
-===========================================
-
-[[introduction]]
 Introduction
-------------
+============
 
 This page has moved to
 https://github.com/wildfly/quickstart/blob/10.x/guide/Introduction.asciidoc

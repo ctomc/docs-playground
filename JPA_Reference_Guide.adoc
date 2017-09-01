@@ -1,13 +1,8 @@
-JPA Reference Guide - Latest WildFly Documentation
-==================================================
-
-[[jpa-reference-guide]]
 JPA Reference Guide
--------------------
+===================
 
 [[introduction]]
-Introduction
-~~~~~~~~~~~~
+= Introduction
 
 The WildFly JPA subsystem implements the JPA 2.1 container-managed
 requirements. Deploys the persistence unit definitions, the persistence
@@ -23,18 +18,17 @@ or @PersistenceContext/Unit annotations) and injects Hibernate
 dependencies into the application deployment. This makes it easy to
 deploy JPA applications.
 
-In the remainder of this documentation, ”entity manager” refers to an
+In the remainder of this documentation, "entity manager" refers to an
 instance of the _javax.persistence.EntityManager_ class.
 http://download.oracle.com/javaee/7/api/javax/persistence/package-summary.html[Javadoc
-for the JPA interfaces] and https://jcp.org/en/jsr/detail?id=338[JPA 2.1
+for the JPA interfaces]and https://jcp.org/en/jsr/detail?id=338[JPA 2.1
 specification].
 
 The index of the Hibernate documentation is at
 http://hibernate.org/orm/documentation/5.1/.
 
 [[update-your-persistence.xml-for-hibernate-5.1]]
-Update your Persistence.xml for Hibernate 5.1
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Update your Persistence.xml for Hibernate 5.1
 
 The persistence provider class name in Hibernate 4.3.0 (and greater) is
 *org.hibernate.jpa.HibernatePersistenceProvider*.
@@ -51,40 +45,37 @@ Or remove the persistence provider class name from your persistence.xml
 (so the default provider will be used).
 
 [[entity-manager]]
-Entity manager
-~~~~~~~~~~~~~~
+= Entity manager
 
 The entity manager (javax.persistence.EntityManager class) is similar to
 the Hibernate Session class; applications use it to
 create/read/update/delete data (and related operations). Applications
 can use application-managed or container-managed entity managers. Keep
 in mind that the entity manager is not thread safe, don't share the same
-entity manager instance with multiple threads. 
+entity manager instance with multiple threads.
 
 Internally, the entity manager, has a persistence context for managing
-entities.  You can think of the persistence context as being closely
+entities. You can think of the persistence context as being closely
 associated with the entity manager.
 
 [[container-managed-entity-manager]]
-Container-managed entity manager
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Container-managed entity manager
 
 When you inject a container-managed entity managers into an application
 variable, it is treated like an (EE container controlled) Java proxy
 object, that will be associated with an underlying EntityManager
 instance, for each started JTA transaction and is flushed/closed when
-the JTA transaction commits.  Such that when your application code
+the JTA transaction commits. Such that when your application code
 invokes EntityManager.anyMethod(), the current JTA transaction is
 searched (using persistence unit name as key) for the underlying
 EntityManager instance, if not found, a new EntityManager instance is
 created and associated with the current JTA transaction, to be reused
-for the next EntityManager invocation.  Use the @PersistenceContext
+for the next EntityManager invocation. Use the @PersistenceContext
 annotation, to inject a container-managed entity manager into a
 javax.persistence.EntityManager variable.
 
 [[application-managed-entity-manager]]
-Application-managed entity manager
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Application-managed entity manager
 
 An application-managed entity manager is kept around until the
 application closes it. The scope of the application-managed entity
@@ -95,30 +86,28 @@ variable_. The EntityManagerFactory can return an application-managed
 entity manager.
 
 [[persistence-context]]
-Persistence Context
-~~~~~~~~~~~~~~~~~~~
+= Persistence Context
 
 The JPA persistence context contains the entities managed by the entity
-manager (via the JPA persistence provider).  The underlying entity
-manager maintains the persistence context.  The persistence context acts
+manager (via the JPA persistence provider). The underlying entity
+manager maintains the persistence context. The persistence context acts
 like a first level (transactional) cache for interacting with the
 datasource. Loaded entities are placed into the persistence context
 before being returned to the application. Entities changes are also
 placed into the persistence context (to be saved in the database when
-the transaction commits). 
+the transaction commits).
 
 [[transaction-scoped-persistence-context]]
-Transaction-scoped Persistence Context
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Transaction-scoped Persistence Context
 
 The transaction-scoped persistence context coordinates with the (active)
-JTA transaction.  When the transaction commits, the persistence context
+JTA transaction. When the transaction commits, the persistence context
 is flushed to the datasource (entity objects are detached but may still
-be referenced by application code).  All entity changes that are
-expected to be saved to the datasource, must be made during a
-transaction.  Entities read outside of a transaction will be detached
-when the entity manager invocation completes.  Example
-transaction-scoped persistence context is below.
+be referenced by application code). All entity changes that are expected
+to be saved to the datasource, must be made during a transaction.
+Entities read outside of a transaction will be detached when the entity
+manager invocation completes. Example transaction-scoped persistence
+context is below.
 
 [source,java]
 ----
@@ -138,8 +127,7 @@ public class CustomerManager {
 ----
 
 [[extended-persistence-context]]
-Extended Persistence Context
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Extended Persistence Context
 
 The (ee container managed) extended persistence context can span
 multiple transactions and allows data modifications to be queued up
@@ -155,30 +143,29 @@ EntityManager em;
 ----
 
 [[extended-persistence-context-inheritance]]
-Extended Persistence Context Inheritance
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== Extended Persistence Context Inheritance
 
 [source,java]
 ----
 JPA 2.0 specification section 7.6.2.1
-
+ 
 If a stateful session bean instantiates a stateful session bean (executing in the same EJB container instance) which also has such an extended persistence context, the extended persistence context of the first stateful session bean is inherited by the second stateful session bean and bound to it, and this rule recursively applies—independently of whether transactions are active or not at the point of the creation of the stateful session beans.
 ----
 
 By default, the current stateful session bean being created, will (
 *deeply*) inherit the extended persistence context from any stateful
-session bean executing in the current Java thread.  The *deep*
+session bean executing in the current Java thread. The *deep*
 inheritance of extended persistence context includes walking multiple
-levels up the stateful bean call stack (inheriting from parent beans). 
+levels up the stateful bean call stack (inheriting from parent beans).
 The *deep* inheritance of extended persistence context includes sibling
-beans.  For example, parentA references child beans beanBwithXPC & 
-beanCwithXPC.  Even though parentA doesn't have an extended persistence
+beans. For example, parentA references child beans beanBwithXPC &
+beanCwithXPC. Even though parentA doesn't have an extended persistence
 context, beanBwithXPC & beanCwithXPC will share the same extended
-persistence context. 
+persistence context.
 
 Some other EE application servers, use *shallow* inheritance, where
 stateful session bean only inherit from the parent stateful session bean
-(if there is a parent bean).  Sibling beans do not share the same
+(if there is a parent bean). Sibling beans do not share the same
 extended persistence context unless their (common) parent bean also has
 the same extended persistence context.
 
@@ -187,30 +174,30 @@ descriptor that specifies either the (default) *DEEP* extended
 persistence context inheritance or *SHALLOW*.
 
 The WF/docs/schema/jboss-jpa_1_0.xsd describes the *jboss-jpa*
-deployment descriptor that may be included in the *jboss-all.xml*. 
-Below is an example of using *SHALLOW* extended persistence context
+deployment descriptor that may be included in the *jboss-all.xml*. Below
+is an example of using *SHALLOW* extended persistence context
 inheritance:
 
-____________________________________________________________
+________________________________________________________
 <jboss> +
-    <jboss-jpa xmlns="http://www.jboss.com/xml/ns/javaee"> +
-    <extended-persistence inheritance="SHALLOW"/> +
-    </jboss-jpa> +
-</jboss> 
-____________________________________________________________
+<jboss-jpa xmlns="http://www.jboss.com/xml/ns/javaee"> +
+<extended-persistence inheritance="SHALLOW"/> +
+</jboss-jpa> +
+</jboss>
+________________________________________________________
 
 Below is an example of using *DEEP* extended persistence inheritance:
 
-____________________________________________________________
+________________________________________________________
 <jboss> +
-    <jboss-jpa xmlns="http://www.jboss.com/xml/ns/javaee"> +
-    <extended-persistence inheritance="DEEP"/> +
-    </jboss-jpa> +
+<jboss-jpa xmlns="http://www.jboss.com/xml/ns/javaee"> +
+<extended-persistence inheritance="DEEP"/> +
+</jboss-jpa> +
 </jboss>
-____________________________________________________________
+________________________________________________________
 
 The AS console/cli can change the *default* extended persistence context
-setting (DEEP or SHALLOW).  The following cli commands will read the
+setting (DEEP or SHALLOW). The following cli commands will read the
 current JPA settings and enable SHALLOW extended persistence context
 inheritance for applications that do not include the *jboss-jpa*
 deployment descriptor:
@@ -223,8 +210,7 @@ cd subsystem=jpa +
 _______________________________________________________________________________
 
 [[entities]]
-Entities
-~~~~~~~~
+= Entities
 
 JPA allows use of your (pojo) plain old Java class to represent a
 database table row.
@@ -234,7 +220,7 @@ database table row.
 @PersistenceContext EntityManager em;
 Integer bomPk = getIndexKeyValue();
 BillOfMaterials bom = em.find(BillOfMaterials.class, bomPk); // read existing table row into BillOfMaterials class
-
+ 
 BillOfMaterials createdBom = new BillOfMaterials("...");     // create new entity
 em.persist(createdBom);  // createdBom is now managed and will be saved to database when the current JTA transaction completes
 ----
@@ -257,8 +243,7 @@ identity, associated with a persistence context, but scheduled for
 removal from the database.
 
 [[deployment]]
-Deployment
-~~~~~~~~~~
+= Deployment
 
 The persistence.xml contains the persistence unit configuration (e.g.
 datasource name) and as described in the JPA 2.0 spec (section 8.2), the
@@ -291,12 +276,11 @@ for this case instead.
 Question: Can you have a EAR/META-INF/persistence.xml?
 
 Answer: No, the above may deploy but it could include other archives
-also in the EAR, so you may have deployment issues for other reasons. 
+also in the EAR, so you may have deployment issues for other reasons.
 Better to put the persistence.xml in an EAR/lib/somePuJar.jar.
 
 [[troubleshooting]]
-Troubleshooting
-~~~~~~~~~~~~~~~
+= Troubleshooting
 
 The *org.jboss.as.jpa* logging can be enabled to get the following
 information:
@@ -313,26 +297,26 @@ persistence.xml
 To enable TRACE, open the as/standalone/configuration/standalone.xml (or
 as/domain/configuration/domain.xml) file. Search for *<subsystem
 xmlns="urn:jboss:domain:logging:1.0">* and add the *org.jboss.as.jpa*
-category.  You need to change the console-handler level from *INFO* to
-*TRACE*. 
+category. You need to change the console-handler level from *INFO* to
+*TRACE*.
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <subsystem xmlns="urn:jboss:domain:logging:1.0">
      <console-handler name="CONSOLE">
       <level name="TRACE" />
       ...
      </console-handler>
-
+ 
      </periodic-rotating-file-handler>
      <logger category="com.arjuna">
         <level name="WARN" />
      </logger>
-
+ 
      <logger category="org.jboss.as.jpa">
         <level name="TRACE" />
      </logger>
-
+ 
      <logger category="org.apache.tomcat.util.modeler">
         <level name="WARN" />
      </logger>
@@ -361,23 +345,23 @@ org.infinispan:*
       <level name="TRACE" />
       ...
      </console-handler>
-
+ 
      </periodic-rotating-file-handler>
      <logger category="com.arjuna">
         <level name="WARN" />
      </logger>
-
+ 
      <logger category="org.hibernate.SQL">
         <level name="TRACE" />
      </logger>
-
+ 
      <logger category="org.hibernate">
         <level name="TRACE" />
      </logger>
       <logger category="org.infinispan">
         <level name="TRACE" />
      </logger>
-
+ 
      <logger category="org.apache.tomcat.util.modeler">
         <level name="WARN" />
      </logger>
@@ -385,8 +369,7 @@ org.infinispan:*
 ----
 
 [[using-the-infinispan-second-level-cache]]
-Using the Infinispan second level cache
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Using the Infinispan second level cache
 
 To enable the second level cache with Hibernate 5.1, just set the
 *hibernate.cache.use_second_level_cache* property to true, as is done in
@@ -394,11 +377,11 @@ the following example (also set the
 http://docs.oracle.com/javaee/6/api/javax/persistence/SharedCacheMode.html[shared-cache-mode]
 accordingly). By default the application server uses Infinispan as the
 cache provider for *JPA applications*, so you don't need specify
-anything on top of that.  The Infinispan version that is included in
+anything on top of that. The Infinispan version that is included in
 WildFly is expected to work with the Hibernate version that is included
-with WildFly.  Example persistence.xml settings:
+with WildFly. Example persistence.xml settings:
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 <?xml version="1.0" encoding="UTF-8"?><persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
 <persistence-unit name="2lc_example_pu">
@@ -507,12 +490,11 @@ Persistence.xml to use the above custom settings:
 ----
 
 [[replacing-the-current-hibernate-5.x-jars-with-a-newer-version]]
-Replacing the current Hibernate 5.x jars with a newer version
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Replacing the current Hibernate 5.x jars with a newer version
 
 Just update the current
 wildfly/modules/system/layers/base/org/hibernate/main folder to contain
-the newer version (after stopping your WildFly server instance). 
+the newer version (after stopping your WildFly server instance).
 
 1.  Delete *.index files in
 wildfly/modules/system/layers/base/org/hibernate/main and
@@ -531,8 +513,7 @@ to name the jars that you copied in.
 wildfly/modules/system/layers/base/org/hibernate/infinispan.
 
 [[using-hibernate-search]]
-Using Hibernate Search
-~~~~~~~~~~~~~~~~~~~~~~
+= Using Hibernate Search
 
 WildFly includes Hibernate Search. If you want to use the bundled
 version of Hibernate Search - which requires to use the default
@@ -559,11 +540,10 @@ opt to include Hibernate Search and its dependencies within your
 application but we highly recommend the modules approach.
 
 [[packaging-the-hibernate-jpa-persistence-provider-with-your-application]]
-Packaging the Hibernate JPA persistence provider with your application
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Packaging the Hibernate JPA persistence provider with your application
 
-WildFly  allows the packaging of Hibernate persistence provider jars
-with the application. The JPA deployer will detect the presence of a
+WildFly allows the packaging of Hibernate persistence provider jars with
+the application. The JPA deployer will detect the presence of a
 persistence provider in the application and
 *jboss.as.jpa.providerModule* needs to be set to *application*.<?xml
 version="1.0" encoding="UTF-8"?> +
@@ -573,25 +553,23 @@ version="1.0"> +
 <description>Hibernate Persistence Unit.</description> +
 <jta-data-source>java:jboss/datasources/PlannerDS</jta-data-source> +
 <properties> +
-    <property name="jboss.as.jpa.providerModule" value="application"
-/> +
+<property name="jboss.as.jpa.providerModule" value="application" /> +
 </properties> +
 </persistence-unit> +
 </persistence>
 
-[source,brush:,xml;,gutter:,false;]
+[source,java]
 ----
 ----
 
 [[migrating-from-openjpa]]
-Migrating from OpenJPA
-~~~~~~~~~~~~~~~~~~~~~~
+= Migrating from OpenJPA
 
 You need to copy the OpenJPA jars (e.g. openjpa-all.jar serp.jar) into
 the WildFly modules/org/apache/openjpa/main folder and update
 modules/org/apache/openjpa/main/module.xml to include the same jar file
-names that you copied in.  This will help you get your application that
-depends on OpenJPA, to deploy on WildFly. 
+names that you copied in. This will help you get your application that
+depends on OpenJPA, to deploy on WildFly.
 
 [source,java]
 ----
@@ -605,7 +583,7 @@ depends on OpenJPA, to deploy on WildFly. 
         </resource-root>
         <resource-root path="serp.jar"/>
     </resources>
-
+ 
     <dependencies>
         <module name="javax.api"/>
         <module name="javax.annotation.api"/>
@@ -625,16 +603,15 @@ depends on OpenJPA, to deploy on WildFly. 
 ----
 
 [[migrating-from-eclipselink]]
-Migrating from EclipseLink
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Migrating from EclipseLink
 
 You need to copy the EclipseLink jar (e.g. eclipselink-2.6.0.jar or
 eclipselink.jar as in the example below) into the WildFly
 modules/org/eclipse/persistence/main folder and update
 modules/org/eclipse/persistence/main/module.xml to include the
-EclipseLink jar (take care to use the jar name that you copied in).  If
+EclipseLink jar (take care to use the jar name that you copied in). If
 you happen to leave the EclipseLink version number in the jar name, the
-module.xml should reflect that.  This will help you get your application
+module.xml should reflect that. This will help you get your application
 that depends on EclipseLink, to deploy on WildFly.
 
 [source,java]
@@ -647,7 +624,7 @@ that depends on EclipseLink, to deploy on WildFly.
            </filter>
         </resource-root>
     </resources>
-
+ 
     <dependencies>
         <module name="asm.asm"/>
         <module name="javax.api"/>
@@ -667,7 +644,7 @@ that depends on EclipseLink, to deploy on WildFly.
 </module>
 ----
 
-As a workaround for  issue
+As a workaround for issue
 https://bugs.eclipse.org/bugs/show_bug.cgi?id=414974[id=414974], set
 (WildFly) system property "eclipselink.archive.factory" to value
 "org.jipijapa.eclipselink.JBossArchiveFactoryImpl" via jboss-cli.sh
@@ -679,7 +656,7 @@ issued):
 jboss-cli.sh --connect '/system-property=eclipselink.archive.factory:add(value=org.jipijapa.eclipselink.JBossArchiveFactoryImpl)'
 ----
 
-.  The following shows what the standalone.xml (or your WildFly
+. The following shows what the standalone.xml (or your WildFly
 configuration you are using) file might look like after updating the
 system properties:
 
@@ -704,16 +681,14 @@ https://community.jboss.org/wiki/HowToUseEclipseLinkWithAS7[how to use
 EclipseLink with WildFly guide here].
 
 [[migrating-from-datanucleus]]
-Migrating from DataNucleus
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Migrating from DataNucleus
 
 Read the
 http://www.datanucleus.org/products/accessplatform_5_0/jpa/javaee.html[how
 to use DataNucleus with WildFly guide here].
 
 [[native-hibernate-use]]
-Native Hibernate use
-~~~~~~~~~~~~~~~~~~~~
+= Native Hibernate use
 
 Applications that use the Hibernate API directly, are referred to here
 as native Hibernate applications. Native Hibernate applications, can
@@ -735,15 +710,14 @@ Dependencies: org.hibernate
 
 If you use the Hibernate native api in your application and also use the
 JPA api to access the same entities (from the same Hibernate
-session/EntityManager), you could get surprising results  (e.g.
+session/EntityManager), you could get surprising results (e.g.
 HibernateSession.saveOrUpdate(entity) is different than
-EntityManager.merge(entity).  Each entity should be managed by either
+EntityManager.merge(entity). Each entity should be managed by either
 Hibernate native API or JPA code.
 
 [[injection-of-hibernate-session-and-sessionfactoryinjection-of-hibernate-session-and-sessionfactory]]
-Injection of Hibernate Session and SessionFactoryInjection of Hibernate
-Session and SessionFactory
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Injection of Hibernate Session and SessionFactoryInjection of
+Hibernate Session and SessionFactory
 
 You can inject a org.hibernate.Session and org.hibernate.SessionFactory
 directly, just as you can do with EntityManagers and
@@ -761,71 +735,55 @@ import org.hibernate.SessionFactory;
 ----
 
 [[hibernate-properties]]
-Hibernate properties
-~~~~~~~~~~~~~~~~~~~~
+= Hibernate properties
 
 WildFly automatically sets the following Hibernate (5.x) properties (if
 not already set in persistence unit definition):
 
-Property
+[cols=",",]
+|=======================================================================
+|Property |Purpose
 
-Purpose
+|hibernate.id.new_generator_mappings =true |New applications should let
+this default to true, older applications with existing data might need
+to set to false (see note below). It really depends on whether your
+application uses the @GeneratedValue(AUTO) which will generates new key
+values for newly created entities. The application can override this
+value (in the persistence.xml).
 
-hibernate.id.new_generator_mappings =true
+|hibernate.transaction.jta.platform= instance of
+org.hibernate.service.jta.platform.spi.JtaPlatform interface |The
+transaction manager, user transaction and transaction synchronization
+registry is passed into Hibernate via this class.
 
-New applications should let this default to true, older applications
-with existing data might need to set to false (see note below).  It
-really depends on whether your application uses the
-@GeneratedValue(AUTO) which will generates new key values for newly
-created entities.  The application can override this value (in the
-persistence.xml).
+|hibernate.ejb.resource_scanner = instance of
+org.hibernate.ejb.packaging.Scanner interface |Instance of entity
+scanning class is passed in that knows how to use the AS annotation
+indexer (for faster deployment).
 
-hibernate.transaction.jta.platform= instance of
-org.hibernate.service.jta.platform.spi.JtaPlatform interface
+|hibernate.transaction.manager_lookup_class |This property is removed if
+found in the persistence.xml (could conflict with JtaPlatform)
 
-The transaction manager, user transaction and transaction
-synchronization registry is passed into Hibernate via this class.
-
-hibernate.ejb.resource_scanner = instance of
-org.hibernate.ejb.packaging.Scanner interface
-
-Instance of entity scanning class is passed in that knows how to use the
-AS annotation indexer (for faster deployment).
-
-hibernate.transaction.manager_lookup_class
-
-This property is removed if found in the persistence.xml (could conflict
-with JtaPlatform)
-
-hibernate.session_factory_name = qualified persistence unit name
-
-Is set to the application name + persistence unit name (application can
+|hibernate.session_factory_name = qualified persistence unit name |Is
+set to the application name + persistence unit name (application can
 specify a different value but it needs to be unique across all
 application deployments on the AS instance).
 
-hibernate.session_factory_name_is_jndi = false
+|hibernate.session_factory_name_is_jndi = false |only set if the
+application didn't specify a value for hibernate.session_factory_name.
 
-only set if the application didn't specify a value for
-hibernate.session_factory_name.
+|hibernate.ejb.entitymanager_factory_name = qualified persistence unit
+name |Is set to the application name + persistence unit name
+(application can specify a different value but it needs to be unique
+across all application deployments on the AS instance).
 
-hibernate.ejb.entitymanager_factory_name =  qualified persistence unit
-name
+|hibernate.query.jpaql_strict_compliance=true | 
 
-Is set to the application name + persistence unit name (application can
-specify a different value but it needs to be unique across all
-application deployments on the AS instance).
+|hibernate.auto_quote_keyword=false | 
 
-hibernate.query.jpaql_strict_compliance=true
-
- 
-
-hibernate.auto_quote_keyword=false
-
- 
-
-hibernate.implicit_naming_strategy=org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
-
- 
+|hibernate.implicit_naming_strategy=org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+| 
+|=======================================================================
 
 In Hibernate 4.x (and greater), if *new_generator_mappings* is *true*:
 
@@ -844,171 +802,136 @@ org.hibernate.id.MultipleHiLoPerTableGenerator
 * @GeneratedValue(SEQUENCE) to Hibernate "seqhilo"
 
 [[persistence-unit-properties]]
-Persistence unit properties
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Persistence unit properties
 
 The following properties are supported in the persistence unit
 definition (in the persistence.xml file):
 
-Property
+[cols=",",]
+|=======================================================================
+|Property |Purpose
 
-Purpose
+|jboss.as.jpa.providerModule |name of the persistence provider module
+(default is org.hibernate). Should be application, if a persistence
+provider is packaged with the application. See note below about some
+module names that are built in (based on the provider).
 
-jboss.as.jpa.providerModule
+|jboss.as.jpa.adapterModule |name of the integration classes that help
+WildFly to work with the persistence provider.
 
-name of the persistence provider module (default is org.hibernate).
-Should be application, if a persistence provider is packaged with the
-application.  See note below about some module names that are built in
-(based on the provider).
+|jboss.as.jpa.adapterClass |class name of the integration adapter.
 
-jboss.as.jpa.adapterModule
+|jboss.as.jpa.managed |set to false to disable container managed JPA
+access to the persistence unit. The default is true, which enables
+container managed JPA access to the persistence unit. This is typically
+set to false for Spring applications.
 
-name of the integration classes that help WildFly to work with the
-persistence provider.
+|jboss.as.jpa.classtransformer |set to false to disable class
+transformers for the persistence unit. Set to true, to allow entity
+class enhancing/rewriting.
 
-jboss.as.jpa.adapterClass
+|wildfly.jpa.default-unit |set to true to choose the default persistence
+unit in an application. This is useful if you inject a persistence
+context without specifying the unitName (@PersistenceContext
+EntityManager em) but have multiple persistence units specified in your
+persistence.xml.
 
-class name of the integration adapter.
-
-jboss.as.jpa.managed
-
-set to false to disable container managed JPA access to the persistence
-unit.  The default is true, which enables container managed JPA access
-to the persistence unit.  This is typically set to false for Spring
-applications.
-
-jboss.as.jpa.classtransformer
-
-set to false to disable class transformers for the persistence unit. 
-Set to true, to allow entity class enhancing/rewriting. 
-
-wildfly.jpa.default-unit
-
-set to true to choose the default persistence unit in an application. 
-This is useful if you inject a persistence context without specifying
-the unitName (@PersistenceContext EntityManager em) but have multiple
-persistence units specified in your persistence.xml.
-
-wildfly.jpa.twophasebootstrap
-
-persistence providers (like Hibernate ORM 4.3+ via
-EntityManagerFactoryBuilder), allow a two phase persistence unit
-bootstrap, which improves JPA integration with CDI.  Setting the
+|wildfly.jpa.twophasebootstrap |persistence providers (like Hibernate
+ORM 4.3+ via EntityManagerFactoryBuilder), allow a two phase persistence
+unit bootstrap, which improves JPA integration with CDI. Setting the
 wildfly.jpa.twophasebootstrap hint to false, disables the two phase
 bootstrap (for the persistence unit that contains the hint).
 
-wildfly.jpa.allowdefaultdatasourceuse
+|wildfly.jpa.allowdefaultdatasourceuse |set to false to prevent
+persistence unit from using the default data source. Defaults to true.
+This is only important for persistence units that do not specify a
+datasource.
 
-set to false to prevent persistence unit from using the default data
-source.  Defaults to true.  This is only important for persistence units
-that do not specify a datasource.
+|jboss.as.jpa.deferdetach |Controls whether transaction scoped
+persistence context used in non-JTA transaction thread, will detach
+loaded entities after each EntityManager invocation or when the
+persistence context is closed (e.g. business method ends). Defaults to
+false (entities are cleared after EntityManager invocation) and if set
+to true, the detach is deferred until the context is closed.
 
-jboss.as.jpa.deferdetach
+|wildfly.jpa.hibernate.search.module |Controls which version of
+Hibernate Search to include on classpath. Only makes sense when using
+Hibernate as JPA implementation. The default is auto; other valid values
+are none or a full module identifier to use an alternative version.
 
-Controls whether transaction scoped persistence context used in non-JTA
-transaction thread, will detach loaded entities after each EntityManager
-invocation or when the persistence context is closed (e.g. business
-method ends).  Defaults to false (entities are cleared after
-EntityManager invocation) and if set to true, the detach is deferred
-until the context is closed.
-
-wildfly.jpa.hibernate.search.module
-
-Controls which version of Hibernate Search to include on classpath. Only
-makes sense when using Hibernate as JPA implementation. The default is
-auto; other valid values are none or a full module identifier to use an
-alternative version.
-
-jboss.as.jpa.scopedname
-
-Specify the qualified (application scoped) persistence unit name to be
-used.  By default, this is internally set to the application name +
-persistence unit name.  The hibernate.cache.region_prefix will default
-to whatever you set jboss.as.jpa.scopedname to.  Make sure you set the
+|jboss.as.jpa.scopedname |Specify the qualified (application scoped)
+persistence unit name to be used. By default, this is internally set to
+the application name + persistence unit name. The
+hibernate.cache.region_prefix will default to whatever you set
+jboss.as.jpa.scopedname to. Make sure you set the
 jboss.as.jpa.scopedname value to a value not already in use by other
 applications deployed on the same application server instance.
 
-wildfly.jpa.allowjoinedunsync
+|wildfly.jpa.allowjoinedunsync |If set to true, allows an
+SynchronizationType.UNSYNCHRONIZED persistence context that has been
+joined to the active JTA transaction, to be propagated into a
+SynchronizationType.SYNCHRONIZED persistence context. Otherwise, an
+IllegalStateException exception would of been thrown that complains that
+an unsychronized persistence context cannot be propagated into a
+synchronized persistence context. Defaults to false.
 
-If set to true, allows an SynchronizationType.UNSYNCHRONIZED persistence
-context that has been joined to the active JTA transaction, to be
-propagated into a SynchronizationType.SYNCHRONIZED persistence context. 
-Otherwise, an IllegalStateException exception would of been thrown that
-complains that an unsychronized persistence context cannot be propagated
-into a synchronized persistence context.  Defaults to false. 
-
-wildfly.jpa.skipmixedsynctypechecking
-
-Set to true to disable the throwing of an IllegalStateException
-exception when propagating an SynchronizationType.UNSYNCHRONIZED
-persistence context into a SynchronizationType.SYNCHRONIZED persistence
-context.  This is a workaround intended to allow applications that used
-to incorrectly not get IllegalStateException exception with extended
-persistence contexts, to avoid the IllegalStateException, so they don't
-have to change their application right away (for compatibility
-purposes).  This hint may be deprecated in a future release.  See
-WFLY-7108 for more details.  Defaults to false.
+|wildfly.jpa.skipmixedsynctypechecking |Set to true to disable the
+throwing of an IllegalStateException exception when propagating an
+SynchronizationType.UNSYNCHRONIZED persistence context into a
+SynchronizationType.SYNCHRONIZED persistence context. This is a
+workaround intended to allow applications that used to incorrectly not
+get IllegalStateException exception with extended persistence contexts,
+to avoid the IllegalStateException, so they don't have to change their
+application right away (for compatibility purposes). This hint may be
+deprecated in a future release. See WFLY-7108 for more details. Defaults
+to false.
+|=======================================================================
 
 [[determine-the-persistence-provider-module]]
-Determine the persistence provider module
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Determine the persistence provider module
 
 As mentioned above, if the *jboss.as.jpa.providerModule* property is not
 specified, the provider module name is determined by the *provider* name
-specified in the persistence.xml.  The mapping is:
+specified in the persistence.xml. The mapping is:
 
-Provider Name
+[cols=",",]
+|=======================================================================
+|Provider Name |Module name
 
-Module name
+|blank |org.hibernate
 
-blank
+|org.hibernate.ejb.HibernatePersistence |org.hibernate
 
-org.hibernate
+|org.hibernate.ogm.jpa.HibernateOgmPersistence |org.hibernate.ogm
 
-org.hibernate.ejb.HibernatePersistence
+|oracle.toplink.essentials.PersistenceProvider |oracle.toplink
 
-org.hibernate
+|oracle.toplink.essentials.ejb.cmp3.EntityManagerFactoryProvider
+|oracle.toplink
 
-org.hibernate.ogm.jpa.HibernateOgmPersistence
+|org.eclipse.persistence.jpa.PersistenceProvider
+|org.eclipse.persistence
 
-org.hibernate.ogm
+|org.datanucleus.api.jpa.PersistenceProviderImpl |org.datanucleus
 
-oracle.toplink.essentials.PersistenceProvider
+|org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider
+|org.datanucleus:appengine
 
-oracle.toplink
-
-oracle.toplink.essentials.ejb.cmp3.EntityManagerFactoryProvider
-
-oracle.toplink
-
-org.eclipse.persistence.jpa.PersistenceProvider
-
-org.eclipse.persistence
-
-org.datanucleus.api.jpa.PersistenceProviderImpl
-
-org.datanucleus
-
-org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider
-
-org.datanucleus:appengine
-
-org.apache.openjpa.persistence.PersistenceProviderImpl
-
-org.apache.openjpa
+|org.apache.openjpa.persistence.PersistenceProviderImpl
+|org.apache.openjpa
+|=======================================================================
 
 [[binding-entitymanagerfactoryentitymanager-to-jndi]]
-Binding EntityManagerFactory/EntityManager to JNDI
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+= Binding EntityManagerFactory/EntityManager to JNDI
 
 By default WildFly does *not* bind the entity manager factory to JNDI.
 However, you can explicitly configure this in the persistence.xml of
 your application by setting the `jboss.entity.manager.factory.jndi.name`
 `hint. The value of that property should be the JNDI name to which the entity manager factory should be bound.`
 
-`You can also bind a container managed (transaction scoped) entity manager to JNDI as well, }}via hint`
+`You can also bind a container managed (transaction scoped) entity manager to JNDI as well, }}via hint`
 `jboss.entity.manager.jndi.name`\{
-`}{{.  As a reminder, a transaction scoped entity manager (persistence context), acts as a proxy that always gets an unique underlying entity manager (at the persistence provider level).`
+`}{{. As a reminder, a transaction scoped entity manager (persistence context), acts as a proxy that always gets an unique underlying entity manager (at the persistence provider level).`
 
 `Here's an example:`
 
@@ -1049,8 +972,7 @@ public class ExampleSFSB {
 ----
 
 [[community]]
-Community
-~~~~~~~~~
+= Community
 
 Many thanks to the community, for reporting issues, solutions and code
 changes. A number of people have been answering Wildfly forum questions
@@ -1062,13 +984,12 @@ https://community.jboss.org/wiki/HackingOnWildFly[Hacking on WildFly].
 You will find that it easy very easy to find your way around the
 WildFly/JPA/* source tree and make changes. Also, new for WildFly, is
 the JipiJapa project that contains additional integration code that
-makes EE JPA application deployments work better.  The following list of
+makes EE JPA application deployments work better. The following list of
 contributors should grow over time, I hope to see more of you listed
 here.
 
 [[people-who-have-contributed-to-the-wildfly-jpa-layer]]
-People who have contributed to the WildFly JPA layer:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+== People who have contributed to the WildFly JPA layer:
 
 * https://community.jboss.org/people/wolfc[Carlo de Wolf] (lead of the
 EJB3 project)

@@ -1,24 +1,15 @@
-Application Client Migration - Latest WildFly Documentation
-===========================================================
-
-[[application-client-migration]]
 Application Client Migration
-----------------------------
-
-[[119308483_ApplicationClientMigration-ApplicationClientMigration]]
-[[119308483_ApplicationClientMigration-ApplicationClientMigration]]
+============================
 
 [[naming-client]]
-Naming Client
-~~~~~~~~~~~~~
+= Naming Client
 
 This migration example assumes a client application performs a remote
 JNDI lookup using an ﻿﻿ `InitialContext` backed by the
 `org.jboss.naming.remote.client.InitialContextFactory` class.
 
 [[original-configuration]]
-Original Configuration
-^^^^^^^^^^^^^^^^^^^^^^
+== Original Configuration
 
 An `InitialContext` backed by the
 `org.jboss.naming.remote.client.InitialContextFactory` class can be
@@ -38,8 +29,7 @@ Bar bar = (Bar) context.lookup("foo/bar");
 ----
 
 [[migrated-configuration]]
-Migrated Configuration
-^^^^^^^^^^^^^^^^^^^^^^
+== Migrated Configuration
 
 An `InitialContext` backed by the
 `org.wildfly.naming.client.WildFlyInitialContextFactory` class can be
@@ -48,8 +38,7 @@ provider to connect to. The user credentials can be specified using a
 WildFly client configuration file or programmatically.
 
 [[configuration-file-approach]]
-Configuration File Approach
-+++++++++++++++++++++++++++
+=== Configuration File Approach
 
 A `wildfly-config.xml` file that contains the user credentials to use
 when establishing a connection to the naming provider can be added to
@@ -91,20 +80,19 @@ Bar bar = (Bar) context.lookup("foo/bar");
 ----
 
 [[programmatic-approach]]
-Programmatic Approach
-+++++++++++++++++++++
+=== Programmatic Approach
 
 The user credentials to use when establishing a connection to the naming
-provider can be specified directly in the client application’s code:
+provider can be specified directly in the client application's code:
 
 [source,java]
 ----
 // create your authentication configuration
 AuthenticationConfiguration namingConfig = AuthenticationConfiguration.empty().useName("bob").usePassword("secret");
-
+ 
 // create your authentication context
 AuthenticationContext context = AuthenticationContext.empty().with(MatchRule.ALL.matchHost("127.0.0.1"), namingConfig);
-
+ 
 // create a callable that creates and uses an InitialContext
 Callable<Void> callable = () -> {
     Properties properties = new Properties();
@@ -115,26 +103,24 @@ Callable<Void> callable = () -> {
     ...
     return null;
 };
-
+ 
 // use your authentication context to run your callable
 context.runCallable(callable);
 ----
 
 [[ejb-client]]
-EJB Client
-~~~~~~~~~~
+= EJB Client
 
 This migration example assumes a client application is configured to
 invoke an EJB deployed on a remote server using a
 `jboss-ejb-client.properties` file.
 
 [[original-configuration-1]]
-Original Configuration
-^^^^^^^^^^^^^^^^^^^^^^
+== Original Configuration
 
 A `jboss-ejb-client.properties` file that contains the information
 needed to connect to the remote server can be specified in a client
-application’s `META-INF` directory:
+application's `META-INF` directory:
 
 *jboss-ejb-client.properties*
 
@@ -158,7 +144,7 @@ Properties properties = new Properties();
 properties.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
 properties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
 InitialContext context = new InitialContext(properties);
-
+ 
 // look up an EJB and invoke one of its methods
 RemoteCalculator statelessRemoteCalculator = (RemoteCalculator) context.lookup(
     "ejb:/ejb-remote-server-side//CalculatorBean!" + RemoteCalculator.class.getName());
@@ -166,15 +152,13 @@ int sum = statelessRemoteCalculator.add(101, 202);
 ----
 
 [[migrated-configuration-1]]
-Migrated Configuration
-^^^^^^^^^^^^^^^^^^^^^^
+== Migrated Configuration
 
 The information needed to connect to the remote server can be specified
 using a WildFly client configuration file or programmatically.
 
 [[configuration-file-approach-1]]
-Configuration File Approach
-+++++++++++++++++++++++++++
+=== Configuration File Approach
 
 A `wildfly-config.xml` file that contains the information needed to
 connect to the remote server can be added to the client application's
@@ -217,7 +201,7 @@ follows:
 Properties properties = new Properties();
 properties.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
 InitialContext context = new InitialContext(properties);
-
+ 
 // look up an EJB and invoke one of its methods (same as before)
 RemoteCalculator statelessRemoteCalculator = (RemoteCalculator) context.lookup(
     "ejb:/ejb-remote-server-side//CalculatorBean!" + RemoteCalculator.class.getName());
@@ -225,29 +209,28 @@ int sum = statelessRemoteCalculator.add(101, 202);
 ----
 
 [[programmatic-approach-1]]
-Programmatic Approach
-+++++++++++++++++++++
+=== Programmatic Approach
 
 The information needed to connect to the remote server can be specified
-directly in the client application’s code:
+directly in the client application's code:
 
 [source,java]
 ----
 // create your authentication configuration
 AuthenticationConfiguration ejbConfig = AuthenticationConfiguration.empty().useName("bob").usePassword("secret");
-
+ 
 // create your authentication context
 AuthenticationContext context = AuthenticationContext.empty().with(MatchRule.ALL.matchHost("127.0.0.1"), ejbConfig);
-
+ 
 // create a callable that invokes an EJB
 Callable<Void> callable = () -> {
-
+ 
     // create an InitialContext
     Properties properties = new Properties();
     properties.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
     properties.put(Context.PROVIDER_URL, "remote+http://127.0.0.1:8080");
     InitialContext context = new InitialContext(properties);
-
+ 
     // look up an EJB and invoke one of its methods (same as before)
     RemoteCalculator statelessRemoteCalculator = (RemoteCalculator) context.lookup(
         "ejb:/ejb-remote-server-side//CalculatorBean!" + RemoteCalculator.class.getName());
@@ -255,7 +238,7 @@ Callable<Void> callable = () -> {
     ...
     return null;
 };
-
+ 
 // use your authentication context to run your callable
 context.runCallable(callable);
 ----

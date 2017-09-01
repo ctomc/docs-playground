@@ -1,9 +1,5 @@
-JDBC Store for Messaging Journal - Latest WildFly Documentation
-===============================================================
-
-[[jdbc-store-for-messaging-journal]]
 JDBC Store for Messaging Journal
---------------------------------
+================================
 
 The Artemis server that are integrated to WildFly can be configured to
 use a JDBC store for its messaging journal instead of its file-based
@@ -56,8 +52,11 @@ The name of these tables can be configured with the
 `journal-page-store-table, and journal-large-messages-table`.
 
 [[reference]]
-Reference
-~~~~~~~~~
+= Reference
+
+--
 
 * Artemis JDBC Persistence -
 http://activemq.apache.org/artemis/docs/1.5.0/persistence.html#configuring-jdbc-persistence
+
+--
