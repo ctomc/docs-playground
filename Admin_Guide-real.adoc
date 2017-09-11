@@ -1,11 +1,10 @@
-= Admin Guide
-WildFly developer team
-:author tcerar@redhat.com
+= WildFly Admin Guide
+WildFly developer team;
 :revnumber: {version}
 :revdate: {localdate}
 :toc: macro
 :toclevels: 2
-:toc-title: Admin guide
+:toc-title: WildFly Admin guide
 :doctype: book
 :icons: font
 :source-highlighter: coderay
