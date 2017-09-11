@@ -1,0 +1,13 @@
+= Core management concepts
+:toclevels: 2
+:toc-title: Core management concepts
+:doctype: article
+
+
+include::Operating_modes.adoc[]
+
+
+include::General_configuration_concepts.adoc[]
+
+
+include::Management_resources.adoc[]

@@ -11,7 +11,7 @@ long these deployments have been deployed.
 To make your life easier we have provided a maven archetype which will
 create a skeleton project for implementing subsystems.
 
-[source,java]
+[source, java]
 ----
 mvn archetype:generate \
     -DarchetypeArtifactId=wildfly-subsystem \
@@ -23,7 +23,7 @@ mvn archetype:generate \
 Maven will download the archetype and it's dependencies, and ask you
 some questions:
 
-[source,java]
+[source, java]
 ----
 $ mvn archetype:generate \
     -DarchetypeArtifactId=wildfly-subsystem \
@@ -100,7 +100,7 @@ link:attachments_852137_1_acme-subsystem.zip[acme-subsystem.zip].
 If you do a `mvn install` in the created project, you will see some
 tests being run
 
-[source,java]
+[source, java]
 ----
 $mvn install
 [INFO] Scanning for projects...
@@ -133,7 +133,7 @@ First, let us define the schema for our subsystem. Rename
 `src/main/resources/schema/acme.xsd`. Then open `acme.xsd` and modify it
 to the following
 
-[source,java]
+[source, java]
 ----
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
             targetNamespace="urn:com.acme.corp.tracker:1.0"
@@ -170,7 +170,7 @@ attribute, and a `tick` attribute which defaults to `true.`
 Now modify the ﻿ `com.acme.corp.tracker.extension.SubsystemExtension`
 class to contain the new namespace.
 
-[source,java]
+[source, java]
 ----
 public class SubsystemExtension implements Extension {
  
@@ -185,7 +185,7 @@ public class SubsystemExtension implements Extension {
 The following example xml contains a valid subsystem configuration, we
 will see how to plug this in to WildFly later in this tutorial.
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:com.acme.corp.tracker:1.0">
    <deployment-types>
@@ -201,7 +201,7 @@ very different. To keep things simple, let us stay pretty true to the
 schema so that when executing a `:read-resource(recursive=true)` against
 our subsystem we'll see something like:
 
-[source,java]
+[source, java]
 ----
 {
     "outcome" => "success",
@@ -220,7 +220,7 @@ contains the `tick` attribute.
 We also need a name for our subsystem, to do that change
 `com.acme.corp.tracker.extension.SubsystemExtension`:
 
-[source,java]
+[source, java]
 ----
 public class SubsystemExtension implements Extension {
     ...
@@ -235,7 +235,7 @@ Once we are finished our subsystem will be available under
 The `SubsystemExtension.initialize()` method defines the model,
 currently it sets up the basics to add our subsystem to the model:
 
-[source,java]
+[source, java]
 ----
 @Override
     public void initialize(ExtensionContext context) {
@@ -263,7 +263,7 @@ modified. We will add more functionality to this method later.
 Next we obtain a `ManagementResourceRegistration` by registering the
 subsystem model. This is a *compulsory* step for every new subsystem.
 
-[source,java]
+[source, java]
 ----
 final ManagementResourceRegistration registration = subsystem.registerSubsystemModel(SubsystemDefinition.INSTANCE);
 ----
@@ -273,7 +273,7 @@ interface, which means that when you call
 `/subsystem=tracker:read-resource-description` the information you see
 comes from model that is defined by `SubsystemDefinition.INSTANCE`.
 
-[source,java]
+[source, java]
 ----
 public class SubsystemDefinition extends SimpleResourceDefinition {
     public static final SubsystemDefinition INSTANCE = new SubsystemDefinition();
@@ -311,7 +311,7 @@ achieved by the following line inside `registerOperations` in your
 `ResourceDefinition` or by providing it in constructor of your
 `SimpleResourceDefinition` just as we did in example above.
 
-[source,java]
+[source, java]
 ----
 //We always need to add an 'add' operation
         resourceRegistration.registerOperationHandler(ADD, SubsystemAdd.INSTANCE, new DefaultResourceAddDescriptionProvider(resourceRegistration,descriptionResolver), false);
@@ -339,7 +339,7 @@ there are lots of helper methods to help you automatically describe the
 model. Following example is done by manually defining Description
 provider for ADD operation handler
 
-[source,java]
+[source, java]
 ----
 /**
      * Used to create the description of the subsystem add method
@@ -362,7 +362,7 @@ methods there are classes `DefaultResourceAddDescriptionProvider` and
 `DefaultResourceRemoveDescriptionProvider` that do work for you. In case
 you use `SimpleResourceDefinition` even that part is hidden from you.
 
-[source,java]
+[source, java]
 ----
 resourceRegistration.registerOperationHandler(ADD, SubsystemAdd.INSTANCE, new DefaultResourceAddDescriptionProvider(resourceRegistration,descriptionResolver), false);
 resourceRegistration.registerOperationHandler(REMOVE, SubsystemRemove.INSTANCE, new DefaultResourceRemoveDescriptionProvider(resourceRegistration,descriptionResolver), false);
@@ -374,7 +374,7 @@ what is the name of operation and optional array of
 parameters/attributes operation takes. This is an example to register
 operation " `add-mime`" with two parameters:
 
-[source,java]
+[source, java]
 ----
 container.registerOperationHandler("add-mime",
                 MimeMappingAdd.INSTANCE,
@@ -391,7 +391,7 @@ Next we have the actual operation handler instance, note that we have
 changed its `populateModel()` method to initialize the `type` child of
 the model.
 
-[source,java]
+[source, java]
 ----
 class SubsystemAdd extends AbstractBoottimeAddStepHandler {
  
@@ -421,7 +421,7 @@ removed so we have a remove handler for the subsystem registered +
 in `SubsystemDefinition.registerOperations` or just provide the
 operation handler in constructor.
 
-[source,java]
+[source, java]
 ----
 //Every resource that is added, normally needs a remove operation
         registration.registerOperationHandler(REMOVE, SubsystemRemove.INSTANCE, DefaultResourceRemoveDescriptionProvider(resourceRegistration,descriptionResolver) , false);
@@ -433,7 +433,7 @@ of removing the resource from the model so we don't need to override its
 services (services will be discussed later) so we can delete the
 `performRuntime()` method generated by the archetype.
 
-[source,java]
+[source, java]
 ----
 class SubsystemRemove extends AbstractRemoveStepHandler {
  
@@ -465,7 +465,7 @@ interface for the operation handlers, and `AbstractAddStepHandler` is an
 implementation of that which does the plumbing work for adding a
 resource to the model.
 
-[source,java]
+[source, java]
 ----
 class TypeAddHandler extends AbstractAddStepHandler implements DescriptionProvider {
  
@@ -479,7 +479,7 @@ Then we define subsystem model. Lets call it `TypeDefinition` and for
 ease of use let it extend `SimpleResourceDefinition` instead just
 implement `ResourceDefinition`.
 
-[source,java]
+[source, java]
 ----
 public class TypeDefinition extends SimpleResourceDefinition {
  
@@ -525,7 +525,7 @@ model with the parameters from the operation. There is operation
 `validateAndSet` on `AttributeDefinition` that helps us validate and set
 the model based on definition of the attribute.
 
-[source,java]
+[source, java]
 ----
 @Override
     protected void populateModel(ModelNode operation, ModelNode model) throws OperationFailedException {
@@ -540,7 +540,7 @@ controller at the heart of WildFly. (
 `AbstractBoottimeAddStepHandler.performBoottime()` in that the model is
 updated before runtime changes are made.
 
-[source,java]
+[source, java]
 ----
 @Override
     protected void performRuntime(OperationContext context, ModelNode operation, ModelNode model,
@@ -570,7 +570,7 @@ and add the created `service controller` to the `newControllers` list.
 The tracker service is quite simple. All services installed into WildFly
 must implement the `org.jboss.msc.service.Service` interface.
 
-[source,java]
+[source, java]
 ----
 public class TrackerService implements Service<TrackerService>{
 ----
@@ -578,7 +578,7 @@ public class TrackerService implements Service<TrackerService>{
 We then have some fields to keep the tick count and a thread which when
 run outputs all the deployments registered with our service.
 
-[source,java]
+[source, java]
 ----
 private AtomicLong tick = new AtomicLong(10000);
  
@@ -614,7 +614,7 @@ is started by the controller, `stop` is called when the service is
 stopped by the controller, and they start and stop the thread outputting
 the deployments.
 
-[source,java]
+[source, java]
 ----
 @Override
     public TrackerService getValue() throws IllegalStateException, IllegalArgumentException {
@@ -635,7 +635,7 @@ the deployments.
 Next we have a utility method to create the `ServiceName` which is used
 to register the service in the controller.
 
-[source,java]
+[source, java]
 ----
 public static ServiceName createServiceName(String suffix) {
         return ServiceName.JBOSS.append("tracker", suffix);
@@ -645,7 +645,7 @@ public static ServiceName createServiceName(String suffix) {
 Finally we have some methods to add and remove deployments, and to set
 and read the `tick`. The 'cool' deployments will be explained later.
 
-[source,java]
+[source, java]
 ----
 public void addDeployment(String name) {
         deployments.add(name);
@@ -680,7 +680,7 @@ resource from the model so we don't need to override its
 the add handler installs the TrackerService, we need to remove that in
 the `performRuntime()` method.
 
-[source,java]
+[source, java]
 ----
 public class TypeRemoveHandler extends AbstractRemoveStepHandler {
  
@@ -703,7 +703,7 @@ public class TypeRemoveHandler extends AbstractRemoveStepHandler {
 We then need a description provider for the `type` part of the model
 itself, so we modify TypeDefinitnion to registerAttribute
 
-[source,java]
+[source, java]
 ----
 class TypeDefinition{
 ...
@@ -720,7 +720,7 @@ handlers go under `/subsystem=tracker/type=*` in the model by adding
 registering it with the model in `SubsystemExtension.initialize()`. So
 we add the following just before the end of the method.
 
-[source,java]
+[source, java]
 ----
 @Override
 public void initialize(ExtensionContext context)
@@ -757,7 +757,7 @@ directly, and so must implement its `applyUpdateToRuntime` and
 This takes care of model manipulation (validation, setting) but leaves
 us to do just to deal with what we need to do.
 
-[source,java]
+[source, java]
 ----
 class TrackerTickHandler extends AbstractWriteAttributeHandler<Void> {
  
@@ -811,7 +811,7 @@ when you are done.
 WildFly uses the Stax API to parse the xml files. This is initialized in
 `SubsystemExtension` by mapping our parser onto our namespace:
 
-[source,java]
+[source, java]
 ----
 public class SubsystemExtension implements Extension {
  
@@ -837,7 +837,7 @@ with the state contained in the xml. These operations will then be
 executed on our behalf as part of the parsing process. The entry point
 is the `readElement()` method.
 
-[source,java]
+[source, java]
 ----
 public class SubsystemExtension implements Extension {
  
@@ -920,7 +920,7 @@ The parser is also used to marshal the model to xml whenever something
 modifies the model, for which the entry point is the `writeContent()`
 method:
 
-[source,java]
+[source, java]
 ----
 private static class SubsystemParser implements XMLStreamConstants, XMLElementReader<List<ModelNode>>, XMLElementWriter<SubsystemMarshallingContext> {
         ...
@@ -960,7 +960,7 @@ each `type` child. Since we are using ResourceDefinitinon for defining
 subsystem all that is generated for us, but if you want to customize
 that you can do it by implementing it like this.
 
-[source,java]
+[source, java]
 ----
 private static class SubsystemDescribeHandler implements OperationStepHandler, DescriptionProvider {
         static final SubsystemDescribeHandler INSTANCE = new SubsystemDescribeHandler();
@@ -1031,7 +1031,7 @@ that the parsed xml becomes the expected operations that will be parsed
 into the server, so let us tweak this test to match our subsystem. First
 we tell the test to parse the xml into operations
 
-[source,java]
+[source, java]
 ----
 @Test
     public void testParseSubsystem() throws Exception {
@@ -1049,7 +1049,7 @@ There should be one operation for adding the subsystem itself and an
 operation for adding the `deployment-type`, so check we got two
 operations
 
-[source,java]
+[source, java]
 ----
 ///Check that we have the expected number of operations
         Assert.assertEquals(2, operations.size());
@@ -1058,7 +1058,7 @@ operations
 Now check that the first operation is `add` for the address
 `/subsystem=tracker`:
 
-[source,java]
+[source, java]
 ----
 //Check that each operation has the correct content
         //The add subsystem operation will happen first
@@ -1075,7 +1075,7 @@ Then check that the second operation is `add` for the address
 `/subsystem=tracker`, and that `12345` was picked up for the value of
 the `tick` parameter:
 
-[source,java]
+[source, java]
 ----
 //Then we will get the add type operation
         ModelNode addType = operations.get(1);
@@ -1100,7 +1100,7 @@ Behind the scenes this will parse the xml into operations as we saw in
 the last test, but it will also create a new controller and boot that up
 using the created operations
 
-[source,java]
+[source, java]
 ----
 @Test
     public void testInstallIntoController() throws Exception {
@@ -1117,7 +1117,7 @@ using the created operations
 The returned `KernelServices` allow us to execute operations on the
 controller, and to read the whole model.
 
-[source,java]
+[source, java]
 ----
 //Read the whole model and make sure it looks as expected
         ModelNode model = services.readWholeModel();
@@ -1128,7 +1128,7 @@ controller, and to read the whole model.
 Now we make sure that the structure of the model within the controller
 has the expected format and values
 
-[source,java]
+[source, java]
 ----
 Assert.assertTrue(model.get(SUBSYSTEM).hasDefined(SubsystemExtension.SUBSYSTEM_NAME));
         Assert.assertTrue(model.get(SUBSYSTEM, SubsystemExtension.SUBSYSTEM_NAME).hasDefined("type"));
@@ -1143,7 +1143,7 @@ purpose is to make sure that our `SubsystemParser.writeContent()` works
 as expected. This is achieved by starting a controller in the same way
 as before
 
-[source,java]
+[source, java]
 ----
 @Test
     public void testParseAndMarshalModel() throws Exception {
@@ -1160,7 +1160,7 @@ as before
 Now we read the model and the xml that was persisted from the first
 controller, and use that xml to start a second controller
 
-[source,java]
+[source, java]
 ----
 //Get the model and the persisted xml from the first controller
         ModelNode modelA = servicesA.readWholeModel();
@@ -1173,7 +1173,7 @@ controller, and use that xml to start a second controller
 Finally we read the model from the second controller, and make sure that
 the models are identical by calling `compare()` on the test superclass.
 
-[source,java]
+[source, java]
 ----
 ModelNode modelB = servicesB.readWholeModel();
  
@@ -1185,7 +1185,7 @@ ModelNode modelB = servicesB.readWholeModel();
 We then have a test that needs no changing from what the archetype
 provides us with. As we have seen before we start a controller
 
-[source,java]
+[source, java]
 ----
 @Test
     public void testDescribeHandler() throws Exception {
@@ -1200,7 +1200,7 @@ We then call `/subsystem=tracker:describe` which outputs the subsystem
 as operations needed to reach the current state (Done by our
 `SubsystemDescribeHandler`)
 
-[source,java]
+[source, java]
 ----
 //Get the model and the describe operations from the first controller
         ModelNode modelA = servicesA.readWholeModel();
@@ -1214,7 +1214,7 @@ as operations needed to reach the current state (Done by our
 
 Then we create a new controller using those operations
 
-[source,java]
+[source, java]
 ----
 //Install the describe options from the first controller into a second controller
         KernelServices servicesB = super.installInController(operations);
@@ -1224,7 +1224,7 @@ And then we read the model from the second controller and make sure that
 the two subsystems are identical +
 ModelNode modelB = servicesB.readWholeModel();
 
-[source,java]
+[source, java]
 ----
 //Make sure the models from the two controllers are identical
         super.compare(modelA, modelB);
@@ -1235,7 +1235,7 @@ ModelNode modelB = servicesB.readWholeModel();
 To test the removal of the the subsystem and child resources we modify
 the `testSubsystemRemoval()` test provided by the archetype:
 
-[source,java]
+[source, java]
 ----
 /**
      * Tests that the subsystem can be removed
@@ -1248,7 +1248,7 @@ the `testSubsystemRemoval()` test provided by the archetype:
 We provide xml for the subsystem installing a child, which in turn
 installs a TrackerService
 
-[source,java]
+[source, java]
 ----
 String subsystemXml =
                 "<subsystem xmlns=\"" + SubsystemExtension.NAMESPACE + "\">" +
@@ -1262,7 +1262,7 @@ String subsystemXml =
 Having installed the xml into the controller we make sure the
 TrackerService is there
 
-[source,java]
+[source, java]
 ----
 //Sanity check to test the service for 'tst' was there
         services.getContainer().getRequiredService(TrackerService.createServiceName("tst"));
@@ -1272,7 +1272,7 @@ This call from the subsystem test harness will call remove for each
 level in our subsystem, children first and validate +
 that the subsystem model is empty at the end.
 
-[source,java]
+[source, java]
 ----
 //Checks that the subsystem was removed from the model
         super.assertRemoveSubsystemResources(services);
@@ -1281,7 +1281,7 @@ that the subsystem model is empty at the end.
 Finally we check that all the services were removed by the remove
 handlers
 
-[source,java]
+[source, java]
 ----
 //Check that any services that were installed were removed here
         try {
@@ -1296,7 +1296,7 @@ For good measure let us throw in another test which adds a
 `deployment-type` and also changes its attribute at runtime. So first of
 all boot up the controller with the same xml we have been using so far
 
-[source,java]
+[source, java]
 ----
 @Test
     public void testExecuteOperations() throws Exception {
@@ -1312,7 +1312,7 @@ all boot up the controller with the same xml we have been using so far
 Now create an operation which does the same as the following CLI command
 `/subsystem=tracker/type=foo:add(tick=1000)`
 
-[source,java]
+[source, java]
 ----
 //Add another type
         PathAddress fooTypeAddr = PathAddress.pathAddress(
@@ -1326,7 +1326,7 @@ Now create an operation which does the same as the following CLI command
 
 Execute the operation and make sure it was successful
 
-[source,java]
+[source, java]
 ----
 ModelNode result = services.executeOperation(addOp);
         Assert.assertEquals(SUCCESS, result.get(OUTCOME).asString());
@@ -1335,7 +1335,7 @@ ModelNode result = services.executeOperation(addOp);
 Read the whole model and make sure that the original data is still there
 (i.e. the same as what was done by `testInstallIntoController()`
 
-[source,java]
+[source, java]
 ----
 ModelNode model = services.readWholeModel();
         Assert.assertTrue(model.get(SUBSYSTEM).hasDefined(SubsystemExtension.SUBSYSTEM_NAME));
@@ -1347,7 +1347,7 @@ ModelNode model = services.readWholeModel();
 
 Then make sure our new `type` has been added:
 
-[source,java]
+[source, java]
 ----
 Assert.assertTrue(model.get(SUBSYSTEM, SubsystemExtension.SUBSYSTEM_NAME, "type").hasDefined("foo"));
         Assert.assertTrue(model.get(SUBSYSTEM, SubsystemExtension.SUBSYSTEM_NAME, "type", "foo").hasDefined("tick"));
@@ -1357,7 +1357,7 @@ Assert.assertTrue(model.get(SUBSYSTEM, SubsystemExtension.SUBSYSTEM_NAME, "type"
 Then we call `write-attribute` to change the `tick` value of
 `/subsystem=tracker/type=foo`:
 
-[source,java]
+[source, java]
 ----
 //Call write-attribute
         ModelNode writeOp = new ModelNode();
@@ -1373,7 +1373,7 @@ To give you exposure to other ways of doing things, now instead of
 reading the whole model to check the attribute, we call `read-attribute`
 instead, and make sure it has the value we set it to.
 
-[source,java]
+[source, java]
 ----
 //Check that write attribute took effect, this time by calling read-attribute instead of reading the whole model
         ModelNode readOp = new ModelNode();
@@ -1388,7 +1388,7 @@ Since each `type` installs its own copy of `TrackerService`, we get the
 `TrackerService` for `type=foo` from the service container exposed by
 the kernel services and make sure it has the right value
 
-[source,java]
+[source, java]
 ----
 TrackerService service = (TrackerService)services.getContainer().getService(TrackerService.createServiceName("foo")).getValue();
         Assert.assertEquals(3456, service.getTick());
@@ -1403,7 +1403,7 @@ TypeDefinition.TICK.
 When discussing `SubsystemAddHandler` we did not mention the work done
 to install the deployers, which is done in the following method:
 
-[source,java]
+[source, java]
 ----
     @Override
     public void performBoottime(OperationContext context, ModelNode operation, ModelNode model,
@@ -1438,7 +1438,7 @@ processor with the phase and priority created for us by the maven
 archetype. The phases will be explained in the next section. The
 deployment processor is as follows:
 
-[source,java]
+[source, java]
 ----
 public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
     ...
@@ -1564,7 +1564,7 @@ may be removed here.
 Now that we have all the code needed for our subsystem, we can build our
 project by running `mvn install`
 
-[source,java]
+[source, java]
 ----
 [kabir ~/sourcecontrol/temp/archetype-test/acme-subsystem]
 $mvn install
@@ -1594,7 +1594,7 @@ This will have built our project and assembled a module for us that can
 be used for installing it into WildFly. If you go to the `target/module`
 folder where you built the project you will see the module
 
-[source,java]
+[source, java]
 ----
 $ls target/module/com/acme/corp/tracker/main/
 acme-subsystem.jar  module.xml
@@ -1604,7 +1604,7 @@ The `module.xml` comes from `src/main/resources/module/main/module.xml`
 and is used to define your module. It says that it contains the
 `acme-subsystem.jar`:
 
-[source,java]
+[source, java]
 ----
 <module xmlns="urn:jboss:module:1.0" name="com.acme.corp.tracker">
     <resources>
@@ -1616,7 +1616,7 @@ And has a default set of dependencies needed by every subsystem created.
 If your subsystem requires additional module dependencies you can add
 them here before building and installing.
 
-[source,java]
+[source, java]
 ----
     <dependencies>
         <module name="javax.api"/>
@@ -1640,7 +1640,7 @@ of your WildFly install).
 Next we need to modify `$WFLY/standalone/configuration/standalone.xml`.
 First we need to add our new module to the `<extensions>` section:
 
-[source,java]
+[source, java]
 ----
     <extensions>
         ...
@@ -1651,7 +1651,7 @@ First we need to add our new module to the `<extensions>` section:
 
 And then we have to add our subsystem to the `<profile>` section:
 
-[source,java]
+[source, java]
 ----
     <profile>
     ...
@@ -1673,7 +1673,7 @@ Now start up WildFly by running `$WFLY/bin/standalone.sh` and you should
 see messages like these after the server has started, which means our
 subsystem has been added and our `TrackerService` is working:
 
-[source,java]
+[source, java]
 ----
 15:27:33,838 INFO  [org.jboss.as] (Controller Boot Thread) JBoss AS 7.0.0.Final "Lightning" started in 2861ms - Started 94 of 149 services (55 services are passive or on-demand)
 15:27:42,966 INFO  [stdout] (Thread-8) Current deployments deployed while sar tracking active:
@@ -1690,7 +1690,7 @@ subsystem has been added and our `TrackerService` is working:
 If you run the command line interface you can execute some commands to
 see more about the subsystem. For example
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/:read-resource-description(recursive=true, operations=true)
 ----
@@ -1700,7 +1700,7 @@ will return a lot of information, including what we provided in the
 
 To see the current subsystem state you can execute
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/:read-resource(recursive=true)
 {
@@ -1715,7 +1715,7 @@ To see the current subsystem state you can execute
 We can remove both the deployment types which removes them from the
 model:
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/type=sar:remove
 {"outcome" => "success"}
@@ -1733,7 +1733,7 @@ stopped.
 
 Now, let's add the war tracker again:
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/type=war:add
 {"outcome" => "success"}
@@ -1755,7 +1755,7 @@ that `/Downloads/test1/target/test1.war` contains a `META-INF/cool.txt`
 while `/Downloads/test2/target/test2.war` does not contain that file.
 From CLI deploy `test1.war` first:
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] deploy ~/Downloads/test1/target/test1.war
 'test1.war' deployed successfully.
@@ -1764,7 +1764,7 @@ From CLI deploy `test1.war` first:
 And you should now see the output from the war `TrackerService` list the
 deployments:
 
-[source,java]
+[source, java]
 ----
 15:35:03,712 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) Starting deployment of "test1.war"
 15:35:03,988 INFO  [org.jboss.web] (MSC service thread 1-1) registering web context: /test1
@@ -1777,7 +1777,7 @@ deployments:
 So our `test1.war` got picked up as a 'cool' deployment. Now if we
 deploy `test2.war`
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] deploy ~/sourcecontrol/temp/archetype-test/test2/target/test2.war
 'test2.war' deployed successfully.
@@ -1786,7 +1786,7 @@ deploy `test2.war`
 You will see that deployment get picked up as well but since there is no
 `META-INF/cool.txt` it is not marked as a 'cool' deployment:
 
-[source,java]
+[source, java]
 ----
 15:37:05,634 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) Starting deployment of "test2.war"
 15:37:05,699 INFO  [org.jboss.web] (MSC service thread 1-1) registering web context: /test2
@@ -1798,7 +1798,7 @@ You will see that deployment get picked up as well but since there is no
 
 An undeploy
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] undeploy test1.war
 Successfully undeployed test1.war.
@@ -1806,7 +1806,7 @@ Successfully undeployed test1.war.
 
 is also reflected in the `TrackerService` output:
 
-[source,java]
+[source, java]
 ----
 15:38:47,901 INFO  [org.jboss.as.server.controller] (pool-2-thread-21) Undeployed "test1.war"
 15:38:47,934 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) Stopped deployment test1.war in 40ms
@@ -1818,7 +1818,7 @@ is also reflected in the `TrackerService` output:
 Finally, we registered a write attribute handler for the `tick` property
 of the `type` so we can change the frequency
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/type=war:write-attribute(name=tick,value=1000)
 {"outcome" => "success"}
@@ -1827,7 +1827,7 @@ of the `type` so we can change the frequency
 You should now see the output from the `TrackerService` happen every
 second
 
-[source,java]
+[source, java]
 ----
 15:39:43,100 INFO  [stdout] (Thread-9) Current deployments deployed while war tracking active:
 15:39:43,100 INFO  [stdout] (Thread-9) [test2.war]
@@ -1842,7 +1842,7 @@ second
 If you open `$WFLY/standalone/configuration/standalone.xml` you can see
 that our subsystem entry reflects the current state of the subsystem:
 
-[source,java]
+[source, java]
 ----
         <subsystem xmlns="urn:com.acme.corp.tracker:1.0">
             <deployment-types>
@@ -1860,7 +1860,7 @@ resolved using system / environment properties.
 
 An example expression is
 
-[source,java]
+[source, java]
 ----
 ${jboss.bind.address.management:127.0.0.1}
 ----
@@ -1882,7 +1882,7 @@ expression.
 
 In all cases, the syntax for the expression is
 
-[source,java]
+[source, java]
 ----
 ${expression_to_resolve}
 ----
@@ -1906,7 +1906,7 @@ When we create an AttributeDefinition all we need to do is mark that is
 allows expressions. Here is an example how to define an attribute that
 allows expressions to be used.
 
-[source,java]
+[source, java]
 ----
 SimpleAttributeDefinition MY_ATTRIBUTE =
             new SimpleAttributeDefinitionBuilder("my-attribute", ModelType.INT, true)
@@ -1920,7 +1920,7 @@ Then later when you are parsing the xml configuration you should use the
 MY_ATTRIBUTE attribute definition to set the value to the management
 operation ModelNode you are creating.
 
-[source,java]
+[source, java]
 ----
 ....
       String attr = reader.getAttributeLocalName(i);
@@ -1942,7 +1942,7 @@ Later in your operation handlers where you implement populateModel and
 have to store the value from the operation to the configuration model
 you also use this MY_ATTRIBUTE attribute definition.
 
-[source,java]
+[source, java]
 ----
  @Override
  protected void populateModel(ModelNode operation, ModelNode model) throws OperationFailedException {
@@ -1963,7 +1963,7 @@ console users.
 As last step we need to use the value of the attribute. This is usually
 needed inside of the `performRuntime` method
 
-[source,java]
+[source, java]
 ----
  protected void performRuntime(OperationContext context, ModelNode operation, ModelNode model, ServiceVerificationHandler verificationHandler, List<ServiceController<?>> newControllers) throws OperationFailedException {
        ....
@@ -1982,7 +1982,7 @@ unresolved value.
 
 Attribute definitinon also helps you with that:
 
-[source,java]
+[source, java]
 ----
  public void writeContent(XMLExtendedStreamWriter writer, SubsystemMarshallingContext context) throws XMLStreamException {
     ....

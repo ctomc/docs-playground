@@ -61,7 +61,7 @@ long these deployments have been deployed.
 To make your life easier we have provided a maven archetype which will
 create a skeleton project for implementing subsystems.
 
-[source,java]
+[source, java]
 ----
 mvn archetype:generate \
     -DarchetypeArtifactId=wildfly-subsystem \
@@ -73,7 +73,7 @@ mvn archetype:generate \
 Maven will download the archetype and it's dependencies, and ask you
 some questions:
 
-[source,java]
+[source, java]
 ----
 $ mvn archetype:generate \
     -DarchetypeArtifactId=wildfly-subsystem \
@@ -150,7 +150,7 @@ link:attachments_852137_1_acme-subsystem.zip[acme-subsystem.zip].
 If you do a `mvn install` in the created project, you will see some
 tests being run
 
-[source,java]
+[source, java]
 ----
 $mvn install
 [INFO] Scanning for projects...
@@ -183,7 +183,7 @@ First, let us define the schema for our subsystem. Rename
 `src/main/resources/schema/acme.xsd`. Then open `acme.xsd` and modify it
 to the following
 
-[source,java]
+[source, java]
 ----
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
             targetNamespace="urn:com.acme.corp.tracker:1.0"
@@ -220,7 +220,7 @@ attribute, and a `tick` attribute which defaults to `true.`
 Now modify the ﻿ `com.acme.corp.tracker.extension.SubsystemExtension`
 class to contain the new namespace.
 
-[source,java]
+[source, java]
 ----
 public class SubsystemExtension implements Extension {
  
@@ -235,7 +235,7 @@ public class SubsystemExtension implements Extension {
 The following example xml contains a valid subsystem configuration, we
 will see how to plug this in to WildFly later in this tutorial.
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:com.acme.corp.tracker:1.0">
    <deployment-types>
@@ -251,7 +251,7 @@ very different. To keep things simple, let us stay pretty true to the
 schema so that when executing a `:read-resource(recursive=true)` against
 our subsystem we'll see something like:
 
-[source,java]
+[source, java]
 ----
 {
     "outcome" => "success",
@@ -270,7 +270,7 @@ contains the `tick` attribute.
 We also need a name for our subsystem, to do that change
 `com.acme.corp.tracker.extension.SubsystemExtension`:
 
-[source,java]
+[source, java]
 ----
 public class SubsystemExtension implements Extension {
     ...
@@ -285,7 +285,7 @@ Once we are finished our subsystem will be available under
 The `SubsystemExtension.initialize()` method defines the model,
 currently it sets up the basics to add our subsystem to the model:
 
-[source,java]
+[source, java]
 ----
 @Override
     public void initialize(ExtensionContext context) {
@@ -313,7 +313,7 @@ modified. We will add more functionality to this method later.
 Next we obtain a `ManagementResourceRegistration` by registering the
 subsystem model. This is a *compulsory* step for every new subsystem.
 
-[source,java]
+[source, java]
 ----
 final ManagementResourceRegistration registration = subsystem.registerSubsystemModel(SubsystemDefinition.INSTANCE);
 ----
@@ -323,7 +323,7 @@ interface, which means that when you call
 `/subsystem=tracker:read-resource-description` the information you see
 comes from model that is defined by `SubsystemDefinition.INSTANCE`.
 
-[source,java]
+[source, java]
 ----
 public class SubsystemDefinition extends SimpleResourceDefinition {
     public static final SubsystemDefinition INSTANCE = new SubsystemDefinition();
@@ -361,7 +361,7 @@ achieved by the following line inside `registerOperations` in your
 `ResourceDefinition` or by providing it in constructor of your
 `SimpleResourceDefinition` just as we did in example above.
 
-[source,java]
+[source, java]
 ----
 //We always need to add an 'add' operation
         resourceRegistration.registerOperationHandler(ADD, SubsystemAdd.INSTANCE, new DefaultResourceAddDescriptionProvider(resourceRegistration,descriptionResolver), false);
@@ -389,7 +389,7 @@ there are lots of helper methods to help you automatically describe the
 model. Following example is done by manually defining Description
 provider for ADD operation handler
 
-[source,java]
+[source, java]
 ----
 /**
      * Used to create the description of the subsystem add method
@@ -412,7 +412,7 @@ methods there are classes `DefaultResourceAddDescriptionProvider` and
 `DefaultResourceRemoveDescriptionProvider` that do work for you. In case
 you use `SimpleResourceDefinition` even that part is hidden from you.
 
-[source,java]
+[source, java]
 ----
 resourceRegistration.registerOperationHandler(ADD, SubsystemAdd.INSTANCE, new DefaultResourceAddDescriptionProvider(resourceRegistration,descriptionResolver), false);
 resourceRegistration.registerOperationHandler(REMOVE, SubsystemRemove.INSTANCE, new DefaultResourceRemoveDescriptionProvider(resourceRegistration,descriptionResolver), false);
@@ -424,7 +424,7 @@ what is the name of operation and optional array of
 parameters/attributes operation takes. This is an example to register
 operation " `add-mime`" with two parameters:
 
-[source,java]
+[source, java]
 ----
 container.registerOperationHandler("add-mime",
                 MimeMappingAdd.INSTANCE,
@@ -441,7 +441,7 @@ Next we have the actual operation handler instance, note that we have
 changed its `populateModel()` method to initialize the `type` child of
 the model.
 
-[source,java]
+[source, java]
 ----
 class SubsystemAdd extends AbstractBoottimeAddStepHandler {
  
@@ -471,7 +471,7 @@ removed so we have a remove handler for the subsystem registered +
 in `SubsystemDefinition.registerOperations` or just provide the
 operation handler in constructor.
 
-[source,java]
+[source, java]
 ----
 //Every resource that is added, normally needs a remove operation
         registration.registerOperationHandler(REMOVE, SubsystemRemove.INSTANCE, DefaultResourceRemoveDescriptionProvider(resourceRegistration,descriptionResolver) , false);
@@ -483,7 +483,7 @@ of removing the resource from the model so we don't need to override its
 services (services will be discussed later) so we can delete the
 `performRuntime()` method generated by the archetype.
 
-[source,java]
+[source, java]
 ----
 class SubsystemRemove extends AbstractRemoveStepHandler {
  
@@ -515,7 +515,7 @@ interface for the operation handlers, and `AbstractAddStepHandler` is an
 implementation of that which does the plumbing work for adding a
 resource to the model.
 
-[source,java]
+[source, java]
 ----
 class TypeAddHandler extends AbstractAddStepHandler implements DescriptionProvider {
  
@@ -529,7 +529,7 @@ Then we define subsystem model. Lets call it `TypeDefinition` and for
 ease of use let it extend `SimpleResourceDefinition` instead just
 implement `ResourceDefinition`.
 
-[source,java]
+[source, java]
 ----
 public class TypeDefinition extends SimpleResourceDefinition {
  
@@ -575,7 +575,7 @@ model with the parameters from the operation. There is operation
 `validateAndSet` on `AttributeDefinition` that helps us validate and set
 the model based on definition of the attribute.
 
-[source,java]
+[source, java]
 ----
 @Override
     protected void populateModel(ModelNode operation, ModelNode model) throws OperationFailedException {
@@ -590,7 +590,7 @@ controller at the heart of WildFly. (
 `AbstractBoottimeAddStepHandler.performBoottime()` in that the model is
 updated before runtime changes are made.
 
-[source,java]
+[source, java]
 ----
 @Override
     protected void performRuntime(OperationContext context, ModelNode operation, ModelNode model,
@@ -620,7 +620,7 @@ and add the created `service controller` to the `newControllers` list.
 The tracker service is quite simple. All services installed into WildFly
 must implement the `org.jboss.msc.service.Service` interface.
 
-[source,java]
+[source, java]
 ----
 public class TrackerService implements Service<TrackerService>{
 ----
@@ -628,7 +628,7 @@ public class TrackerService implements Service<TrackerService>{
 We then have some fields to keep the tick count and a thread which when
 run outputs all the deployments registered with our service.
 
-[source,java]
+[source, java]
 ----
 private AtomicLong tick = new AtomicLong(10000);
  
@@ -664,7 +664,7 @@ is started by the controller, `stop` is called when the service is
 stopped by the controller, and they start and stop the thread outputting
 the deployments.
 
-[source,java]
+[source, java]
 ----
 @Override
     public TrackerService getValue() throws IllegalStateException, IllegalArgumentException {
@@ -685,7 +685,7 @@ the deployments.
 Next we have a utility method to create the `ServiceName` which is used
 to register the service in the controller.
 
-[source,java]
+[source, java]
 ----
 public static ServiceName createServiceName(String suffix) {
         return ServiceName.JBOSS.append("tracker", suffix);
@@ -695,7 +695,7 @@ public static ServiceName createServiceName(String suffix) {
 Finally we have some methods to add and remove deployments, and to set
 and read the `tick`. The 'cool' deployments will be explained later.
 
-[source,java]
+[source, java]
 ----
 public void addDeployment(String name) {
         deployments.add(name);
@@ -730,7 +730,7 @@ resource from the model so we don't need to override its
 the add handler installs the TrackerService, we need to remove that in
 the `performRuntime()` method.
 
-[source,java]
+[source, java]
 ----
 public class TypeRemoveHandler extends AbstractRemoveStepHandler {
  
@@ -753,7 +753,7 @@ public class TypeRemoveHandler extends AbstractRemoveStepHandler {
 We then need a description provider for the `type` part of the model
 itself, so we modify TypeDefinitnion to registerAttribute
 
-[source,java]
+[source, java]
 ----
 class TypeDefinition{
 ...
@@ -770,7 +770,7 @@ handlers go under `/subsystem=tracker/type=*` in the model by adding
 registering it with the model in `SubsystemExtension.initialize()`. So
 we add the following just before the end of the method.
 
-[source,java]
+[source, java]
 ----
 @Override
 public void initialize(ExtensionContext context)
@@ -807,7 +807,7 @@ directly, and so must implement its `applyUpdateToRuntime` and
 This takes care of model manipulation (validation, setting) but leaves
 us to do just to deal with what we need to do.
 
-[source,java]
+[source, java]
 ----
 class TrackerTickHandler extends AbstractWriteAttributeHandler<Void> {
  
@@ -861,7 +861,7 @@ when you are done.
 WildFly uses the Stax API to parse the xml files. This is initialized in
 `SubsystemExtension` by mapping our parser onto our namespace:
 
-[source,java]
+[source, java]
 ----
 public class SubsystemExtension implements Extension {
  
@@ -887,7 +887,7 @@ with the state contained in the xml. These operations will then be
 executed on our behalf as part of the parsing process. The entry point
 is the `readElement()` method.
 
-[source,java]
+[source, java]
 ----
 public class SubsystemExtension implements Extension {
  
@@ -970,7 +970,7 @@ The parser is also used to marshal the model to xml whenever something
 modifies the model, for which the entry point is the `writeContent()`
 method:
 
-[source,java]
+[source, java]
 ----
 private static class SubsystemParser implements XMLStreamConstants, XMLElementReader<List<ModelNode>>, XMLElementWriter<SubsystemMarshallingContext> {
         ...
@@ -1010,7 +1010,7 @@ each `type` child. Since we are using ResourceDefinitinon for defining
 subsystem all that is generated for us, but if you want to customize
 that you can do it by implementing it like this.
 
-[source,java]
+[source, java]
 ----
 private static class SubsystemDescribeHandler implements OperationStepHandler, DescriptionProvider {
         static final SubsystemDescribeHandler INSTANCE = new SubsystemDescribeHandler();
@@ -1081,7 +1081,7 @@ that the parsed xml becomes the expected operations that will be parsed
 into the server, so let us tweak this test to match our subsystem. First
 we tell the test to parse the xml into operations
 
-[source,java]
+[source, java]
 ----
 @Test
     public void testParseSubsystem() throws Exception {
@@ -1099,7 +1099,7 @@ There should be one operation for adding the subsystem itself and an
 operation for adding the `deployment-type`, so check we got two
 operations
 
-[source,java]
+[source, java]
 ----
 ///Check that we have the expected number of operations
         Assert.assertEquals(2, operations.size());
@@ -1108,7 +1108,7 @@ operations
 Now check that the first operation is `add` for the address
 `/subsystem=tracker`:
 
-[source,java]
+[source, java]
 ----
 //Check that each operation has the correct content
         //The add subsystem operation will happen first
@@ -1125,7 +1125,7 @@ Then check that the second operation is `add` for the address
 `/subsystem=tracker`, and that `12345` was picked up for the value of
 the `tick` parameter:
 
-[source,java]
+[source, java]
 ----
 //Then we will get the add type operation
         ModelNode addType = operations.get(1);
@@ -1150,7 +1150,7 @@ Behind the scenes this will parse the xml into operations as we saw in
 the last test, but it will also create a new controller and boot that up
 using the created operations
 
-[source,java]
+[source, java]
 ----
 @Test
     public void testInstallIntoController() throws Exception {
@@ -1167,7 +1167,7 @@ using the created operations
 The returned `KernelServices` allow us to execute operations on the
 controller, and to read the whole model.
 
-[source,java]
+[source, java]
 ----
 //Read the whole model and make sure it looks as expected
         ModelNode model = services.readWholeModel();
@@ -1178,7 +1178,7 @@ controller, and to read the whole model.
 Now we make sure that the structure of the model within the controller
 has the expected format and values
 
-[source,java]
+[source, java]
 ----
 Assert.assertTrue(model.get(SUBSYSTEM).hasDefined(SubsystemExtension.SUBSYSTEM_NAME));
         Assert.assertTrue(model.get(SUBSYSTEM, SubsystemExtension.SUBSYSTEM_NAME).hasDefined("type"));
@@ -1193,7 +1193,7 @@ purpose is to make sure that our `SubsystemParser.writeContent()` works
 as expected. This is achieved by starting a controller in the same way
 as before
 
-[source,java]
+[source, java]
 ----
 @Test
     public void testParseAndMarshalModel() throws Exception {
@@ -1210,7 +1210,7 @@ as before
 Now we read the model and the xml that was persisted from the first
 controller, and use that xml to start a second controller
 
-[source,java]
+[source, java]
 ----
 //Get the model and the persisted xml from the first controller
         ModelNode modelA = servicesA.readWholeModel();
@@ -1223,7 +1223,7 @@ controller, and use that xml to start a second controller
 Finally we read the model from the second controller, and make sure that
 the models are identical by calling `compare()` on the test superclass.
 
-[source,java]
+[source, java]
 ----
 ModelNode modelB = servicesB.readWholeModel();
  
@@ -1235,7 +1235,7 @@ ModelNode modelB = servicesB.readWholeModel();
 We then have a test that needs no changing from what the archetype
 provides us with. As we have seen before we start a controller
 
-[source,java]
+[source, java]
 ----
 @Test
     public void testDescribeHandler() throws Exception {
@@ -1250,7 +1250,7 @@ We then call `/subsystem=tracker:describe` which outputs the subsystem
 as operations needed to reach the current state (Done by our
 `SubsystemDescribeHandler`)
 
-[source,java]
+[source, java]
 ----
 //Get the model and the describe operations from the first controller
         ModelNode modelA = servicesA.readWholeModel();
@@ -1264,7 +1264,7 @@ as operations needed to reach the current state (Done by our
 
 Then we create a new controller using those operations
 
-[source,java]
+[source, java]
 ----
 //Install the describe options from the first controller into a second controller
         KernelServices servicesB = super.installInController(operations);
@@ -1274,7 +1274,7 @@ And then we read the model from the second controller and make sure that
 the two subsystems are identical +
 ModelNode modelB = servicesB.readWholeModel();
 
-[source,java]
+[source, java]
 ----
 //Make sure the models from the two controllers are identical
         super.compare(modelA, modelB);
@@ -1285,7 +1285,7 @@ ModelNode modelB = servicesB.readWholeModel();
 To test the removal of the the subsystem and child resources we modify
 the `testSubsystemRemoval()` test provided by the archetype:
 
-[source,java]
+[source, java]
 ----
 /**
      * Tests that the subsystem can be removed
@@ -1298,7 +1298,7 @@ the `testSubsystemRemoval()` test provided by the archetype:
 We provide xml for the subsystem installing a child, which in turn
 installs a TrackerService
 
-[source,java]
+[source, java]
 ----
 String subsystemXml =
                 "<subsystem xmlns=\"" + SubsystemExtension.NAMESPACE + "\">" +
@@ -1312,7 +1312,7 @@ String subsystemXml =
 Having installed the xml into the controller we make sure the
 TrackerService is there
 
-[source,java]
+[source, java]
 ----
 //Sanity check to test the service for 'tst' was there
         services.getContainer().getRequiredService(TrackerService.createServiceName("tst"));
@@ -1322,7 +1322,7 @@ This call from the subsystem test harness will call remove for each
 level in our subsystem, children first and validate +
 that the subsystem model is empty at the end.
 
-[source,java]
+[source, java]
 ----
 //Checks that the subsystem was removed from the model
         super.assertRemoveSubsystemResources(services);
@@ -1331,7 +1331,7 @@ that the subsystem model is empty at the end.
 Finally we check that all the services were removed by the remove
 handlers
 
-[source,java]
+[source, java]
 ----
 //Check that any services that were installed were removed here
         try {
@@ -1346,7 +1346,7 @@ For good measure let us throw in another test which adds a
 `deployment-type` and also changes its attribute at runtime. So first of
 all boot up the controller with the same xml we have been using so far
 
-[source,java]
+[source, java]
 ----
 @Test
     public void testExecuteOperations() throws Exception {
@@ -1362,7 +1362,7 @@ all boot up the controller with the same xml we have been using so far
 Now create an operation which does the same as the following CLI command
 `/subsystem=tracker/type=foo:add(tick=1000)`
 
-[source,java]
+[source, java]
 ----
 //Add another type
         PathAddress fooTypeAddr = PathAddress.pathAddress(
@@ -1376,7 +1376,7 @@ Now create an operation which does the same as the following CLI command
 
 Execute the operation and make sure it was successful
 
-[source,java]
+[source, java]
 ----
 ModelNode result = services.executeOperation(addOp);
         Assert.assertEquals(SUCCESS, result.get(OUTCOME).asString());
@@ -1385,7 +1385,7 @@ ModelNode result = services.executeOperation(addOp);
 Read the whole model and make sure that the original data is still there
 (i.e. the same as what was done by `testInstallIntoController()`
 
-[source,java]
+[source, java]
 ----
 ModelNode model = services.readWholeModel();
         Assert.assertTrue(model.get(SUBSYSTEM).hasDefined(SubsystemExtension.SUBSYSTEM_NAME));
@@ -1397,7 +1397,7 @@ ModelNode model = services.readWholeModel();
 
 Then make sure our new `type` has been added:
 
-[source,java]
+[source, java]
 ----
 Assert.assertTrue(model.get(SUBSYSTEM, SubsystemExtension.SUBSYSTEM_NAME, "type").hasDefined("foo"));
         Assert.assertTrue(model.get(SUBSYSTEM, SubsystemExtension.SUBSYSTEM_NAME, "type", "foo").hasDefined("tick"));
@@ -1407,7 +1407,7 @@ Assert.assertTrue(model.get(SUBSYSTEM, SubsystemExtension.SUBSYSTEM_NAME, "type"
 Then we call `write-attribute` to change the `tick` value of
 `/subsystem=tracker/type=foo`:
 
-[source,java]
+[source, java]
 ----
 //Call write-attribute
         ModelNode writeOp = new ModelNode();
@@ -1423,7 +1423,7 @@ To give you exposure to other ways of doing things, now instead of
 reading the whole model to check the attribute, we call `read-attribute`
 instead, and make sure it has the value we set it to.
 
-[source,java]
+[source, java]
 ----
 //Check that write attribute took effect, this time by calling read-attribute instead of reading the whole model
         ModelNode readOp = new ModelNode();
@@ -1438,7 +1438,7 @@ Since each `type` installs its own copy of `TrackerService`, we get the
 `TrackerService` for `type=foo` from the service container exposed by
 the kernel services and make sure it has the right value
 
-[source,java]
+[source, java]
 ----
 TrackerService service = (TrackerService)services.getContainer().getService(TrackerService.createServiceName("foo")).getValue();
         Assert.assertEquals(3456, service.getTick());
@@ -1453,7 +1453,7 @@ TypeDefinition.TICK.
 When discussing `SubsystemAddHandler` we did not mention the work done
 to install the deployers, which is done in the following method:
 
-[source,java]
+[source, java]
 ----
     @Override
     public void performBoottime(OperationContext context, ModelNode operation, ModelNode model,
@@ -1488,7 +1488,7 @@ processor with the phase and priority created for us by the maven
 archetype. The phases will be explained in the next section. The
 deployment processor is as follows:
 
-[source,java]
+[source, java]
 ----
 public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
     ...
@@ -1614,7 +1614,7 @@ may be removed here.
 Now that we have all the code needed for our subsystem, we can build our
 project by running `mvn install`
 
-[source,java]
+[source, java]
 ----
 [kabir ~/sourcecontrol/temp/archetype-test/acme-subsystem]
 $mvn install
@@ -1644,7 +1644,7 @@ This will have built our project and assembled a module for us that can
 be used for installing it into WildFly. If you go to the `target/module`
 folder where you built the project you will see the module
 
-[source,java]
+[source, java]
 ----
 $ls target/module/com/acme/corp/tracker/main/
 acme-subsystem.jar  module.xml
@@ -1654,7 +1654,7 @@ The `module.xml` comes from `src/main/resources/module/main/module.xml`
 and is used to define your module. It says that it contains the
 `acme-subsystem.jar`:
 
-[source,java]
+[source, java]
 ----
 <module xmlns="urn:jboss:module:1.0" name="com.acme.corp.tracker">
     <resources>
@@ -1666,7 +1666,7 @@ And has a default set of dependencies needed by every subsystem created.
 If your subsystem requires additional module dependencies you can add
 them here before building and installing.
 
-[source,java]
+[source, java]
 ----
     <dependencies>
         <module name="javax.api"/>
@@ -1690,7 +1690,7 @@ of your WildFly install).
 Next we need to modify `$WFLY/standalone/configuration/standalone.xml`.
 First we need to add our new module to the `<extensions>` section:
 
-[source,java]
+[source, java]
 ----
     <extensions>
         ...
@@ -1701,7 +1701,7 @@ First we need to add our new module to the `<extensions>` section:
 
 And then we have to add our subsystem to the `<profile>` section:
 
-[source,java]
+[source, java]
 ----
     <profile>
     ...
@@ -1723,7 +1723,7 @@ Now start up WildFly by running `$WFLY/bin/standalone.sh` and you should
 see messages like these after the server has started, which means our
 subsystem has been added and our `TrackerService` is working:
 
-[source,java]
+[source, java]
 ----
 15:27:33,838 INFO  [org.jboss.as] (Controller Boot Thread) JBoss AS 7.0.0.Final "Lightning" started in 2861ms - Started 94 of 149 services (55 services are passive or on-demand)
 15:27:42,966 INFO  [stdout] (Thread-8) Current deployments deployed while sar tracking active:
@@ -1740,7 +1740,7 @@ subsystem has been added and our `TrackerService` is working:
 If you run the command line interface you can execute some commands to
 see more about the subsystem. For example
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/:read-resource-description(recursive=true, operations=true)
 ----
@@ -1750,7 +1750,7 @@ will return a lot of information, including what we provided in the
 
 To see the current subsystem state you can execute
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/:read-resource(recursive=true)
 {
@@ -1765,7 +1765,7 @@ To see the current subsystem state you can execute
 We can remove both the deployment types which removes them from the
 model:
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/type=sar:remove
 {"outcome" => "success"}
@@ -1783,7 +1783,7 @@ stopped.
 
 Now, let's add the war tracker again:
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/type=war:add
 {"outcome" => "success"}
@@ -1805,7 +1805,7 @@ that `/Downloads/test1/target/test1.war` contains a `META-INF/cool.txt`
 while `/Downloads/test2/target/test2.war` does not contain that file.
 From CLI deploy `test1.war` first:
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] deploy ~/Downloads/test1/target/test1.war
 'test1.war' deployed successfully.
@@ -1814,7 +1814,7 @@ From CLI deploy `test1.war` first:
 And you should now see the output from the war `TrackerService` list the
 deployments:
 
-[source,java]
+[source, java]
 ----
 15:35:03,712 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) Starting deployment of "test1.war"
 15:35:03,988 INFO  [org.jboss.web] (MSC service thread 1-1) registering web context: /test1
@@ -1827,7 +1827,7 @@ deployments:
 So our `test1.war` got picked up as a 'cool' deployment. Now if we
 deploy `test2.war`
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] deploy ~/sourcecontrol/temp/archetype-test/test2/target/test2.war
 'test2.war' deployed successfully.
@@ -1836,7 +1836,7 @@ deploy `test2.war`
 You will see that deployment get picked up as well but since there is no
 `META-INF/cool.txt` it is not marked as a 'cool' deployment:
 
-[source,java]
+[source, java]
 ----
 15:37:05,634 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) Starting deployment of "test2.war"
 15:37:05,699 INFO  [org.jboss.web] (MSC service thread 1-1) registering web context: /test2
@@ -1848,7 +1848,7 @@ You will see that deployment get picked up as well but since there is no
 
 An undeploy
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] undeploy test1.war
 Successfully undeployed test1.war.
@@ -1856,7 +1856,7 @@ Successfully undeployed test1.war.
 
 is also reflected in the `TrackerService` output:
 
-[source,java]
+[source, java]
 ----
 15:38:47,901 INFO  [org.jboss.as.server.controller] (pool-2-thread-21) Undeployed "test1.war"
 15:38:47,934 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) Stopped deployment test1.war in 40ms
@@ -1868,7 +1868,7 @@ is also reflected in the `TrackerService` output:
 Finally, we registered a write attribute handler for the `tick` property
 of the `type` so we can change the frequency
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/type=war:write-attribute(name=tick,value=1000)
 {"outcome" => "success"}
@@ -1877,7 +1877,7 @@ of the `type` so we can change the frequency
 You should now see the output from the `TrackerService` happen every
 second
 
-[source,java]
+[source, java]
 ----
 15:39:43,100 INFO  [stdout] (Thread-9) Current deployments deployed while war tracking active:
 15:39:43,100 INFO  [stdout] (Thread-9) [test2.war]
@@ -1892,7 +1892,7 @@ second
 If you open `$WFLY/standalone/configuration/standalone.xml` you can see
 that our subsystem entry reflects the current state of the subsystem:
 
-[source,java]
+[source, java]
 ----
         <subsystem xmlns="urn:com.acme.corp.tracker:1.0">
             <deployment-types>
@@ -1910,7 +1910,7 @@ resolved using system / environment properties.
 
 An example expression is
 
-[source,java]
+[source, java]
 ----
 ${jboss.bind.address.management:127.0.0.1}
 ----
@@ -1932,7 +1932,7 @@ expression.
 
 In all cases, the syntax for the expression is
 
-[source,java]
+[source, java]
 ----
 ${expression_to_resolve}
 ----
@@ -1956,7 +1956,7 @@ When we create an AttributeDefinition all we need to do is mark that is
 allows expressions. Here is an example how to define an attribute that
 allows expressions to be used.
 
-[source,java]
+[source, java]
 ----
 SimpleAttributeDefinition MY_ATTRIBUTE =
             new SimpleAttributeDefinitionBuilder("my-attribute", ModelType.INT, true)
@@ -1970,7 +1970,7 @@ Then later when you are parsing the xml configuration you should use the
 MY_ATTRIBUTE attribute definition to set the value to the management
 operation ModelNode you are creating.
 
-[source,java]
+[source, java]
 ----
 ....
       String attr = reader.getAttributeLocalName(i);
@@ -1992,7 +1992,7 @@ Later in your operation handlers where you implement populateModel and
 have to store the value from the operation to the configuration model
 you also use this MY_ATTRIBUTE attribute definition.
 
-[source,java]
+[source, java]
 ----
  @Override
  protected void populateModel(ModelNode operation, ModelNode model) throws OperationFailedException {
@@ -2013,7 +2013,7 @@ console users.
 As last step we need to use the value of the attribute. This is usually
 needed inside of the `performRuntime` method
 
-[source,java]
+[source, java]
 ----
  protected void performRuntime(OperationContext context, ModelNode operation, ModelNode model, ServiceVerificationHandler verificationHandler, List<ServiceController<?>> newControllers) throws OperationFailedException {
        ....
@@ -2032,7 +2032,7 @@ unresolved value.
 
 Attribute definitinon also helps you with that:
 
-[source,java]
+[source, java]
 ----
  public void writeContent(XMLExtendedStreamWriter writer, SubsystemMarshallingContext context) throws XMLStreamException {
     ....
@@ -2301,7 +2301,7 @@ capability is usually registered by a resource, so the usual way to use
 one is to store it in constant in the resource's `ResourceDefinition`.
 Use a `RuntimeCapability.Builder` to create one.
 
-[source,java]
+[source, java]
 ----
 class MyResourceDefinition extends SimpleResourceDefinition {
     
@@ -2316,7 +2316,7 @@ That creates a statically named capability named `com.example.foo`.
 If the capability is dynamically named, add the `dynamic` parameter to
 state this:
 
-[source,java]
+[source, java]
 ----
     static final RuntimeCapability<Void> FOO_CAPABILITY = 
             RuntimeCapability.Builder.of("com.example.foo", true).build();
@@ -2328,7 +2328,7 @@ service's _value type_ (the type of the object returned by
 `org.jboss.msc.Service.getValue()`). For example, if FOO_CAPABILITY
 provides a `Service<javax.sql.DataSource>`:
 
-[source,java]
+[source, java]
 ----
     static final RuntimeCapability<Void> FOO_CAPABILITY = 
             RuntimeCapability.Builder.of("com.example.foo", DataSource.class).build();
@@ -2336,7 +2336,7 @@ provides a `Service<javax.sql.DataSource>`:
 
 For a dynamic capability:
 
-[source,java]
+[source, java]
 ----
     static final RuntimeCapability<Void> FOO_CAPABILITY = 
            RuntimeCapability.Builder.of("com.example.foo", true, DataSource.class).build();
@@ -2345,7 +2345,7 @@ For a dynamic capability:
 If the capability provides a custom integration API, you need to
 instantiate an instance of that API:
 
-[source,java]
+[source, java]
 ----
 public class JTSCapability {
  
@@ -2369,7 +2369,7 @@ public class JTSCapability {
 
 and provide it to the builder:
 
-[source,java]
+[source, java]
 ----
     static final RuntimeCapability<JTSCapability> FOO_CAPABILITY = 
             RuntimeCapability.Builder.of("com.example.foo", JTSCapability.INSTANCE).build();
@@ -2377,7 +2377,7 @@ and provide it to the builder:
 
 For a dynamic capability:
 
-[source,java]
+[source, java]
 ----
     static final RuntimeCapability<JTSCapability> FOO_CAPABILITY = RuntimeCapability.Builder.of("com.example.foo", true, JTSCapability.INSTANCE).build();
 ----
@@ -2385,7 +2385,7 @@ For a dynamic capability:
 A capability can provide both a custom integration API and install a
 service:
 
-[source,java]
+[source, java]
 ----
     static final RuntimeCapability<JTSCapability> FOO_CAPABILITY = 
             RuntimeCapability.Builder.of("com.example.foo", JTSCapability.INSTANCE)
@@ -2407,7 +2407,7 @@ builder-style API for setting up all the data needed by your definition.
 This includes a `setCapabilities` method that can be used to declare the
 capabilities provided by resources of this type.
 
-[source,java]
+[source, java]
 ----
 class MyResourceDefinition extends SimpleResourceDefinition {
     
@@ -2427,7 +2427,7 @@ Your add handler needs to extend the standard
 `org.jboss.as.controller.AbstractAddStepHandler` class or one of its
 subclasses:
 
-[source,java]
+[source, java]
 ----
 class MyAddHandler extends AbstractAddStepHandler() {
 ----
@@ -2439,7 +2439,7 @@ Your remove handler must also extend of the standard
 `org.jboss.as.controller.AbstractRemoveStepHandler` or one of its
 subclasses.
 
-[source,java]
+[source, java]
 ----
 class MyRemoveHandler extends AbstractRemoveStepHandler() {
 ----
@@ -2463,7 +2463,7 @@ If your capability installs a service, you should use the
 example in the `Stage.RUNTIME` handling of your "add" step handler.
 Here's an example for a statically named capability:
 
-[source,java]
+[source, java]
 ----
 class MyAddHandler extends AbstractAddStepHandler() {
  
@@ -2483,7 +2483,7 @@ class MyAddHandler extends AbstractAddStepHandler() {
 If the capability is dynamically named, get the dynamic part of the name
 from the `OperationContext` and use that when getting the service name:
 
-[source,java]
+[source, java]
 ----
 class MyAddHandler extends AbstractAddStepHandler() {
  
@@ -2532,7 +2532,7 @@ capability, simply declare that to the builder for your
 `RuntimeCapability`. For example, WildFly's JTS capability requires both
 a basic transaction support capability and IIOP capabilities:
 
-[source,java]
+[source, java]
 ----
     static final RuntimeCapability<JTSCapability> JTS_CAPABILITY =
             RuntimeCapability.Builder.of("org.wildfly.transactions.jts", new JTSCapability())
@@ -2557,7 +2557,7 @@ For example, the WildFly "remoting" subsystem's
 "org.wildfly.remoting.connector" capability has a requirement for a
 dynamically named socket-binding capability:
 
-[source,java]
+[source, java]
 ----
 public class ConnectorResource extends SimpleResourceDefinition {
  
@@ -2594,7 +2594,7 @@ For example, the "add" handler for a remoting connector uses the
 `OperationContext` to find the name of the needed \{\{SocketBinding}
 service:
 
-[source,java]
+[source, java]
 ----
         final String socketName = ConnectorResource.SOCKET_BINDING.resolveModelAttribute(context, fullModel).asString();
         final ServiceName socketBindingName = context.getCapabilityServiceName(ConnectorResource.SOCKET_CAPABILITY_NAME, socketName, SocketBinding.class);
@@ -2608,7 +2608,7 @@ If the required capability isn't dynamically named, `OperationContext`
 exposes an overloaded `getCapabilityServiceName` variant. For example,
 if a capability requires a remoting Endpoint:
 
-[source,java]
+[source, java]
 ----
         ServiceName endpointService = context.getCapabilityServiceName("org.wildfly.remoting.endpoint", Endpoint.class);
 ----
@@ -2620,7 +2620,7 @@ In your `Stage.RUNTIME` handler, use
 `OperationContext.getCapabilityRuntimeAPI` to get a reference to the
 required capability's custom integration API. Then use it as necessary.
 
-[source,java]
+[source, java]
 ----
         List<String> orbInitializers = new ArrayList<String>();
         . . . 
@@ -2640,7 +2640,7 @@ the other capability; you'll just use it if it's there.
 In this case, use `OperationContext.hasOptionalCapability` in your
 `Stage.RUNTIME` handler to check if the capability is present:
 
-[source,java]
+[source, java]
 ----
     protected void performRuntime(final OperationContext context, final ModelNode operation, final ModelNode model) throws OperationFailedException {
  
@@ -2686,7 +2686,7 @@ associated with a different capability, you will need to use the
 associated with the deployment unit. This can be found as an attachment
 to the `DeploymentPhaseContext`:
 
-[source,java]
+[source, java]
 ----
 class MyDUP implements DeploymentUntiProcessor {
  
@@ -2699,7 +2699,7 @@ class MyDUP implements DeploymentUntiProcessor {
 Once you have the `CapabilityServiceSupport` you can use it to look up
 service names:
 
-[source,java]
+[source, java]
 ----
         ServiceName barSvcName = capSvcSupport.getCapabilityServiceName("com.example.bar");
         // Determine what 'baz' the user specified in the deployment descriptor
@@ -2726,7 +2726,7 @@ automatically start the deployment services.
 You can also use the `CapabilityServiceSupport` to obtain a reference to
 the capability's custom integration API:
 
-[source,java]
+[source, java]
 ----
         // We need custom integration with the baz capability beyond service injection
         BazIntegrator bazIntegrator;
@@ -2851,7 +2851,7 @@ describe each address that exists in the DC's model, and contain the
 attributes set for the resource at that address. This serialized form
 looks like this:
 
-[source,java]
+[source, java]
 ----
 [{
     "domain-resource-address" => [],
@@ -2919,7 +2919,7 @@ are then propagated to the slave HCs, which then in turn propagate the
 changes to any servers running in a server group affected by the changes
 made. In this example:
 
-[source,java]
+[source, java]
 ----
 [disconnected /] connect
 [domain@localhost:9990 /] /profile=full/subsystem=datasources/data-source=ExampleDS:write-attribute(name=enabled,value=false)
@@ -2988,7 +2988,7 @@ To help with being able to know what is compatible we have versions
 within the subsystems, this is stored in the subsystem's extension. When
 registering the subsystem you will typically see something like:
 
-[source,java]
+[source, java]
 ----
 public class SomeExtension implements Extension {
  
@@ -3047,7 +3047,7 @@ of WildFly and JBoss AS 7.
 You can find the `ModelVersion` of a subsystem by querying its
 extension:
 
-[source,java]
+[source, java]
 ----
 domain@localhost:9990 /] /extension=org.jboss.as.clustering.infinispan:read-resource(recursive=true)
 {
@@ -3110,7 +3110,7 @@ different times. Let us use the `weld` subsystem, which is relatively
 simple, as an example. In JBoss AS 7.2.0 and lower it had a ModelVersion
 of 1.0.0, and its resource description was as follows:
 
-[source,java]
+[source, java]
 ----
                 {
                     "description" => "The configuration of the weld subsystem.",
@@ -3136,7 +3136,7 @@ of 1.0.0, and its resource description was as follows:
 In WildFly 8, it has a ModelVersion of 2.0.0 and has added two
 attributes, `require-bean-descriptor` and `non-portable` mode:
 
-[source,java]
+[source, java]
 ----
 {
         "description" => "The configuration of the weld subsystem.",
@@ -3232,7 +3232,7 @@ Another, more concrete example from the logging subsystem is that it
 allows a ' `%K{...`}' in the pattern formatter which makes the formatter
 use color:
 
-[source,java]
+[source, java]
 ----
             <pattern-formatter pattern="%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
 ----
@@ -3281,7 +3281,7 @@ link:#src-557102_ExtendingWildFly-Resourcetransformers[#Resource
 transformers] are true, although operation transformers give you quicker
 'feedback' if something is not valid. If you try to execute:
 
-[source,java]
+[source, java]
 ----
 /profile=full/subsystem=weld:write-attribute(name=require-bean-descriptor, value=false)
 ----
@@ -3321,7 +3321,7 @@ similar to if they are set to `true`.
 The above discussion implies that to use the weld subsystem on a legacy
 slave HC, the `domain.xml` configuration for it must look like:
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:weld:2.0"
       require-bean-descriptor="true"
@@ -3342,7 +3342,7 @@ WildFly 8 slave HCs in our domain, and they are missing out on the new
 features introduced by the attributes introduced in ModelVersion 2.0.0.
 If we do
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:weld:2.0"
       require-bean-descriptor="false"
@@ -3352,7 +3352,7 @@ If we do
 then it will fail when doing transformation for the legacy controller.
 The solution is to put these in two different profiles in `domain.xml`
 
-[source,java]
+[source, java]
 ----
 <domain>
 ....
@@ -3406,7 +3406,7 @@ running.
 To ignore the profile we cannot understand we do the following in the
 legacy slave HC's `host.xml`
 
-[source,java]
+[source, java]
 ----
 <host xmlns="urn:jboss:domain:1.3" name="slave">
 ...
@@ -3485,7 +3485,7 @@ different?:
 Here is some example output, as a subsystem developer you can ignore
 everything down to `====== Comparing subsystem models ======`:
 
-[source,java]
+[source, java]
 ----
 Enter legacy AS version: 7.2.0.Final
 Using target model: 7.2.0.Final
@@ -3571,7 +3571,7 @@ It is, however, a pretty complex thing to do, so we recommend the other
 approach. For completeness here is the entry point to handling
 transformation in this way.
 
-[source,java]
+[source, java]
 ----
 public class SomeExtension implements Extension {
  
@@ -3627,7 +3627,7 @@ covered in the current version of this guide. The entry point for using
 the builder API here is taken from the WeldExtension (in current WildFly
 this has ModelVersion 2.0.0).
 
-[source,java]
+[source, java]
 ----
     private void registerTransformers(SubsystemRegistration subsystem) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
@@ -3671,7 +3671,7 @@ and `non-portable-mode` attributes on the `weld` subsystem resource if
 they are undefined, and reject them if they are defined. So that means
 that if the weld subsystem looks like
 
-[source,java]
+[source, java]
 ----
     {
         "non-portable-mode" => false,
@@ -3681,7 +3681,7 @@ that if the weld subsystem looks like
 
 or
 
-[source,java]
+[source, java]
 ----
     {
         "non-portable-mode" => undefined,
@@ -3695,7 +3695,7 @@ legacy HC.
 
 If the resource has true for these attributes:
 
-[source,java]
+[source, java]
 ----
     {
         "non-portable-mode" => true,
@@ -3717,7 +3717,7 @@ The `ResourceTransformationDescriptionBuilder` contains transformations
 for a resource type. The initial one is for the subsystem, obtained by
 the following call:
 
-[source,java]
+[source, java]
 ----
         ResourceTransformationDescriptionBuilder subsystemBuilder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
 ----
@@ -3733,7 +3733,7 @@ link:#src-557102_ExtendingWildFly-OperationTransformationOverrideBuilder[#Operat
 When we have finished with our builder, we register it with the
 `SubsystemRegistration` against the target ModelVersion.
 
-[source,java]
+[source, java]
 ----
         TransformationDescription.Tools.register(subsystemBuilder.build(), subsystem, ModelVersion.create(1, 0, 0));
 ----
@@ -3752,7 +3752,7 @@ To make the `ResourceTransformationDescriptionBuilder` do something, we
 need to call some of its methods. For example, if we want to silently
 discard a child resource, we can do
 
-[source,java]
+[source, java]
 ----
     subsystemBuilder.discardChildResource(PathElement.pathElement("child", "discarded"));
 ----
@@ -3785,7 +3785,7 @@ slave HCs.
 If we want to reject transformation if a child resource exists, we can
 do
 
-[source,java]
+[source, java]
 ----
     subsystemBuilder.rejectChildResource(PathElement.pathElement("child", "reject"));
 ----
@@ -3812,7 +3812,7 @@ note that these also return a builder for the child resource (since we
 are not rejecting or discarding it), we can do this for all children of
 a given type:
 
-[source,java]
+[source, java]
 ----
     ResourceTransformationDescriptionBuilder childBuilder =
        subsystemBuilder.addChildRedirection(PathElement.pathElement("newChild"), PathElement.pathElement("oldChild");
@@ -3827,7 +3827,7 @@ ModelVersion 1.1.0 of the subsystem.
 
 We can also rename a specific named child:
 
-[source,java]
+[source, java]
 ----
     ResourceTransformationDescriptionBuilder childBuilder =
        subsystemBuilder.addChildRedirection(PathElement.pathElement("newChild", "newName"), PathElement.pathElement("oldChild", "oldName");
@@ -3848,7 +3848,7 @@ to transform something in one of its child resources. Again, since we
 are not discarding or rejecting, we get a reference to the builder for
 the child resource.
 
-[source,java]
+[source, java]
 ----
     ResourceTransformationDescriptionBuilder childBuilder =
        subsystemBuilder.addChildResource(PathElement.pathElement("some-child"));
@@ -3870,14 +3870,14 @@ returns you a `AttributeTransformationDescriptionBuilder` which is used
 to define transformation for the resource's attributes. For example this
 gets the attribute builder for the subsystem resource:
 
-[source,java]
+[source, java]
 ----
     AttributeTransformationDescriptionBuilder attributeBuilder = subSystemBuilder.getAttributeBuilder();
 ----
 
 or we could get it for one of the child resources:
 
-[source,java]
+[source, java]
 ----
     ResourceTransformationDescriptionBuilder childBuilder =
        subsystemBuilder.addChildResource(PathElement.pathElement("some-child"));
@@ -3892,7 +3892,7 @@ you have defined the `example` attribute of
 value is `true`, the inital domain transfer will reject if it is `true`,
 also the transformation of the following operations will reject:
 
-[source,java]
+[source, java]
 ----
     /subsystem=my-subsystem/some-child=test:add(example=true)
     /subsystem=my-subsystem:write-attribute(name=example, value=true)
@@ -3902,7 +3902,7 @@ also the transformation of the following operations will reject:
 The following operations will pass in this example, since the `example`
 attribute is not getting set to `true`
 
-[source,java]
+[source, java]
 ----
     /subsystem=my-subsystem/some-child=test:add(example=false)
     /subsystem=my-subsystem/some-child=test:add()             //Here it 'example' is simply left undefined
@@ -3969,7 +3969,7 @@ To discard an attribute we need an instance of
 and call the following method on the
 `AttributeTransformationDescriptionBuilder`:
 
-[source,java]
+[source, java]
 ----
      DiscardAttributeChecker discardCheckerA = ....;
      attributeBuilder.setDiscard(discardCheckerA, "attr1", "attr2");
@@ -3980,7 +3980,7 @@ attributes at once, in the above example both `attr1` and `attr2` get
 checked for if they should be discarded. You can also register different
 `DiscardAttributeChecker` instances for different attributes:
 
-[source,java]
+[source, java]
 ----
      DiscardAttributeChecker discardCheckerA = ....;
      DiscardAttributeChecker discardCheckerB = ....;
@@ -3992,7 +3992,7 @@ Note that you can only have one `DiscardAttributeChecker` per attribute,
 so the following would cause an error (if running with assertions
 enabled, otherwise `discardCheckerB` will overwrite `discardCheckerA`):
 
-[source,java]
+[source, java]
 ----
      DiscardAttributeChecker discardCheckerA = ....;
      DiscardAttributeChecker discardCheckerB = ....;
@@ -4009,7 +4009,7 @@ implementations. The implementations of this interface get called for
 each attribute they are registered against. The interface itself is
 quite simple:
 
-[source,java]
+[source, java]
 ----
 public interface DiscardAttributeChecker {
  
@@ -4026,7 +4026,7 @@ it is an expression, and this method returns `true`, the
 `isOperationParameterDiscardable` and `isResourceAttributeDiscardable`
 methods will not get called.
 
-[source,java]
+[source, java]
 ----
     /**
      * Returns {@code true} if the attribute should be discarded if it is undefined
@@ -4041,7 +4041,7 @@ is `undefined`, and this method returns `true`, the
 `isDiscardExpressions`, `isOperationParameterDiscardable` and
 `isResourceAttributeDiscardable` methods will not get called.
 
-[source,java]
+[source, java]
 ----
     /**
      * Gets whether the given operation parameter can be discarded
@@ -4066,7 +4066,7 @@ operation is working on before any transformation happened, which is
 useful if you want to check other values in the resource if this is, say
 a `write-attribute` operation. Return `true` to discard the operation.
 
-[source,java]
+[source, java]
 ----
     /**
      * Gets whether the given attribute can be discarded
@@ -4086,7 +4086,7 @@ attribute in the resource. We have access to the address of the
 resource, the name and value of the attribute, and the
 `TransformationContext`. Return `true` to discard the operation.
 
-[source,java]
+[source, java]
 ----
 }
 ----
@@ -4106,7 +4106,7 @@ an operation or a resource is being transformed, so it makes both the
 `isResourceAttributeDiscardable()` and
 `isOperationParameterDiscardable()` methods call the following method.
 
-[source,java]
+[source, java]
 ----
 protected abstract boolean isValueDiscardable(PathAddress address, String attributeName, ModelNode attributeValue, TransformationContext context);
 ----
@@ -4124,7 +4124,7 @@ This is another convenience class, which allows you to discard an
 attribute if it has one or more values. Here is a real-world example
 from the `jpa` subsystem:
 
-[source,java]
+[source, java]
 ----
     private void initializeTransformers_1_1_0(SubsystemRegistration subsystemRegistration) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
@@ -4169,7 +4169,7 @@ for by using a `DiscardAttributeChecker.DiscardAttributeValueChecker`.
 One valid use for `DiscardAttributeChecker.ALWAYS` can be found in the
 `ejb3` subsystem:
 
-[source,java]
+[source, java]
 ----
     private static void registerTransformers_1_1_0(SubsystemRegistration subsystemRegistration) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance()
@@ -4206,7 +4206,7 @@ To reject an attribute we need an instance of
 and call the following method on the
 `AttributeTransformationDescriptionBuilder`:
 
-[source,java]
+[source, java]
 ----
      RejectAttributeChecker rejectCheckerA = ....;
      attributeBuilder.addRejectCheck(rejectCheckerA, "attr1", "attr2");
@@ -4217,7 +4217,7 @@ attributes at once, in the above example both `attr1` and `attr2` get
 checked for if they should be discarded. You can also register different
 `RejectAttributeChecker` instances for different attributes:
 
-[source,java]
+[source, java]
 ----
      RejectAttributeChecker rejectCheckerA = ....;
      RejectAttributeChecker rejectCheckerB = ....;
@@ -4228,7 +4228,7 @@ checked for if they should be discarded. You can also register different
 You can also register several `RejectAttributeChecker` instances per
 attribute
 
-[source,java]
+[source, java]
 ----
      RejectAttributeChecker rejectCheckerA = ....;
      RejectAttributeChecker rejectCheckerB = ....;
@@ -4255,7 +4255,7 @@ each attribute they are registered against. The interface itself is
 quite simple, and its main methods are similar to
 `DiscardAttributeChecker`:
 
-[source,java]
+[source, java]
 ----
 public interface RejectAttributeChecker {
     /**
@@ -4281,7 +4281,7 @@ operation is working on before any transformation happened, which is
 useful if you want to check other values in the resource if this is, say
 a `write-attribute` operation. Return `true` to reject the operation.
 
-[source,java]
+[source, java]
 ----
     /**
      * Gets whether the given resource attribute value is not understandable by the target process and needs
@@ -4301,7 +4301,7 @@ attribute in the resource. We have access to the address of the
 resource, the name and value of the attribute, and the
 `TransformationContext`. Return `true` to discard the operation.
 
-[source,java]
+[source, java]
 ----
     /**
      * Returns the log message id used by this checker. This is used to group it so that all attributes failing a type of rejection
@@ -4317,7 +4317,7 @@ Here we need a unique id for the log message from the
 their log message. A typical implementation will contain \{\{return
 getRejectionLogMessage(Collections.<String, ModelNode>emptyMap());}
 
-[source,java]
+[source, java]
 ----
     /**
      * Gets the log message if the attribute failed rejection
@@ -4332,7 +4332,7 @@ Here we return a message saying why the attributes were rejected, with
 the possibility to format the message to include the names of all the
 rejected attributes and the values they had.
 
-[source,java]
+[source, java]
 ----
 }
 ----
@@ -4353,7 +4353,7 @@ an operation or a resource is being transformed, so it makes both the
 `rejectOperationParameter()` and `rejectResourceAttribute()` methods
 call the following method.
 
-[source,java]
+[source, java]
 ----
 protected abstract boolean rejectAttribute(PathAddress address, String attributeName, ModelNode attributeValue, TransformationContext context);
 ----
@@ -4370,7 +4370,7 @@ exist on the target legacy slave HC. A typical use case for these is for
 the _implied behavior_ example we looked at in the `jpa` subsystem in
 link:#src-557102_ExtendingWildFly-DiscardAttributeChecker.DiscardAttributeValueChecker[#DiscardAttributeChecker.DiscardAttributeValueChecker]
 
-[source,java]
+[source, java]
 ----
     private void initializeTransformers_1_1_0(SubsystemRegistration subsystemRegistration) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
@@ -4413,7 +4413,7 @@ The
 which allows you to define a checker for the elements of a list, when
 the type of an attribute is `ModelType.LIST`.
 
-[source,java]
+[source, java]
 ----
     attributeBuilder
             .addRejectCheck(new ListRejectAttributeChecker(RejectAttributeChecker.EXPRESSIONS), "attr1");
@@ -4432,7 +4432,7 @@ For attributes where the type is `ModelType.OBJECT` we have
 you to register different reject checkers for the different fields of
 the registered object.
 
-[source,java]
+[source, java]
 ----
     Map<String, RejectAttributeChecker> fieldRejectCheckers = new HashMap<String, RejectAttributeChecker>();
     fieldRejectCheckers.put("time", RejectAttributeChecker.SIMPLE_EXPRESSIONS);
@@ -4453,7 +4453,7 @@ To convert an attribute you register an
 `org.jboss.as.controller.transform.description.AttributeConverter`
 instance against the attributes you want to convert:
 
-[source,java]
+[source, java]
 ----
     AttributeConverter converterA = ...;
     AttributeConverter converterB = ...;
@@ -4472,7 +4472,7 @@ Now if `attr1` and `attr2` get converted with `converterA`, while
 The `AttributeConverter` interface gets called for each attribute for
 which the `AttributeConverter` has been registered
 
-[source,java]
+[source, java]
 ----
 public interface AttributeConverter {
  
@@ -4498,7 +4498,7 @@ transformation happened, which is useful if you want to check other
 values in the resource if this is, say a write-attribute operation. To
 change the attribute value, you modify the `attributeValue`.
 
-[source,java]
+[source, java]
 ----
     /**
      * Converts a resource attribute
@@ -4517,7 +4517,7 @@ resource, the name and value of the attribute, and the
 `TransformationContext`. To change the attribute value, you modify the
 `attributeValue`.
 
-[source,java]
+[source, java]
 ----
 }
 ----
@@ -4528,7 +4528,7 @@ specified to be milliseconds, however in the current model it has been
 changed to be seconds, hence we need to convert the value when sending
 it to slave HCs using the legacy model:
 
-[source,java]
+[source, java]
 ----
      AttributeConverter secondsToMs = new AttributeConverter.DefaultAttributeConverter() {
                   @Override
@@ -4550,7 +4550,7 @@ We need to be a bit careful here. If the `timeout` attribute is an
 expression our nice conversion will not work, so we need to add a reject
 check to make sure it is not an expression as well:
 
-[source,java]
+[source, java]
 ----
      attributeBuilder.
           .addRejectCheck(SIMPLE_EXPRESSIONS, "timeout")
@@ -4565,7 +4565,7 @@ an operation or a resource is being transformed, so it makes both the
 convertOperationParameter() and convertResourceAttribute() methods call
 the following method.
 
-[source,java]
+[source, java]
 ----
 protected abstract void convertAttribute(PathAddress address, String attributeName, ModelNode attributeValue, TransformationContext context);
 ----
@@ -4585,7 +4585,7 @@ version this attribute has been made optional with a default value of
 slave HC using the old version we will need to introduce this attribute
 if the new model does not contain it:
 
-[source,java]
+[source, java]
 ----
      attributeBuilder.
          setValueConverter(AttributeConverter.Factory.createHardCoded(new ModelNode(1234) true), "port");
@@ -4603,7 +4603,7 @@ not.
 
 To rename an attribute, you simply do
 
-[source,java]
+[source, java]
 ----
     attributeBuilder.addRename("my-name", "legacy-name");
 ----
@@ -4612,7 +4612,7 @@ Now, in the initial domain transfer to the legacy slave HC, we rename
 `/subsystem=my-subsystem`'s `my-name` attribute to `legacy-name`. Also,
 the operations involving this attribute are affected, so
 
-[source,java]
+[source, java]
 ----
     /subsystem=my-subsystem/:add(my-name=true)  ->
          /subsystem=my-subsystem/:add(legacy-name=true)
@@ -4631,7 +4631,7 @@ on their parameters as set up by the
 want to change this, so you can use the
 `OperationTransformationOverrideBuilder`, which is got from:
 
-[source,java]
+[source, java]
 ----
 OperationTransformationOverrideBuilder operationBuilder = subSystemBuilder.addOperationTransformationOverride("some-operation");
 ----
@@ -4643,7 +4643,7 @@ turned off. In other cases you might want to include them by calling
 (the `OperationTransformationBuilder` interface has all the methods
 found in `AttributeTransformationBuilder`:
 
-[source,java]
+[source, java]
 ----
     OperationTransformationOverrideBuilder operationBuilder = subSystemBuilder.addOperationTransformationOverride("some-operation");
     operationBuilder.inheritResourceAttributeDefinitions();
@@ -4654,7 +4654,7 @@ You can also rename operations, in this case the operation
 `some-operation` gets renamed to `legacy-operation` before getting sent
 to the legacy slave HC.
 
-[source,java]
+[source, java]
 ----
     OperationTransformationOverrideBuilder operationBuilder = subSystemBuilder.addOperationTransformationOverride("some-operation");
     operationBuilder.rename("legacy-operation");
@@ -4668,7 +4668,7 @@ Say you have a subsystem with ModelVersions 1.0.0 and 1.1.0. There will
 transformations. Let's say that the transformers registration looks
 like:
 
-[source,java]
+[source, java]
 ----
 public class SomeExtension implements Extension {
  
@@ -4707,7 +4707,7 @@ Now say we want to do a new version of the model. This new version
 contains a new attribute called 'new-attr' which cannot be defined when
 transforming to 1.1.0, we bump the model version to 2.0.0:
 
-[source,java]
+[source, java]
 ----
 public class SomeExtension implements Extension {
  
@@ -4744,7 +4744,7 @@ transformers]
 Now we need some new transformers from the current ModelVersion to 1.1.0
 where we reject any defined occurrances of our new attribute `new-attr`:
 
-[source,java]
+[source, java]
 ----
     private void registerTransformers(final SubsystemRegistration subsystem) {
         registerTransformers_1_0_0(subsystem);
@@ -4769,7 +4769,7 @@ need to extend our transformer for 1.0.0 to reject it there as well. As
 you can see 1.0.0 also rejects a defined 'attr1' in addition to the
 'new-attr'(which is rejected in both versions).
 
-[source,java]
+[source, java]
 ----
     /**
      * Registers transformers from the current version to ModelVersion 1.0.0
@@ -4797,7 +4797,7 @@ point to the `ResourceTransformationDescriptionBuilder` we have seen
 earlier. Each `ResourceTransformationDescriptionBuilder` deals with
 transformation across one version delta.
 
-[source,java]
+[source, java]
 ----
     private void registerTransformers(SubsystemRegistration subsystem) {
         ModelVersion version1_1_0 = ModelVersion.create(1, 1, 0);
@@ -4882,7 +4882,7 @@ following example is from the threads subsystem, and I have only
 included the tests against 7.1.2 - there are more! First we need to set
 up our test:
 
-[source,java]
+[source, java]
 ----
 public class ThreadsSubsystemTestCase extends AbstractSubsystemBaseTest {
     public ThreadsSubsystemTestCase() {
@@ -4907,7 +4907,7 @@ relevant to transformers here.
 
 To test a configuration xxx
 
-[source,java]
+[source, java]
 ----
     @Test
     public void testTransformerAS712() throws Exception {
@@ -4997,7 +4997,7 @@ at runtime. To generate the .dmr file, you need to generate it by adding
 a temporary test (make sure that you adjust `controllerVersion` and
 `modelVersion` to what you want to generate):
 
-[source,java]
+[source, java]
 ----
     @Test
     public void deleteMeWhenDone() throws Exception {
@@ -5026,7 +5026,7 @@ expression values in the version that came with JBoss AS 7.1.2.Final. So
 we have a test that attempts to use expressions, and then fixes each
 resource and attribute where expressions were not allowed.
 
-[source,java]
+[source, java]
 ----
     @Test
     public void testRejectExpressionsAS712() throws Exception {
@@ -5070,7 +5070,7 @@ operation no longer is rejected. The configuration for this is the
 `FailedOperationTransformationConfig` returned by the `getConfig()`
 method:
 
-[source,java]
+[source, java]
 ----
     private FailedOperationTransformationConfig getConfig() {
         PathAddress subsystemAddress = PathAddress.pathAddress(ThreadsExtension.SUBSYSTEM_PATH);
@@ -5116,7 +5116,7 @@ Looking at the model comparison between WildFly and JBoss AS 7.2.0,
 there is a change to the `remoting` subsystem. The relevant part of the
 output is:
 
-[source,java]
+[source, java]
 ----
 ====== Resource root address: ["subsystem" => "remoting"] - Current version: 2.0.0; legacy version: 1.2.0 =======
 --- Problems for relative address to root []:
@@ -5130,7 +5130,7 @@ legacy slave running version 1.2.0. So we add the following to
 `RemotingExtension` to reject all instances of that child type against
 ModelVersion 1.2.0.
 
-[source,java]
+[source, java]
 ----
     @Override
     public void initialize(ExtensionContext context) {
@@ -5169,7 +5169,7 @@ there is now an attribute under
 `/subsystem=remoting/remote-outbound-connection=*` called `protocol`
 which did not exist in the older version:
 
-[source,java]
+[source, java]
 ----
 ====== Resource root address: ["subsystem" => "remoting"] - Current version: 2.0.0; legacy version: 1.2.0 =======
 --- Problems for relative address to root []:
@@ -5191,7 +5191,7 @@ reject it if it has a value different from `remote`. So what we need to
 do when registering transformers against ModelVersion 1.2.0 to handle
 this attribute:
 
-[source,java]
+[source, java]
 ----
     private void registerTransformers_1_2(SubsystemRegistration registration) {
         TransformationDescription.Tools.register(get1_2_0_1_3_0Description(), registration, VERSION_1_2);
@@ -5224,7 +5224,7 @@ work in pairs.
 
 An alternative way to write the `protocolTransform()` method would be:
 
-[source,java]
+[source, java]
 ----
      private static AttributeTransformationDescriptionBuilder protocolTransform(AttributeTransformationDescriptionBuilder builder) {
         builder.setDiscard(new DiscardAttributeChecker.DefaultDiscardAttributeChecker() {
@@ -5251,7 +5251,7 @@ guide, but let's take a more thorough look. Our comparison tells us that
 we have two new attributes `require-bean-descriptor` and
 `non-portable-mode`:
 
-[source,java]
+[source, java]
 ----
 ====== Resource root address: ["subsystem" => "weld"] - Current version: 2.0.0; legacy version: 1.0.0 =======
 --- Problems for relative address to root []:
@@ -5269,7 +5269,7 @@ transformer must reject anything that is not `true` for these
 attributes. Let us look at the transformer registered by the
 WeldExtension:
 
-[source,java]
+[source, java]
 ----
     private void registerTransformers(SubsystemRegistration subsystem) {
         ResourceTransformationDescriptionBuilder builder = TransformationDescriptionBuilder.Factory.createSubsystemInstance();
@@ -5361,7 +5361,7 @@ Here the example comes from the `capacity` parameter some way into the
 are quite a few differences, so I am only showing the ones relevant for
 this example:
 
-[source,java]
+[source, java]
 ----
 ====== Resource root address: ["subsystem" => "modcluster"] - Current version: 2.0.0; legacy version: 1.2.0 =======
 ...
@@ -5381,7 +5381,7 @@ convert this to `2`, but `2.5` cannot be converted. The way this is
 solved in the ModClusterExtension is to register the following some
 other attributes are registered here, but hopefully it is clear anyway:
 
-[source,java]
+[source, java]
 ----
         dynamicLoadProvider.addChildResource(LOAD_METRIC_PATH)
                     .getAttributeBuilder()
@@ -5401,7 +5401,7 @@ the `CapacityCheckerAndConverter` for `capacity`.
 and `RejectAttributeChecker` in previous examples. Since we now need to
 convert a value we need an instance of `AttributeConverter`.
 
-[source,java]
+[source, java]
 ----
     static class CapacityCheckerAndConverter extends DefaultCheckersAndConverter {
  
@@ -5411,7 +5411,7 @@ convert a value we need an instance of `AttributeConverter`.
 We should not discard so `isValueDiscardable()` from
 `DiscardAttributeChecker` always returns `false`:
 
-[source,java]
+[source, java]
 ----
         @Override
         protected boolean isValueDiscardable(PathAddress address, String attributeName, ModelNode attributeValue, TransformationContext context) {
@@ -5431,7 +5431,7 @@ its value will resolve to on the target host, so we need to reject it.
 Then we try to change it into an `int`, and reject if that was not
 possible:
 
-[source,java]
+[source, java]
 ----
         @Override
         protected boolean rejectAttribute(PathAddress address, String attributeName, ModelNode attributeValue, TransformationContext context) {
@@ -5446,7 +5446,7 @@ possible:
 
 And then finally we do the conversion:
 
-[source,java]
+[source, java]
 ----
         @Override
         protected void convertAttribute(PathAddress address, String attributeName, ModelNode attributeValue, TransformationContext context) {
@@ -5621,7 +5621,7 @@ create a `ResourceDefinition` for the root resource type for each
 subsystem, and register it with the `ExtensionContext` passed in to
 their `Extension` implementation's `initialize` method:
 
-[source,java]
+[source, java]
 ----
     public void initialize(ExtensionContext context) {
         SubsystemRegistration subsystem = context.registerSubsystem(SUBSYSTEM_NAME, CURRENT_VERSION);
@@ -5662,7 +5662,7 @@ superclasses.
 
 For example, to add a writable attribute:
 
-[source,java]
+[source, java]
 ----
     @Override
     public void registerAttributes(ManagementResourceRegistration resourceRegistration) {
@@ -5676,7 +5676,7 @@ For example, to add a writable attribute:
 
 To register a custom operation:
 
-[source,java]
+[source, java]
 ----
     @Override
     public void registerOperations(ManagementResourceRegistration resourceRegistration) {
@@ -5690,7 +5690,7 @@ To register a custom operation:
 
 To register a child resource type:
 
-[source,java]
+[source, java]
 ----
     @Override
     public void registerChildren(ManagementResourceRegistration resourceRegistration) {
@@ -5780,7 +5780,7 @@ types respectively.
 Here's an example of creating a simple attribute definition with extra
 validation of the range of allowed values:
 
-[source,java]
+[source, java]
 ----
 static final AttributeDefinition QUEUE_LENGTH = new SimpleAttributeDefinitionBuilder("queue-length", ModelType.INT)
                 .setRequired(true)
@@ -5803,7 +5803,7 @@ metadata based on the type of the attribute.
 Use `EnumValidator` to restrict a STRING attribute's values to a set of
 legal values:
 
-[source,java]
+[source, java]
 ----
     static final SimpleAttributeDefinition TIME_UNIT = new SimpleAttributeDefinitionBuilder("unit", ModelType.STRING)
             .setRequired(true)
@@ -5847,7 +5847,7 @@ Here we have your extension's implementation of
 for your subsystem and add `ModelNode` operations to the list that will
 be used to boot the server.
 
-[source,java]
+[source, java]
 ----
     @Override
     public void readElement(final XMLExtendedStreamReader reader, final List<ModelNode> operationList) throws XMLStreamException {
@@ -5887,7 +5887,7 @@ Here we illustrate code in an `OperationStepHandler` that extracts a
 value from a user-provided `operation` and stores it in the internal
 model:
 
-[source,java]
+[source, java]
 ----
     @Override
     public void execute(OperationContext context, ModelNode operation) throws OperationFailedException {
@@ -5931,7 +5931,7 @@ handler adds a step to do further work once operation execution proceeds
 to RUNTIME state (see Operation Execution and the `OperationContext` for
 more on what this means):
 
-[source,java]
+[source, java]
 ----
         context.addStep(new OperationStepHandler() {
             @Override
@@ -5970,7 +5970,7 @@ we do in the example above with the call to `asInt()`. If FOO_AD was
 configured such that it's possible that the attribute won't have a
 defined value, you need to guard against that, e.g.:
 
-[source,java]
+[source, java]
 ----
     ModelNode node = FOO_AD.resolveModelAttribute(context, model);
     Integer foo = node.isDefined() ? node.asInt() : null;
@@ -5985,7 +5985,7 @@ is used to marshal the subsystem's configuration to XML. If you don't
 use `PersistentResourceXMLParser` for this you'll need to write your own
 marshaling code, and `AttributeDefinition` will be used.
 
-[source,java]
+[source, java]
 ----
     @Override
     public void writeContent(XMLExtendedStreamWriter writer, SubsystemMarshallingContext context) throws XMLStreamException {
@@ -6589,7 +6589,7 @@ Usage of `AbstractBoottimeAddStepHandler` is the same as for
 A typical thing to do in `performBoottime` is to add a special step that
 registers one or more `DeploymentUnitProcessor` s.
 
-[source,java]
+[source, java]
 ----
     @Override
     public void performBoottime(OperationContext context, ModelNode operation, final Resource resource)
@@ -6699,7 +6699,7 @@ from.)
 
 Here is an example of a simple command handler and its integration.
 
-[source,java]
+[source, java]
 ----
 package org.jboss.as.test.cli.extensions;public class ExtCommandHandler extends org.jboss.as.cli.handlers.CommandHandlerWithHelp {     
  
@@ -6726,7 +6726,7 @@ public class ExtCommandHandler extends org.jboss.as.cli.handlers.CommandHandlerW
 The command will simply print a message to the terminal. The next step
 is to implement the CLI CommandHandlerProvider interface.
 
-[source,java]
+[source, java]
 ----
 package org.jboss.as.test.cli.extensions;
 public class ExtCommandHandlerProvider implements org.jboss.as.cli.CommandHandlerProvider {

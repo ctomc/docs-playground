@@ -21,7 +21,7 @@ referenced via the following name:
 "org.wildfly.clustering.singleton.policy" +
 e.g.
 
-[source,java]
+[source, java]
 ----
 public class MyServiceActivator implements ServiceActivator {
     @Override
@@ -49,7 +49,7 @@ interface, which includes support for specifying an election policy and,
 optionally, a quorum. +
 e.g.
 
-[source,java]
+[source, java]
 ----
 public class MyServiceActivator implements ServiceActivator {
     @Override

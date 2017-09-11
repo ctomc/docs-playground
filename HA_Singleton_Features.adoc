@@ -24,7 +24,7 @@ https://github.com/wildfly/wildfly/blob/10.0.0.Final/clustering/singleton/extens
 subsystem configuration] from WildFly's ha and full-ha profile looks
 like:
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:singleton:1.0">
     <singleton-policies default="default">
@@ -46,7 +46,7 @@ provider candidates
 One can add a new singleton policy via the following management
 operation:
 
-[source,java]
+[source, java]
 ----
 /subsystem=singleton/singleton-policy=foo:add(cache-container=server)
 ----
@@ -73,7 +73,7 @@ node, 1 is second oldest, etc. ; while position=-1 refers to the
 youngest node, -2 to the second youngest, etc. +
 e.g.
 +
-[source,java]
+[source, java]
 ----
 /subsystem=singleton/singleton-policy=foo/election-policy=simple:add(position=-1)
 ----
@@ -82,7 +82,7 @@ e.g.
 Elects a random member to be the provider of a singleton service +
 e.g.
 +
-[source,java]
+[source, java]
 ----
 /subsystem=singleton/singleton-policy=foo/election-policy=random:add()
 ----
@@ -96,7 +96,7 @@ via node name or via outbound socket binding name. Node preferences
 always take precedent over the results of an election policy. +
 e.g.
 
-[source,java]
+[source, java]
 ----
 /subsystem=singleton/singleton-policy=foo/election-policy=simple:list-add(name=name-preferences, value=nodeA)
 /subsystem=singleton/singleton-policy=bar/election-policy=random:list-add(name=socket-binding-preferences, value=nodeA)
@@ -115,7 +115,7 @@ cluster size. This value can be updated at runtime, and will immediately
 affect any active singleton services. +
 e.g.
 
-[source,java]
+[source, java]
 ----
 /subsystem=singleton/singleton-policy=foo:write-attribute(name=quorum, value=3)
 ----
@@ -155,7 +155,7 @@ deployment type, e.g. JAR, WAR, EAR, etc., with the exception of a
 subdeployment within an EAR. +
 e.g.
 
-[source,java]
+[source, java]
 ----
 <singleton-deployment xmlns="urn:jboss:singleton-deployment:1.0" policy="foo"/>
 ----
@@ -169,7 +169,7 @@ Using a standalone descriptor is often preferable, since it may be
 overlaid onto an existing deployment archive. +
 e.g.
 
-[source,java]
+[source, java]
 ----
 deployment-overlay add --name=singleton-policy-foo --content=/META-INF/singleton-deployment.xml=/path/to/singleton-deployment.xml --deployments=my-app.jar --redeploy-affected
 ----
@@ -197,7 +197,7 @@ referenced via the following name:
 "org.wildfly.clustering.singleton.policy" +
 e.g.
 
-[source,java]
+[source, java]
 ----
 public class MyServiceActivator implements ServiceActivator {
     @Override
@@ -225,7 +225,7 @@ interface, which includes support for specifying an election policy and,
 optionally, a quorum. +
 e.g.
 
-[source,java]
+[source, java]
 ----
 public class MyServiceActivator implements ServiceActivator {
     @Override

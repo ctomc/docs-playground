@@ -109,7 +109,7 @@ Entities read outside of a transaction will be detached when the entity
 manager invocation completes. Example transaction-scoped persistence
 context is below.
 
-[source,java]
+[source, java]
 ----
 @Stateful  // will use container managed transactions
 public class CustomerManager {
@@ -136,7 +136,7 @@ during the next JTA TX). The Container-managed extended persistence
 context can only be injected into a stateful session bean. You can also
 think of the extended persistence context, as being an entity manager.
 
-[source,java]
+[source, java]
 ----
 @PersistenceContext(type = PersistenceContextType.EXTENDED, unitName = "inventoryPU")
 EntityManager em;
@@ -145,7 +145,7 @@ EntityManager em;
 [[extended-persistence-context-inheritance]]
 == Extended Persistence Context Inheritance
 
-[source,java]
+[source, java]
 ----
 JPA 2.0 specification section 7.6.2.1
  
@@ -215,7 +215,7 @@ _______________________________________________________________________________
 JPA allows use of your (pojo) plain old Java class to represent a
 database table row.
 
-[source,java]
+[source, java]
 ----
 @PersistenceContext EntityManager em;
 Integer bomPk = getIndexKeyValue();
@@ -300,7 +300,7 @@ xmlns="urn:jboss:domain:logging:1.0">* and add the *org.jboss.as.jpa*
 category. You need to change the console-handler level from *INFO* to
 *TRACE*.
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:logging:1.0">
      <console-handler name="CONSOLE">
@@ -326,7 +326,7 @@ category. You need to change the console-handler level from *INFO* to
 To see what is going on at the JDBC level, enable *jboss.jdbc.spy* TRACE
 and add spy="true" to the datasource.
 
-[source,java]
+[source, java]
 ----
 <datasource jndi-name="java:jboss/datasources/..." pool-name="..." enabled="true" spy="true">
 <logger category="jboss.jdbc.spy">
@@ -338,7 +338,7 @@ To troubleshoot issues with the Hibernate second level cache, try
 enabling trace for *org.hibernate.SQL + org.hibernate.cache.infinispan +
 org.infinispan:*
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:logging:1.0">
      <console-handler name="CONSOLE">
@@ -381,7 +381,7 @@ anything on top of that. The Infinispan version that is included in
 WildFly is expected to work with the Hibernate version that is included
 with WildFly. Example persistence.xml settings:
 
-[source,java]
+[source, java]
 ----
 <?xml version="1.0" encoding="UTF-8"?><persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
 <persistence-unit name="2lc_example_pu">
@@ -398,7 +398,7 @@ with WildFly. Example persistence.xml settings:
 Here is an example of enabling the second level cache for a Hibernate
 native API hibernate.cfg.xml file:
 
-[source,java]
+[source, java]
 ----
 <property name="hibernate.cache.region.factory_class" value="org.jboss.as.jpa.hibernate5.infinispan.InfinispanRegionFactory"/>
 <property name="hibernate.cache.infinispan.cachemanager" value="java:jboss/infinispan/container/hibernate"/>
@@ -408,7 +408,7 @@ native API hibernate.cfg.xml file:
 
 The Hibernate native API application will also need a MANIFEST.MF:
 
-[source,java]
+[source, java]
 ----
 Dependencies: org.infinispan,org.hibernate
 ----
@@ -427,7 +427,7 @@ second level cache.
 Here is an example of what the Hibernate cache settings may currently be
 in your standalone.xml:
 
-[source,java]
+[source, java]
 ----
  <cache-container name="hibernate" default-cache="local-query" module="org.hibernate.infinispan">
     <local-cache name="entity">
@@ -447,7 +447,7 @@ Below is an example of customizing the "entity", "immutable-entity",
 "local-query", "pending-puts", "timestamps" cache configuration may look
 like:
 
-[source,java]
+[source, java]
 ----
  <cache-container name="hibernate" module="org.hibernate.infinispan" default-cache="immutable-entity">
     <local-cache name="entity">
@@ -478,7 +478,7 @@ like:
 
 Persistence.xml to use the above custom settings:
 
-[source,java]
+[source, java]
 ----
 <properties>
     <property name="hibernate.cache.use_second_level_cache" value="true"/>
@@ -558,7 +558,7 @@ version="1.0"> +
 </persistence-unit> +
 </persistence>
 
-[source,java]
+[source, java]
 ----
 ----
 
@@ -571,7 +571,7 @@ modules/org/apache/openjpa/main/module.xml to include the same jar file
 names that you copied in. This will help you get your application that
 depends on OpenJPA, to deploy on WildFly.
 
-[source,java]
+[source, java]
 ----
  <module xmlns="urn:jboss:module:1.1" name="org.apache.openjpa">
     <resources>
@@ -614,7 +614,7 @@ you happen to leave the EclipseLink version number in the jar name, the
 module.xml should reflect that. This will help you get your application
 that depends on EclipseLink, to deploy on WildFly.
 
-[source,java]
+[source, java]
 ----
  <module xmlns="urn:jboss:module:1.1" name="org.eclipse.persistence">
     <resources>
@@ -651,7 +651,7 @@ https://bugs.eclipse.org/bugs/show_bug.cgi?id=414974[id=414974], set
 command (WildFly server needs to be running when this command is
 issued):
 
-[source,java]
+[source, java]
 ----
 jboss-cli.sh --connect '/system-property=eclipselink.archive.factory:add(value=org.jipijapa.eclipselink.JBossArchiveFactoryImpl)'
 ----
@@ -660,7 +660,7 @@ jboss-cli.sh --connect '/system-property=eclipselink.archive.factory:add(value=o
 configuration you are using) file might look like after updating the
 system properties:
 
-[source,java]
+[source, java]
 ----
 <system-properties>
    ...
@@ -671,7 +671,7 @@ system properties:
 You should then be able to deploy applications with persistence.xml that
 include;
 
-[source,java]
+[source, java]
 ----
 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 ----
@@ -701,7 +701,7 @@ expect to use the Hibernate jars included in WildFly.
 Example MANIFEST.MF entry to add dependency for Hibernate native
 applications:
 
-[source,java]
+[source, java]
 ----
 Manifest-Version: 1.0
 ...
@@ -723,7 +723,7 @@ You can inject a org.hibernate.Session and org.hibernate.SessionFactory
 directly, just as you can do with EntityManagers and
 EntityManagerFactorys.
 
-[source,java]
+[source, java]
 ----
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -937,7 +937,7 @@ your application by setting the `jboss.entity.manager.factory.jndi.name`
 
 persistence.xml
 
-[source,java]
+[source, java]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0"
@@ -958,7 +958,7 @@ persistence.xml
 </persistence>
 ----
 
-[source,java]
+[source, java]
 ----
 @Stateful
 public class ExampleSFSB {

@@ -7,7 +7,7 @@ resolved using system / environment properties.
 
 An example expression is
 
-[source,java]
+[source, java]
 ----
 ${jboss.bind.address.management:127.0.0.1}
 ----
@@ -29,7 +29,7 @@ expression.
 
 In all cases, the syntax for the expression is
 
-[source,java]
+[source, java]
 ----
 ${expression_to_resolve}
 ----
@@ -53,7 +53,7 @@ When we create an AttributeDefinition all we need to do is mark that is
 allows expressions. Here is an example how to define an attribute that
 allows expressions to be used.
 
-[source,java]
+[source, java]
 ----
 SimpleAttributeDefinition MY_ATTRIBUTE =
             new SimpleAttributeDefinitionBuilder("my-attribute", ModelType.INT, true)
@@ -67,7 +67,7 @@ Then later when you are parsing the xml configuration you should use the
 MY_ATTRIBUTE attribute definition to set the value to the management
 operation ModelNode you are creating.
 
-[source,java]
+[source, java]
 ----
 ....
       String attr = reader.getAttributeLocalName(i);
@@ -89,7 +89,7 @@ Later in your operation handlers where you implement populateModel and
 have to store the value from the operation to the configuration model
 you also use this MY_ATTRIBUTE attribute definition.
 
-[source,java]
+[source, java]
 ----
  @Override
  protected void populateModel(ModelNode operation, ModelNode model) throws OperationFailedException {
@@ -110,7 +110,7 @@ console users.
 As last step we need to use the value of the attribute. This is usually
 needed inside of the `performRuntime` method
 
-[source,java]
+[source, java]
 ----
  protected void performRuntime(OperationContext context, ModelNode operation, ModelNode model, ServiceVerificationHandler verificationHandler, List<ServiceController<?>> newControllers) throws OperationFailedException {
        ....
@@ -129,7 +129,7 @@ unresolved value.
 
 Attribute definitinon also helps you with that:
 
-[source,java]
+[source, java]
 ----
  public void writeContent(XMLExtendedStreamWriter writer, SubsystemMarshallingContext context) throws XMLStreamException {
     ....

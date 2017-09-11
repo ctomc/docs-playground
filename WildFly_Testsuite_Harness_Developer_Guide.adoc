@@ -44,7 +44,7 @@ TBD: https://issues.jboss.org/browse/ARQ-647
 
 **-arquillian.xml*
 
-[source,java]
+[source, java]
 ----
 <container qualifier="jboss" default="true">
     <configuration>
@@ -54,7 +54,7 @@ TBD: https://issues.jboss.org/browse/ARQ-647
 [[server-jvm-arguments]]
 == Server JVM arguments
 
-[source,java]
+[source, java]
 ----
 <surefire.memory.args>-Xmx512m -XX:MaxPermSize=256m</surefire.memory.args>
     <surefire.jpda.args></surefire.jpda.args>

@@ -6,7 +6,7 @@ First, let us define the schema for our subsystem. Rename
 `src/main/resources/schema/acme.xsd`. Then open `acme.xsd` and modify it
 to the following
 
-[source,java]
+[source, java]
 ----
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
             targetNamespace="urn:com.acme.corp.tracker:1.0"
@@ -43,7 +43,7 @@ attribute, and a `tick` attribute which defaults to `true.`
 Now modify the ﻿ `com.acme.corp.tracker.extension.SubsystemExtension`
 class to contain the new namespace.
 
-[source,java]
+[source, java]
 ----
 public class SubsystemExtension implements Extension {
  

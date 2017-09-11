@@ -4,7 +4,7 @@ Add the deployers
 When discussing `SubsystemAddHandler` we did not mention the work done
 to install the deployers, which is done in the following method:
 
-[source,java]
+[source, java]
 ----
     @Override
     public void performBoottime(OperationContext context, ModelNode operation, ModelNode model,
@@ -39,7 +39,7 @@ processor with the phase and priority created for us by the maven
 archetype. The phases will be explained in the next section. The
 deployment processor is as follows:
 
-[source,java]
+[source, java]
 ----
 public class SubsystemDeploymentProcessor implements DeploymentUnitProcessor {
     ...

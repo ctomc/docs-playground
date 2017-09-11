@@ -1,10 +1,10 @@
 Testsuite
 =========
 
-[[jboss-as-7-testsuite]]
-= JBoss AS 7 Testsuite
+= WildFly Testsuite
 
 Where to go next?
+
 
 * *link:WildFly_Integration_Testsuite_User_Guide.html[WildFly
 Integration Testsuite User Guide]* if you changed JBoss AS 7 code and

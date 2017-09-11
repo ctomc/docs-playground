@@ -4,7 +4,7 @@ Integrate with WildFly
 Now that we have all the code needed for our subsystem, we can build our
 project by running `mvn install`
 
-[source,java]
+[source, java]
 ----
 [kabir ~/sourcecontrol/temp/archetype-test/acme-subsystem]
 $mvn install
@@ -34,7 +34,7 @@ This will have built our project and assembled a module for us that can
 be used for installing it into WildFly. If you go to the `target/module`
 folder where you built the project you will see the module
 
-[source,java]
+[source, java]
 ----
 $ls target/module/com/acme/corp/tracker/main/
 acme-subsystem.jar  module.xml
@@ -44,7 +44,7 @@ The `module.xml` comes from `src/main/resources/module/main/module.xml`
 and is used to define your module. It says that it contains the
 `acme-subsystem.jar`:
 
-[source,java]
+[source, java]
 ----
 <module xmlns="urn:jboss:module:1.0" name="com.acme.corp.tracker">
     <resources>
@@ -56,7 +56,7 @@ And has a default set of dependencies needed by every subsystem created.
 If your subsystem requires additional module dependencies you can add
 them here before building and installing.
 
-[source,java]
+[source, java]
 ----
     <dependencies>
         <module name="javax.api"/>
@@ -80,7 +80,7 @@ of your WildFly install).
 Next we need to modify `$WFLY/standalone/configuration/standalone.xml`.
 First we need to add our new module to the `<extensions>` section:
 
-[source,java]
+[source, java]
 ----
     <extensions>
         ...
@@ -91,7 +91,7 @@ First we need to add our new module to the `<extensions>` section:
 
 And then we have to add our subsystem to the `<profile>` section:
 
-[source,java]
+[source, java]
 ----
     <profile>
     ...
@@ -113,7 +113,7 @@ Now start up WildFly by running `$WFLY/bin/standalone.sh` and you should
 see messages like these after the server has started, which means our
 subsystem has been added and our `TrackerService` is working:
 
-[source,java]
+[source, java]
 ----
 15:27:33,838 INFO  [org.jboss.as] (Controller Boot Thread) JBoss AS 7.0.0.Final "Lightning" started in 2861ms - Started 94 of 149 services (55 services are passive or on-demand)
 15:27:42,966 INFO  [stdout] (Thread-8) Current deployments deployed while sar tracking active:
@@ -130,7 +130,7 @@ subsystem has been added and our `TrackerService` is working:
 If you run the command line interface you can execute some commands to
 see more about the subsystem. For example
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/:read-resource-description(recursive=true, operations=true)
 ----
@@ -140,7 +140,7 @@ will return a lot of information, including what we provided in the
 
 To see the current subsystem state you can execute
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/:read-resource(recursive=true)
 {
@@ -155,7 +155,7 @@ To see the current subsystem state you can execute
 We can remove both the deployment types which removes them from the
 model:
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/type=sar:remove
 {"outcome" => "success"}
@@ -173,7 +173,7 @@ stopped.
 
 Now, let's add the war tracker again:
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/type=war:add
 {"outcome" => "success"}
@@ -195,7 +195,7 @@ that `/Downloads/test1/target/test1.war` contains a `META-INF/cool.txt`
 while `/Downloads/test2/target/test2.war` does not contain that file.
 From CLI deploy `test1.war` first:
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] deploy ~/Downloads/test1/target/test1.war
 'test1.war' deployed successfully.
@@ -204,7 +204,7 @@ From CLI deploy `test1.war` first:
 And you should now see the output from the war `TrackerService` list the
 deployments:
 
-[source,java]
+[source, java]
 ----
 15:35:03,712 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) Starting deployment of "test1.war"
 15:35:03,988 INFO  [org.jboss.web] (MSC service thread 1-1) registering web context: /test1
@@ -217,7 +217,7 @@ deployments:
 So our `test1.war` got picked up as a 'cool' deployment. Now if we
 deploy `test2.war`
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] deploy ~/sourcecontrol/temp/archetype-test/test2/target/test2.war
 'test2.war' deployed successfully.
@@ -226,7 +226,7 @@ deploy `test2.war`
 You will see that deployment get picked up as well but since there is no
 `META-INF/cool.txt` it is not marked as a 'cool' deployment:
 
-[source,java]
+[source, java]
 ----
 15:37:05,634 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) Starting deployment of "test2.war"
 15:37:05,699 INFO  [org.jboss.web] (MSC service thread 1-1) registering web context: /test2
@@ -238,7 +238,7 @@ You will see that deployment get picked up as well but since there is no
 
 An undeploy
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] undeploy test1.war
 Successfully undeployed test1.war.
@@ -246,7 +246,7 @@ Successfully undeployed test1.war.
 
 is also reflected in the `TrackerService` output:
 
-[source,java]
+[source, java]
 ----
 15:38:47,901 INFO  [org.jboss.as.server.controller] (pool-2-thread-21) Undeployed "test1.war"
 15:38:47,934 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) Stopped deployment test1.war in 40ms
@@ -258,7 +258,7 @@ is also reflected in the `TrackerService` output:
 Finally, we registered a write attribute handler for the `tick` property
 of the `type` so we can change the frequency
 
-[source,java]
+[source, java]
 ----
 [standalone@localhost:9999 /] /subsystem=tracker/type=war:write-attribute(name=tick,value=1000)
 {"outcome" => "success"}
@@ -267,7 +267,7 @@ of the `type` so we can change the frequency
 You should now see the output from the `TrackerService` happen every
 second
 
-[source,java]
+[source, java]
 ----
 15:39:43,100 INFO  [stdout] (Thread-9) Current deployments deployed while war tracking active:
 15:39:43,100 INFO  [stdout] (Thread-9) [test2.war]
@@ -282,7 +282,7 @@ second
 If you open `$WFLY/standalone/configuration/standalone.xml` you can see
 that our subsystem entry reflects the current state of the subsystem:
 
-[source,java]
+[source, java]
 ----
         <subsystem xmlns="urn:com.acme.corp.tracker:1.0">
             <deployment-types>

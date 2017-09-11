@@ -78,14 +78,14 @@ and application authentication.
 Configuration can be added to the EJB subsystem to map a security domain
 name referenced in a deployment to an Elytron security domain:
 
-[source,java]
+[source, java]
 ----
 /subsystem=ejb3/application-security-domain=MyAppSecurity:add(security-domain=ApplicationDomain)
 ----
 
 Which results in:
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:ejb3:5.0">
 ...

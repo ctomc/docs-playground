@@ -11,7 +11,7 @@ It suppose you have already configured SSL using legacy
 link:Admin_Guide.html#src-557075_AdminGuide-EnableSSL[Admin Guide#Enable
 SSL], and your configuration looks like:
 
-[source,java]
+[source, java]
 ----
 <security-realm name="ApplicationRealm">
   <server-identities>
@@ -28,42 +28,42 @@ To switch to Elytron you need to:
 stored and password by which it is encrypted. Default type of keystore
 generated using keytool is JKS:
 +
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=LocalhostKeyStore:add(path=server.keystore,relative-to=jboss.server.config.dir,credential-reference={clear-text="keystore_password"},type=JKS)
 ----
 2.  Create Elytron `key-manager` - specifying keystore, alias (using
 `alias-filter`) and password of key:
 +
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-manager=LocalhostKeyManager:add(key-store=LocalhostKeyStore,alias-filter=server,credential-reference={clear-text="key_password"})
 ----
 3.  Create Elytron `server-ssl-context` - specifying only reference to
 `key-manager` defined above:
 +
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/server-ssl-context=LocalhostSslContext:add(key-manager=LocalhostKeyManager)
 ----
 4.  Switch `https-listener` from legacy `security-realm` to newly
 created Elytron `ssl-context`:
 +
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
 /subsystem=undertow/server=default-server/https-listener=https:write-attribute(name=ssl-context,value=LocalhostSslContext)
 ----
 5.  And reload the server:
 +
-[source,java]
+[source, java]
 ----
 reload
 ----
 
 Output XML configuration of Elytron subsystem should look like:
 
-[source,java]
+[source, java]
 ----
         <subsystem xmlns="urn:wildfly:elytron:1.0" ...>
             ...
@@ -89,7 +89,7 @@ Output XML configuration of Elytron subsystem should look like:
 
 Output `https-listener` in Undertow subsystem should be:
 
-[source,java]
+[source, java]
 ----
 <https-listener name="https" socket-binding="https" ssl-context="LocalhostSslContext" enable-http2="true"/>
 ----
@@ -102,7 +102,7 @@ using `truststore` in legacy `security-realm`, for example by
 link:Admin_Guide.html#src-557075_AdminGuide-AddClient-CerttoSSL[Admin
 Guide#Add Client-Cert to SSL], and your configuration looks like:
 
-[source,java]
+[source, java]
 ----
 <security-realm name="ApplicationRealm">
   <server-identities>
@@ -131,39 +131,39 @@ Then continue by following:
 
 1.  Create `key-store` of truststore - like for keystore above:
 +
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=TrustStore:add(path=server.truststore,relative-to=jboss.server.config.dir,credential-reference={clear-text="truststore_password"},type=JKS)
 ----
 2.  Create `trust-manager` - specifying `key-store` of trustore, created
 above:
 +
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/trust-manager=TrustManager:add(key-store=TrustStore)
 ----
 3.  Modify `server-ssl-context` to use newly created trustmanager:
 +
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/server-ssl-context=LocalhostSslContext:write-attribute(name=trust-manager,value=TrustManager)
 ----
 4.  Enable client authentication for `server-ssl-context`:
 +
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/server-ssl-context=LocalhostSslContext:write-attribute(name=need-client-auth,value=true)
 ----
 5.  And reload the server:
 +
-[source,java]
+[source, java]
 ----
 reload
 ----
 
 Output XML configuration of Elytron subsystem should look like:
 
-[source,java]
+[source, java]
 ----
         <subsystem xmlns="urn:wildfly:elytron:1.0" ...>
             ...

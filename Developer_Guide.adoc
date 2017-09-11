@@ -97,7 +97,7 @@ them access to classes in `EAR/lib`, however they do not always have an
 automatic dependency on each other. This behaviour is controlled via the
 `ear-subdeployments-isolated` setting in the ee subsystem configuration:
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:ee:1.0" >            
   <ear-subdeployments-isolated>false</ear-subdeployments-isolated>
@@ -109,7 +109,7 @@ classes belonging to other sub-deployments within the .ear.
 
 For example, consider the following .ear deployment:
 
-[source,java]
+[source, java]
 ----
 myapp.ear
  |
@@ -212,7 +212,7 @@ your pom.xml:
 
 pom.xml
 
-[source,java]
+[source, java]
 ----
 <build>
    ...
@@ -259,7 +259,7 @@ following XML:
 
 standalone.xml/domain.xml
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:ee:1.0" >            
   <global-modules>
@@ -289,7 +289,7 @@ ear deployment is as follows:
 
 jboss-deployment-structure.xml
 
-[source,java]
+[source, java]
 ----
 <jboss-deployment-structure>
   <!-- Make sub deployments isolated by default, so they cannot see each others classes without a Class-Path entry -->
@@ -373,7 +373,7 @@ them using jboss-deployment-structure.xml with system dependencies:
 
 Using jboss-deployment-structure.xml to access JDK classes
 
-[source,java]
+[source, java]
 ----
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.1">
     <deployment>
@@ -403,7 +403,7 @@ module's module.xml file can tell you:
 
 Example declaration of the jboss.api property
 
-[source,java]
+[source, java]
 ----
 <module xmlns="urn:jboss:module:1.3" name="com.google.guava">
     <properties>
@@ -506,7 +506,7 @@ which has the following class:
 
 MySuperDuperBean.java
 
-[source,java]
+[source, java]
 ----
 @Stateless
 public class MySuperDuperBean {
@@ -630,7 +630,7 @@ which exposes a RemoteCalculator remote business interface. We'll also
 have a simple stateful CounterBean which exposes a RemoteCounter remote
 business interface. Here's the code:
 
-[source,java]
+[source, java]
 ----
 package org.jboss.as.quickstarts.ejb.remote.stateless;
  
@@ -645,7 +645,7 @@ public interface RemoteCalculator {
 }
 ----
 
-[source,java]
+[source, java]
 ----
 package org.jboss.as.quickstarts.ejb.remote.stateless;
  
@@ -671,7 +671,7 @@ public class CalculatorBean implements RemoteCalculator {
 }
 ----
 
-[source,java]
+[source, java]
 ----
 package org.jboss.as.quickstarts.ejb.remote.stateful;
  
@@ -688,7 +688,7 @@ public interface RemoteCounter {
 }
 ----
 
-[source,java]
+[source, java]
 ----
 package org.jboss.as.quickstarts.ejb.remote.stateful;
  
@@ -741,7 +741,7 @@ So let's take a look at what the client code looks like for looking up
 the JNDI proxy and invoking on it. Here's the entire client code which
 invokes on a stateless bean:
 
-[source,java]
+[source, java]
 ----
 package org.jboss.as.quickstarts.ejb.remote.client;
  
@@ -906,14 +906,14 @@ the following syntax:
 
 *For stateless beans:*
 
-[source,java]
+[source, java]
 ----
 ejb:<app-name>/<module-name>/<distinct-name>/<bean-name>!<fully-qualified-classname-of-the-remote-interface>
 ----
 
 *For stateful beans:*
 
-[source,java]
+[source, java]
 ----
 ejb:<app-name>/<module-name>/<distinct-name>/<bean-name>!<fully-qualified-classname-of-the-remote-interface>?stateful
 ----
@@ -977,7 +977,7 @@ jboss-as-ejb-remote-app.jar (without any ear) and since we are looking
 up the org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator
 remote interface, our JNDI name will be:
 
-[source,java]
+[source, java]
 ----
 ejb:/jboss-as-ejb-remote-app//CalculatorBean!org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator
 ----
@@ -990,7 +990,7 @@ jboss-as-ejb-remote-app.jar and which exposes the
 org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter, the JNDI
 name will be:
 
-[source,java]
+[source, java]
 ----
 ejb:/jboss-as-ejb-remote-app//CounterBean!org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter?stateful
 ----
@@ -1001,7 +1001,7 @@ code uses.
 Now that we know of the JNDI name, let's take a look at the following
 piece of code in the lookupRemoteStatelessCalculator():
 
-[source,java]
+[source, java]
 ----
 final Hashtable jndiProperties = new Hashtable();
 jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
@@ -1019,7 +1019,7 @@ pass these properties to the constructor of the InitialContext class or
 have a jndi.properites file in the classpath of the client application,
 which (atleast) contains the following property:
 
-[source,java]
+[source, java]
 ----
 java.naming.factory.url.pkgs=org.jboss.ejb.client.naming
 ----
@@ -1035,7 +1035,7 @@ not connect to the server unless an invocation on those proxies is done.
 
 Now let's get to the point where we invoke on this returned proxy:
 
-[source,java]
+[source, java]
 ----
 // Let's lookup the remote stateless calculator
         final RemoteCalculator statelessRemoteCalculator = lookupRemoteStatelessCalculator();
@@ -1085,7 +1085,7 @@ The client will have to place a jboss-ejb-client.properties file in the
 classpath of the application. The jboss-ejb-client.properties can
 contain the following properties:
 
-[source,java]
+[source, java]
 ----
 endpoint.name=client-endpoint
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
@@ -1124,7 +1124,7 @@ jboss-ejb-client.properties file, it will default to
 
 Next is the remote.connectionprovider.create.options.<....> properties:
 
-[source,java]
+[source, java]
 ----
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
 ----
@@ -1140,7 +1140,7 @@ Similarly other properties can be passed too, just append it to the
 
 Next we'll see:
 
-[source,java]
+[source, java]
 ----
 remote.connections=default
 ----
@@ -1153,7 +1153,7 @@ configuration properties later on in the properties file. The example
 above sets up a single remote connection named "default". There can be
 more than one connections that are configured. For example:
 
-[source,java]
+[source, java]
 ----
 remote.connections=one, two
 ----
@@ -1164,7 +1164,7 @@ connections, that will setup 2 EJB receivers that will be added to the
 EJB client context. Each of these connections will be configured with
 the connection specific properties as follows:
 
-[source,java]
+[source, java]
 ----
 remote.connection.default.host=10.20.30.40
 remote.connection.default.port = 8080
@@ -1185,7 +1185,7 @@ other http port)
 
 [IMPORTANT]
 
-[source,java]
+[source, java]
 ----
 remote.connection.default.username=appuser
 remote.connection.default.password=apppassword
@@ -1210,7 +1210,7 @@ creation.
 Here's an example of setting up multiple connections with different
 properties for each of those:
 
-[source,java]
+[source, java]
 ----
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
  
@@ -1301,7 +1301,7 @@ the "Destination Server" but *not* on the "Client Server".
 In this example, we'll consider a EJB which is packaged in a myejb.jar
 which is within a myapp.ear. Here's how it would look like:
 
-[source,java]
+[source, java]
 ----
 myapp.ear
 |
@@ -1322,7 +1322,7 @@ article. You can deploy the EJBs in any standard way (.ear, .war or
 In our example, we'll consider a simple stateless session bean which is
 as follows:
 
-[source,java]
+[source, java]
 ----
 package org.myapp.ejb;
  
@@ -1332,7 +1332,7 @@ public interface Greeter {
 }
 ----
 
-[source,java]
+[source, java]
 ----
 package org.myapp.ejb;
  
@@ -1376,7 +1376,7 @@ questions/output as follows:
 
 add-user
 
-[source,java]
+[source, java]
 ----
 jpai@jpai-laptop:bin$ ./add-user.sh
  
@@ -1422,7 +1422,7 @@ As a next step towards running this example, we'll start the
 and use the _standalone-full.xml_ configuration. The startup command
 will look like:
 
-[source,java]
+[source, java]
 ----
 ./standalone.sh -server-config=standalone-full.xml
 ----
@@ -1437,7 +1437,7 @@ instances on the same machine, then each of those server instances
 by passing an appropriate value for `-Djboss.node.name` system property
 to the startup script:
 
-[source,java]
+[source, java]
 ----
 ./standalone.sh -server-config=standalone-full.xml -Djboss.node.name=<add appropriate value here>
 ----
@@ -1479,7 +1479,7 @@ the "Destination Server". We have copied the entire server installation
 to a different folder and while starting the "Client Server" we'll use a
 port-offset (of 100 in this example) to avoid port conflicts:
 
-[source,java]
+[source, java]
 ----
 ./standalone.sh -server-config=standalone-full.xml -Djboss.socket.binding.port-offset=100
 ----
@@ -1514,7 +1514,7 @@ to incorrect encoded versions being generated.
 With new versions the add-user script will show the base64 password if
 you type 'y' if you've been ask
 
-[source,java]
+[source, java]
 ----
 Is this new user going to be used for one AS process to connect to another AS process e.g. slave domain controller?
 ----
@@ -1527,7 +1527,7 @@ section
 
 Now let's create a " _security-realm_" for the base64 encoded password.
 
-[source,java]
+[source, java]
 ----
 /core-service=management/security-realm=ejb-security-realm:add()
 /core-service=management/security-realm=ejb-security-realm/server-identity=secret:add(value=dGVzdA==)
@@ -1544,7 +1544,7 @@ will be created in the _management_ section:
 
 standalone-full.xml
 
-[source,java]
+[source, java]
 ----
 <management>
         <security-realms>
@@ -1570,7 +1570,7 @@ Let's first create a _outbound-socket-binding_ which points the
 "Destination Server"'s host and port. We'll use the CLI to create this
 configuration:
 
-[source,java]
+[source, java]
 ----
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=localhost, port=8080)
 ----
@@ -1586,7 +1586,7 @@ run successfully, we'll see that the standalone-full.xml (the file which
 we used to start the server) was updated with the following
 outbound-socket-binding in the socket-binding-group:
 
-[source,java]
+[source, java]
 ----
 <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
         ...
@@ -1605,7 +1605,7 @@ newly created outbound-socket-binding (pointing to the EJB remoting
 connector of the "Destination Server"). We'll continue to use the CLI to
 create this configuration:
 
-[source,java]
+[source, java]
 ----
 /subsystem=remoting/remote-outbound-connection=remote-ejb-connection:add(outbound-socket-binding-ref=remote-ejb, protocol=http-remoting, security-realm=ejb-security-realm, username=ejb)
 ----
@@ -1633,12 +1633,12 @@ secured connection.
 Now let's run the following two operations to set some default
 connection creation options for the outbound connection:
 
-[source,java]
+[source, java]
 ----
 /subsystem=remoting/remote-outbound-connection=remote-ejb-connection/property=SASL_POLICY_NOANONYMOUS:add(value=false)
 ----
 
-[source,java]
+[source, java]
 ----
 /subsystem=remoting/remote-outbound-connection=remote-ejb-connection/property=SSL_ENABLED:add(value=false)
 ----
@@ -1646,7 +1646,7 @@ connection creation options for the outbound connection:
 Ultimately, upon successful invocation of this command, the following
 configuration will be created in the remoting subsystem:
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:remoting:1.1">
 ....
@@ -1674,7 +1674,7 @@ client application too. But like previously mentioned, that's not
 mandatory. You can even use a .war or .jar deployments. Here's how our
 client application packaging will look like:
 
-[source,java]
+[source, java]
 ----
 client-app.ear
 |
@@ -1712,7 +1712,7 @@ jboss-ejb-client.xml is expected to be placed in .war/WEB-INF/ folder
 
 The jboss-ejb-client.xml will look like:
 
-[source,java]
+[source, java]
 ----
 <jboss-ejb-client xmlns="urn:jboss:ejb-client:1.0">
     <client-context>
@@ -1746,7 +1746,7 @@ We mentioned that we'll be using a servlet to invoke on the bean, but
 the code to invoke the bean isn't servlet specific and can be used in
 other components (like EJB) too. So let's see how it looks like:
 
-[source,java]
+[source, java]
 ----
 import javax.naming.Context;
 import java.util.Hashtable;
@@ -1820,7 +1820,7 @@ looks like.
 [[client-code-relying-on-jndi.properties-in-classpath]]
 == Client code relying on jndi.properties in classpath
 
-[source,java]
+[source, java]
 ----
 void doLookup() {
   // Create an InitialContext using the javax.naming.* API
@@ -1842,7 +1842,7 @@ the details of this lookup string in a while.
 Let's now see what the jndi.properties in our client classpath looks
 like:
 
-[source,java]
+[source, java]
 ----
 java.naming.factory.initial=org.jboss.naming.remote.client.InitialContextFactory
 java.naming.provider.url=http-remoting://localhost:8080
@@ -1881,7 +1881,7 @@ The JNDI API also allows you to pass these properties to the constructor
 of the InitialContext class (please check the javadoc of that class for
 more details). Let's quickly see what the code would look like:
 
-[source,java]
+[source, java]
 ----
 void doLookup() {
   Properties jndiProps = new Properties();
@@ -1943,7 +1943,7 @@ Note: The server side configurations for the remoting connector to allow
 documentation. The WildFly 8 documentation already has chapters on how
 to set that up.
 
-[source,java]
+[source, java]
 ----
 void doLookup() {
   Properties jndiProps = new Properties();
@@ -2108,7 +2108,7 @@ exposes the remote views of a EJB under the `java:jboss/exported/`
 namespace (although it isn't logged in the server logs). So assuming
 your server side application has the following stateless bean:
 
-[source,java]
+[source, java]
 ----
 package org.myapp.ejb;
  
@@ -2170,7 +2170,7 @@ application. The answer is _yes_! Let's quickly see the client code for
 invoking our `FooBean`. Again, let's just use " `peter`" and " `lois`"
 as username/pass for connecting to the remoting connector.
 
-[source,java]
+[source, java]
 ----
 void doBeanLookup() {
   ...
@@ -2292,7 +2292,7 @@ marshalling/unmarshalling etc... The easiest place where this
 optimization can be applied, is to the EJB lookup. Consider the
 following code (let's ignore how the context is created):
 
-[source,java]
+[source, java]
 ----
 ctx.lookup("foo/bar");
 ----
@@ -2316,7 +2316,7 @@ passing the " `org.jboss.ejb.client.naming`" value for the
 
 Example:
 
-[source,java]
+[source, java]
 ----
 final Properties jndiProperties = new Properties();
 jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
@@ -2363,7 +2363,7 @@ That's exactly why the EJB client API project expects the JNDI name
 lookup string for stateful beans to include the " `?stateful`" string at
 the end of the JNDI name:
 
-[source,java]
+[source, java]
 ----
 context.lookup("ejb:myapp/myejbmodule//StatefulBean!org.myapp.ejb.Counter?stateful");
 ----
@@ -2441,7 +2441,7 @@ containing the resource adapter. For example `jms-ra.rar`.
 
 For example:
 
-[source,java]
+[source, java]
 ----
 @MessageDriven(messageListenerInterface = PostmanPat.class)
 @ResourceAdapter("ejb3-rar.rar")
@@ -2469,7 +2469,7 @@ error.
 
 For example:
 
-[source,java]
+[source, java]
 ----
 @RunAs("admin")
 @RunAsPrincipal("MyBean")
@@ -2493,7 +2493,7 @@ used.
 
 For example:
 
-[source,java]
+[source, java]
 ----
 @SecurityDomain("other")
 ----
@@ -2556,7 +2556,7 @@ to EJB 3.1 FR 13.3.7.2.1.
 
 jboss-ejb3.xml
 
-[source,java]
+[source, java]
 ----
 <jboss:ejb-jar xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
                xmlns="http://java.sun.com/xml/ns/javaee"
@@ -2779,7 +2779,7 @@ Entities read outside of a transaction will be detached when the entity
 manager invocation completes. Example transaction-scoped persistence
 context is below.
 
-[source,java]
+[source, java]
 ----
 @Stateful  // will use container managed transactions
 public class CustomerManager {
@@ -2806,7 +2806,7 @@ during the next JTA TX). The Container-managed extended persistence
 context can only be injected into a stateful session bean. You can also
 think of the extended persistence context, as being an entity manager.
 
-[source,java]
+[source, java]
 ----
 @PersistenceContext(type = PersistenceContextType.EXTENDED, unitName = "inventoryPU")
 EntityManager em;
@@ -2815,7 +2815,7 @@ EntityManager em;
 [[extended-persistence-context-inheritance]]
 === Extended Persistence Context Inheritance
 
-[source,java]
+[source, java]
 ----
 JPA 2.0 specification section 7.6.2.1
  
@@ -2885,7 +2885,7 @@ _______________________________________________________________________________
 JPA allows use of your (pojo) plain old Java class to represent a
 database table row.
 
-[source,java]
+[source, java]
 ----
 @PersistenceContext EntityManager em;
 Integer bomPk = getIndexKeyValue();
@@ -2970,7 +2970,7 @@ xmlns="urn:jboss:domain:logging:1.0">* and add the *org.jboss.as.jpa*
 category. You need to change the console-handler level from *INFO* to
 *TRACE*.
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:logging:1.0">
      <console-handler name="CONSOLE">
@@ -2996,7 +2996,7 @@ category. You need to change the console-handler level from *INFO* to
 To see what is going on at the JDBC level, enable *jboss.jdbc.spy* TRACE
 and add spy="true" to the datasource.
 
-[source,java]
+[source, java]
 ----
 <datasource jndi-name="java:jboss/datasources/..." pool-name="..." enabled="true" spy="true">
 <logger category="jboss.jdbc.spy">
@@ -3008,7 +3008,7 @@ To troubleshoot issues with the Hibernate second level cache, try
 enabling trace for *org.hibernate.SQL + org.hibernate.cache.infinispan +
 org.infinispan:*
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:logging:1.0">
      <console-handler name="CONSOLE">
@@ -3051,7 +3051,7 @@ anything on top of that. The Infinispan version that is included in
 WildFly is expected to work with the Hibernate version that is included
 with WildFly. Example persistence.xml settings:
 
-[source,java]
+[source, java]
 ----
 <?xml version="1.0" encoding="UTF-8"?><persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
 <persistence-unit name="2lc_example_pu">
@@ -3068,7 +3068,7 @@ with WildFly. Example persistence.xml settings:
 Here is an example of enabling the second level cache for a Hibernate
 native API hibernate.cfg.xml file:
 
-[source,java]
+[source, java]
 ----
 <property name="hibernate.cache.region.factory_class" value="org.jboss.as.jpa.hibernate5.infinispan.InfinispanRegionFactory"/>
 <property name="hibernate.cache.infinispan.cachemanager" value="java:jboss/infinispan/container/hibernate"/>
@@ -3078,7 +3078,7 @@ native API hibernate.cfg.xml file:
 
 The Hibernate native API application will also need a MANIFEST.MF:
 
-[source,java]
+[source, java]
 ----
 Dependencies: org.infinispan,org.hibernate
 ----
@@ -3097,7 +3097,7 @@ second level cache.
 Here is an example of what the Hibernate cache settings may currently be
 in your standalone.xml:
 
-[source,java]
+[source, java]
 ----
  <cache-container name="hibernate" default-cache="local-query" module="org.hibernate.infinispan">
     <local-cache name="entity">
@@ -3117,7 +3117,7 @@ Below is an example of customizing the "entity", "immutable-entity",
 "local-query", "pending-puts", "timestamps" cache configuration may look
 like:
 
-[source,java]
+[source, java]
 ----
  <cache-container name="hibernate" module="org.hibernate.infinispan" default-cache="immutable-entity">
     <local-cache name="entity">
@@ -3148,7 +3148,7 @@ like:
 
 Persistence.xml to use the above custom settings:
 
-[source,java]
+[source, java]
 ----
 <properties>
     <property name="hibernate.cache.use_second_level_cache" value="true"/>
@@ -3229,7 +3229,7 @@ version="1.0"> +
 </persistence-unit> +
 </persistence>
 
-[source,java]
+[source, java]
 ----
 ----
 
@@ -3242,7 +3242,7 @@ modules/org/apache/openjpa/main/module.xml to include the same jar file
 names that you copied in. This will help you get your application that
 depends on OpenJPA, to deploy on WildFly.
 
-[source,java]
+[source, java]
 ----
  <module xmlns="urn:jboss:module:1.1" name="org.apache.openjpa">
     <resources>
@@ -3285,7 +3285,7 @@ you happen to leave the EclipseLink version number in the jar name, the
 module.xml should reflect that. This will help you get your application
 that depends on EclipseLink, to deploy on WildFly.
 
-[source,java]
+[source, java]
 ----
  <module xmlns="urn:jboss:module:1.1" name="org.eclipse.persistence">
     <resources>
@@ -3322,7 +3322,7 @@ https://bugs.eclipse.org/bugs/show_bug.cgi?id=414974[id=414974], set
 command (WildFly server needs to be running when this command is
 issued):
 
-[source,java]
+[source, java]
 ----
 jboss-cli.sh --connect '/system-property=eclipselink.archive.factory:add(value=org.jipijapa.eclipselink.JBossArchiveFactoryImpl)'
 ----
@@ -3331,7 +3331,7 @@ jboss-cli.sh --connect '/system-property=eclipselink.archive.factory:add(value=o
 configuration you are using) file might look like after updating the
 system properties:
 
-[source,java]
+[source, java]
 ----
 <system-properties>
    ...
@@ -3342,7 +3342,7 @@ system properties:
 You should then be able to deploy applications with persistence.xml that
 include;
 
-[source,java]
+[source, java]
 ----
 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 ----
@@ -3372,7 +3372,7 @@ expect to use the Hibernate jars included in WildFly.
 Example MANIFEST.MF entry to add dependency for Hibernate native
 applications:
 
-[source,java]
+[source, java]
 ----
 Manifest-Version: 1.0
 ...
@@ -3394,7 +3394,7 @@ You can inject a org.hibernate.Session and org.hibernate.SessionFactory
 directly, just as you can do with EntityManagers and
 EntityManagerFactorys.
 
-[source,java]
+[source, java]
 ----
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -3608,7 +3608,7 @@ your application by setting the `jboss.entity.manager.factory.jndi.name`
 
 persistence.xml
 
-[source,java]
+[source, java]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0"
@@ -3629,7 +3629,7 @@ persistence.xml
 </persistence>
 ----
 
-[source,java]
+[source, java]
 ----
 @Stateful
 public class ExampleSFSB {
@@ -3769,7 +3769,7 @@ example the following `web.xml` binds the string `"Hello World"` to
 `java:comp/env/hello` (any non absolute JNDI name is relative to
 `java:comp/env` context).
 
-[source,java]
+[source, java]
 ----
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -3802,7 +3802,7 @@ with Java SE, to bind entries in the global namespaces (the standard
 `java:comp`, `java:module` and `java:app` namespaces are read-only, as
 mandated by the Java EE Platform Specification).
 
-[source,java]
+[source, java]
 ----
   InitialContext initialContext = new InitialContext();
   initialContext.bind("java:global/a", 100);
@@ -3823,7 +3823,7 @@ result in a UnsupportedOperationException if the target namespace uses a
 WritableServiceBasedNamingStore. To work around that, the bind()
 invocation needs to be wrapped using WildFly proprietary APIs:
 
-[source,java]
+[source, java]
 ----
   InitialContext initialContext = new InitialContext();
   WritableServiceBasedNamingStore.pushOwner(serviceTarget);
@@ -3862,7 +3862,7 @@ up it will lookup the target and return the result.
 
 An example standalone.xml might look like:
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:naming:2.0" >
   <bindings>
@@ -3885,7 +3885,7 @@ An example standalone.xml might look like:
 
 The CLI may also be used to bind an entry. As an example:
 
-[source,java]
+[source, java]
 ----
 /subsystem=naming/binding=java\:global\/mybinding:add(binding-type=simple, type=long, value=1000)
 ----
@@ -3904,7 +3904,7 @@ the Naming subsystem configuration.
 For Java EE applications the recommended way to lookup a JNDI entry is
 to use `@Resource` injection:
 
-[source,java]
+[source, java]
 ----
   @Resource(lookup = "java:global/mystring")
   private String myString;
@@ -3952,14 +3952,14 @@ Concurrency Utilities 1.0 Specification (JSR 236).
 Java EE applications may use, without any additional configuration
 needed, the standard JNDI API to lookup an entry from JNDI:
 
-[source,java]
+[source, java]
 ----
   String myString = (String) new InitialContext().lookup("java:global/mystring");
 ----
 
 or simply
 
-[source,java]
+[source, java]
 ----
   String myString = InitialContext.doLookup("java:global/mystring");
 ----
@@ -3979,7 +3979,7 @@ items from the servers local JNDI. To use it, you must have the
 appropriate jars on the class path, if you are maven user can be done
 simply by adding the following to your `pom.xml`:
 
-[source,java]
+[source, java]
 ----
 <dependency>
   <groupId>org.wildfly</groupId>
@@ -3994,7 +3994,7 @@ If you are not using maven a shaded jar that contains all required
 classes +
 can be found in the `bin/client` directory of WildFly's distribution.
 
-[source,java]
+[source, java]
 ----
 final Properties env = new Properties();
 env.put(Context.INITIAL_CONTEXT_FACTORY, org.jboss.naming.remote.client.InitialContextFactory.class.getName());
@@ -4107,7 +4107,7 @@ In order to use the server-deployed persistence units from within
 Spring, either the persistence context or the persistence unit need to
 be registered in JNDI via web.xml as follows:
 
-[source,java]
+[source, java]
 ----
 <persistence-context-ref>
     <persistence-context-ref-name>persistence/petclinic-em</persistence-unit-ref-name>
@@ -4117,7 +4117,7 @@ be registered in JNDI via web.xml as follows:
 
 or, respectively:
 
-[source,java]
+[source, java]
 ----
 <persistence-unit-ref>
     <persistence-unit-ref-name>persistence/petclinic-emf</persistence-unit-ref-name>
@@ -4128,7 +4128,7 @@ or, respectively:
 When doing so, the persistence context or persistence unit are available
 to be looked up in JNDI, as follows:
 
-[source,java]
+[source, java]
 ----
 <jee:jndi-lookup id="entityManager" jndi-name="java:comp/env/persistence/petclinic-em" 
             expected-type="javax.persistence.EntityManager"/>
@@ -4136,7 +4136,7 @@ to be looked up in JNDI, as follows:
 
 or
 
-[source,java]
+[source, java]
 ----
 <jee:jndi-lookup id="entityManagerFactory" jndi-name="java:comp/env/persistence/petclinic-emf" 
             expected-type="javax.persistence.EntityManagerFactory"/>
@@ -4179,7 +4179,7 @@ bean class.
 Assuming that the persistence unit is in the
 META-INF/jpa-persistence.xml, the corresponding definition can be:
 
-[source,java]
+[source, java]
 ----
 <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
        <property name="persistenceXmlLocation" value="classpath*:META-INF/jpa-persistence.xml"/> 
@@ -4203,7 +4203,7 @@ the deployment's list of dependencies. In order to do so, include a
 META-INF/jboss-deployment-structure.xml or, for web applications,
 WEB-INF/jboss-deployment-structure.xml with the following content:
 
-[source,java]
+[source, java]
 ----
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
   <deployment>

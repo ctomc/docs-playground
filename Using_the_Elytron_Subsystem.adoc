@@ -20,7 +20,7 @@ step: _#$REALM_NAME=YOUR_PROPERTIES_REALM_NAME$_
 
 *Example user to password file: example-users.properties*
 
-[source,java]
+[source, java]
 ----
 #$REALM_NAME=examplePropRealm$
 user1=password123
@@ -29,7 +29,7 @@ user2=password123
 
 *Example user to roles file: example-roles.properties*
 
-[source,java]
+[source, java]
 ----
 user1=Admin
 user2=Guest
@@ -38,7 +38,7 @@ user2=Guest
 [[configure-a-properties-realm-in-wildfly]]
 === Configure a properties-realm in WildFly:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/properties-realm=examplePropRealm:add(groups-attribute=groups,groups-properties={path=example-roles.properties,relative-to=jboss.server.config.dir},users-properties={path=example-users.properties,relative-to=jboss.server.config.dir,plain-text=true})
 ----
@@ -52,7 +52,7 @@ appropriately.
 [[configure-a-security-domain]]
 === Configure a security-domain:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/security-domain=exampleSD:add(realms=[{realm=examplePropRealm,role-decoder=groups-to-roles}],default-realm=examplePropRealm,permission-mapper=default-permission-mapper)
 ----
@@ -60,7 +60,7 @@ appropriately.
 [[configure-an-http-authentication-factory]]
 === Configure an http-authentication-factory:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/http-authentication-factory=example-http-auth:add(http-server-mechanism-factory=global,security-domain=exampleSD,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=exampleApplicationDomain}]}])
 ----
@@ -72,7 +72,7 @@ as _FORM_.
 [[configure-an-application-security-domain-in-the-undertow-subsystem]]
 === Configure an application-security-domain in the Undertow subsystem:
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/application-security-domain=exampleApplicationDomain:add(http-authentication-factory=example-http-auth)
 ----
@@ -100,7 +100,7 @@ _jboss.server.config.dir_.
 [[configure-a-filesystem-realm-in-wildfly]]
 === Configure a filesystem-realm in WildFly:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/filesystem-realm=exampleFsRealm:add(path=fs-realm-users,relative-to=jboss.server.config.dir)
 ----
@@ -114,7 +114,7 @@ you need to change the _path_ and _relative-to_ values appropriately.
 When using the _filesystem-realm_, you can add users using the
 management CLI.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/filesystem-realm=exampleFsRealm/identity=user1:add()
 /subsystem=elytron/filesystem-realm=exampleFsRealm/identity=user1:set-password( clear={password="password123"})
@@ -124,7 +124,7 @@ management CLI.
 [[add-a-simple-role-decoder]]
 === Add a simple-role-decoder:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/simple-role-decoder=from-roles-attribute:add(attribute=Roles)
 ----
@@ -136,7 +136,7 @@ attribute.
 [[configure-a-security-domain-1]]
 === Configure a security-domain:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/security-domain=exampleFsSD:add(realms=[{realm=exampleFsRealm,role-decoder=from-roles-attribute}],default-realm=exampleFsRealm,permission-mapper=default-permission-mapper)
 ----
@@ -144,7 +144,7 @@ attribute.
 [[configure-an-http-authentication-factory-1]]
 === Configure an http-authentication-factory:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/http-authentication-factory=example-fs-http-auth:add(http-server-mechanism-factory=global,security-domain=exampleFsSD,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=exampleApplicationDomain}]}])
 ----
@@ -156,7 +156,7 @@ as _FORM_.
 [[configure-an-application-security-domain-in-the-undertow-subsystem-1]]
 === Configure an application-security-domain in the Undertow subsystem:
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/application-security-domain=exampleApplicationDomain:add(http-authentication-factory=example-fs-http-auth)
 ----
@@ -200,7 +200,7 @@ database driver deployed as well as a datasource configured. This
 example shows deploying the driver for postgres and configuring a
 datasource in WildFly:
 
-[source,java]
+[source, java]
 ----
 deploy /path/to/postgresql-9.4.1210.jar
  
@@ -210,7 +210,7 @@ data-source add --name=examplePostgresDS --jndi-name=java:jboss/examplePostgresD
 [[configure-a-jdbc-realm-in-wildfly]]
 === Configure a jdbc-realm in WildFly:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/jdbc-realm=exampleDbRealm:add(principal-query=[{sql="SELECT password,roles FROM wildfly_users WHERE username=?",data-source=examplePostgresDS,clear-password-mapper={password-index=1},attribute-mapping=[{index=2,to=groups}]}])
 ----
@@ -224,7 +224,7 @@ authorization information.
 [[configure-a-security-domain-2]]
 === Configure a security-domain:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/security-domain=exampleDbSD:add(realms=[{realm=exampleDbRealm,role-decoder=groups-to-roles}],default-realm=exampleDbRealm,permission-mapper=default-permission-mapper)
 ----
@@ -232,7 +232,7 @@ authorization information.
 [[configure-an-http-authentication-factory-2]]
 === Configure an http-authentication-factory:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/http-authentication-factory=example-db-http-auth:add(http-server-mechanism-factory=global,security-domain=exampleDbSD,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=exampleDbSD}]}])
 ----
@@ -244,7 +244,7 @@ as _FORM_.
 [[configure-an-application-security-domain-in-the-undertow-subsystem-2]]
 === Configure an application-security-domain in the Undertow subsystem:
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/application-security-domain=exampleApplicationDomain:add(http-authentication-factory=example-db-http-auth)
 ----
@@ -269,7 +269,7 @@ To set up authentication using an LDAP server for an identity store, you
 need to determine how your usernames, passwords, and roles are stored.
 In this example, we are using the following structure:
 
-[source,java]
+[source, java]
 ----
 dn: dc=wildfly,dc=org
 dc: wildfly
@@ -309,7 +309,7 @@ To connect to the LDAP server from WildFly, you need to configure a
 _dir-context_ that provides the URL as well as the principal used to
 connect to the server.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/dir-context=exampleDC:add(url="ldap://127.0.0.1:10389",principal="uid=admin,ou=system",credential-reference={clear-text="secret"})
 ----
@@ -317,7 +317,7 @@ connect to the server.
 [[configure-an-ldap-realm-in-wildfly]]
 === Configure an ldap-realm in WildFly:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/ldap-realm=exampleLR:add(dir-context=exampleDC,identity-mapping={search-base-dn="ou=Users,dc=wildfly,dc=org",rdn-identifier="uid",user-password-mapper={from="userPassword"},attribute-mapping=[{filter-base-dn="ou=Roles,dc=wildfly,dc=org",filter="(&(objectClass=groupOfNames)(member={1}))",from="cn",to="Roles"}]})
 ----
@@ -325,7 +325,7 @@ connect to the server.
 [[add-a-simple-role-decoder-1]]
 === Add a simple-role-decoder:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/simple-role-decoder=from-roles-attribute:add(attribute=Roles)
 ----
@@ -333,7 +333,7 @@ connect to the server.
 [[configure-a-security-domain-3]]
 === Configure a security-domain:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/security-domain=exampleLdapSD:add(realms=[{realm=exampleLR,role-decoder=from-roles-attribute}],default-realm=exampleLR,permission-mapper=default-permission-mapper)
 ----
@@ -341,7 +341,7 @@ connect to the server.
 [[configure-an-http-authentication-factory-3]]
 === Configure an http-authentication-factory:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/http-authentication-factory=example-ldap-http-auth:add(http-server-mechanism-factory=global,security-domain=exampleLdapSD,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=exampleApplicationDomain}]}])
 ----
@@ -353,7 +353,7 @@ as _FORM_.
 [[configure-an-application-security-domain-in-the-undertow-subsystem-3]]
 === Configure an application-security-domain in the Undertow subsystem:
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/application-security-domain=exampleApplicationDomain:add(http-authentication-factory=example-ldap-http-auth)
 ----
@@ -385,7 +385,7 @@ must have two-way SSL configured.
 [[configure-a-key-store-realm.]]
 === Configure a key-store-realm.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store-realm=ksRealm:add(key-store=twoWayTS)
 ----
@@ -401,7 +401,7 @@ You need to create a _x500-attribute-principal-decoder_ to decode the
 principal you get from your certificate. The below example will decode
 the principal based on the first _CN_ value.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/x500-attribute-principal-decoder=CNDecoder:add(oid="2.5.4.3",maximum-segments=1)
 ----
@@ -421,7 +421,7 @@ you set in your server's truststore for the client's certificate.
 This is example uses a _constant-role-mapper_ to assign roles to a
 principal from _ksRealm_ but other approaches may also be used.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/constant-role-mapper=constantClientCertRole:add(roles=[Admin,Guest])
 ----
@@ -429,7 +429,7 @@ principal from _ksRealm_ but other approaches may also be used.
 [[configure-a-security-domain.]]
 === Configure a security-domain.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/security-domain=exampleCertSD:add(realms=[{realm=ksRealm}],default-realm=ksRealm,permission-mapper=default-permission-mapper,principal-decoder=CNDecoder,role-mapper=constantClientCertRole)
 ----
@@ -437,7 +437,7 @@ principal from _ksRealm_ but other approaches may also be used.
 [[configure-an-http-authentication-factory.]]
 === Configure an http-authentication-factory.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/http-authentication-factory=exampleCertHttpAuth:add(http-server-mechanism-factory=global,security-domain=exampleCertSD,mechanism-configurations=[{mechanism-name=CLIENT_CERT,mechanism-realm-configurations=[{realm-name=exampleApplicationDomain}]}])
 ----
@@ -445,7 +445,7 @@ principal from _ksRealm_ but other approaches may also be used.
 [[configure-an-application-security-domain-in-the-undertow-subsystem.]]
 === Configure an application-security-domain in the Undertow subsystem.
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/application-security-domain=exampleApplicationDomain:add(http-authentication-factory=exampleCertHttpAuth)
 ----
@@ -453,7 +453,7 @@ principal from _ksRealm_ but other approaches may also be used.
 [[update-server-ssl-context.]]
 === Update server-ssl-context.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/server-ssl-context=twoWaySSC:write-attribute(name=security-domain,value=exampleCertSD)
 /subsystem=elytron/server-ssl-context=twoWaySSC:write-attribute(name=authentication-optional, value=true)
@@ -472,7 +472,7 @@ section.
 In addition, you need to update your _web.xml_ to use _CLIENT-CERT_ as
 its authentication method.
 
-[source,java]
+[source, java]
 ----
 <login-config>
   <auth-method>CLIENT-CERT</auth-method>
@@ -489,7 +489,7 @@ Kerberos domain as well as your client browsers configured.
 [[configure-a-kerberos-security-factory.]]
 === Configure a kerberos-security-factory.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/kerberos-security-factory=krbSF:add(principal="HTTP/host@REALM",path="/path/to/http.keytab",mechanism-oids=[1.2.840.113554.1.2.2,1.3.6.1.5.5.2])
 ----
@@ -511,7 +511,7 @@ some of the system properties below.
 
 To configure a system property in WildFly:
 
-[source,java]
+[source, java]
 ----
 /system-property=java.security.krb5.conf:add(value="/path/to/krb5.conf")
 ----
@@ -525,7 +525,7 @@ several ways to accomplish this, but this example creates a
 _filesystem-realm_, adds a user to the realm that matches the principal
 from the Kerberos token, and assigns roles to that user.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/filesystem-realm=exampleFsRealm:add(path=fs-realm-users,relative-to=jboss.server.config.dir)
 /subsystem=elytron/filesystem-realm=exampleFsRealm/identity=user1@REALM:add()
@@ -535,7 +535,7 @@ from the Kerberos token, and assigns roles to that user.
 [[add-a-simple-role-decoder.]]
 === Add a simple-role-decoder.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/simple-role-decoder=from-roles-attribute:add(attribute=Roles)
 ----
@@ -547,7 +547,7 @@ attribute.
 [[configure-a-security-domain.-1]]
 === Configure a security-domain.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/security-domain=exampleFsSD:add(realms=[{realm=exampleFsRealm,role-decoder=from-roles-attribute}],default-realm=exampleFsRealm,permission-mapper=default-permission-mapper)
 ----
@@ -556,7 +556,7 @@ attribute.
 === Configure an http-authentication-factory that uses the
 kerberos-security-factory.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/http-authentication-factory=example-krb-http-auth:add(http-server-mechanism-factory=global,security-domain=exampleFsSD,mechanism-configurations=[{mechanism-name=SPNEGO,mechanism-realm-configurations=[{realm-name=exampleFsSD}],credential-security-factory=krbSF}])
 ----
@@ -564,7 +564,7 @@ kerberos-security-factory.
 [[configure-an-application-security-domain-in-the-undertow-subsystem-4]]
 === Configure an application-security-domain in the Undertow subsystem:
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/application-security-domain=exampleApplicationDomain:add(http-authentication-factory=example-krb-http-auth)
 ----
@@ -583,7 +583,7 @@ section.
 In addition, you need to update your _web.xml_ to use _SPNEGO_ as its
 authentication method.
 
-[source,java]
+[source, java]
 ----
 <login-config>
   <auth-method>SPNEGO</auth-method>
@@ -608,7 +608,7 @@ You can use the existing _http-authentication-factory_ you configured
 for kerberos-based authentication and and an additional mechanism for
 _FORM_ authentication.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/http-authentication-factory=example-krb-http-auth:list-add(name=mechanism-configurations, value={mechanism-name=FORM})
 ----
@@ -623,7 +623,7 @@ users for fallback authentication to that realm. For example if you used
 a _filesystem-realm_, you can simply create a new user with the
 appropriate roles:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/filesystem-realm=exampleFsRealm/identity=fallbackUser1:add()
 /subsystem=elytron/filesystem-realm=exampleFsRealm/identity=fallbackUser1:set-password(clear={password="password123"})
@@ -638,7 +638,7 @@ _auth-method_, which will use _FORM_ as a fallback authentication method
 if _SPNEGO_ fails. You also need to specify the location of your login
 and error pages.
 
-[source,java]
+[source, java]
 ----
 <login-config>
   <auth-method>SPNEGO,FORM</auth-method>
@@ -668,7 +668,7 @@ authentication you want to configure.
 
 Example _web.xml_ with _BASIC_ Authentication
 
-[source,java]
+[source, java]
 ----
 <web-app>
   <security-constraint>
@@ -702,7 +702,7 @@ subsystem, this is the name of the legacy security domain.
 
 Example _jboss-web.xml_
 
-[source,java]
+[source, java]
 ----
 <jboss-web>
   <security-domain>exampleApplicationDomain</security-domain>
@@ -715,7 +715,7 @@ security domain for all applications using the _undertow_ subsystem.
 This allows you to omit using _jboss-web.xml_ to configure a security
 domain for an individual application.
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow:write-attribute(name=default-security-domain, value="exampleApplicationDomain")
 ----
@@ -747,7 +747,7 @@ one configured in WildFly. To do this, use the
 _override-deployment-configuration_ property in the
 _application-security-domain_ section of the _undertow_ subsystem:
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/application-security-domain=exampleApplicationDomain:write-attribute(name=override-deployment-config,value=true)
 ----
@@ -757,7 +757,7 @@ with the _exampleApplicationDomain_ in its _jboss-web.xml_.
 
 _Example jboss-web.xml_
 
-[source,java]
+[source, java]
 ----
 <login-config>
   <auth-method>FORM</auth-method>
@@ -771,7 +771,7 @@ mechanism such as _BASIC_.
 
 _Example http-authentication-factory_
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/http-authentication-factory=exampleHttpAuth:read-resource()
 {
@@ -797,7 +797,7 @@ _BASIC_ instead of _FORM_.
 [[create-credential-store.]]
 === Create credential store.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/credential-store=exampleCS:add(uri="cr-store://exampleCS?create=true",credential-reference={clear-text=cs-secret})
 ----
@@ -805,7 +805,7 @@ _BASIC_ instead of _FORM_.
 [[add-a-credential-to-a-credential-store.]]
 === Add a credential to a credential store.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/credential-store=exampleCS/alias=keystorepw:add(secret-value="secret")
 ----
@@ -813,7 +813,7 @@ _BASIC_ instead of _FORM_.
 [[list-all-credentials-in-a-credential-store.]]
 === List all credentials in a credential store.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/credential-store=exampleCS:read-children-names(child-type=alias)
 {
@@ -825,7 +825,7 @@ _BASIC_ instead of _FORM_.
 [[remove-a-credential-from-a-credential-store.]]
 === Remove a credential from a credential store.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/credential-store=exampleCS/alias=keystorepw:remove
 ----
@@ -833,7 +833,7 @@ _BASIC_ instead of _FORM_.
 [[use-a-credential-store.]]
 === Use a credential store.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=twoWayKS:write-attribute(name=credential-reference,value={store=exampleCS,alias=keystorepw})
 ----
@@ -860,14 +860,14 @@ sasl-authentication-factory.
 
 Example _http-authentication-factory_
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/http-authentication-factory=example-http-auth:add(http-server-mechanism-factory=global,security-domain=exampleSD,mechanism-configurations=[{mechanism-name=DIGEST,mechanism-realm-configurations=[{realm-name=exampleManagementRealm}]}])
 ----
 
 Example _sasl-authentication-factory_
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/sasl-authentication-factory=example-sasl-auth:add(sasl-server-factory=configured,security-domain=exampleSD,mechanism-configurations=[{mechanism-name=DIGEST-MD5,mechanism-realm-configurations=[{realm-name=exampleManagementRealm}]}])
 ----
@@ -878,7 +878,7 @@ http-authentication-factory or sasl-authentication-factory.
 
 Example update _http-authentication-factory_
 
-[source,java]
+[source, java]
 ----
 /core-service=management/management-interface=http-interface:write-attribute(name=http-authentication-factory, value=example-http-auth)
 {
@@ -894,7 +894,7 @@ reload
 
 Example update _sasl-authentication-factory_
 
-[source,java]
+[source, java]
 ----
 /core-service=management/management-interface=http-interface:write-attribute(name=http-upgrade.sasl-authentication-factory, value=example-sasl-auth)
 {
@@ -926,7 +926,7 @@ WildFly provides the _local_ identity realm that provides this user.
 === Add silent authentication to an existing
 sasl-authentication-factory.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/sasl-authentication-factory=example-sasl-auth:list-add(name=mechanism-configurations, value={mechanism-name=JBOSS-LOCAL-USER, realm-mapper=local})
  
@@ -936,7 +936,7 @@ reload
 [[create-a-new-sasl-server-factory-with-silent-authentication.]]
 === Create a new sasl-server-factory with silent authentication.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/sasl-authentication-factory=example-sasl-auth:add(sasl-server-factory=configured,security-domain=exampleSD,mechanism-configurations=[{mechanism-name=DIGEST-MD5,mechanism-realm-configurations=[{realm-name=exampleManagementRealm}]},{mechanism-name=JBOSS-LOCAL-USER, realm-mapper=local}])
  
@@ -946,7 +946,7 @@ reload
 [[remove-silent-authentication-from-an-existing-sasl-server-factory]]
 === Remove silent authentication from an existing sasl-server-factory:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/sasl-authentication-factory=managenet-sasl-authentication:read-resource
 {
@@ -998,7 +998,7 @@ subsystem, to enable HTTPS for deployed applications.
 Before enabling HTTPS in WildFly, you must obtain or generate the
 keystore you plan on using. To generate an example keystore:
 
-[source,java]
+[source, java]
 ----
 $ keytool -genkeypair -alias localhost -keyalg RSA -keysize 1024 -validity 365 -keystore /path/to/keystore.jks -dname "CN=localhost" -keypass secret -storepass secret
 ----
@@ -1006,7 +1006,7 @@ $ keytool -genkeypair -alias localhost -keyalg RSA -keysize 1024 -validity 365 -
 [[configure-a-key-store-in-wildfly]]
 === Configure a key-store in WildFly:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=httpsKS:add(path=/path/to/keystore.jks,credential-reference={clear-text=secret},type=JKS)
 ----
@@ -1015,7 +1015,7 @@ The previous command uses an absolute path to the keystore.
 Alternatively you can use the _relative-to_ attribute to specify the
 base directory variable and _path_ specify a relative path.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=httpsKS:add(path=keystore.jks,relative-to=jboss.server.config.dir,credential-reference={clear-text=secret},type=JKS)
 ----
@@ -1023,7 +1023,7 @@ base directory variable and _path_ specify a relative path.
 [[configure-a-key-manager-in-that-references-your-key-store]]
 === Configure a key-manager in that references your key-store:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-manager=httpsKM:add(key-store=httpsKS,credential-reference={clear-text=secret})
 ----
@@ -1031,7 +1031,7 @@ base directory variable and _path_ specify a relative path.
 [[configure-a-server-ssl-context-in-that-references-your-key-manager]]
 === Configure a server-ssl-context in that references your key-manager:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/server-ssl-context=httpsSSC:add(key-manager=httpsKM,protocols=["TLSv1.2"])
 ----
@@ -1043,7 +1043,7 @@ support. The example commands above uses _TLSv1.2_.
 === Check and see if the https-listener is configured to use a legacy
 security realm for its SSL configuration:
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/server=default-server/https-listener=https:read-attribute(name=security-realm)
 {
@@ -1063,7 +1063,7 @@ between those, you have to use batch operation:
 *Remove the reference to the legacy security realm and update the*
 *_https-listener_* *to use the* *_ssl-context_* *from Elytron* *:*
 
-[source,java]
+[source, java]
 ----
 batch
 /subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
@@ -1074,7 +1074,7 @@ run-batch
 [[reload-the-server]]
 === Reload the server:
 
-[source,java]
+[source, java]
 ----
 reload
 ----
@@ -1095,7 +1095,7 @@ keystores, truststores and certificates you plan on using.
 
 Create server and client keystores:
 
-[source,java]
+[source, java]
 ----
 $ keytool -genkeypair -alias localhost -keyalg RSA -keysize 1024 -validity 365 -keystore server.keystore.jks -dname "CN=localhost" -keypass secret -storepass secret
  
@@ -1104,7 +1104,7 @@ $ keytool -genkeypair -alias client -keyalg RSA -keysize 1024 -validity 365 -key
 
 Export the server and client certificates:
 
-[source,java]
+[source, java]
 ----
 $ keytool -exportcert  -keystore server.keystore.jks -alias localhost -keypass secret -storepass secret -file server.cer
  
@@ -1113,7 +1113,7 @@ $ keytool -exportcert  -keystore client.keystore.jks -alias client -keypass secr
 
 Import the sever and client certificates into the opposing truststores:
 
-[source,java]
+[source, java]
 ----
 $ keytool -importcert -keystore server.truststore.jks -storepass secret -alias client -trustcacerts -file client.cer
  
@@ -1123,7 +1123,7 @@ $ keytool -importcert -keystore client.truststore.jks -storepass secret -alias l
 [[configure-a-key-store-for-server-keystore-and-truststore-in-wildfly]]
 === Configure a key-store for server keystore and truststore in WildFly:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=twoWayKS:add(path=/path/to/server.keystore.jks,credential-reference={clear-text=secret},type=JKS)
  
@@ -1135,7 +1135,7 @@ The previous command uses an absolute path to the keystore.
 Alternatively you can use the _relative-to_ attribute to specify the
 base directory variable and _path_ specify a relative path.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=myKS:add(path=keystore.jks,relative-to=jboss.server.config.dir,credential-reference={clear-text=secret},type=JKS)
 ----
@@ -1143,7 +1143,7 @@ base directory variable and _path_ specify a relative path.
 [[configure-a-key-manager-in-that-references-your-key-store-key-store]]
 === Configure a key-manager in that references your key store key-store:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-manager=twoWayKM:add(key-store=twoWayKS,credential-reference={clear-text=secret})
 ----
@@ -1152,7 +1152,7 @@ base directory variable and _path_ specify a relative path.
 === Configure a trust-manager in that references your truststore
 key-store:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/trust-manager=twoWayTM:add(key-store=twoWayTS)
 ----
@@ -1161,7 +1161,7 @@ key-store:
 === Configure a server-ssl-context in that references your key-manager,
 trust-manager, and enables client authentication:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/server-ssl-context=twoWaySSC:add(key-manager=twoWayKM,protocols=["TLSv1.2"],trust-manager=twoWayTM,need-client-auth=true)
 ----
@@ -1174,7 +1174,7 @@ example commands above uses _TLSv1.2_.
 === Check and see if the https-listener is configured to use a legacy
 security realm for its SSL configuration:
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/server=default-server/https-listener=https:read-attribute(name=security-realm)
 {
@@ -1195,7 +1195,7 @@ between those, you have to use batch operation:
 === Remove the reference to the legacy security realm and update the
 https-listener to use the ssl-context from Elytron:
 
-[source,java]
+[source, java]
 ----
 batch
 /subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
@@ -1206,7 +1206,7 @@ run-batch
 [[reload-the-server-1]]
 === Reload the server
 
-[source,java]
+[source, java]
 ----
 reload
 ----
@@ -1232,7 +1232,7 @@ Before enabling HTTPS in WildFly, you must obtain or generate the key
 store you plan on using. To generate an example key store, use the
 following command.
 
-[source,java]
+[source, java]
 ----
 $ keytool -genkeypair -alias localhost -keyalg RSA -keysize 1024 -validity 365 -keystore keystore.jks -dname "CN=localhost" -keypass secret -storepass secret
 ----
@@ -1240,7 +1240,7 @@ $ keytool -genkeypair -alias localhost -keyalg RSA -keysize 1024 -validity 365 -
 [[create-a-key-store-key-manager-and-server-ssl-context.]]
 === Create a key-store, key-manager, and server-ssl-context.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=httpsKS:add(path=keystore.jks,relative-to=jboss.server.config.dir,credential-reference={clear-text=secret},type=JKS)
  
@@ -1259,7 +1259,7 @@ the keystore in _path_ and omit _relative-to_.
 [[enable-https-on-the-management-interface.]]
 === Enable HTTPS on the management interface.
 
-[source,java]
+[source, java]
 ----
 /core-service=management/management-interface=http-interface:write-attribute(name=ssl-context, value=httpsSSC)
  
@@ -1269,7 +1269,7 @@ the keystore in _path_ and omit _relative-to_.
 [[reload-the-wildfly-instance.]]
 === Reload the WildFly instance.
 
-[source,java]
+[source, java]
 ----
 reload
 ----
@@ -1290,7 +1290,7 @@ following commands.
 
 Generate your server and client key stores.
 
-[source,java]
+[source, java]
 ----
 $ keytool -genkeypair -alias localhost -keyalg RSA -keysize 1024 -validity 365 -keystore server.keystore.jks -dname "CN=localhost" -keypass secret -storepass secret
  
@@ -1299,7 +1299,7 @@ $ keytool -genkeypair -alias client -keyalg RSA -keysize 1024 -validity 365 -key
 
 Export your server and client certificates.
 
-[source,java]
+[source, java]
 ----
 $ keytool -exportcert  -keystore server.keystore.jks -alias localhost -keypass secret -storepass secret -file server.cer
  
@@ -1308,7 +1308,7 @@ $ keytool -exportcert  -keystore client.keystore.jks -alias client -keypass secr
 
 Import the sever and client certificates into the opposing trust stores.
 
-[source,java]
+[source, java]
 ----
 $ keytool -importcert -keystore server.truststore.jks -storepass secret -alias client -trustcacerts -file client.cer
  
@@ -1319,7 +1319,7 @@ $ keytool -importcert -keystore client.truststore.jks -storepass secret -alias l
 === Configure key-store, a key-manager, trust-manager, and
 server-ssl-context for the server key store and trust store.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=twoWayKS:add(path=server.keystore.jks,relative-to=jboss.server.config.dir,credential-reference={clear-text=secret},type=JKS)
  
@@ -1342,7 +1342,7 @@ the keystore in _path_ and omit _relative-to_.
 [[enable-https-on-the-management-interface.-1]]
 === Enable HTTPS on the management interface.
 
-[source,java]
+[source, java]
 ----
 /core-service=management/management-interface=http-interface:write-attribute(name=ssl-context, value=twoWaySSC)
  
@@ -1352,7 +1352,7 @@ the keystore in _path_ and omit _relative-to_.
 [[reload-the-wildfly-instance.-1]]
 === Reload the WildFly instance.
 
-[source,java]
+[source, java]
 ----
 reload
 ----
@@ -1385,7 +1385,7 @@ connect to the server.
 
 *Example dir-context*
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/dir-context=exampleDC:add( \
   url="ldap://127.0.0.1:10389", \
@@ -1404,7 +1404,7 @@ requires you specify a _search-path_.
 
 *Example ldap-key-store*
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/ldap-key-store=ldapKS:add( \
   dir-context=exampleDC, \
@@ -1434,7 +1434,7 @@ To create a _filtering-key-store_:
 [[configure-a-key-store.]]
 === Configure a key-store.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=myKS:add( \
   path=keystore.jks, \
@@ -1462,7 +1462,7 @@ except the ones listed.
 
 This example uses a comma-delimted list to expose _alias1_ and _alias3_.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/filtering-key-store=filterKS:add( \
   key-store=myKS, \
@@ -1487,7 +1487,7 @@ referenced by a keystore.
 
 To reload a keystore.
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=httpsKS:load
 ----
@@ -1501,7 +1501,7 @@ element and reading its attributes.
 
 For example:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/key-store=httpsKS/alias=localhost:read-attribute(name=certificate-chain)
 {
@@ -1556,7 +1556,7 @@ present the appropriate capabilities and requirements.
 [[to-add-the-elytron-extension-required-for-the-elytron-subsystem]]
 === To add the elytron extension required for the elytron subsystem:
 
-[source,java]
+[source, java]
 ----
 /extension=org.wildfly.extension.elytron:add()
 ----
@@ -1564,7 +1564,7 @@ present the appropriate capabilities and requirements.
 [[to-enable-the-elytron-subsystem-in-wildfly]]
 === To enable the Elytron subsystem in WildFly:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron:add
  
@@ -1574,7 +1574,7 @@ reload
 [[to-disable-the-elytron-subsystem-in-wildfly]]
 === To disable the Elytron subsystem in WildFly:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron:remove
  
@@ -1591,7 +1591,7 @@ disabling it, you will see errors when starting WildFly.
 [[to-disable-the-security-subsystem-in-wildfly]]
 === To disable the security subsystem in WildFly:
 
-[source,java]
+[source, java]
 ----
 /subsystem=security:remove
  
@@ -1605,7 +1605,7 @@ disabling it, you will see errors when starting WildFly.
 [[to-enable-the-security-subsystem-in-wildfly]]
 === To enable the security subsystem in WildFly:
 
-[source,java]
+[source, java]
 ----
 /subsystem=security:add
  
@@ -1620,7 +1620,7 @@ if both are enabled. For authentication in applications, you can use the
 _application-security-domain_ property in the _undertow_ subsystem to
 configure a security domain in the _elytron_ subsystem.
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/application-security-domain=exampleApplicationDomain:add(http-authentication-factory=example-http-auth)
 ----
@@ -1636,7 +1636,7 @@ For enabling HTTPS using a legacy security realm, you can use the
 _security-realm_ attribute in the _https-listener_ section of the
 _undertow_ subsystem:
 
-[source,java]
+[source, java]
 ----
 /subsystem=undertow/server=default-server/https-listener=https:read-attribute(name=security-realm)
 {
@@ -1650,7 +1650,7 @@ _security-realm_ attribute and set the _ssl-context_ attribute. As there
 has to be always configured either _ssl-context_ or _security-realm_ you
 have to use batch operation when changing between those:
 
-[source,java]
+[source, java]
 ----
 batch
 /subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
@@ -1672,7 +1672,7 @@ _jdbc-realm_, _filesystem-realm_, _properties-realm_, etc.
 
 Adding a security realm takes the general form:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/type-of-realm=realmName:add(....)
 ----
@@ -1691,7 +1691,7 @@ _simple-role-decoder_, and _custom-role-decoder_.
 
 Adding a role decoder takes the general form:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/ROLE-DECODER-TYPE=roleDeoderName:add(....)
 ----
@@ -1707,7 +1707,7 @@ _simple-permission-mapper_, and _custom-permission-mapper_.
 
 Adding a permission mapper takes the general form:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/simple-permission-mapper=PermissionMapperName:add(...)
 ----
@@ -1724,7 +1724,7 @@ _constant-role-mapper_.
 
 Adding a role mapper takes the general form:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/ROLEM-MAPPER-TYPE=roleMapperName:add(...)
 ----
@@ -1738,7 +1738,7 @@ as for authentication with applications.
 
 Adding a security domain takes the general form:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/security-domain=domainName:add(realms=[{realm=realmName,role-decoder=roleDecoderName}],default-realm=realmName,permission-mapper=permissionMapperName,role-mapper=roleMapperName,...)
 ----
@@ -1754,7 +1754,7 @@ _sasl-authentication-factory_ and _kerberos-security-factory_.
 
 Adding an authentication factory takes the general form:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/AUTH-FACTORY-TYPE=authFactoryName:add(....)
 ----
@@ -1767,11 +1767,11 @@ used to configure a default Java Policy provider. The subsystem allows
 you to define multiple policy providers but select a single one as the
 default:
 
-[source,java]
+[source, java]
 ----
 /subsystem=elytron/policy=policy-provider-a:add(custom-policy=\[{name=policy-provider-a, class-name=MyPolicyProviderA, module=x.y.z}\])
 ----
 
-[source,java]
+[source, java]
 ----
 ----

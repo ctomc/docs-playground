@@ -11,7 +11,7 @@ sections.
 These configuration examples are developed against a test database with
 users table like:
 
-[source,java]
+[source, java]
 ----
 CREATE TABLE User (
     id BIGINT NOT NULL,
@@ -35,7 +35,7 @@ The following commands can create a PicketBox security domain configured
 to use database accessible via JDBC datasource to verify a username and
 password and to assign roles.
 
-[source,java]
+[source, java]
 ----
 ./subsystem=security/security-domain=application-security/:add
 ./subsystem=security/security-domain=application-security/authentication=classic:add(login-modules=[{code=Database, flag=Required, module-options={ \
@@ -49,7 +49,7 @@ password and to assign roles.
 
 This results in the following configuration.
 
-[source,java]
+[source, java]
 ----
         <subsystem xmlns="urn:jboss:domain:security:2.0">
             <security-domains>
@@ -75,7 +75,7 @@ This results in the following configuration.
 Within the Elytron subsystem to use database accesible via JDBC you need
 to define `jdbc-realm`:
 
-[source,java]
+[source, java]
 ----
 ./subsystem=elytron/jdbc-realm=jdbc-realm:add(principal-query=[{ \
     data-source=ExampleDS, \
@@ -87,7 +87,7 @@ to define `jdbc-realm`:
 
 This results in the following overall configuration:
 
-[source,java]
+[source, java]
 ----
         <subsystem xmlns="urn:wildfly:elytron:1.0" final-providers="combined-providers" disallowed-providers="OracleUcrypto">
             ...

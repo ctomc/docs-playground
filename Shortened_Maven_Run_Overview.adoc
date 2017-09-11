@@ -4,7 +4,7 @@ Shortened Maven Run Overview
 [[how-to-get-it]]
 = How to get it
 
-[source,java]
+[source, java]
 ----
 ./integration-tests.sh clean install -DallTests | tee TS.txt | testsuite/tools/runSummary.sh
 ----
@@ -14,7 +14,7 @@ Shortened Maven Run Overview
 
 Run this script on the output of the AS7 testsuite run:
 
-[source,java]
+[source, java]
 ----
 ##  Cat the file or stdin if no args,
 ##  filter only interesting lines - plugin executions and modules separators,
@@ -38,7 +38,7 @@ You'll get an overview of the run.
 [[example-output-with-comments.]]
 = Example output with comments.
 
-[source,java]
+[source, java]
 ----
 ondra@ondra-redhat: ~/work/AS7/ozizka-as7 $  ./integration-tests.sh clean install -DallTests | tee TS.txt | testsuite/tools/runSummary.sh
 [INFO] ------------------------------------------------------------------------
@@ -101,7 +101,7 @@ ondra@ondra-redhat: ~/work/AS7/ozizka-as7 $  ./integration-tests.sh clean instal
 [[example-output-unchanged]]
 = Example output, unchanged
 
-[source,java]
+[source, java]
 ----
 ondra@lenovo:~/work/AS7/ozizka-git$ ./integration-tests.sh clean install -DallTests | tee TS.txt | testsuite/tools/runSummary.sh
 SSCmeetingWestfordJan     [copy] Warning: /home/ondra/work/AS7/ozizka-git/testsuite/integration/src/test/resources/test-configs/smoke does not exist.

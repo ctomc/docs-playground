@@ -49,14 +49,14 @@ demonstrate the various ways you can deploy apps to JBoss AS 7.
 
 1.  Start JBoss AS 7 from the console
 +
-[source,java]
+[source, java]
 ----
 $JBOSS_HOME/bin/standalone.sh
 ----
 
 * Deploy the app using Maven
 +
-[source,java]
+[source, java]
 ----
 mvn clean package jboss-as:deploy
 ----
@@ -76,7 +76,7 @@ Visit http://localhost:8080/jboss-as-helloworld
 
 Undeploy the app using Maven
 
-[source,java]
+[source, java]
 ----
 mvn jboss-as:undeploy
 ----
@@ -86,21 +86,21 @@ mvn jboss-as:undeploy
 
 1.  Start JBoss AS 7 from the console (if not already running)
 +
-[source,java]
+[source, java]
 ----
 $JBOSS_HOME/bin/standalone.sh
 ----
 
 Build the war
 
-[source,java]
+[source, java]
 ----
 mvn clean package
 ----
 
 Start the CLI
 
-[source,java]
+[source, java]
 ----
 $JBOSS_HOME/bin/jboss-admin.sh --connect
 ----
@@ -116,14 +116,14 @@ node.
 
 Deploy the app
 
-[source,java]
+[source, java]
 ----
 deploy target/jboss-as-helloworld.war
 ----
 
 Show the app has deployed
 
-[source,java]
+[source, java]
 ----
 undeploy jboss-as-helloworld.war
 ----
@@ -133,14 +133,14 @@ undeploy jboss-as-helloworld.war
 
 1.  Start JBoss AS 7 from the console (if not already running)
 +
-[source,java]
+[source, java]
 ----
 $JBOSS_HOME/bin/standalone.sh
 ----
 
 Build the war
 
-[source,java]
+[source, java]
 ----
 mvn clean package
 ----
@@ -170,14 +170,14 @@ Now click `Remove`
 
 1.  Start JBoss AS 7 from the console (if not already running)
 +
-[source,java]
+[source, java]
 ----
 $JBOSS_HOME/bin/standalone.sh
 ----
 
 Build the war
 
-[source,java]
+[source, java]
 ----
 mvn clean package
 ----
@@ -189,7 +189,7 @@ copy the file to `$JBOSS_HOME/standalone/deployments`.
 
 Copy the war
 
-[source,java]
+[source, java]
 ----
 cp target/jboss-as-helloworld.war $JBOSS_HOME/standalone/deployments
 ----
@@ -205,7 +205,7 @@ file. If the deployment failed, you would get a `.failed` file etc.
 
 Undeploy the war
 
-[source,java]
+[source, java]
 ----
 rm $JBOSS_HOME/standalone/deployments/jboss-as-helloworld.war.deployed
 ----
@@ -529,7 +529,7 @@ properly
 == Arquillian
 
 1.  Make sure JBoss AS is running
-2.  [source,java]
+2.  [source, java]
 ----
 mvn clean test -Parq-jbossas-remote
 ----
@@ -538,7 +538,7 @@ mvn clean test -Parq-jbossas-remote
 
 Make sure JBoss AS is stopped
 
-[source,java]
+[source, java]
 ----
 mvn clean test -Parq-jbossas-managed
 ----

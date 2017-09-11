@@ -1,5 +1,6 @@
 = Admin Guide
-Tomaz Cerar
+WildFly developer team
+:author tcerar@redhat.com
 :revnumber: {version}
 :revdate: {localdate}
 :toc: macro
@@ -8,6 +9,9 @@ Tomaz Cerar
 :doctype: book
 :icons: font
 :source-highlighter: coderay
+
+:leveloffset: +1
+
 
 ifndef::ebook-format[:leveloffset: 1]
 
@@ -18,30 +22,29 @@ ifdef::basebackend-html[toc::[]]
 :numbered:
 
 
-include::Target_Audience.adoc[]
+include::admin-guide//Target_Audience.adoc[]
 
-include::Management_Clients.adoc[]
+include::admin-guide/Management_Clients.adoc[]
 
-include::Core_management_concepts.adoc[]
+include::admin-guide/Core_management_concepts.adoc[]
 
-include::Interfaces_and_ports.adoc[]
+include::admin-guide/Interfaces_and_ports.adoc[]
 
 == Administrative security
 
-include::Security_Realms.adoc[]
+include::admin-guide/Security_Realms.adoc[]
 
-include::RBAC.adoc[]
- 
-include::Application_deployment.adoc[]
+include::admin-guide/RBAC.adoc[]
 
-include::Subsystem_configuration.adoc[]
+include::admin-guide/Application_deployment.adoc[]
 
-include::Domain_Setup.adoc[]
+include::admin-guide/Subsystem_configuration.adoc[]
 
-include::Management_tasks.adoc[]
+include::admin-guide/Domain_Setup.adoc[]
 
-include::Management_API_reference.adoc[]
+include::admin-guide/Management_tasks.adoc[]
 
-include::CLI_Recipes.adoc[]
+include::admin-guide/Management_API_reference.adoc[]
 
-include::CLI_Recipes.adoc[]
+include::admin-guide/CLI_Recipes.adoc[]
+

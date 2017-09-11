@@ -1,0 +1,50 @@
+= Subsystem configuration
+Subsystem configuration reference
+:author: tcerar@redhat.com
+:icons: font
+:source-highlighter: coderay
+
+:subsystemConfigDir: subsystem-configuration/
+
+The following chapters will focus on the high level management use cases
+that are available through the CLI and the web interface. For a detailed
+description of each subsystem configuration property, please consult the
+respective component reference.
+
+Schema Location
+
+TIP: The configuration schemas can found in `$JBOSS_HOME/docs/schema`.
+
+include::{subsystemConfigDir}EE.adoc[]
+
+include::{subsystemConfigDir}Naming.adoc[]
+
+include::{subsystemConfigDir}DataSource.adoc[]
+
+include::{subsystemConfigDir}Logging.adoc[]
+
+include::{subsystemConfigDir}EJB3.adoc[]
+
+include::{subsystemConfigDir}Undertow.adoc[]
+
+include::{subsystemConfigDir}Messaging.adoc[]
+
+include::{subsystemConfigDir}Security.adoc[]
+
+include::{subsystemConfigDir}Web_services.adoc[]
+
+include::{subsystemConfigDir}Resource_adapters.adoc[]
+
+include::{subsystemConfigDir}Batch_(JSR-352).adoc[]
+
+include::{subsystemConfigDir}JSF.adoc[]
+
+include::{subsystemConfigDir}JMX.adoc[]
+
+include::{subsystemConfigDir}Deployment_Scanner.adoc[]
+
+include::{subsystemConfigDir}Core_Management.adoc[]
+
+include::{subsystemConfigDir}Simple_configuration_subsystems.adoc[]
+
+:!subsystemConfigDir:

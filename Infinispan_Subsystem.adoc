@@ -49,7 +49,7 @@ The schema for the subsystem, describing all valid elements and
 attributes, can be found in the Wildfly distribution, in the docs/schema
 directory.
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:infinispan:2.0">
   <cache-container name="server" aliases="singleton cluster" default-cache="default" module="org.wildfly.clustering.server">
@@ -547,7 +547,7 @@ in the Infinispan subsystem interface used in these examples.
 [[add-a-cache-container]]
 == Add a cache container
 
-[source,java]
+[source, java]
 ----
 /subsystem=infinispan/cache-container=mycontainer:add(default-cache=<default-cache-name>)
 /subsystem=infinispan/cache-container=mycontainer/transport=TRANSPORT:add(lock-timeout=<timeout>)
@@ -556,7 +556,7 @@ in the Infinispan subsystem interface used in these examples.
 [[add-a-cache]]
 == Add a cache
 
-[source,java]
+[source, java]
 ----
 /subsystem=infinispan/cache-container=mycontainer/local-cache=mylocalcache:add()
 ----
@@ -564,7 +564,7 @@ in the Infinispan subsystem interface used in these examples.
 [[configure-the-transaction-component-of-a-cache]]
 == Configure the transaction component of a cache
 
-[source,java]
+[source, java]
 ----
 /subsystem=infinispan/cache-container=mycontainer/local-cache=mylocalcache/transaction=TRANSACTION:add(mode=<transaction-mode>)
 ----

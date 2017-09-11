@@ -141,7 +141,7 @@ the SOAP request and response messages are declared. A detailed
 explanation of the security settings are provided in the comments in the
 listing below.
 
-[source,java]
+[source, java]
 ----
  <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions targetNamespace="http://www.jboss.org/jbossws/ws-extensions/wssecuritypolicy" name="SecurityService"
@@ -384,7 +384,7 @@ listing below.
 The web service provider interface class, ServiceIface, is a simple
 straight forward web service definition.
 
-[source,java]
+[source, java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsse.policy.trust.service;
  
@@ -436,7 +436,7 @@ handling. The last EndpointProperty statement declares the
 ServerCallbackHandler implementation class. It is used to obtain the
 user's password for the certificates in the keystore file.
 
-[source,java]
+[source, java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsse.policy.trust.service;
  
@@ -479,7 +479,7 @@ creator of the certificate must record the password he assigns and
 provide it when requested through the CallbackHandler. In this scenario
 skpass is the password for user myservicekey.
 
-[source,java]
+[source, java]
 ----
  package org.jboss.test.ws.jaxws.samples.wsse.policy.trust.service;
  
@@ -519,7 +519,7 @@ File servicestore.jks, is a Java KeyStore (JKS) repository. It contains
 self signed certificates for myservicekey and mystskey. _Self signed
 certificates are not appropriate for production use._
 
-[source,java]
+[source, java]
 ----
 org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin
 org.apache.ws.security.crypto.merlin.keystore.type=jks
@@ -535,7 +535,7 @@ When deployed on WildFly this application requires access to the JBossWs
 and CXF APIs provided in module org.jboss.ws.cxf.jbossws-cxf-client. The
 dependency statement directs the server to provide them at deployment.
 
-[source,java]
+[source, java]
 ----
 Manifest-Version: 1.0  
 Ant-Version: Apache Ant 1.8.2  
@@ -570,7 +570,7 @@ keys in the SOAP request and response messages are declared. A detailed
 explanation of the security settings are provided in the comments in the
 listing below.
 
-[source,java]
+[source, java]
 ----
  <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions
@@ -1019,7 +1019,7 @@ writing our own.
 Learn more about the SAMLTokenProvider
 http://coheigea.blogspot.it/2011/10/apache-cxf-sts-documentation-part-iv.html[here].
 
-[source,java]
+[source, java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsse.policy.trust;
  
@@ -1098,7 +1098,7 @@ used to obtain the password for the private key in the keystore. This
 class enables CXF to retrieve the password of the user name to use for
 the message signature.
 
-[source,java]
+[source, java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsse.policy.trust.sts;
  
@@ -1137,7 +1137,7 @@ File servicestore.jks, is a Java KeyStore (JKS) repository. It contains
 self signed certificates for myservicekey and mystskey. _Self signed
 certificates are not appropriate for production use._
 
-[source,java]
+[source, java]
 ----
 org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin  
 org.apache.ws.security.crypto.merlin.keystore.type=jks
@@ -1155,7 +1155,7 @@ internals, org.apache.cxf.impl, are needed to build the STS
 configuration in the `SampleSTS` constructor. The dependency statement
 directs the server to provide them at deployment.
 
-[source,java]
+[source, java]
 ----
 Manifest-Version: 1.0  
 Ant-Version: Apache Ant 1.8.2  
@@ -1180,7 +1180,7 @@ following XML must be added to the JBoss security subsystem in the
 server configuration file. Replace " *SOME_PATH*" with appropriate
 information.
 
-[source,java]
+[source, java]
 ----
  <security-domain name="JBossWS-trust-sts">
   <authentication>
@@ -1195,7 +1195,7 @@ information.
 
 jboss-web.xml
 
-[source,java]
+[source, java]
 ----
 <?xml version="1.0" encoding="UTF-8"?>  
 <!DOCTYPE jboss-web PUBLIC "-//JBoss//DTD Web Application 2.4//EN" ">  
@@ -1206,7 +1206,7 @@ jboss-web.xml
 
 jbossws-users.properties
 
-[source,java]
+[source, java]
 ----
 # A sample users.properties file for use with the UsersRolesLoginModule  
 alice=clarinet
@@ -1214,7 +1214,7 @@ alice=clarinet
 
 jbossws-roles.properties
 
-[source,java]
+[source, java]
 ----
 # A sample roles.properties file for use with the UsersRolesLoginModule  
 alice=friend
@@ -1281,7 +1281,7 @@ OnBehalfOf examples. When providing the STSClient in this way, the user
 must provide a org.apache.cxf.Bus for it and the configuration keys must
 not have the ".it" suffix.
 
-[source,java]
+[source, java]
 ----
 QName serviceName = new QName("http://www.jboss.org/jbossws/ws-extensions/wssecuritypolicy", "SecurityService");  
 URL wsdlURL = new URL(serviceURL + "?wsdl");  
@@ -1337,7 +1337,7 @@ provided here. This information is not in the (JKS) keystore but
 provided in the WildFly security domain. It was declared in file
 jbossws-users.properties.
 
-[source,java]
+[source, java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsse.policy.trust.shared;  
  
@@ -1381,7 +1381,7 @@ File clientstore.jks, is a Java KeyStore (JKS) repository. It contains
 self signed certificates for myservicekey and mystskey. _Self signed
 certificates are not appropriate for production use._
 
-[source,java]
+[source, java]
 ----
 org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin
 org.apache.ws.security.crypto.merlin.keystore.type=jks
@@ -1400,7 +1400,7 @@ implementation.
 Similarly to the previous implementation, the STS is served through a
 WebServiceProvider annotated POJO:
 
-[source,java]
+[source, java]
 ----
  package org.jboss.test.ws.jaxws.samples.wsse.policy.trust;
  
@@ -1439,7 +1439,7 @@ The `@WebServiceProvider` annotation references the following WS-Policy
 enabled wsdl contract; please note the wsdl operations, messages and
 such must match the `PicketLinkSTS` implementation:
 
-[source,java]
+[source, java]
 ----
 <?xml version="1.0"?>
 <wsdl:definitions name="PicketLinkSTS" targetNamespace="urn:picketlink:identity-federation:sts"
@@ -1645,7 +1645,7 @@ PicketLink based STS gets its configuration from a picketlink-sts.xml
 descriptor which must be added in WEB-INF into the deployment; please
 refer to the PicketLink documentation for further information:
 
-[source,java]
+[source, java]
 ----
 <PicketLinkSTS xmlns="urn:picketlink:identity-federation:config:1.0"
     STSName="PicketLinkSTS" TokenTimeout="7200" EncryptToken="false">
@@ -1672,7 +1672,7 @@ refer to the PicketLink documentation for further information:
 Finally, the PicketLink alternative approach of course requires
 different WildFly module dependencies to be declared in the MANIFEST.MF:
 
-[source,java]
+[source, java]
 ----
 Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.8.2
@@ -1682,7 +1682,7 @@ Dependencies: org.apache.ws.security,org.apache.cxf,org.picketlink
 
 Here is how the PicketLink STS endpoint is packaged:
 
-[source,java]
+[source, java]
 ----
 alessio@inuyasha /dati/jbossws/stack/cxf/trunk $ jar -tvf ./modules/testsuite/cxf-tests/target/test-libs/jaxws-samples-wsse-policy-trustPicketLink-sts.war
      0 Mon Sep 03 17:38:38 CEST 2012 META-INF/

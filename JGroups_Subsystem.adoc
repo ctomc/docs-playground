@@ -46,7 +46,7 @@ The schema for the subsystem, describing all valid elements and
 attributes, can be found in the Wildfly distribution, in the docs/schema
 directory.
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:jgroups:2.0" default-stack="udp">
     <stack name="udp">
@@ -251,7 +251,7 @@ available in the JGroups subsystem interface used in these examples.
 [[add-a-stack]]
 == Add a stack
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack:add(transport={}, protocols={})
 ----
@@ -259,12 +259,12 @@ available in the JGroups subsystem interface used in these examples.
 [[add-a-protocol-to-a-stack]]
 == Add a protocol to a stack
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack/transport=TRANSPORT:add(type=<type>, socket-binding=<socketbinding>)
 ----
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack:add-protocol(type=<type>, socket-binding=<socketbinding>)
 ----
@@ -272,7 +272,7 @@ available in the JGroups subsystem interface used in these examples.
 [[add-a-property-to-a-protocol]]
 == Add a property to a protocol
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack/transport=TRANSPORT/property=<property>:add(value=<value>)
 ----

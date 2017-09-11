@@ -22,7 +22,7 @@ A typical EJB invocation looks like this:
 
 Client application
 
-[source,java]
+[source, java]
 ----
 MyBeanInterface bean = lookupBean();
  
@@ -93,7 +93,7 @@ container interceptor(s) can be configured in jboss-ejb3.xml:
 
 jboss-ejb3.xml
 
-[source,java]
+[source, java]
 ----
 <jboss xmlns="http://www.jboss.com/xml/ns/javaee"
        xmlns:jee="http://java.sun.com/xml/ns/javaee"
@@ -159,7 +159,7 @@ the interceptor:
 
 Example of container interceptor
 
-[source,java]
+[source, java]
 ----
 public class ClassLevelContainerInterceptor {
     @AroundInvoke

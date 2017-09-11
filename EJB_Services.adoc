@@ -24,7 +24,7 @@ annotation or be marked as clustered using the jboss-ejb3.xml's
 
 MyStatefulBean
 
-[source,java]
+[source, java]
 ----
 import org.jboss.ejb3.annotation.Clustered;
 import javax.ejb.Stateful;
@@ -38,7 +38,7 @@ public class MyStatefulBean {
 
 jboss-ejb3.xml
 
-[source,java]
+[source, java]
 ----
 <jboss xmlns="http://www.jboss.com/xml/ns/javaee"
        xmlns:jee="http://java.sun.com/xml/ns/javaee"
@@ -63,7 +63,7 @@ However, the same applies to servers in a domain mode. Starting the
 standalone server with HA capabilities enabled, involves starting it
 with the standalone-ha.xml (or even standalone-full-ha.xml):
 
-[source,java]
+[source, java]
 ----
 ./standalone.sh -server-config=standalone-ha.xml
 ----
@@ -83,7 +83,7 @@ instances have a unique `jboss.node.name` system property. You can do
 that by passing the following two system properties to the startup
 command:
 
-[source,java]
+[source, java]
 ----
 ./standalone.sh -server-config=standalone-ha.xml -Djboss.socket.binding.port-offset=<offset of your choice> -Djboss.node.name=<unique node name>
 ----
@@ -143,7 +143,7 @@ the clustered nodes.
 Note that you have to configure the _ejb_ cluster in the
 jboss-ejb-client.properties configuration file, like so:
 
-[source,java]
+[source, java]
 ----
 remote.clusters=ejb
 remote.cluster.ejb.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false

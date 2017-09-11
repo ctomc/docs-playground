@@ -57,7 +57,7 @@ The schema for the subsystem, describing all valid elements and
 attributes, can be found in the Wildfly distribution, in the docs/schema
 directory.
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:jgroups:2.0" default-stack="udp">
     <stack name="udp">
@@ -262,7 +262,7 @@ available in the JGroups subsystem interface used in these examples.
 [[add-a-stack]]
 === Add a stack
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack:add(transport={}, protocols={})
 ----
@@ -270,12 +270,12 @@ available in the JGroups subsystem interface used in these examples.
 [[add-a-protocol-to-a-stack]]
 === Add a protocol to a stack
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack/transport=TRANSPORT:add(type=<type>, socket-binding=<socketbinding>)
 ----
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack:add-protocol(type=<type>, socket-binding=<socketbinding>)
 ----
@@ -283,7 +283,7 @@ available in the JGroups subsystem interface used in these examples.
 [[add-a-property-to-a-protocol]]
 === Add a property to a protocol
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack/transport=TRANSPORT/property=<property>:add(value=<value>)
 ----
@@ -339,7 +339,7 @@ The schema for the subsystem, describing all valid elements and
 attributes, can be found in the Wildfly distribution, in the docs/schema
 directory.
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:infinispan:2.0">
   <cache-container name="server" aliases="singleton cluster" default-cache="default" module="org.wildfly.clustering.server">
@@ -837,7 +837,7 @@ in the Infinispan subsystem interface used in these examples.
 [[add-a-cache-container]]
 === Add a cache container
 
-[source,java]
+[source, java]
 ----
 /subsystem=infinispan/cache-container=mycontainer:add(default-cache=<default-cache-name>)
 /subsystem=infinispan/cache-container=mycontainer/transport=TRANSPORT:add(lock-timeout=<timeout>)
@@ -846,7 +846,7 @@ in the Infinispan subsystem interface used in these examples.
 [[add-a-cache]]
 === Add a cache
 
-[source,java]
+[source, java]
 ----
 /subsystem=infinispan/cache-container=mycontainer/local-cache=mylocalcache:add()
 ----
@@ -854,7 +854,7 @@ in the Infinispan subsystem interface used in these examples.
 [[configure-the-transaction-component-of-a-cache]]
 === Configure the transaction component of a cache
 
-[source,java]
+[source, java]
 ----
 /subsystem=infinispan/cache-container=mycontainer/local-cache=mylocalcache/transaction=TRANSACTION:add(mode=<transaction-mode>)
 ----

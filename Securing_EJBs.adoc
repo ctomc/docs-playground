@@ -23,7 +23,7 @@ such configurations, the way they wish. In WildFly 8, the use of
 developer to configure the security domain for a bean. Here's an
 example:
 
-[source,java]
+[source, java]
 ----
 import org.jboss.ejb3.annotation.SecurityDomain;
  
@@ -50,7 +50,7 @@ An alternate way of configuring a security domain, instead of using
 annotation, is to use jboss-ejb3.xml deployment descriptor. Here's an
 example of how the configuration will look like:
 
-[source,java]
+[source, java]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss:jboss
@@ -85,7 +85,7 @@ security metadata
 
 Let's consider the following example bean:
 
-[source,java]
+[source, java]
 ----
 @Stateless
 public class FooBean {
@@ -120,7 +120,7 @@ bean
 
 Consider this example bean:
 
-[source,java]
+[source, java]
 ----
 @Stateless
 public class FooBean {
@@ -149,7 +149,7 @@ access to the `helloWorld` method. This behaviour can be controlled via
 the jboss-ejb3.xml deployment descriptor at a per bean level or a per
 deployment level as follows:
 
-[source,java]
+[source, java]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss:jboss
@@ -180,7 +180,7 @@ similar to `@PermitAll`.
 This behaviour can also be configured at the EJB3 subsystem level so
 that it applies to all EJB3 deployments on the server, as follows:
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:ejb3:1.4">
 ...

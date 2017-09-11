@@ -1,7 +1,7 @@
 Debug parameters propagation
 ============================
 
-[source,java]
+[source, java]
 ----
 <surefire.jpda.args></surefire.jpda.args>       - default
  

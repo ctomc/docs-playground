@@ -170,7 +170,7 @@ The schema for the subsystem, describing all valid elements and
 attributes, can be found in the Wildfly distribution, in the docs/schema
 directory.
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:jgroups:2.0" default-stack="udp">
     <stack name="udp">
@@ -375,7 +375,7 @@ available in the JGroups subsystem interface used in these examples.
 [[add-a-stack]]
 ==== Add a stack
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack:add(transport={}, protocols={})
 ----
@@ -383,12 +383,12 @@ available in the JGroups subsystem interface used in these examples.
 [[add-a-protocol-to-a-stack]]
 ==== Add a protocol to a stack
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack/transport=TRANSPORT:add(type=<type>, socket-binding=<socketbinding>)
 ----
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack:add-protocol(type=<type>, socket-binding=<socketbinding>)
 ----
@@ -396,7 +396,7 @@ available in the JGroups subsystem interface used in these examples.
 [[add-a-property-to-a-protocol]]
 ==== Add a property to a protocol
 
-[source,java]
+[source, java]
 ----
 /subsystem=jgroups/stack=mystack/transport=TRANSPORT/property=<property>:add(value=<value>)
 ----
@@ -452,7 +452,7 @@ The schema for the subsystem, describing all valid elements and
 attributes, can be found in the Wildfly distribution, in the docs/schema
 directory.
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:infinispan:2.0">
   <cache-container name="server" aliases="singleton cluster" default-cache="default" module="org.wildfly.clustering.server">
@@ -950,7 +950,7 @@ in the Infinispan subsystem interface used in these examples.
 [[add-a-cache-container]]
 ==== Add a cache container
 
-[source,java]
+[source, java]
 ----
 /subsystem=infinispan/cache-container=mycontainer:add(default-cache=<default-cache-name>)
 /subsystem=infinispan/cache-container=mycontainer/transport=TRANSPORT:add(lock-timeout=<timeout>)
@@ -959,7 +959,7 @@ in the Infinispan subsystem interface used in these examples.
 [[add-a-cache]]
 ==== Add a cache
 
-[source,java]
+[source, java]
 ----
 /subsystem=infinispan/cache-container=mycontainer/local-cache=mylocalcache:add()
 ----
@@ -967,7 +967,7 @@ in the Infinispan subsystem interface used in these examples.
 [[configure-the-transaction-component-of-a-cache]]
 ==== Configure the transaction component of a cache
 
-[source,java]
+[source, java]
 ----
 /subsystem=infinispan/cache-container=mycontainer/local-cache=mylocalcache/transaction=TRANSACTION:add(mode=<transaction-mode>)
 ----
@@ -1009,7 +1009,7 @@ annotation or be marked as clustered using the jboss-ejb3.xml's
 
 MyStatefulBean
 
-[source,java]
+[source, java]
 ----
 import org.jboss.ejb3.annotation.Clustered;
 import javax.ejb.Stateful;
@@ -1023,7 +1023,7 @@ public class MyStatefulBean {
 
 jboss-ejb3.xml
 
-[source,java]
+[source, java]
 ----
 <jboss xmlns="http://www.jboss.com/xml/ns/javaee"
        xmlns:jee="http://java.sun.com/xml/ns/javaee"
@@ -1048,7 +1048,7 @@ However, the same applies to servers in a domain mode. Starting the
 standalone server with HA capabilities enabled, involves starting it
 with the standalone-ha.xml (or even standalone-full-ha.xml):
 
-[source,java]
+[source, java]
 ----
 ./standalone.sh -server-config=standalone-ha.xml
 ----
@@ -1068,7 +1068,7 @@ instances have a unique `jboss.node.name` system property. You can do
 that by passing the following two system properties to the startup
 command:
 
-[source,java]
+[source, java]
 ----
 ./standalone.sh -server-config=standalone-ha.xml -Djboss.socket.binding.port-offset=<offset of your choice> -Djboss.node.name=<unique node name>
 ----
@@ -1128,7 +1128,7 @@ the clustered nodes.
 Note that you have to configure the _ejb_ cluster in the
 jboss-ejb-client.properties configuration file, like so:
 
-[source,java]
+[source, java]
 ----
 remote.clusters=ejb
 remote.cluster.ejb.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
@@ -1277,7 +1277,7 @@ https://github.com/wildfly/wildfly/blob/10.0.0.Final/clustering/singleton/extens
 subsystem configuration] from WildFly's ha and full-ha profile looks
 like:
 
-[source,java]
+[source, java]
 ----
 <subsystem xmlns="urn:jboss:domain:singleton:1.0">
     <singleton-policies default="default">
@@ -1299,7 +1299,7 @@ provider candidates
 One can add a new singleton policy via the following management
 operation:
 
-[source,java]
+[source, java]
 ----
 /subsystem=singleton/singleton-policy=foo:add(cache-container=server)
 ----
@@ -1326,7 +1326,7 @@ node, 1 is second oldest, etc. ; while position=-1 refers to the
 youngest node, -2 to the second youngest, etc. +
 e.g.
 +
-[source,java]
+[source, java]
 ----
 /subsystem=singleton/singleton-policy=foo/election-policy=simple:add(position=-1)
 ----
@@ -1335,7 +1335,7 @@ e.g.
 Elects a random member to be the provider of a singleton service +
 e.g.
 +
-[source,java]
+[source, java]
 ----
 /subsystem=singleton/singleton-policy=foo/election-policy=random:add()
 ----
@@ -1349,7 +1349,7 @@ via node name or via outbound socket binding name. Node preferences
 always take precedent over the results of an election policy. +
 e.g.
 
-[source,java]
+[source, java]
 ----
 /subsystem=singleton/singleton-policy=foo/election-policy=simple:list-add(name=name-preferences, value=nodeA)
 /subsystem=singleton/singleton-policy=bar/election-policy=random:list-add(name=socket-binding-preferences, value=nodeA)
@@ -1368,7 +1368,7 @@ cluster size. This value can be updated at runtime, and will immediately
 affect any active singleton services. +
 e.g.
 
-[source,java]
+[source, java]
 ----
 /subsystem=singleton/singleton-policy=foo:write-attribute(name=quorum, value=3)
 ----
@@ -1408,7 +1408,7 @@ deployment type, e.g. JAR, WAR, EAR, etc., with the exception of a
 subdeployment within an EAR. +
 e.g.
 
-[source,java]
+[source, java]
 ----
 <singleton-deployment xmlns="urn:jboss:singleton-deployment:1.0" policy="foo"/>
 ----
@@ -1422,7 +1422,7 @@ Using a standalone descriptor is often preferable, since it may be
 overlaid onto an existing deployment archive. +
 e.g.
 
-[source,java]
+[source, java]
 ----
 deployment-overlay add --name=singleton-policy-foo --content=/META-INF/singleton-deployment.xml=/path/to/singleton-deployment.xml --deployments=my-app.jar --redeploy-affected
 ----
@@ -1450,7 +1450,7 @@ referenced via the following name:
 "org.wildfly.clustering.singleton.policy" +
 e.g.
 
-[source,java]
+[source, java]
 ----
 public class MyServiceActivator implements ServiceActivator {
     @Override
@@ -1478,7 +1478,7 @@ interface, which includes support for specifying an election policy and,
 optionally, a quorum. +
 e.g.
 
-[source,java]
+[source, java]
 ----
 public class MyServiceActivator implements ServiceActivator {
     @Override
@@ -1602,7 +1602,7 @@ move on and you will get the points step by step.
 
 First we should download WildFly 9 from the website:
 
-[source,java]
+[source, java]
 ----
 http://wildfly.org/downloads/
 ----
@@ -1611,7 +1611,7 @@ The version I downloaded is WildFly 9.0.0.Final.
 
 After download finished, I got the zip file:
 
-[source,java]
+[source, java]
 ----
 wildfly-9.0.0.Final.zip
 ----
@@ -1620,7 +1620,7 @@ Note: The name of your archive will differ slightly due to version
 naming conventions. +
 Then I unzipped the package to master and try to make a test run:
 
-[source,java]
+[source, java]
 ----
 unzip wildfly-9.0.0.Final.zip
 cd wildfly-9.0.0.Final/bin
@@ -1630,7 +1630,7 @@ cd wildfly-9.0.0.Final/bin
 If everything ok we should see WildFly successfully startup in domain
 mode:
 
-[source,java]
+[source, java]
 ----
 wildfly-9.0.0.Final/bin$ ./domain.sh
 =========================================================================
@@ -1664,14 +1664,14 @@ domain mode. And we will configure master to be the domain controller.
 
 First open the host.xml in master for editing:
 
-[source,java]
+[source, java]
 ----
 vi domain/configuration/host.xml
 ----
 
 The default settings for interface in this file is like:
 
-[source,java]
+[source, java]
 ----
 <interfaces>
     <interface name="management">
@@ -1692,7 +1692,7 @@ accessed by non-local HTTP, and the unsecured interface allows remote
 RMI access. My master's ip address is 10.211.55.7, so I change the
 config to:
 
-[source,java]
+[source, java]
 ----
 <interfaces>
     <interface name="management"
@@ -1713,7 +1713,7 @@ config to:
 Now we will setup interfaces on slave. Let's edit host.xml. Similar to
 the steps on master, open host.xml first:
 
-[source,java]
+[source, java]
 ----
 vi domain/configuration/host.xml
 ----
@@ -1722,14 +1722,14 @@ The configuration we'll use on slave is a little bit different, because
 we need to let slave connect to master. First we need to set the
 hostname. We change the name property from:
 
-[source,java]
+[source, java]
 ----
 <host name="master" xmlns="urn:jboss:domain:3.0">
 ----
 
 to:
 
-[source,java]
+[source, java]
 ----
 <host name="slave" xmlns="urn:jboss:domain:3.0">
 ----
@@ -1737,7 +1737,7 @@ to:
 Then we need to modify domain-controller section so slave can connect to
 master's management port:
 
-[source,java]
+[source, java]
 ----
 <domain-controller>
    <remote protocol="remote" host="10.211.55.7" port="9999" />
@@ -1748,7 +1748,7 @@ As we know, 10.211.55.7 is the ip address of master. +
 You may use discovery options to define multiple mechanisms to connect
 to the remote domain controller :
 
-[source,java]
+[source, java]
 ----
 <domain-controller>
  <remote security-realm="ManagementRealm" >
@@ -1764,7 +1764,7 @@ to the remote domain controller :
 Finally, we also need to configure interfaces section and expose the
 management ports to public address:
 
-[source,java]
+[source, java]
 ----
 <interfaces>
     <interface name="management">
@@ -1795,7 +1795,7 @@ you need to enable the firewall and allow access to the following ports:
 If you start WildFly on both master and slave now, you will see the
 slave cannot be started with following error:
 
-[source,java]
+[source, java]
 ----
 [Host Controller] 20:31:24,575 ERROR [org.jboss.remoting.remote] (Remoting "endpoint" read-1) JBREM000200: Remote connection failed: javax.security.sasl.SaslException: Authentication failed: all available authentication mechanisms failed
 [Host Controller] 20:31:24,579 WARN  [org.jboss.as.host.controller] (Controller Boot Thread) JBAS010900: Could not connect to remote domain controller 10.211.55.7:9999
@@ -1812,7 +1812,7 @@ In bin directory there is a script called add-user.sh, we'll use it to
 add new users to the properties file used for domain management
 authentication:
 
-[source,java]
+[source, java]
 ----
 ./add-user.sh
  
@@ -1836,7 +1836,7 @@ Added user 'admin' to file '/home/weli/projs/wildfly-9.0.0.Final/domain/configur
 As shown above, we have created a user named 'admin' and its password is
 'passw0rd!'. Then we add another user called 'slave':
 
-[source,java]
+[source, java]
 ----
 ./add-user.sh
  
@@ -1872,7 +1872,7 @@ choose 'Management User' type for both 'admin' and 'slave' account.
 In slave we need to configure host.xml for authentication. We should
 change the security-realms section as following:
 
-[source,java]
+[source, java]
 ----
 <security-realms>
    <security-realm name="ManagementRealm">
@@ -1899,7 +1899,7 @@ such as the one at http://www.webutils.pl/index.php?idx=base64.
 Then in domain controller section we also need to add security-realm
 property:
 
-[source,java]
+[source, java]
 ----
 <domain-controller>
    <remote protocol="remote" host="10.211.55.7" port="9999" username="slave" security-realm="ManagementRealm"  />
@@ -1916,7 +1916,7 @@ Now everything is set for the two hosts to run in domain mode. Let's
 start them by running domain.sh on both hosts. If everything goes fine,
 we could see from the log on master:
 
-[source,java]
+[source, java]
 ----
 [Host Controller] 21:30:52,042 INFO  [org.jboss.as.domain] (management-handler-threads - 1) JBAS010918: Registered remote slave host slave
 ----
@@ -1930,14 +1930,14 @@ domain mode now as expected. Hurrah!
 Now we can deploy a demo project into the domain. I have created a
 simple project located at:
 
-[source,java]
+[source, java]
 ----
 https://github.com/liweinan/cluster-demo
 ----
 
 We can use git command to fetch a copy of the demo:
 
-[source,java]
+[source, java]
 ----
 git clone git://github.com/liweinan/cluster-demo.git
 ----
@@ -1945,7 +1945,7 @@ git clone git://github.com/liweinan/cluster-demo.git
 In this demo project we have a very simple web application. In web.xml
 we've enabled session replication by adding following entry:
 
-[source,java]
+[source, java]
 ----
 <distributable/>
 ----
@@ -1953,7 +1953,7 @@ we've enabled session replication by adding following entry:
 And it contains a jsp page called put.jsp which will put current time to
 a session entry called 'current.time':
 
-[source,java]
+[source, java]
 ----
 <%
     session.setAttribute("current.time", new java.util.Date());
@@ -1962,7 +1962,7 @@ a session entry called 'current.time':
 
 Then we could fetch this value from get.jsp:
 
-[source,java]
+[source, java]
 ----
 The time is <%= session.getAttribute("current.time") %>
 ----
@@ -1977,7 +1977,7 @@ one later.
 Let's go back to this demo project. Now we need to create a war from it.
 In the project directory, run the following command to get the war:
 
-[source,java]
+[source, java]
 ----
 mvn package
 ----
@@ -1986,7 +1986,7 @@ It will generate cluster-demo.war. Then we need to deploy the war into
 domain. First we should access the http management console on
 master(Because master is acting as domain controller):
 
-[source,java]
+[source, java]
 ----
 http://10.211.55.7:9990
 ----
@@ -2009,7 +2009,7 @@ belongs to other-server-group.
 All these servers and server groups are set in domain.xml on master as7.
 What we are interested in is the 'other-server-group' in domain.xml:
 
-[source,java]
+[source, java]
 ----
 <server-group name="other-server-group" profile="ha">
    <jvm name="default">
@@ -2029,14 +2029,14 @@ to 'other-server-group', so 'server-three' is our choice.
 
 In newer version of WildFly, the profile 'ha' changes to 'full-ha':
 
-[source,java]
+[source, java]
 ----
 <server-group name="other-server-group" profile="full-ha">
 ----
 
 Let's go back to domain controller's management console:
 
-[source,java]
+[source, java]
 ----
 http://10.211.55.7:9990
 ----
@@ -2085,14 +2085,14 @@ power of domain management.
 Now let's verify this, trying to access cluster-demo from both master
 and slave, and they should all work now:
 
-[source,java]
+[source, java]
 ----
 http://10.211.55.7:8330/cluster-demo/
 ----
 
 image:images/download/attachments/557290/http---10.211.55.7-8330-cluster-demo-.png[images/download/attachments/557290/http---10.211.55.7-8330-cluster-demo-.png]
 
-[source,java]
+[source, java]
 ----
 http://10.211.55.2:8330/cluster-demo/
 ----
@@ -2109,7 +2109,7 @@ image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icon
 Why is the port number 8330 instead of 8080? Please check the settings
 in host.xml on both master and slave:
 
-[source,java]
+[source, java]
 ----
 <server name="server-three" group="other-server-group" auto-start="false">
     <!-- server-three avoids port conflicts by incrementing the ports in
@@ -2124,7 +2124,7 @@ Now we quit the WildFly process on both master and slave. We have some
 work left on host.xml configurations. Open the host.xml of master, and
 do some modifications the servers section from:
 
-[source,java]
+[source, java]
 ----
 <server name="server-three" group="other-server-group" auto-start="false">
     <!-- server-three avoids port conflicts by incrementing the ports in
@@ -2135,7 +2135,7 @@ do some modifications the servers section from:
 
 to:
 
-[source,java]
+[source, java]
 ----
 <server name="server-three" group="other-server-group" auto-start="true">
     <!-- server-three avoids port conflicts by incrementing the ports in
@@ -2148,7 +2148,7 @@ We've set auto-start to true so we don't need to enable it in management
 console each time WildFly restart. Now open slave's host.xml, and modify
 the server-three section:
 
-[source,java]
+[source, java]
 ----
 <server name="server-three-slave" group="other-server-group" auto-start="true">
     <!-- server-three avoids port conflicts by incrementing the ports in
@@ -2180,7 +2180,7 @@ convenience.
 
 First we need to ensure that httpd is installed:
 
-[source,java]
+[source, java]
 ----
 sudo yum install httpd
 ----
@@ -2188,14 +2188,14 @@ sudo yum install httpd
 And then we need to download newer version of mod_cluster from its
 website:
 
-[source,java]
+[source, java]
 ----
 http://www.jboss.org/mod_cluster/downloads
 ----
 
 The version I downloaded is:
 
-[source,java]
+[source, java]
 ----
 http://downloads.jboss.org/mod_cluster/1.1.3.Final/mod_cluster-1.1.3.Final-linux2-x86-so.tar.gz
 ----
@@ -2210,21 +2210,21 @@ VirtualHost.
 
 Then we extract it into:
 
-[source,java]
+[source, java]
 ----
 /etc/httpd/modules
 ----
 
 Then we edit httpd.conf:
 
-[source,java]
+[source, java]
 ----
 sudo vi /etc/httpd/conf/httpd.conf
 ----
 
 We should add the modules:
 
-[source,java]
+[source, java]
 ----
 LoadModule slotmem_module modules/mod_slotmem.so
 LoadModule manager_module modules/mod_manager.so
@@ -2234,7 +2234,7 @@ LoadModule advertise_module modules/mod_advertise.so
 
 Please note we should comment out:
 
-[source,java]
+[source, java]
 ----
 #LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
 ----
@@ -2243,14 +2243,14 @@ This is conflicted with cluster module. And then we need to make httpd
 to listen to public address so we could do the testing. Because we
 installed httpd on master host so we know the ip address of it:
 
-[source,java]
+[source, java]
 ----
 Listen 10.211.55.7:80
 ----
 
 Then we do the necessary configuration at the bottom of httpd.conf:
 
-[source,java]
+[source, java]
 ----
 # This Listen port is for the mod_cluster-manager, where you can see the status of mod_cluster.
 # Port 10001 is not a reserved port, so this prevents problems with SELinux.
@@ -2289,7 +2289,7 @@ MemManagerFile /var/cache/httpd
 
 For more details on mod_cluster configurations please see this document:
 
-[source,java]
+[source, java]
 ----
 http://docs.jboss.org/mod_cluster/1.1.0/html/Quick_Start_Guide.html
 ----
@@ -2299,14 +2299,14 @@ http://docs.jboss.org/mod_cluster/1.1.0/html/Quick_Start_Guide.html
 
 If everything goes fine we can start httpd service now:
 
-[source,java]
+[source, java]
 ----
 service httpd start
 ----
 
 Now we access the cluster:
 
-[source,java]
+[source, java]
 ----
 http://10.211.55.7/cluster-demo/put.jsp
 ----
@@ -2316,7 +2316,7 @@ image:images/download/attachments/557290/http---10.211.55.7-cluster-demo-put.jsp
 We should see the request is distributed to one of the hosts(master or
 slave) from the WildFly log. For me the request is sent to master:
 
-[source,java]
+[source, java]
 ----
 [Server:server-three] 16:06:22,256 INFO  [stdout] (http-10.211.55.7-10.211.55.7-8330-4) Putting date now
 ----
@@ -2332,7 +2332,7 @@ the Host-Controller restart the instance imediately!
 
 Then wait for a few seconds and access cluster:
 
-[source,java]
+[source, java]
 ----
 http://10.211.55.7/cluster-demo/get.jsp
 ----
@@ -2342,7 +2342,7 @@ image:images/download/attachments/557290/http---10.211.55.7-cluster-demo-get.jsp
 Now the request should be served by slave and we should see the log from
 slave:
 
-[source,java]
+[source, java]
 ----
 [Server:server-three-slave] 16:08:29,860 INFO  [stdout] (http-10.211.55.2-10.211.55.2-8330-1) Getting date now
 ----

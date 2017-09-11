@@ -4,7 +4,7 @@ Create the skeleton project
 To make your life easier we have provided a maven archetype which will
 create a skeleton project for implementing subsystems.
 
-[source,java]
+[source, java]
 ----
 mvn archetype:generate \
     -DarchetypeArtifactId=wildfly-subsystem \
@@ -16,7 +16,7 @@ mvn archetype:generate \
 Maven will download the archetype and it's dependencies, and ask you
 some questions:
 
-[source,java]
+[source, java]
 ----
 $ mvn archetype:generate \
     -DarchetypeArtifactId=wildfly-subsystem \
@@ -93,7 +93,7 @@ link:attachments_852137_1_acme-subsystem.zip[acme-subsystem.zip].
 If you do a `mvn install` in the created project, you will see some
 tests being run
 
-[source,java]
+[source, java]
 ----
 $mvn install
 [INFO] Scanning for projects...

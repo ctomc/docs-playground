@@ -44,7 +44,7 @@ The ActAs web service provider's WSDL is a clone of the ws-provider's
 WSDL. The wsp:Policy section is the same. There are changes to the
 service endpoint, targetNamespace, portType, binding name, and service.
 
-[source,java]
+[source, java]
 ----
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions targetNamespace="http://www.jboss.org/jbossws/ws-extensions/actaswssecuritypolicy" name="ActAsService"
@@ -106,7 +106,7 @@ service endpoint, targetNamespace, portType, binding name, and service.
 The web service provider interface class, ActAsServiceIface, is a simple
 web service definition.
 
-[source,java]
+[source, java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsse.policy.trust.actas;
  
@@ -137,7 +137,7 @@ Crypto Merlin implementation.
 ActAsServiceImpl is calling ServiceImpl acting on behalf of the user.
 Method setupService performs the requisite configuration setup.
 
-[source,java]
+[source, java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsse.policy.trust.actas;
  
@@ -239,7 +239,7 @@ class enables CXF to retrieve the password of the user name to use for
 the message signature. This class has been revised to return the
 passwords for this service, myactaskey and the "actas" user, alice.
 
-[source,java]
+[source, java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsse.policy.trust.actas;
  
@@ -271,7 +271,7 @@ The ActAs and OnBeholdOf sub-elements of the RequestSecurityToken are
 required to be defined as WSSE Username Tokens. This utility generates
 the properly formated element.
 
-[source,java]
+[source, java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsse.policy.trust.shared;
  
@@ -440,7 +440,7 @@ The ActAs service must provide its own credentials. The requisite
 properties file, actasKeystore.properties, and keystore, actasstore.jks,
 were created.
 
-[source,java]
+[source, java]
 ----
 org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin
 org.apache.ws.security.crypto.merlin.keystore.type=jks
@@ -458,7 +458,7 @@ org.apache.cxf. The Apache CXF internals, org.apache.cxf.impl, are
 needed in handling the ActAs and OnBehalfOf extensions. The dependency
 statement directs the server to provide them at deployment.
 
-[source,java]
+[source, java]
 ----
 Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.8.2
@@ -491,7 +491,7 @@ provided in order to validate the contents of the OnBehalfOf claims and
 class, UsernameTokenDelegationHandler to be provided in order to process
 the token delegation request of the ActAs on OnBehalfOf user.
 
-[source,java]
+[source, java]
 ----
  package org.jboss.test.ws.jaxws.samples.wsse.policy.trust.sts;
  
@@ -581,7 +581,7 @@ public class SampleSTS extends SecurityTokenServiceProvider
 The user, alice, and corresponding password was required to be added for
 the ActAs example.
 
-[source,java]
+[source, java]
 ----
 package org.jboss.test.ws.jaxws.samples.wsse.policy.trust.sts;
  
@@ -634,7 +634,7 @@ Basic Scenario client]. The use of ActAs is configured through the props
 map using the SecurityConstants.STS_TOKEN_ACT_AS key. The alternative is
 to use the STSClient.setActAs method.
 
-[source,java]
+[source, java]
 ----
  final QName serviceName = new QName("http://www.jboss.org/jbossws/ws-extensions/actaswssecuritypolicy", "ActAsService");
 final URL wsdlURL = new URL(serviceURL + "?wsdl");
