@@ -1,12 +1,11 @@
-JAX-WS Tools
-============
+= JAX-WS Tools
 
 The JAX-WS tools provided by JBossWS can be used in a variety of ways.
 First we will look at server-side development strategies, and then
 proceed to the client.
 
 [[server-side]]
-= Server side
+== Server side
 
 When developing a Web Service Endpoint (the server-side) you have the
 option of starting from Java ( _bottom-up development_), or from the
@@ -49,7 +48,7 @@ client development
 |=======================================================================
 
 [[bottom-up-using-wsprovide]]
-== Bottom-Up (Using wsprovide)
+=== Bottom-Up (Using wsprovide)
 
 The bottom-up strategy involves developing the Java code for your
 service, and then annotating it using JAX-WS annotations. These
@@ -176,7 +175,7 @@ For a portable JAX-WS deployment, the wrapper classes generated earlier
 could be added to the deployment.
 
 [[top-down-using-wsconsume]]
-== Top-Down (Using wsconsume)
+=== Top-Down (Using wsconsume)
 
 The top-down development strategy begins with the abstract contract for
 the service, which includes the WSDL file and zero or more schema files.
@@ -258,7 +257,7 @@ public class EchoImpl implements Echo
 ----
 
 [[client-side]]
-= Client Side
+== Client Side
 
 Before going to detail on the client-side it is important to understand
 the decoupling concept that is central to Web Services. Web Services are

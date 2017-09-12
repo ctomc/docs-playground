@@ -1,5 +1,4 @@
-Default Native Interface Security
-=================================
+= Default Native Interface Security
 
 The native interface shares the same security configuration as the http
 interface, however we also support a local authentication mechanism

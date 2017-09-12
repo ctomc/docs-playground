@@ -11,7 +11,7 @@ classes that are defined in jars in the application server unless an
 explicit dependency on those classes is defined.
 
 [[deployment-module-names]]
-= Deployment Module Names
+== Deployment Module Names
 
 Module names for top level deployments follow the format
 `deployment.myarchive.war` while sub deployments are named like
@@ -22,7 +22,7 @@ another deployment using the other deployments module name, the details
 of how to add an explicit module dependency are explained below.
 
 [[automatic-dependencies]]
-= Automatic Dependencies
+== Automatic Dependencies
 
 Even though in WildFly modules are isolated by default, as part of the
 deployment process some dependencies on modules defined by the
@@ -40,7 +40,7 @@ Automatic dependencies can be excluded through the use of
 `jboss-deployment-structure.xml`.
 
 [[class-loading-precedence]]
-= Class Loading Precedence
+== Class Loading Precedence
 
 A common source of errors in Java applications is including API classes
 in a deployment that are also provided by the container. This can result
@@ -64,14 +64,14 @@ deployments in an ear deployment. This can include classes in an ear's
 lib directory, or classes defined in other ejb jars.
 
 [[war-class-loading]]
-= WAR Class Loading
+== WAR Class Loading
 
 The war is considered to be a single module, so classes defined in
 `WEB-INF/lib` are treated the same as classes in `WEB-INF/classes`. All
 classes packaged in the war will be loaded with the same class loader.
 
 [[ear-class-loading]]
-= EAR Class Loading
+== EAR Class Loading
 
 Ear deployments are multi-module deployments. This means that not all
 classes inside an ear will necessarily have access to all other classes
@@ -222,7 +222,7 @@ If your deployment is a jar you must use the `maven-jar-plugin` rather
 than the `maven-war-plugin`.
 
 [[class-path-entries]]
-== Class Path Entries
+=== Class Path Entries
 
 It is also possible to add module dependencies on other modules inside
 the deployment using the `Class-Path` manifest entry. This can be used
@@ -234,7 +234,7 @@ additional jar is merged into the parent ear's module, and is accessible
 to all sub deployments in the ear.
 
 [[global-modules]]
-= Global Modules
+== Global Modules
 
 It is also possible to set up global modules, that are accessible to all
 deployments. This is done by modifying the configuration file
@@ -257,7 +257,7 @@ standalone.xml/domain.xml
 Note that the `slot` field is optional and defaults to `main`.
 
 [[jboss-deployment-structure-file]]
-= JBoss Deployment Structure File
+== JBoss Deployment Structure File
 
 `jboss-deployment-structure.xml` is a JBoss specific deployment
 descriptor that can be used to control class loading in a fine grained
@@ -351,7 +351,7 @@ The xsd for jboss-deployment-structure.xml is available at
 https://github.com/wildfly/wildfly-core/blob/master/server/src/main/resources/schema/jboss-deployment-structure-1_2.xsd[https://github.com/wildfly/wildfly/blob/master/build/src/main/resources/docs/schema/jboss-deployment-structure-1_2.xsd]
 
 [[accessing-jdk-classes]]
-= Accessing JDK classes
+== Accessing JDK classes
 
 Not all JDK classes are exposed to a deployment by default. If your
 deployment uses JDK classes that are not exposed you can get access to
@@ -375,7 +375,7 @@ Using jboss-deployment-structure.xml to access JDK classes
 ----
 
 [[the-jboss.api-property-and-application-use-of-modules-shipped-with-wildfly]]
-= The "jboss.api" property and application use of modules shipped with
+== The "jboss.api" property and application use of modules shipped with
 WildFly
 
 The WildFly distribution includes a large number of modules, a great

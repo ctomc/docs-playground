@@ -1,8 +1,7 @@
-WS-Security
-===========
+= WS-Security
 
 [[ws-security-overview]]
-= WS-Security overview
+== WS-Security overview
 
 WS-Security provides the means to secure your services beyond transport
 level protocols such as _HTTPS_. Through a number of standards such as
@@ -42,7 +41,7 @@ her public key.
 image:images/download/attachments/557274/250px-Public_key_making.svg.png[images/download/attachments/557274/250px-Public_key_making.svg.png]
 
 [[jboss-ws-security-support]]
-= JBoss WS-Security support
+== JBoss WS-Security support
 
 JBoss Web Services supports many real world scenarios requiring
 WS-Security functionalities. This includes signature and encryption
@@ -58,7 +57,7 @@ On top of that the JBossWS integration adds few configuration
 enhancements to simplify the setup of WS-Security enabled endpoints.
 
 [[apache-cxf-ws-security-implementation]]
-== Apache CXF WS-Security implementation
+=== Apache CXF WS-Security implementation
 
 Apache CXF features a top class WS-Security module supporting multiple
 configurations and easily extendible.
@@ -80,7 +79,7 @@ installing the required interceptors; the Apache CXF WS-Policy engine
 internally takes care of that instead.
 
 [[ws-security-policy-support]]
-=== WS-Security Policy support
+==== WS-Security Policy support
 
 WS-SecurityPolicy describes the actions that are required to securely
 communicate with a service advertised in a given WSDL contract. The WSDL
@@ -158,7 +157,7 @@ http://cxf.apache.org/docs/ws-securitypolicy.html[Apache CXF
 documentation] for additional configuration details.
 
 [[jbossws-configuration-additions]]
-== JBossWS configuration additions
+=== JBossWS configuration additions
 
 In order for removing the need of Spring on server side for setting up
 WS-Security configuration properties not covered by policies, the
@@ -223,7 +222,7 @@ public class ServiceImpl implements ServiceIface
 ----
 
 [[apache-cxf-annotations]]
-== Apache CXF annotations
+=== Apache CXF annotations
 
 The JBossWS configuration additions allow for a descriptor approach to
 the WS-Security Policy engine configuration. If you prefer to provide
@@ -250,7 +249,7 @@ public class ServiceImpl implements ServiceIface {
 ----
 
 [[examples]]
-= Examples
+== Examples
 
 In this section some sample of WS-Security service endpoints and clients
 are provided. Please note they're only meant as tutorials; you should
@@ -265,10 +264,10 @@ the implementor remains responsible for assessing the application
 requirements and choosing the most suitable security policy for them.
 
 [[signature-and-encryption]]
-== Signature and encryption
+=== Signature and encryption
 
 [[endpoint]]
-=== Endpoint
+==== Endpoint
 
 First of all you need to create the web service endpoint using JAX-WS.
 While this can generally be achieved in different ways, it's required to
@@ -579,7 +578,7 @@ Dependencies: org.apache.ws.security
 ....
 
 [[client]]
-=== Client
+==== Client
 
 You start by consuming the published WSDL contract using the _wsconsume_
 tool on client side too. Then you simply invoke the the endpoint as a
@@ -625,7 +624,7 @@ the contract and ensure a valid secure communication is in place for
 interacting with the server endpoint.
 
 [[endpoint-serving-multiple-clients]]
-=== Endpoint serving multiple clients
+==== Endpoint serving multiple clients
 
 The server side configuration described above implies the endpoint is
 configured for serving a given client which a service agreement has been
@@ -639,7 +638,7 @@ Of course the referenced server side keystore then needs to contain the
 public key of all the clients that are expected to be served.
 
 [[authentication-and-authorization]]
-== Authentication and authorization
+=== Authentication and authorization
 
 The Username Token Profile can be used to provide client's credentials
 to a WS-Security enabled target endpoint.
@@ -672,7 +671,7 @@ Token Profile for authenticating through the application server security
 domain system.
 
 [[endpoint-1]]
-=== Endpoint
+==== Endpoint
 
 As in the other example, we start with a wsdl contract containing the
 proper WS-Security Policy:
@@ -963,7 +962,7 @@ Dependencies: org.apache.ws.security,org.apache.cxf
 ....
 
 [[client-1]]
-=== Client
+==== Client
 
 Here too you start by consuming the published WSDL contract using the
 _wsconsume_ tool. Then you simply invoke the the endpoint as a standard
@@ -1015,7 +1014,7 @@ authorization error when trying to call `greetMe()` with user "kermit",
 as that does not have the "snoopies" role.
 
 [[secure-transport]]
-== Secure transport
+=== Secure transport
 
 Another quite common use case is using WS-Security Username Token
 Profile over a secure transport (HTTPS). A scenario like this is
@@ -1127,7 +1126,7 @@ below:
 ----
 
 [[secure-conversation]]
-== Secure conversation
+=== Secure conversation
 
 Apache CXF supports
 http://docs.oasis-open.org/ws-sx/ws-secureconversation/200512/ws-secureconversation-1.3-os.html[WS-SecureConversation]

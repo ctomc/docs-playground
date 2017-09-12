@@ -1,5 +1,4 @@
-Java API for XML Web Services (JAX-WS)
-======================================
+= Java API for XML Web Services (JAX-WS)
 
 JBossWS uses the JBoss Application Server as its target container. The
 following examples focus on web service deployments that leverage EJB3
@@ -8,7 +7,7 @@ information on POJO service implementations and advanced topics you need
 consult the link:#src-557104[user guide].
 
 [[developing-web-service-implementations]]
-= Developing web service implementations
+== Developing web service implementations
 
 JAX-WS does leverage annotations in order to express web service meta
 data on Java components and to describe the mapping between Java data
@@ -37,7 +36,7 @@ further information see
 Services]
 
 [[the-service-implementation-class]]
-== The service implementation class
+=== The service implementation class
 
 When starting from Java you must provide the service implementation. A
 valid endpoint implementation class must meet the following
@@ -54,7 +53,7 @@ Don't be confused with the EJB3 annotation `@Stateless`. We concentrate
 on the `@WebService` annotation for now.
 
 [[implementing-the-service]]
-=== Implementing the service
+==== Implementing the service
 
 [source, java]
 ----
@@ -88,7 +87,7 @@ public class ProfileMgmtBean {
 ....
 
 [[what-about-the-payload]]
-=== What about the payload?
+==== What about the payload?
 
 The method parameters and return values are going to represent our XML
 payload and thus require being compatible with JAXB2. Actually you
@@ -146,7 +145,7 @@ If you have more complex mapping problems you need to consult the
 http://java.sun.com/webservices/jaxb/[JAXB documentation].
 
 [[deploying-service-implementations]]
-== Deploying service implementations
+=== Deploying service implementations
 
 Service deployment basically depends on the implementation type. As you
 may already know web services can be implemented as EJB3 components or
@@ -154,7 +153,7 @@ plain old Java objects. This quick start leverages EJB3 components,
 that's why we are going to look at this case in the next sections.
 
 [[ejb3-services]]
-=== EJB3 services
+==== EJB3 services
 
 Simply wrap up the service implementation class, the endpoint interface
 and any custom data types in a JAR and drop them in the _deployment_
@@ -165,7 +164,7 @@ endpoint interface. JBossWS will intercept that EJB3 deployment (the
 bean will also be there) and create an HTTP endpoint at deploy-time.
 
 [[the-jar-package-structure]]
-=== The JAR package structure
+==== The JAR package structure
 
 jar -tf jaxws-samples-retail.jar
 
@@ -183,7 +182,7 @@ If the deployment was successful you should be able to see your endpoint
 in the application server management console.
 
 [[consuming-web-services]]
-= Consuming web services
+== Consuming web services
 
 When creating web service clients you would usually start from the WSDL.
 JBossWS ships with a set of tools to generate the required JAX-WS
@@ -192,10 +191,10 @@ will look at the most basic usage patterns. For a more detailed
 introduction to web service client please consult the user guide.
 
 [[creating-the-client-artifacts]]
-== Creating the client artifacts
+=== Creating the client artifacts
 
 [[using-wsconsume]]
-=== Using wsconsume
+==== Using wsconsume
 
 The _wsconsume_ tool is used to consume the abstract contract (WSDL) and
 produce annotated Java classes (and optionally sources) that define it.
@@ -240,7 +239,7 @@ org/jboss/test/ws/jaxws/samples/retail/profile/package-info.java
 name of the generated sources.
 
 [[the-generated-artifacts-explained]]
-=== The generated artifacts explained
+==== The generated artifacts explained
 
 [cols=",",]
 |======================================================
@@ -259,7 +258,7 @@ will look at how these artifacts can be used the build web service
 client implementations in the next section.
 
 [[constructing-a-service-stub]]
-== Constructing a service stub
+=== Constructing a service stub
 
 Web service clients make use of a service stubs that hide the details of
 a remote web service invocation. To a client application a WS invocation
@@ -288,10 +287,10 @@ stub
 3.  Use the stub like any other business interface
 
 [[appendix]]
-== Appendix
+=== Appendix
 
 [[sample-wsdl-contract]]
-=== Sample wsdl contract
+==== Sample wsdl contract
 
 [source, java]
 ----

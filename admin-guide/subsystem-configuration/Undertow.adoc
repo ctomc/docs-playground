@@ -1,5 +1,4 @@
-Undertow subsystem configuration
-================================
+= Undertow subsystem configuration
 
 [IMPORTANT]
 
@@ -49,7 +48,7 @@ for most use cases and provides reasonable performance settings.
 IO Subsystem
 
 [[buffer-cache-configuration]]
-= Buffer cache configuration
+== Buffer cache configuration
 
 The buffer cache is used for caching content, such as static files.
 Multiple buffer caches can be configured, which allows for separate
@@ -84,7 +83,7 @@ amount of memory that can be used for caching
 |=======================================================================
 
 [[server-configuration]]
-= Server configuration
+== Server configuration
 
 A server represents an instance of Undertow. Basically this consists of
 a set of connectors and some configured handlers.
@@ -106,13 +105,13 @@ server, unless is is explicitly overriden by the deployment
 |=======================================================================
 
 [[connector-configuration]]
-== Connector configuration
+=== Connector configuration
 
 Undertow provides HTTP, HTTPS and AJP connectors, which are configured
 per server.
 
 [[common-settings]]
-=== Common settings
+==== Common settings
 
 The following settings are common to all connectors:
 
@@ -172,7 +171,7 @@ allowed. HTTP TRACE is disabled by default.
 |=======================================================================
 
 [[http-connector]]
-=== HTTP Connector
+==== HTTP Connector
 
 [source, java]
 ----
@@ -200,7 +199,7 @@ real address of the client, rather than the address of the proxy.
 |=======================================================================
 
 [[https-listener]]
-=== HTTPS listener
+==== HTTPS listener
 
 Https listener provides secure access to the server. The most important
 configuration option is security realm which defines SSL secure context.
@@ -224,7 +223,7 @@ client cert auth is in use this should be either REQUESTED or REQUIRED.
 |=======================================================================
 
 [[ajp-listener]]
-=== AJP listener
+==== AJP listener
 
 [source, java]
 ----
@@ -232,7 +231,7 @@ client cert auth is in use this should be either REQUESTED or REQUIRED.
 ----
 
 [[host-configuration]]
-== Host configuration
+=== Host configuration
 
 The host element corresponds to a virtual host.
 
@@ -250,7 +249,7 @@ serve up requests that do not match anything.
 |=======================================================================
 
 [[servlet-container-configuration]]
-= Servlet container configuration
+== Servlet container configuration
 
 The servlet-container element corresponds to an instance of an Undertow
 Servlet container. Most servers will only need a single servlet
@@ -290,10 +289,10 @@ be the same as that used by the listener that received the request.
 |=======================================================================
 
 [[jsp-configuration]]
-== JSP configuration
+=== JSP configuration
 
 [[session-cookie-configuration]]
-== Session Cookie Configuration
+=== Session Cookie Configuration
 
 This allows you to change the attributes of the session cookie.
 
@@ -309,7 +308,7 @@ This allows you to change the attributes of the session cookie.
 |======================================
 
 [[persistent-session-configuration]]
-== Persistent Session Configuration
+=== Persistent Session Configuration
 
 Persistent sessions allow session data to be saved across redeploys and
 restarts. This feature is enabled by adding the persistent-sessions

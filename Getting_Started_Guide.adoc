@@ -1,8 +1,7 @@
-Getting Started Guide
-=====================
+= Getting Started Guide
 
 [[getting-started-with-wildfly-10]]
-= Getting Started with WildFly 10
+== Getting Started with WildFly 10
 
 WildFly 10 is the latest release in a series of JBoss open-source
 application server offerings. WildFly 10 is an exceptionally fast,
@@ -99,7 +98,7 @@ started using WildFly 10 for your application development. For in-depth
 content on administrative features, refer to the WildFly 10 Admin Guide.
 
 [[download]]
-== Download
+=== Download
 
 WildFly 10 distributions can be obtained from:
 
@@ -112,13 +111,13 @@ formats.
 * *wildfly-10.0.0.Final.tar.gz*
 
 [[requirements]]
-== Requirements
+=== Requirements
 
 * Java SE 8 or later (we recommend that you use the latest update
 available)
 
 [[installation]]
-== Installation
+=== Installation
 
 Simply extract your chosen download to the directory of your choice. You
 can install WildFly 10 on any operating system that supports the zip or
@@ -126,7 +125,7 @@ tar formats. Refer to the Release Notes for additional information
 related to the release.
 
 [[wildfly---a-quick-tour]]
-== WildFly - A Quick Tour
+=== WildFly - A Quick Tour
 
 Now that you've downloaded WildFly 10, the next thing to discuss is the
 layout of the distribution and explore the server directory structure,
@@ -135,7 +134,7 @@ worth familiarizing yourself with the layout so that you'll be able to
 find your way around when it comes to deploying your own applications.
 
 [[wildfly-10-directory-structure]]
-=== WildFly 10 Directory Structure
+==== WildFly 10 Directory Structure
 
 [cols=",",]
 |=======================================================================
@@ -168,7 +167,7 @@ used by the single standalone server run from this installation.
 |=======================================================================
 
 [[standalone-directory-structure]]
-==== Standalone Directory Structure
+===== Standalone Directory Structure
 
 In " *_standalone_* " mode each WildFly 10 server instance is an
 independent process (similar to previous JBoss AS versions; e.g., 3, 4,
@@ -208,7 +207,7 @@ process.
 |=======================================================================
 
 [[domain-directory-structure]]
-==== Domain Directory Structure
+===== Domain Directory Structure
 
 A key feature of WildFly 10 is the managing multiple servers from a
 single control point. A collection of multiple servers are referred to
@@ -260,10 +259,10 @@ process.
 |=======================================================================
 
 [[wildfly-10-configurations]]
-=== WildFly 10 Configurations
+==== WildFly 10 Configurations
 
 [[standalone-server-configurations]]
-==== Standalone Server Configurations
+===== Standalone Server Configurations
 
 * standalone.xml ( _default_)
 ** Java Enterprise Edition 7 web profile certified configuration with
@@ -282,7 +281,7 @@ including all the required EE 7 technologies
 high availability
 
 [[domain-server-configurations]]
-==== Domain Server Configurations
+===== Domain Server Configurations
 
 * domain.xml
 ** Java Enterprise Edition 7 full and web profiles available with or
@@ -293,7 +292,7 @@ determine how the servers are managed not what capabilities they
 provide.
 
 [[starting-wildfly-10]]
-=== Starting WildFly 10
+==== Starting WildFly 10
 
 To start WildFly 10 using the default web profile configuration in "
 _standalone_" mode, change directory to $JBOSS_HOME/bin.
@@ -312,7 +311,7 @@ capabilities,
 ----
 
 [[starting-wildfly-10-with-an-alternate-configuration]]
-=== Starting WildFly 10 with an Alternate Configuration
+==== Starting WildFly 10 with an Alternate Configuration
 
 If you choose to start your server with one of the other provided
 configurations, they can be accessed by passing the --server-config
@@ -337,7 +336,7 @@ Alternatively, you can create your own selecting the additional
 subsystems you want to add, remove, or modify.
 
 [[test-your-installation]]
-==== Test Your Installation
+===== Test Your Installation
 
 After executing one of the above commands, you should see output similar
 to what's shown below.
@@ -378,7 +377,7 @@ landing page is recommended for convenient access to information about
 WildFly 10 but can easily be replaced with your own if desired.
 
 [[managing-your-wildfly-10]]
-=== Managing your WildFly 10
+==== Managing your WildFly 10
 
 WildFly 10 offers two administrative mechanisms for managing your
 running instance:
@@ -387,7 +386,7 @@ running instance:
 * command-line interface
 
 [[authentication]]
-==== Authentication
+===== Authentication
 
 By default WildFly 10 is now distributed with security enabled for the
 management interfaces, this means that before you connect using the
@@ -437,7 +436,7 @@ authentication and the files reloaded if they have changed, for this
 reason you do not need to re-start the server after adding a new user.
 
 [[administration-console]]
-==== Administration Console
+===== Administration Console
 
 To access the web-based Administration Console, simply follow the link
 from the Welcome Screen. To directly access the Management Console,
@@ -470,7 +469,7 @@ added you can click on the 'Try Again' link at the bottom of the error
 page to try connecting to the administration console again.
 
 [[command-line-interface]]
-==== Command-Line Interface
+===== Command-Line Interface
 
 If you prefer to manage your server from the command line (or batching),
 the _jboss-cli.sh_ script provides the same capabilities available via
@@ -498,7 +497,7 @@ undeploy applications. For a complete list of commands and command
 syntax, type *_help_* once connected.
 
 [[modifying-the-example-datasource]]
-=== Modifying the Example DataSource
+==== Modifying the Example DataSource
 
 As with previous JBoss application server releases, a default data
 source, *_ExampleDS_* , is configured using the embedded H2 database for
@@ -562,7 +561,7 @@ the project documentation.
 http://docs.jboss.org/ironjacamar/userguide/1.0/en-US/html/deployment.html#deployingds_descriptor
 
 [[configure-logging-in-wildfly-10]]
-==== Configure Logging in WildFly 10
+===== Configure Logging in WildFly 10
 
 WildFly 10 logging can be configured with the web console or the command
 line interface. You can get more detail on the link:#src-557127[Logging

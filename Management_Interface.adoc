@@ -1,5 +1,4 @@
-Management Interface
-====================
+= Management Interface
 
 Coming Soon
 
@@ -8,10 +7,10 @@ Coming Soon
 This guide is still under development, check back soon!
 
 [[management-via-the-java-management-extension-jmx]]
-= Management via the Java Management Extension (JMX)
+== Management via the Java Management Extension (JMX)
 
 [[management-via-restful-services]]
-= Management via RESTful services
+== Management via RESTful services
 
 [[batch-management-command-line-interface-cli]]
-= Batch Management / Command Line Interface (CLI)
+== Batch Management / Command Line Interface (CLI)

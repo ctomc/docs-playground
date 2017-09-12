@@ -1,5 +1,4 @@
-Java Message Service API (JMS)
-==============================
+= Java Message Service API (JMS)
 
 Coming Soon
 
@@ -8,7 +7,7 @@ Coming Soon
 This guide is still under development, check back soon!
 
 [[configure-jbossas-for-messaging]]
-= Configure JBossAS for Messaging
+== Configure JBossAS for Messaging
 
 Currently, the default configuration does not include the JMS subsystem.
 To enable JMS in the standalone server you need to add these
@@ -122,7 +121,7 @@ $ bin/standalone.sh --server-config=standalone-preview.xml
 ----
 
 [[adding-the-message-destinations]]
-= Adding the message destinations
+== Adding the message destinations
 
 For this tutorial we use two message destinations
 

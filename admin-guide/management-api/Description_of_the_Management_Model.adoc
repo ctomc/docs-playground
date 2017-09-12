@@ -1,5 +1,4 @@
-Description of the Management Model
-===================================
+= Description of the Management Model
 
 A detailed description of the resources, attributes and operations that
 make up the management model provided by an individual WildFly instance
@@ -10,7 +9,7 @@ in the link:Global_operations.html[Global operations] section. In this
 section we provide details on what's included in those descriptions.
 
 [[description-of-the-wildfly-managed-resources]]
-= Description of the WildFly Managed Resources
+== Description of the WildFly Managed Resources
 
 All portions of the management model exposed by WildFly are addressable
 via an ordered list of key/value pairs. For each addressable
@@ -83,7 +82,7 @@ For example:
 ----
 
 [[description-of-an-attribute]]
-== Description of an Attribute
+=== Description of an Attribute
 
 An attribute is a portion of the management model that is not directly
 addressable. Instead, it is conceptually a property of an addressable
@@ -230,7 +229,7 @@ Some examples:
 ----
 
 [[description-of-an-operation]]
-== Description of an Operation
+=== Description of an Operation
 
 A management resource may have operations associated with it. The
 description of an operation will include the following information:
@@ -256,7 +255,7 @@ link:#DescriptionoftheManagementModel-applying-runtime-updates[Applying
 Updates to Runtime Services]" below. Default value is "no-services".
 
 [[description-of-an-operation-parameter-or-return-value]]
-=== Description of an Operation Parameter or Return Value
+==== Description of an Operation Parameter or Return Value
 
 * `description` – String – text description of the parameter or return
 value
@@ -331,7 +330,7 @@ link:#DescriptionoftheManagementModel-arbitrary-descriptors[Arbitrary
 Descriptors]" below.
 
 [[arbitrary-descriptors]]
-== Arbitrary Descriptors
+=== Arbitrary Descriptors
 
 The description of an attribute, operation parameter or operation return
 value type can include arbitrary key/value pairs that provide extra
@@ -391,7 +390,7 @@ Some examples:
 ----
 
 [[description-of-parentchild-relationships]]
-== Description of Parent/Child Relationships
+=== Description of Parent/Child Relationships
 
 The address used to target an addressable portion of the model must be
 an ordered list of key value pairs. The effect of this requirement is
@@ -465,7 +464,7 @@ If the recursive flag was false:
 ----
 
 [[applying-updates-to-runtime-services]]
-== Applying Updates to Runtime Services
+=== Applying Updates to Runtime Services
 
 An attribute or operation description may include a "
 `restart-required`" descriptor; this section is an explanation of the

@@ -1,5 +1,4 @@
-EJB invocations from a remote server instance
-=============================================
+= EJB invocations from a remote server instance
 
 The purpose of this chapter is to demonstrate how to lookup and invoke
 on EJBs deployed on an WildFly server instance *from another* WildFly
@@ -17,7 +16,7 @@ Note that this chapter deals with the case where the bean is deployed on
 the "Destination Server" but *not* on the "Client Server".
 
 [[application-packaging]]
-= Application packaging
+== Application packaging
 
 In this example, we'll consider a EJB which is packaged in a myejb.jar
 which is within a myapp.ear. Here's how it would look like:
@@ -38,7 +37,7 @@ article. You can deploy the EJBs in any standard way (.ear, .war or
 .jar).
 
 [[beans]]
-= Beans
+== Beans
 
 In our example, we'll consider a simple stateless session bean which is
 as follows:
@@ -72,7 +71,7 @@ public class GreeterBean implements Greeter {
 ----
 
 [[security]]
-= Security
+== Security
 
 WildFly {wildflyVersion} is secure by default. What this means is that no communication
 can happen with an WildFly instance from a remote client (irrespective
@@ -85,7 +84,7 @@ communication. So let's start with the necessary configurations for
 this.
 
 [[configuring-a-user-on-the-destination-server]]
-= Configuring a user on the "Destination Server"
+== Configuring a user on the "Destination Server"
 
 As a first step we'll configure a user on the destination server who
 will be allowed to access the destination server. We create the user
@@ -136,7 +135,7 @@ You do *not* require the server to be started to add a user using the
 add-user script.
 
 [[start-the-destination-server]]
-= Start the "Destination Server"
+== Start the "Destination Server"
 
 As a next step towards running this example, we'll start the
 "Destination Server". In this example, we'll use the standalone server
@@ -164,7 +163,7 @@ to the startup script:
 ----
 
 [[deploying-the-application]]
-= Deploying the application
+== Deploying the application
 
 The application ( _myapp.ear_ in our case) will be deployed to
 "Destination Server". The process of deploying the application is out of
@@ -178,7 +177,7 @@ So far, we have built a EJB application and deployed it on the
 as the client for the deployed EJBs on the "Destination Server".
 
 [[configuring-the-client-server-to-point-to-the-ejb-remoting-connector-on-the-destination-server]]
-= Configuring the "Client Server" to point to the EJB remoting connector
+== Configuring the "Client Server" to point to the EJB remoting connector
 on the "Destination Server"
 
 As a first step on the "Client Server", we need to let the server know
@@ -193,7 +192,7 @@ host and a remote port (of the "Destination Server"). So let's see how
 we create these configurations.
 
 [[start-the-client-server]]
-= Start the "Client Server"
+== Start the "Client Server"
 
 In this example, we'll start the "Client Server" on the same machine as
 the "Destination Server". We have copied the entire server installation
@@ -206,7 +205,7 @@ port-offset (of 100 in this example) to avoid port conflicts:
 ----
 
 [[create-a-security-realm-on-the-client-server]]
-= Create a security realm on the client server
+== Create a security realm on the client server
 
 Remember that we need to communicate with a secure destination server.
 In order to do that the client server has to pass the user credentials
@@ -285,7 +284,7 @@ password. So that completes the security realm configuration for the
 client server. Now let's move on to the next step.
 
 [[create-a-outbound-socket-binding-on-the-client-server]]
-= Create a outbound-socket-binding on the "Client Server"
+== Create a outbound-socket-binding on the "Client Server"
 
 Let's first create a _outbound-socket-binding_ which points the
 "Destination Server"'s host and port. We'll use the CLI to create this
@@ -318,7 +317,7 @@ outbound-socket-binding in the socket-binding-group:
 ----
 
 [[create-a-remote-outbound-connection-which-uses-this-newly-created-outbound-socket-binding]]
-= Create a "remote-outbound-connection" which uses this newly created
+== Create a "remote-outbound-connection" which uses this newly created
 "outbound-socket-binding"
 
 Now let's create a " _remote-outbound-connection_" which will use the
@@ -388,7 +387,7 @@ From a server configuration point of view, that's all we need on the
 "Destination Server".
 
 [[packaging-the-client-application-on-the-client-server]]
-= Packaging the client application on the "Client Server"
+== Packaging the client application on the "Client Server"
 
 Like on the "Destination Server", we'll use .ear packaging for the
 client application too. But like previously mentioned, that's not
@@ -429,7 +428,7 @@ jboss-ejb-client.xml is expected to be placed in .war/WEB-INF/ folder
 (i.e. the same location where you place any web.xml file).
 
 [[contents-on-jboss-ejb-client.xml]]
-= Contents on jboss-ejb-client.xml
+== Contents on jboss-ejb-client.xml
 
 The jboss-ejb-client.xml will look like:
 
@@ -452,7 +451,7 @@ _remote-ejb-connection_" which ultimately points to the EJB remoting
 connector on the "Destination Server".
 
 [[deploy-the-client-application]]
-= Deploy the client application
+== Deploy the client application
 
 Let's deploy the client application on the "Client Server". The process
 of deploying the application is out of scope, of this chapter. You can
@@ -461,7 +460,7 @@ JBOSS_HOME/standalone/deployments folder. Just ensure that the
 application is deployed successfully.
 
 [[client-code-invoking-the-bean]]
-= Client code invoking the bean
+== Client code invoking the bean
 
 We mentioned that we'll be using a servlet to invoke on the bean, but
 the code to invoke the bean isn't servlet specific and can be used in

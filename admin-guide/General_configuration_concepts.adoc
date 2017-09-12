@@ -1,11 +1,10 @@
-General configuration concepts
-==============================
+= General configuration concepts
 
 For both a managed domain or a standalone server, a number of common
 configuration concepts apply:
 
 [[extensions]]
-= Extensions
+== Extensions
 
 An extension is a module that extends the core capabilities of the
 server. The WildFly core is very simple and lightweight; most of the
@@ -28,7 +27,7 @@ the `domain.xml` or `standalone.xml` file.
 ----
 
 [[profiles-and-subsystems]]
-= Profiles and Subsystems
+== Profiles and Subsystems
 
 The most significant part of the configuration in `domain.xml` and
 `standalone.xml` is the configuration of one (in `standalone.xml`) or
@@ -52,7 +51,7 @@ The contents of individual subsystem configurations look exactly the
 same between `domain.xml` and `standalone.xml`.
 
 [[paths]]
-= Paths
+== Paths
 
 A logical name for a filesystem path. The `domain.xml`, `host.xml` and
 `standalone.xml` configurations all include a section where paths can be
@@ -133,7 +132,7 @@ A `<path/>` element in a `standalone.xml` must include the specification
 of the actual filesystem path.
 
 [[interfaces]]
-= Interfaces
+== Interfaces
 
 A logical name for a network interface/IP address/host name to which
 sockets can be bound. The `domain.xml`, `host.xml` and `standalone.xml`
@@ -174,7 +173,7 @@ An `<interface/>` element in a `standalone.xml` must include the
 criteria for determining the IP address.
 
 [[socket-bindings-and-socket-binding-groups]]
-= Socket Bindings and Socket Binding Groups
+== Socket Bindings and Socket Binding Groups
 
 A socket binding is a named configuration for a socket.
 
@@ -186,7 +185,7 @@ socket configuration (which may vary on different machines). See
 link:Interfaces_and_ports.html[Interfaces and ports] for full details.
 
 [[system-properties]]
-= System Properties
+== System Properties
 
 System property values can be set in a number of places in `domain.xml`,
 `host.xml` and `standalone.xml`. The values in `standalone.xml` are set

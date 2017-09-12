@@ -1,5 +1,4 @@
-Deploying the Login example using Eclipse
-=========================================
+= Deploying the Login example using Eclipse
 
 This page has moved to
 http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/GreeterQuickstart/

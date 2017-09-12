@@ -1,5 +1,4 @@
-Java Authentication Service Provider Interface for Containers (JASPIC)
-======================================================================
+= Java Authentication Service Provider Interface for Containers (JASPIC)
 
 JASPI is not available by default for deployments, and a specific
 Security Domain must be created to use it. For a simplified developer

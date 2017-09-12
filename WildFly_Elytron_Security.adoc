@@ -1,8 +1,7 @@
-WildFly Elytron Security
-========================
+= WildFly Elytron Security
 
 [[about]]
-= About
+== About
 
 The WildFly Elytron project is a new security framework brought to
 WildFly to provide a single unified security framework across the whole
@@ -21,7 +20,7 @@ The project covers these main areas: -
 * Secure Credential Storage
 
 [[authentication]]
-== Authentication
+=== Authentication
 
 One of the fundamental objectives of the project was to ensure that we
 can use stronger authentication mechanisms for both HTTP and SASL based
@@ -30,7 +29,7 @@ to bring in new implementations opening up various integration
 opportunities with external solutions.
 
 [[authorization]]
-== Authorization
+=== Authorization
 
 The architecture of the project makes a very clear distinction between
 the raw representation of the identity as returned by a SecurityRealm
@@ -44,7 +43,7 @@ flexibility beyond the default set of components provided by the
 project.
 
 [[ssl-tls]]
-== SSL / TLS
+=== SSL / TLS
 
 The project becomes the centralised point within the application server
 for configuring SSL related resources meaning they can be configured in
@@ -60,7 +59,7 @@ received and the eager construction of a SecurityIdentity eliminating
 the need for it to be constructed on a per-request basis.
 
 [[secure-credential-storage]]
-== Secure Credential Storage
+=== Secure Credential Storage
 
 The previous vault used for plain text String encryption is replaced
 with a newly designed credential store. in addition to the protection it
@@ -68,7 +67,7 @@ offers for the credentials stored within it, the store currently
 supports storage of clear text credentials.
 
 [[general-elytron-architecture]]
-= General Elytron Architecture
+== General Elytron Architecture
 
 The overall architecture for WildFly Elytron is building up a full
 security policy from assembling smaller components together, by default
@@ -85,7 +84,7 @@ level view, however the different resource definitions may use different
 dependencies depending on their purpose.
 
 [[security-domains]]
-== Security Domains
+=== Security Domains
 
 Within WildFly Elytron a SecurityDomain can be considered as a security
 policy backed by one or more SecurityRealm instances. Resources that
@@ -161,7 +160,7 @@ calling different resources each of those resources could have a very
 different view.
 
 [[sasl-authentication]]
-== SASL Authentication
+=== SASL Authentication
 
 The SaslAuthenticationFactory is an authentication policy for
 authentication using SASL authentication mechanisms, in addition to
@@ -194,7 +193,7 @@ The reason some of the components referenced by the SecurityDomain are
 duplicated is so that mechanism specific mappings can be applied.
 
 [[http-authentication]]
-== HTTP Authentication
+=== HTTP Authentication
 
 The HttpAuthenticationFactory is an authentication policy for
 authentication using HTTP authentication mechanisms, in addition to
@@ -227,7 +226,7 @@ The reason some of the components referenced by the SecurityDomain are
 duplicated is so that mechanism specific mappings can be applied.
 
 [[ssl-tls-1]]
-== SSL / TLS
+=== SSL / TLS
 
 The SSLContext defined within Elytron is a javax.net.ssl.SSLContext
 meaning it can be used by anything that uses an SSLContext directly.
@@ -260,7 +259,7 @@ the connection is opened and used for any invocations over the
 connection.
 
 [[elytron-subsystem]]
-= Elytron Subsystem
+== Elytron Subsystem
 
 WildFly Elytron is a security framework used to unify security across
 the entire application server. The _elytron_ subsystem enables a single
@@ -294,7 +293,7 @@ Elytron methods may be used for securing the management interfaces as
 well as providing security for applications.
 
 [[get-started-using-the-elytron-subsystem]]
-== Get Started using the Elytron Subsystem
+=== Get Started using the Elytron Subsystem
 
 To get started using Elytron, refer to these topics:
 
@@ -333,13 +332,13 @@ link:Using_the_Elytron_Subsystem.html#src-557140_UsingtheElytronSubsystem-Secure
 interfaces] with an LDAP-based identity store.
 
 [[provided-components]]
-== Provided components
+=== Provided components
 
 Wildfly Elytron provides a default set of implementations in the
 _elytron_ subsystem.
 
 [[factories]]
-=== Factories
+==== Factories
 
 [cols=",",]
 |=======================================================================
@@ -395,7 +394,7 @@ using a ServiceLoader
 |=======================================================================
 
 [[principal-transformers]]
-=== Principal Transformers
+==== Principal Transformers
 
 [cols=",",]
 |=======================================================================
@@ -423,7 +422,7 @@ name.
 |=======================================================================
 
 [[principal-decoders]]
-=== Principal Decoders
+==== Principal Decoders
 
 [cols=",",]
 |=======================================================================
@@ -445,7 +444,7 @@ principal decoder.
 |=======================================================================
 
 [[realm-mappers]]
-=== Realm Mappers
+==== Realm Mappers
 
 [cols=",",]
 |=======================================================================
@@ -467,7 +466,7 @@ realm mapper is used instead.
 |=======================================================================
 
 [[realms]]
-=== Realms
+==== Realms
 
 [cols=",",]
 |=======================================================================
@@ -517,7 +516,7 @@ TrustManager list as used to create an SSL context.
 |=======================================================================
 
 [[permission-mappers]]
-=== Permission Mappers
+==== Permission Mappers
 
 [cols=",",]
 |=======================================================================
@@ -535,7 +534,7 @@ always returns the same constant.
 |=======================================================================
 
 [[role-decoders]]
-=== Role Decoders
+==== Role Decoders
 
 [cols=",",]
 |=======================================================================
@@ -548,7 +547,7 @@ single attribute and maps it directly to roles.
 |=======================================================================
 
 [[role-mappers]]
-=== Role Mappers
+==== Role Mappers
 
 [cols=",",]
 |=======================================================================
@@ -573,7 +572,7 @@ performs a logical operation using two referenced role mappers.
 |=======================================================================
 
 [[ssl-components]]
-=== SSL Components
+==== SSL Components
 
 [cols=",",]
 |=======================================================================
@@ -598,7 +597,7 @@ connection.
 |=======================================================================
 
 [[other]]
-=== Other
+==== Other
 
 [cols=",",]
 |=======================================================================
@@ -629,7 +628,7 @@ information such as passwords for external services.
 |=======================================================================
 
 [[out-of-the-box-configuration]]
-== Out of the Box Configuration
+=== Out of the Box Configuration
 
 WildFly provides a set of components configured by default. While these
 components are ready to use, the legacy _security_ subsystem and legacy
@@ -968,7 +967,7 @@ and openssl provider loaders.
 ----
 
 [[default-application-authentication-configuration]]
-== Default Application Authentication Configuration
+=== Default Application Authentication Configuration
 
 By default, applications are secured using legacy security domains.
 Applications must specify a security domain in their _web.xml_ as well
@@ -977,7 +976,7 @@ application, WildFly will use the provided _other_ legacy security
 domain.
 
 [[update-wildfly-to-use-the-default-elytron-components-for-application-authentication]]
-=== Update WildFly to Use the Default Elytron Components for Application
+==== Update WildFly to Use the Default Elytron Components for Application
 Authentication
 
 [source, java]
@@ -986,7 +985,7 @@ Authentication
 ----
 
 [[default-elytron-application-http-authentication-configuration]]
-=== Default Elytron Application HTTP Authentication Configuration
+==== Default Elytron Application HTTP Authentication Configuration
 
 By default, the _application-http-authentication_
 http-authentication-factory is provided for application http
@@ -1061,7 +1060,7 @@ realm.
 ----
 
 [[default-management-authentication-configuration]]
-== Default Management Authentication Configuration
+=== Default Management Authentication Configuration
 
 By default, the WildFly management interfaces are secured by the legacy
 core management authentication.
@@ -1093,11 +1092,11 @@ _management-sasl-authentication_ in the _elytron_ subsystem for securing
 the management interfaces as well.
 
 [[update-wildfly-to-use-the-default-elytron-components-for-management-authentication]]
-=== Update WildFly to Use the Default Elytron Components for Management
+==== Update WildFly to Use the Default Elytron Components for Management
 Authentication
 
 [[set-http-authentication-factory-to-use-management-http-authentication]]
-==== Set http-authentication-factory to use
+===== Set http-authentication-factory to use
 management-http-authentication
 
 [source, java]
@@ -1109,7 +1108,7 @@ management-http-authentication
 ----
 
 [[set-sasl-authentication-factory-to-use-management-sasl-authentication]]
-==== Set sasl-authentication-factory to use
+===== Set sasl-authentication-factory to use
 management-sasl-authentication
 
 [source, java]
@@ -1121,7 +1120,7 @@ management-sasl-authentication
 ----
 
 [[undefine-security-realm]]
-==== Undefine security-realm
+===== Undefine security-realm
 
 [source, java]
 ----
@@ -1129,7 +1128,7 @@ management-sasl-authentication
 ----
 
 [[reload-wildfly-for-the-changes-to-take-affect.]]
-==== Reload WildFly for the changes to take affect.
+===== Reload WildFly for the changes to take affect.
 
 [source, java]
 ----
@@ -1140,7 +1139,7 @@ The management interfaces are now secured using the default components
 provided by the 'elytron' subsystem.
 
 [[default-elytron-management-http-authentication-configuration]]
-=== Default Elytron Management HTTP Authentication Configuration
+==== Default Elytron Management HTTP Authentication Configuration
 
 When you access the management interface over HTTP, for example when
 using the web-based management console, WildFly will use the
@@ -1218,7 +1217,7 @@ realm.
 ----
 
 [[default-elytron-management-cli-authentication]]
-=== Default Elytron Management CLI Authentication
+==== Default Elytron Management CLI Authentication
 
 By default, the management CLI ( _jboss-cli.sh_) is configured to
 connect over _remotehttp_.
@@ -1320,7 +1319,7 @@ The _ManagementRealm_ Elytron security realm is the same realm used in
 the _management-http-authentication_ http-authentication-factory.
 
 [[comparing-legacy-approaches-to-elytron-approaches]]
-== Comparing Legacy Approaches to Elytron Approaches
+=== Comparing Legacy Approaches to Elytron Approaches
 
 [cols=",",]
 |=======================================================================
@@ -1362,16 +1361,16 @@ using the Elytron Subsystem
 |=======================================================================
 
 [[using-the-elytron-subsystem]]
-= Using the Elytron Subsystem
+== Using the Elytron Subsystem
 
 [[set-up-and-configure-authentication-for-applications]]
-== Set Up and Configure Authentication for Applications
+=== Set Up and Configure Authentication for Applications
 
 [[configure-authentication-with-a-properties-file-based-identity-store]]
-=== Configure Authentication with a Properties File-Based Identity Store
+==== Configure Authentication with a Properties File-Based Identity Store
 
 [[create-properties-files]]
-==== Create properties files:
+===== Create properties files:
 
 You need to create two properties files: one that maps user to passwords
 and another that maps users to roles. Usually these files are located in
@@ -1399,7 +1398,7 @@ user2=Guest
 ----
 
 [[configure-a-properties-realm-in-wildfly]]
-==== Configure a properties-realm in WildFly:
+===== Configure a properties-realm in WildFly:
 
 [source, java]
 ----
@@ -1413,7 +1412,7 @@ then you need to change the _path_ and _relative-to_ values
 appropriately.
 
 [[configure-a-security-domain]]
-==== Configure a security-domain:
+===== Configure a security-domain:
 
 [source, java]
 ----
@@ -1421,7 +1420,7 @@ appropriately.
 ----
 
 [[configure-an-http-authentication-factory]]
-==== Configure an http-authentication-factory:
+===== Configure an http-authentication-factory:
 
 [source, java]
 ----
@@ -1433,7 +1432,7 @@ _BASIC_ authentication, but it could be updated to other mechanisms such
 as _FORM_.
 
 [[configure-an-application-security-domain-in-the-undertow-subsystem]]
-==== Configure an application-security-domain in the Undertow subsystem:
+===== Configure an application-security-domain in the Undertow subsystem:
 
 [source, java]
 ----
@@ -1441,7 +1440,7 @@ as _FORM_.
 ----
 
 [[configure-your-applications-web.xml-and-jboss-web.xml.]]
-==== Configure your application's web.xml and jboss-web.xml.
+===== Configure your application's web.xml and jboss-web.xml.
 
 Your application's _web.xml_ and _jboss-web.xml_ must be updated to use
 the _application-security-domain_ you configured in WildFly. An example
@@ -1451,17 +1450,17 @@ Applications to Use Elytron or Legacy Security for Authentication]
 section.
 
 [[configure-authentication-with-a-filesystem-based-identity-store]]
-=== Configure Authentication with a Filesystem-Based Identity Store
+==== Configure Authentication with a Filesystem-Based Identity Store
 
 [[chose-a-directory-for-users]]
-==== Chose a directory for users:
+===== Chose a directory for users:
 
 You need a directory where your users will be stored. In this example,
 we are using a directory called _fs-realm-users_ located in
 _jboss.server.config.dir_.
 
 [[configure-a-filesystem-realm-in-wildfly]]
-==== Configure a filesystem-realm in WildFly:
+===== Configure a filesystem-realm in WildFly:
 
 [source, java]
 ----
@@ -1472,7 +1471,7 @@ If your directory is located outside of _jboss.server.config.dir_, then
 you need to change the _path_ and _relative-to_ values appropriately.
 
 [[add-a-user]]
-==== Add a user:
+===== Add a user:
 
 When using the _filesystem-realm_, you can add users using the
 management CLI.
@@ -1485,7 +1484,7 @@ management CLI.
 ----
 
 [[add-a-simple-role-decoder]]
-==== Add a simple-role-decoder:
+===== Add a simple-role-decoder:
 
 [source, java]
 ----
@@ -1497,7 +1496,7 @@ attribute. You can change this value if your roles are in a different
 attribute.
 
 [[configure-a-security-domain-1]]
-==== Configure a security-domain:
+===== Configure a security-domain:
 
 [source, java]
 ----
@@ -1505,7 +1504,7 @@ attribute.
 ----
 
 [[configure-an-http-authentication-factory-1]]
-==== Configure an http-authentication-factory:
+===== Configure an http-authentication-factory:
 
 [source, java]
 ----
@@ -1517,7 +1516,7 @@ _BASIC_ authentication, but it could be updated to other mechanisms such
 as _FORM_.
 
 [[configure-an-application-security-domain-in-the-undertow-subsystem-1]]
-==== Configure an application-security-domain in the Undertow subsystem:
+===== Configure an application-security-domain in the Undertow subsystem:
 
 [source, java]
 ----
@@ -1525,7 +1524,7 @@ as _FORM_.
 ----
 
 [[configure-your-applications-web.xml-and-jboss-web.xml.-1]]
-==== Configure your application's web.xml and jboss-web.xml.
+===== Configure your application's web.xml and jboss-web.xml.
 
 Your application's _web.xml_ and _jboss-web.xml_ must be updated to use
 the _application-security-domain_ you configured in WildFly. An example
@@ -1538,10 +1537,10 @@ Your application is now using a filesystem-based identity store for
 authentication.
 
 [[configure-authentication-with-a-database-identity-store]]
-=== Configure Authentication with a Database Identity Store
+==== Configure Authentication with a Database Identity Store
 
 [[determine-your-database-format-for-usernames-passwords-and-roles]]
-==== Determine your database format for usernames, passwords, and roles:
+===== Determine your database format for usernames, passwords, and roles:
 
 To set up authentication using a database for an identity store, you
 need to determine how your usernames, passwords, and roles are stored in
@@ -1556,7 +1555,7 @@ following sample data:
 |=========================
 
 [[configure-a-datasource]]
-==== Configure a datasource:
+===== Configure a datasource:
 
 To connect to a database from WildFly, you must have the appropriate
 database driver deployed as well as a datasource configured. This
@@ -1571,7 +1570,7 @@ data-source add --name=examplePostgresDS --jndi-name=java:jboss/examplePostgresD
 ----
 
 [[configure-a-jdbc-realm-in-wildfly]]
-==== Configure a jdbc-realm in WildFly:
+===== Configure a jdbc-realm in WildFly:
 
 [source, java]
 ----
@@ -1585,7 +1584,7 @@ multiple queries to obtain roles or additional authentication or
 authorization information.
 
 [[configure-a-security-domain-2]]
-==== Configure a security-domain:
+===== Configure a security-domain:
 
 [source, java]
 ----
@@ -1593,7 +1592,7 @@ authorization information.
 ----
 
 [[configure-an-http-authentication-factory-2]]
-==== Configure an http-authentication-factory:
+===== Configure an http-authentication-factory:
 
 [source, java]
 ----
@@ -1605,7 +1604,7 @@ _BASIC_ authentication, but it could be updated to other mechanisms such
 as _FORM_.
 
 [[configure-an-application-security-domain-in-the-undertow-subsystem-2]]
-==== Configure an application-security-domain in the Undertow subsystem:
+===== Configure an application-security-domain in the Undertow subsystem:
 
 [source, java]
 ----
@@ -1613,7 +1612,7 @@ as _FORM_.
 ----
 
 [[configure-your-applications-web.xml-and-jboss-web.xml.-2]]
-==== Configure your application's web.xml and jboss-web.xml.
+===== Configure your application's web.xml and jboss-web.xml.
 
 Your application's _web.xml_ and _jboss-web.xml_ must be updated to use
 the _application-security-domain_ you configured in WildFly. An example
@@ -1623,10 +1622,10 @@ Applications to Use Elytron or Legacy Security for Authentication]
 section.
 
 [[configure-authentication-with-an-ldap-based-identity-store]]
-=== Configure Authentication with an LDAP-Based Identity Store
+==== Configure Authentication with an LDAP-Based Identity Store
 
 [[determine-your-ldap-format-for-usernames-passwords-and-roles]]
-==== Determine your LDAP format for usernames, passwords, and roles:
+===== Determine your LDAP format for usernames, passwords, and roles:
 
 To set up authentication using an LDAP server for an identity store, you
 need to determine how your usernames, passwords, and roles are stored.
@@ -1666,7 +1665,7 @@ member: uid=jsmith,ou=Users,dc=wildfly,dc=org
 ----
 
 [[configure-a-dir-context]]
-==== Configure a dir-context:
+===== Configure a dir-context:
 
 To connect to the LDAP server from WildFly, you need to configure a
 _dir-context_ that provides the URL as well as the principal used to
@@ -1678,7 +1677,7 @@ connect to the server.
 ----
 
 [[configure-an-ldap-realm-in-wildfly]]
-==== Configure an ldap-realm in WildFly:
+===== Configure an ldap-realm in WildFly:
 
 [source, java]
 ----
@@ -1686,7 +1685,7 @@ connect to the server.
 ----
 
 [[add-a-simple-role-decoder-1]]
-==== Add a simple-role-decoder:
+===== Add a simple-role-decoder:
 
 [source, java]
 ----
@@ -1694,7 +1693,7 @@ connect to the server.
 ----
 
 [[configure-a-security-domain-3]]
-==== Configure a security-domain:
+===== Configure a security-domain:
 
 [source, java]
 ----
@@ -1702,7 +1701,7 @@ connect to the server.
 ----
 
 [[configure-an-http-authentication-factory-3]]
-==== Configure an http-authentication-factory:
+===== Configure an http-authentication-factory:
 
 [source, java]
 ----
@@ -1714,7 +1713,7 @@ _BASIC_ authentication, but it could be updated to other mechanisms such
 as _FORM_.
 
 [[configure-an-application-security-domain-in-the-undertow-subsystem-3]]
-==== Configure an application-security-domain in the Undertow subsystem:
+===== Configure an application-security-domain in the Undertow subsystem:
 
 [source, java]
 ----
@@ -1722,7 +1721,7 @@ as _FORM_.
 ----
 
 [[configure-your-applications-web.xml-and-jboss-web.xml.-3]]
-==== Configure your application's web.xml and jboss-web.xml.
+===== Configure your application's web.xml and jboss-web.xml.
 
 Your application's _web.xml_ and _jboss-web.xml_ must be updated to use
 the _application-security-domain_ you configured in WildFly. An example
@@ -1740,13 +1739,13 @@ which will return a _401_, or unauthorized, error code under the same
 conditions.
 
 [[configure-authentication-with-certificates]]
-=== Configure Authentication with Certificates
+==== Configure Authentication with Certificates
 
 *IMPORTANT:* Before you can set up certificate-based authentication, you
 must have two-way SSL configured.
 
 [[configure-a-key-store-realm.]]
-==== Configure a key-store-realm.
+===== Configure a key-store-realm.
 
 [source, java]
 ----
@@ -1758,7 +1757,7 @@ client's certificate. The authentication process uses the same
 certificate presented by the client during the two-way SSL handshake.
 
 [[create-a-decoder.]]
-==== Create a Decoder.
+===== Create a Decoder.
 
 You need to create a _x500-attribute-principal-decoder_ to decode the
 principal you get from your certificate. The below example will decode
@@ -1779,7 +1778,7 @@ truststore configured in _ksRealm_.
 you set in your server's truststore for the client's certificate.
 
 [[add-a-constant-role-mapper-for-assigning-roles.]]
-==== Add a constant-role-mapper for assigning roles.
+===== Add a constant-role-mapper for assigning roles.
 
 This is example uses a _constant-role-mapper_ to assign roles to a
 principal from _ksRealm_ but other approaches may also be used.
@@ -1790,7 +1789,7 @@ principal from _ksRealm_ but other approaches may also be used.
 ----
 
 [[configure-a-security-domain.]]
-==== Configure a security-domain.
+===== Configure a security-domain.
 
 [source, java]
 ----
@@ -1798,7 +1797,7 @@ principal from _ksRealm_ but other approaches may also be used.
 ----
 
 [[configure-an-http-authentication-factory.]]
-==== Configure an http-authentication-factory.
+===== Configure an http-authentication-factory.
 
 [source, java]
 ----
@@ -1806,7 +1805,7 @@ principal from _ksRealm_ but other approaches may also be used.
 ----
 
 [[configure-an-application-security-domain-in-the-undertow-subsystem.]]
-==== Configure an application-security-domain in the Undertow subsystem.
+===== Configure an application-security-domain in the Undertow subsystem.
 
 [source, java]
 ----
@@ -1814,7 +1813,7 @@ principal from _ksRealm_ but other approaches may also be used.
 ----
 
 [[update-server-ssl-context.]]
-==== Update server-ssl-context.
+===== Update server-ssl-context.
 
 [source, java]
 ----
@@ -1823,7 +1822,7 @@ principal from _ksRealm_ but other approaches may also be used.
 ----
 
 [[configure-your-applications-web.xml-and-jboss-web.xml.-4]]
-==== Configure your application's web.xml and jboss-web.xml.
+===== Configure your application's web.xml and jboss-web.xml.
 
 Your application's _web.xml_ and _jboss-web.xml_ must be updated to use
 the _application-security-domain_ you configured in WildFly. An example
@@ -1844,13 +1843,13 @@ its authentication method.
 ----
 
 [[configure-authentication-with-a-kerberos-based-identity-store]]
-=== Configure Authentication with a Kerberos-Based Identity Store
+==== Configure Authentication with a Kerberos-Based Identity Store
 
 *IMPORTANT*: The following steps assume you have a working KDC and
 Kerberos domain as well as your client browsers configured.
 
 [[configure-a-kerberos-security-factory.]]
-==== Configure a kerberos-security-factory.
+===== Configure a kerberos-security-factory.
 
 [source, java]
 ----
@@ -1858,7 +1857,7 @@ Kerberos domain as well as your client browsers configured.
 ----
 
 [[configure-the-system-properties-for-kerberos.]]
-==== Configure the system properties for Kerberos.
+===== Configure the system properties for Kerberos.
 
 Depending on how your environment is configured, you will need to set
 some of the system properties below.
@@ -1880,7 +1879,7 @@ To configure a system property in WildFly:
 ----
 
 [[configure-an-eltyron-security-realm-for-assigning-roles.]]
-==== Configure an Eltyron security realm for assigning roles.
+===== Configure an Eltyron security realm for assigning roles.
 
 The the client's Kerberos token will provide the principal, but you need
 a way to map that principal to a role for your application. There are
@@ -1896,7 +1895,7 @@ from the Kerberos token, and assigns roles to that user.
 ----
 
 [[add-a-simple-role-decoder.]]
-==== Add a simple-role-decoder.
+===== Add a simple-role-decoder.
 
 [source, java]
 ----
@@ -1908,7 +1907,7 @@ attribute. You can change this value if your roles are in a different
 attribute.
 
 [[configure-a-security-domain.-1]]
-==== Configure a security-domain.
+===== Configure a security-domain.
 
 [source, java]
 ----
@@ -1916,7 +1915,7 @@ attribute.
 ----
 
 [[configure-an-http-authentication-factory-that-uses-the-kerberos-security-factory.]]
-==== Configure an http-authentication-factory that uses the
+===== Configure an http-authentication-factory that uses the
 kerberos-security-factory.
 
 [source, java]
@@ -1925,7 +1924,7 @@ kerberos-security-factory.
 ----
 
 [[configure-an-application-security-domain-in-the-undertow-subsystem-4]]
-==== Configure an application-security-domain in the Undertow subsystem:
+===== Configure an application-security-domain in the Undertow subsystem:
 
 [source, java]
 ----
@@ -1933,7 +1932,7 @@ kerberos-security-factory.
 ----
 
 [[configure-your-applications-web.xml-jboss-web.xml-and-jboss-deployment-structure.xml.]]
-==== Configure your application's web.xml, jboss-web.xml and
+===== Configure your application's web.xml, jboss-web.xml and
 jboss-deployment-structure.xml.
 
 Your application's _web.xml_ and _jboss-web.xml_ must be updated to use
@@ -1955,16 +1954,16 @@ authentication method.
 ----
 
 [[configure-authentication-with-a-form-as-a-fallback-for-kerberos]]
-=== Configure Authentication with a Form as a Fallback for Kerberos
+==== Configure Authentication with a Form as a Fallback for Kerberos
 
 [[configure-kerberos-based-authentication.]]
-==== Configure kerberos-based authentication.
+===== Configure kerberos-based authentication.
 
 Configuring kerberos-based authentication is covered in a previous
 section.
 
 [[add-a-mechanism-for-form-authentication-in-the-http-authentication-factory.]]
-==== Add a mechanism for FORM authentication in the
+===== Add a mechanism for FORM authentication in the
 http-authentication-factory.
 
 You can use the existing _http-authentication-factory_ you configured
@@ -1977,7 +1976,7 @@ _FORM_ authentication.
 ----
 
 [[add-additional-fallback-principals.]]
-==== Add additional fallback principals.
+===== Add additional fallback principals.
 
 The existing configuration for kerberos-based authentication should
 already have a security realm configured for mapping principals from
@@ -1994,7 +1993,7 @@ appropriate roles:
 ----
 
 [[update-the-web.xml-for-form-fallback.]]
-==== Update the web.xml for FORM fallback.
+===== Update the web.xml for FORM fallback.
 
 You need to update the _web.xml_ to use the value _SPNEGO,FORM_ for the
 _auth-method_, which will use _FORM_ as a fallback authentication method
@@ -2014,14 +2013,14 @@ and error pages.
 ----
 
 [[configure-applications-to-use-elytron-or-legacy-security-for-authentication]]
-=== Configure Applications to Use Elytron or Legacy Security for
+==== Configure Applications to Use Elytron or Legacy Security for
 Authentication
 
 After you have configured the _elytron_ or legacy _security_ subsystems
 for authentication, you need to configure your application to use it.
 
 [[configure-your-applications-web.xml.]]
-==== Configure your application's web.xml.
+===== Configure your application's web.xml.
 
 Your application's _web.xml_ needs to be configured to use the
 appropriate authentication method. When using _elytron_, this is defined
@@ -2055,7 +2054,7 @@ Example _web.xml_ with _BASIC_ Authentication
 ----
 
 [[configure-your-application-to-use-a-security-domain.]]
-==== Configure your application to use a security domain.
+===== Configure your application to use a security domain.
 
 You can configure your application's _jboss-web.xml_ to specify the
 security domain you want to use for authentication. When using the
@@ -2090,7 +2089,7 @@ _jboss-web.xml_ file, the configuration in _jboss-web.xml_ will override
 the _default-security-domain_ in the _undertow_ subsystem.
 
 [[using-elytron-and-legacy-security-subsystems-in-parallel]]
-==== Using Elytron and Legacy Security Subsystems in Parallel
+===== Using Elytron and Legacy Security Subsystems in Parallel
 
 You can define authentication in both the _elytron_ and legacy
 _security_ subsystems and use them in parallel. If you use both
@@ -2103,7 +2102,7 @@ subsystem each have a security domain with the same name, the _elytron_
 security domain is used.
 
 [[override-an-applications-authentication-configuration]]
-=== Override an Application's Authentication Configuration
+==== Override an Application's Authentication Configuration
 
 You can override the authentication configuration of an application with
 one configured in WildFly. To do this, use the
@@ -2155,10 +2154,10 @@ application's _jboss-web.xml_ and attempt to authenticate a user using
 _BASIC_ instead of _FORM_.
 
 [[create-and-use-a-credential-store]]
-=== Create and Use a Credential Store
+==== Create and Use a Credential Store
 
 [[create-credential-store.]]
-==== Create credential store.
+===== Create credential store.
 
 [source, java]
 ----
@@ -2166,7 +2165,7 @@ _BASIC_ instead of _FORM_.
 ----
 
 [[add-a-credential-to-a-credential-store.]]
-==== Add a credential to a credential store.
+===== Add a credential to a credential store.
 
 [source, java]
 ----
@@ -2174,7 +2173,7 @@ _BASIC_ instead of _FORM_.
 ----
 
 [[list-all-credentials-in-a-credential-store.]]
-==== List all credentials in a credential store.
+===== List all credentials in a credential store.
 
 [source, java]
 ----
@@ -2186,7 +2185,7 @@ _BASIC_ instead of _FORM_.
 ----
 
 [[remove-a-credential-from-a-credential-store.]]
-==== Remove a credential from a credential store.
+===== Remove a credential from a credential store.
 
 [source, java]
 ----
@@ -2194,7 +2193,7 @@ _BASIC_ instead of _FORM_.
 ----
 
 [[use-a-credential-store.]]
-==== Use a credential store.
+===== Use a credential store.
 
 [source, java]
 ----
@@ -2202,13 +2201,13 @@ _BASIC_ instead of _FORM_.
 ----
 
 [[set-up-and-configure-authentication-for-the-management-interfaces]]
-== Set up and Configure Authentication for the Management Interfaces
+=== Set up and Configure Authentication for the Management Interfaces
 
 [[secure-the-management-interfaces-with-a-new-identity-store]]
-=== Secure the Management Interfaces with a New Identity Store
+==== Secure the Management Interfaces with a New Identity Store
 
 [[create-a-security-domain-and-any-supporting-security-realms-decoders-or-mappers-for-your-identity-store.]]
-==== Create a security domain and any supporting security realms,
+===== Create a security domain and any supporting security realms,
 decoders, or mappers for your identity store.
 
 This process is covered in a previous section. For example, if you
@@ -2218,7 +2217,7 @@ link:#src-557133_WildFlyElytronSecurity-ConfigureAuthenticationwithaFilesystem-B
 Authentication with a Filesystem-Based Identity Store].
 
 [[create-an-http-authentication-factory-or-sasl-authentication-factory.]]
-==== Create an http-authentication-factory or
+===== Create an http-authentication-factory or
 sasl-authentication-factory.
 
 Example _http-authentication-factory_
@@ -2236,7 +2235,7 @@ Example _sasl-authentication-factory_
 ----
 
 [[update-the-management-interfaces-to-use-your-http-authentication-factory-or-sasl-authentication-factory.]]
-==== Update the management interfaces to use your
+===== Update the management interfaces to use your
 http-authentication-factory or sasl-authentication-factory.
 
 Example update _http-authentication-factory_
@@ -2272,7 +2271,7 @@ reload
 ----
 
 [[silent-authentication]]
-=== Silent Authentication
+==== Silent Authentication
 
 By default, WildFly provides an authentication mechanism for local
 users, also know as silent authentication, through the _local_ security
@@ -2286,7 +2285,7 @@ references a security realm that contains the _$local_ user. By default,
 WildFly provides the _local_ identity realm that provides this user.
 
 [[add-silent-authentication-to-an-existing-sasl-authentication-factory.]]
-==== Add silent authentication to an existing
+===== Add silent authentication to an existing
 sasl-authentication-factory.
 
 [source, java]
@@ -2297,7 +2296,7 @@ reload
 ----
 
 [[create-a-new-sasl-server-factory-with-silent-authentication.]]
-==== Create a new sasl-server-factory with silent authentication.
+===== Create a new sasl-server-factory with silent authentication.
 
 [source, java]
 ----
@@ -2307,7 +2306,7 @@ reload
 ----
 
 [[remove-silent-authentication-from-an-existing-sasl-server-factory]]
-==== Remove silent authentication from an existing sasl-server-factory:
+===== Remove silent authentication from an existing sasl-server-factory:
 
 [source, java]
 ----
@@ -2336,7 +2335,7 @@ reload
 ----
 
 [[using-rbac-with-elytron]]
-=== Using RBAC with Elytron
+==== Using RBAC with Elytron
 
 RBAC can be configured to automatically assign or exclude roles for
 users that are members of groups. This is configured in the
@@ -2347,16 +2346,16 @@ be assigned to authenticated users in a variety of ways using the
 _elytron_ subsystem, for example using a role mapper or a role decoder.
 
 [[configure-ssltls]]
-== Configure SSL/TLS
+=== Configure SSL/TLS
 
 [[enable-one-way-ssltls-for-applications]]
-=== Enable One-way SSL/TLS for Applications
+==== Enable One-way SSL/TLS for Applications
 
 In WildFly, you can use the Elytron subsystem, along with the Undertow
 subsystem, to enable HTTPS for deployed applications.
 
 [[obtain-or-generate-your-key-store]]
-==== Obtain or generate your key store:
+===== Obtain or generate your key store:
 
 Before enabling HTTPS in WildFly, you must obtain or generate the
 keystore you plan on using. To generate an example keystore:
@@ -2367,7 +2366,7 @@ $ keytool -genkeypair -alias localhost -keyalg RSA -keysize 1024 -validity 365 -
 ----
 
 [[configure-a-key-store-in-wildfly]]
-==== Configure a key-store in WildFly:
+===== Configure a key-store in WildFly:
 
 [source, java]
 ----
@@ -2384,7 +2383,7 @@ base directory variable and _path_ specify a relative path.
 ----
 
 [[configure-a-key-manager-in-that-references-your-key-store]]
-==== Configure a key-manager in that references your key-store:
+===== Configure a key-manager in that references your key-store:
 
 [source, java]
 ----
@@ -2392,7 +2391,7 @@ base directory variable and _path_ specify a relative path.
 ----
 
 [[configure-a-server-ssl-context-in-that-references-your-key-manager]]
-==== Configure a server-ssl-context in that references your key-manager:
+===== Configure a server-ssl-context in that references your key-manager:
 
 [source, java]
 ----
@@ -2403,7 +2402,7 @@ base directory variable and _path_ specify a relative path.
 support. The example commands above uses _TLSv1.2_.
 
 [[check-and-see-if-the-https-listener-is-configured-to-use-a-legacy-security-realm-for-its-ssl-configuration]]
-==== Check and see if the https-listener is configured to use a legacy
+===== Check and see if the https-listener is configured to use a legacy
 security realm for its SSL configuration:
 
 [source, java]
@@ -2435,7 +2434,7 @@ run-batch
 ----
 
 [[reload-the-server]]
-==== Reload the server:
+===== Reload the server:
 
 [source, java]
 ----
@@ -2445,13 +2444,13 @@ reload
 HTTPS is now enabled for applications.
 
 [[enable-two-way-ssltls-in-wildfly-for-applications]]
-=== Enable Two-way SSL/TLS in WildFly for Applications
+==== Enable Two-way SSL/TLS in WildFly for Applications
 
 In WildFly, you can use the Elytron subsystem, along with the Undertow
 subsystem, to enable two-way SSL/TLS for deployed applications.
 
 [[obtain-or-generate-your-keystore]]
-==== Obtain or generate your keystore:
+===== Obtain or generate your keystore:
 
 Before enabling HTTPS in WildFly, you must obtain or generate the
 keystores, truststores and certificates you plan on using.
@@ -2484,7 +2483,7 @@ $ keytool -importcert -keystore client.truststore.jks -storepass secret -alias l
 ----
 
 [[configure-a-key-store-for-server-keystore-and-truststore-in-wildfly]]
-==== Configure a key-store for server keystore and truststore in
+===== Configure a key-store for server keystore and truststore in
 WildFly:
 
 [source, java]
@@ -2505,7 +2504,7 @@ base directory variable and _path_ specify a relative path.
 ----
 
 [[configure-a-key-manager-in-that-references-your-key-store-key-store]]
-==== Configure a key-manager in that references your key store
+===== Configure a key-manager in that references your key store
 key-store:
 
 [source, java]
@@ -2514,7 +2513,7 @@ key-store:
 ----
 
 [[configure-a-trust-manager-in-that-references-your-truststore-key-store]]
-==== Configure a trust-manager in that references your truststore
+===== Configure a trust-manager in that references your truststore
 key-store:
 
 [source, java]
@@ -2523,7 +2522,7 @@ key-store:
 ----
 
 [[configure-a-server-ssl-context-in-that-references-your-key-manager-trust-manager-and-enables-client-authentication]]
-==== Configure a server-ssl-context in that references your key-manager,
+===== Configure a server-ssl-context in that references your key-manager,
 trust-manager, and enables client authentication:
 
 [source, java]
@@ -2536,7 +2535,7 @@ You need to determine what SSL/TLS protocols you want to support. The
 example commands above uses _TLSv1.2_.
 
 [[check-and-see-if-the-https-listener-is-configured-to-use-a-legacy-security-realm-for-its-ssl-configuration-1]]
-==== Check and see if the https-listener is configured to use a legacy
+===== Check and see if the https-listener is configured to use a legacy
 security realm for its SSL configuration:
 
 [source, java]
@@ -2557,7 +2556,7 @@ configured either _ssl-context_ or _security-realm_. Thus when changing
 between those, you have to use batch operation:
 
 [[remove-the-reference-to-the-legacy-security-realm-and-update-the-https-listener-to-use-the-ssl-context-from-elytron]]
-==== Remove the reference to the legacy security realm and update the
+===== Remove the reference to the legacy security realm and update the
 https-listener to use the ssl-context from Elytron:
 
 [source, java]
@@ -2569,7 +2568,7 @@ run-batch
 ----
 
 [[reload-the-server-1]]
-==== Reload the server
+===== Reload the server
 
 [source, java]
 ----
@@ -2577,7 +2576,7 @@ reload
 ----
 
 [[configure-your-client-to-use-the-client-certificate]]
-==== Configure your client to use the client certificate
+===== Configure your client to use the client certificate
 
 You need to configure your client to present the trusted client
 certificate to the server to complete the two-way SSL/TLS
@@ -2587,11 +2586,11 @@ trusted certificate into the browser's truststore.
 Two-Way HTTPS is now enabled for applications.
 
 [[enable-one-way-ssltls-for-the-management-interfaces-using-the-elytron-subsystem]]
-=== Enable One-way SSL/TLS for the Management Interfaces Using the
+==== Enable One-way SSL/TLS for the Management Interfaces Using the
 Elytron Subsystem
 
 [[obtain-or-generate-your-key-store-1]]
-==== Obtain or generate your key store:
+===== Obtain or generate your key store:
 
 Before enabling HTTPS in WildFly, you must obtain or generate the key
 store you plan on using. To generate an example key store, use the
@@ -2603,7 +2602,7 @@ $ keytool -genkeypair -alias localhost -keyalg RSA -keysize 1024 -validity 365 -
 ----
 
 [[create-a-key-store-key-manager-and-server-ssl-context.]]
-==== Create a key-store, key-manager, and server-ssl-context.
+===== Create a key-store, key-manager, and server-ssl-context.
 
 [source, java]
 ----
@@ -2622,7 +2621,7 @@ of the keystore file. Alternatively, you can specify the full path to
 the keystore in _path_ and omit _relative-to_.
 
 [[enable-https-on-the-management-interface.]]
-==== Enable HTTPS on the management interface.
+===== Enable HTTPS on the management interface.
 
 [source, java]
 ----
@@ -2632,7 +2631,7 @@ the keystore in _path_ and omit _relative-to_.
 ----
 
 [[reload-the-wildfly-instance.]]
-==== Reload the WildFly instance.
+===== Reload the WildFly instance.
 
 [source, java]
 ----
@@ -2642,11 +2641,11 @@ reload
 HTTPS is now enabled for the management interfaces.
 
 [[enable-two-way-ssltls-for-the-management-interfaces-using-the-elytron-subsystem]]
-=== Enable Two-way SSL/TLS for the Management Interfaces using the
+==== Enable Two-way SSL/TLS for the Management Interfaces using the
 Elytron Subsystem
 
 [[obtain-or-generate-your-key-store.]]
-==== Obtain or generate your key store.
+===== Obtain or generate your key store.
 
 Before enabling HTTPS in WildFly, you must obtain or generate the key
 stores, trust stores and certificates you plan on using. To generate an
@@ -2681,7 +2680,7 @@ $ keytool -importcert -keystore client.truststore.jks -storepass secret -alias l
 ----
 
 [[configure-key-store-a-key-manager-trust-manager-and-server-ssl-context-for-the-server-key-store-and-trust-store.]]
-==== Configure key-store, a key-manager, trust-manager, and
+===== Configure key-store, a key-manager, trust-manager, and
 server-ssl-context for the server key store and trust store.
 
 [source, java]
@@ -2705,7 +2704,7 @@ of the keystore file. Alternatively, you can specify the full path to
 the keystore in _path_ and omit _relative-to_.
 
 [[enable-https-on-the-management-interface.-1]]
-==== Enable HTTPS on the management interface.
+===== Enable HTTPS on the management interface.
 
 [source, java]
 ----
@@ -2715,7 +2714,7 @@ the keystore in _path_ and omit _relative-to_.
 ----
 
 [[reload-the-wildfly-instance.-1]]
-==== Reload the WildFly instance.
+===== Reload the WildFly instance.
 
 [source, java]
 ----
@@ -2723,7 +2722,7 @@ reload
 ----
 
 [[configure-your-client-to-use-the-client-certificate.]]
-==== Configure your client to use the client certificate.
+===== Configure your client to use the client certificate.
 
 You need to configure your client to present the trusted client
 certificate to the server to complete the two-way SSL/TLS
@@ -2733,7 +2732,7 @@ trusted certificate into the browser's trust store.
 Two-way SSL/TLS is now enabled for the management interfaces.
 
 [[using-an-ldap-key-store]]
-=== Using an ldap-key-store
+==== Using an ldap-key-store
 
 An _ldap-key-store_ allows you to use a keystore stored in an LDAP
 server. You can use an _ldap-key-store_ in same way you can use a
@@ -2742,7 +2741,7 @@ _key-store_.
 To create and use an _ldap-key-store_:
 
 [[configure-a-dir-context.]]
-==== Configure a dir-context.
+===== Configure a dir-context.
 
 To connect to the LDAP server from WildFly, you need to configure a
 _dir-context_ that provides the URL as well as the principal used to
@@ -2760,7 +2759,7 @@ connect to the server.
 ----
 
 [[configure-an-ldap-key-store.]]
-==== Configure an ldap-key-store.
+===== Configure an ldap-key-store.
 
 When configure an _ldap-key-store_, you need to specify both the
 _dir-context_ used to connect to the LDAP server as well as how to
@@ -2778,7 +2777,7 @@ requires you specify a _search-path_.
 ----
 
 [[use-the-ldap-key-store.]]
-==== Use the ldap-key-store.
+===== Use the ldap-key-store.
 
 Once you have defined your _ldap-key-store_, you can use it in the same
 places where a _key-store_ could be used. For example, you could use an
@@ -2786,7 +2785,7 @@ _ldap-key-store_ when configuring HTTPS and Two-Way HTTPS for
 applications.
 
 [[using-a-filtering-key-store]]
-=== Using a filtering-key-store
+==== Using a filtering-key-store
 
 A _filtering-key-store_ allows you to expose a subset of aliases from an
 existing _key-store_, and use it in the same places you could use a
@@ -2797,7 +2796,7 @@ _filtering-key-store_ provides you several ways to do that.
 To create a _filtering-key-store_:
 
 [[configure-a-key-store.]]
-==== Configure a key-store.
+===== Configure a key-store.
 
 [source, java]
 ----
@@ -2812,7 +2811,7 @@ To create a _filtering-key-store_:
 ----
 
 [[configure-a-filtering-key-store.]]
-==== Configure a filtering-key-store.
+===== Configure a filtering-key-store.
 
 When you configure a _filtering-key-store_, you specify which
 _key-store_ you want to filter and the _alias-filter_ for filtering
@@ -2836,7 +2835,7 @@ This example uses a comma-delimted list to expose _alias1_ and _alias3_.
 ----
 
 [[use-the-filtering-key-store.]]
-==== Use the filtering-key-store.
+===== Use the filtering-key-store.
 
 Once you have defined your _filtering-key-store_, you can use it in the
 same places where a _key-store_ could be used. For example, you could
@@ -2844,7 +2843,7 @@ use a _filtering-key-store_ when configuring HTTPS and Two-Way HTTPS for
 applications.
 
 [[reload-a-keystore]]
-=== Reload a Keystore
+==== Reload a Keystore
 
 You can reload a keystore configured in WildFly from the management CLI.
 This is useful in cases where you have made changes to certificates
@@ -2858,7 +2857,7 @@ To reload a keystore.
 ----
 
 [[check-the-content-of-a-keystore-by-alias]]
-=== Check the Content of a Keystore by Alias
+==== Check the Content of a Keystore by Alias
 
 If you add a keystore to the _elytron_ subsystem using the _key-store_
 component, you can check the keystore's contents using the _alias_ child
@@ -2898,7 +2897,7 @@ and Other. Unrecognized types will be reported as Other.
 |=======================================================================
 
 [[custom-components]]
-=== Custom Components
+==== Custom Components
 
 When configuring SSL/TLS in the _elytron_ subsystem, you can provide and
 use custom implementations of the following components:
@@ -2913,13 +2912,13 @@ When creating custom implementations of Elytron components, they must
 present the appropriate capabilities and requirements.
 
 [[configuring-the-elytron-and-security-subsystems]]
-== Configuring the Elytron and Security Subsystems
+=== Configuring the Elytron and Security Subsystems
 
 [[enable-and-disable-the-elytron-subsystem]]
-=== Enable and Disable the Elytron Subsystem
+==== Enable and Disable the Elytron Subsystem
 
 [[to-add-the-elytron-extension-required-for-the-elytron-subsystem]]
-==== To add the elytron extension required for the elytron subsystem:
+===== To add the elytron extension required for the elytron subsystem:
 
 [source, java]
 ----
@@ -2927,7 +2926,7 @@ present the appropriate capabilities and requirements.
 ----
 
 [[to-enable-the-elytron-subsystem-in-wildfly]]
-==== To enable the Elytron subsystem in WildFly:
+===== To enable the Elytron subsystem in WildFly:
 
 [source, java]
 ----
@@ -2937,7 +2936,7 @@ reload
 ----
 
 [[to-disable-the-elytron-subsystem-in-wildfly]]
-==== To disable the Elytron subsystem in WildFly:
+===== To disable the Elytron subsystem in WildFly:
 
 [source, java]
 ----
@@ -2951,10 +2950,10 @@ the _elytron_ subsystem. If these dependencies are not resolved before
 disabling it, you will see errors when starting WildFly.
 
 [[enable-and-disable-the-security-subsystem]]
-=== Enable and Disable the Security Subsystem
+==== Enable and Disable the Security Subsystem
 
 [[to-disable-the-security-subsystem-in-wildfly]]
-==== To disable the security subsystem in WildFly:
+===== To disable the security subsystem in WildFly:
 
 [source, java]
 ----
@@ -2968,7 +2967,7 @@ the _security_ subsystem. If these dependencies are not resolved before
 disabling it, you will see errors when starting WildFly.
 
 [[to-enable-the-security-subsystem-in-wildfly]]
-==== To enable the security subsystem in WildFly:
+===== To enable the security subsystem in WildFly:
 
 [source, java]
 ----
@@ -2978,7 +2977,7 @@ reload
 ----
 
 [[use-the-elytron-and-security-subsystems-in-parallel]]
-=== Use the Elytron and Security Subsystems in Parallel
+==== Use the Elytron and Security Subsystems in Parallel
 
 By default the _elytron_ and _security_ subsystems will run in parallel
 if both are enabled. For authentication in applications, you can use the
@@ -3024,10 +3023,10 @@ run-batch
 ----
 
 [[creating-elytron-subsystem-components]]
-== Creating Elytron Subsystem Components
+=== Creating Elytron Subsystem Components
 
 [[create-an-elytron-security-realm]]
-=== Create an Elytron Security Realm
+==== Create an Elytron Security Realm
 
 Security realms in the Elytron subsystem, when used in conjunction with
 security domains, are use for both core management authentication as
@@ -3047,7 +3046,7 @@ _filesystem-realm_, and _properties-realm_ can be found in previous
 sections.
 
 [[create-an-elytron-role-decoder]]
-=== Create an Elytron Role Decoder
+==== Create an Elytron Role Decoder
 
 A role decoder converts attributes from the identity provided by the
 security realm into roles. Role decoders are also specifically typed
@@ -3062,7 +3061,7 @@ Adding a role decoder takes the general form:
 ----
 
 [[create-an-elytron-permission-mapper]]
-=== Create an Elytron Permission Mapper
+==== Create an Elytron Permission Mapper
 
 In addition to roles being assigned to a identity, permissions may also
 be assigned. A permission mapper assigns permissions to an identity.
@@ -3078,7 +3077,7 @@ Adding a permission mapper takes the general form:
 ----
 
 [[create-an-elytron-role-mapper]]
-=== Create an Elytron Role Mapper
+==== Create an Elytron Role Mapper
 
 A role mapper maps roles after they have been decoded to other roles.
 Examples include normalizing role names or adding and removing specific
@@ -3095,7 +3094,7 @@ Adding a role mapper takes the general form:
 ----
 
 [[create-an-elytron-security-domain]]
-=== Create an Elytron Security Domain
+==== Create an Elytron Security Domain
 
 Security domains in the Elytron subsystem, when used in conjunction with
 security realms, are use for both core management authentication as well
@@ -3109,7 +3108,7 @@ Adding a security domain takes the general form:
 ----
 
 [[create-an-elytron-authentication-factory]]
-=== Create an Elytron Authentication Factory
+==== Create an Elytron Authentication Factory
 
 An authentication factory is an authentication policy used for specific
 authentication mechanisms. Authenticaion factories are specifically
@@ -3125,7 +3124,7 @@ Adding an authentication factory takes the general form:
 ----
 
 [[create-an-elytron-policy-provider]]
-=== Create an Elytron Policy Provider
+==== Create an Elytron Policy Provider
 
 Elytron subsystem provides a specific resource definition that can be
 used to configure a default Java Policy provider. The subsystem allows
@@ -3142,13 +3141,13 @@ default:
 ----
 
 [[using-elytron-within-wildfly]]
-= Using Elytron within WildFly
+== Using Elytron within WildFly
 
 [[using-the-out-of-the-box-elytron-components]]
-== Using the Out of the Box Elytron Components
+=== Using the Out of the Box Elytron Components
 
 [[securing-management-interfaces]]
-=== Securing Management Interfaces
+==== Securing Management Interfaces
 
 You can find more details on the enabling WildFly to use the out of the
 box Elytron components for securing the management interfaces in the
@@ -3156,7 +3155,7 @@ link:Elytron_Subsystem.html#src-557147_ElytronSubsystem-DefaultManagementAuthent
 Management Authentication Configuration] section.
 
 [[securing-applications]]
-=== Securing Applications
+==== Securing Applications
 
 The _elytron_ subsystem provides _application-http-authentication_ by
 default which can be used to secure applications. For more details on
@@ -3173,7 +3172,7 @@ link:Using_the_Elytron_Subsystem.html#src-557140_safe-id-VXNpbmd0aGVFbHl0cm9uU3V
 an Application's Authentication Configuration].
 
 [[using-ssltls]]
-=== Using SSL/TLS
+==== Using SSL/TLS
 
 WildFly does provide a default one-way SSL/TLS configuration using the
 legacy core management authentication but does not provide one in the
@@ -3184,7 +3183,7 @@ link:Using_the_Elytron_Subsystem.html#src-557140_UsingtheElytronSubsystem-ssl-tl
 SSL/TLS]
 
 [[using-elytron-with-other-subsystems]]
-=== Using Elytron with Other Subsystems
+==== Using Elytron with Other Subsystems
 
 In addition to securing applications and management interfaces, Elytron
 also integrates with other subsystems in WildFly.
@@ -3213,10 +3212,10 @@ and application authentication.
 |=======================================================================
 
 [[undertow-subsystem]]
-== Undertow Subsystem
+=== Undertow Subsystem
 
 [[ejb-subsystem]]
-== EJB Subsystem
+=== EJB Subsystem
 
 Configuration can be added to the EJB subsystem to map a security domain
 name referenced in a deployment to an Elytron security domain:
@@ -3253,7 +3252,7 @@ When an application security domain mapping is configured for a bean in
 a deployment, this indicates that security should be handled by Elytron.
 
 [[webservices-subsystem]]
-== WebServices Subsystem
+=== WebServices Subsystem
 
 There is adapter in webservices subsystem to make authentication works
 for elytron security domain automatically. Like configure with legacy
@@ -3261,7 +3260,7 @@ security domain, you can configure elytron security domain in deployment
 descriptor or annotation to secure webservice endpoint.
 
 [[legacy-security-subsystem]]
-== Legacy Security Subsystem
+=== Legacy Security Subsystem
 
 As previously described, Elytron based security is configured by
 chaining together different capability references to form a complete
@@ -3270,7 +3269,7 @@ Security subsystem some of the major components of this subsystem can be
 mapped to Elytron capabilities and used within an Elytron based set up.
 
 [[client-authentication-with-elytron-client]]
-= Client Authentication with Elytron Client
+== Client Authentication with Elytron Client
 
 WildFly Elytron uses the Elytron Client project to enable remote clients
 to authenticate using Elytron. Elytron Client has the following
@@ -3324,7 +3323,7 @@ _Context.SECURITY_PRINCIPAL_ in the _javax.naming.InitialContext_, will
 override the Elytron Client configuration.
 
 [[the-configuration-file-approach]]
-== The Configuration File Approach
+=== The Configuration File Approach
 
 The configuration file approach involves creating an XML file with your
 authentication configuration, authentication context, and match rules.
@@ -3425,7 +3424,7 @@ to match against.
 |=======================================================================
 
 [[the-programmatic-approach]]
-== The Programmatic Approach
+=== The Programmatic Approach
 
 The programatic approach configures all the Elytron Client configuration
 in the client's code:
@@ -3568,7 +3567,7 @@ authentication configuration. The provided rule and authentication
 configuration will appear after the ones in the current context.
 
 [[the-default-configuration-approach]]
-== The Default Configuration Approach
+=== The Default Configuration Approach
 
 The default configuration approach relies completely on the
 configuration provided by Elytron Client:
@@ -3627,7 +3626,7 @@ _$WILDFLY_HOME/bin/client/jboss-client.jar_.
 ----
 
 [[using-elytron-client-with-clients-deployed-to-wildfly]]
-== Using Elytron Client with Clients Deployed to WildFly
+=== Using Elytron Client with Clients Deployed to WildFly
 
 Clients deployed to WildFly can also make use of Elytron Client. In
 cases where you have included a _wildfly-config.xml_ with your
@@ -3651,4 +3650,4 @@ by BOTH the deployment and the _elytron_ subsystem, the _elytron_
 subsystem's configuration is used.
 
 [[using-keycloak-with-wildfly-elytron]]
-= Using KeyCloak with WildFly Elytron
+== Using KeyCloak with WildFly Elytron

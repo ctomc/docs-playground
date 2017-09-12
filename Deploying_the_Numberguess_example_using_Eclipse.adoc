@@ -1,5 +1,4 @@
-Deploying the Numberguess example using Eclipse
-===============================================
+= Deploying the Numberguess example using Eclipse
 
 This page has moved to
 http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/NumberguessQuickstart/#_deploying_the_numberguess_quickstart_using_eclipse

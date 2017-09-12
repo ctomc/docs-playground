@@ -1,5 +1,4 @@
-The kitchensink example in depth
-================================
+= The kitchensink example in depth
 
 This page has moved to
 http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/KitchensinkQuickstart/#_the_kitchensink_quickstart_in_depth

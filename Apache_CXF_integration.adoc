@@ -1,8 +1,7 @@
-Apache CXF integration
-======================
+= Apache CXF integration
 
 [[jbossws-integration-layer-with-apache-cxf]]
-= JBossWS integration layer with Apache CXF
+== JBossWS integration layer with Apache CXF
 
 All JAX-WS functionalities provided by JBossWS on top of WildFly are
 currently served through a proper integration of the JBoss Web Services
@@ -34,7 +33,7 @@ http://cxf.apache.org/docs/index.html[Apache CXF official documentation]
 for in-depth details on the CXF architecture.
 
 [[building-ws-applications-the-jboss-way]]
-= Building WS applications the JBoss way
+== Building WS applications the JBoss way
 
 The Apache CXF client and endpoint configuration as explained in the
 http://cxf.apache.org/docs/index.html[Apache CXF official user guide] is
@@ -55,7 +54,7 @@ the JBossWS integration with Apache CXF does not rely on Spring
 descriptors.
 
 [[portable-applications]]
-== Portable applications
+=== Portable applications
 
 WildFly is much more then a servlet container; it actually provides
 users with a fully compliant target platform for Java EE applications.
@@ -85,7 +84,7 @@ users to configure webservice clients and endpoints _without Spring
 descriptors_.
 
 [[direct-apache-cxf-api-usage]]
-== Direct Apache CXF API usage
+=== Direct Apache CXF API usage
 
 Whenever users can't really meet their application requirements with
 JAX-WS plus WS-Policy, it is of course still possible to rely on direct
@@ -103,10 +102,10 @@ Properties can be declared in `jboss-webservices.xml` to control Apache
 CXF internals like _interceptors_, _features_, etc.
 
 [[bus-usage]]
-= Bus usage
+== Bus usage
 
 [[creating-a-bus-instance]]
-== Creating a Bus instance
+=== Creating a Bus instance
 
 Most of the Apache CXF features are configurable using the
 `org.apache.cxf.Bus` class. While for basic JAX-WS usage the user might
@@ -146,7 +145,7 @@ Bus bus = new JBossWSBusFactory().createBus(myExtensions);
 ----
 
 [[using-existing-bus-instances]]
-== Using existing Bus instances
+=== Using existing Bus instances
 
 Apache CXF keeps reference to a global default `Bus` instance as well as
 to a thread default bus for each thread. That is performed through
@@ -201,7 +200,7 @@ never internally used and instead a new `Bus` is created if required
 (more details on this in the next paragraph).
 
 [[bus-selection-strategies-for-jaxws-clients]]
-== Bus selection strategies for JAXWS clients
+=== Bus selection strategies for JAXWS clients
 
 JAXWS clients require an Apache CXF Bus to be available; the client is
 registered within the Bus and the Bus affects the client behavior (e.g.
@@ -213,7 +212,7 @@ preferred Bus selection strategy. The strategy is enforced in the
 being that called whenever a JAXWS `Service` (client) is requested.
 
 [[thread-bus-strategy-thread_bus]]
-=== Thread bus strategy (THREAD_BUS)
+==== Thread bus strategy (THREAD_BUS)
 
 Each time the vanilla JAXWS api is used to create a Bus, the JBossWS-CXF
 integration will automatically make sure a Bus is currently associated
@@ -252,7 +251,7 @@ bus.shutdown(true);
 ----
 
 [[new-bus-strategy-new_bus]]
-=== New bus strategy (NEW_BUS)
+==== New bus strategy (NEW_BUS)
 
 Another strategy is to have the JAXWS Provider from the JBossWS
 integration create a new Bus each time a JAXWS client is built. The main
@@ -270,7 +269,7 @@ not associated to any bus before the client creation, no bus will be
 associated to the thread at the end of the client creation.
 
 [[thread-context-classloader-bus-strategy-tccl_bus]]
-=== Thread context classloader bus strategy (TCCL_BUS)
+==== Thread context classloader bus strategy (TCCL_BUS)
 
 The last strategy is to have the bus created for serving the client be
 associated to the current thread context classloader (TCCL). That
@@ -291,7 +290,7 @@ client built with this strategy and the same TCCL in place); no bus will
 be associated to the thread at the end of the client creation.
 
 [[strategy-configuration]]
-=== Strategy configuration
+==== Strategy configuration
 
 Users can request a given Bus selection strategy to be used for the
 client being built by specifying one of the following JBossWS features
@@ -319,7 +318,7 @@ starting the JVM. The valid values for the property are `THREAD_BUS`,
 `NEW_BUS` and `TCCL_BUS`. The default is `THREAD_BUS`.
 
 [[server-side-integration-customization]]
-= Server Side Integration Customization
+== Server Side Integration Customization
 
 The JBossWS-CXF server side integration takes care of internally
 creating proper Apache CXF structures (including a `Bus` instance, of
@@ -335,7 +334,7 @@ configuration options on server side, users might want to fine tune the
 customizations.
 
 [[deployment-descriptor-properties]]
-== Deployment descriptor properties
+=== Deployment descriptor properties
 
 The `jboss-webservices.xml` descriptor can be used to
 link:#src-557252[provide property values].
@@ -356,7 +355,7 @@ JBossWS-CXF integration comes with a set of allowed property names to
 control Apache CXF internals.
 
 [[workqueue-configuration]]
-=== WorkQueue configuration
+==== WorkQueue configuration
 
 Apache CXF uses WorkQueue instances for dealing with some operations
 (e.g. @Oneway requests processing). A
@@ -386,7 +385,7 @@ constructor]:
 |=============================================
 
 [[policy-alternative-selector]]
-=== Policy alternative selector
+==== Policy alternative selector
 
 The Apache CXF policy engine supports different strategies to deal with
 policy alternatives. JBossWS-CXF integration currently defaults to the
@@ -395,7 +394,7 @@ but still allows for setting different selector implementation using the
 `cxf.policy.alternativeSelector` property in `jboss-webservices.xml`.
 
 [[mbean-management]]
-=== MBean management
+==== MBean management
 
 Apache CXF allows managing its MBean objects that are installed into the
 WildFly MBean server. The feature is enabled on a deployment basis
@@ -421,14 +420,14 @@ desired in some cases. Here is an example:
 ----
 
 [[schema-validation]]
-=== Schema validation
+==== Schema validation
 
 Schema validation of exchanged messages can also be enabled in
 `jboss-webservices.xml`. Further details available
 link:#src-557252[here].
 
 [[interceptors]]
-=== Interceptors
+==== Interceptors
 
 The `jboss-webservices.xml` descriptor also allows specifying the
 `cxf.interceptors.in` and `cxf.interceptors.out` properties; those
@@ -456,7 +455,7 @@ xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee">
 ----
 
 [[features]]
-=== Features
+==== Features
 
 The `jboss-webservices.xml` descriptor also allows specifying the
 `cxf.features` property; that allows declaring features to be attached
@@ -480,13 +479,13 @@ xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee">
 ----
 
 [[ws-discovery-enablement]]
-=== WS-Discovery enablement
+==== WS-Discovery enablement
 
 WS-Discovery support can be turned on in `jboss-webservices` for the
 current deployment. Further details available link:#src-557252[here].
 
 [[apache-cxf-interceptors]]
-= Apache CXF interceptors
+== Apache CXF interceptors
 
 Apache CXF supports declaring interceptors using one of the following
 approaches:
@@ -529,7 +528,7 @@ client or endpoint the configuration is assigned to. The interceptor
 classes must have a no-argument constructor.
 
 [[apache-cxf-features]]
-= Apache CXF features
+== Apache CXF features
 
 Apache CXF supports declaring features using one of the following
 approaches:
@@ -567,7 +566,7 @@ client or endpoint the configuration is assigned to. The feature classes
 must have a no-argument constructor.
 
 [[properties-driven-bean-creation]]
-= Properties driven bean creation
+== Properties driven bean creation
 
 Sections above explain how to declare CXF interceptors and features
 through properties either in a client/endpoint predefined configuration
@@ -618,7 +617,7 @@ primitive type by inspecting the class definition. Nested beans can of
 course be configured.
 
 [[httpconduit-configuration]]
-= HTTPConduit configuration
+== HTTPConduit configuration
 
 HTTP transport setup in Apache CXF is achieved through
 `org.apache.cxf.transport.http.HTTPConduit`

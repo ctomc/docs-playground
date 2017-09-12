@@ -1,5 +1,4 @@
-add-user utility
-================
+= add-user utility
 
 For use with the default configuration we supply a utility `add-user`
 which can be used to manage the properties files for the default realms
@@ -26,7 +25,7 @@ This guide now contains a couple of examples of this utility in use to
 accomplish the most common tasks.
 
 [[adding-a-user]]
-= Adding a User
+== Adding a User
 
 Adding users to the properties files is the primary purpose of this
 utility. Usernames can only contain the following characters in any
@@ -46,7 +45,7 @@ on each authentication request and re-load if the time has been updated
 any running server.
 
 [[a-management-user]]
-== A Management User
+=== A Management User
 
 [NOTE]
 
@@ -55,7 +54,7 @@ when the utility prompts for the realm name just accept the default
 unless you have switched to a different realm.
 
 [[interactive-mode]]
-=== Interactive Mode
+==== Interactive Mode
 
 image:images/add-mgmt-user-interactive.png[Add mgmt user interactive]
 
@@ -68,7 +67,7 @@ be used by processes is described in more detail in the domain
 management chapter.
 
 [[non-interactive-mode]]
-=== Non-Interactive Mode
+==== Non-Interactive Mode
 
 To add a user in non-interactive mode the command
 `./add-user.sh {username} {password`} can be used.
@@ -84,14 +83,14 @@ that the username / password combination will be cached in the history
 file of the shell you are currently using.
 
 [[an-application-user]]
-== An Application User
+=== An Application User
 
 When adding application users in addition to adding the user with their
 pre-hashed password it is also now possible to define the roles of the
 user.
 
 [[interactive-mode-1]]
-=== Interactive Mode
+==== Interactive Mode
 
 image:images/add-app-user-interactive.png[add-app-user-interactive.png]
 
@@ -103,7 +102,7 @@ question until you know you are adding a user that will be establishing
 a connection from one server to another.
 
 [[non-interactive-mode-1]]
-=== Non-Interactive Mode
+==== Non-Interactive Mode
 
 To add an application user non-interactively use the command
 `./add-user.sh -a {username} {password`}.
@@ -117,30 +116,30 @@ associate a user with a set of roles you will need to manually edit the
 `application-roles.properties` file by hand.
 
 [[updating-a-user]]
-= Updating a User
+== Updating a User
 
 Within the add-user utility it is also possible to update existing
 users, in interactive mode you will be prompted to confirm if this is
 your intention.
 
 [[a-management-user-1]]
-== A Management User
+=== A Management User
 
 [[interactive-mode-2]]
-=== Interactive Mode
+==== Interactive Mode
 
 image:images/update-mgmt-user-interactive.png[update-mgmt-user-interactive.png]
 
 [[non-interactive-mode-2]]
-=== Non-Interactive Mode
+==== Non-Interactive Mode
 
 In non-interactive mode if a user already exists the update is automatic
 with no confirmation prompt.
 
 [[an-application-user-1]]
-== An Application User
+=== An Application User
 
-=== Interactive Mode
+==== Interactive Mode
 
 image:images/update-app-user-interactive.png[images/update-app-user-interactive.png]
 
@@ -149,13 +148,13 @@ image:images/update-app-user-interactive.png[images/update-app-user-interactive.
 On updating a user with roles you will need to re-enter the list of
 roles assigned to the user.
 
-=== Non-Interactive Mode
+==== Non-Interactive Mode
 
 In non-interactive mode if a user already exists the update is automatic
 with no confirmation prompt.
 
 [[community-contributions]]
-= Community Contributions
+== Community Contributions
 
 There are still a few features to add to the add-user utility such as
 removing users or adding application users with roles in non-interactive

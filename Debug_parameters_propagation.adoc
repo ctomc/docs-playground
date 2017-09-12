@@ -1,5 +1,4 @@
-Debug parameters propagation
-============================
+= Debug parameters propagation
 
 [source, java]
 ----

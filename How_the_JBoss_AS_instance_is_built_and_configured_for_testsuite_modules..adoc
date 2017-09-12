@@ -1,5 +1,4 @@
-How the JBoss AS instance is built and configured for testsuite modules.
-========================================================================
+= How the JBoss AS instance is built and configured for testsuite modules.
 
 Refer to link:#src-557167[Shortened Maven Run Overview] to see the
 mentioned build steps.
@@ -62,7 +61,7 @@ Which invokes
 ----
 
 [[arquillian-config-file-location]]
-= Arquillian config file location
+== Arquillian config file location
 
 [source, java]
 ----

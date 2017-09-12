@@ -1,5 +1,4 @@
-Audit logging
-=============
+= Audit logging
 
 WildFly comes with audit logging built in for management operations
 affecting the management model. By default it is turned off. The
@@ -84,7 +83,7 @@ step. Similarly if you are using a file handler, and want to change its
 `path` and `relative-to` attributes, that needs to happen as one step.
 
 [[json-formatter]]
-= JSON Formatter
+== JSON Formatter
 
 The first thing that needs configuring is the formatter, we currently
 support outputting log records as JSON. You can define several
@@ -186,7 +185,7 @@ code in octal, e.g. "#012".
 |=======================================================================
 
 [[handlers]]
-= Handlers
+== Handlers
 
 A handler is responsible for taking the formatted data and logging it to
 a location. There are currently two types of handlers, File and Syslog.
@@ -194,7 +193,7 @@ You can configure several of each type of handler and use them to log
 information.
 
 [[file-handler]]
-== File handler
+=== File handler
 
 The file handlers log the audit log records to a file on the server. The
 attributes for the file handler are
@@ -228,7 +227,7 @@ In our standard configuration `path=audit-log.log` and
 `$JBOSS_HOME/standalone/data/audit-log.log`
 
 [[syslog-handler]]
-== Syslog handler
+=== Syslog handler
 
 The default configuration does not have syslog audit logging set up.
 Syslog is a better choice for audit logging since you can log to a
@@ -283,7 +282,7 @@ same time as you add the syslog handler, or it will fail. Also, you can
 only add one protocol for the handler.
 
 [[udp]]
-=== UDP
+==== UDP
 
 Configures the handler to use UDP to communicate with the syslog server.
 The address of the `UDP` resource is
@@ -298,7 +297,7 @@ The attributes of the `UDP` resource are:
 |==================================================================
 
 [[tcp]]
-=== TCP
+==== TCP
 
 Configures the handler to use TCP to communicate with the syslog server.
 The address of the `TCP` resource is
@@ -320,7 +319,7 @@ section 3.4.1 of RFC-6587
 |=======================================================================
 
 [[tls]]
-=== TLS
+==== TLS
 
 Configures the handler to use TLC to communicate securely with the
 syslog server. The address of the `TLS` resource is
@@ -363,7 +362,7 @@ attribute is treated as relative to the path specified by this attribute
 |=======================================================================
 
 [[tls-with-client-certificate-authentication.]]
-==== TLS with Client certificate authentication.
+===== TLS with Client certificate authentication.
 
 If you have set up the syslog server to require client certificate
 authentication, when creating your handler you will also need to set up
@@ -390,7 +389,7 @@ attribute is treated as relative to the path specified by this attribute
 |=======================================================================
 
 [[logger-configuration]]
-= Logger configuration
+== Logger configuration
 
 The final part that needs configuring is the logger for the management
 operations. This references one or more handlers and is configured at
@@ -414,7 +413,7 @@ Then which handlers are used to log the management operations are
 configured as `handler=*` children of the logger.
 
 [[domain-mode-host-specific-configuration]]
-= Domain Mode (host specific configuration)
+== Domain Mode (host specific configuration)
 
 In domain mode audit logging is configured for each host in its
 `host.xml` file. This means that when connecting to the DC, the

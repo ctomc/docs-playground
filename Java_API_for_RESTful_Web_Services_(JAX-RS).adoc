@@ -1,11 +1,10 @@
-Java API for RESTful Web Services (JAX-RS)
-==========================================
+= Java API for RESTful Web Services (JAX-RS)
 
 [[content]]
-= Content
+== Content
 
 [[tutorial-overview]]
-= Tutorial Overview
+== Tutorial Overview
 
 This chapter describes the Java API for RESTful web services (JAX-RS,
 defined in http://jcp.org/en/jsr/detail?id=311[JSR331]).
@@ -40,7 +39,7 @@ The following topics are addressed
 * RESTEasy client running on an Android mobile device
 
 [[what-are-restful-web-services]]
-= What are RESTful Web Services?
+== What are RESTful Web Services?
 
 Coming Soon
 
@@ -78,7 +77,7 @@ URL rewriting, cookies, and hidden form fields. State can also be
 embedded in response messages.
 
 [[creating-a-restful-endpoint]]
-= Creating a RESTful endpoint
+== Creating a RESTful endpoint
 
 A RESTful endpoint is deployed as JavaEE web archive (WAR). For this
 tutorial we use a simple library application to manage some books. There
@@ -178,7 +177,7 @@ http://download.oracle.com/javaee/6/api/javax/ws/rs/package-summary.html[JAX-RS
 API] documentation.
 
 [[package-and-build-the-endpoint]]
-= Package and build the endpoint
+== Package and build the endpoint
 
 To package the endpoint we create a simple web archive and include a
 web.xml with the following content
@@ -246,7 +245,7 @@ $ mvn install
 ----
 
 [[deploy-the-endpoint-to-openshift]]
-= Deploy the endpoint to OpenShift
+== Deploy the endpoint to OpenShift
 
 First we need to create a free
 https://openshift.redhat.com/app/express[OpenShift Express] account and
@@ -348,7 +347,7 @@ $ curl http://tutorial-tdiesler.rhcloud.com/jaxrs-sample/library/books
 ----
 
 [[building-the-mobile-client]]
-= Building the mobile client
+== Building the mobile client
 
 The source associated with this tutorial contains a fully working mobile
 client application for the Android framework. If not done so already
@@ -441,7 +440,7 @@ as from this client app
 ----
 
 [[exploring-the-mobile-client]]
-= Exploring the mobile client
+== Exploring the mobile client
 
 There is a lot to writing high quality mobile applications. The goal of
 this little application is to get you started with JBossAS 7 / Android

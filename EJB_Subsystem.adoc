@@ -1,5 +1,4 @@
-EJB Timer
-=========
+= EJB Timer
 
 Wildfly now supports clustered database backed timers. For details have
 a look to the

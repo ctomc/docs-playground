@@ -1,5 +1,4 @@
-General Elytron Architecture
-============================
+= General Elytron Architecture
 
 The overall architecture for WildFly Elytron is building up a full
 security policy from assembling smaller components together, by default
@@ -16,7 +15,7 @@ level view, however the different resource definitions may use different
 dependencies depending on their purpose.
 
 [[security-domains]]
-= Security Domains
+== Security Domains
 
 Within WildFly Elytron a SecurityDomain can be considered as a security
 policy backed by one or more SecurityRealm instances. Resources that
@@ -92,7 +91,7 @@ calling different resources each of those resources could have a very
 different view.
 
 [[sasl-authentication]]
-= SASL Authentication
+== SASL Authentication
 
 The SaslAuthenticationFactory is an authentication policy for
 authentication using SASL authentication mechanisms, in addition to
@@ -125,7 +124,7 @@ The reason some of the components referenced by the SecurityDomain are
 duplicated is so that mechanism specific mappings can be applied.
 
 [[http-authentication]]
-= HTTP Authentication
+== HTTP Authentication
 
 The HttpAuthenticationFactory is an authentication policy for
 authentication using HTTP authentication mechanisms, in addition to
@@ -158,7 +157,7 @@ The reason some of the components referenced by the SecurityDomain are
 duplicated is so that mechanism specific mappings can be applied.
 
 [[ssl-tls]]
-= SSL / TLS
+== SSL / TLS
 
 The SSLContext defined within Elytron is a javax.net.ssl.SSLContext
 meaning it can be used by anything that uses an SSLContext directly.

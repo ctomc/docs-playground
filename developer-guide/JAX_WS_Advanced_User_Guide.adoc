@@ -1,14 +1,13 @@
-Advanced User Guide
-===================
+= Advanced User Guide
 
 [[logging]]
-= Logging
+== Logging
 
 Logging of inbound and outbound messages is a common need. Different
 approaches are available for achieving that:
 
 [[jax-ws-handler-approach]]
-== JAX-WS Handler approach
+=== JAX-WS Handler approach
 
 A portable way of performing logging is writing a simple JAX-WS handler
 dumping the messages that are passed in it; the handler can be added to
@@ -21,7 +20,7 @@ or to some of them only (in which case the `@EndpointConfig` annotation
 / JBossWS API is required though).
 
 [[apache-cxf-approach]]
-== Apache CXF approach
+=== Apache CXF approach
 
 Apache CXF also comes with logging interceptors that can be easily used
 to log messages to the console or configured client/server log files.
@@ -29,7 +28,7 @@ Those interceptors can be added to client, endpoint and buses in
 multiple ways:
 
 [[system-property]]
-=== System property
+==== System property
 
 Setting the `org.apache.cxf.logging.enabled` system property to true
 causes the logging interceptors to be added to any `Bus` instance being
@@ -49,7 +48,7 @@ section:
 ----
 
 [[manual-interceptor-addition-and-logging-feature]]
-=== Manual interceptor addition and logging feature
+==== Manual interceptor addition and logging feature
 
 Logging interceptors can be selectively added to endpoints using the
 Apache CXF annotations `@org.apache.cxf.interceptor.InInterceptors` and
@@ -68,7 +67,7 @@ http://cxf.apache.org/docs/debugging-and-logging.html#DebuggingandLogging-Loggin
 CXF documentation] for more details.
 
 [[ws--support]]
-= WS-* support
+== WS-* support
 
 JBossWS includes most of the WS-* specification functionalities through
 the integration with Apache CXF. In particular, the whole WS-Security
@@ -79,13 +78,13 @@ In details information available further down in this documentation
 book.
 
 [[address-rewrite]]
-= Address rewrite
+== Address rewrite
 
 JBossWS allows users to configure the _soap:address_ attribute in the
 wsdl contract of deployed services.
 
 [[server-configuration-options]]
-== Server configuration options
+=== Server configuration options
 
 The configuration options are part of the
 https://docs.jboss.org/author/display/WFLY8/Web+services+configuration[webservices
@@ -118,7 +117,7 @@ list of installed connectors. If multiple connectors are found the port
 of the first connector is used.
 
 [[dynamic-rewrite]]
-== Dynamic rewrite
+=== Dynamic rewrite
 
 When the application server is bound to multiple addresses or
 non-trivial real-world network architectures cause request for different
@@ -141,7 +140,7 @@ addresses are always rewritten using https protocol and the port
 currently configured for the https/ssl connector.
 
 [[configuration-through-deployment-descriptor]]
-= Configuration through deployment descriptor
+== Configuration through deployment descriptor
 
 The `jboss-webservices.xml` deployment descriptor can be used to provide
 additional configuration for a given deployment. The expected location
@@ -180,7 +179,7 @@ http://anonsvn.jboss.org/repos/jbossws/spi/trunk/src/main/resources/schema/[here
 ----
 
 [[context-root-element]]
-== context-root element
+=== context-root element
 
 Element `<context-root>` can be used to customize context root of
 webservices deployment.
@@ -193,7 +192,7 @@ webservices deployment.
 ----
 
 [[config-name-and-config-file-elements]]
-== config-name and config-file elements
+=== config-name and config-file elements
 
 Elements `<config-name>` and `<config-file>` can be used to associate
 any endpoint provided in the deployment with a given
@@ -213,7 +212,7 @@ https://docs.jboss.org/author/display/WFLY8/Web+services+configuration[documenta
 ----
 
 [[property-element]]
-== property element
+=== property element
 
 `<property>` elements can be used to setup simple property values to
 configure the ws stack behavior. Allowed property names and values are
@@ -228,7 +227,7 @@ mentioned in the guide under related topics.
 ----
 
 [[port-component-element]]
-== port-component element
+=== port-component element
 
 Element `<port-component>` can be used to customize EJB endpoint target
 URI or to configure security related properties.
@@ -248,7 +247,7 @@ URI or to configure security related properties.
 ----
 
 [[webservice-description-element]]
-== webservice-description element
+=== webservice-description element
 
 Element `<webservice-description>` can be used to customize (override)
 webservice WSDL publish location.
@@ -264,7 +263,7 @@ webservice WSDL publish location.
 ----
 
 [[schema-validation-of-soap-messages]]
-= Schema validation of SOAP messages
+== Schema validation of SOAP messages
 
 Apache CXF has a feature for validating incoming and outgoing SOAP
 messages on both client and server side. The validation is performed
@@ -320,7 +319,7 @@ them)
 ----
 
 [[jaxb-introductions]]
-= JAXB Introductions
+== JAXB Introductions
 
 As Kohsuke Kawaguchi wrote on
 http://weblogs.java.net/blog/kohsuke/archive/2007/07/binding_3rd_par.html[his
@@ -342,6 +341,6 @@ Take a look at the http://community.jboss.org/docs/DOC-10075[JAXB
 Introductions page] on the wiki and at the examples in the sources.
 
 [[wsdl-system-properties-expansion]]
-= WSDL system properties expansion
+== WSDL system properties expansion
 
 See link:#src-557254[Published WSDL customization]

@@ -1,5 +1,4 @@
-WS-Discovery
-============
+= WS-Discovery
 
 Apache CXF includes support for _Web Services Dynamic Discovery_ (
 http://docs.oasis-open.org/ws-dd/discovery/1.1/os/wsdd-discovery-1.1-spec-os.html[WS-Discovery]),
@@ -14,7 +13,7 @@ http://cxf.apache.org/docs/ws-discovery.html[functionalities] provided
 by Apache CXF into the application server.
 
 [[enabling-ws-discovery]]
-= Enabling WS-Discovery
+== Enabling WS-Discovery
 
 Apache CXF enables _WS-Discovery_ depending on the availability of its
 runtime component; given that's always shipped in the application
@@ -52,7 +51,7 @@ Endpoints will eventually be automatically unregistered using `Bye`
 messages upon undeployment.
 
 [[probing-services]]
-= Probing services
+== Probing services
 
 Apache CXF comes with a _WS-Discovery_ API that can be used to probe /
 resolve services. When running in-container, a JBoss module

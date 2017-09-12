@@ -1,8 +1,7 @@
-How To
-======
+= How To
 
 [[how-do-i-add-a-log-category]]
-= How do I add a log category?
+== How do I add a log category?
 
 [source, ruby]
 ----
@@ -10,7 +9,7 @@ How To
 ----
 
 [[how-do-i-change-a-log-level]]
-= How do I change a log level?
+== How do I change a log level?
 
 To change a handlers log level:
 
@@ -27,7 +26,7 @@ Changing the level on a log category is the same:
 ----
 
 [[how-do-i-log-my-applications-messages-to-their-own-file]]
-= How do I log my applications messages to their own file?
+== How do I log my applications messages to their own file?
 
 1.  Create a file handler. There are 3 different types of file handlers
 to choose from; `file-handler`, `periodic-rotating-file-handler` and
@@ -47,7 +46,7 @@ Now create the log category.
 ----
 
 [[how-do-i-use-log4j.properties-or-log4j.xml-instead-of-using-the-logging-subsystem-configuration]]
-= How do I use log4j.properties or log4j.xml instead of using the
+== How do I use log4j.properties or log4j.xml instead of using the
 logging subsystem configuration?
 
 First note that if you choose to use a log4j configuration file, you
@@ -59,7 +58,7 @@ link:Logging_Configuration.html#src-557095_LoggingConfiguration-Per-deploymentLo
 logging] and just include a configuration file in your deployment.
 
 [[how-do-i-use-my-own-version-of-log4j]]
-= How do I use my own version of log4j?
+== How do I use my own version of log4j?
 
 If you need/want to include your version of log4j then you need to do
 the following two steps.

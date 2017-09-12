@@ -1,5 +1,4 @@
-CLI extensibility for layered products
-======================================
+= CLI extensibility for layered products
 
 In addition to supporting the ServiceLoader extension mechanism to load
 command handlers coming from outside of the CLI codebase, starting from

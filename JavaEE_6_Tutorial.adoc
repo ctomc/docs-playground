@@ -1,5 +1,4 @@
-JavaEE 6 Tutorial
-=================
+= JavaEE 6 Tutorial
 
 Coming Soon
 
@@ -8,7 +7,7 @@ Coming Soon
 This guide is still under development, check back soon!
 
 [[standard-javaee-6-technologies]]
-= Standard JavaEE 6 Technologies
+== Standard JavaEE 6 Technologies
 
 1.  Enterprise JavaBeans Technology (EJB)
 2.  Java Servlet Technology
@@ -29,7 +28,7 @@ RESTful Web Services (JAX-RS)]
 (JASPIC)
 
 [[jboss-as7-extension-technologies]]
-= JBoss AS7 Extension Technologies
+== JBoss AS7 Extension Technologies
 
 1.  OSGi Technology
 2.  Management Interface

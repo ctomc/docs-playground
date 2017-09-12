@@ -1,5 +1,4 @@
-WS-Addressing
-=============
+= WS-Addressing
 
 JBoss Web Services inherits full WS-Addressing capabilities from the
 underlying Apache CXF implementation. Apache CXF provides support for
@@ -7,7 +6,7 @@ underlying Apache CXF implementation. Apache CXF provides support for
 WS-Addressing.
 
 [[enabling-ws-addressing]]
-= Enabling WS-Addressing
+== Enabling WS-Addressing
 
 WS-Addressing can be turned on in multiple standard ways:
 
@@ -45,7 +44,7 @@ http://cxf.apache.org/docs/ws-addressing.html[WS-Addressing setup] and
 http://cxf.apache.org/docs/wsaconfiguration.html[configuration details].
 
 [[ws-addressing-policy]]
-= WS-Addressing Policy
+== WS-Addressing Policy
 
 The WS-Addressing support is also perfectly integrated with the Apache
 CXF WS-Policy engine.
@@ -63,13 +62,13 @@ able to properly process the WS-Addressing policy in the consumed WSDL
 and turn on addressing as requested.
 
 [[example]]
-= Example
+== Example
 
 Here is an example showing how to simply enable WS-Addressing through
 WS-Policy.
 
 [[endpoint]]
-== Endpoint
+=== Endpoint
 
 A simple JAX-WS endpoint is prepared using a java-first approach;
 WS-Addressing is enforced through `@Addressing` annotation and no
@@ -140,7 +139,7 @@ like this:
 ----
 
 [[client]]
-== Client
+=== Client
 
 Since the WS-Policy engine is on by default, the client side code is
 basically a pure JAX-WS client app:

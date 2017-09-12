@@ -1,5 +1,4 @@
-Management tasks
-================
+= Management tasks
 :icons: font
 :source-highlighter: coderay
 

@@ -1,5 +1,4 @@
-Messaging configuration
-=======================
+= Messaging configuration
 
 The JMS server configuration is done through the _messaging-activemq_
 subsystem. In this chapter we are going outline the frequently used
@@ -7,7 +6,7 @@ configuration options. For a more detailed explanation please consult
 the Artemis user guide (See "Component Reference").
 
 [[required-extension]]
-= Required Extension
+== Required Extension
 
 The configuration options discussed in this section assume that the the
 `org.wildfly.extension.messaging-activemq` extension is present in your
@@ -26,7 +25,7 @@ element to the xml or by using the following CLI operation:
 ----
 
 [[connectors]]
-= Connectors
+== Connectors
 
 There are three kind of connectors that can be used to connect to
 WildFly JMS Server
@@ -39,7 +38,7 @@ TCP for the communication)
 Server to upgrade from a HTTP connection)
 
 [[jms-connection-factories]]
-= JMS Connection Factories
+== JMS Connection Factories
 
 There are three kinds of _basic_ JMS `connection-factory` that depends
 on the type of connectors that is used.
@@ -180,7 +179,7 @@ application looking the default JMS provider under the JNDI name
 ~(See standalone/configuration/standalone-full.xml)~
 
 [[jms-queues-and-topics]]
-= JMS Queues and Topics
+== JMS Queues and Topics
 
 JMS queues and topics are sub resources of the messaging-actively
 subsystem. One can define either a `jms-queue` or `jms-topic`. Each
@@ -247,7 +246,7 @@ To read the description of a specific command execute 'jms-queue command_name --
 ----
 
 [[dead-letter-redelivery]]
-= Dead Letter & Redelivery
+== Dead Letter & Redelivery
 
 Some of the settings are applied against an address wild card instead of
 a specific messaging destination. The dead letter queue and redelivery
@@ -267,7 +266,7 @@ settings belong into this group:
 ~(See standalone/configuration/standalone-full.xml)~
 
 [[security-settings-for-artemis-addresses-and-jms-destinations]]
-= Security Settings for Artemis addresses and JMS destinations
+== Security Settings for Artemis addresses and JMS destinations
 
 Security constraints are matched against an address wildcard, similar to
 the DLQ and redelivery settings.
@@ -288,7 +287,7 @@ the DLQ and redelivery settings.
 ~(See standalone/configuration/standalone-full.xml)~
 
 [[security-domain-for-users]]
-= Security Domain for Users
+== Security Domain for Users
 
 By default, Artemis will use the " `other`" JAAS security domain. This
 domain is used to authenticate users making connections to Artemis and
@@ -305,7 +304,7 @@ changed by using the `security-domain`, e.g.:
 ----
 
 [[using-the-elytron-subsystem]]
-= Using the Elytron Subsystem
+== Using the Elytron Subsystem
 
 You can also use the elytron subsystem to secure the messaging-activemq
 subsystem.
@@ -335,7 +334,7 @@ jboss.messaging.cluster.password to specify the cluster password from
 the command line.
 +
 [[deployment-of--jms.xml-files]]
-= Deployment of -jms.xml files
+== Deployment of -jms.xml files
 
 Starting with WildFly {wildflyVersion}, you have the ability to deploy a -jms.xml file
 defining JMS destinations, e.g.:
@@ -363,7 +362,7 @@ tools (e.g. console, CLI, etc).
 |=======================================================================
 +
 [[jms-bridge]]
-= JMS Bridge
+== JMS Bridge
 
 The function of a JMS bridge is to consume messages from a source JMS
 destination, and send them to a target JMS destination. Typically either
@@ -376,7 +375,7 @@ description of the available configuration properties, please consult
 the project documentation.
 
 [[modules-for-other-messaging-brokers]]
-== Modules for other messaging brokers
+=== Modules for other messaging brokers
 
 Source and target JMS resources (destination and connection factories)
 are looked up using JNDI. +
@@ -445,7 +444,7 @@ We define the module in `module.xml`:
 ----
 +
 [[configuration]]
-== Configuration
+=== Configuration
 
 A JMS bridge is defined inside a `jms-bridge` section of the
 `messaging-activemq` subsystem in the XML configuration files.
@@ -491,7 +490,7 @@ instance (as it is the case in the `target` section in the example
 above).
 +
 [[management-commands]]
-== Management commands
+=== Management commands
 
 A JMS Bridge can also be managed using the WildFly command line
 interface:
@@ -540,7 +539,7 @@ CLI:
 ----
 +
 [[component-reference]]
-= Component Reference
+== Component Reference
 
 The messaging-activemq subsystem is provided by the Artemis project. For
 a detailed description of the available configuration properties, please

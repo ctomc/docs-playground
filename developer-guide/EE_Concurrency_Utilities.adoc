@@ -1,8 +1,7 @@
-EE Concurrency Utilities
-========================
+= EE Concurrency Utilities
 
 [[overview]]
-= Overview
+== Overview
 
 EE Concurrency Utilities (JSR 236) is a technology introduced with Java
 EE 7, which adapts well known Java SE concurrency utilities to the Java
@@ -32,7 +31,7 @@ link:Default_EE_Bindings_Configuration.html[Default EE Bindings
 Configuration].
 
 [[context-service]]
-= Context Service
+== Context Service
 
 The Context Service ( `javax.enterprise.concurrent.ContextService`) is a
 brand new concurrency utility, which applications may use to build
@@ -83,7 +82,7 @@ As mandated by the Java EE specification, the default Context Service
 instance's JNDI name is `java:comp/DefaultContextService`.
 
 [[managed-thread-factory]]
-= Managed Thread Factory
+== Managed Thread Factory
 
 The Managed Thread Factory (
 `javax.enterprise.concurrent.ManagedThreadFactory`) allows Java EE
@@ -147,7 +146,7 @@ As mandated by the Java EE specification, the default Managed Thread
 Factory instance's JNDI name is `java:comp/DefaultManagedThreadFactory`.
 
 [[managed-executor-service]]
-= Managed Executor Service
+== Managed Executor Service
 
 The Managed Executor Service (
 `javax.enterprise.concurrent.ManagedExecutorService`) allows Java EE
@@ -208,7 +207,7 @@ Service instance's JNDI name is
 `java:comp/DefaultManagedExecutorService`.
 
 [[managed-scheduled-executor-service]]
-= Managed Scheduled Executor Service
+== Managed Scheduled Executor Service
 
 The Managed Scheduled Executor Service (
 `javax.enterprise.concurrent.ManagedScheduledExecutorService`) allows

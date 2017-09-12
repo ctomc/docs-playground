@@ -1,5 +1,4 @@
-Web services configuration
-==========================
+= Web services configuration
 
 JBossWS components are provided to the application server through the
 webservices subsystem. JBossWS components handle the processing of WS
@@ -9,10 +8,10 @@ subsystem is provided in the server's domain and standalone
 configuration files.
 
 [[structure-of-the-webservices-subsystem]]
-= Structure of the webservices subsystem
+== Structure of the webservices subsystem
 
 [[published-endpoint-address]]
-== Published endpoint address
+=== Published endpoint address
 
 JBossWS supports the rewriting of the `<soap:address>` element of
 endpoints published in WSDL contracts. This feature is useful for
@@ -71,7 +70,7 @@ original path component of each <soap:address> URL.When
 |=======================================================================
 
 [[predefined-endpoint-configurations]]
-== Predefined endpoint configurations
+=== Predefined endpoint configurations
 
 JBossWS enables extra setup configuration data to be predefined and
 associated with an endpoint implementation. Predefined endpoint
@@ -125,7 +124,7 @@ is used for any endpoint that does not have an explicitly assigned
 endpoint configuration.
 
 [[endpoint-configs]]
-=== Endpoint configs
+==== Endpoint configs
 
 Endpoint configs are defined using `the endpoint-config` element. Each
 endpoint configuration may include properties and handlers set to the
@@ -159,7 +158,7 @@ A new endpoint configuration can be added as follows:
 ----
 
 [[handler-chains]]
-=== Handler chains
+==== Handler chains
 
 Each endpoint configuration may be associated with zero or more PRE and
 POST handler chains. Each handler chain may include JAXWS handlers. For
@@ -219,7 +218,7 @@ A new handler chain can be added as follows:
 ----
 
 [[handlers]]
-=== Handlers
+==== Handlers
 
 JAXWS handler can be added in handler chains:
 
@@ -251,7 +250,7 @@ each referencing deployment. For class creation to succeed, the
 deployment classloader must to be able to load the handler class.
 
 [[runtime-information]]
-= Runtime information
+== Runtime information
 
 Each web service endpoint is exposed through the deployment that
 provides the endpoint implementation. Each endpoint can be queried as a
@@ -283,7 +282,7 @@ context and a WSDL Url:
 ----
 
 [[component-reference]]
-= Component Reference
+== Component Reference
 
 The web service subsystem is provided by the JBossWS project. For a
 detailed description of the available configuration properties, please

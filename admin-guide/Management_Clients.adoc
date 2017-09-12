@@ -1,5 +1,4 @@
-Management Clients
-==================
+= Management Clients
 
 WildFly offers three different approaches to configure and manage
 servers: a web interface, a command line client and a set of XML
@@ -8,13 +7,13 @@ configuration is always synchronized across the different views and
 finally persisted to the XML files.
 
 [[web-management-interface]]
-= Web Management Interface
+== Web Management Interface
 
 The web interface is a GWT application that uses the HTTP management API
 to configure a management domain or standalone server.
 
 [[http-management-endpoint]]
-== HTTP Management Endpoint
+=== HTTP Management Endpoint
 
 The HTTP API endpoint is the entry point for management clients that
 rely on the HTTP protocol to integrate with the management layer. It
@@ -47,7 +46,7 @@ interface:
 * Web Console: http://<host>:9990/console
 
 [[accessing-the-web-console]]
-== Accessing the web console
+=== Accessing the web console
 
 The web console is served through the same port as the HTTP management
 API. It can be accessed by pointing your browser to:
@@ -70,7 +69,7 @@ include::Default_Native_Interface_Security.adoc[]
 
 
 [[command-line-interface]]
-= Command Line Interface
+== Command Line Interface
 
 The Command Line Interface (CLI) is a management tool for a managed
 domain or standalone server. It allows a user to connect to the domain
@@ -81,7 +80,7 @@ Details on how to use the CLI can be found in the
 link:Command_Line_Interface.adoc[Command Line Interface page].
 
 [[configuration-files]]
-= Configuration Files
+== Configuration Files
 
 WildFly stores its configuration in centralized XML configuration files,
 one per server for standalone servers and, for managed domains, one per
@@ -102,7 +101,7 @@ files while processes are running will not be detected, and may be
 overwritten.
 
 [[standalone-server-configuration-file]]
-== Standalone Server Configuration File
+=== Standalone Server Configuration File
 
 The XML configuration for a standalone server can be found in the
 `standalone/configuration` directory. The default configuration file is
@@ -120,7 +119,7 @@ with the _[line-through]*c*_ or _-server-config_ command line argument:
 * `bin/standalone.sh --server-config=standalone-ha.xml`
 
 [[managed-domain-configuration-files]]
-== Managed Domain Configuration Files
+=== Managed Domain Configuration Files
 
 In a managed domain, the XML files are found in the
 `domain/configuration` directory. There are two types of configuration
@@ -130,7 +129,7 @@ processes in a managed domain, see link:Operating_modes.adoc[Operating
 Modes].)
 
 [[host-specific-configuration-host.xml]]
-=== Host Specific Configuration – host.xml
+==== Host Specific Configuration – host.xml
 
 When you start a managed domain process, a Host Controller instance is
 launched, and it parses its own configuration file to determine its own
@@ -172,7 +171,7 @@ $ bin/domain.sh --host-config=host-master.xml
 ----
 
 [[domain-wide-configuration-domain.xml]]
-=== Domain Wide Configuration – domain.xml
+==== Domain Wide Configuration – domain.xml
 
 Once a Host Controller has processed its host-specific configuration, it
 knows whether it is configured to act as the master Domain Controller.

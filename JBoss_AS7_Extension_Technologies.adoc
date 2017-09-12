@@ -1,5 +1,4 @@
-JBoss AS7 Extension Technologies
-================================
+= JBoss AS7 Extension Technologies
 
 Coming Soon
 

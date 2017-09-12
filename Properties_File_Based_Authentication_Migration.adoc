@@ -1,8 +1,7 @@
-Properties Based Authentication / Authorization
-===============================================
+= Properties Based Authentication / Authorization
 
 [[picketbox-based-configuration]]
-= PicketBox Based Configuration
+== PicketBox Based Configuration
 
 This migration example assumes a deployed web application is configured
 to require authentication using FORM based authentication and is
@@ -11,7 +10,7 @@ UsersRolesLoginModule to load user information from a pair or properties
 files.
 
 [[original-configuration]]
-== Original Configuration
+=== Original Configuration
 
 A security domain can be defined in the legacy security subsystem using
 the following management operations: -
@@ -37,7 +36,7 @@ This would result in a security domain definition: -
 ----
 
 [[intermediate-configuration]]
-== Intermediate Configuration
+=== Intermediate Configuration
 
 It is possible to take a previously defined PicketBox security domain
 and expose it as an Elytron security realm so it can be wired into a
@@ -160,7 +159,7 @@ LoginModule configuration but this is wrapped by Elytron components
 which take over authentication.
 
 [[fully-migrated-configuration]]
-== Fully Migrated Configuration
+=== Fully Migrated Configuration
 
 Alternatively the configuration can be completely defined within the
 Elytron subsystem, in this case it is assumed none of the previous
@@ -244,10 +243,10 @@ At this stage the authentication is the equivalent of the original
 configuration however now Elytron components are used exclusively.
 
 [[legacy-security-realm]]
-= Legacy Security Realm
+== Legacy Security Realm
 
 [[original-configuration-1]]
-== Original Configuration
+=== Original Configuration
 
 A legacy security realm can be defined using the following commands to
 load users passwords and group information from properties files.
@@ -277,7 +276,7 @@ A legacy security realm would typically be used to secure either the
 management interfaces or remoting connectors.
 
 [[migrated-configuration]]
-== Migrated Configuration
+=== Migrated Configuration
 
 One of the motivations for adding the Elytron based security to the
 application server is to allow a consistent security solution to be used

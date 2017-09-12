@@ -1,5 +1,4 @@
-Simple configuration subsystems
-===============================
+= Simple configuration subsystems
 
 The following subsystems currently have no configuration beyond its root
 element in the configuration

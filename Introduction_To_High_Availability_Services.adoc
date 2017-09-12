@@ -1,8 +1,7 @@
-Introduction To High Availability Services
-==========================================
+= Introduction To High Availability Services
 
 [[what-are-high-availability-services]]
-= What are High Availability services?
+== What are High Availability services?
 
 WildFly's High Availability services are used to guarantee availability
 of a deployed Java EE application.
@@ -37,7 +36,7 @@ application in the cluster.
 We now take a brief look at what these services can guarantee.
 
 [[high-availability-through-fail-over]]
-= High Availability through fail-over
+== High Availability through fail-over
 
 Fail-over allows a client interacting with a Java EE application to have
 uninterrupted access to that application, even in the presence of node
@@ -66,7 +65,7 @@ these data availability guarantees and will be discussed in detail later
 in the guide.
 
 [[high-availability-through-load-balancing]]
-= High Availability through load balancing
+== High Availability through load balancing
 
 Load balancing enables the application to respond to client requests in
 a timely fashion, even when subjected to a high-volume of requests.
@@ -87,7 +86,7 @@ High Availability feature of WildFly and will be discussed in detail
 later in this guide.
 
 [[aims-of-the-guide]]
-= Aims of the guide
+== Aims of the guide
 
 This guide aims to:
 
@@ -99,7 +98,7 @@ particular application use cases
 high-availability/clustering
 
 [[organization-of-the-guide]]
-= Organization of the guide
+== Organization of the guide
 
 As high availability features and their configuration depend on the
 particular component they affect (e.g. HTTP sessions, EJB SFSB sessions,

@@ -1,5 +1,4 @@
-Core Management Subsystem Configuration
-=======================================
+= Core Management Subsystem Configuration
 
 The core management subsystem is composed services used to manage the
 server or monitor its status. +
@@ -9,7 +8,7 @@ The core management subsystem configuration may be used to:
 * list the last configuration changes on a server.
 
 [[lifecycle-listener]]
-= Lifecycle listener
+== Lifecycle listener
 
 You can create an implementation of
 _org.wildfly.extension.core.management.client.ProcessStateListener_
@@ -86,7 +85,7 @@ Now we can register or listener :
 ....
 
 [[configuration-changes]]
-= Configuration changes
+== Configuration changes
 
 You can use the core management subsystem to enable and configure an
 *in-memory* history of the last configuration changes. +

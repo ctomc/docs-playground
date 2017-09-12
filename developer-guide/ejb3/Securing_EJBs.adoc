@@ -1,8 +1,7 @@
-Securing EJBs
-=============
+= Securing EJBs
 
 [[overview]]
-= Overview
+== Overview
 
 The Java EE spec specifies certain annotations (like @RolesAllowed,
 @PermitAll, @DenyAll) which can be used on EJB implementation classes
@@ -14,7 +13,7 @@ configurations in this chapter but instead will be looking at the vendor
 specific extensions to the security configurations.
 
 [[security-domain]]
-= Security Domain
+== Security Domain
 
 The Java EE spec doesn't mandate a specific way to configure security
 domain for a bean. It leaves it to the vendor implementations to allow
@@ -80,7 +79,7 @@ The jboss-ejb3.xml is expected to be placed in the .jar/META-INF folder
 of a .jar deployment or .war/WEB-INF folder of a .war deployment.
 
 [[absence-of-security-domain-configuration-but-presence-of-other-security-metadata]]
-= Absence of security domain configuration but presence of other
+== Absence of security domain configuration but presence of other
 security metadata
 
 Let's consider the following example bean:
@@ -115,7 +114,7 @@ security domain for the bean if they want to using either the annotation
 or deployment descriptor approach explained earlier.
 
 [[access-to-methods-without-explicit-security-metadata-on-a-secured-bean]]
-= Access to methods without explicit security metadata, on a secured
+== Access to methods without explicit security metadata, on a secured
 bean
 
 Consider this example bean:

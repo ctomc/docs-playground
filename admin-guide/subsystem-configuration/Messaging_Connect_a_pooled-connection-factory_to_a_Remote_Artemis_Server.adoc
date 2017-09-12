@@ -1,5 +1,4 @@
-Connect a pooled-connection-factory to a Remote Artemis Server
-==============================================================
+= Connect a pooled-connection-factory to a Remote Artemis Server
 
 The `messaging-activemq` subsystem allows to configure a
 `pooled-connection-factory` resource to let a local client deployed in
@@ -36,7 +35,7 @@ created at step (2).
 ----
 
 [[configuration-of-a-mdb-using-a-pooled-connection-factory]]
-= Configuration of a MDB using a pooled-connection-factory
+== Configuration of a MDB using a pooled-connection-factory
 
 When a `pooled-connection-factory` is configured to connect to a remote
 Artemis, it is possible to configure Message-Driven Beans (MDB) to have
@@ -72,7 +71,7 @@ private JMSContext context;
 ----
 
 [[configuration-of-the-destination]]
-== Configuration of the destination
+=== Configuration of the destination
 
 A MDB must also specify which destination it will consume messages from.
 

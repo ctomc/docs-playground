@@ -23,10 +23,10 @@ ifdef::basebackend-html[toc::[]]
 
 
 [[wildfly-developer-guide]]
-= WildFly Developer Guide
+== WildFly Developer Guide
 
 [[target-audience]]
-== Target Audience
+=== Target Audience
 
 Java Developers
 

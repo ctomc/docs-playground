@@ -1,8 +1,7 @@
-JGroups Subsystem
-=================
+= JGroups Subsystem
 
 [[purpose]]
-= Purpose
+== Purpose
 
 The JGroups subsystem provides group communication support for HA
 services in the form of JGroups channels.
@@ -33,7 +32,7 @@ be created behind the scenes to support clustered features such as
 session replication or transmission of SSO contexts around the cluster).
 
 [[configuration-example]]
-= Configuration example
+== Configuration example
 
 What follows is a sample JGroups subsystem configuration showing all of
 the possible elements and attributes which may be configured. We shall
@@ -108,7 +107,7 @@ directory.
 ----
 
 [[subsystem]]
-== <subsystem>
+=== <subsystem>
 
 This element is used to configure the subsystem within a Wildfly system
 profile.
@@ -121,14 +120,14 @@ the JGroups subsystem. This default stack will be used whenever a stack
 is required but no stack is specified.
 
 [[stack]]
-== <stack>
+=== <stack>
 
 This element is used to configure a JGroups protocol stack.
 
 * `name` This attribute is used to specify the name of the stack.
 
 [[transport]]
-== <transport>
+=== <transport>
 
 This element is used to configure the transport layer (required) of the
 protocol stack.
@@ -170,7 +169,7 @@ replicas from being stored on the same host, rack or site
 .
 
 [[property]]
-=== <property>
+==== <property>
 
 This element is used to configure a transport property.
 
@@ -178,7 +177,7 @@ This element is used to configure a transport property.
 value is provided as text for the property element.
 
 [[protocol]]
-== <protocol>
+=== <protocol>
 
 This element is used to configure a (non-transport) protocol layer in
 the JGroups stack. Protocol layers are ordered within the stack.
@@ -191,7 +190,7 @@ the server profile. It is used when JGroups needs to create general
 sockets internally for this protocol instance.
 
 [[property-1]]
-=== <property>
+==== <property>
 
 This element is used to configure a protocol property.
 
@@ -199,7 +198,7 @@ This element is used to configure a protocol property.
 value is provided as text for the property element.
 
 [[relay]]
-== <relay>
+=== <relay>
 
 This element is used to configure the RELAY protocol for a JGroups
 stack. RELAY is a protocol which provides cross-site replication between
@@ -215,7 +214,7 @@ configuration elements, as well as backup configuration elements in the
 Infinispan subsystem)
 
 [[remote-site]]
-=== <remote-site>
+==== <remote-site>
 
 This element is used to configure a remote site for the RELAY protocol.
 
@@ -227,7 +226,7 @@ communication between this site and the remote site.
 use for communication between this site and the remote site.
 
 [[use-cases]]
-= Use Cases
+== Use Cases
 
 In many cases, channels will be configured via XML as in the example
 above, so that the channels will be available upon server startup.
@@ -249,7 +248,7 @@ used to provide extensive information on the attributes and commands
 available in the JGroups subsystem interface used in these examples.
 
 [[add-a-stack]]
-== Add a stack
+=== Add a stack
 
 [source, java]
 ----
@@ -257,7 +256,7 @@ available in the JGroups subsystem interface used in these examples.
 ----
 
 [[add-a-protocol-to-a-stack]]
-== Add a protocol to a stack
+=== Add a protocol to a stack
 
 [source, java]
 ----
@@ -270,7 +269,7 @@ available in the JGroups subsystem interface used in these examples.
 ----
 
 [[add-a-property-to-a-protocol]]
-== Add a property to a protocol
+=== Add a property to a protocol
 
 [source, java]
 ----

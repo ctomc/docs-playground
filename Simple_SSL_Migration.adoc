@@ -1,8 +1,7 @@
-Simple SSL Migration
-====================
+= Simple SSL Migration
 
 [[simple-ssl-migration]]
-= Simple SSL Migration
+== Simple SSL Migration
 
 This section describe securing HTTP connections to the server using SSL
 using Elytron. +
@@ -95,7 +94,7 @@ Output `https-listener` in Undertow subsystem should be:
 ----
 
 [[client-cert-ssl-authentication-migration]]
-= Client-Cert SSL Authentication Migration
+== Client-Cert SSL Authentication Migration
 
 This suppose you have already configured Client-Cert SSL authentication
 using `truststore` in legacy `security-realm`, for example by

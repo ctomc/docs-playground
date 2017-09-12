@@ -1,12 +1,11 @@
-wsconsume
-=========
+= wsconsume
 
 _wsconsume_ is a command line tool and ant task that "consumes" the
 abstract contract (WSDL file) and produces portable JAX-WS service and
 client artifacts.
 
 [[command-line-tool]]
-= Command Line Tool
+== Command Line Tool
 
 The command line tool has the following usage:
 
@@ -41,7 +40,7 @@ on your web service implementation and not the service endpoint
 interface.
 
 [[examples]]
-== Examples
+=== Examples
 
 Generate artifacts in Java class form only:
 
@@ -74,7 +73,7 @@ wsconsume -k -b wsdl-binding.xml -b schema1-binding.xml -b schema2-binding.xml
 ....
 
 [[maven-plugin]]
-= Maven Plugin
+== Maven Plugin
 
 The wsconsume tools is included in the
 *org.jboss.ws.plugins:jaxws-tools-maven-plugin* plugin. The plugin has
@@ -132,7 +131,7 @@ the underlying stack and endorsed dirs if any
 |=======================================================================
 
 [[examples-1]]
-== Examples
+=== Examples
 
 You can use _wsconsume_ in your own project build simply referencing the
 _jaxws-tools-maven-plugin_ in the configured plugins in your pom.xml
@@ -259,7 +258,7 @@ Up to version 1.1.2.Final, the _artifactId_ of the plugin was
 *maven-jaxws-tools-plugin*.
 
 [[ant-task]]
-= Ant Task
+== Ant Task
 
 The _wsconsume_ Ant task ( _org.jboss.ws.tools.ant.WSConsumeTask_) has
 the following attributes:
@@ -324,7 +323,7 @@ Also, the following nested elements are supported:
 |=================================================
 
 [[examples-2]]
-== Examples
+=== Examples
 
 Generate JAX-WS source and classes in a separate JVM with separate
 directories, a custom wsdl location attribute, and a list of binding

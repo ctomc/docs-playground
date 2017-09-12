@@ -1,5 +1,4 @@
-JMX subsystem configuration
-===========================
+= JMX subsystem configuration
 
 The JMX subsystem registers a service with the Remoting endpoint so that
 remote access to JMX can be obtained over the exposed Remoting
@@ -88,7 +87,7 @@ dependencies
 |=======================================================================
 
 [[audit-logging]]
-= Audit logging
+== Audit logging
 
 Audit logging for the JMX MBean server managed by the JMX subsystem. The
 resource is at `/subsystem=jmx/configuration=audit-log` and its
@@ -116,7 +115,7 @@ their formatters are defined in the global
 link:Audit_logging.html[Audit logging].
 
 [[json-formatter]]
-== JSON Formatter
+=== JSON Formatter
 
 The same JSON Formatter is used as described in
 link:Audit_logging.html[Audit logging]. However the records for MBean

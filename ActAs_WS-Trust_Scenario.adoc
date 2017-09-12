@@ -1,5 +1,4 @@
-ActAs WS-Trust Scenario
-=======================
+= ActAs WS-Trust Scenario
 
 The ActAs feature is used in scenarios that require composite
 delegation. It is commonly used in multi-tiered systems where an
@@ -24,7 +23,7 @@ And lastly there are a couple of code additions in the STS to support
 the ActAs request.
 
 [[web-service-provider]]
-= Web service provider
+== Web service provider
 
 This section examines the web service elements from the basic WS-Trust
 scenario that have been changed to address the needs of the ActAs
@@ -38,7 +37,7 @@ example. The components are
 * MANIFEST.MF
 
 [[web-service-provider-wsdl]]
-== Web service provider WSDL
+=== Web service provider WSDL
 
 The ActAs web service provider's WSDL is a clone of the ws-provider's
 WSDL. The wsp:Policy section is the same. There are changes to the
@@ -101,7 +100,7 @@ service endpoint, targetNamespace, portType, binding name, and service.
 ----
 
 [[web-service-interface]]
-== Web Service Interface
+=== Web Service Interface
 
 The web service provider interface class, ActAsServiceIface, is a simple
 web service definition.
@@ -125,7 +124,7 @@ public interface ActAsServiceIface
 ----
 
 [[web-service-implementation]]
-== Web Service Implementation
+=== Web Service Implementation
 
 The web service provider implementation class, ActAsServiceImpl, is a
 simple POJO. It uses the standard WebService annotation to define the
@@ -231,7 +230,7 @@ public class ActAsServiceImpl implements ActAsServiceIface
 ----
 
 [[actascallbackhandler]]
-== ActAsCallbackHandler
+=== ActAsCallbackHandler
 
 ActAsCallbackHandler is a callback handler for the WSS4J Crypto API. It
 is used to obtain the password for the private key in the keystore. This
@@ -265,7 +264,7 @@ public class ActAsCallbackHandler extends PasswordCallbackHandler {
 ----
 
 [[usernametokencallbackhandler]]
-== UsernameTokenCallbackHandler
+=== UsernameTokenCallbackHandler
 
 The ActAs and OnBeholdOf sub-elements of the RequestSecurityToken are
 required to be defined as WSSE Username Tokens. This utility generates
@@ -434,7 +433,7 @@ public class UsernameTokenCallbackHandler implements CallbackHandler {
 ----
 
 [[crypto-properties-and-keystore-files]]
-== Crypto properties and keystore files
+=== Crypto properties and keystore files
 
 The ActAs service must provide its own credentials. The requisite
 properties file, actasKeystore.properties, and keystore, actasstore.jks,
@@ -450,7 +449,7 @@ org.apache.ws.security.crypto.merlin.keystore.file=actasstore.jks
 ----
 
 [[manifest.mf]]
-== MANIFEST.MF
+=== MANIFEST.MF
 
 When deployed on WildFly this application requires access to the JBossWs
 and CXF APIs provided in modules org.jboss.ws.cxf.jbossws-cxf-client and
@@ -467,7 +466,7 @@ Dependencies: org.jboss.ws.cxf.jbossws-cxf-client, org.apache.cxf.impl
 ----
 
 [[security-token-service]]
-= Security Token Service
+== Security Token Service
 
 This section examines the STS elements from the basic WS-Trust scenario
 that have been changed to address the needs of the ActAs example. The
@@ -477,7 +476,7 @@ components are.
 * STSCallbackHandler class
 
 [[sts-implementation-class]]
-== STS Implementation class
+=== STS Implementation class
 
 The initial description of SampleSTS can be found
 link:#src-557273_ActAsWS-TrustScenario-STSImplementation[here].
@@ -576,7 +575,7 @@ public class SampleSTS extends SecurityTokenServiceProvider
 ----
 
 [[stscallbackhandler]]
-== STSCallbackHandler
+=== STSCallbackHandler
 
 The user, alice, and corresponding password was required to be added for
 the ActAs example.
@@ -608,7 +607,7 @@ public class STSCallbackHandler extends PasswordCallbackHandler
 ----
 
 [[web-service-requester]]
-= Web service requester
+== Web service requester
 
 This section examines the ws-requester elements from the basic WS-Trust
 scenario that have been changed to address the needs of the ActAs
@@ -617,7 +616,7 @@ example. The component is
 * ActAs web service requester implementation class
 
 [[web-service-requester-implementation]]
-== Web service requester Implementation
+=== Web service requester Implementation
 
 The ActAs ws-requester, the client, uses standard procedures for
 creating a reference to the web service in the first four lines. To

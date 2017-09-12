@@ -1,5 +1,4 @@
-Webservices reference guide
-===========================
+= Webservices reference guide
 
 The Web Services functionalities of WildFly are provided by the JBossWS
 project integration.

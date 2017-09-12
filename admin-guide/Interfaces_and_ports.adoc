@@ -1,8 +1,7 @@
-Interfaces and ports
-====================
+= Interfaces and ports
 
 [[interface-declarations]]
-= Interface declarations
+== Interface declarations
 
 WildFly uses named interface references throughout the configuration. A
 network interface is declared by specifying a logical name and a
@@ -78,7 +77,7 @@ Some other examples:
 </interface>
 ----
 
-== The -b command line argument
+=== The -b command line argument
 
 WildFly supports using the `-b` command line argument to specify the
 address to assign to interfaces. See
@@ -86,7 +85,7 @@ link:Command_line_parameters.adoc#controlling-the-bind-address[Controlling
 the Bind Address with -b] for further details.
 
 [[socket-binding-groups]]
-= Socket Binding Groups
+== Socket Binding Groups
 
 The socket configuration in WildFly works similarly to the interfaces
 declarations. Sockets are declared using a logical name, by which they
@@ -129,7 +128,7 @@ value of port should always be used for the socket and should not be
 overridden by applying an increment or decrement
 
 [[ipv4-versus-ipv6]]
-= IPv4 versus IPv6
+== IPv4 versus IPv6
 
 WildFly supports the use of both IPv4 and IPv6 addresses. By default,
 WildFly is configured for use in an IPv4 network and so if you are
@@ -140,7 +139,7 @@ interface IP address values specified in the configuration
 (standalone.xml or domain.xml).
 
 [[stack-and-address-preference]]
-== Stack and address preference
+=== Stack and address preference
 
 The system properties java.net.preferIPv4Stack and
 java.net.preferIPv6Addresses are used to configure the JVM for use with
@@ -172,7 +171,7 @@ if [ "x$JAVA_OPTS" = "x" ]; then
 ----
 
 [[ip-address-literals]]
-== IP address literals
+=== IP address literals
 
 To change the IP address literals referenced in standalone.xml (or
 domain.xml), first visit the interface declarations and ensure that

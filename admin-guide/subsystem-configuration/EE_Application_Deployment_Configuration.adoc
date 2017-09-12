@@ -1,11 +1,10 @@
-Java EE Application Deployment
-==============================
+= Java EE Application Deployment
 
 The EE subsystem configuration allows the customisation of the
 deployment behaviour for Java EE Applications.
 
 [[global-modules]]
-= Global Modules
+== Global Modules
 
 Global modules is a set of JBoss Modules that will be added as
 dependencies to the JBoss Module of every Java EE deployment. Such
@@ -40,7 +39,7 @@ if the Module's `META-INF` path should be available to the deployment's
 class loader.
 
 [[ear-subdeployments-isolation]]
-= EAR Subdeployments Isolation
+== EAR Subdeployments Isolation
 
 A flag indicating whether each of the subdeployments within a `.ear` can
 access classes belonging to another subdeployment within the same
@@ -79,7 +78,7 @@ and other subdeployments within that `.ear` will not be able to access
 classes from that `.war`. This is as per spec.
 
 [[property-replacement]]
-= Property Replacement
+== Property Replacement
 
 The EE subsystem configuration includes flags to configure whether
 system property replacement will be done on XML descriptors and Java
@@ -95,7 +94,7 @@ environment entries that the security manager would have otherwise
 prevented.
 
 [[spec-descriptor-property-replacement]]
-== Spec Descriptor Property Replacement
+=== Spec Descriptor Property Replacement
 
 Flag indicating whether system property replacement will be performed on
 standard Java EE XML descriptors. If not configured this defaults to
@@ -108,7 +107,7 @@ shipped with WildFly.
 ----
 
 [[jboss-descriptor-property-replacement]]
-== JBoss Descriptor Property Replacement
+=== JBoss Descriptor Property Replacement
 
 Flag indicating whether system property replacement will be performed on
 WildFly proprietary XML descriptors, such as `jboss-app.xml`. This
@@ -120,7 +119,7 @@ defaults to `true`.
 ----
 
 [[annotation-property-replacement]]
-== Annotation Property Replacement
+=== Annotation Property Replacement
 
 Flag indicating whether system property replacement will be performed on
 Java annotations. The default value is `false`.

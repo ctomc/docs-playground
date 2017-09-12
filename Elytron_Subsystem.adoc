@@ -1,5 +1,4 @@
-Elytron Subsystem
-=================
+= Elytron Subsystem
 
 WildFly Elytron is a security framework used to unify security across
 the entire application server. The _elytron_ subsystem enables a single
@@ -33,7 +32,7 @@ Elytron methods may be used for securing the management interfaces as
 well as providing security for applications.
 
 [[get-started-using-the-elytron-subsystem]]
-= Get Started using the Elytron Subsystem
+== Get Started using the Elytron Subsystem
 
 To get started using Elytron, refer to these topics:
 
@@ -72,13 +71,13 @@ link:Using_the_Elytron_Subsystem.html#src-557140_UsingtheElytronSubsystem-Secure
 interfaces] with an LDAP-based identity store.
 
 [[provided-components]]
-= Provided components
+== Provided components
 
 Wildfly Elytron provides a default set of implementations in the
 _elytron_ subsystem.
 
 [[factories]]
-== Factories
+=== Factories
 
 [cols=",",]
 |=======================================================================
@@ -134,7 +133,7 @@ using a ServiceLoader
 |=======================================================================
 
 [[principal-transformers]]
-== Principal Transformers
+=== Principal Transformers
 
 [cols=",",]
 |=======================================================================
@@ -162,7 +161,7 @@ name.
 |=======================================================================
 
 [[principal-decoders]]
-== Principal Decoders
+=== Principal Decoders
 
 [cols=",",]
 |=======================================================================
@@ -184,7 +183,7 @@ principal decoder.
 |=======================================================================
 
 [[realm-mappers]]
-== Realm Mappers
+=== Realm Mappers
 
 [cols=",",]
 |=======================================================================
@@ -206,7 +205,7 @@ realm mapper is used instead.
 |=======================================================================
 
 [[realms]]
-== Realms
+=== Realms
 
 [cols=",",]
 |=======================================================================
@@ -256,7 +255,7 @@ TrustManager list as used to create an SSL context.
 |=======================================================================
 
 [[permission-mappers]]
-== Permission Mappers
+=== Permission Mappers
 
 [cols=",",]
 |=======================================================================
@@ -274,7 +273,7 @@ always returns the same constant.
 |=======================================================================
 
 [[role-decoders]]
-== Role Decoders
+=== Role Decoders
 
 [cols=",",]
 |=======================================================================
@@ -287,7 +286,7 @@ single attribute and maps it directly to roles.
 |=======================================================================
 
 [[role-mappers]]
-== Role Mappers
+=== Role Mappers
 
 [cols=",",]
 |=======================================================================
@@ -312,7 +311,7 @@ performs a logical operation using two referenced role mappers.
 |=======================================================================
 
 [[ssl-components]]
-== SSL Components
+=== SSL Components
 
 [cols=",",]
 |=======================================================================
@@ -337,7 +336,7 @@ connection.
 |=======================================================================
 
 [[other]]
-== Other
+=== Other
 
 [cols=",",]
 |=======================================================================
@@ -368,7 +367,7 @@ information such as passwords for external services.
 |=======================================================================
 
 [[out-of-the-box-configuration]]
-= Out of the Box Configuration
+== Out of the Box Configuration
 
 WildFly provides a set of components configured by default. While these
 components are ready to use, the legacy _security_ subsystem and legacy
@@ -707,7 +706,7 @@ and openssl provider loaders.
 ----
 
 [[default-application-authentication-configuration]]
-= Default Application Authentication Configuration
+== Default Application Authentication Configuration
 
 By default, applications are secured using legacy security domains.
 Applications must specify a security domain in their _web.xml_ as well
@@ -716,7 +715,7 @@ application, WildFly will use the provided _other_ legacy security
 domain.
 
 [[update-wildfly-to-use-the-default-elytron-components-for-application-authentication]]
-== Update WildFly to Use the Default Elytron Components for Application
+=== Update WildFly to Use the Default Elytron Components for Application
 Authentication
 
 [source, java]
@@ -725,7 +724,7 @@ Authentication
 ----
 
 [[default-elytron-application-http-authentication-configuration]]
-== Default Elytron Application HTTP Authentication Configuration
+=== Default Elytron Application HTTP Authentication Configuration
 
 By default, the _application-http-authentication_
 http-authentication-factory is provided for application http
@@ -800,7 +799,7 @@ realm.
 ----
 
 [[default-management-authentication-configuration]]
-= Default Management Authentication Configuration
+== Default Management Authentication Configuration
 
 By default, the WildFly management interfaces are secured by the legacy
 core management authentication.
@@ -832,11 +831,11 @@ _management-sasl-authentication_ in the _elytron_ subsystem for securing
 the management interfaces as well.
 
 [[update-wildfly-to-use-the-default-elytron-components-for-management-authentication]]
-== Update WildFly to Use the Default Elytron Components for Management
+=== Update WildFly to Use the Default Elytron Components for Management
 Authentication
 
 [[set-http-authentication-factory-to-use-management-http-authentication]]
-=== Set http-authentication-factory to use
+==== Set http-authentication-factory to use
 management-http-authentication
 
 [source, java]
@@ -848,7 +847,7 @@ management-http-authentication
 ----
 
 [[set-sasl-authentication-factory-to-use-management-sasl-authentication]]
-=== Set sasl-authentication-factory to use
+==== Set sasl-authentication-factory to use
 management-sasl-authentication
 
 [source, java]
@@ -860,7 +859,7 @@ management-sasl-authentication
 ----
 
 [[undefine-security-realm]]
-=== Undefine security-realm
+==== Undefine security-realm
 
 [source, java]
 ----
@@ -868,7 +867,7 @@ management-sasl-authentication
 ----
 
 [[reload-wildfly-for-the-changes-to-take-affect.]]
-=== Reload WildFly for the changes to take affect.
+==== Reload WildFly for the changes to take affect.
 
 [source, java]
 ----
@@ -879,7 +878,7 @@ The management interfaces are now secured using the default components
 provided by the 'elytron' subsystem.
 
 [[default-elytron-management-http-authentication-configuration]]
-== Default Elytron Management HTTP Authentication Configuration
+=== Default Elytron Management HTTP Authentication Configuration
 
 When you access the management interface over HTTP, for example when
 using the web-based management console, WildFly will use the
@@ -957,7 +956,7 @@ realm.
 ----
 
 [[default-elytron-management-cli-authentication]]
-== Default Elytron Management CLI Authentication
+=== Default Elytron Management CLI Authentication
 
 By default, the management CLI ( _jboss-cli.sh_) is configured to
 connect over _remotehttp_.
@@ -1059,7 +1058,7 @@ The _ManagementRealm_ Elytron security realm is the same realm used in
 the _management-http-authentication_ http-authentication-factory.
 
 [[comparing-legacy-approaches-to-elytron-approaches]]
-= Comparing Legacy Approaches to Elytron Approaches
+== Comparing Legacy Approaches to Elytron Approaches
 
 [cols=",",]
 |=======================================================================

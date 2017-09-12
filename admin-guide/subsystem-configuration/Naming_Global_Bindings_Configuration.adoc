@@ -1,5 +1,4 @@
-Global Bindings Configuration
-=============================
+= Global Bindings Configuration
 
 The Naming subsystem configuration allows binding entries into the
 following global JNDI namespaces:
@@ -43,7 +42,7 @@ through the `<bindings />` XML element, as an example:
 ----
 
 [[simple-bindings]]
-= Simple Bindings
+== Simple Bindings
 
 A simple binding is a primitive or java.net.URL entry, and it is defined
 through the `simple` XML element. An example of its XML configuration:
@@ -74,7 +73,7 @@ example above:
 ----
 
 [[object-factories]]
-= Object Factories
+== Object Factories
 
 The Naming subsystem configuration allows the binding of
 `javax.naming.spi.ObjectFactory` entries, through the `object-factory`
@@ -113,7 +112,7 @@ XML example above:
 ----
 
 [[external-context-federation]]
-= External Context Federation
+== External Context Federation
 
 Federation of external JNDI contexts, such as a LDAP context, are
 achieved by adding External Context bindings to the global bindings

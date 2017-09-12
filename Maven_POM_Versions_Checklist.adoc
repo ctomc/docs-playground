@@ -1,5 +1,4 @@
-Maven POM Versions Checklist
-============================
+= Maven POM Versions Checklist
 
 [IMPORTANT]
 

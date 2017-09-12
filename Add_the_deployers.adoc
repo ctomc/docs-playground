@@ -1,5 +1,4 @@
-Add the deployers
-=================
+= Add the deployers
 
 When discussing `SubsystemAddHandler` we did not mention the work done
 to install the deployers, which is done in the following method:
@@ -92,7 +91,7 @@ instance for the deployment's suffix, we remove the deployment's name
 from it.
 
 [[deployment-phases-and-attachments]]
-= Deployment phases and attachments
+== Deployment phases and attachments
 
 The code in the SubsystemDeploymentProcessor uses an _attachment_, which
 is the means of communication between the individual deployment
@@ -112,34 +111,34 @@ deployment unit processors for in the phases described in
 `org.jboss.as.server.deployment.Phase`.
 
 [[structure]]
-== STRUCTURE
+=== STRUCTURE
 
 The deployment unit processors in this phase determine the structure of
 a deployment, and looks for sub deployments and metadata files.
 
 [[parse]]
-== PARSE
+=== PARSE
 
 In this phase the deployment unit processors parse the deployment
 descriptors and build up the annotation index. `Class-Path` entries from
 the META-INF/MANIFEST.MF are added.
 
 [[dependencies]]
-== DEPENDENCIES
+=== DEPENDENCIES
 
 Extra class path dependencies are added. For example if deploying a
 `war` file, the commonly needed dependencies for a web application are
 added.
 
 [[configure_module]]
-== CONFIGURE_MODULE
+=== CONFIGURE_MODULE
 
 In this phase the modular class loader for the deployment is created. No
 attempt should be made loading classes from the deployment until *after*
 this phase.
 
 [[post_module]]
-== POST_MODULE
+=== POST_MODULE
 
 Now that our class loader has been constructed we have access to the
 classes. In this stage deployment processors may use the
@@ -149,12 +148,12 @@ them, bypassing the inefficiencies of using `java.lang.reflect`
 directly.
 
 [[install]]
-== INSTALL
+=== INSTALL
 
 Install new services coming from the deployment.
 
 [[cleanup]]
-== CLEANUP
+=== CLEANUP
 
 Attachments put in place earlier in the deployment unit processor chain
 may be removed here.

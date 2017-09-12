@@ -1,8 +1,7 @@
-EJB IIOP Guide
-==============
+= EJB IIOP Guide
 
 [[enabling-iiop]]
-= Enabling IIOP
+== Enabling IIOP
 
 To enable IIOP you must have the JacORB subsystem installed, and the
 `<iiop/>` element present in the ejb3 subsystem configuration. The
@@ -14,7 +13,7 @@ behaviour of the server, for full details see link:#src-557221[EJB3
 subsystem configuration guide].
 
 [[enabling-jts]]
-= Enabling JTS
+== Enabling JTS
 
 To enable JTS simply add a `<jts/>` element to the transactions
 subsystem configuration.
@@ -32,7 +31,7 @@ shown below.
 ----
 
 [[dynamic-stubs]]
-= Dynamic Stub's
+== Dynamic Stub's
 
 Downloading stubs directly from the server is no longer supported. If
 you do not wish to pre-generate your stub classes JDK Dynamic stubs can
@@ -40,6 +39,6 @@ be used instead. The enable JDK dynamic stubs simply set the
 `com.sun.CORBA.ORBUseDynamicStub` system property to `true`.
 
 [[configuring-ejb-iiop-settings-via-jboss-ejb3.xml]]
-= Configuring EJB IIOP settings via jboss-ejb3.xml
+== Configuring EJB IIOP settings via jboss-ejb3.xml
 
 TODO

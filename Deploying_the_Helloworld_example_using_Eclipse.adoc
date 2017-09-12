@@ -1,5 +1,4 @@
-Deploying the Helloworld example using Eclipse
-==============================================
+= Deploying the Helloworld example using Eclipse
 
 You may choose to deploy the example using Eclipse. You'll need to have
 JBoss AS started in Eclipse (as described in

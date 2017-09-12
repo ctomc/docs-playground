@@ -1,8 +1,7 @@
-Published WSDL customization
-============================
+= Published WSDL customization
 
 [[endpoint-address-rewrite]]
-= Endpoint address rewrite
+== Endpoint address rewrite
 
 JBossWS supports the rewrite of the `<soap:address>` element of
 endpoints published in WSDL contracts. This feature is useful for
@@ -99,7 +98,7 @@ for a specific deployment:
 ----
 
 [[system-property-references]]
-= System property references
+== System property references
 
 System property references wrapped within "@" characters are expanded
 when found in WSDL attribute and element values. This allows for

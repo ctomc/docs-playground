@@ -1,5 +1,4 @@
-Java Servlet Technology
-=======================
+= Java Servlet Technology
 
 Coming Soon
 
@@ -8,7 +7,7 @@ Coming Soon
 This guide is still under development, check back soon!
 
 [[content]]
-= Content
+== Content
 
 [[asynchronous-support]]
-= Asynchronous Support
+== Asynchronous Support

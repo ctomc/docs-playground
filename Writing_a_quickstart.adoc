@@ -1,5 +1,4 @@
-Writing a quickstart
-====================
+= Writing a quickstart
 
 [IMPORTANT]
 

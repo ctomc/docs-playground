@@ -1,11 +1,10 @@
-Canceling Management Operations
-===============================
+= Canceling Management Operations
 
 WildFly includes the ability to use the CLI to cancel management
 requests that are not proceeding normally.
 
 [[the-cancel-non-progressing-operation-operation]]
-= The cancel-non-progressing-operation operation
+== The cancel-non-progressing-operation operation
 
 The `cancel-non-progressing-operation` operation instructs the target
 process to find any operation that isn't proceeding normally and cancel
@@ -70,7 +69,7 @@ will be a failure response:
 ----
 
 [[the-find-non-progressing-operation-operation]]
-= The find-non-progressing-operation operation
+== The find-non-progressing-operation operation
 
 To simply learn the id of an operation that isn't proceeding normally,
 but not cancel it, use the `find-non-progressing-operation` operation:
@@ -91,7 +90,7 @@ Once the id of the operation is known, the management resource for the
 operation can be examined to learn more about its status.
 
 [[examining-the-status-of-an-active-operation]]
-= Examining the status of an active operation
+== Examining the status of an active operation
 
 There is a management resource for any currently executing operation
 that can be queried:
@@ -203,7 +202,7 @@ the `read-children-resources` operation:
 ----
 
 [[canceling-a-specific-operation]]
-= Canceling a specific operation
+== Canceling a specific operation
 
 The `cancel-non-progressing-operation` operation is a convenience
 operation for identifying and canceling an operation. However, an
@@ -221,7 +220,7 @@ operation on the resource for the desired operation.
 ----
 
 [[controlling-operation-blocking-time]]
-= Controlling operation blocking time
+== Controlling operation blocking time
 
 As an operation executes, the execution thread may block at various
 points, particularly while waiting for the service container to

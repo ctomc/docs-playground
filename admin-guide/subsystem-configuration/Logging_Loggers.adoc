@@ -1,5 +1,4 @@
-Loggers
-=======
+= Loggers
 
 WIP
 
@@ -10,7 +9,7 @@ you find icon:smile-o[role="yellow"]
 
 
 [[overview]]
-= Overview
+== Overview
 
 Loggers are used to log messages. A logger is defined by a category
 generally consisting of a package name or a class name.
@@ -22,7 +21,7 @@ checked next and the rules of the filter will determine whether or not
 the messages is said to be loggable.
 
 [[logger-resource]]
-== Logger Resource
+=== Logger Resource
 
 A logger resource uses the path `subsystem=logging/logger=$category`
 where `$category` is the of the logger. For example to a logger named
@@ -43,7 +42,7 @@ While `filter` is writable it may be deprecated and removed in the
 future. Both attributes are still on the resource for legacy reasons.
 
 [[filter-spec]]
-=== filter-spec
+==== filter-spec
 
 The `filter-spec` attribute is an expression based string to define
 filters for the logger.
@@ -53,7 +52,7 @@ filters for the logger.
 Filters on loggers are not inherited.
 
 [[handlers]]
-=== handlers
+==== handlers
 
 The `handlers` attribute is a list of handler names that should be
 attached to the logger. If the
@@ -62,26 +61,26 @@ attribute is set to `true` and the log messages is determined to be
 loggable, parent loggers will continue to be processed.
 
 [[level]]
-=== level
+==== level
 
 The `level` attribute allows the minimum level to allow messages to be
 logged at for the logger.
 
 [[use-parent-handlers]]
-=== use-parent-handlers
+==== use-parent-handlers
 
 The `use-parent-handlers` attribute is a boolean attribute to determine
 whether or not parent loggers should also process the log message.
 
 [[root-logger-resource]]
-== Root Logger Resource
+=== Root Logger Resource
 
 The `root-logger` is similar to a
 link:#src-557085_Loggers-LoggerResource[#Logger Resource] only it has no
 category and it's name is must be `ROOT`.
 
 [[logger-hierarchy]]
-== Logger Hierarchy
+=== Logger Hierarchy
 
 A logger hierarchy is defined by it's category. The category is a `.`
 (dot) delimited string generally consisting of the package name or a

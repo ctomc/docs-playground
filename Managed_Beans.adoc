@@ -1,4 +1,3 @@
-Managed Beans
-=============
+= Managed Beans
 
 

@@ -1,12 +1,11 @@
-Example subsystem
-=================
+= Example subsystem
 
 Our example subsystem will keep track of all deployments of certain
 types containing a special marker file, and expose operations to see how
 long these deployments have been deployed.
 
 [[create-the-skeleton-project]]
-= Create the skeleton project
+== Create the skeleton project
 
 To make your life easier we have provided a maven archetype which will
 create a skeleton project for implementing subsystems.
@@ -126,7 +125,7 @@ link:#src-557103_Examplesubsystem-Testingtheparsers[#Testing the
 parsers] section.
 
 [[create-the-schema]]
-= Create the schema
+== Create the schema
 
 First, let us define the schema for our subsystem. Rename
 `src/main/resources/schema/mysubsystem.xsd` to
@@ -180,7 +179,7 @@ public class SubsystemExtension implements Extension {
 ----
 
 [[design-and-define-the-model-structure]]
-= Design and define the model structure
+== Design and define the model structure
 
 The following example xml contains a valid subsystem configuration, we
 will see how to plug this in to WildFly later in this tutorial.
@@ -258,7 +257,7 @@ subsystem's model back to the main configuration file when it is
 modified. We will add more functionality to this method later.
 
 [[registering-the-core-subsystem-model]]
-== Registering the core subsystem model
+=== Registering the core subsystem model
 
 Next we obtain a `ManagementResourceRegistration` by registering the
 subsystem model. This is a *compulsory* step for every new subsystem.
@@ -451,7 +450,7 @@ similar to that of the add handler where just name of the method
 changes.
 
 [[registering-the-subsystem-child]]
-== Registering the subsystem child
+=== Registering the subsystem child
 
 The `type` child does not exist in our skeleton project so we need to
 implement the operations to add and remove them from the model.
@@ -806,7 +805,7 @@ When implementing `execute()`, you *must* call `context.completeStep()`
 when you are done.
 
 [[parsing-and-marshalling-of-the-subsystem-xml]]
-= Parsing and marshalling of the subsystem xml
+== Parsing and marshalling of the subsystem xml
 
 WildFly uses the Stax API to parse the xml files. This is initialized in
 `SubsystemExtension` by mapping our parser onto our namespace:
@@ -991,7 +990,7 @@ private static class SubsystemDescribeHandler implements OperationStepHandler, D
 ----
 
 [[testing-the-parsers]]
-== Testing the parsers
+=== Testing the parsers
 
 Changes to tests between 7.0.0 and 7.0.1
 
@@ -1398,7 +1397,7 @@ TrackerService service = (TrackerService)services.getContainer().getService(Trac
 TypeDefinition.TICK.
 
 [[add-the-deployers]]
-= Add the deployers
+== Add the deployers
 
 When discussing `SubsystemAddHandler` we did not mention the work done
 to install the deployers, which is done in the following method:
@@ -1491,7 +1490,7 @@ instance for the deployment's suffix, we remove the deployment's name
 from it.
 
 [[deployment-phases-and-attachments]]
-== Deployment phases and attachments
+=== Deployment phases and attachments
 
 The code in the SubsystemDeploymentProcessor uses an _attachment_, which
 is the means of communication between the individual deployment
@@ -1511,34 +1510,34 @@ deployment unit processors for in the phases described in
 `org.jboss.as.server.deployment.Phase`.
 
 [[structure]]
-=== STRUCTURE
+==== STRUCTURE
 
 The deployment unit processors in this phase determine the structure of
 a deployment, and looks for sub deployments and metadata files.
 
 [[parse]]
-=== PARSE
+==== PARSE
 
 In this phase the deployment unit processors parse the deployment
 descriptors and build up the annotation index. `Class-Path` entries from
 the META-INF/MANIFEST.MF are added.
 
 [[dependencies]]
-=== DEPENDENCIES
+==== DEPENDENCIES
 
 Extra class path dependencies are added. For example if deploying a
 `war` file, the commonly needed dependencies for a web application are
 added.
 
 [[configure_module]]
-=== CONFIGURE_MODULE
+==== CONFIGURE_MODULE
 
 In this phase the modular class loader for the deployment is created. No
 attempt should be made loading classes from the deployment until *after*
 this phase.
 
 [[post_module]]
-=== POST_MODULE
+==== POST_MODULE
 
 Now that our class loader has been constructed we have access to the
 classes. In this stage deployment processors may use the
@@ -1548,18 +1547,18 @@ them, bypassing the inefficiencies of using `java.lang.reflect`
 directly.
 
 [[install]]
-=== INSTALL
+==== INSTALL
 
 Install new services coming from the deployment.
 
 [[cleanup]]
-=== CLEANUP
+==== CLEANUP
 
 Attachments put in place earlier in the deployment unit processor chain
 may be removed here.
 
 [[integrate-with-wildfly]]
-= Integrate with WildFly
+== Integrate with WildFly
 
 Now that we have all the code needed for our subsystem, we can build our
 project by running `mvn install`
@@ -1852,7 +1851,7 @@ that our subsystem entry reflects the current state of the subsystem:
 ----
 
 [[expressions]]
-= Expressions
+== Expressions
 
 Expressions are mechanism that enables you to support variables in your
 attributes, for instance when you want the value of attribute to be
@@ -1870,7 +1869,7 @@ which means that the value should be taken from a system property named
 `127.0.0.1`.
 
 [[what-expression-types-are-supported]]
-== What expression types are supported
+=== What expression types are supported
 
 * System properties, which are resolved using
 `java.lang.System.getProperty(String key)`
@@ -1897,7 +1896,7 @@ Security vault expressions do not support default values (i.e. the
 above.)
 
 [[how-to-support-expressions-in-subsystems]]
-== How to support expressions in subsystems
+=== How to support expressions in subsystems
 
 The easiest way is by using AttributeDefinition, which provides support
 for expressions just by using it correctly.

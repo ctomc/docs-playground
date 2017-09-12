@@ -1,5 +1,4 @@
-All WildFly documentation
-=========================
+= All WildFly documentation
 
 There are several guides in the WildFly documentation series. This list
 gives an overview of each of the guides:

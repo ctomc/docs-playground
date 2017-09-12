@@ -1,5 +1,4 @@
-The native management API
-=========================
+= The native management API
 
 A standalone WildFly process, or a managed domain Domain Controller or
 slave Host Controller process can be configured to listen for remote
@@ -21,7 +20,7 @@ responses – information that should prove useful for users of the CLI
 tool as well.
 
 [[native-management-client-dependencies]]
-= Native Management Client Dependencies
+== Native Management Client Dependencies
 
 The native management interface uses an open protocol based on the JBoss
 Remoting library. JBoss Remoting is used to establish a communication
@@ -70,7 +69,7 @@ client could be developed without using these libraries (e.g. using
 Python or some other language.)
 
 [[working-with-a-modelcontrollerclient]]
-= Working with a ModelControllerClient
+== Working with a ModelControllerClient
 
 The `org.jboss.as.controller.client.ModelControllerClient` class is the
 main class a custom client would use to manage a WildFly server instance
@@ -81,7 +80,7 @@ The custom client must have maven artifact
 classpath.
 
 [[creating-the-modelcontrollerclient]]
-== Creating the ModelControllerClient
+=== Creating the ModelControllerClient
 
 To create a management client that can connect to your target process's
 native management socket, simply:
@@ -132,7 +131,7 @@ static ModelControllerClient createClient(final InetAddress host, final int port
 ----
 
 [[creating-an-operation-request-object]]
-== Creating an operation request object
+=== Creating an operation request object
 
 Management requests are formulated using the `org.jboss.dmr.ModelNode`
 class from the `jboss-dmr` library. The `jboss-dmr` library allows the
@@ -196,7 +195,7 @@ following low-level CLI command:
 ----
 
 [[execute-the-operation-and-manipulate-the-result]]
-== Execute the operation and manipulate the result:
+=== Execute the operation and manipulate the result:
 
 The `execute` method sends the operation request ModelNode to the
 process being managed and returns a ModelNode the contains the process'
@@ -226,7 +225,7 @@ System.out.println(returnVal.get("result").toString());
 ----
 
 [[close-the-modelcontrollerclient]]
-== Close the ModelControllerClient
+=== Close the ModelControllerClient
 
 A `ModelControllerClient` can be reused for multiple requests. Creating
 a new `ModelControllerClient` for each request is an anti-pattern.
@@ -240,7 +239,7 @@ client.close();
 ----
 
 [[format-of-a-detyped-operation-request]]
-= Format of a Detyped Operation Request
+== Format of a Detyped Operation Request
 
 The basic method a user of the WildFly {wildflyVersion} programmatic management API
 would use is very simple:
@@ -261,7 +260,7 @@ Detyped Operation Response] for a discussion of the format of the
 response.
 
 [[simple-operations]]
-== Simple Operations
+=== Simple Operations
 
 A text representation of simple operation would look like this:
 
@@ -314,7 +313,7 @@ Parameters may have any name, except for the reserved words `operation`,
 `address` and `operation-headers`.
 
 [[operation-headers]]
-== Operation Headers
+=== Operation Headers
 
 Besides the special operation and address values discussed above,
 operation requests can also include special "header" values that help
@@ -397,7 +396,7 @@ rather it is meant to serve as a sort of fail-safe measure to prevent
 problematic operations indefinitely tying up resources.
 
 [[composite-operations]]
-== Composite Operations
+=== Composite Operations
 
 The root resource for a Domain or Host Controller or an individual
 server will expose an operation named " `composite`". This operation
@@ -461,7 +460,7 @@ Partial/incomplete changes to the persistent configuration are not
 allowed.
 
 [[operations-with-a-rollout-plan]]
-== Operations with a Rollout Plan
+=== Operations with a Rollout Plan
 
 Operations targeted at domain or host level resources can potentially
 impact multiple servers. Such operations can include a "rollout plan"
@@ -593,7 +592,7 @@ across that group. If any servers in groupE fail to apply the operation
 it will be rolled back across that group.
 
 [[default-rollout-plan]]
-=== Default Rollout Plan
+==== Default Rollout Plan
 
 All operations that impact multiple servers will be executed with a
 rollout plan. However, actually specifying the rollout plan in the
@@ -611,7 +610,7 @@ group.
 server groups.
 
 [[creating-and-reusing-a-rollout-plan]]
-=== Creating and reusing a Rollout Plan
+==== Creating and reusing a Rollout Plan
 
 Since a rollout plan may be quite complex, having to pass it as a header
 every time can become quickly painful. So instead we can store it in the
@@ -662,7 +661,7 @@ deploy /quickstart/ejb-in-war/target/wildfly-ejb-in-war.war --all-server-groups 
 ----
 
 [[format-of-a-detyped-operation-response]]
-= Format of a Detyped Operation Response
+== Format of a Detyped Operation Response
 
 As noted previously, the basic method a user of the WildFly {wildflyVersion}
 programmatic management API would use is very simple:
@@ -684,7 +683,7 @@ link:#src-557212_ThenativemanagementAPI-request-format[Format of a
 Detyped Operation Request].
 
 [[simple-responses]]
-== Simple Responses
+=== Simple Responses
 
 Simple responses are provided by the following types of operations:
 
@@ -756,7 +755,7 @@ The response for a cancelled operation has no other fields:
 ----
 
 [[response-headers]]
-== Response Headers
+=== Response Headers
 
 Besides the standard `outcome`, `result` and `failure-description`
 fields described above, the response may also include various headers
@@ -812,7 +811,7 @@ configuration change to take effect in the runtime.
 ** `stopping` – the process is stopping
 
 [[basic-composite-operation-responses]]
-== Basic Composite Operation Responses
+=== Basic Composite Operation Responses
 
 A composite operation is one that incorporates more than one simple
 operation in a list and executes them atomically. See the
@@ -957,7 +956,7 @@ rollback of the others:
 ----
 
 [[multi-server-responses]]
-== Multi-Server Responses
+=== Multi-Server Responses
 
 Multi-server responses are provided by operations that target a Domain
 Controller or slave Host Controller and require the responder to apply

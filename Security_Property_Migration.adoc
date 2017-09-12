@@ -1,5 +1,4 @@
-Security Properties
-===================
+= Security Properties
 
 Lets suppose security properties "a" and "c" defined in legacy security:
 

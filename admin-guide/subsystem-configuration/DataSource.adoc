@@ -1,5 +1,4 @@
-DataSource configuration
-========================
+= DataSource configuration
 
 Datasources are configured through the _datasource_ subsystem. Declaring
 a new datasource consists of two separate steps: You would need to
@@ -7,7 +6,7 @@ provide a JDBC driver and define a datasource that references the driver
 you installed.
 
 [[jdbc-driver-installation]]
-= JDBC Driver Installation
+== JDBC Driver Installation
 
 The recommended way to install a JDBC driver into WildFly {wildflyVersion} is to deploy
 it as a regular JAR deployment. The reason for this is that when you run
@@ -44,7 +43,7 @@ For a detailed explanation how to deploy JDBC 4 compliant driver jar,
 please refer to the chapter " link:#application-deployment[Application Deployment]".
 
 [[datasource-definitions]]
-= Datasource Definitions
+== Datasource Definitions
 
 The datasource itself is defined within the subsystem _datasources_:
 
@@ -184,13 +183,13 @@ RESOURCE DESCRIPTION
 ----
 
 [[using-security-domains]]
-= Using security domains
+== Using security domains
 
 Information can be found at
 https://community.jboss.org/wiki/JBossAS7SecurityDomainModel
 
 [[component-reference]]
-= Component Reference
+== Component Reference
 
 The datasource subsystem is provided by the
 http://www.jboss.org/ironjacamar[IronJacamar] project. For a detailed

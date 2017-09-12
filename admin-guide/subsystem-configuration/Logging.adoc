@@ -1,8 +1,7 @@
-Logging Configuration
-=====================
+= Logging Configuration
 
 [[overview]]
-= Overview
+== Overview
 
 The overall server logging configuration is represented by the logging
 subsystem. It consists of four notable parts: `handler` configurations,
@@ -47,13 +46,13 @@ handlers). Each handler declares the log format and output:
 ----
 
 [[attributes]]
-= Attributes
+== Attributes
 
 The root resource contains two notable attributes
 `add-logging-api-dependencies` and `use-deployment-logging-config`.
 
 [[add-logging-api-dependencies]]
-== add-logging-api-dependencies
+=== add-logging-api-dependencies
 
 The `add-logging-api-dependencies` controls whether or not the container
 adds
@@ -63,7 +62,7 @@ default, all the implicit logging API dependencies are added. If set to
 `false` the dependencies are not added to your deployments.
 
 [[use-deployment-logging-config]]
-== use-deployment-logging-config
+=== use-deployment-logging-config
 
 The `use-deployment-logging-config` controls whether or not your
 deployment is scanned for
@@ -73,7 +72,7 @@ link:#src-557095_LoggingConfiguration-Per-deploymentLogging[per-deployment
 logging] is enabled. Set to `false` to disable this feature.
 
 [[per-deployment-logging]]
-= Per-deployment Logging
+== Per-deployment Logging
 
 Per-deployment logging allows you to add a logging configuration file to
 your deployment and have the logging for that deployment configured
@@ -94,7 +93,7 @@ You can also disable this functionality by changing the
 `use-deployment-logging-config` attribute to `false`.
 
 [[logging-profiles]]
-= Logging Profiles
+== Logging Profiles
 
 Logging profiles are like additional logging subsystems. Each logging
 profile constists of three of the four notable parts listed above:
@@ -118,10 +117,10 @@ This is an advantage over the per-deployment logging configuration as
 the redeploy is not required for logging changes to take affect.
 
 [[default-log-file-locations]]
-= Default Log File Locations
+== Default Log File Locations
 
 [[managed-domain]]
-== Managed Domain
+=== Managed Domain
 
 In a managed domain two types of log files do exist: Controller and
 server logs. The controller components govern the domain as whole. It's
@@ -145,7 +144,7 @@ servers are located on the same host:
 |============================================================
 
 [[standalone-server]]
-== Standalone Server
+=== Standalone Server
 
 The default log files for a standalone server can be found in the log
 subdirectory of the distribution:
@@ -157,7 +156,7 @@ subdirectory of the distribution:
 |===================================
 
 [[filter-expressions]]
-= Filter Expressions
+== Filter Expressions
 
 [cols=",,,,",]
 |=======================================================================
@@ -221,7 +220,7 @@ argument is the replacement text. |substituteAll("JBAS", "EAP")
 |=======================================================================
 
 [[list-log-files-and-reading-log-files]]
-= List Log Files and Reading Log Files
+== List Log Files and Reading Log Files
 
 Log files can be listed and viewed via management operations. The log
 files allowed to be viewed are intentionally limited to files that exist
@@ -231,7 +230,7 @@ handler. Known file handler types include `file-handler`,
 operations are valid in both standalone and domain modes.
 
 [[list-log-files]]
-== List Log Files
+=== List Log Files
 
 The logging subsystem has a `log-file` resource off the subsystem root
 resource and off each `logging-profile` resource to list each log file.
@@ -252,7 +251,7 @@ CLI command and output
 ----
 
 [[read-log-file]]
-== Read Log File
+=== Read Log File
 
 The `read-log-file` operation is available on each `log-file` resource.
 This operation has 4 optional parameters.
@@ -295,10 +294,10 @@ CLI command and output
 ----
 
 [[faq]]
-= FAQ
+== FAQ
 
 [[why-is-there-a-logging.properties-file]]
-== Why is there a logging.properties file?
+=== Why is there a logging.properties file?
 
 You may have noticed that there is a `logging.properties` file in the
 configuration directory. This is logging configuration is used when the

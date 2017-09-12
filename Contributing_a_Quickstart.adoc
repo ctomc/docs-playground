@@ -1,5 +1,4 @@
-Contributing a Quickstart
-=========================
+= Contributing a Quickstart
 
 [IMPORTANT]
 

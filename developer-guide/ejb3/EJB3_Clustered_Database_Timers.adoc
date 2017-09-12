@@ -1,8 +1,7 @@
-EJB3 Clustered Database Timers
-==============================
+= EJB3 Clustered Database Timers
 
 [[overview]]
-= Overview
+== Overview
 
 Wildfly now supports clustered database backed timers. The clustering
 support is provided through the database, and as a result it is not
@@ -19,7 +18,7 @@ support the READ_COMMITTED or SERIALIZABLE isolation mode and the
 datasource must be configured accordingly
 
 [[setup]]
-= Setup
+== Setup
 
 In order to use clustered timers it is necessary to add a database
 backed timer store. This can be done from the CLI with the following
@@ -67,7 +66,7 @@ to execute and refresh the same timers, you can create 20 clusters of 5
 nodes by giving ever group of 5 a different partition name.
 
 [[non-clustered-timers]]
-== Non clustered timers
+=== Non clustered timers
 
 Note that you can still use the database data store for non-clustered
 timers, in which case set the refresh interval to zero and make sure
@@ -75,7 +74,7 @@ that every node has a unique partition name (or uses a different
 database).
 
 [[using-clustered-timers-in-a-deployment]]
-= Using clustered timers in a deployment
+== Using clustered timers in a deployment
 
 It is possible to use the data store as default for all applications by
 changing the default-data-store within the ejb3 subsystem:
@@ -114,7 +113,7 @@ in jboss-ejb3.xml:
 ----
 
 [[technical-details]]
-= Technical details
+== Technical details
 
 Internally every node that is allowed to execute timers schedules a
 timeout for every timer is knows about. When this timeout expires then

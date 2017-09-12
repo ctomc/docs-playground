@@ -1,4 +1,3 @@
-Bean Validation
-===============
+= Bean Validation
 
 

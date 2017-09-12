@@ -1,8 +1,7 @@
-Shared Test Classes and Resources
-=================================
+= Shared Test Classes and Resources
 
 [[among-testsuite-modules]]
-= Among Testsuite Modules
+== Among Testsuite Modules
 
 Use the `testsuite/shared` module.
 
@@ -18,7 +17,7 @@ unique in the WildFly project.*
 reused! A generated list will be put here.
 
 [[between-components-and-testsuite-modules]]
-= Between Components and Testsuite Modules
+== Between Components and Testsuite Modules
 
 To share component's test classes with some module in testsuite, you
 don't need to split to submodules. +

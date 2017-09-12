@@ -1,14 +1,13 @@
-Extending WildFly
-=================
+= Extending WildFly
 
 [[target-audience]]
-= Target Audience
+== Target Audience
 
 This document is intended for people who want to extend WildFly to
 introduce new capabilities.
 
 [[prerequisites]]
-== Prerequisites
+=== Prerequisites
 
 You should know how to download, install and run WildFly. If not please
 consult the link:Getting_Started_Guide.html[Getting Started Guide]. You
@@ -19,14 +18,14 @@ you need Java development experience to follow the example in this
 guide.
 
 [[examples-in-this-guide]]
-== Examples in this guide
+=== Examples in this guide
 
 Most of the examples in this guide are being expressed as excerpts of
 the XML configuration files or by using a representation of the de-typed
 management model.
 
 [[overview]]
-= Overview
+== Overview
 
 In this document we provide an example of how to extend the kernel
 functionality of WildFly via an extension and the subsystem it installs.
@@ -49,14 +48,14 @@ second section if that better fits their learning style. Jumping back
 and forth between the sections is also a good strategy.
 
 [[example-subsystem]]
-= Example subsystem
+== Example subsystem
 
 Our example subsystem will keep track of all deployments of certain
 types containing a special marker file, and expose operations to see how
 long these deployments have been deployed.
 
 [[create-the-skeleton-project]]
-== Create the skeleton project
+=== Create the skeleton project
 
 To make your life easier we have provided a maven archetype which will
 create a skeleton project for implementing subsystems.
@@ -176,7 +175,7 @@ link:#src-557102_ExtendingWildFly-Testingtheparsers[#Testing the
 parsers] section.
 
 [[create-the-schema]]
-== Create the schema
+=== Create the schema
 
 First, let us define the schema for our subsystem. Rename
 `src/main/resources/schema/mysubsystem.xsd` to
@@ -230,7 +229,7 @@ public class SubsystemExtension implements Extension {
 ----
 
 [[design-and-define-the-model-structure]]
-== Design and define the model structure
+=== Design and define the model structure
 
 The following example xml contains a valid subsystem configuration, we
 will see how to plug this in to WildFly later in this tutorial.
@@ -308,7 +307,7 @@ subsystem's model back to the main configuration file when it is
 modified. We will add more functionality to this method later.
 
 [[registering-the-core-subsystem-model]]
-=== Registering the core subsystem model
+==== Registering the core subsystem model
 
 Next we obtain a `ManagementResourceRegistration` by registering the
 subsystem model. This is a *compulsory* step for every new subsystem.
@@ -501,7 +500,7 @@ similar to that of the add handler where just name of the method
 changes.
 
 [[registering-the-subsystem-child]]
-=== Registering the subsystem child
+==== Registering the subsystem child
 
 The `type` child does not exist in our skeleton project so we need to
 implement the operations to add and remove them from the model.
@@ -856,7 +855,7 @@ When implementing `execute()`, you *must* call `context.completeStep()`
 when you are done.
 
 [[parsing-and-marshalling-of-the-subsystem-xml]]
-== Parsing and marshalling of the subsystem xml
+=== Parsing and marshalling of the subsystem xml
 
 WildFly uses the Stax API to parse the xml files. This is initialized in
 `SubsystemExtension` by mapping our parser onto our namespace:
@@ -1041,7 +1040,7 @@ private static class SubsystemDescribeHandler implements OperationStepHandler, D
 ----
 
 [[testing-the-parsers]]
-=== Testing the parsers
+==== Testing the parsers
 
 Changes to tests between 7.0.0 and 7.0.1
 
@@ -1448,7 +1447,7 @@ TrackerService service = (TrackerService)services.getContainer().getService(Trac
 TypeDefinition.TICK.
 
 [[add-the-deployers]]
-== Add the deployers
+=== Add the deployers
 
 When discussing `SubsystemAddHandler` we did not mention the work done
 to install the deployers, which is done in the following method:
@@ -1541,7 +1540,7 @@ instance for the deployment's suffix, we remove the deployment's name
 from it.
 
 [[deployment-phases-and-attachments]]
-=== Deployment phases and attachments
+==== Deployment phases and attachments
 
 The code in the SubsystemDeploymentProcessor uses an _attachment_, which
 is the means of communication between the individual deployment
@@ -1561,34 +1560,34 @@ deployment unit processors for in the phases described in
 `org.jboss.as.server.deployment.Phase`.
 
 [[structure]]
-==== STRUCTURE
+===== STRUCTURE
 
 The deployment unit processors in this phase determine the structure of
 a deployment, and looks for sub deployments and metadata files.
 
 [[parse]]
-==== PARSE
+===== PARSE
 
 In this phase the deployment unit processors parse the deployment
 descriptors and build up the annotation index. `Class-Path` entries from
 the META-INF/MANIFEST.MF are added.
 
 [[dependencies]]
-==== DEPENDENCIES
+===== DEPENDENCIES
 
 Extra class path dependencies are added. For example if deploying a
 `war` file, the commonly needed dependencies for a web application are
 added.
 
 [[configure_module]]
-==== CONFIGURE_MODULE
+===== CONFIGURE_MODULE
 
 In this phase the modular class loader for the deployment is created. No
 attempt should be made loading classes from the deployment until *after*
 this phase.
 
 [[post_module]]
-==== POST_MODULE
+===== POST_MODULE
 
 Now that our class loader has been constructed we have access to the
 classes. In this stage deployment processors may use the
@@ -1598,18 +1597,18 @@ them, bypassing the inefficiencies of using `java.lang.reflect`
 directly.
 
 [[install]]
-==== INSTALL
+===== INSTALL
 
 Install new services coming from the deployment.
 
 [[cleanup]]
-==== CLEANUP
+===== CLEANUP
 
 Attachments put in place earlier in the deployment unit processor chain
 may be removed here.
 
 [[integrate-with-wildfly]]
-== Integrate with WildFly
+=== Integrate with WildFly
 
 Now that we have all the code needed for our subsystem, we can build our
 project by running `mvn install`
@@ -1902,7 +1901,7 @@ that our subsystem entry reflects the current state of the subsystem:
 ----
 
 [[expressions]]
-== Expressions
+=== Expressions
 
 Expressions are mechanism that enables you to support variables in your
 attributes, for instance when you want the value of attribute to be
@@ -1920,7 +1919,7 @@ which means that the value should be taken from a system property named
 `127.0.0.1`.
 
 [[what-expression-types-are-supported]]
-=== What expression types are supported
+==== What expression types are supported
 
 * System properties, which are resolved using
 `java.lang.System.getProperty(String key)`
@@ -1947,7 +1946,7 @@ Security vault expressions do not support default values (i.e. the
 above.)
 
 [[how-to-support-expressions-in-subsystems]]
-=== How to support expressions in subsystems
+==== How to support expressions in subsystems
 
 The easiest way is by using AttributeDefinition, which provides support
 for expressions just by using it correctly.
@@ -2043,7 +2042,7 @@ Attribute definitinon also helps you with that:
 ----
 
 [[working-with-wildfly-capabilities]]
-= Working with WildFly Capabilities
+== Working with WildFly Capabilities
 
 An extension to WildFly will likely want to make use of services
 provided by the WildFly kernel, may want to make use of services
@@ -2078,7 +2077,7 @@ validity of that reference can be checked when validating the
 configuration model.
 
 [[capabilities]]
-== Capabilities
+=== Capabilities
 
 A capability is a piece of functionality used in a WildFly Core based
 process that is exposed via the WildFly Core management layer.
@@ -2117,10 +2116,10 @@ runtime services provided by a capability for which it has registered a
 requirement are available.
 
 [[comparison-to-other-concepts]]
-=== Comparison to other concepts
+==== Comparison to other concepts
 
 [[capabilities-vs-modules]]
-==== Capabilities vs modules
+===== Capabilities vs modules
 
 A JBoss Modules module is the means of making resources available to the
 classloading system of a WildFly Core based process. To make a
@@ -2131,7 +2130,7 @@ WildFly installation does not mean a capability is available. Modules
 can include resources completely unrelated to management capabilities.
 
 [[capabilities-vs-extensions]]
-==== Capabilities vs Extensions
+===== Capabilities vs Extensions
 
 An extension is the means by which the WildFly Core management layer is
 made aware of manageable functionality that is not part of the WildFly
@@ -2144,7 +2143,7 @@ capabilities are registered by extensions; the WildFly Core kernel
 itself may register a number of different capabilities.
 
 [[capability-names]]
-=== Capability Names
+==== Capability Names
 
 Capability names are simple strings, with the dot character serving as a
 separator to allow namespacing.
@@ -2153,7 +2152,7 @@ The 'org.wildfly' namespace is reserved for projects associated with the
 WildFly organization on github ( https://github.com/wildfly).
 
 [[statically-vs-dynamically-named-capabilities]]
-=== Statically vs Dynamically Named Capabilities
+==== Statically vs Dynamically Named Capabilities
 
 The full name of a capability is either statically known, or it may
 include a statically known base element and then a dynamic element. The
@@ -2171,7 +2170,7 @@ their name should provide a consistent feature set and set of
 requirements.
 
 [[service-provided-by-a-capability]]
-=== Service provided by a capability
+==== Service provided by a capability
 
 Typically a capability functions by registering a service with the
 WildFly process' MSC ServiceContainer, and then dependent capabilities
@@ -2180,7 +2179,7 @@ registration of those services and service dependencies by providing a
 means to discover service names.
 
 [[custom-integration-apis-provided-by-a-capability]]
-=== Custom integration APIs provided by a capability
+==== Custom integration APIs provided by a capability
 
 Instead of or in addition to providing MSC services, a capability may
 expose some other API to dependent capabilities. This API must be
@@ -2188,7 +2187,7 @@ encapsulated in a single class (although that class can use other
 non-JRE classes as method parameters or return types).
 
 [[capability-requirements]]
-=== Capability Requirements
+==== Capability Requirements
 
 A capability may rely on other capabilities in order to provide its
 functionality at runtime. The management operation handlers that
@@ -2218,7 +2217,7 @@ specified via configuration, and without configuration the dynamic part
 of the required capability name is unknown.
 
 [[supporting-runtime-only-requirements]]
-==== Supporting runtime-only requirements
+===== Supporting runtime-only requirements
 
 Not all capabilities are usable as a runtime-only requirement.
 
@@ -2239,7 +2238,7 @@ provided via its integration API remains available as long as a full
 process reload has not occurred.
 
 [[capability-contract]]
-== Capability Contract
+=== Capability Contract
 
 A capability provides a stable contract to users of the capability. The
 contract includes the following:
@@ -2258,7 +2257,7 @@ Developers can learn about available capabilities and the contracts they
 provide by reading the WildFly _capabilty registry_.
 
 [[capability-registry]]
-== Capability Registry
+=== Capability Registry
 
 The WildFly organization on github maintains a git repo where
 information about available capabilities is published.
@@ -2284,16 +2283,16 @@ organization-specific namespace as part their capability names to avoid
 name collisions.
 
 [[using-capabilities]]
-== Using Capabilities
+=== Using Capabilities
 
 Now that all the background information is presented, here are some
 specifics about how to use WildFly capabilities in your code.
 
 [[basics-of-using-your-own-capability]]
-=== Basics of Using Your Own Capability
+==== Basics of Using Your Own Capability
 
 [[creating-your-capability]]
-==== Creating your capability
+===== Creating your capability
 
 A capability is an instance of the immutable
 `org.jboss.as.controller.capability.RuntimeCapability` class. A
@@ -2394,7 +2393,7 @@ service:
 ----
 
 [[registering-and-unregistering-your-capability]]
-==== Registering and unregistering your capability
+===== Registering and unregistering your capability
 
 Once you have your capability, you need to ensure it gets registered
 with the WildFly Core kernel when your resource is added. This is easily
@@ -2455,7 +2454,7 @@ expected to be a common situation. See the implementation of those
 classes to see how to do it.
 
 [[installing-accessing-and-removing-the-service-provided-by-your-capability]]
-==== Installing, accessing and removing the service provided by your
+===== Installing, accessing and removing the service provided by your
 capability
 
 If your capability installs a service, you should use the
@@ -2510,7 +2509,7 @@ constructor and it will automatically remove your capability's service
 when it executes.
 
 [[basics-of-using-other-capabilities]]
-=== Basics of Using Other Capabilities
+==== Basics of Using Other Capabilities
 
 When a capability needs another capability, it only refers to it by its
 string name. A capability should not reference the `RuntimeCapability`
@@ -2525,7 +2524,7 @@ integration API is done in Stage.RUNTIME.
 Registering a requirement for a capability is simple.
 
 [[registering-a-hard-requirement-for-a-static-capability]]
-==== Registering a hard requirement for a static capability
+===== Registering a hard requirement for a static capability
 
 If your capability has a hard requirement for a statically named
 capability, simply declare that to the builder for your
@@ -2545,7 +2544,7 @@ kernel will automatically register any static hard requirements declared
 this way.
 
 [[registering-a-requirement-for-a-dynamically-named-capability]]
-==== Registering a requirement for a dynamically named capability
+===== Registering a requirement for a dynamically named capability
 
 If the capability you require is dynamically named, usually your
 capability's resource will include an attribute whose value is the
@@ -2584,7 +2583,7 @@ ensure that the appropriate capability requirement will be registered
 when the attribute is modified.
 
 [[depending-upon-a-service-provided-by-another-capability]]
-==== Depending upon a service provided by another capability
+===== Depending upon a service provided by another capability
 
 Once the requirement for the capability is registered, your
 `OperationStepHandler` can use the `OperationContext` to discover the
@@ -2614,7 +2613,7 @@ if a capability requires a remoting Endpoint:
 ----
 
 [[using-a-custom-integration-api-provided-by-another-capability]]
-==== Using a custom integration API provided by another capability
+===== Using a custom integration API provided by another capability
 
 In your `Stage.RUNTIME` handler, use
 `OperationContext.getCapabilityRuntimeAPI` to get a reference to the
@@ -2629,7 +2628,7 @@ required capability's custom integration API. Then use it as necessary.
 ----
 
 [[runtime-only-requirements]]
-==== Runtime-only requirements
+===== Runtime-only requirements
 
 If your capability has a runtime-only requirement for another
 capability, that means that if that capability is present in
@@ -2666,7 +2665,7 @@ with capabilities that declare in their contract that they support such
 use.
 
 [[using-a-capability-in-a-deploymentunitprocessor]]
-==== Using a capability in a DeploymentUnitProcessor
+===== Using a capability in a DeploymentUnitProcessor
 
 A `DeploymentUnitProcessor` is likely to have a need to interact with
 capabilities, in order to create service dependencies from a deployment
@@ -2748,7 +2747,7 @@ not installed. The `DeploymentUnitProcessor` will need to catch and
 handle the exception.
 
 [[detailed-api]]
-=== Detailed API
+==== Detailed API
 
 The WildFly Core kernel's API for using capabilities is covered in
 detail in the javadoc for the
@@ -2768,10 +2767,10 @@ sections. If you do find yourself in a situation where you need to use
 these in an extension, please read the javadoc thoroughly.
 
 [[domain-mode-subsystem-transformers]]
-= Domain mode subsystem transformers
+== Domain mode subsystem transformers
 
 [[abstract]]
-== Abstract
+=== Abstract
 
 A WildFly domain may consist of a new Domain Controller (DC) controlling
 slave Host Controllers (HC) running older versions. Each slave HC
@@ -2782,7 +2781,7 @@ whereby the DC translates the configuration and operations into
 something the slave HCs can understand.
 
 [[background]]
-== Background
+=== Background
 
 WildFly comes with a link:Domain_Setup.html[domain mode] which allows
 you to have one Host Controller acting as the Domain Controller. The
@@ -2841,7 +2840,7 @@ domain configuration in sync with the centralized domain configuration.
 Let's look a bit closer at what happens in each of these steps.
 
 [[getting-the-initial-domain-model]]
-=== Getting the initial domain model
+==== Getting the initial domain model
 
 When a slave HC connects to the DC it obtains a copy of the domain model
 from the DC. This is done in a simpler serialized format, different from
@@ -2911,7 +2910,7 @@ domain model. It needs to do this before it can start any of its
 servers.
 
 [[an-operation-changes-something-in-the-domain-configuration]]
-=== An operation changes something in the domain configuration
+==== An operation changes something in the domain configuration
 
 Once a domain is up and running we can still change things in the domain
 configuration. These changes must happen when connected to the DC, and
@@ -2963,7 +2962,7 @@ propagates the change to its `server-one` which belongs to
 `main-server-group` which uses the `full` profile.
 
 [[versions-and-backward-compatibility]]
-== Versions and backward compatibility
+=== Versions and backward compatibility
 
 A HC and its servers will always be the same version of WildFly (they
 use the same module path and jars). However, the DC and the slave HCs do
@@ -2982,7 +2981,7 @@ with slave HCs running WildFly 10. The opposite is not true, the DC must
 be the same or the newest version in the domain.
 
 [[versioning-of-subsystems]]
-=== Versioning of subsystems
+==== Versioning of subsystems
 
 To help with being able to know what is compatible we have versions
 within the subsystems, this is stored in the subsystem's extension. When
@@ -3070,7 +3069,7 @@ domain@localhost:9990 /] /extension=org.jboss.as.clustering.infinispan:read-reso
 ----
 
 [[the-role-of-transformers]]
-== The role of transformers
+=== The role of transformers
 
 Now that we have mentioned the slave HCs registration process with the
 DC, and know about ModelVersions, it is time to mention that when
@@ -3211,7 +3210,7 @@ when sending across the initial domain model AND forwarding on
 operations to legacy slave HCs.
 
 [[resource-transformers]]
-=== Resource transformers
+==== Resource transformers
 
 When copying over the centralized domain configuration as mentioned in
 link:#src-557102_ExtendingWildFly-Gettingtheinitialdomainmodel[#Getting
@@ -3245,7 +3244,7 @@ attribute value (leaving ' `%-5p` `%c` `(%t) %s%E%n"`') so that the old
 slave HC's servers can understand it.
 
 [[rejection-in-resource-transformers]]
-==== Rejection in resource transformers
+===== Rejection in resource transformers
 
 Only slave HCs from JBoss AS 7.2.0 and newer inform the DC about their
 ignored resources (see
@@ -3269,7 +3268,7 @@ aggressively fail the transformation, which in turn will cause the slave
 HC to fail to start up.
 
 [[operation-transformers]]
-=== Operation transformers
+==== Operation transformers
 
 When
 link:#src-557102_ExtendingWildFly-Anoperationchangessomethinginthedomainconfiguration[#An
@@ -3291,7 +3290,7 @@ does not contain any such attribute. However, it is best to aggressively
 reject in such cases.
 
 [[rejection-in-operation-transformers]]
-==== Rejection in operation transformers
+===== Rejection in operation transformers
 
 For transformed operations we can always know if the operation is on an
 ignored resource in the legacy slave HC. In 7.2.0 onwards, we know this
@@ -3306,7 +3305,7 @@ them has a legacy version which ends up rejecting the transformation, we
 rollback the operation across the whole domain.
 
 [[different-profiles-for-different-versions]]
-=== Different profiles for different versions
+==== Different profiles for different versions
 
 Now for the `weld` example we have been using there is a slight twist.
 We have the new `require-bean-descriptor` and `non-portable-mode`
@@ -3388,7 +3387,7 @@ WildFly {wildflyVersion} make their servers reference the `main-server-group-leg
 server group.
 
 [[ignoring-resources-on-legacy-hosts]]
-==== Ignoring resources on legacy hosts
+===== Ignoring resources on legacy hosts
 
 Booting the above configuration will still cause problems on legacy
 slave HCs, especially if they are JBoss AS 7.2.0 or later. The reason
@@ -3430,7 +3429,7 @@ Any top-level resource type can be ignored `profile`, `extension`,
 and all its children.
 
 [[how-do-i-know-what-needs-to-be-transformed]]
-== How do I know what needs to be transformed?
+=== How do I know what needs to be transformed?
 
 There is a set of related classes in the `org.wildfly.legacy.util`
 package to help you determine this. These now live at
@@ -3439,7 +3438,7 @@ They are all runnable in your IDE, just start the WildFly or JBoss AS 7
 instances as described below.
 
 [[getting-data-for-a-previous-version]]
-=== Getting data for a previous version
+==== Getting data for a previous version
 
 https://github.com/wildfly/wildfly-legacy-test/tree/master/tools/src/main/resources/legacy-models
 contains the output for the previous WildFly/JBoss AS 7 versions, so
@@ -3458,7 +3457,7 @@ which will output the full resource definition to
 4.  Stop the running version of WildFly/JBoss AS 7
 
 [[see-what-changed]]
-=== See what changed
+==== See what changed
 
 To do this follow the following steps
 
@@ -3483,7 +3482,7 @@ different?:
 * Answer ' `y`'
 
 Here is some example output, as a subsystem developer you can ignore
-everything down to `====== Comparing subsystem models ======`:
+everything down to `======= Comparing subsystem models ======`:
 
 [source, java]
 ----
@@ -3509,19 +3508,19 @@ Loading resource descriptions for currently running STANDALONE...
 Loaded current resource descriptions
 Starting comparison of the current....
  
-====== Comparing core models ======
+======= Comparing core models ======
 -- SNIP --
  
-====== Comparing subsystem models ======
+======= Comparing subsystem models ======
 -- SNIP --
-====== Resource root address: ["subsystem" => "remoting"] - Current version: 2.0.0; legacy version: 1.2.0 =======
+======= Resource root address: ["subsystem" => "remoting"] - Current version: 2.0.0; legacy version: 1.2.0 =======
 --- Problems for relative address to root []:
 Missing child types in current: []; missing in legacy [http-connector]
 --- Problems for relative address to root ["remote-outbound-connection" => "*"]:
 Missing attributes in current: []; missing in legacy [protocol]
 Missing parameters for operation 'add' in current: []; missing in legacy [protocol]
 -- SNIP --
-====== Resource root address: ["subsystem" => "weld"] - Current version: 2.0.0; legacy version: 1.0.0 =======
+======= Resource root address: ["subsystem" => "weld"] - Current version: 2.0.0; legacy version: 1.0.0 =======
 --- Problems for relative address to root []:
 Missing attributes in current: []; missing in legacy [require-bean-descriptor, non-portable-mode]
 Missing parameters for operation 'add' in current: []; missing in legacy [require-bean-descriptor, non-portable-mode]
@@ -3560,7 +3559,7 @@ propagation to the servers in the domain, which in turn means no
 transformation is needed.
 
 [[how-do-i-write-a-transformer]]
-== How do I write a transformer?
+=== How do I write a transformer?
 
 There are two APIs available to write transformers for a resource. There
 is the original low-level API where you register transformers directly,
@@ -3711,7 +3710,7 @@ Here we will discuss this API a bit more, to outline the most important
 features/most commonly needed tasks.
 
 [[resourcetransformationdescriptionbuilder]]
-=== ResourceTransformationDescriptionBuilder
+==== ResourceTransformationDescriptionBuilder
 
 The `ResourceTransformationDescriptionBuilder` contains transformations
 for a resource type. The initial one is for the subsystem, obtained by
@@ -3746,7 +3745,7 @@ If you have several old ModelVersions you could be transforming to, you
 need a separate builder for each of those.
 
 [[silently-discard-child-resources]]
-==== Silently discard child resources
+===== Silently discard child resources
 
 To make the `ResourceTransformationDescriptionBuilder` do something, we
 need to call some of its methods. For example, if we want to silently
@@ -3780,7 +3779,7 @@ have different profiles targeting different groups of versions of legacy
 slave HCs.
 
 [[reject-child-resource]]
-==== Reject child resource
+===== Reject child resource
 
 If we want to reject transformation if a child resource exists, we can
 do
@@ -3804,7 +3803,7 @@ in operation transformers] for exactly what happens when something is
 rejected).
 
 [[redirect-address-for-child-resource]]
-==== Redirect address for child resource
+===== Redirect address for child resource
 
 Sometimes we rename the addresses for a child resource between model
 versions. To do that we use one of the `addChildRedirection()` methods,
@@ -3841,7 +3840,7 @@ under the `web` subsystem `ssl=configuration` got renamed to
 `configuration=ssl` to `ssl=configuration` in its transformers.
 
 [[getting-a-child-resource-builder]]
-==== Getting a child resource builder
+===== Getting a child resource builder
 
 Sometimes we don't want to transform the subsystem resource, but we want
 to transform something in one of its child resources. Again, since we
@@ -3862,7 +3861,7 @@ the child resource.
 ----
 
 [[attributetransformationdescriptionbuilder]]
-=== AttributeTransformationDescriptionBuilder
+==== AttributeTransformationDescriptionBuilder
 
 To transform attributes you call
 `ResourceTransformationDescriptionBuilder.getAttributeBuilder()` which
@@ -3915,7 +3914,7 @@ For the rest of the examples in this section we assume that the
 `attributeBuilder` is for `/subsystem=my-subsystem`
 
 [[attribute-transformation-lifecycle]]
-==== Attribute transformation lifecycle
+===== Attribute transformation lifecycle
 
 There is a well defined lifecycle used for attribute transformation that
 is worth explaining before jumping into specifics. Transformation is
@@ -3957,7 +3956,7 @@ Next, let us have a look at how to register attributes for each of these
 phases.
 
 [[discarding-attributes]]
-==== Discarding attributes
+===== Discarding attributes
 
 The general idea behind a discard is that we remove attributes which do
 not exist in the legacy slave HC's model. However, as hopefully
@@ -4001,7 +4000,7 @@ enabled, otherwise `discardCheckerB` will overwrite `discardCheckerA`):
 ----
 
 [[the-discardattributechecker-interface]]
-===== The DiscardAttributeChecker interface
+====== The DiscardAttributeChecker interface
 
 `org.jboss.as.controller.transform.description.DiscardAttributeChecker`
 contains both the `DiscardAttributeChecker` and some helper
@@ -4092,13 +4091,13 @@ resource, the name and value of the attribute, and the
 ----
 
 [[discardattributechecker-helper-classesimplementations]]
-===== DiscardAttributeChecker helper classes/implementations
+====== DiscardAttributeChecker helper classes/implementations
 
 `DiscardAttributeChecker` contains a few helper implementations for the
 most common cases to save you writing the same stuff again and again.
 
 [[discardattributechecker.defaultdiscardattributechecker]]
-====== DiscardAttributeChecker.DefaultDiscardAttributeChecker
+======= DiscardAttributeChecker.DefaultDiscardAttributeChecker
 
 `DiscardAttributeChecker.DefaultDiscardAttributeChecker` is an abstract
 convenience class. In most cases you don't need a separate check for if
@@ -4118,7 +4117,7 @@ to define values for `isDiscardExpressions()` and
 `isDiscardUndefined()`.
 
 [[discardattributechecker.discardattributevaluechecker]]
-====== DiscardAttributeChecker.DiscardAttributeValueChecker
+======= DiscardAttributeChecker.DiscardAttributeValueChecker
 
 This is another convenience class, which allows you to discard an
 attribute if it has one or more values. Here is a real-world example
@@ -4157,7 +4156,7 @@ expression is used, we cannot discard since we have no idea what the
 expression will resolve to on the slave HC.
 
 [[discardattributechecker.always]]
-====== DiscardAttributeChecker.ALWAYS
+======= DiscardAttributeChecker.ALWAYS
 
 `DiscardAttributeChecker.ALWAYS` will always discard an attribute. Use
 this sparingly, since normally the presence of an attribute in the
@@ -4186,7 +4185,7 @@ security-manager susbsystem, which does not exist on legacy slaves
 running ModelVersion 1.1.0 of the `ejb3` subsystem.
 
 [[discardattributechecker.undefined]]
-====== DiscardAttributeChecker.UNDEFINED
+======= DiscardAttributeChecker.UNDEFINED
 
 `DiscardAttributeChecker.UNDEFINED` will discard an attribute if it is
 `undefined`. This is normally safer than
@@ -4196,7 +4195,7 @@ you should check that this attribute not existing in the legacy slave
 HC, implies the same functionality as being undefined in the current DC.
 
 [[rejecting-attributes]]
-==== Rejecting attributes
+===== Rejecting attributes
 
 The next step is to check attributes and values which we know for sure
 will not work on the target legacy slave HC.
@@ -4246,7 +4245,7 @@ transformation lifecycle], if an attribute is rejected, we still invoke
 the rest of the reject checkers.
 
 [[the-rejectattributechecker-interface]]
-===== The RejectAttributeChecker interface
+====== The RejectAttributeChecker interface
 
 `org.jboss.as.controller.transform.description.RejectAttributeChecker`
 contains both the `RejectAttributeChecker` and some helper
@@ -4338,14 +4337,14 @@ rejected attributes and the values they had.
 ----
 
 [[rejectattributechecker-helper-classesimplementations]]
-===== RejectAttributeChecker helper classes/implementations
+====== RejectAttributeChecker helper classes/implementations
 
 `RejectAttributeChecker` contains a few helper classes for the most
 common scenarios to save you from writing the same stuff again and
 again.
 
 [[rejectattributechecker.defaultrejectattributechecker]]
-====== RejectAttributeChecker.DefaultRejectAttributeChecker
+======= RejectAttributeChecker.DefaultRejectAttributeChecker
 
 `RejectAttributeChecker.DefaultRejectAttributeChecker` is an abstract
 convenience class. In most cases you don't need a separate check for if
@@ -4362,7 +4361,7 @@ Like `DefaultDiscardAttributeChecker`, all you loose is the name of the
 transformed operation, in the case of operation transformation.
 
 [[rejectattributechecker.defined]]
-====== RejectAttributeChecker.DEFINED
+======= RejectAttributeChecker.DEFINED
 
 `RejectAttributeChecker.DEFINED` is used to reject any attribute that
 has a defined value. Normally this is because the attribute does not
@@ -4396,7 +4395,7 @@ Important
 Reject and discard often work in pairs.
 
 [[rejectattributechecker.simple_expressions]]
-====== RejectAttributeChecker.SIMPLE_EXPRESSIONS
+======= RejectAttributeChecker.SIMPLE_EXPRESSIONS
 
 `RejectAttributeChecker.SIMPLE_EXPRESSIONS` can be used to reject an
 attribute that contains expressions. This was used a lot for
@@ -4406,7 +4405,7 @@ realized the importance of where to support expressions until JBoss AS
 missing expressions support.
 
 [[rejectattributechecker.listrejectattributechecker]]
-====== RejectAttributeChecker.ListRejectAttributeChecker
+======= RejectAttributeChecker.ListRejectAttributeChecker
 
 The
 `RejectAttributeChecker}}s we have seen so far work on simple attributes, i.e. where the attribute has a ModelType which is one of the primitives. We also have a {{RejectAttributeChecker.ListRejectAttributeChecker`
@@ -4425,7 +4424,7 @@ an expression. You can of course pass in another kind of
 `RejectAttributeChecker` to check the elements as well.
 
 [[rejectattributechecker.objectfieldsrejectattributechecker]]
-====== RejectAttributeChecker.ObjectFieldsRejectAttributeChecker
+======= RejectAttributeChecker.ObjectFieldsRejectAttributeChecker
 
 For attributes where the type is `ModelType.OBJECT` we have
 `RejectAttributeChecker.ObjectFieldsRejectAttributeChecker` which allows
@@ -4447,7 +4446,7 @@ Now if `attr1` is a complex type where
 attribute.
 
 [[converting-attributes]]
-==== Converting attributes
+===== Converting attributes
 
 To convert an attribute you register an
 `org.jboss.as.controller.transform.description.AttributeConverter`
@@ -4467,7 +4466,7 @@ Now if `attr1` and `attr2` get converted with `converterA`, while
 `attr3` gets converted with `converterB`.
 
 [[the-attributeconverter-interface]]
-===== The AttributeConverter interface
+====== The AttributeConverter interface
 
 The `AttributeConverter` interface gets called for each attribute for
 which the `AttributeConverter` has been registered
@@ -4575,7 +4574,7 @@ Like `DefaultDiscardAttributeChecker` and
 transformed operation, in the case of operation transformation.
 
 [[introducing-attributes-during-transformation]]
-====== Introducing attributes during transformation
+======= Introducing attributes during transformation
 
 Say both the current and the legacy models have an attribute called
 `port`. In the legacy version this attribute had to be specified, and
@@ -4599,7 +4598,7 @@ it will get set in the model, regardless of if it existed already or
 not.
 
 [[renaming-attributes]]
-==== Renaming attributes
+===== Renaming attributes
 
 To rename an attribute, you simply do
 
@@ -4623,7 +4622,7 @@ the operations involving this attribute are affected, so
 ----
 
 [[operationtransformationoverridebuilder]]
-=== OperationTransformationOverrideBuilder
+==== OperationTransformationOverrideBuilder
 
 All operations on a resource automatically get the same transformations
 on their parameters as set up by the
@@ -4661,7 +4660,7 @@ to the legacy slave HC.
 ----
 
 [[evolving-transformers-with-subsystem-modelversions]]
-== Evolving transformers with subsystem ModelVersions
+=== Evolving transformers with subsystem ModelVersions
 
 Say you have a subsystem with ModelVersions 1.0.0 and 1.1.0. There will
 (hopefully!) already be transformers in place for 1.1.0 to 1.0.0
@@ -4733,7 +4732,7 @@ There are a few ways to evolve your transformers:
 transformers]
 
 [[the-old-way]]
-=== The old way
+==== The old way
 
 This is the way that has been used up to WildFly {wildflyVersion}.x. However, in
 WildFly 9 and later, it is strongly recommended to migrate to what is
@@ -4788,7 +4787,7 @@ Now `new-attr` will be rejected if defined for all previous model
 versions.
 
 [[chained-transformers]]
-=== Chained transformers
+==== Chained transformers
 
 Since 'The old way' had a lot of duplication of code, since WildFly 9 we
 now have chained transformers. You obtain a
@@ -4870,7 +4869,7 @@ subsystem tests run.
 model tests.
 
 [[testing-transformers]]
-== Testing transformers
+=== Testing transformers
 
 To test transformation you need to extend
 `org.jboss.as.subsystem.test.AbstractSubsystemTest` or
@@ -4903,7 +4902,7 @@ subsystem#Testing the parsers], but we will only talk about the parts
 relevant to transformers here.
 
 [[testing-a-configuration-that-works]]
-=== Testing a configuration that works
+==== Testing a configuration that works
 
 To test a configuration xxx
 
@@ -5019,7 +5018,7 @@ Copy this .dmr file to the correct location in your project's test
 resources.
 
 [[testing-a-configuration-that-does-not-work]]
-=== Testing a configuration that does not work
+==== Testing a configuration that does not work
 
 The `threads` subsystem (like several others) did not support the use of
 expression values in the version that came with JBoss AS 7.1.2.Final. So
@@ -5099,7 +5098,7 @@ along. As well as allowing you to test rejection of expressions
 help testing rejection of other scenarios.
 
 [[common-transformation-use-cases]]
-== Common transformation use-cases
+=== Common transformation use-cases
 
 Most transformations are quite similar, so this section covers some of
 the actual transformation patterns found in the WildFly codebase. We
@@ -5110,7 +5109,7 @@ being explained in an attempt to keep things as clear/simple as
 possible.
 
 [[child-resource-type-does-not-exist-in-legacy-model]]
-=== Child resource type does not exist in legacy model
+==== Child resource type does not exist in legacy model
 
 Looking at the model comparison between WildFly and JBoss AS 7.2.0,
 there is a change to the `remoting` subsystem. The relevant part of the
@@ -5118,7 +5117,7 @@ output is:
 
 [source, java]
 ----
-====== Resource root address: ["subsystem" => "remoting"] - Current version: 2.0.0; legacy version: 1.2.0 =======
+======= Resource root address: ["subsystem" => "remoting"] - Current version: 2.0.0; legacy version: 1.2.0 =======
 --- Problems for relative address to root []:
 Missing child types in current: []; missing in legacy [http-connector]
 ----
@@ -5157,10 +5156,10 @@ Since this child resource type also does not exist in ModelVersion 1.1.0
 we need to reject it there as well using a similar mechanism.
 
 [[attribute-does-not-exist-in-the-legacy-subsystem]]
-=== Attribute does not exist in the legacy subsystem
+==== Attribute does not exist in the legacy subsystem
 
 [[default-value-of-the-attribute-is-the-same-as-legacy-implied-behavior]]
-==== Default value of the attribute is the same as legacy implied
+===== Default value of the attribute is the same as legacy implied
 behavior
 
 This example also comes from the `remoting` subsystem, and is probably
@@ -5171,7 +5170,7 @@ which did not exist in the older version:
 
 [source, java]
 ----
-====== Resource root address: ["subsystem" => "remoting"] - Current version: 2.0.0; legacy version: 1.2.0 =======
+======= Resource root address: ["subsystem" => "remoting"] - Current version: 2.0.0; legacy version: 1.2.0 =======
 --- Problems for relative address to root []:
 ....
 --- Problems for relative address to root ["remote-outbound-connection" => "*"]:
@@ -5243,7 +5242,7 @@ instead. However, the effect of the discard check is exactly the same as
 when we used `DiscardAttributeChecker.DiscardAttributeValueChecker`.
 
 [[default-value-of-the-attribute-is-different-from-legacy-implied-behaviour]]
-==== Default value of the attribute is different from legacy implied
+===== Default value of the attribute is different from legacy implied
 behaviour
 
 We touched on this in the weld subsystem example we used earlier in this
@@ -5253,7 +5252,7 @@ we have two new attributes `require-bean-descriptor` and
 
 [source, java]
 ----
-====== Resource root address: ["subsystem" => "weld"] - Current version: 2.0.0; legacy version: 1.0.0 =======
+======= Resource root address: ["subsystem" => "weld"] - Current version: 2.0.0; legacy version: 1.0.0 =======
 --- Problems for relative address to root []:
 Missing attributes in current: []; missing in legacy [require-bean-descriptor, non-portable-mode]
 Missing parameters for operation 'add' in current: []; missing in legacy [require-bean-descriptor, non-portable-mode]
@@ -5328,7 +5327,7 @@ with the names of the attributes having been rejected substituting the
 `%s`.
 
 [[attribute-has-a-different-default-value]]
-=== Attribute has a different default value
+==== Attribute has a different default value
 
 – TODO
 
@@ -5354,7 +5353,7 @@ of old config documents to produce results consistent with what happened
 when they were created. It does not help with CLI scripts though.)
 
 [[attribute-has-a-different-type]]
-=== Attribute has a different type
+==== Attribute has a different type
 
 Here the example comes from the `capacity` parameter some way into the
 `modcluster` subsystem, and the legacy version is AS 7.1.2.Final. There
@@ -5363,7 +5362,7 @@ this example:
 
 [source, java]
 ----
-====== Resource root address: ["subsystem" => "modcluster"] - Current version: 2.0.0; legacy version: 1.2.0 =======
+======= Resource root address: ["subsystem" => "modcluster"] - Current version: 2.0.0; legacy version: 1.2.0 =======
 ...
 --- Problems for relative address to root ["mod-cluster-config" => "configuration","dynamic-load-provider" => "configuration","custom-load-m
 etric" => "*"]:
@@ -5475,7 +5474,7 @@ And then finally we do the conversion:
 ----
 
 [[key-interfaces-and-classes-relevant-to-extension-developers]]
-= Key Interfaces and Classes Relevant to Extension Developers
+== Key Interfaces and Classes Relevant to Extension Developers
 
 In the first major section of this guide, we provided an example of how
 to implement an extension to the AS. The emphasis there was learning by
@@ -5489,7 +5488,7 @@ Before digging into this section, readers are encouraged to read the
 "Core Management Concepts" section of the Admin Guide.
 
 [[extension-interface]]
-== Extension Interface
+=== Extension Interface
 
 The `org.jboss.as.controller.Extension` interface is the hook by which
 your extension to the AS kernel is able to integrate with the AS. During
@@ -5539,7 +5538,7 @@ interface in detail, let's describe how it (and the related `Resource`
 interface) relate to the notion of managed resources in the AS.
 
 [[wildfly-managed-resources]]
-== WildFly Managed Resources
+=== WildFly Managed Resources
 
 Each subsystem is responsible for managing one or more management
 resources. The conceptual characteristics of a management resource are
@@ -5573,7 +5572,7 @@ instance is encapsulated in an implementation of the
 `org.jboss.as.controller.registry.Resource` interface.
 
 [[managementresourceregistration-interface]]
-== ManagementResourceRegistration Interface
+=== ManagementResourceRegistration Interface
 
 In the Java analogy used above, the `ManagementResourceRegistration` is
 analogous to the "class", while the `Resource` discussed below is
@@ -5638,7 +5637,7 @@ the change to record the resource type's attributes, operations and
 children.
 
 [[resourcedefinition-interface]]
-== ResourceDefinition Interface
+=== ResourceDefinition Interface
 
 An implementation of `ResourceDefinition` is the primary class used by
 an extension developer when defining a managed resource type. It
@@ -5702,7 +5701,7 @@ To register a child resource type:
 ----
 
 [[resourcedescriptionresolver]]
-=== ResourceDescriptionResolver
+==== ResourceDescriptionResolver
 
 One of the things a `ResourceDefinition` must be able to do is provide a
 `DescriptionProvider` that provides a proper DMR description of the
@@ -5737,7 +5736,7 @@ as your `Extension` implementation, in a file named
 `LocalDescriptions.properties`.
 
 [[attributedefinition-class]]
-== AttributeDefinition Class
+=== AttributeDefinition Class
 
 The `AttributeDefinition` class is used to create the static definition
 of one of a managed resource's attributes. It's a bit poorly named
@@ -5822,7 +5821,7 @@ uses it to seed the `allowed-values` metadata in
 `read-resource-description` output.
 
 [[key-uses-of-attributedefinition]]
-=== Key Uses of AttributeDefinition
+==== Key Uses of AttributeDefinition
 
 Your `AttributeDefinition` instances will be some of the most commonly
 used objects in your extension code. Following are the most typical
@@ -5840,7 +5839,7 @@ utility code that handles this for you. For example
 the User to the Configuration Model" case.
 
 [[use-in-xml-parsing]]
-==== Use in XML Parsing
+===== Use in XML Parsing
 
 Here we have your extension's implementation of
 `XMLElementReader<List<ModelNode>>` that is being used to parse the xml
@@ -5881,7 +5880,7 @@ If you use `PersistentResourceXMLParser` this parsing logic is handled
 for you and you don't need to write it yourself.
 
 [[use-in-storing-data-provided-by-the-user-to-the-configuration-model]]
-==== Use in Storing Data Provided by the User to the Configuration Model
+===== Use in Storing Data Provided by the User to the Configuration Model
 
 Here we illustrate code in an `OperationStepHandler` that extracts a
 value from a user-provided `operation` and stores it in the internal
@@ -5918,7 +5917,7 @@ your handler implementations on the standard classes provided by WildFly
 Core, this part of the work will be handled for you.
 
 [[use-in-extracting-data-from-the-configuration-model-for-use-in-runtime-services]]
-==== Use in Extracting Data from the Configuration Model for Use in
+===== Use in Extracting Data from the Configuration Model for Use in
 Runtime Services
 
 This is the example you are most likely to use in your code, as this is
@@ -5977,7 +5976,7 @@ defined value, you need to guard against that, e.g.:
 ----
 
 [[use-in-marshaling-configuration-model-data-to-xml]]
-==== Use in Marshaling Configuration Model Data to XML
+===== Use in Marshaling Configuration Model Data to XML
 
 Your `Extension` must register an
 `XMLElementWriter<SubsystemMarshallingContext>` for each subsystem. This
@@ -6008,7 +6007,7 @@ child resources, create child xml elements for those and continue down
 the tree.
 
 [[operationdefinition-and-operationstephandler-interfaces]]
-== OperationDefinition and OperationStepHandler Interfaces
+=== OperationDefinition and OperationStepHandler Interfaces
 
 `OperationDefinition` defines an operation, particularly its name, its
 parameters and the details of any result value, with
@@ -6081,7 +6080,7 @@ to do further handling, the OSH will create another OSH to execute that
 step. This second OSH is typically an inner class of the first OSH.
 
 [[operation-execution-and-the-operationcontext]]
-== Operation Execution and the OperationContext
+=== Operation Execution and the OperationContext
 
 When the `ModelController` at the heart of the WildFly Core management
 layer handles a request to execute an operation, it instantiates an
@@ -6110,7 +6109,7 @@ and as the interface provided to `OperationStepHandler` implementations
 to let them interact with the rest of the system.
 
 [[execution-process]]
-=== Execution Process
+==== Execution Process
 
 Operation execution proceeds via execution by the `OperationContext` of
 a series of "steps" with an `OperationStepHandler` doing the key work
@@ -6137,7 +6136,7 @@ processing of the next stage's steps begins.
 Here is some brief information about each stage:
 
 [[stage.model]]
-==== Stage.MODEL
+===== Stage.MODEL
 
 This stage is concerned with interacting with the persistent
 configuration model, either making changes to it or reading information
@@ -6161,7 +6160,7 @@ model validation work before proceeding on to the next stage. Validation
 failures will result in rollback.
 
 [[stage.runtime]]
-==== Stage.RUNTIME
+===== Stage.RUNTIME
 
 This stage is concerned with interacting with the server runtime, either
 reading from it or modifying it (e.g. installing or removing services or
@@ -6186,7 +6185,7 @@ the MSC service container to stabilize (i.e. for all services to have
 reached a rest state) before moving on to the next stage.
 
 [[stage.verify]]
-==== Stage.VERIFY
+===== Stage.VERIFY
 
 Service container verification work is performed in this stage, checking
 that any MSC changes made in `Stage.RUNTIME` had the expected effect.
@@ -6208,7 +6207,7 @@ by a handler will trigger rollback.
 There is no special transition work at the end of this stage.
 
 [[stage.domain]]
-==== Stage.DOMAIN
+===== Stage.DOMAIN
 
 Extension authors should not add steps in this stage; it is only for use
 by the kernel.
@@ -6218,7 +6217,7 @@ affects multiple processes in a managed domain run here. This stage is
 only run on Host Contoller processes, never on servers.
 
 [[stage.done-and-resulthandler-rollbackhandler-execution]]
-==== Stage.DONE and ResultHandler / RollbackHandler Execution
+===== Stage.DONE and ResultHandler / RollbackHandler Execution
 
 This stage doesn't maintain a queue of steps; no `OperationStepHandler`
 executes here. What does happen here is persistence of any configuration
@@ -6237,7 +6236,7 @@ because if an operation rolls back the updated model produced by the
 operation is simply never published and is discarded.)
 
 [[tips-about-adding-steps]]
-==== Tips About Adding Steps
+===== Tips About Adding Steps
 
 Here are some useful tips about how to add steps:
 
@@ -6275,7 +6274,7 @@ chance to do their work. *Rule of thumb: always doing any extra
 validation work in an added step.*
 
 [[passing-data-to-an-added-step]]
-===== Passing Data to an Added Step
+====== Passing Data to an Added Step
 
 Often a handler author will want to share state between the handler for
 a step it adds and the handler that added it. There are a number of ways
@@ -6298,7 +6297,7 @@ what the `OperationContext` sees as the target of operation when that
 added step's handler executes.
 
 [[controlling-output-from-an-added-step]]
-===== Controlling Output from an Added Step
+====== Controlling Output from an Added Step
 
 When an `OperationStepHandler` wants to report an operation result, it
 calls the `OperationContext.getResult()` method and manipulates the
@@ -6339,7 +6338,7 @@ great care needs to be taken if it is done. It is often done in some of
 the kernel handlers.
 
 [[operationstephandler-use-of-the-operationcontext]]
-=== OperationStepHandler use of the OperationContext
+==== OperationStepHandler use of the OperationContext
 
 All useful work an `OperationStepHandler` performs is done by invoking
 methods on the `OperationContext`. The `OperationContext` interface is
@@ -6379,7 +6378,7 @@ overview. The OSH can use the `OperationContext` to:
 `completeStep`)
 
 [[locking-and-change-visibility]]
-=== Locking and Change Visibility
+==== Locking and Change Visibility
 
 The `ModelController` and `OperationContext` work together to ensure
 that only one operation at a time is modifying the state of the system.
@@ -6428,7 +6427,7 @@ by an operation to either of those are immediately visible to other
 threads.
 
 [[resource-interface]]
-== Resource Interface
+=== Resource Interface
 
 An instance of the `Resource` interface holds the state for a particular
 instance of a type defined by a `ManagementResourceRegistration`.
@@ -6446,7 +6445,7 @@ attributes and whose values are the attribute values
 * Links to child resources such that the resources form a tree
 
 [[creating-resources]]
-=== Creating Resources
+==== Creating Resources
 
 Typically extensions create resources via `OperationStepHandler` calls
 to the `OperationContext.createResource` method. However it is allowed
@@ -6455,7 +6454,7 @@ instantiating the resource and invoking `OperationContext.addResource`.
 The `AbstractModelResource` class can be used as a base class.
 
 [[runtime-only-and-synthetic-resources-and-the-placeholderresourceentry-class]]
-=== Runtime-Only and Synthetic Resources and the
+==== Runtime-Only and Synthetic Resources and the
 PlaceholderResourceEntry Class
 
 A runtime-only resource is one whose state is not persisted to the xml
@@ -6526,12 +6525,12 @@ example of this kind of thing. Searching for other uses of
 `PlaceholderResourceEntry` will show other examples.
 
 [[deploymentunitprocessor-interface]]
-== DeploymentUnitProcessor Interface
+=== DeploymentUnitProcessor Interface
 
 TODO
 
 [[useful-classes-for-implementing-operationstephandler]]
-== Useful classes for implementing OperationStepHandler
+=== Useful classes for implementing OperationStepHandler
 
 The WildFly Core `controller` module includes a number of
 `OperationStepHandler` implementations that in some cases you can use
@@ -6541,7 +6540,7 @@ eliminate the need for your code to do anything in `Stage.MODEL` while
 providing support for whatever is appropriate for `Stage.RUNTIME`.
 
 [[add-handlers]]
-=== Add Handlers
+==== Add Handlers
 
 `AbstractAddStepHandler` is a base class for handlers for `add`
 operations. There are a number of ways you can configure its behavior,
@@ -6607,17 +6606,17 @@ registers one or more `DeploymentUnitProcessor` s.
 ----
 
 [[remove-handlers]]
-=== Remove Handlers
+==== Remove Handlers
 
 TODO `AbstractRemoveStepHandler` `ServiceRemoveStepHandler`
 
 [[write-attribute-handlers]]
-=== Write attribute handlers
+==== Write attribute handlers
 
 TODO `AbstractWriteAttributeHandler`
 
 [[reload-required-handlers]]
-=== Reload-required handlers
+==== Reload-required handlers
 
 `ReloadRequiredAddStepHandler` `ReloadRequiredRemoveStepHandler`
 `ReloadRequiredWriteAttributeHandler`
@@ -6628,7 +6627,7 @@ process is reloaded. These handle the mechanics of recording the need
 for reload and reverting it if the operation rolls back.
 
 [[restart-parent-resource-handlers]]
-=== Restart Parent Resource Handlers
+==== Restart Parent Resource Handlers
 
 `RestartParentResourceAddHandler` `RestartParentResourceRemoveHandler`
 `RestartParentWriteAttributeHandler`
@@ -6646,7 +6645,7 @@ post-boot, any change to the child resource likely requires a restart of
 the service provided by the parent.
 
 [[model-only-handlers]]
-=== Model Only Handlers
+==== Model Only Handlers
 
 `ModelOnlyAddStepHandler` `ModelOnlyRemoveStepHandler`
 `ModelOnlyWriteAttributeHandler`
@@ -6663,7 +6662,7 @@ handlers allow the DC to maintain the configuration model for the
 subsystem.
 
 [[misc]]
-=== Misc
+==== Misc
 
 `AbstractRuntimeOnlyHandler` is used for custom operations that don't
 involve the configuration model. Create a subclass and implement the
@@ -6684,7 +6683,7 @@ that including such an attribute in your management API is considered to
 be poor practice as it's just redundant data.)
 
 [[cli-extensibility-for-layered-products]]
-= CLI Extensibility for Layered Products
+== CLI Extensibility for Layered Products
 
 In addition to supporting the ServiceLoader extension mechanism to load
 command handlers coming from outside of the CLI codebase, starting from
@@ -6763,7 +6762,7 @@ the JAR file containing the classes above with value
 *org.jboss.as.test.cli.extensions.ExtCommandHandlerProvider*.
 
 [[all-wildfly-documentation]]
-= All WildFly documentation
+== All WildFly documentation
 
 There are several guides in the WildFly documentation series. This list
 gives an overview of each of the guides:

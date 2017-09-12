@@ -1,4 +1,3 @@
-Java Server Faces Technology (JSF)
-==================================
+= Java Server Faces Technology (JSF)
 
 

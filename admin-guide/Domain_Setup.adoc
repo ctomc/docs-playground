@@ -1,5 +1,4 @@
-Domain Setup
-============
+= Domain Setup
 
 To run a group of servers as a managed domain you need to configure both
 the domain controller and each host that joins the domain. This sections
@@ -10,7 +9,7 @@ link:Management_Clients.html#src-557081_ManagementClients-ConfigurationFiles[Con
 Files] sections.
 
 [[domain-controller-configuration]]
-= Domain Controller Configuration
+== Domain Controller Configuration
 
 The domain controller is the central government for a managed domain. A
 domain controller configuration requires two steps:
@@ -101,7 +100,7 @@ Make a note of the XML Element output as that is going to be required
 within the slave configuration.
 
 [[host-controller-configuration]]
-= Host Controller Configuration
+== Host Controller Configuration
 
 Once the domain controller is configured correctly you can proceed with
 any host that should join the domain. The host controller configuration
@@ -185,7 +184,7 @@ The `<remote />` element is also associated with the security realm
 element. +
 
 
-== Ignoring domain wide resources
+=== Ignoring domain wide resources
 
 WildFly 10 and later make it easy for slave host controllers to "ignore"
 parts of the domain wide configuration. What does the mean and why is it
@@ -310,7 +309,7 @@ installed on the Domain Controller and on some slaves, but not this one:
 ----
 
 [[server-groups]]
-= Server groups
+== Server groups
 
 The domain controller defines one or more server groups and associates
 each of these with a profile and a socket binding group, and also :
@@ -394,7 +393,7 @@ various subsystems could be different in each profile), and adds the
 socket binding.
 
 [[servers]]
-= Servers
+== Servers
 
 The host controller defines one or more servers:
 
@@ -441,7 +440,7 @@ were changed to `true` it would start up using the subsystems from the
 group.
 
 [[jvm]]
-== JVM
+=== JVM
 
 The host controller contains the main `jvm` definitions with arguments:
 

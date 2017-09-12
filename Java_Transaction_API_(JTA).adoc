@@ -1,5 +1,4 @@
-Java Transaction API (JTA)
-==========================
+= Java Transaction API (JTA)
 
 Coming Soon
 

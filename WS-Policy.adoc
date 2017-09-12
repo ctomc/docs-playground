@@ -1,8 +1,7 @@
-WS-Policy
-=========
+= WS-Policy
 
 [[apache-cxf-ws-policy-support]]
-= Apache CXF WS-Policy support
+== Apache CXF WS-Policy support
 
 JBossWS policy support rely on the Apache CXF WS-Policy framework, which
 is compliant with the
@@ -26,7 +25,7 @@ Finally, JBossWS provides some additional annotations for simplified
 policy attachment.
 
 [[contract-first-approach]]
-== Contract-first approach
+=== Contract-first approach
 
 WS-Policies can be attached and referenced in wsdl elements (the
 specifications describe all possible alternatives). Apache CXF
@@ -57,7 +56,7 @@ Of course, CXF also acts upon policies specified in wsdl documents
 consumed on client side.
 
 [[code-first-approach]]
-== Code-first approach
+=== Code-first approach
 
 For those preferring code-first (java-first) endpoint development,
 Apache CXF comes with `org.apache.cxf.annotations.Policy` and
@@ -111,10 +110,10 @@ descriptor example:
 ----
 
 [[jbossws-additions]]
-= JBossWS additions
+== JBossWS additions
 
 [[policy-sets]]
-== Policy sets
+=== Policy sets
 
 Both approaches above require users to actually write their policies'
 assertions; while this offer great flexibility and control of the actual

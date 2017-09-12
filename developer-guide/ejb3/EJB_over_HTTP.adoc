@@ -1,5 +1,4 @@
-EJB over HTTP
-=============
+= EJB over HTTP
 
 Beginning with Wildfly 11 it is now possible to use HTTP as the
 transport (instead of remoting) for remote EJB and JNDI invocations.
@@ -8,7 +7,7 @@ Everything mentioned below is applicable for both JNDI and EJB
 functionality.
 
 [[server-configuration]]
-= Server Configuration
+== Server Configuration
 
 In order to configure the server the http-invoker needs to be enabled on
 each virtual host you wish to use in the Undertow subsystem. This is
@@ -28,7 +27,7 @@ security with the same security domain that corresponds to the HTTP
 authentication factory.
 
 [[performing-invocations]]
-= Performing Invocations
+== Performing Invocations
 
 The mechanism for performing invocations is exactly the same as for the
 remoting based EJB client, the only difference is that instead of a
@@ -38,7 +37,7 @@ was configured in the invoker). For example if you are currently using
 to 'http://localhost:8080/wildfly-services'.
 
 [[implementation-details]]
-= Implementation details
+== Implementation details
 
 The wire protocol is detailed at
 https://github.com/wildfly/wildfly-http-client/blob/master/docs/src/main/asciidoc/wire-spec-v1.asciidoc

@@ -1,5 +1,4 @@
-Handlers
-========
+= Handlers
 
 WIP
 
@@ -10,7 +9,7 @@ you find icon:smile-o[role="yellow"]
 
 
 [[overview]]
-= Overview
+== Overview
 
 Handlers are used to determine what happens with a log message if the
 link:Loggers.html#src-557085_Loggers-Logger[logger] determines the
@@ -27,14 +26,14 @@ There are 6 main handlers provided with WildFly and 1 generic handler;
 * link:#Handlers-custom-handler[custom-handler]
 
 [[async-handler]]
-== async-handler
+=== async-handler
 
 An `async-handler` is a handler that asynchronously writes log messages
 to it's child handlers. This type of handler is generally used for other
 handlers that take a substantial time to write logged messages.
 
 [[attributes]]
-=== Attributes
+==== Attributes
 
 * link:#src-557084_Handlers-enabled[#enabled]
 * link:#src-557084_Handlers-filter-spec[#filter-spec]
@@ -44,14 +43,14 @@ handlers that take a substantial time to write logged messages.
 * link:#src-557084_Handlers-subhandlers[#subhandlers]
 
 [[console-handler]]
-== console-handler
+=== console-handler
 
 A `console-handler` is a handler that writes log messages to the
 console. Generally this writes to `stdout`, but can be set to write to
 `stderr`.
 
 [[attributes-1]]
-=== Attributes
+==== Attributes
 
 * link:#src-557084_Handlers-autoflush[#autoflush]
 * link:#src-557084_Handlers-enabled[#enabled]
@@ -63,13 +62,13 @@ console. Generally this writes to `stdout`, but can be set to write to
 * link:#src-557084_Handlers-target[#target]
 
 [[file-handler]]
-== file-handler
+=== file-handler
 
 A `file-handler` is a handler that writes log messages to the specified
 file.
 
 [[attributes-2]]
-=== Attributes
+==== Attributes
 
 * link:#src-557084_Handlers-autoflush[#autoflush]
 * link:#src-557084_Handlers-enabled[#enabled]
@@ -81,7 +80,7 @@ file.
 * link:#src-557084_Handlers-file[#file]
 
 [[periodic-rotating-file-handler]]
-== periodic-rotating-file-handler
+=== periodic-rotating-file-handler
 
 A `periodic-rotating-file-handler` is a handler that writes log messages
 to the specified file. The file rotates on the date pattern specified in
@@ -95,7 +94,7 @@ and must not rotate on seconds or milliseconds.
 The rotate happens before the next message is written by the handler.
 
 [[attributes-3]]
-=== Attributes
+==== Attributes
 
 * link:#src-557084_Handlers-autoflush[#autoflush]
 * link:#src-557084_Handlers-enabled[#enabled]
@@ -108,7 +107,7 @@ The rotate happens before the next message is written by the handler.
 * link:#src-557084_Handlers-suffix[#suffix]
 
 [[size-rotating-file-handler]]
-== size-rotating-file-handler
+=== size-rotating-file-handler
 
 A `size-rotating-file-handler` is a handler that writes log messages to
 the specified file. The file rotates when the file size is greater than
@@ -125,7 +124,7 @@ reached, the indexed files will be overwritten.
 The rotate happens before the next message is written by the handler.
 
 [[attributes-4]]
-=== Attributes
+==== Attributes
 
 * link:#src-557084_Handlers-autoflush[#autoflush]
 * link:#src-557084_Handlers-enabled[#enabled]
@@ -140,14 +139,14 @@ The rotate happens before the next message is written by the handler.
 * link:#src-557084_Handlers-rotate-on-boot[#rotate-on-boot]
 
 [[syslog-handler]]
-== syslog-handler
+=== syslog-handler
 
 A `syslog-handler` is a handler that writes to a syslog server. The
 handler support http://www.ietf.org/rfc/rfc3164.txt[RFC3164] or
 http://www.ietf.org/rfc/rfc5424.txt[RFC5424] formats.
 
 [[attributes-5]]
-=== Attributes
+==== Attributes
 
 * link:#src-557084_Handlers-port[#port]
 * link:#src-557084_Handlers-app-name[#app-name]
@@ -169,13 +168,13 @@ these benefits. Additional attributes will be added at some point so
 this will no longer be necessary.
 
 [[custom-handler]]
-== custom-handler
+=== custom-handler
 
 [[attributes-6]]
-== Attributes
+=== Attributes
 
 [[autoflush]]
-=== autoflush
+==== autoflush
 
 --
 
@@ -190,7 +189,7 @@ this will no longer be necessary.
 --
 
 [[enabled]]
-=== enabled
+==== enabled
 
 --
 
@@ -210,7 +209,7 @@ messages.
 --
 
 [[encoding]]
-=== encoding
+==== encoding
 
 --
 
@@ -225,7 +224,7 @@ messages.
 --
 
 [[file]]
-=== file
+==== file
 
 --
 
@@ -245,7 +244,7 @@ and a path. The path is a required property of the object.
 --
 
 [[named-formatter]]
-=== named-formatter
+==== named-formatter
 
 --
 
@@ -264,7 +263,7 @@ handler.
 --
 
 [[formatter]]
-=== formatter
+==== formatter
 
 --
 
@@ -279,7 +278,7 @@ handler.
 --
 
 [[filter-spec]]
-=== filter-spec
+==== filter-spec
 
 --
 
@@ -294,7 +293,7 @@ handler.
 --
 
 [[level]]
-=== level
+==== level
 
 --
 
@@ -315,7 +314,7 @@ WARNING ERROR SEVERE FATAL OFF
 --
 
 [[max-backup-index]]
-=== max-backup-index
+==== max-backup-index
 
 --
 
@@ -330,7 +329,7 @@ WARNING ERROR SEVERE FATAL OFF
 --
 
 [[overflow-action]]
-=== overflow-action
+==== overflow-action
 
 --
 
@@ -345,7 +344,7 @@ WARNING ERROR SEVERE FATAL OFF
 --
 
 [[queue-length]]
-=== queue-length
+==== queue-length
 
 --
 
@@ -360,7 +359,7 @@ WARNING ERROR SEVERE FATAL OFF
 --
 
 [[rotate-on-boot]]
-=== rotate-on-boot
+==== rotate-on-boot
 
 --
 
@@ -380,7 +379,7 @@ boot of the server.
 --
 
 [[rotate-size]]
-=== rotate-size
+==== rotate-size
 
 --
 
@@ -400,7 +399,7 @@ for gigabytes or t for terabytes. Type character is not case sensitive.
 --
 
 [[subhandlers]]
-=== subhandlers
+==== subhandlers
 
 --
 
@@ -415,7 +414,7 @@ for gigabytes or t for terabytes. Type character is not case sensitive.
 --
 
 [[suffix]]
-=== suffix
+==== suffix
 
 --
 
@@ -434,7 +433,7 @@ rotated.
 --
 
 [[target]]
-=== target
+==== target
 
 --
 

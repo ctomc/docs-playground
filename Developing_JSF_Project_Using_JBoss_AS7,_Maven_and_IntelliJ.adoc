@@ -1,5 +1,4 @@
-Developing JSF Project Using JBoss AS7, Maven and IntelliJ
-==========================================================
+= Developing JSF Project Using JBoss AS7, Maven and IntelliJ
 
 JBoss AS7 is a very 'modern' application server that has very fast
 startup speed. So it's an excellent container to test your JSF project.
@@ -58,7 +57,7 @@ The version I'm using is IntelliJ IDEA Ultimate 11.1
 After all of these prepared, we can dive into the real work:
 
 [[create-a-project-using-maven]]
-= Create a project using Maven
+== Create a project using Maven
 
 Use the following maven command to create a web project:
 
@@ -79,7 +78,7 @@ image:images/download/attachments/557129/8108c4f111aab2c3465472eb84cf1d9b7cf912d
 The contents of the project is shown as above.
 
 [[add-jsf-into-project]]
-= Add JSF into project
+== Add JSF into project
 
 The JSF library is now included in maven repo, so we can let maven to
 manage the download for us. First is to add repository into our pom.xml:
@@ -113,7 +112,7 @@ Then we run 'mvn install' to update the project, and maven will download
 jsf-api for us automatically.
 
 [[writing-code]]
-= Writing Code
+== Writing Code
 
 Writing JSF code in this article is trivial, so I've put written a
 project called 'jsfdemo' onto github:
@@ -124,7 +123,7 @@ Please clone this project into your local machine, and import it into
 IntelliJ following the steps described as above.
 
 [[add-jboss-as-7-deploy-plugin-into-project]]
-= Add JBoss AS 7 deploy plugin into project
+== Add JBoss AS 7 deploy plugin into project
 
 JBoss AS7 has provide a set of convenient maven plugins to perform daily
 tasks such as deploying project into AS7. In this step let's see how to
@@ -193,7 +192,7 @@ https://github.com/liweinan/jsfdemo/blob/master/pom.xml
 Now we have finished the setup work for maven.
 
 [[deploy-project-to-jboss-as-7]]
-= Deploy project to JBoss AS 7
+== Deploy project to JBoss AS 7
 
 To deploy the project to JBoss AS7, we should start AS7 firstly. In
 JBoss AS7 directory, run following command:
@@ -226,7 +225,7 @@ without any help from graphical tools. Next let's see how to use
 IntelliJ IDEA to go on developing/debugging our project.
 
 [[import-project-into-intellij]]
-= Import project into IntelliJ
+== Import project into IntelliJ
 
 Now it's time to import the project into IntelliJ. Now let's open
 IntelliJ, and choose 'New Project...':
@@ -259,7 +258,7 @@ Hooray! We've imported the project into IntelliJ now
 image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png]
 
 [[adding-intellij-jsf-support-to-project]]
-= Adding IntelliJ JSF support to project
+== Adding IntelliJ JSF support to project
 
 Let's see how to use IntelliJ and AS7 to debug the project. First we
 need to add 'JSF' facet into project. Open project setting:
@@ -282,7 +281,7 @@ image:images/download/attachments/557129/9988c572bad281146f405e9287f645a3da20188
 Now we have enabled IntelliJ's JSF support for project.
 
 [[add-jboss-as7-to-intellij]]
-= Add JBoss AS7 to IntelliJ
+== Add JBoss AS7 to IntelliJ
 
 Let's add JBoss AS7 into IntelliJ and use it to debug our project. First
 please choose 'Edit Configuration' in menu tab:
@@ -314,7 +313,7 @@ Leave everything as default and click 'Ok', now we've added JBoss AS7
 into IntelliJ
 
 [[debugging-project-with-intellij-and-as7]]
-= Debugging project with IntelliJ and AS7
+== Debugging project with IntelliJ and AS7
 
 Now comes the fun part. To debug our project, we cannot directly use the
 'debug' feature provided by IntelliJ right now(maybe in the future
@@ -405,7 +404,7 @@ image:images/download/attachments/557129/2499d43c0dce2cab72ba472c8452a2b57999ac8
 And we could inspect our project now.
 
 [[conclusion]]
-= Conclusion
+== Conclusion
 
 In this article I've shown to you how to use maven to create a project
 using JSF and deploy it in JBoss AS7, and I've also talked about the
@@ -414,7 +413,7 @@ are practical and helpful to you
 image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png]
 
 [[references]]
-= References
+== References
 
 * _https://community.jboss.org/wiki/JBossAS7UsingJPDAToDebugTheASSourceCode[JBoss
 AS7: Using JPDA to debug the AS source code]_

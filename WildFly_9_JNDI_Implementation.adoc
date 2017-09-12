@@ -1,8 +1,7 @@
-WildFly 9 JNDI Implementation
-=============================
+= WildFly 9 JNDI Implementation
 
 [[introduction]]
-= Introduction
+== Introduction
 
 This page proposes a reworked WildFly JNDI implementation, and
 new/updated APIs for WildFly subsystem and EE deployment processors
@@ -14,7 +13,7 @@ should later evolve to the prime guide for WildFly developers needing to
 interact with JNDI at subsystem level.
 
 [[architecture]]
-= Architecture
+== Architecture
 
 WildFly relies on MSC to provide the data source for the JNDI tree. Each
 resource bound in JNDI is stored in a MSC service (BinderService), and
@@ -57,14 +56,14 @@ invocation, which means that entries such as java:comp/DefaultDatasource
 will always be available.
 
 [[binding-apis]]
-= Binding APIs
+== Binding APIs
 
 WildFly Naming subsystem exposes high level APIs to bind new JNDI
 resources, there is no need to deal with the low level BinderService
 type anymore.
 
 [[subsystem]]
-== Subsystem
+=== Subsystem
 
 At the lowest level a JNDI entry is bound by installing a BinderService
 to a ServiceTarget:
@@ -135,7 +134,7 @@ ContextNames.bindInfoFor("java:comp/ORB").builder(serviceTarget, verificationHan
 ----
 
 [[ee-deployment]]
-== EE Deployment
+=== EE Deployment
 
 With respect to EE deployments, the subsystem API should not be used,
 since bindings may need to be discarded/overridden, thus a EE deployment
@@ -311,6 +310,6 @@ The abstract processors with respect to Resource Definitions are already
 submitted through WFLY-3292's PR.
 
 [[resource-ref-processing]]
-= Resource Ref Processing
+== Resource Ref Processing
 
 TODO for now no changes on this in the reworked WildFly Naming.

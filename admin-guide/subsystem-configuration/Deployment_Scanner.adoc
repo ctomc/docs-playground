@@ -1,5 +1,4 @@
-Deployment Scanner configuration
-================================
+= Deployment Scanner configuration
 
 The deployment scanner is only used in standalone mode. Its job is to
 monitor a directory for new files and to deploy those files. It can be

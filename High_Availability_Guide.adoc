@@ -1,11 +1,10 @@
-High Availability Guide
-=======================
+= High Availability Guide
 
 [[introduction-to-high-availability-services]]
-= Introduction to High Availability Services
+== Introduction to High Availability Services
 
 [[what-are-high-availability-services]]
-== What are High Availability services?
+=== What are High Availability services?
 
 WildFly's High Availability services are used to guarantee availability
 of a deployed Java EE application.
@@ -40,7 +39,7 @@ application in the cluster.
 We now take a brief look at what these services can guarantee.
 
 [[high-availability-through-fail-over]]
-== High Availability through fail-over
+=== High Availability through fail-over
 
 Fail-over allows a client interacting with a Java EE application to have
 uninterrupted access to that application, even in the presence of node
@@ -69,7 +68,7 @@ these data availability guarantees and will be discussed in detail later
 in the guide.
 
 [[high-availability-through-load-balancing]]
-== High Availability through load balancing
+=== High Availability through load balancing
 
 Load balancing enables the application to respond to client requests in
 a timely fashion, even when subjected to a high-volume of requests.
@@ -90,7 +89,7 @@ High Availability feature of WildFly and will be discussed in detail
 later in this guide.
 
 [[aims-of-the-guide]]
-== Aims of the guide
+=== Aims of the guide
 
 This guide aims to:
 
@@ -102,7 +101,7 @@ particular application use cases
 high-availability/clustering
 
 [[organization-of-the-guide]]
-== Organization of the guide
+=== Organization of the guide
 
 As high availability features and their configuration depend on the
 particular component they affect (e.g. HTTP sessions, EJB SFSB sessions,
@@ -112,21 +111,21 @@ discussing a feature, we will introduce any WildFly subsystems upon
 which the feature depends.
 
 [[http-services]]
-= HTTP Services
+== HTTP Services
 
 This section summarizes the HTTP-based clustering features.
 
 [[subsystem-support]]
-== Subsystem Support
+=== Subsystem Support
 
 This section describes the key clustering subsystems, JGroups and
 Infinispan. Say a few words about how they work together.
 
 [[jgroups-subsystem]]
-=== JGroups Subsystem
+==== JGroups Subsystem
 
 [[purpose]]
-=== Purpose
+==== Purpose
 
 The JGroups subsystem provides group communication support for HA
 services in the form of JGroups channels.
@@ -157,7 +156,7 @@ be created behind the scenes to support clustered features such as
 session replication or transmission of SSO contexts around the cluster).
 
 [[configuration-example]]
-=== Configuration example
+==== Configuration example
 
 What follows is a sample JGroups subsystem configuration showing all of
 the possible elements and attributes which may be configured. We shall
@@ -232,7 +231,7 @@ directory.
 ----
 
 [[subsystem]]
-==== <subsystem>
+===== <subsystem>
 
 This element is used to configure the subsystem within a Wildfly system
 profile.
@@ -245,14 +244,14 @@ the JGroups subsystem. This default stack will be used whenever a stack
 is required but no stack is specified.
 
 [[stack]]
-==== <stack>
+===== <stack>
 
 This element is used to configure a JGroups protocol stack.
 
 * `name` This attribute is used to specify the name of the stack.
 
 [[transport]]
-==== <transport>
+===== <transport>
 
 This element is used to configure the transport layer (required) of the
 protocol stack.
@@ -294,7 +293,7 @@ replicas from being stored on the same host, rack or site
 .
 
 [[property]]
-===== <property>
+====== <property>
 
 This element is used to configure a transport property.
 
@@ -302,7 +301,7 @@ This element is used to configure a transport property.
 value is provided as text for the property element.
 
 [[protocol]]
-==== <protocol>
+===== <protocol>
 
 This element is used to configure a (non-transport) protocol layer in
 the JGroups stack. Protocol layers are ordered within the stack.
@@ -315,7 +314,7 @@ the server profile. It is used when JGroups needs to create general
 sockets internally for this protocol instance.
 
 [[property-1]]
-===== <property>
+====== <property>
 
 This element is used to configure a protocol property.
 
@@ -323,7 +322,7 @@ This element is used to configure a protocol property.
 value is provided as text for the property element.
 
 [[relay]]
-==== <relay>
+===== <relay>
 
 This element is used to configure the RELAY protocol for a JGroups
 stack. RELAY is a protocol which provides cross-site replication between
@@ -339,7 +338,7 @@ configuration elements, as well as backup configuration elements in the
 Infinispan subsystem)
 
 [[remote-site]]
-===== <remote-site>
+====== <remote-site>
 
 This element is used to configure a remote site for the RELAY protocol.
 
@@ -351,7 +350,7 @@ communication between this site and the remote site.
 use for communication between this site and the remote site.
 
 [[use-cases]]
-=== Use Cases
+==== Use Cases
 
 In many cases, channels will be configured via XML as in the example
 above, so that the channels will be available upon server startup.
@@ -373,7 +372,7 @@ used to provide extensive information on the attributes and commands
 available in the JGroups subsystem interface used in these examples.
 
 [[add-a-stack]]
-==== Add a stack
+===== Add a stack
 
 [source, java]
 ----
@@ -381,7 +380,7 @@ available in the JGroups subsystem interface used in these examples.
 ----
 
 [[add-a-protocol-to-a-stack]]
-==== Add a protocol to a stack
+===== Add a protocol to a stack
 
 [source, java]
 ----
@@ -394,7 +393,7 @@ available in the JGroups subsystem interface used in these examples.
 ----
 
 [[add-a-property-to-a-protocol]]
-==== Add a property to a protocol
+===== Add a property to a protocol
 
 [source, java]
 ----
@@ -402,10 +401,10 @@ available in the JGroups subsystem interface used in these examples.
 ----
 
 [[infinispan-subsystem]]
-==== Infinispan Subsystem
+===== Infinispan Subsystem
 
 [[purpose-1]]
-=== Purpose
+==== Purpose
 
 The Infinispan subsystem provides caching support for HA services in the
 form of Infinispan caches: high-performance, transactional caches which
@@ -440,7 +439,7 @@ behind the scenes to support clustered features such as session
 replication or caching of entities around the cluster).
 
 [[configuration-example-1]]
-=== Configuration Example
+==== Configuration Example
 
 In this section, we provide an example XML configuration of the
 infinispan subsystem and review the configuration elements and
@@ -508,7 +507,7 @@ directory.
 ----
 
 [[cache-container]]
-==== <cache-container>
+===== <cache-container>
 
 This element is used to configure a cache container.
 
@@ -540,7 +539,7 @@ This element has the following child elements: *<transport>*,
 *<distributed-cache>*.
 
 [[transport-1]]
-===== <transport>
+====== <transport>
 
 This element is used to configure the JGroups transport used by the
 cache container, when required.
@@ -582,7 +581,7 @@ hierarchy of base elements, and then show how the cache type elements
 relate to them.
 
 [[abstract-cache]]
-===== <abstract cache>
+====== <abstract cache>
 
 This abstract base element defines the attributes and child elements
 common to all non-clustered caches.
@@ -609,12 +608,12 @@ elements: *<indexing-properties>, <locking>*, *<transaction>*,
 *<mixed-keyed-jdbc-store>*, *<remote-store>*.
 
 [[indexing-properties]]
-====== <indexing-properties>
+======= <indexing-properties>
 
 This child element defines properties to control indexing behaviour.
 
 [[locking]]
-====== <locking>
+======= <locking>
 
 This child element configures the locking behaviour of the cache.
 
@@ -632,7 +631,7 @@ concurrency level. Adjust this value according to the number of
 concurrent threads interacting with Infinispan.
 
 [[transaction]]
-====== <transaction>
+======= <transaction>
 
 This child element configures the transactional behaviour of the cache.
 
@@ -646,7 +645,7 @@ timeout.
 one of OPTIMISTIC or PESSIMISTIC.
 
 [[eviction]]
-====== <eviction>
+======= <eviction>
 
 This child element configures the eviction behaviour of the cache.
 
@@ -659,7 +658,7 @@ value will default to the least power of two larger than selected value.
 -1 means no limit.
 
 [[expiration]]
-====== <expiration>
+======= <expiration>
 
 This child element configures the expiration behaviour of the cache.
 
@@ -692,7 +691,7 @@ hierarchy of base elements, and then show how the cache store elements
 relate to them.
 
 [[abstract-base-store]]
-====== <abstract base-store>
+======= <abstract base-store>
 
 This abstract base element defines the attributes and child elements
 common to all cache stores.
@@ -740,7 +739,7 @@ properties.
 The abstract base element has one child element: *<write-behind>*
 
 [[write-behind]]
-====== <write-behind>
+======= <write-behind>
 
 This element is used to configure a cache store as write-behind instead
 of write-through. In write-through mode, writes to the cache are also
@@ -761,7 +760,7 @@ thread pool whose threads are responsible for applying the modifications
 to the cache store.
 
 [[abstract-base-jdbc-store-extends-abstract-base-store]]
-====== <abstract base-jdbc-store> extends <abstract base-store>
+======= <abstract base-jdbc-store> extends <abstract base-store>
 
 This abstract base element defines the attributes and child elements
 common to all JDBC-based cache stores.
@@ -774,7 +773,7 @@ store cache entries.
 store binary cache entries.
 
 [[file-store-extends-abstract-base-store]]
-====== <file-store> extends <abstract base-store>
+======= <file-store> extends <abstract base-store>
 
 This child element is used to configure a file-based cache store. This
 requires specifying the name of the file to be used as backing storage
@@ -787,7 +786,7 @@ prefix for the file store path. Can be null.
 relation to the value for *relative-to*, otherwise.
 
 [[remote-store-extends-abstract-base-store]]
-====== <remote-store> extends <abstract base-store>
+======= <remote-store> extends <abstract base-store>
 
 This child element of cache is used to configure a remote cache store.
 It has a child <remote-servers>.
@@ -800,13 +799,13 @@ communication with the remote cache.
 communication with the remote cache.
 
 [[remote-servers]]
-====== <remote-servers>
+======= <remote-servers>
 
 This child element of cache configures a list of remote servers for this
 cache store.
 
 [[remote-server]]
-====== <remote-server>
+======= <remote-server>
 
 This element configures a remote server. A remote server is defined
 completely by a locally defined outbound socket binding, through which
@@ -816,12 +815,12 @@ communication is made with the server.
 binding for a remote server.
 
 [[local-cache-extends-abstract-cache]]
-===== <local-cache> extends <abstract cache>
+====== <local-cache> extends <abstract cache>
 
 This element configures a local cache.
 
 [[abstract-clustered-cache-extends-abstract-cache]]
-===== <abstract clustered-cache> extends <abstract cache>
+====== <abstract clustered-cache> extends <abstract cache>
 
 This abstract base element defines the attributes and child elements
 common to all clustered caches. A clustered cache is a cache which spans
@@ -845,12 +844,12 @@ an acknowledgement when making a remote call, after which the call is
 aborted and an exception is thrown.
 
 [[invalidation-cache-extends-abstract-clustered-cache]]
-===== <invalidation-cache> extends <abstract clustered-cache>
+====== <invalidation-cache> extends <abstract clustered-cache>
 
 This element configures an invalidation cache.
 
 [[abstract-shared-cache-extends-abstract-clustered-cache]]
-===== <abstract shared-cache> extends <abstract clustered-cache>
+====== <abstract shared-cache> extends <abstract clustered-cache>
 
 This abstract base element defines the attributes and child elements
 common to all shared caches. A shared cache is a clustered cache which
@@ -859,7 +858,7 @@ shares state with its cache peers in the cluster. It inherits from
 <clustered-cache> are also defined for <shared-cache>.
 
 [[state-transfer]]
-====== <state-transfer>
+======= <state-transfer>
 
 * `enabled` If enabled, this will cause the cache to ask neighbouring
 caches for state when it starts up, so the cache starts 'warm', although
@@ -871,10 +870,10 @@ and aborting start-up.
 batch the transfer of cache entries.
 
 [[backups]]
-====== <backups>
+======= <backups>
 
 [[backup]]
-====== <backup>
+======= <backup>
 
 * `strategy` This attribute configures the backup strategy for this
 cache. Allowable values are SYNC, ASYNC.
@@ -893,7 +892,7 @@ milliseconds) to wait after the max number of failures is reached, after
 which this backup site should go off-line.
 
 [[backup-for]]
-====== <backup-for>
+======= <backup-for>
 
 * `remote-cache` This attribute configures the name of the remote cache
 for which this cache acts as a backup.
@@ -901,14 +900,14 @@ for which this cache acts as a backup.
 for which this cache acts as a backup.
 
 [[replicated-cache-extends-abstract-shared-cache]]
-===== <replicated-cache> extends <abstract shared-cache>
+====== <replicated-cache> extends <abstract shared-cache>
 
 This element configures a replicated cache. With a replicated cache, all
 contents (key-value pairs) of the cache are replicated on all nodes in
 the cluster.
 
 [[distributed-cache-extends-abstract-shared-cache]]
-===== <distributed-cache> extends <abstract shared-cache>
+====== <distributed-cache> extends <abstract shared-cache>
 
 This element configures a distributed cache. With a distributed cache,
 contents of the cache are selectively replicated on nodes in the
@@ -925,7 +924,7 @@ entry placed in the L1 cache. Configures the L1 cache behaviour in
 is ignored.
 
 [[use-cases-1]]
-=== Use Cases
+==== Use Cases
 
 In many cases, cache containers and caches will be configured via XML as
 in the example above, so that they will be available upon server
@@ -948,7 +947,7 @@ provide extensive information on the attributes and commands available
 in the Infinispan subsystem interface used in these examples.
 
 [[add-a-cache-container]]
-==== Add a cache container
+===== Add a cache container
 
 [source, java]
 ----
@@ -957,7 +956,7 @@ in the Infinispan subsystem interface used in these examples.
 ----
 
 [[add-a-cache]]
-==== Add a cache
+===== Add a cache
 
 [source, java]
 ----
@@ -965,7 +964,7 @@ in the Infinispan subsystem interface used in these examples.
 ----
 
 [[configure-the-transaction-component-of-a-cache]]
-==== Configure the transaction component of a cache
+===== Configure the transaction component of a cache
 
 [source, java]
 ----
@@ -973,26 +972,26 @@ in the Infinispan subsystem interface used in these examples.
 ----
 
 [[clustered-web-sessions]]
-== Clustered Web Sessions
+=== Clustered Web Sessions
 
 [[clustered-sso]]
-== Clustered SSO
+=== Clustered SSO
 
 [[load-balancing]]
-== Load Balancing
+=== Load Balancing
 
 The included page could not be found.
 
 [[ejb-services]]
-= EJB Services
+== EJB Services
 
 This chapter explains how clustering of EJBs works in WildFly {wildflyVersion}.
 
 [[ejb-subsystem]]
-== EJB Subsystem
+=== EJB Subsystem
 
 [[ejb-timer]]
-= EJB Timer
+== EJB Timer
 
 Wildfly now supports clustered database backed timers. For details have
 a look to the
@@ -1000,7 +999,7 @@ https://docs.jboss.org/author/display/WFLY/EJB3+Clustered+Database+Timers[EJB3
 reference section]
 
 [[marking-an-ejb-as-clustered]]
-== Marking an EJB as clustered
+=== Marking an EJB as clustered
 
 WildFly {wildflyVersion} allows clustering of stateful session beans. A stateful
 session bean can be marked with `@org.jboss.ejb3.annotation.Clustered`
@@ -1040,7 +1039,7 @@ jboss-ejb3.xml
 ----
 
 [[deploying-clustered-ejbs]]
-== Deploying clustered EJBs
+=== Deploying clustered EJBs
 
 Clustering support is available in the HA profiles of WildFly {wildflyVersion}. In this
 chapter we'll be using the standalone server for explaining the details.
@@ -1092,7 +1091,7 @@ the instances, the EJBs are now capable of making use of the clustering
 features.
 
 [[failover-for-clustered-ejbs]]
-== Failover for clustered EJBs
+=== Failover for clustered EJBs
 
 Clustered EJBs have failover capability. The state of the @Stateful
 @Clustered EJBs is replicated across the cluster nodes so that if one of
@@ -1105,7 +1104,7 @@ we'll still explain it separately so as to make sure there aren't any
 unanswered questions.
 
 [[remote-standalone-clients]]
-=== Remote standalone clients
+==== Remote standalone clients
 
 In this section we'll consider a remote standalone client (i.e. a client
 which runs in a separate JVM and _isn't_ running within another WildFly
@@ -1136,7 +1135,7 @@ remote.cluster.ejb.connect.options.org.xnio.Options.SSL_ENABLED=false
 ----
 
 [[cluster-topology-communication]]
-=== Cluster topology communication
+==== Cluster topology communication
 
 When a client connects to a server, the JBoss EJB client implementation
 (internally) communicates with the server for cluster topology
@@ -1196,7 +1195,7 @@ Effectively, the invocation has now failed over to a different node
 within the cluster.
 
 [[remote-clients-on-another-instance-of-wildfly-8]]
-=== Remote clients on another instance of WildFly {wildflyVersion}
+==== Remote clients on another instance of WildFly {wildflyVersion}
 
 So far we discussed remote standalone clients which typically use either
 the EJB client API or the jboss-ejb-client.properties based approach to
@@ -1236,7 +1235,7 @@ As can be seen both remote standalone client and remote clients on
 another WildFly {wildflyVersion} instance act similar in terms of failover.
 
 [[testcases-for-failover-of-stateful-beans]]
-=== Testcases for failover of stateful beans
+==== Testcases for failover of stateful beans
 
 We have testcases in WildFly {wildflyVersion} testsuite which test that whatever is
 explained above works as expected. The
@@ -1249,10 +1248,10 @@ these testcases test that when a node goes down in a cluster, the client
 invocation is routed to a different node in the cluster.
 
 [[hibernate]]
-= Hibernate
+== Hibernate
 
 [[ha-singleton-features]]
-= HA Singleton Features
+== HA Singleton Features
 
 In general, an HA or clustered singleton is a service that exists on
 multiple nodes in a cluster, but is active on just a single node at any
@@ -1262,7 +1261,7 @@ interval when one provider has stopped and another has yet to start, the
 service is always running on one node.
 
 [[singleton-subsystem]]
-== Singleton subsystem
+=== Singleton subsystem
 
 WildFly 10 introduces a "singleton" subsystem, which defines a set of
 policies that define how an HA singleton should behave. A singleton
@@ -1270,7 +1269,7 @@ policy can be used to instrument singleton deployments or to create
 singleton MSC services.
 
 [[configuration]]
-=== Configuration
+==== Configuration
 
 The
 https://github.com/wildfly/wildfly/blob/10.0.0.Final/clustering/singleton/extension/src/main/resources/schema/wildfly-singleton_1_0.xsd[default
@@ -1305,7 +1304,7 @@ operation:
 ----
 
 [[cache-configuration]]
-==== Cache configuration
+===== Cache configuration
 
 The cache-container and cache attributes of a singleton policy must
 reference a valid cache from the Infinispan subsystem. If no specific
@@ -1314,7 +1313,7 @@ This cache is used as a registry of which nodes can provide a given
 service and will typically use a replicated-cache configuration.
 
 [[election-policies]]
-==== Election policies
+===== Election policies
 
 WildFly 10 includes 2 singleton election policy implementations:
 
@@ -1341,7 +1340,7 @@ e.g.
 ----
 
 [[preferences]]
-===== Preferences
+====== Preferences
 
 Additionally, any singleton election policy may indicate a preference
 for one or more members of a cluster. Preferences may be defined either
@@ -1356,7 +1355,7 @@ e.g.
 ----
 
 [[quorum]]
-==== Quorum
+===== Quorum
 
 Network partitions are particularly problematic for singleton services,
 since they can trigger multiple singleton providers for the same service
@@ -1374,7 +1373,7 @@ e.g.
 ----
 
 [[non-ha-environments]]
-=== Non-HA environments
+==== Non-HA environments
 
 The singleton subsystem can be used in a non-HA profile, so long as the
 cache that it references uses a local-cache configuration. In this
@@ -1385,7 +1384,7 @@ reasons, the use of a quorum does not make sense in such a
 configuration.
 
 [[singleton-deployments]]
-== Singleton deployments
+=== Singleton deployments
 
 WildFly 10 resurrects the ability to start a given deployment on a
 single node in the cluster at any given time. If that node shuts down,
@@ -1398,7 +1397,7 @@ https://docs.jboss.org/jbossclustering/cluster_guide/5.1/html/deployment.chapt.h
 feature of AS6 and earlier.
 
 [[usage]]
-=== Usage
+==== Usage
 
 A deployment indicates that it should be deployed as a singleton via a
 deployment descriptor. This can either be a standalone
@@ -1428,7 +1427,7 @@ deployment-overlay add --name=singleton-policy-foo --content=/META-INF/singleton
 ----
 
 [[singleton-msc-services]]
-== Singleton MSC services
+=== Singleton MSC services
 
 WildFly allows any user MSC service to be installed as a singleton MSC
 service via a public API. Once installed, the service will only ever
@@ -1437,7 +1436,7 @@ service is shutdown, or fails, another node on which the service was
 installed will start automatically.
 
 [[installing-an-msc-service-using-an-existing-singleton-policy]]
-=== Installing an MSC service using an existing singleton policy
+==== Installing an MSC service using an existing singleton policy
 
 While singleton MSC services have been around since AS7, WildFly 10 adds
 the ability to leverage the singleton subsystem to create singleton MSC
@@ -1468,7 +1467,7 @@ public class MyServiceActivator implements ServiceActivator {
 ----
 
 [[installing-an-msc-service-using-dynamic-singleton-policy]]
-=== Installing an MSC service using dynamic singleton policy
+==== Installing an MSC service using dynamic singleton policy
 
 Alternatively, you can build singleton policy dynamically, which is
 particularly useful if you want to use a custom singleton election
@@ -1502,35 +1501,35 @@ public class MyServiceActivator implements ServiceActivator {
 ----
 
 [[related-issues]]
-= Related Issues
+== Related Issues
 
 This section describes additional issues related to the clustering
 subsystems.
 
 [[modularity-and-class-loading]]
-== Modularity And Class Loading
+=== Modularity And Class Loading
 
 Describe classloading and monitoring framework as it affects clustering
 applications.
 
 [[monitoring]]
-== Monitoring
+=== Monitoring
 
 Describe resources available for monitoring clustered applications.
 
 [[changes-from-previous-versions]]
-= Changes From Previous Versions
+== Changes From Previous Versions
 
 Describe here key changes between releases.
 
 [[key-changes]]
-== Key changes
+=== Key changes
 
 [[migration-to-wildfly]]
-== Migration to Wildfly
+=== Migration to Wildfly
 
 [[clustering-and-domain-setup-walkthrough]]
-= Clustering and Domain Setup Walkthrough
+== Clustering and Domain Setup Walkthrough
 
 In this article, I'd like to show you how to setup WildFly 9 in domain
 mode and enable clustering so we could get HA and session replication
@@ -1539,10 +1538,10 @@ instructions in this article and build the sandbox by yourself
 image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png]
 
 [[preparation-scenario]]
-== Preparation & Scenario
+=== Preparation & Scenario
 
 [[preparation]]
-=== Preparation
+==== Preparation
 
 We need to prepare two hosts (or virtual hosts) to do the experiment. We
 will use these two hosts as following:
@@ -1557,7 +1556,7 @@ ports(better turn off firewall and disable SELinux during the experiment
 or they will cause network problems).
 
 [[scenario]]
-=== Scenario
+==== Scenario
 
 Here are some details on what we are going to do:
 
@@ -1598,7 +1597,7 @@ Please don't worry if you cannot digest so many details currently. Let's
 move on and you will get the points step by step.
 
 [[download-wildfly-9]]
-== Download WildFly 9
+=== Download WildFly 9
 
 First we should download WildFly 9 from the website:
 
@@ -1654,10 +1653,10 @@ we get WildFly 9 run on both master and slave, then we could move on to
 next step.
 
 [[domain-configuration]]
-== Domain Configuration
+=== Domain Configuration
 
 [[interface-config-on-master]]
-=== Interface config on master
+==== Interface config on master
 
 In this section we'll setup both master and slave for them to run in
 domain mode. And we will configure master to be the domain controller.
@@ -1708,7 +1707,7 @@ config to:
 ----
 
 [[interface-config-on-slave]]
-=== Interface config on slave
+==== Interface config on slave
 
 Now we will setup interfaces on slave. Let's edit host.xml. Similar to
 the steps on master, open host.xml first:
@@ -1790,7 +1789,7 @@ you need to enable the firewall and allow access to the following ports:
 9999.
 
 [[security-configuration]]
-=== Security Configuration
+==== Security Configuration
 
 If you start WildFly on both master and slave now, you will see the
 slave cannot be started with following error:
@@ -1806,7 +1805,7 @@ Because we haven't properly set up the authentication between master and
 slave. Now let's work on it:
 
 [[master]]
-==== Master
+===== Master
 
 In bin directory there is a script called add-user.sh, we'll use it to
 add new users to the properties file used for domain management
@@ -1867,7 +1866,7 @@ add-user.sh will let you choose the type of the user. Here we need to
 choose 'Management User' type for both 'admin' and 'slave' account.
 
 [[slave]]
-==== Slave
+===== Slave
 
 In slave we need to configure host.xml for authentication. We should
 change the security-realms section as following:
@@ -1910,7 +1909,7 @@ So the slave host could use the authentication information we provided
 in 'ManagementRealm'.
 
 [[dry-run]]
-==== Dry Run
+===== Dry Run
 
 Now everything is set for the two hosts to run in domain mode. Let's
 start them by running domain.sh on both hosts. If everything goes fine,
@@ -1925,7 +1924,7 @@ That means all the configurations are correct and two hosts are run in
 domain mode now as expected. Hurrah!
 
 [[deployment]]
-== Deployment
+=== Deployment
 
 Now we can deploy a demo project into the domain. I have created a
 simple project located at:
@@ -2166,7 +2165,7 @@ After finishing the above configuration, let's restart two as7 hosts and
 go on cluster configuration.
 
 [[cluster-configuration]]
-== Cluster Configuration
+=== Cluster Configuration
 
 We will use mod_cluster + apache httpd on master as our cluster
 controller here. Because WildFly {wildflyVersion} has been configured to support
@@ -2295,7 +2294,7 @@ http://docs.jboss.org/mod_cluster/1.1.0/html/Quick_Start_Guide.html
 ----
 
 [[testing]]
-== Testing
+=== Testing
 
 If everything goes fine we can start httpd service now:
 
@@ -2362,7 +2361,7 @@ should be sent to master instead. The point is we should see the request
 is redirect from one host to another and the session is held.
 
 [[special-thanks]]
-== Special Thanks
+=== Special Thanks
 
 https://community.jboss.org/people/wdfink[Wolf-Dieter Fink] has
 contributed the updated add-user.sh usages and configs in host.xml from
@@ -2373,12 +2372,12 @@ Misty Stanley-Jones has given a lot of suggestions and helps to make
 this document readable.
 
 [[references]]
-= References
+== References
 
 The included page could not be found.
 
 [[all-wildfly-documentation]]
-= All WildFly documentation
+== All WildFly documentation
 
 There are several guides in the WildFly documentation series. This list
 gives an overview of each of the guides:

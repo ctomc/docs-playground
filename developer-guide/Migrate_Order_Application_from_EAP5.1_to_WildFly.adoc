@@ -1,12 +1,11 @@
-Porting the Order Application from EAP 5.1 to WildFly {wildflyVersion}
-=======================================================
+= Porting the Order Application from EAP 5.1 to WildFly {wildflyVersion}
 
 Andy Miller ported an example Order application that was used for
 performance testing from EAP 5.1 to WildFly {wildflyVersion}. These are the notes he
 made during the migration process.
 
 [[overview-of-the-application]]
-= Overview of the application
+== Overview of the application
 
 The application is relatively simple. it contains three servlets, some
 stateless session beans, a stateful session bean, and some entities.
@@ -16,13 +15,13 @@ way the EAR was packaged. This is because WildFly removed support of
 some proprietary features that were available in EAP 5.1.
 
 [[summary-of-changes]]
-= Summary of changes
+== Summary of changes
 
 [[code-changes]]
-== Code Changes
+=== Code Changes
 
 [[modify-jndi-lookup-code]]
-=== Modify JNDI lookup code
+==== Modify JNDI lookup code
 
 Since this application was first written for EAP 4.2/4.3, which did not
 support EJB reference injection, the servlets were using pre-EE 5
@@ -90,7 +89,7 @@ All the other beans were changed in a similar manner. They are now based
 on the portable JNDI names described in EE 6.
 
 [[modify-logging-code]]
-== Modify logging code
+=== Modify logging code
 
 The next major change was to logging within the application. The old
 version was using the commons logging infrastructure and Log4J that is
@@ -146,7 +145,7 @@ Dependencies: org.jboss.logmanager
 ----
 
 [[modify-the-code-to-use-infinispan-for-2nd-level-cache]]
-== Modify the code to use Infinispan for 2nd level cache
+=== Modify the code to use Infinispan for 2nd level cache
 
 Jboss Cache has been replaced by Infinispan for 2nd level cache. This
 requires modification of the `persistence.xml` file.
@@ -187,7 +186,7 @@ That was the extent of the code changes required to migrate the
 application to AS7.
 
 [[ear-packaging-changes]]
-== EAR Packaging Changes
+=== EAR Packaging Changes
 
 Due to modular class loading changes, the structure of the existing EAR
 failed to deploy successfully in WildFly.
@@ -244,7 +243,7 @@ The `Class-Path` entry tells the application to look in the
 `OrderManagerEJB.jar` file for the injected beans.
 
 [[summary]]
-== Summary
+=== Summary
 
 Although the existing EAR structure could have worked with additional
 modifications to the `MANIFEST.MF` file, this approach seemed more

@@ -1,5 +1,4 @@
-WildFly Testsuite Overview
-==========================
+= WildFly Testsuite Overview
 
 This document will detail the implementation of the testsuite
 Integration submodule as it guides you on adding your own test cases.
@@ -25,7 +24,7 @@ main, but also remote and embedded)
 * configuring client and server JVMs separately (e.g., IPv6 testing)
 
 [[test-suite-organization]]
-= Test Suite Organization
+== Test Suite Organization
 
 The testsuite module has a small number of submodules:
 
@@ -59,7 +58,7 @@ their function and purpose as well as expanded information as shown in
 this document.
 
 [[profiles]]
-= Profiles
+== Profiles
 
 You should not activate the abovementioned profiles by -P, because that
 disables other profiles which are activated by default.

@@ -1,5 +1,4 @@
-Starting & stopping Servers in a Managed Domain
-===============================================
+= Starting & stopping Servers in a Managed Domain
 
 Starting a standalone server is done through the `bin/standalone.sh`
 script. However in a managed domain server instances are managed by the

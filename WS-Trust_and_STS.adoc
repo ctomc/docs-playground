@@ -1,8 +1,7 @@
-WS-Trust and STS
-================
+= WS-Trust and STS
 
 [[ws-trust-overview]]
-= WS-Trust overview
+== WS-Trust overview
 
 https://www.oasis-open.org/standards#wstrustv1.4[WS-Trust] is a Web
 service specification that defines extensions to WS-Security. It is a
@@ -43,7 +42,7 @@ and validates security tokens.
 * The mechanisms for key exchange
 
 [[security-token-service]]
-= Security Token Service
+== Security Token Service
 
 The Security Token Service, STS, is the core of the WS-Trust
 specification. It is a standards based mechanism for authentication and
@@ -68,7 +67,7 @@ policies and submits it to the STS endpoint. The STS validates the
 request and returns an appropriate response.
 
 [[apache-cxf-support]]
-= Apache CXF support
+== Apache CXF support
 
 Apache CXF is an open-source, fully featured Web services framework. The
 JBossWS open source project integrates the JBoss Web Services (JBossWS)
@@ -83,7 +82,7 @@ be found
 http://coheigea.blogspot.it/2011/10/apache-cxf-sts-documentation-part-i.html[here].
 
 [[a-basic-ws-trust-scenario]]
-= A Basic WS-Trust Scenario
+== A Basic WS-Trust Scenario
 
 Here is an example of a basic WS-Trust scenario. It is comprised of a
 Web service requester (ws-requester), a Web service provider
@@ -114,7 +113,7 @@ proving the ws-requester has successfully authenticated with the STS.
 results to the the ws-requester.
 
 [[web-service-provider]]
-== Web service provider
+=== Web service provider
 
 This section examines the crucial elements in providing endpoint
 security in the web service provider described in the basic WS-Trust
@@ -127,7 +126,7 @@ scenario. The components that will be discussed are.
 * MANIFEST.MF
 
 [[web-service-provider-wsdl]]
-=== Web service provider WSDL
+==== Web service provider WSDL
 
 The web service provider is a contract-first endpoint. All the WS-trust
 and security policies for it are declared in the WSDL,
@@ -379,7 +378,7 @@ listing below.
 ----
 
 [[web-service-provider-interface]]
-=== Web service provider Interface
+==== Web service provider Interface
 
 The web service provider interface class, ServiceIface, is a simple
 straight forward web service definition.
@@ -403,7 +402,7 @@ public interface ServiceIface
 ----
 
 [[web-service-provider-implementation]]
-=== Web service provider Implementation
+==== Web service provider Implementation
 
 The web service provider implementation class, ServiceImpl, is a simple
 POJO. It uses the standard WebService annotation to define the service
@@ -469,7 +468,7 @@ public class ServiceImpl implements ServiceIface
 ----
 
 [[servercallbackhandler]]
-=== ServerCallbackHandler
+==== ServerCallbackHandler
 
 ServerCallbackHandler is a callback handler for the WSS4J Crypto API. It
 is used to obtain the password for the private key in the keystore. This
@@ -506,7 +505,7 @@ public class ServerCallbackHandler extends PasswordCallbackHandler
 ----
 
 [[crypto-properties-and-keystore-files]]
-=== Crypto properties and keystore files
+==== Crypto properties and keystore files
 
 WSS4J's Crypto implementation is loaded and configured via a Java
 properties file that contains Crypto configuration data. The file
@@ -529,7 +528,7 @@ org.apache.ws.security.crypto.merlin.keystore.file=servicestore.jks
 ----
 
 [[manifest.mf]]
-=== MANIFEST.MF
+==== MANIFEST.MF
 
 When deployed on WildFly this application requires access to the JBossWs
 and CXF APIs provided in module org.jboss.ws.cxf.jbossws-cxf-client. The
@@ -544,7 +543,7 @@ Dependencies: org.jboss.ws.cxf.jbossws-cxf-client
 ----
 
 [[security-token-service-sts]]
-== Security Token Service (STS)
+=== Security Token Service (STS)
 
 This section examines the crucial elements in providing the Security
 Token Service functionality described in the basic WS-Trust scenario.
@@ -558,7 +557,7 @@ The components that will be discussed are.
 * Server configuration files
 
 [[sts-wsdl]]
-=== STS WSDL
+==== STS WSDL
 
 The STS is a contract-first endpoint. All the WS-trust and security
 policies for it are declared in the WSDL, ws-trust-1.4-service.wsdl. A
@@ -954,7 +953,7 @@ listing below.
 ----
 
 [[sts-implementation]]
-=== STS Implementation
+==== STS Implementation
 
 The Apache CXF's STS, SecurityTokenServiceProvider, is a web service
 provider that is compliant with the protocols and functionality defined
@@ -1091,7 +1090,7 @@ public class SampleSTS extends SecurityTokenServiceProvider
 ----
 
 [[stscallbackhandler]]
-=== STSCallbackHandler
+==== STSCallbackHandler
 
 STSCallbackHandler is a callback handler for the WSS4J Crypto API. It is
 used to obtain the password for the private key in the keystore. This
@@ -1124,7 +1123,7 @@ public class STSCallbackHandler extends PasswordCallbackHandler
 ----
 
 [[crypto-properties-and-keystore-files-1]]
-=== Crypto properties and keystore files
+==== Crypto properties and keystore files
 
 WSS4J's Crypto implementation is loaded and configured via a Java
 properties file that contains Crypto configuration data. The file
@@ -1146,7 +1145,7 @@ org.apache.ws.security.crypto.merlin.keystore.file=stsstore.jks
 ----
 
 [[manifest.mf-1]]
-=== MANIFEST.MF
+==== MANIFEST.MF
 
 When deployed on WildFly, this application requires access to the
 JBossWs and CXF APIs provided in modules
@@ -1164,7 +1163,7 @@ Dependencies: org.jboss.ws.cxf.jbossws-cxf-client,org.apache.cxf.impl
 ----
 
 [[security-domain]]
-=== Security Domain
+==== Security Domain
 
 The STS requires a JBoss security domain be configured. The
 jboss-web.xml descriptor declares a named security
@@ -1251,7 +1250,7 @@ choice for directing WS-MetadataExchange requests to and use that to
 retrieve STS wsdl contracts.
 
 [[web-service-requester]]
-== Web service requester
+=== Web service requester
 
 This section examines the crucial elements in calling a web service that
 implements endpoint security as described in the basic WS-Trust
@@ -1262,7 +1261,7 @@ scenario. The components that will be discussed are.
 * Crypto properties and keystore files
 
 [[web-service-requester-implementation]]
-=== Web service requester Implementation
+==== Web service requester Implementation
 
 The ws-requester, the client, uses standard procedures for creating a
 reference to the web service in the first four line. To address the
@@ -1327,7 +1326,7 @@ proxy.sayHello();
 ----
 
 [[clientcallbackhandler]]
-=== ClientCallbackHandler
+==== ClientCallbackHandler
 
 ClientCallbackHandler is a callback handler for the WSS4J Crypto API. It
 is used to obtain the password for the private key in the keystore. This
@@ -1368,7 +1367,7 @@ public class ClientCallbackHandler implements CallbackHandler {
 ----
 
 [[requester-crypto-properties-and-keystore-files]]
-=== Requester Crypto properties and keystore files
+==== Requester Crypto properties and keystore files
 
 WSS4J's Crypto implementation is loaded and configured via a Java
 properties file that contains Crypto configuration data. The file
@@ -1391,7 +1390,7 @@ org.apache.ws.security.crypto.merlin.keystore.file=META-INF/clientstore.jks
 ----
 
 [[picketlink-sts]]
-== PicketLink STS
+=== PicketLink STS
 
 http://www.jboss.org/picketlink[PicketLink] provides facilities for
 building up an alternative to the Apache CXF Security Token Service

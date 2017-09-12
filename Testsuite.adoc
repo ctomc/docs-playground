@@ -1,7 +1,6 @@
-Testsuite
-=========
+= Testsuite
 
-= WildFly Testsuite
+== WildFly Testsuite
 
 Where to go next?
 

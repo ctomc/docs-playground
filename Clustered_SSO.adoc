@@ -1,4 +1,3 @@
-Clustered SSO
-=============
+= Clustered SSO
 
 

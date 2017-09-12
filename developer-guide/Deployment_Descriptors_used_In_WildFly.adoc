@@ -1,5 +1,4 @@
-Deployment Descriptors used In WildFly
-======================================
+= Deployment Descriptors used In WildFly
 
 This page gives a list and a description of all the valid deployment
 descriptors that a WildFly deployment can use. This document is a work

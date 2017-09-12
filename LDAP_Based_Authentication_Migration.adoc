@@ -1,5 +1,4 @@
-LDAP Authentication Migration
-=============================
+= LDAP Authentication Migration
 
 The section describing how to migrate from properties based
 authentication using either PicketBox or legacy security realms to
@@ -46,7 +45,7 @@ For authentication purposes the username will be matched against the
 'uid' attribute of the group entry.
 
 [[legacy-security-realm]]
-= Legacy Security Realm
+== Legacy Security Realm
 
 A connection to the LDAP server and related security realm can be
 created with the following commands: -
@@ -101,7 +100,7 @@ This results in the following configuration.
 ----
 
 [[picketbox-ldapextloginmodule]]
-= PicketBox LdapExtLoginModule
+== PicketBox LdapExtLoginModule
 
 The following commands can create a PicketBox security domain configured
 to use the LdapExtLoginModule to verify a username and password.
@@ -152,7 +151,7 @@ This results in the following configuration.
 ----
 
 [[migrated]]
-= Migrated
+== Migrated
 
 Within the Elytron subsystem a directory context can be defined for the
 connection to LDAP: -

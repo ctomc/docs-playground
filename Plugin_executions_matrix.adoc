@@ -1,5 +1,4 @@
-Plugin executions matrix
-========================
+= Plugin executions matrix
 
 x - runs in this module +
 xx - runs in this and all successive modules +

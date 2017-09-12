@@ -1,5 +1,4 @@
-Message Driven Beans Controlled Delivery
-========================================
+= Message Driven Beans Controlled Delivery
 
 There are three mechanisms in Wildfly that allow controlling if a
 specific MDB is actively receiving or not messages:
@@ -11,7 +10,7 @@ specific MDB is actively receiving or not messages:
 We will see each one of them in the following sections.
 
 [[delivery-active]]
-= Delivery Active
+== Delivery Active
 
 Delivery active is simply an attribute associated with the MDB that
 indicates if the MDB is receiving messages or not. If an MDB is not
@@ -73,7 +72,7 @@ public class HelloWorldMDB implements MessageListener {
 ----
 
 [[start-delivery-and-stop-delivery]]
-== Start-delivery and Stop-Delivery
+=== Start-delivery and Stop-Delivery
 
 These management operations dynamically change the value of the active
 attribute, enabling or disabling delivery for the MDB. at runtime To use
@@ -92,7 +91,7 @@ path of the MDB you want to manage delivery for:
 ----
 
 [[delivery-groups]]
-= Delivery Groups
+== Delivery Groups
 
 Delivery groups provide a straightforward way to manage delivery for a
 group of MDBs. Every MDB belonging to a delivery group has delivery
@@ -140,7 +139,7 @@ You can add a mdb-delivery-group using the add command as below:
 ----
 
 [[reading-and-writing-the-delivery-state-of-a-delivery-group]]
-== Reading and Writing the Delivery State of a Delivery Group
+=== Reading and Writing the Delivery State of a Delivery Group
 
 You can check whether delivery is active for a group by reading the
 active attribute, which defaults to true:
@@ -175,7 +174,7 @@ To make it active again, write the attribute with a true value:
 ----
 
 [[using-delivery-groups]]
-== Using Delivery Groups
+=== Using Delivery Groups
 
 To mark that an MDB belongs to a delivery-group, declare so in the
 jboss-ejb3.xml file:
@@ -251,7 +250,7 @@ server upon deployment, or the deployment will fail with a message
 stating that the delivery-group is missing.
 
 [[clustered-singleton-delivery]]
-= Clustered Singleton Delivery
+== Clustered Singleton Delivery
 
 Delivery can be marked as singleton in a clustered environment. In this
 case, only one node in the cluster will have delivery active for that
@@ -314,7 +313,7 @@ public class HelloWorldMDB implements MessageListener { ... }
 ----
 
 [[using-multiple-mdb-delivery-control-mechanisms]]
-= Using Multiple MDB Delivery Control Mechanisms
+== Using Multiple MDB Delivery Control Mechanisms
 
 The previous d eliver y control mechanisms can be used together in a
 single MDB. In this case, they work as a set of restrictions for

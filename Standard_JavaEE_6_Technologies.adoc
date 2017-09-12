@@ -1,5 +1,4 @@
-Standard JavaEE 6 Technologies
-==============================
+= Standard JavaEE 6 Technologies
 
 Coming Soon
 

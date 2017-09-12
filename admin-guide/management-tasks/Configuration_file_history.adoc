@@ -1,5 +1,4 @@
-Configuration file history
-==========================
+= Configuration file history
 
 The management operations may modify the model. When this occurs the xml
 backing the model is written out again reflecting the latest changes. In
@@ -61,7 +60,7 @@ folder within the `standalone_xml_history`, and a new `current` folder
 is created. These timestamped folders are kept for 30 days.
 
 [[snapshots]]
-= Snapshots
+== Snapshots
 
 In addition to the backups taken by the server as described above you
 can manually take take snapshots which will be stored in the `snapshot`
@@ -141,7 +140,7 @@ to navigate to the host in question:
 ----
 
 [[subsequent-starts]]
-= Subsequent Starts
+== Subsequent Starts
 
 For subsequent server starts it may be desirable to take the state of
 the server back to one of the previously known states, for a number of

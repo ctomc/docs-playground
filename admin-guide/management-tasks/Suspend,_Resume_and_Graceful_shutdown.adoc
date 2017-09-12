@@ -1,8 +1,7 @@
-Suspend, Resume and Graceful shutdown
-=====================================
+= Suspend, Resume and Graceful shutdown
 
 [[core-concepts]]
-= Core Concepts
+== Core Concepts
 
 Wildfly introduces the ability to suspend and resume servers. This can
 be combined with shutdown to enable the server to gracefully finish
@@ -40,7 +39,7 @@ requests at suspend time this phase will be skipped.
 suspended.
 
 [[starting-suspended]]
-= Starting Suspended
+== Starting Suspended
 
 In order to start into suspended mode when using a standalone server you
 need to add *--start-mode=suspend* to the command line. It is also
@@ -53,7 +52,7 @@ In domain mode servers can be started in suspended mode by passing the
 restart or reload (e.g. :start-servers(suspend=true)).
 
 [[the-request-controller-subsystem]]
-= The Request Controller Subsystem
+== The Request Controller Subsystem
 
 Wildfly introduces a new subsystem called the Request Controller
 Subsystem. This optional subsystem tracks all requests at their entry
@@ -73,7 +72,7 @@ do not require the suspend/resume functionality this subsystem can be
 removed to get a small performance boost.
 
 [[subsystem-integrations]]
-= Subsystem Integrations
+== Subsystem Integrations
 
 Suspend/Resume is a service provided by the Wildfly platform that any
 subsystem may choose to integrate with. Some subsystems integrate
@@ -121,7 +120,7 @@ disable the graceful behavior and EJB clients will not attempt to invoke
 the node when it suspends, regardless of active transactions.
 
 [[standalone-mode]]
-= Standalone Mode
+== Standalone Mode
 
 Suspend/Resume can be controlled via the following CLI operations in
 standalone mode:
@@ -151,7 +150,7 @@ shutting down. A timeout value of less than zero means it will wait
 indefinitely.
 
 [[domain-mode]]
-= Domain Mode
+== Domain Mode
 
 Domain mode has similar commands as standalone mode, however they can be
 applied at both the global and server group levels:

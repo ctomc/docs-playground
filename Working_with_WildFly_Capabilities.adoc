@@ -1,5 +1,4 @@
-Working with WildFly Capabilities
-=================================
+= Working with WildFly Capabilities
 
 An extension to WildFly will likely want to make use of services
 provided by the WildFly kernel, may want to make use of services
@@ -34,7 +33,7 @@ validity of that reference can be checked when validating the
 configuration model.
 
 [[capabilities]]
-= Capabilities
+== Capabilities
 
 A capability is a piece of functionality used in a WildFly Core based
 process that is exposed via the WildFly Core management layer.
@@ -73,10 +72,10 @@ runtime services provided by a capability for which it has registered a
 requirement are available.
 
 [[comparison-to-other-concepts]]
-== Comparison to other concepts
+=== Comparison to other concepts
 
 [[capabilities-vs-modules]]
-=== Capabilities vs modules
+==== Capabilities vs modules
 
 A JBoss Modules module is the means of making resources available to the
 classloading system of a WildFly Core based process. To make a
@@ -87,7 +86,7 @@ WildFly installation does not mean a capability is available. Modules
 can include resources completely unrelated to management capabilities.
 
 [[capabilities-vs-extensions]]
-=== Capabilities vs Extensions
+==== Capabilities vs Extensions
 
 An extension is the means by which the WildFly Core management layer is
 made aware of manageable functionality that is not part of the WildFly
@@ -100,7 +99,7 @@ capabilities are registered by extensions; the WildFly Core kernel
 itself may register a number of different capabilities.
 
 [[capability-names]]
-== Capability Names
+=== Capability Names
 
 Capability names are simple strings, with the dot character serving as a
 separator to allow namespacing.
@@ -109,7 +108,7 @@ The 'org.wildfly' namespace is reserved for projects associated with the
 WildFly organization on github ( https://github.com/wildfly).
 
 [[statically-vs-dynamically-named-capabilities]]
-== Statically vs Dynamically Named Capabilities
+=== Statically vs Dynamically Named Capabilities
 
 The full name of a capability is either statically known, or it may
 include a statically known base element and then a dynamic element. The
@@ -127,7 +126,7 @@ their name should provide a consistent feature set and set of
 requirements.
 
 [[service-provided-by-a-capability]]
-== Service provided by a capability
+=== Service provided by a capability
 
 Typically a capability functions by registering a service with the
 WildFly process' MSC ServiceContainer, and then dependent capabilities
@@ -136,7 +135,7 @@ registration of those services and service dependencies by providing a
 means to discover service names.
 
 [[custom-integration-apis-provided-by-a-capability]]
-== Custom integration APIs provided by a capability
+=== Custom integration APIs provided by a capability
 
 Instead of or in addition to providing MSC services, a capability may
 expose some other API to dependent capabilities. This API must be
@@ -144,7 +143,7 @@ encapsulated in a single class (although that class can use other
 non-JRE classes as method parameters or return types).
 
 [[capability-requirements]]
-== Capability Requirements
+=== Capability Requirements
 
 A capability may rely on other capabilities in order to provide its
 functionality at runtime. The management operation handlers that
@@ -174,7 +173,7 @@ specified via configuration, and without configuration the dynamic part
 of the required capability name is unknown.
 
 [[supporting-runtime-only-requirements]]
-=== Supporting runtime-only requirements
+==== Supporting runtime-only requirements
 
 Not all capabilities are usable as a runtime-only requirement.
 
@@ -195,7 +194,7 @@ provided via its integration API remains available as long as a full
 process reload has not occurred.
 
 [[capability-contract]]
-= Capability Contract
+== Capability Contract
 
 A capability provides a stable contract to users of the capability. The
 contract includes the following:
@@ -214,7 +213,7 @@ Developers can learn about available capabilities and the contracts they
 provide by reading the WildFly _capabilty registry_.
 
 [[capability-registry]]
-= Capability Registry
+== Capability Registry
 
 The WildFly organization on github maintains a git repo where
 information about available capabilities is published.
@@ -240,16 +239,16 @@ organization-specific namespace as part their capability names to avoid
 name collisions.
 
 [[using-capabilities]]
-= Using Capabilities
+== Using Capabilities
 
 Now that all the background information is presented, here are some
 specifics about how to use WildFly capabilities in your code.
 
 [[basics-of-using-your-own-capability]]
-== Basics of Using Your Own Capability
+=== Basics of Using Your Own Capability
 
 [[creating-your-capability]]
-=== Creating your capability
+==== Creating your capability
 
 A capability is an instance of the immutable
 `org.jboss.as.controller.capability.RuntimeCapability` class. A
@@ -350,7 +349,7 @@ service:
 ----
 
 [[registering-and-unregistering-your-capability]]
-=== Registering and unregistering your capability
+==== Registering and unregistering your capability
 
 Once you have your capability, you need to ensure it gets registered
 with the WildFly Core kernel when your resource is added. This is easily
@@ -411,7 +410,7 @@ expected to be a common situation. See the implementation of those
 classes to see how to do it.
 
 [[installing-accessing-and-removing-the-service-provided-by-your-capability]]
-=== Installing, accessing and removing the service provided by your
+==== Installing, accessing and removing the service provided by your
 capability
 
 If your capability installs a service, you should use the
@@ -466,7 +465,7 @@ constructor and it will automatically remove your capability's service
 when it executes.
 
 [[basics-of-using-other-capabilities]]
-== Basics of Using Other Capabilities
+=== Basics of Using Other Capabilities
 
 When a capability needs another capability, it only refers to it by its
 string name. A capability should not reference the `RuntimeCapability`
@@ -481,7 +480,7 @@ integration API is done in Stage.RUNTIME.
 Registering a requirement for a capability is simple.
 
 [[registering-a-hard-requirement-for-a-static-capability]]
-=== Registering a hard requirement for a static capability
+==== Registering a hard requirement for a static capability
 
 If your capability has a hard requirement for a statically named
 capability, simply declare that to the builder for your
@@ -501,7 +500,7 @@ kernel will automatically register any static hard requirements declared
 this way.
 
 [[registering-a-requirement-for-a-dynamically-named-capability]]
-=== Registering a requirement for a dynamically named capability
+==== Registering a requirement for a dynamically named capability
 
 If the capability you require is dynamically named, usually your
 capability's resource will include an attribute whose value is the
@@ -540,7 +539,7 @@ ensure that the appropriate capability requirement will be registered
 when the attribute is modified.
 
 [[depending-upon-a-service-provided-by-another-capability]]
-=== Depending upon a service provided by another capability
+==== Depending upon a service provided by another capability
 
 Once the requirement for the capability is registered, your
 `OperationStepHandler` can use the `OperationContext` to discover the
@@ -570,7 +569,7 @@ if a capability requires a remoting Endpoint:
 ----
 
 [[using-a-custom-integration-api-provided-by-another-capability]]
-=== Using a custom integration API provided by another capability
+==== Using a custom integration API provided by another capability
 
 In your `Stage.RUNTIME` handler, use
 `OperationContext.getCapabilityRuntimeAPI` to get a reference to the
@@ -585,7 +584,7 @@ required capability's custom integration API. Then use it as necessary.
 ----
 
 [[runtime-only-requirements]]
-=== Runtime-only requirements
+==== Runtime-only requirements
 
 If your capability has a runtime-only requirement for another
 capability, that means that if that capability is present in
@@ -622,7 +621,7 @@ with capabilities that declare in their contract that they support such
 use.
 
 [[using-a-capability-in-a-deploymentunitprocessor]]
-=== Using a capability in a DeploymentUnitProcessor
+==== Using a capability in a DeploymentUnitProcessor
 
 A `DeploymentUnitProcessor` is likely to have a need to interact with
 capabilities, in order to create service dependencies from a deployment
@@ -704,7 +703,7 @@ not installed. The `DeploymentUnitProcessor` will need to catch and
 handle the exception.
 
 [[detailed-api]]
-== Detailed API
+=== Detailed API
 
 The WildFly Core kernel's API for using capabilities is covered in
 detail in the javadoc for the

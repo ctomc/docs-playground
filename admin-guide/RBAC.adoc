@@ -1,5 +1,4 @@
-Authorizing management actions with Role Based Access Control
-=============================================================
+= Authorizing management actions with Role Based Access Control
 
 WildFly introduces a Role Based Access Control scheme that allows
 different administrative users to have different sets of permissions to
@@ -9,7 +8,7 @@ successfully authenticate to the management security realm would have
 all permissions.
 
 [[access-control-providers]]
-= Access Control Providers
+== Access Control Providers
 
 WildFly ships with two access control "providers", the "simple"
 provider, and the "rbac" provider. The "simple" provider is the default,
@@ -52,7 +51,7 @@ link:Detailed_Configuration.html#src-557240_DetailedConfiguration-authentication
 authentication scheme] is enabled.
 
 [[rbac-provider-overview]]
-= RBAC provider overview
+== RBAC provider overview
 
 The access control scheme implemented by the "rbac" provider is based on
 seven standard roles. A role is a named set of permissions to perform
@@ -62,7 +61,7 @@ applied to their permissions that are used to determine whether the
 permission is granted.
 
 [[rbac-roles]]
-== RBAC roles
+=== RBAC roles
 
 The seven standard roles are divided into two broad categories, based on
 whether the role can deal with items that are considered to be "security
@@ -101,7 +100,7 @@ perform most actions (Administrator role) not being able to read or
 alter the auditing configuration.
 
 [[access-control-constraints]]
-== Access control constraints
+=== Access control constraints
 
 The following factors are used to determine whether a given role is
 granted a permission:
@@ -124,7 +123,7 @@ link:#configuring-constraints[Configuring constraints]"
 for details.
 
 [[addressing-a-resource]]
-== Addressing a resource
+=== Addressing a resource
 
 As mentioned above, permissions are granted to perform one of three
 actions, addressing a resource, reading it, and modifying. The latter
@@ -154,7 +153,7 @@ denied" if the user is attempting to read or write the resource.
 Another term for "addressing" a resource is "looking up" the resource.
 
 [[switching-to-the-rbac-provider]]
-= Switching to the "rbac" provider
+== Switching to the "rbac" provider
 
 Use the CLI to switch the access-control provider.
 
@@ -239,7 +238,7 @@ will need to be reloaded or restarted, starting with the master Domain
 Controller, so be sure to plan well before making this change.
 
 [[mapping-users-and-groups-to-roles]]
-= Mapping users and groups to roles
+== Mapping users and groups to roles
 
 Once the "rbac" access control provider is enabled, only users who are
 mapped to one of the available roles will have any administrative
@@ -248,7 +247,7 @@ individual users or groups of users and the available roles must be
 performed.
 
 [[mapping-individual-users]]
-== Mapping individual users
+=== Mapping individual users
 
 The easiest way to map individual users to roles is to use the web-based
 admin console.
@@ -315,7 +314,7 @@ is to limit a user to a particular interface.
 ----
 
 [[user-groups]]
-== User groups
+=== User groups
 
 A "group" is an arbitrary collection of users that may exist in the end
 user environment. They can be named whatever the end user organization
@@ -333,7 +332,7 @@ Groups are convenient when it comes to associating a user with a role,
 since entire groups can be associated with a role in a single mapping.
 
 [[mapping-groups-to-roles]]
-== Mapping groups to roles
+=== Mapping groups to roles
 
 The easiest way to map groups to roles is to use the web-based admin
 console.
@@ -377,7 +376,7 @@ authenticating via a particular security realm:
 ----
 
 [[including-all-authenticated-users-in-a-role]]
-== Including all authenticated users in a role
+=== Including all authenticated users in a role
 
 It's possible to specify that all authenticated users should be mapped
 to a particular role. This could be used, for example, to ensure that
@@ -411,7 +410,7 @@ The same change can be made using the CLI:
 ----
 
 [[excluding-users-and-groups]]
-== Excluding users and groups
+=== Excluding users and groups
 
 It is also possible to explicitly exclude certain users and groups from
 a role. Exclusions take precedence over inclusions, including cases
@@ -440,7 +439,7 @@ address element:
 ----
 
 [[users-who-map-to-multiple-roles]]
-== Users who map to multiple roles
+=== Users who map to multiple roles
 
 It is possible that a given user will be mapped to more than one role.
 When this occurs, by default the user will be granted the union of the
@@ -467,7 +466,7 @@ To restore the default behavior, set the value to "permissive":
 ----
 
 [[adding-custom-roles-in-a-managed-domain]]
-= Adding custom roles in a managed domain
+== Adding custom roles in a managed domain
 
 A managed domain may involve a variety of servers running different
 configurations and hosting different applications. In such an
@@ -480,7 +479,7 @@ limited to a portion of the domain – either to a set of server groups or
 to a set of hosts.
 
 [[server-group-scoped-roles]]
-== Server group scoped roles
+=== Server group scoped roles
 
 The privileges for a server-group scoped role are constrained to
 resources associated with one or more server groups. Server groups are
@@ -535,7 +534,7 @@ Once the role is created, users or groups can be mapped to it the same
 as with the seven standard roles.
 
 [[host-scoped-roles]]
-== Host scoped roles
+=== Host scoped roles
 
 The privileges for a host-scoped role are constrained to resources
 associated with one or more hosts. A user with a host-scoped role cannot
@@ -581,7 +580,7 @@ Once the role is created, users or groups can be mapped to it the same
 as with the seven standard roles.
 
 [[using-the-admin-console-to-create-scoped-roles]]
-== Using the admin console to create scoped roles
+=== Using the admin console to create scoped roles
 
 Both server-group and host scoped roles can be added, removed or edited
 via the admin console. Select "Scoped Roles" from the "Administration"
@@ -597,7 +596,7 @@ text are.
 image:images/addscopedrole.png[images/addscopedrole.png,width=450]
 
 [[configuring-constraints]]
-= Configuring constraints
+== Configuring constraints
 
 The following factors are used to determine whether a given role is
 granted a permission:
@@ -618,7 +617,7 @@ The first three of these factors are non-configurable; the latter three
 allow some customization.
 
 [[configuring-sensitivity]]
-== Configuring sensitivity
+=== Configuring sensitivity
 
 "Sensitivity" constraints are about restricting access to
 security-sensitive data. Different organizations may have different
@@ -626,7 +625,7 @@ opinions about what is security sensitive, so WildFly provides
 configuration options to allow users to tailor these constraints.
 
 [[sensitive-resources-attributes-and-operations]]
-=== Sensitive resources, attributes and operations
+==== Sensitive resources, attributes and operations
 
 The developers of the WildFly core and of any subsystem may annotate
 resources, attributes or operations with a "sensitivity classification".
@@ -802,7 +801,7 @@ the classification applies to the entire resource. Otherwise, the
 attributes or operations to which the classification applies.
 
 [[classifications-with-broad-use]]
-==== Classifications with broad use
+===== Classifications with broad use
 
 Several of the core sensitivity classifications are commonly used across
 the management model and deserve special mention.
@@ -828,7 +827,7 @@ to configuring a socket. By default sensitive for writes
 |=======================================================================
 
 [[values-with-security-vault-expressions]]
-=== Values with security vault expressions
+==== Values with security vault expressions
 
 By default any attribute or operation parameter whose value includes a
 security vault expression will be treated as sensitive, even if no
@@ -892,7 +891,7 @@ is important to be familiar with where and how your organization uses
 vault expressions before changing these settings.
 
 [[configuring-deployer-role-access]]
-== Configuring "Deployer" role access
+=== Configuring "Deployer" role access
 
 The standard link:#standard-rbac-roles[Deployer role]
 has its write permissions limited to resources that are considered to be
@@ -956,7 +955,7 @@ Deployer role, set the `configured-application` attribute to true.
 ----
 
 [[application-classifications-shipped-with-wildfly]]
-=== Application classifications shipped with WildFly
+==== Application classifications shipped with WildFly
 
 The subsystems shipped with the full WildFly distribution include the
 following application classifications:
@@ -983,7 +982,7 @@ In each case the classification applies to the resources you would
 expect, given its name.
 
 [[rbac-effect-on-administrator-user-experience]]
-= RBAC effect on administrator user experience
+== RBAC effect on administrator user experience
 
 The RBAC scheme will result in reduced permissions for administrators
 who do not map to the SuperUser role, so this will of course have some
@@ -991,7 +990,7 @@ impact on their experience when using administrative tools like the
 admin console and the CLI.
 
 [[admin-console]]
-== Admin console
+=== Admin console
 
 The admin console takes great pains to provide a good user experience
 even when the user has reduced permissions. Resources the user is not
@@ -1001,7 +1000,7 @@ Interaction units like "Add" and "Remove" buttons and "Edit" links will
 be suppressed if the user has no write permissions.
 
 [[cli]]
-== CLI
+=== CLI
 
 The CLI is a much more unconstrained tool than the admin console is,
 allowing users to try to execute whatever operations they wish, so it's
@@ -1084,7 +1083,7 @@ the real value) as well as the fact that child resources of type
 `security-domain` have been filtered.
 
 [[description-of-access-control-constraints-in-the-management-model-metadata]]
-== Description of access control constraints in the management model
+=== Description of access control constraints in the management model
 metadata
 
 The management model descriptive metadata returned from operations like
@@ -1164,7 +1163,7 @@ in the example above
 access control data
 
 [[learning-about-your-own-role-mappings]]
-= Learning about your own role mappings
+== Learning about your own role mappings
 
 Users can learn in which roles they are operating. In the admin console,
 click on your name in the top right corner; the roles you are in will be
@@ -1193,7 +1192,7 @@ set:
 ----
 
 [[run-as-capability-for-superusers]]
-= "Run-as" capability for SuperUsers
+== "Run-as" capability for SuperUsers
 
 If a user maps to the SuperUser role, WildFly also supports letting that
 user request that they instead map to one or more other roles. This can
@@ -1204,7 +1203,7 @@ to the SuperUser role, so it can only be used to narrow a user's
 permissions, not to potentially increase them.
 
 [[cli-run-as]]
-== CLI run-as
+=== CLI run-as
 
 With the CLI, run-as capability is on a per-request basis. It is done by
 using the "roles" operation header, the value of which can be the name
@@ -1244,7 +1243,7 @@ Here we show the effect of switching to a role that isn't granted the
 necessary permission.
 
 [[admin-console-run-as]]
-== Admin console run-as
+=== Admin console run-as
 
 Admin console users can change the role in which they operate by
 clicking on their name in the top right corner and clicking on the "Run
@@ -1260,7 +1259,7 @@ The console will need to be restarted in order for the change to take
 effect.
 
 [[using-run-as-roles-with-the-simple-access-control-provider]]
-== Using run-as roles with the "simple" access control provider
+=== Using run-as roles with the "simple" access control provider
 
 This "run-as" capability is available even if the "simple" access
 control provider is used. When the "simple" provider is used, any

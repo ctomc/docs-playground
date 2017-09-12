@@ -1,5 +1,4 @@
-Security Realms
-===============
+= Security Realms
 
 Within WildFly we make use of security realms to secure access to the
 management interfaces, these same realms are used to secure inbound
@@ -9,7 +8,7 @@ identity can be used for both inbound connections to the server and
 outbound connections being established by the server.
 
 [[general-structure]]
-= General Structure
+== General Structure
 
 The general structure of a management realm definition is: -
 
@@ -57,7 +56,7 @@ such as web applications or EJBs but this will also become relevant as
 we add role based authorization checks to the management model.
 
 [[using-a-realm]]
-= Using a Realm
+== Using a Realm
 
 After a realm has been defined it needs to be associated with an inbound
 or outbound connection for it to be used, the following are some
@@ -65,10 +64,10 @@ examples where these associations are used within the WildFly {wildflyVersion}
 configuration.
 
 [[inbound-connections]]
-== Inbound Connections
+=== Inbound Connections
 
 [[management-interfaces]]
-=== Management Interfaces
+==== Management Interfaces
 
 Either within the `standalone.xml` or `host.xml` configurations the
 security realms can be associated with the management interface as
@@ -91,7 +90,7 @@ aware that if these interfaces are then unsecured any other local user
 will be able to control and administer the WildFly installation.
 
 [[remoting-subsystem]]
-=== Remoting Subsystem
+==== Remoting Subsystem
 
 The Remoting subsystem exposes a connector to allow for inbound
 comunications with JNDI and the EJB subsystem by default we associate
@@ -106,9 +105,9 @@ the `ApplicationRealm` with this connection.
 ----
 
 [[outbound-connections]]
-== Outbound Connections
+=== Outbound Connections
 
-=== Remoting Subsystem
+==== Remoting Subsystem
 
 Outbound connections can also be defined within the Remoting subsystem,
 these are typically used for remote EJB invocations from one AS server
@@ -136,7 +135,7 @@ The security realm is only used to obtain the password for this example,
 as you can see here the username is specified separately.
 
 [[slave-host-controller]]
-=== Slave Host Controller
+==== Slave Host Controller
 
 When running in domain mode slave host controllers need to establish a
 connection to the native interface of the master domain controller so
@@ -157,7 +156,7 @@ want to override the username used for authentication a `username`
 attribute can be added to the `<remote />` element.
 
 [[authentication]]
-= Authentication
+== Authentication
 
 One of the primary functions of the security realms is to define the
 user stores that will be used to verify the identity of inbound
@@ -233,7 +232,7 @@ mechanism, a remote user to supply their username and password whilst a
 remote script could make a call and authenticate using a certificate.
 
 [[authorization]]
-= Authorization
+== Authorization
 
 The actual security realms are not involved in any authorization
 decisions. However, they can be configured to load a user's roles, which
@@ -247,7 +246,7 @@ step will occur to load the roles based on the username they used to
 authenticate with.
 
 [[out-of-the-box-configuration]]
-= Out Of The Box Configuration
+== Out Of The Box Configuration
 
 Before describing the complete set of configuration options available
 within the realms, we will look at the default configuration, as for
@@ -263,7 +262,7 @@ available to be referenced within the domain configuration for the
 servers running on that host controller.
 
 [[management-realm]]
-== Management Realm
+=== Management Realm
 
 [source, xml]
 ----
@@ -318,7 +317,7 @@ do still need to be protected as they can be used to access any server
 where the realm name is the same and the user has the same username and
 password pair.
 
-== Application Realm
+=== Application Realm
 
 [source, xml]
 ----
@@ -336,7 +335,7 @@ password pair.
 The realm `ApplicationRealm` is a slightly more complex realm as this is
 used for both
 
-=== Authentication
+==== Authentication
 
 The authentication configuration is very similar to the
 `ManagementRealm` in that it enabled both the local mechanism and a
@@ -363,7 +362,7 @@ The properties definition works in exactly the same way as the
 definition for `ManagementRealm` except now the properties file is
 called `application-users.properties`.
 
-=== Authorization
+==== Authorization
 
 The contents of the `Authorization` element are specific to the
 `ApplicationRealm`, in this case a properties file is used to load a
@@ -383,7 +382,7 @@ some users still require username and password authentication for their
 roles to be loaded.
 
 [[other-security-domain]]
-=== other security domain
+==== other security domain
 
 [source, xml]
 ----
@@ -434,7 +433,7 @@ include::add-user-utility.adoc[]
 
 
 [[jmx-security]]
-= JMX Security
+== JMX Security
 
 When configuring the security realms remote access to the server's
 MBeanServer needs a special mention. When running in standalone mode the

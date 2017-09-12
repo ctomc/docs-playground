@@ -1,5 +1,4 @@
-EJB invocations from a remote client using JNDI
-===============================================
+= EJB invocations from a remote client using JNDI
 
 This chapter explains how to invoke EJBs from a remote client by using
 the JNDI API to first lookup the bean proxy and then invoke on that
@@ -22,7 +21,7 @@ just concentrate on the traditional JNDI based invocation on EJBs. So
 let's get started:
 
 [[deploying-your-ejbs-on-the-server-side]]
-= Deploying your EJBs on the server side:
+== Deploying your EJBs on the server side:
 
 [IMPORTANT]
 
@@ -134,7 +133,7 @@ the server. Make sure that your deployment has been processed
 successfully and there aren't any errors.
 
 [[writing-a-remote-client-application-for-accessing-and-invoking-the-ejbs-deployed-on-the-server]]
-= Writing a remote client application for accessing and invoking the
+== Writing a remote client application for accessing and invoking the
 EJBs deployed on the server
 
 The next step is to write an application which will invoke the EJBs that
@@ -461,7 +460,7 @@ server details. So let's now get to the important part of setting up the
 EJB client context properties.
 
 [[setting-up-ejb-client-context-properties]]
-= Setting up EJB client context properties
+== Setting up EJB client context properties
 
 A EJB client context is a context which contains contextual information
 for carrying out remote invocations on EJBs. This is a WildFly-specific
@@ -641,8 +640,7 @@ So that's how the jboss-ejb-client.properties file can be setup and
 placed in the classpath.
 
 [[section]]
-====
-
+=====
 The EJB client code will by default look for jboss-ejb-client.properties
 in the classpath. However, you can specify a different file of your
 choice by setting the "jboss.ejb.client.properties.file.path" system
@@ -652,8 +650,7 @@ be
 "-Djboss.ejb.client.properties.file.path=/home/me/my-client/custom-jboss-ejb-client.properties"
 
 [[section-1]]
-====
-
+=====
 A jboss-client jar is shipped in the distribution. It's available at
 WILDFLY_HOME/bin/client/jboss-client.jar. Place this jar in the
 classpath of your client application.
@@ -665,7 +662,7 @@ this jar as a Maven dependency.
 [IMPORTANT]
 
 [[summary]]
-= Summary
+== Summary
 
 In the above examples, we saw what it takes to invoke a EJB from a
 remote client. To summarize:

@@ -1,5 +1,4 @@
-Command line parameters
-=======================
+= Command line parameters
 
 To start up a WildFly managed domain, execute the
 `$JBOSS_HOME/bin/domain.sh` script. To start up a standalone server,
@@ -9,7 +8,7 @@ configuration by providing arguments on the command line, or in your
 calling script.
 
 [[system-properties]]
-= System properties
+== System properties
 
 To set a system property, pass its new value using the standard jvm
 `-Dkey=value` options:
@@ -58,7 +57,7 @@ the parser have been executed. So this mechanism should not be used for
 setting properties whose value needs to be set before this point.
 
 [[controlling-filesystem-locations-with-system-properties]]
-== Controlling filesystem locations with system properties
+=== Controlling filesystem locations with system properties
 
 The standalone and the managed domain modes each use a default
 configuration which expects various files and writable directories to
@@ -69,7 +68,7 @@ mechanisms above. The locations which can be controlled via system
 property are:
 
 [[standalone]]
-=== Standalone
+==== Standalone
 
 [cols=",,",]
 |=======================================================================
@@ -100,7 +99,7 @@ storage. |jboss.server.base.dir/data
 |=======================================================================
 
 [[managed-domain]]
-=== Managed Domain
+==== Managed Domain
 
 [cols=",,",]
 |=======================================================================
@@ -132,7 +131,7 @@ managed server instances |jboss.domain.base.dir/servers
 |=======================================================================
 
 [[other-command-line-parameters]]
-= Other command line parameters
+== Other command line parameters
 
 The first acceptable format for command line arguments to the WildFly
 launch scripts is
@@ -177,7 +176,7 @@ The sections below describe the command line parameter names that are
 available in standalone and domain mode.
 
 [[standalone-1]]
-== Standalone
+=== Standalone
 
 [cols=",,",]
 |=======================================================================
@@ -199,7 +198,7 @@ versioned history is maintained of the file.
 |=======================================================================
 
 [[managed-domain-1]]
-== Managed Domain
+=== Managed Domain
 
 [cols=",,",]
 |=======================================================================
@@ -271,7 +270,7 @@ applications etc.
 |====
 
 [[common-parameters]]
-== Common parameters
+=== Common parameters
 
 These parameters apply in both standalone or managed domain mode:
 
@@ -298,7 +297,7 @@ JVM.
 |=======================================================================
 
 [[controlling-the-bind-address]]
-= Controlling the Bind Address with -b
+== Controlling the Bind Address with -b
 
 WildFly binds sockets to the IP addresses and interfaces contained in
 the `<interfaces>` elements in `standalone.xml`, `domain.xml` and
@@ -401,7 +400,7 @@ files. They are provided as a convenience, and you can choose to modify
 your configuration to ignore them.
 
 [[controlling-the-default-multicast-address-with--u]]
-= Controlling the Default Multicast Address with -u
+== Controlling the Default Multicast Address with -u
 
 WildFly may use multicast communication for some services, particularly
 those involving high availability clustering. The multicast addresses

@@ -1,5 +1,4 @@
-Management resources
-====================
+= Management resources
 
 When WildFly parses your configuration files at boot, or when you use
 one of the AS's link:Management_Clients.html[Management Clients] you are
@@ -8,7 +7,7 @@ internal management model. A WildFly management resource has the
 following characteristics:
 
 [[address]]
-= Address
+== Address
 
 All WildFly management resources are organized in a tree. The path to
 the node in the tree for a particular resource is its _address_. Each
@@ -42,7 +41,7 @@ instead of an '=':
 * `http://localhost:9990/management/interface/public`
 
 [[operations]]
-= Operations
+== Operations
 
 Querying or modifying the state of a resource is done via an operation.
 An operation has the following characteristics:
@@ -134,7 +133,7 @@ See link:#descriptions[#Descriptions]
 below for more on how to learn about the operations a resource exposes.
 
 [[attributes]]
-= Attributes
+== Attributes
 
 Management resources expose information about their state as attributes.
 Attributes have string name, and a value of type
@@ -286,7 +285,7 @@ below for how to learn more about the attributes a particular resource
 exposes.
 
 [[children]]
-= Children
+== Children
 
 Management resources may support child resources. The
 link:#src-557064_Managementresources-Address[_types_ of children] a
@@ -326,7 +325,7 @@ via the CLI one could:
 ----
 
 [[descriptions]]
-= Descriptions
+== Descriptions
 
 All resources expose metadata that describes their attributes,
 operations and child types. This metadata is itself obtained by invoking
@@ -398,7 +397,7 @@ See the link:Global_operations.adoc[Global operations] section for
 details on other parameters supported by the `read-resource-description`
 operation and all the other globally available operations.
 
-= Comparison to JMX MBeans
+== Comparison to JMX MBeans
 
 WildFly management resources are conceptually quite similar to Open
 MBeans. They have the following primary differences:
@@ -416,13 +415,13 @@ resource attribute values, operation parameter values and operation
 return values are all of type `org.jboss.dmr.ModelNode`.
 
 [[basic-structure-of-the-management-resource-trees]]
-= Basic structure of the management resource trees
+== Basic structure of the management resource trees
 
 As noted above, management resources are organized in a tree structure.
 The structure of the tree depends on whether you are running a
 standalone server or a managed domain.
 
-== Standalone server
+=== Standalone server
 
 The structure of the managed resource tree is quite close to the
 structure of the `standalone.xml` configuration file.
@@ -443,7 +442,7 @@ bindings
 *** `socket-binding` – individual socket binding configurations
 ** `deployment` – available deployments on the server
 
-== Managed domain
+=== Managed domain
 
 In a managed domain, the structure of the managed resource tree spans
 the entire domain, covering both the domain wide configuration (e.g.

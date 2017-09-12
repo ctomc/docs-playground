@@ -1,5 +1,4 @@
-Kerberos Authentication Migration
-=================================
+= Kerberos Authentication Migration
 
 When working with Kerberos configuration it is possible for the
 application server to rely on configuration from the environment or the
@@ -28,10 +27,10 @@ Kerberos realm in use and the address of the KDC.
 ----
 
 [[http-authentication]]
-= HTTP Authentication
+== HTTP Authentication
 
 [[legacy-security-realm]]
-== Legacy Security Realm
+=== Legacy Security Realm
 
 A legacy security realm can be define so that SPNEGO authentication can
 be enabled for the HTTP management interface.
@@ -64,7 +63,7 @@ This results in the following configuration: -
 ----
 
 [[application-spnego]]
-== Application SPNEGO
+=== Application SPNEGO
 
 Alternatively deployed applications would make use of a pair of security
 domains.
@@ -126,7 +125,7 @@ An application can now be deployed referencing the SPNEGO security
 domain and secured with SPNEGO mechanism.
 
 [[migrated-spnego]]
-== Migrated SPNEGO
+=== Migrated SPNEGO
 
 The equivalent configuration can be achieved with WildFly Elytron by
 first defining a security realm which will be used to load identity
@@ -205,10 +204,10 @@ https://docs.jboss.org/author/display/WFLY/Migrate+Legacy+Security+to+Elytron+Se
 authentication section].
 
 [[remoting-sasl-authentication]]
-= Remoting / SASL Authentication
+== Remoting / SASL Authentication
 
 [[legacy-security-realm-1]]
-== Legacy Security Realm
+=== Legacy Security Realm
 
 It is also possible to define a legacy security realm for Kerberos /
 GSSAPI SASL authenticatio for Remoting authentication such as the native
@@ -243,7 +242,7 @@ management interface.
 ----
 
 [[migrated-gssapi]]
-== Migrated GSSAPI
+=== Migrated GSSAPI
 
 The steps to define the equivalent Elytron configuration are very
 similar to the HTTP example.

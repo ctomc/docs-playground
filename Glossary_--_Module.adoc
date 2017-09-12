@@ -1,5 +1,4 @@
-Module
-======
+= Module
 
 A logical grouping of classes used for classloading and dependency
 management in WildFly 10. Modules can be _dynamic_ or _static_.

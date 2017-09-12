@@ -1,9 +1,9 @@
-Remote EJB invocations via JNDI - EJB client API or remote-naming
+= Remote EJB invocations via JNDI - EJB client API or remote-naming
 project
 =========================================================================
 
 [[purpose]]
-= Purpose
+== Purpose
 
 WildFly provides EJB client API project as well as remote-naming project
 for invoking on remote objects exposed via JNDI. This article explains
@@ -11,7 +11,7 @@ which approach to use when and what the differences and scope of each of
 these projects is.
 
 [[history]]
-= History
+== History
 
 Previous versions of JBoss AS (versions < WildFly {wildflyVersion}) used JNP project (
 http://anonsvn.jboss.org/repos/jbossas/projects/naming/) as the JNDI
@@ -32,14 +32,14 @@ https://github.com/jboss-remoting/jboss-remoting) which allows much more
 and better control over security.
 
 [[overview]]
-= Overview
+== Overview
 
 Now that we know that for remote client JNDI communication with WildFly
 8 requires jboss-remote-naming project, let's quickly see what the code
 looks like.
 
 [[client-code-relying-on-jndi.properties-in-classpath]]
-== Client code relying on jndi.properties in classpath
+=== Client code relying on jndi.properties in classpath
 
 [source, java]
 ----
@@ -121,7 +121,7 @@ are the same as what we did via the jndi.properties. It's upto the
 client application to decide which approach they want to follow.
 
 [[how-does-remoting-naming-work]]
-== How does remoting naming work
+=== How does remoting naming work
 
 We have so far had an overview of how the client code looks like when
 using the jboss-remote-naming (henceforth referred to as remote-naming -
@@ -199,7 +199,7 @@ kind of the real reason) I haven't looked fully at the remote-naming
 implementation details to see what other ways are allowed.
 
 [[jndi-operations-allowed-using-remote-naming-project]]
-== JNDI operations allowed using remote-naming project
+=== JNDI operations allowed using remote-naming project
 
 So far we have mainly concentrated on how the naming context is created
 and what it internally does when an instance is created. Let's now take
@@ -221,7 +221,7 @@ project allows writing/binding to the JNDI server from a remote
 application.
 
 [[pre-requisites-of-remotely-accessible-jndi-objects]]
-== Pre-requisites of remotely accessible JNDI objects
+=== Pre-requisites of remotely accessible JNDI objects
 
 On the server side, the JNDI can contain numerous objects that are bound
 to it. However, _not_ all of those are exposed remotely. The two
@@ -238,7 +238,7 @@ Both these conditions are important and are required for the objects to
 be remotely accessible via JNDI.
 
 [[jndi-lookup-strings-for-remote-clients-backed-by-the-remote-naming-project]]
-== JNDI lookup strings for remote clients backed by the remote-naming
+=== JNDI lookup strings for remote clients backed by the remote-naming
 project
 
 In our examples, so far, we have been consistently using " `foo/bar`" as
@@ -275,7 +275,7 @@ off the java:jboss/exported/ namespace prefix if supplied. But let's not
 go into that here.
 
 [[how-does-remote-naming-project-implementation-transfer-the-jndi-objects-to-the-clients]]
-== How does remote-naming project implementation transfer the JNDI
+=== How does remote-naming project implementation transfer the JNDI
 objects to the clients
 
 When a lookup is done on a JNDI string, the remote-naming implementation
@@ -301,7 +301,7 @@ invocations from a remote client using JNDI]) as against using
 remote-naming project for doing the same thing.
 
 [[summary]]
-= Summary
+== Summary
 
 That pretty much covers whatever is important to know, in the
 remote-naming project, for a typical client application. Don't close the
@@ -316,7 +316,7 @@ invocations, can just skip the rest of this article if you aren't
 interested in those details.
 
 [[remote-ejb-invocations-backed-by-the-remote-naming-project]]
-= Remote EJB invocations backed by the remote-naming project
+== Remote EJB invocations backed by the remote-naming project
 
 In previous sections of this article we saw that whatever is exposed in
 the java:jboss/exported/ namespace is accessible remotely to the client
@@ -496,7 +496,7 @@ _Long story short, using the remote-naming project for doing remote EJB
 invocations against WildFly is possible!_
 
 [[why-use-the-ejb-client-api-approach-then]]
-= Why use the EJB client API approach then?
+== Why use the EJB client API approach then?
 
 I can guess that some of you might already question why/when would one
 use the EJB client API style lookups as explained in the
@@ -570,7 +570,7 @@ the EJB client API _does_ communicate with the server to carry out the
 invocation.
 
 [[is-the-lookup-optimization-applicable-for-all-bean-types]]
-== Is the lookup optimization applicable for all bean types?
+=== Is the lookup optimization applicable for all bean types?
 
 In the previous section we (intentionally) mentioned that the lookup
 optimization by the EJB client API project happens for stateless beans.
@@ -615,7 +615,7 @@ for you or if you have other restrictions that force you to use that
 project.
 
 [[restrictions-for-ejbs]]
-== Restrictions for EJB's
+=== Restrictions for EJB's
 
 If the remote-naming is used there are some restrictions as there is no
 full support of the ejb-client features.

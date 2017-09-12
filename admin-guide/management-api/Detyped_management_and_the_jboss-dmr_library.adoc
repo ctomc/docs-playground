@@ -1,5 +1,4 @@
-Detyped management and the jboss-dmr library
-============================================
+= Detyped management and the jboss-dmr library
 
 The management model exposed by WildFly is very large and complex. There
 are dozens, probably hundreds of logical concepts involved – hosts,
@@ -48,7 +47,7 @@ https://github.com/jbossas/jboss-dmr[Github]. The maven coordinates for
 a jboss-dmr release are `org.jboss.jboss-dmr:jboss-dmr`.
 
 [[modelnode-and-modeltype]]
-= ModelNode and ModelType
+== ModelNode and ModelType
 
 The public API exposed by jboss-dmr is very simple: just three classes,
 one of which is an enum!
@@ -61,7 +60,7 @@ enum of all the valid types of values. And that's 95% of the public API;
 a class and an enum. (We'll get to the third class, `Property`, below.)
 
 [[basic-modelnode-manipulation]]
-== Basic ModelNode manipulation
+=== Basic ModelNode manipulation
 
 To illustrate how to work with `ModelNode` s, we'll use the
 http://www.beanshell.org[Beanshell] scripting library. We won't get into
@@ -211,7 +210,7 @@ java.lang.UnsupportedOperationException
 ----
 
 [[lists]]
-== Lists
+=== Lists
 
 The above examples aren't particularly interesting; if all we can do
 with a `ModelNode` is wrap a simple Java primitive, what use is that?
@@ -352,7 +351,7 @@ bsh % print(node.toString());
 ----
 
 [[properties]]
-== Properties
+=== Properties
 
 The third public class in the jboss-dmr library is
 `org.jboss.dmr.Property`. A `Property` is a `String => ModelNode` tuple.
@@ -439,7 +438,7 @@ max = 10
 ----
 
 [[modeltype.object]]
-== ModelType.OBJECT
+=== ModelType.OBJECT
 
 The most powerful and most commonly used complex value type in jboss-dmr
 is `ModelType.OBJECT`. A `ModelNode` whose value is `ModelType.OBJECT`
@@ -564,7 +563,7 @@ true
 ----
 
 [[modeltype.expression]]
-== ModelType.EXPRESSION
+=== ModelType.EXPRESSION
 
 A value of type `ModelType.EXPRESSION` is stored as a string, but can
 later be _resolved_ to different value. The string has a special syntax
@@ -703,7 +702,7 @@ bsh % print(basic.asInt());
 ----
 
 [[modeltype.type]]
-== ModelType.TYPE
+=== ModelType.TYPE
 
 You can also pass one of the values of the `ModelType` enum to `set`:
 
@@ -721,7 +720,7 @@ This is useful when using a `ModelNode` data structure to describe
 another `ModelNode` data structure.
 
 [[full-list-of-modelnode-types]]
-== Full list of ModelNode types
+=== Full list of ModelNode types
 
 BIG_DECIMAL +
 BIG_INTEGER +
@@ -739,11 +738,11 @@ TYPE +
 UNDEFINED
 
 [[text-representation-of-a-modelnode]]
-== Text representation of a ModelNode
+=== Text representation of a ModelNode
 
 TODO – document the grammar
 
 [[json-representation-of-a-modelnode]]
-== JSON representation of a ModelNode
+=== JSON representation of a ModelNode
 
 TODO – document the grammar

@@ -1,5 +1,4 @@
-wsprovide
-=========
+= wsprovide
 
 _wsprovide_ is a command line tool, Maven plugin and Ant task that
 generates portable JAX-WS artifacts for a service endpoint
@@ -7,7 +6,7 @@ implementation. It also has the option to "provide" the abstract
 contract for offline usage.
 
 [[command-line-tool]]
-= Command Line Tool
+== Command Line Tool
 
 The command line tool has the following usage:
 
@@ -28,7 +27,7 @@ options:
 ....
 
 [[examples]]
-== Examples
+=== Examples
 
 Generating wrapper classes for portable artifacts in the "generated"
 directory:
@@ -50,7 +49,7 @@ wsprovide -o generated -c application1.jar:application2.jar foo.Endpoint
 ....
 
 [[maven-plugin]]
-= Maven Plugin
+== Maven Plugin
 
 The _wsprovide_ tools is included in the
 *org.jboss.ws.plugins:jaxws-tools-* *maven-* *plugin* plugin. The plugin
@@ -91,7 +90,7 @@ be added to classpath
 |=======================================================================
 
 [[examples-1]]
-== Examples
+=== Examples
 
 You can use _wsprovide_ in your own project build simply referencing the
 _maven-jaxws-tools-plugin_ in the configured plugins in your _pom.xml_
@@ -184,7 +183,7 @@ Up to version 1.1.2.Final, the _artifactId_ of the plugin was
 *maven-jaxws-tools-plugin*.
 
 [[ant-task]]
-= Ant Task
+== Ant Task
 
 The wsprovide ant task ( _org.jboss.ws.tools.ant.WSProvideTask_) has the
 following attributes:
@@ -220,7 +219,7 @@ implementation. |"."
 |=======================================================================
 
 [[examples-2]]
-== Examples
+=== Examples
 
 Executing wsprovide in verbose mode with separate output directories for
 source, resources, and classes:

@@ -1,42 +1,41 @@
-WildFly Testsuite Harness Developer Guide
-=========================================
+= WildFly Testsuite Harness Developer Guide
 
 *Audience:* Whoever wants to change the testsuite harness
 
 *JIRA*: https://issues.jboss.org/browse/WFLY-576[WFLY-576]
 
 [[testsuite-requirements]]
-= Testsuite requirements
+== Testsuite requirements
 
 http://community.jboss.org/wiki/ASTestsuiteRequirements will probably be
 merged here later.
 
 [[adding-a-new-maven-plugin]]
-= Adding a new maven plugin
+== Adding a new maven plugin
 
 The plugin version needs to be specified in jboss-parent. See
 https://github.com/jboss/jboss-parent-pom/blob/master/pom.xml#L65 .
 
 [[shortened-maven-run-overview]]
-= Shortened Maven run overview
+== Shortened Maven run overview
 
 See link:#src-557176[Shortened Maven Run Overview].
 
 [[how-the-as-instance-is-built]]
-= How the AS instance is built
+== How the AS instance is built
 
 See link:#src-557176[How the JBoss AS instance is built and configured
 for testsuite modules.]
 
 [[properties-and-their-propagation]]
-= Properties and their propagation
+== Properties and their propagation
 
 ﻿Propagated to tests through arquillian.xml: +
 `<property name="javaVmArguments">${server.jvm.args}</property>` +
 TBD: https://issues.jboss.org/browse/ARQ-647
 
 [[jboss-as-instance-dir]]
-== JBoss AS instance dir
+=== JBoss AS instance dir
 
 *integration/pom.xml*
 
@@ -52,7 +51,7 @@ TBD: https://issues.jboss.org/browse/ARQ-647
 ----
 
 [[server-jvm-arguments]]
-== Server JVM arguments
+=== Server JVM arguments
 
 [source, java]
 ----
@@ -62,21 +61,21 @@ TBD: https://issues.jboss.org/browse/ARQ-647
 ----
 
 [[ip-settings]]
-== IP settings
+=== IP settings
 
 * `${ip.server.stack` *}* - used in
 `<systemPropertyVariables> / <server.jvm.args>` which is used in
 `*-arquillian.xml`.
 
 [[testsuite-directories]]
-== Testsuite directories
+=== Testsuite directories
 
 * `${jbossas.ts.integ.dir`}
 * `${jbossas.ts.dir`}
 * `${jbossas.project.dir`}
 
 [[clustering-properties]]
-== Clustering properties
+=== Clustering properties
 
 * node0
 * node1

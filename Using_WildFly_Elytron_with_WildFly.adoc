@@ -1,11 +1,10 @@
-Using Elytron within WildFly
-============================
+= Using Elytron within WildFly
 
 [[using-the-out-of-the-box-elytron-components]]
-= Using the Out of the Box Elytron Components
+== Using the Out of the Box Elytron Components
 
 [[securing-management-interfaces]]
-== Securing Management Interfaces
+=== Securing Management Interfaces
 
 You can find more details on the enabling WildFly to use the out of the
 box Elytron components for securing the management interfaces in the
@@ -13,7 +12,7 @@ link:Elytron_Subsystem.html#src-557147_ElytronSubsystem-DefaultManagementAuthent
 Management Authentication Configuration] section.
 
 [[securing-applications]]
-== Securing Applications
+=== Securing Applications
 
 The _elytron_ subsystem provides _application-http-authentication_ by
 default which can be used to secure applications. For more details on
@@ -30,7 +29,7 @@ link:Using_the_Elytron_Subsystem.html#src-557140_safe-id-VXNpbmd0aGVFbHl0cm9uU3V
 an Application's Authentication Configuration].
 
 [[using-ssltls]]
-== Using SSL/TLS
+=== Using SSL/TLS
 
 WildFly does provide a default one-way SSL/TLS configuration using the
 legacy core management authentication but does not provide one in the
@@ -41,7 +40,7 @@ link:Using_the_Elytron_Subsystem.html#src-557140_UsingtheElytronSubsystem-ssl-tl
 SSL/TLS]
 
 [[using-elytron-with-other-subsystems]]
-== Using Elytron with Other Subsystems
+=== Using Elytron with Other Subsystems
 
 In addition to securing applications and management interfaces, Elytron
 also integrates with other subsystems in WildFly.
@@ -70,10 +69,10 @@ and application authentication.
 |=======================================================================
 
 [[undertow-subsystem]]
-= Undertow Subsystem
+== Undertow Subsystem
 
 [[ejb-subsystem]]
-= EJB Subsystem
+== EJB Subsystem
 
 Configuration can be added to the EJB subsystem to map a security domain
 name referenced in a deployment to an Elytron security domain:
@@ -110,7 +109,7 @@ When an application security domain mapping is configured for a bean in
 a deployment, this indicates that security should be handled by Elytron.
 
 [[webservices-subsystem]]
-= WebServices Subsystem
+== WebServices Subsystem
 
 There is adapter in webservices subsystem to make authentication works
 for elytron security domain automatically. Like configure with legacy
@@ -118,7 +117,7 @@ security domain, you can configure elytron security domain in deployment
 descriptor or annotation to secure webservice endpoint.
 
 [[legacy-security-subsystem]]
-= Legacy Security Subsystem
+== Legacy Security Subsystem
 
 As previously described, Elytron based security is configured by
 chaining together different capability references to form a complete

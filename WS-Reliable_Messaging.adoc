@@ -1,5 +1,4 @@
-WS-Reliable Messaging
-=====================
+= WS-Reliable Messaging
 
 JBoss Web Services inherits full WS-Reliable Messaging capabilities from
 the underlying Apache CXF implementation. At the time of writing, Apache
@@ -8,7 +7,7 @@ http://schemas.xmlsoap.org/ws/2005/02/rm/[WS-Reliable Messaging 1.0]
 (February 2005) version of the specification.
 
 [[enabling-ws-reliable-messaging]]
-= Enabling WS-Reliable Messaging
+== Enabling WS-Reliable Messaging
 
 WS-Reliable Messaging is implemented internally in Apache CXF through a
 set of interceptors that deal with the low level requirements of the
@@ -32,13 +31,13 @@ http://cxf.apache.org/docs/wsrmconfiguration.html[Apache CXF
 documentation].
 
 [[example]]
-= Example
+== Example
 
 In this example we configure WS-Reliable Messaging endpoint and client
 through the WS-Policy support.
 
 [[endpoint]]
-== Endpoint
+=== Endpoint
 
 We go with a contract-first approach, so we start by creating a proper
 WSDL contract, containing the WS-Reliable Messaging and WS-Addressing
@@ -175,7 +174,7 @@ webservices stack automatically detects the policies and enables
 WS-Reliable Messaging.
 
 [[client]]
-== Client
+=== Client
 
 The endpoint advertises his RM capabilities (and requirements) through
 the published WSDL and the client is required to also enable WS-RM for
@@ -194,7 +193,7 @@ proxy.echo("Hello World!");
 ----
 
 [[additional-configuration]]
-== Additional configuration
+=== Additional configuration
 
 Fine-grained tuning of WS-Reliable Messaging engine requires setting up
 proper RM features and attach them for instance to the client proxy.

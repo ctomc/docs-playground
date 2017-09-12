@@ -1,5 +1,4 @@
-Default HTTP Interface Security
-===============================
+= Default HTTP Interface Security
 
 WildFly is distributed secured by default. The default security
 mechanism is username / password based making use of HTTP Digest for the

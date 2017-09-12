@@ -1,5 +1,4 @@
-AJP listeners
-=============
+= AJP listeners
 
 The AJP listeners are child resources of the subsystem undertow. They
 are used with mod_jk, mod_proxy and mod_cluster of the Apache httpd

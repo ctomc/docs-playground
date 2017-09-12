@@ -1,12 +1,10 @@
-Before you add a test
-=====================
+= Before you add a test
 
 Every added test, whether ported or new should follow the same
 guidelines:
 
 * [[section]]
-=====
-
+======
 AS6 has a lot of tests for things that are discontinued. For example
 the +
 legacy JBoss Transaction Manager which was replaced by Arjuna. Also we +
@@ -15,8 +13,7 @@ be +
 migrated.
 
 * [[section-1]]
-=====
-
+======
 If you don't understand what a test is doing (perhaps too complex), or +
 it's going about things in a strange way that might not be correct,
 THEN +
@@ -24,15 +21,13 @@ DO NOT PORT IT. Instead we should have a simpler, understandable, and +
 correct test. Write a new one, ping the author, or skip it altogether.
 
 * [[section-2]]
-=====
-
+======
 Always check that the test you are adding doesn't have coverage +
 elsewhere (try using "git grep"). As mentioned above we have some +
 overlap between 6 and 7. The 7 test version will likely be better.
 
 * [[section-3]]
-=====
-
+======
 A JIRA number is useless without an internet connection, and they are +
 hard to read. If I get a test failure thats XDGR-843534578 I have to
 dig +
@@ -42,13 +37,11 @@ number in the comments of the test. Also the commit log is always
 available.
 
 * [[section-4]]
-=====
-
+======
 This is especially critical if the test is non-trivial
 
 * [[section-5]]
-=====
-
+======
 If you are looking at migrating or creating a test with similar +
 functionality to an exiting test, it is better to +
 expand upon the existing one by adding more test methods, rather than +
@@ -58,8 +51,7 @@ makes sense it is better to add it to an +
 existing test case.
 
 * [[section-6]]
-=====
-
+======
 Integration tests should be packaged in subpackages under the relevant +
 subsystem (e.g org.jboss.as.test.integration.ejb.async). When a test +
 impacts multiple subsystems this is a bit of a judgement call, but in +
@@ -69,16 +61,14 @@ injection into an EJB, even though this involves CDI and EJB, +
 the CDI spec defines this behaviour)
 
 * [[section-7]]
-=====
-
+======
 The EE spec is full of odd requirements. If the test is covering +
 behavior that is not obvious then please add something like "Verifies
 EE +
 X.T.Z - The widget can't have a foobar if it is declared like blah"
 
 * [[section-8]]
-=====
-
+======
 At the moment there is not real organization of these files. It makes +
 sense for most apps to have this separation, however the testsuite is +
 different. e.g. most apps will have a single deployment descriptor of
@@ -93,8 +83,7 @@ the deployment are in one place, and that place tends to be small
 a handful of files).
 
 * [[section-9]]
-=====
-
+======
 URLs hardcoded to certain address (localhost) or port (like the default
 8080 for web) prevent running the test against different address or with
 IPv6 adress. +
@@ -107,8 +96,7 @@ https://github.com/arquillian/arquillian/blob/master/examples/junit/src/test/jav
 usage example].
 
 * [[section-10]]
-=====
-** Only do changes related to the topic of the jira/pull request.
+====== ** Only do changes related to the topic of the jira/pull request.
 ** Do not clutter your pull request with e.g. reformatting, fixing typos
 spotted along the way - do another pull request for such.
 ** Prefer smaller changes in more pull request over one big pull request
@@ -121,8 +109,7 @@ history.
 message(s).
 
 * [[section-11]]
-=====
-
+======
 Do not use Thread.sleep() without checking for the actual condition you
 need to be fulfilled. +
 You may use active waiting with a timeout, but prefer using timeouts of
@@ -132,8 +119,7 @@ Make the timeouts configurable: For a group of similar test, use a
 configurable timeout value with a default if not set.
 
 * [[section-12]]
-=====
-
+======
 Definitely, it's better to see "File x/y/z.xml not found" instead of:
 
 [source, java]
@@ -146,8 +132,7 @@ junit.framework.AssertionFailedError
 ----
 
 * [[section-13]]
-=====
-
+======
 If your test uses some configuration property and it fails possibly due
 to misconfiguration, note the property and it's value in the exception:
 
@@ -160,8 +145,7 @@ File jdbcJar = new File( System.getProperty("jbossas.ts.dir", "."),
 ----
 
 * [[section-14]]
-=====
-
+======
 * ** Close sockets, connections, file descriptors;
 ** Don't put much data to static fields, or clean them in a finaly
 \{...} block.
@@ -169,8 +153,7 @@ File jdbcJar = new File( System.getProperty("jbossas.ts.dir", "."),
 reload in a final \{...} block or an @After* method)
 
 * [[section-15]]
-=====
-+
+====== +
 Keep these things in properties, set them at the beginning of the test:
 ** Timeouts
 ** Paths

@@ -1,5 +1,4 @@
-Detailed Configuration
-======================
+= Detailed Configuration
 
 This section of the documentation describes the various configuration
 options when defining realms, plug-ins are a slightly special case so
@@ -12,7 +11,7 @@ own section below so we will begin by looking at the
 `<server-identities />` element.
 
 [[server-identities]]
-= <server-identities />
+== <server-identities />
 
 The server identities section of a realm definition is used to define
 how a server appears to the outside world, currently this element can be
@@ -21,7 +20,7 @@ outbound connection and also how to load a X.509 key which can be used
 for both inbound and outbound SSL connections.
 
 [[ssl]]
-== <ssl />
+=== <ssl />
 
 [source, xml]
 ----
@@ -58,7 +57,7 @@ most likely cause that you need to specify a `key-password` and possible
 even an `alias` as well to ensure only one key is loaded.
 
 
-== <secret />
+=== <secret />
 
 [source, xml]
 ----
@@ -77,7 +76,7 @@ The username for the outbound connection is specified at the point the
 outbound connection is defined.
 
 [[authentication]]
-= <authentication />
+== <authentication />
 
 The authentication element is predominantly used to configure the
 authentication that is performed on an inbound connection, however there
@@ -106,7 +105,7 @@ can be independent switched on and off and a single username / password
 store can be defined.
 
 [[truststore]]
-== <truststore />
+=== <truststore />
 
 [source, xml]
 ----
@@ -134,7 +133,7 @@ password is `keystore-password`, this is because the underlying file
 being opened is still a key store.
 
 [[local]]
-== <local />
+=== <local />
 
 [source, xml]
 ----
@@ -157,7 +156,7 @@ mechanism, alternatively ' `*`' can be specified to allow any username
 to be specified.
 
 [[jaas]]
-== <jaas />
+=== <jaas />
 
 [source, xml]
 ----
@@ -182,7 +181,7 @@ any interception of the messages exchanged between the client and server
 without SSL enabled will reveal the users password.
 
 [[ldap]]
-== <ldap />
+=== <ldap />
 
 [source, xml]
 ----
@@ -223,7 +222,7 @@ Within the ldap element only one of `<username-filter />` or
 `<advanced-filter />` can be specified.
 
 [[username-filter]]
-=== <username-filter />
+==== <username-filter />
 
 This element is used for a simple filter to match the username specified
 by the remote user against a single attribute, as an example with Active
@@ -234,7 +233,7 @@ attribute.
 supplied username against.
 
 [[advanced-filter]]
-=== <advanced-filter />
+==== <advanced-filter />
 
 This element is used where a more advanced filter is required, one
 example use of this filter is to exclude certain matches by specifying
@@ -245,7 +244,7 @@ filter should contain '\{ `0`}' as a place holder for the username
 supplied by the user authenticating.
 
 [[properties]]
-== <properties />
+=== <properties />
 
 [source, xml]
 ----
@@ -272,7 +271,7 @@ hash of the users password in the form HEX( MD5( username ':' realm ':'
 password))
 
 [[users]]
-== <users />
+=== <users />
 
 [source, xml]
 ----
@@ -295,7 +294,7 @@ The `<password/>` element is then used to define the password for the
 user.
 
 
-= <authorization />
+== <authorization />
 
 The authorization element is used to define how a users roles can be
 loaded after the authentication process completes, these roles may then
@@ -312,7 +311,7 @@ from a database are planned for a subsequent release.
 </authorization>
 ----
 
-== <properties />
+=== <properties />
 
 [source, xml]
 ----
@@ -330,7 +329,7 @@ or relative to the path referenced by the relative-to attribute.
 path will be relative to.
 
 [[outbound-connection]]
-= <outbound-connection />
+== <outbound-connection />
 
 Strictly speaking these are not a part of the security realm definition,
 however at the moment they are only used by security realms so the
@@ -346,7 +345,7 @@ definition of outbound connection is described here.
 </management>
 ----
 
-== <ldap />
+=== <ldap />
 
 At the moment we only support outbound connections to ldap servers for
 the authentication process - this will later be expanded when we add

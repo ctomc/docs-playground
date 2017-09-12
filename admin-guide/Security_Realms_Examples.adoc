@@ -1,5 +1,4 @@
-Examples
-========
+= Examples
 :icons: font
 
 This section of the document contains a couple of examples for the most
@@ -13,7 +12,7 @@ however the same can apply to the ' `ApplicationRealm`' or any custom
 realm you create for yourselves.
 
 [[ldap-authentication]]
-= LDAP Authentication
+== LDAP Authentication
 
 The following example demonstrates an example configuration making use
 of Active Directory to verify the users username and password.
@@ -48,7 +47,7 @@ example, however there it is fine to leave that in place for local
 authentication to remain possible.
 
 [[enable-ssl]]
-= Enable SSL
+== Enable SSL
 
 The first step is the creation of the key, by default this is going to
 be used for both the native management interface and the http management
@@ -106,7 +105,7 @@ example so authentication still occurs using either the local mechanism
 or username/password authentication using Digest.
 
 [[add-client-cert-to-ssl]]
-= Add Client-Cert to SSL
+== Add Client-Cert to SSL
 
 To enable Client-Cert style authentication we just now need to add a
 `<truststore />` element to the `<authentication />` element referencing

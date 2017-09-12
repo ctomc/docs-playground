@@ -1,11 +1,10 @@
-CLI Recipes
-===========
+= CLI Recipes
 
 [[properties]]
-= Properties
+== Properties
 
 [[adding-reading-and-removing-system-property-using-cli]]
-== Adding, reading and removing system property using CLI
+=== Adding, reading and removing system property using CLI
 
 For standalone mode:
 
@@ -52,7 +51,7 @@ Just one server instance
 ----
 
 [[overview-of-all-system-properties]]
-== Overview of all system properties
+=== Overview of all system properties
 
 Overview of all system properties in WildFly including OS system
 properties and properties specified on command line using -D, -P or
@@ -74,10 +73,10 @@ Domain
 ----
 
 [[configuration]]
-= Configuration
+== Configuration
 
 [[list-subsystems]]
-== List Subsystems
+=== List Subsystems
 
 [source, ruby]
 ----
@@ -116,7 +115,7 @@ Domain
 ----
 
 [[list-description-of-available-attributes-and-childs]]
-== List description of available attributes and childs
+=== List description of available attributes and childs
 
 Descriptions, possible attribute type and values, permission and whether
 expressions ( _$\{ ... }_ ) are allowed from the underlying model are
@@ -178,7 +177,7 @@ shown by the read-resource-description command.
 ----
 
 [[view-configuration-as-xml-for-domain-model-or-host-model]]
-== View configuration as XML for domain model or host model
+=== View configuration as XML for domain model or host model
 
 Assume you have a host that is called master
 
@@ -195,7 +194,7 @@ Just for the domain or standalone
 ----
 
 [[take-a-snapshot-of-what-the-current-domain-is]]
-== Take a snapshot of what the current domain is
+=== Take a snapshot of what the current domain is
 
 [source, ruby]
 ----
@@ -210,7 +209,7 @@ Just for the domain or standalone
 ----
 
 [[take-the-latest-snapshot-of-the-host.xml-for-a-particular-host]]
-== Take the latest snapshot of the host.xml for a particular host
+=== Take the latest snapshot of the host.xml for a particular host
 
 Assume you have a host that is called master
 
@@ -227,7 +226,7 @@ Assume you have a host that is called master
 ----
 
 [[how-to-get-interface-address]]
-== How to get interface address
+=== How to get interface address
 
 The attribute for interface is named "resolved-address". It's a runtime
 attribute so it does not show up in :read-resource by default. You have
@@ -284,10 +283,10 @@ It's similar for domain, just specify path to server instance:
 ----
 
 [[runtime]]
-= Runtime
+== Runtime
 
 [[get-all-configuration-and-runtime-details-from-cli]]
-== Get all configuration and runtime details from CLI
+=== Get all configuration and runtime details from CLI
 
 [source, ruby]
 ----
@@ -295,10 +294,10 @@ It's similar for domain, just specify path to server instance:
 ----
 
 [[scripting]]
-= Scripting
+== Scripting
 
 [[windows-and-press-any-key-to-continue-...-issue]]
-== Windows and "Press any key to continue ..." issue
+=== Windows and "Press any key to continue ..." issue
 
 WildFly scripts for Windows end with "Press any key to continue ...".
 This behavior is useful when script is executed by double clicking the
@@ -311,10 +310,10 @@ any WildFly {wildflyVersion} .bat script or include it in your custom script bef
 invoking scripts from WildFly.
 
 [[statistics]]
-= Statistics
+== Statistics
 
 [[read-statistics-of-active-datasources]]
-== Read statistics of active datasources
+=== Read statistics of active datasources
 
 [source, ruby]
 ----
@@ -330,10 +329,10 @@ or
 ----
 
 [[deployment]]
-= Deployment
+== Deployment
 
 [[undeploying-and-redeploying-multiple-deployments]]
-== Undeploying and redeploying multiple deployments
+=== Undeploying and redeploying multiple deployments
 
 CLI offers a way to efficiently undeploy or redeploy deployments in one
 simple command.
@@ -342,7 +341,7 @@ simple command.
 * To redeploy all disabled deployments: _deploy --name=*_
 
 [[incremental-deployment-with-the-cli]]
-== Incremental deployment with the CLI
+=== Incremental deployment with the CLI
 
 It can be desirable to incrementally create and(or) update a WildFly
 deployment. This chapter details how this can be achieved using the
@@ -416,7 +415,7 @@ of CLI handling complex types. The file path completion is automatically
 escaping the paths it is proposing.
 
 [[notes-for-server-side-operation-handler-implementors]]
-=== Notes for server side operation Handler implementors
+==== Notes for server side operation Handler implementors
 
 In order to benefit from CLI support for attached file streams and file
 system completion, you need to properly structure your operation
@@ -434,7 +433,7 @@ system paths will be automatically converted onto the index of the
 attached streams.
 
 [[downloading-files-with-the-cli]]
-= Downloading files with the CLI
+== Downloading files with the CLI
 
 Some management resources are exposing the content of files in the
 matter of _streams_. Streams returned by a management operation are

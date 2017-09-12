@@ -1,8 +1,7 @@
-Batch (JSR-352) Subsystem Configuration
-=======================================
+= Batch (JSR-352) Subsystem Configuration
 
 [[overview]]
-= Overview
+== Overview
 
 The batch subsystem is used to configure an environment for running
 batch applications. http://wildfly.org[WildFly] uses
@@ -13,13 +12,13 @@ resource path, in link:CLI_Recipes.adoc[CLI notation], for the subsystem
 is `subsystem=batch-jberet`.
 
 [[default-subsystem-configuration]]
-= Default Subsystem Configuration
+== Default Subsystem Configuration
 
 For up to date information about subsystem configuration options see
 http://wildscribe.github.io/.
 
 [[security]]
-= Security
+== Security
 
 A new `security-domain` attribute was added to the `batch-jberet`
 subsystem to allow batch jobs to be executed under that security domain.
@@ -43,7 +42,7 @@ deployment resource, for example
 `/deployment=my.war/subsystem=batch-jberet:read-resource`.
 
 [[deployment-descriptors]]
-= Deployment Descriptors
+== Deployment Descriptors
 
 There are no deployment descriptors for configuring a batch environment
 defined by the https://www.jcp.org/en/jsr/detail?id=352[JSR-352
@@ -85,7 +84,7 @@ Example new Job Repository
 ----
 
 [[deployment-resources]]
-= Deployment Resources
+== Deployment Resources
 
 Some subsystems in http://wildfly.org[WildFly] register runtime
 resources for deployments. The batch subsystem registers jobs and

@@ -1,8 +1,7 @@
-The HTTP management API
-=======================
+= The HTTP management API
 
 [[introduction]]
-= Introduction
+== Introduction
 
 The Management API in WildFly is accessible through multiple channels,
 one of them being HTTP and JSON.
@@ -19,7 +18,7 @@ Thus *you need to create a user* with the
 link:add-user_utility.html[add-user.sh] script.
 
 [[interacting-with-the-model]]
-= Interacting with the model
+== Interacting with the model
 
 Since we must be authenticated , the client will have to support HTTP
 Digest authentication.
@@ -42,7 +41,7 @@ If you want to submit DMR in the request body then the *Content-Type* or
 the *Accept* header should be *"application/dmr-encoded"*.
 
 [[get-for-reading]]
-= GET for Reading
+== GET for Reading
 
 While you can do everything with *POST*, some operations can be called
 through a 'classical' *GET* request.
@@ -71,7 +70,7 @@ http://localhost:9990/management?operation=attribute&name=server-state&json.pret
 ----
 
 [[lets-read-some-resource]]
-= Let's read some resource
+== Let's read some resource
 
 * This is simple operation that is equivalent of running
 :read-attribute(name=server-state) with CLI in root directory
@@ -282,7 +281,7 @@ curl --digest -u admin:admin -L --header "Content-Type: application/json" -d '{"
 ----
 
 [[using-some-jax-rs-code]]
-= Using some JAX-RS code
+== Using some JAX-RS code
 
 [source, java]
 ----

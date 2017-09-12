@@ -1,5 +1,4 @@
-Expressions
-===========
+= Expressions
 
 Expressions are mechanism that enables you to support variables in your
 attributes, for instance when you want the value of attribute to be
@@ -17,7 +16,7 @@ which means that the value should be taken from a system property named
 `127.0.0.1`.
 
 [[what-expression-types-are-supported]]
-= What expression types are supported
+== What expression types are supported
 
 * System properties, which are resolved using
 `java.lang.System.getProperty(String key)`
@@ -44,7 +43,7 @@ Security vault expressions do not support default values (i.e. the
 above.)
 
 [[how-to-support-expressions-in-subsystems]]
-= How to support expressions in subsystems
+== How to support expressions in subsystems
 
 The easiest way is by using AttributeDefinition, which provides support
 for expressions just by using it correctly.

@@ -1,8 +1,7 @@
-Shortened Maven Run Overview
-============================
+= Shortened Maven Run Overview
 
 [[how-to-get-it]]
-= How to get it
+== How to get it
 
 [source, java]
 ----
@@ -10,7 +9,7 @@ Shortened Maven Run Overview
 ----
 
 [[how-its-done]]
-= How it's done
+== How it's done
 
 Run this script on the output of the AS7 testsuite run:
 
@@ -36,7 +35,7 @@ cat $1 \
 You'll get an overview of the run.
 
 [[example-output-with-comments.]]
-= Example output with comments.
+== Example output with comments.
 
 [source, java]
 ----
@@ -99,7 +98,7 @@ ondra@ondra-redhat: ~/work/AS7/ozizka-as7 $  ./integration-tests.sh clean instal
 ----
 
 [[example-output-unchanged]]
-= Example output, unchanged
+== Example output, unchanged
 
 [source, java]
 ----

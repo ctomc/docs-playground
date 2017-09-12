@@ -1,5 +1,4 @@
-Parsing and marshalling of the subsystem xml
-============================================
+= Parsing and marshalling of the subsystem xml
 
 WildFly uses the Stax API to parse the xml files. This is initialized in
 `SubsystemExtension` by mapping our parser onto our namespace:
@@ -184,7 +183,7 @@ private static class SubsystemDescribeHandler implements OperationStepHandler, D
 ----
 
 [[testing-the-parsers]]
-= Testing the parsers
+== Testing the parsers
 
 Changes to tests between 7.0.0 and 7.0.1
 

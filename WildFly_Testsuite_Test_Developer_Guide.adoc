@@ -1,24 +1,23 @@
-WildFly Testsuite Test Developer Guide
-======================================
+= WildFly Testsuite Test Developer Guide
 
 *See also:* link:WildFly_Integration_Testsuite_User_Guide.html[WildFly
 Integration Testsuite User Guide]
 
 [[pre-requisites]]
-= Pre-requisites
+== Pre-requisites
 
 Please be sure to read link:#src-557173[Pre-requisites - test quality
 standards] and follow those guidelines.
 
 [[arquillian-container-configuration]]
-= Arquillian container configuration
+== Arquillian container configuration
 
 See
 https://docs.jboss.org/author/display/ARQ/JBoss+AS+7.1%2C+JBoss+EAP+6.0+-+Managed[AS
 7.1 managed container adapter refrence].
 
 [[managementclient-and-modelnode-usage-example]]
-= ManagementClient and ModelNode usage example
+== ManagementClient and ModelNode usage example
 
 [source, java]
 ----
@@ -34,7 +33,7 @@ Assert.assertEquals(ModelDescriptionConstants.SUCCESS, result.get(ModelDescripti
 ManagementClient can be obtained as described below.
 
 [[arquillian-features-available-in-tests]]
-= Arquillian features available in tests
+== Arquillian features available in tests
 
 @ServerSetup
 
@@ -115,10 +114,10 @@ server and so on. I cloned the annotation and changed it to fit the
 manual mode, but it is still in my github branch :)
 
 [[properties-available-in-tests]]
-= Properties available in tests
+== Properties available in tests
 
 [[directories]]
-== Directories
+=== Directories
 
 * jbosssa.project.dir - Project's root dir (where ./build.sh is).
 * jbossas.ts.dir - Testsuite dir.
@@ -132,14 +131,14 @@ which the test is running (until ARQ-650 is possibly done)
 confusing. Use jboss.dist or jboss.inst.
 
 [[networking]]
-== Networking
+=== Networking
 
 * node0
 * node1
 * 230.0.0.4
 
 [[time-related-coefficients-ratios]]
-== Time-related coefficients (ratios)
+=== Time-related coefficients (ratios)
 
 In case some of the following causes timeouts, you may prolong the
 timeouts by setting value >= 100:
@@ -160,7 +159,7 @@ Time ratios will soon be provided by
 `org.jboss.as.test.shared.time.TimeRatio.for*()` methods.
 
 [[negative-tests]]
-= Negative tests
+== Negative tests
 
 To test invalid deployment handling: @ShouldThrowException
 
@@ -185,7 +184,7 @@ public void shouldFail(@ArquillianResource Deployer deployer) throws Exception {
 ----
 
 [[clustering-tests-wfly-616]]
-= Clustering tests (WFLY-616)
+== Clustering tests (WFLY-616)
 
 You need to deploy the same thing twice, so two deployment methods that
 just return the same thing. +
@@ -211,7 +210,7 @@ And then you have tests that run against each.
 ----
 
 [[how-to-get-the-tests-to-master]]
-= How to get the tests to master
+== How to get the tests to master
 
 * First of all, *be sure to read the "Before you add a test" section*.
 * *Fetch* the newest mater:

@@ -1,8 +1,7 @@
-JNDI Reference
-==============
+= JNDI Reference
 
 [[overview]]
-= Overview
+== Overview
 
 WildFly offers several mechanisms to retrieve components by name. Every
 WildFly instance has it's own local JNDI namespace ( `java:`) which is

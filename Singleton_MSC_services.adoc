@@ -1,5 +1,4 @@
-Singleton MSC services
-======================
+= Singleton MSC services
 
 WildFly allows any user MSC service to be installed as a singleton MSC
 service via a public API. Once installed, the service will only ever
@@ -8,7 +7,7 @@ service is shutdown, or fails, another node on which the service was
 installed will start automatically.
 
 [[installing-an-msc-service-using-an-existing-singleton-policy]]
-= Installing an MSC service using an existing singleton policy
+== Installing an MSC service using an existing singleton policy
 
 While singleton MSC services have been around since AS7, WildFly 10 adds
 the ability to leverage the singleton subsystem to create singleton MSC
@@ -39,7 +38,7 @@ public class MyServiceActivator implements ServiceActivator {
 ----
 
 [[installing-an-msc-service-using-dynamic-singleton-policy]]
-= Installing an MSC service using dynamic singleton policy
+== Installing an MSC service using dynamic singleton policy
 
 Alternatively, you can build singleton policy dynamically, which is
 particularly useful if you want to use a custom singleton election

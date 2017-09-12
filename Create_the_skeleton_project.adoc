@@ -1,5 +1,4 @@
-Create the skeleton project
-===========================
+= Create the skeleton project
 
 To make your life easier we have provided a maven archetype which will
 create a skeleton project for implementing subsystems.

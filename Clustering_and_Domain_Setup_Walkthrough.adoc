@@ -1,5 +1,4 @@
-Clustering and Domain Setup Walkthrough
-=======================================
+= Clustering and Domain Setup Walkthrough
 
 In this article, I'd like to show you how to setup WildFly 9 in domain
 mode and enable clustering so we could get HA and session replication
@@ -8,10 +7,10 @@ instructions in this article and build the sandbox by yourself
 image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png]
 
 [[preparation-scenario]]
-= Preparation & Scenario
+== Preparation & Scenario
 
 [[preparation]]
-== Preparation
+=== Preparation
 
 We need to prepare two hosts (or virtual hosts) to do the experiment. We
 will use these two hosts as following:
@@ -26,7 +25,7 @@ ports(better turn off firewall and disable SELinux during the experiment
 or they will cause network problems).
 
 [[scenario]]
-== Scenario
+=== Scenario
 
 Here are some details on what we are going to do:
 
@@ -67,7 +66,7 @@ Please don't worry if you cannot digest so many details currently. Let's
 move on and you will get the points step by step.
 
 [[download-wildfly-9]]
-= Download WildFly 9
+== Download WildFly 9
 
 First we should download WildFly 9 from the website:
 
@@ -123,10 +122,10 @@ we get WildFly 9 run on both master and slave, then we could move on to
 next step.
 
 [[domain-configuration]]
-= Domain Configuration
+== Domain Configuration
 
 [[interface-config-on-master]]
-== Interface config on master
+=== Interface config on master
 
 In this section we'll setup both master and slave for them to run in
 domain mode. And we will configure master to be the domain controller.
@@ -177,7 +176,7 @@ config to:
 ----
 
 [[interface-config-on-slave]]
-== Interface config on slave
+=== Interface config on slave
 
 Now we will setup interfaces on slave. Let's edit host.xml. Similar to
 the steps on master, open host.xml first:
@@ -259,7 +258,7 @@ you need to enable the firewall and allow access to the following ports:
 9999.
 
 [[security-configuration]]
-== Security Configuration
+=== Security Configuration
 
 If you start WildFly on both master and slave now, you will see the
 slave cannot be started with following error:
@@ -275,7 +274,7 @@ Because we haven't properly set up the authentication between master and
 slave. Now let's work on it:
 
 [[master]]
-=== Master
+==== Master
 
 In bin directory there is a script called add-user.sh, we'll use it to
 add new users to the properties file used for domain management
@@ -336,7 +335,7 @@ add-user.sh will let you choose the type of the user. Here we need to
 choose 'Management User' type for both 'admin' and 'slave' account.
 
 [[slave]]
-=== Slave
+==== Slave
 
 In slave we need to configure host.xml for authentication. We should
 change the security-realms section as following:
@@ -379,7 +378,7 @@ So the slave host could use the authentication information we provided
 in 'ManagementRealm'.
 
 [[dry-run]]
-=== Dry Run
+==== Dry Run
 
 Now everything is set for the two hosts to run in domain mode. Let's
 start them by running domain.sh on both hosts. If everything goes fine,
@@ -394,7 +393,7 @@ That means all the configurations are correct and two hosts are run in
 domain mode now as expected. Hurrah!
 
 [[deployment]]
-= Deployment
+== Deployment
 
 Now we can deploy a demo project into the domain. I have created a
 simple project located at:
@@ -635,7 +634,7 @@ After finishing the above configuration, let's restart two as7 hosts and
 go on cluster configuration.
 
 [[cluster-configuration]]
-= Cluster Configuration
+== Cluster Configuration
 
 We will use mod_cluster + apache httpd on master as our cluster
 controller here. Because WildFly {wildflyVersion} has been configured to support
@@ -764,7 +763,7 @@ http://docs.jboss.org/mod_cluster/1.1.0/html/Quick_Start_Guide.html
 ----
 
 [[testing]]
-= Testing
+== Testing
 
 If everything goes fine we can start httpd service now:
 
@@ -831,7 +830,7 @@ should be sent to master instead. The point is we should see the request
 is redirect from one host to another and the session is held.
 
 [[special-thanks]]
-= Special Thanks
+== Special Thanks
 
 https://community.jboss.org/people/wdfink[Wolf-Dieter Fink] has
 contributed the updated add-user.sh usages and configs in host.xml from

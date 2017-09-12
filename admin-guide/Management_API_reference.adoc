@@ -1,5 +1,4 @@
-Management API reference
-========================
+= Management API reference
 
 This section is an in depth reference to the WildFly management API.
 Readers are encouraged to read the

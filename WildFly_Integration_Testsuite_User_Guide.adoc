@@ -1,5 +1,4 @@
-WildFly Integration Testsuite User Guide
-========================================
+= WildFly Integration Testsuite User Guide
 
 *See also:* link:WildFly_Testsuite_Test_Developer_Guide.html[WildFly
 Testsuite Test Developer Guide]
@@ -8,7 +7,7 @@ Testsuite Test Developer Guide]
 thereof, with various configuration options.
 
 [[running-the-testsuite]]
-= Running the testsuite
+== Running the testsuite
 
 The tests can be run using:
 
@@ -31,7 +30,7 @@ can use:
 * ...etc.
 
 [[supported-maven-phases]]
-== Supported Maven phases
+=== Supported Maven phases
 
 Testsuite actions are bounds to various Maven phases up to `verify`.
 Running the build with earlier ﻿phases may fail in the submodules due to
@@ -49,7 +48,7 @@ https://issues.jboss.org/browse/WFLY-625[WFLY-625] and
 https://issues.jboss.org/browse/WFLY-228[WFLY-228].
 
 [[testsuite-structure]]
-== Testsuite structure
+=== Testsuite structure
 
 testsuite +
 integration +
@@ -66,7 +65,7 @@ stress +
 benchmark
 
 [[test-groups]]
-== Test groups
+=== Test groups
 
 To define groups of tests to be run, these properties are available:
 
@@ -84,7 +83,7 @@ To define groups of tests to be run, these properties are available:
 * `-Dts.compat` - Compatibility tests.
 
 [[examples]]
-= Examples
+== Examples
 
 * `integration-tests.sh [install] ` `` `-- Runs smoke tests.`
 * `integration-tests.sh clean install -- Cleans the target directory, then runs smoke tests.`
@@ -111,7 +110,7 @@ The `-pl ...` parameter stands for "project list" and causes Maven to
 run the specified module _only_.
 
 [[output-to-console]]
-== Output to console
+=== Output to console
 
 [source, java]
 ----
@@ -119,7 +118,7 @@ run the specified module _only_.
 ----
 
 [[other-options]]
-== Other options
+=== Other options
 
 `-DnoWebProfile` - Run all tests with the _full_ profile (
 `standalone-full.xml`). By default, most tests are run under _web_
@@ -130,10 +129,10 @@ profile ( `standalone.xml`).
 and run testsuite, use `-DskipTests -Dts.skipTests=false`.
 
 [[timeouts]]
-== Timeouts
+=== Timeouts
 
 [[surefire-execution-timeout]]
-=== Surefire execution timeout
+==== Surefire execution timeout
 
 Unfortunatelly, no math can be done in Maven, so instead of applying a
 timeout ratio, you need to specify timeout manually for Surefire.
@@ -144,7 +143,7 @@ timeout ratio, you need to specify timeout manually for Surefire.
 ----
 
 [[in-test-timeout-ratios]]
-=== In-test timeout ratios
+==== In-test timeout ratios
 
 Ratio in prercent - 100 = default, 200 = two times longer timeouts for
 given category.
@@ -163,7 +162,7 @@ operations.
 ----
 
 [[running-a-single-test-or-specified-tests]]
-== Running a single test (or specified tests)
+=== Running a single test (or specified tests)
 
 Single test is run using *-Dtest=...* . Examples:
 
@@ -196,7 +195,7 @@ If you need it other way, you can overcome that need:
 * `basic-integration-2nd.surefire - Simply run the second test in another invocation of Maven.`
 
 [[running-against-existing-as-copy-not-the-one-from-buildtargetjboss-as-]]
-== Running against existing AS copy (not the one from
+=== Running against existing AS copy (not the one from
 build/target/jboss-as-*)
 
 *-Djboss.dist=<path/to/jboss-as>* will tell the testsuite to copy that
@@ -220,7 +219,7 @@ jboss.home is internally used and points to those copied AS instances
 Arquillian).
 
 [[running-against-a-running-jboss-as-instance]]
-=== Running against a running JBoss AS instance
+==== Running against a running JBoss AS instance
 
 Arquillian's WildFly {wildflyVersion} container adapter allows specifying
 `allowConnectingToRunningServer` in `arquillian.xml`, which makes it
@@ -232,7 +231,7 @@ All arquillian.xml's in the testsuite specify this parameter. Thus, if
 you have a server already running, it will be re-used.
 
 [[running-against-jboss-enterprise-application-platform-eap-6.0]]
-=== Running against JBoss Enterprise Application Platform (EAP) 6.0
+==== Running against JBoss Enterprise Application Platform (EAP) 6.0
 
 To run the testsuite against AS included JBoss Enterprise Application
 Platform 6.x (EAP), special steps are needed.
@@ -285,7 +284,7 @@ https://docspace.corp.redhat.com/docs/DOC-89200[here] (Red Hat internal
 only).
 
 [[running-with-a-debugger]]
-== Running with a debugger
+=== Running with a debugger
 
 [cols=",,,",]
 |=======================================================================
@@ -302,7 +301,7 @@ only).
 |=======================================================================
 
 [[examples-1]]
-=== Examples
+==== Examples
 
 [source, java]
 ----
@@ -352,7 +351,7 @@ Depending on which test group(s) you run, multiple AS instances may be
 started. In that case, you need to attach the debugger multiple times.
 
 [[running-tests-with-custom-database]]
-== Running tests with custom database
+=== Running tests with custom database
 
 To run with different database, specify the `-Dds` and use these
 properties (with the following defaults):
@@ -390,7 +389,7 @@ _Not supported; work in progress on parameter to provide JDBC Driver
 jar._
 
 [[default-values]]
-=== Default values
+==== Default values
 
 For WildFly continuous integration, there are some predefined values for
 some of databases, which can be set using:
@@ -403,7 +402,7 @@ some of databases, which can be set using:
 Where database-identifier is one of: `h2`, `mysql51`
 
 [[running-tests-with-ipv6]]
-== Running tests with IPv6
+=== Running tests with IPv6
 
 `-Dipv6` - Runs AS with
 `-Djava.net.preferIPv4Stack=false -Djava.net.preferIPv6Addresses=true`
@@ -433,7 +432,7 @@ Values are set in AS configuration XML, replaced in resources (like
 ejb-jar.xml) and used in tests.
 
 [[running-tests-with-security-manager-custom-security-policy]]
-== Running tests with security manager / custom security policy
+=== Running tests with security manager / custom security policy
 
 `-Dsecurity.manager` - Run with default policy.
 
@@ -456,7 +455,7 @@ Notice the \" quotes delimiting the whole `-Dsecurity.manager.other`
 property.
 
 [[creating-test-reports]]
-== Creating test reports
+=== Creating test reports
 
 Test reports are created in the form known from EAP 5. To create them,
 simply run the testsuite, which will create Surefire XML files.
@@ -483,7 +482,7 @@ Note that it will take all test results under `testsuite/integration/` -
 the pattern is `**/*TestCase.xml`, without need to specify `-DallTests`.
 
 [[creating-coverage-reports]]
-== Creating coverage reports
+=== Creating coverage reports
 
 *Jira:* https://issues.jboss.org/browse/WFLY-585
 
@@ -500,7 +499,7 @@ maven report goal doesn't support getting classes outside
 target/classes.
 
 [[usage]]
-=== Usage
+==== Usage
 
 [source, java]
 ----
@@ -519,7 +518,7 @@ mvn -rf testsuite site -DallTests -Dcoverage
 ----
 
 [[cleaning-the-project]]
-== Cleaning the project
+=== Cleaning the project
 
 To have most stable build process, it should start with:
 

@@ -30,7 +30,7 @@ include::admin-guide/Core_management_concepts.adoc[]
 
 include::admin-guide/Interfaces_and_ports.adoc[]
 
-== Administrative security
+=== Administrative security
 
 include::admin-guide/Security_Realms.adoc[]
 

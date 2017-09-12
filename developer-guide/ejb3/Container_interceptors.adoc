@@ -1,8 +1,7 @@
-Container interceptors
-======================
+= Container interceptors
 
 [[overview]]
-= Overview
+== Overview
 
 JBoss AS versions prior to WildFly8 allowed a JBoss specific way to
 plug-in user application specific interceptors on the server side so
@@ -16,7 +15,7 @@ picture, if the user applications have to intercept the call before
 certain container specific interceptor(s) are run.
 
 [[typical-ejb-invocation-call-path-on-the-server]]
-= Typical EJB invocation call path on the server
+== Typical EJB invocation call path on the server
 
 A typical EJB invocation looks like this:
 
@@ -55,7 +54,7 @@ example, AS5 allowed the use of JBoss AOP interceptors to do this.
 As of WildFly 8, this feature was implemented.
 
 [[configuring-container-interceptors]]
-= Configuring container interceptors
+== Configuring container interceptors
 
 As you can see from the JIRA https://issues.jboss.org/browse/AS7-5897,
 one of the goals of this feature implementation was to make sure that we
@@ -163,7 +162,7 @@ public class ClassLevelContainerInterceptor {
 ----
 
 [[container-interceptor-positioning-in-the-interceptor-chain]]
-= Container interceptor positioning in the interceptor chain
+== Container interceptor positioning in the interceptor chain
 
 The container interceptors configured for a EJB are guaranteed to be run
 before the WildFly provided security interceptors, transaction
@@ -172,7 +171,7 @@ user application specific container interceptors to setup any relevant
 context data before the invocation proceeds.
 
 [[semantic-difference-between-container-interceptors-and-java-ee-interceptors-api]]
-= Semantic difference between container interceptor(s) and Java EE
+== Semantic difference between container interceptor(s) and Java EE
 interceptor(s) API
 
 Although the container interceptors are modeled to be similar to the
@@ -183,7 +182,7 @@ container interceptors since these interceptors are invoked way before
 the EJB components are setup or instantiated.
 
 [[testcase]]
-= Testcase
+== Testcase
 
 This testcase in the WildFly codebase can be used for reference for
 implementing container interceptors in user applications

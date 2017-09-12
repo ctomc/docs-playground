@@ -1,5 +1,4 @@
-Integrate with WildFly
-======================
+= Integrate with WildFly
 
 Now that we have all the code needed for our subsystem, we can build our
 project by running `mvn install`

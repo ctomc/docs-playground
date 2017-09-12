@@ -1,15 +1,14 @@
-Application Client Migration
-============================
+= Application Client Migration
 
 [[naming-client]]
-= Naming Client
+== Naming Client
 
 This migration example assumes a client application performs a remote
 JNDI lookup using an ﻿﻿ `InitialContext` backed by the
 `org.jboss.naming.remote.client.InitialContextFactory` class.
 
 [[original-configuration]]
-== Original Configuration
+=== Original Configuration
 
 An `InitialContext` backed by the
 `org.jboss.naming.remote.client.InitialContextFactory` class can be
@@ -29,7 +28,7 @@ Bar bar = (Bar) context.lookup("foo/bar");
 ----
 
 [[migrated-configuration]]
-== Migrated Configuration
+=== Migrated Configuration
 
 An `InitialContext` backed by the
 `org.wildfly.naming.client.WildFlyInitialContextFactory` class can be
@@ -38,7 +37,7 @@ provider to connect to. The user credentials can be specified using a
 WildFly client configuration file or programmatically.
 
 [[configuration-file-approach]]
-=== Configuration File Approach
+==== Configuration File Approach
 
 A `wildfly-config.xml` file that contains the user credentials to use
 when establishing a connection to the naming provider can be added to
@@ -80,7 +79,7 @@ Bar bar = (Bar) context.lookup("foo/bar");
 ----
 
 [[programmatic-approach]]
-=== Programmatic Approach
+==== Programmatic Approach
 
 The user credentials to use when establishing a connection to the naming
 provider can be specified directly in the client application's code:
@@ -109,14 +108,14 @@ context.runCallable(callable);
 ----
 
 [[ejb-client]]
-= EJB Client
+== EJB Client
 
 This migration example assumes a client application is configured to
 invoke an EJB deployed on a remote server using a
 `jboss-ejb-client.properties` file.
 
 [[original-configuration-1]]
-== Original Configuration
+=== Original Configuration
 
 A `jboss-ejb-client.properties` file that contains the information
 needed to connect to the remote server can be specified in a client
@@ -152,13 +151,13 @@ int sum = statelessRemoteCalculator.add(101, 202);
 ----
 
 [[migrated-configuration-1]]
-== Migrated Configuration
+=== Migrated Configuration
 
 The information needed to connect to the remote server can be specified
 using a WildFly client configuration file or programmatically.
 
 [[configuration-file-approach-1]]
-=== Configuration File Approach
+==== Configuration File Approach
 
 A `wildfly-config.xml` file that contains the information needed to
 connect to the remote server can be added to the client application's
@@ -209,7 +208,7 @@ int sum = statelessRemoteCalculator.add(101, 202);
 ----
 
 [[programmatic-approach-1]]
-=== Programmatic Approach
+==== Programmatic Approach
 
 The information needed to connect to the remote server can be specified
 directly in the client application's code:

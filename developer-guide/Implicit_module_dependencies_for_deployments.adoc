@@ -1,5 +1,4 @@
-Implicit module dependencies for deployments
-============================================
+= Implicit module dependencies for deployments
 
 As explained in the link:#src-557203[Class Loading in WildFly] article,
 WildFly {wildflyVersion} is based on module classloading. A class within a module B
@@ -10,7 +9,7 @@ article will explain what implicit module dependencies mean and how,
 when and which modules are added as implicit dependencies.
 
 [[whats-an-implicit-module-dependency]]
-= What's an implicit module dependency?
+== What's an implicit module dependency?
 
 Consider an application deployment which contains EJBs. EJBs typically
 need access to classes from the javax.ejb.* package and other Java EE
@@ -29,7 +28,7 @@ have to worry about adding them explicitly. How and when these implicit
 dependencies are added is explained in the next section.
 
 [[how-and-when-is-an-implicit-module-dependency-added]]
-= How and when is an implicit module dependency added?
+== How and when is an implicit module dependency added?
 
 When a deployment is being processed by the server, it goes through a
 chain of "deployment processors". Each of these processors will have a
@@ -66,7 +65,7 @@ In the next section, we'll list down the implicit module dependencies
 that are added to a deployment, by various deployers within WildFly.
 
 [[which-are-the-implicit-module-dependencies]]
-= Which are the implicit module dependencies?
+== Which are the implicit module dependencies?
 
 [cols=",,,",,options="header"]
 |=======================================================================

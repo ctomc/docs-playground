@@ -1,5 +1,4 @@
-Default EE Bindings
-===================
+= Default EE Bindings
 
 The Java EE Specification mandates the existence of a default instance
 for each of the following resources:

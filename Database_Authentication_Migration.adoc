@@ -1,5 +1,4 @@
-Database Authentication
-=======================
+= Database Authentication
 
 The section describing how to migrate from database accessible via JDBC
 datasource based authentication using PicketBox to Elytron. This section
@@ -29,7 +28,7 @@ For authentication purposes the username will be matched against the '
 from ' `role`' column.
 
 [[picketbox-database-loginmodule]]
-= PicketBox Database LoginModule
+== PicketBox Database LoginModule
 
 The following commands can create a PicketBox security domain configured
 to use database accessible via JDBC datasource to verify a username and
@@ -70,7 +69,7 @@ This results in the following configuration.
 ----
 
 [[migrated]]
-= Migrated
+== Migrated
 
 Within the Elytron subsystem to use database accesible via JDBC you need
 to define `jdbc-realm`:

@@ -1,8 +1,7 @@
-Authentication
-==============
+= Authentication
 
 [[authentication]]
-= Authentication
+== Authentication
 
 Here the simplest way to authenticate a web service user with JBossWS is
 explained.
@@ -44,7 +43,7 @@ web applications in web.xml:
 ----
 
 [[specify-the-security-domain]]
-== Specify the security domain
+=== Specify the security domain
 
 Next, specify the security domain for this deployment. This is performed
 using the `@SecurityDomain` annotation for EJB3 endpoints
@@ -74,7 +73,7 @@ mechanisms are defined differently depending on the application server
 version in use.
 
 [[use-bindingprovider-to-set-principalcredential]]
-== Use BindingProvider to set principal/credential
+=== Use BindingProvider to set principal/credential
 
 A web service client may use the `javax.xml.ws.BindingProvider`
 interface to set the username/password combination
@@ -92,7 +91,7 @@ bp.getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, "thefrog");
 ----
 
 [[using-http-basic-auth-for-security]]
-== Using HTTP Basic Auth for security
+=== Using HTTP Basic Auth for security
 
 To enable HTTP Basic authentication you use the `@WebContext` annotation
 on the bean class
@@ -121,7 +120,7 @@ element:
 ----
 
 [[jaspi-authentication]]
-= JASPI Authentication
+== JASPI Authentication
 
 A Java Authentication SPI (JASPI) provider can be configured in WildFly
 security subsystem to authenticate SOAP messages:

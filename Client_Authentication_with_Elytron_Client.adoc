@@ -1,5 +1,4 @@
-Client Authentication with Elytron Client
-=========================================
+= Client Authentication with Elytron Client
 
 WildFly Elytron uses the Elytron Client project to enable remote clients
 to authenticate using Elytron. Elytron Client has the following
@@ -53,7 +52,7 @@ _Context.SECURITY_PRINCIPAL_ in the _javax.naming.InitialContext_, will
 override the Elytron Client configuration.
 
 [[the-configuration-file-approach]]
-= The Configuration File Approach
+== The Configuration File Approach
 
 The configuration file approach involves creating an XML file with your
 authentication configuration, authentication context, and match rules.
@@ -154,7 +153,7 @@ to match against.
 |=======================================================================
 
 [[the-programmatic-approach]]
-= The Programmatic Approach
+== The Programmatic Approach
 
 The programatic approach configures all the Elytron Client configuration
 in the client's code:
@@ -297,7 +296,7 @@ authentication configuration. The provided rule and authentication
 configuration will appear after the ones in the current context.
 
 [[the-default-configuration-approach]]
-= The Default Configuration Approach
+== The Default Configuration Approach
 
 The default configuration approach relies completely on the
 configuration provided by Elytron Client:
@@ -356,7 +355,7 @@ _$WILDFLY_HOME/bin/client/jboss-client.jar_.
 ----
 
 [[using-elytron-client-with-clients-deployed-to-wildfly]]
-= Using Elytron Client with Clients Deployed to WildFly
+== Using Elytron Client with Clients Deployed to WildFly
 
 Clients deployed to WildFly can also make use of Elytron Client. In
 cases where you have included a _wildfly-config.xml_ with your

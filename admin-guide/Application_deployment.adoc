@@ -1,5 +1,4 @@
-Application deployment
-======================
+= Application deployment
 
 :toc:
 
@@ -7,7 +6,7 @@ toc::[]
 
 
 [[managed-domain]]
-= Managed Domain
+== Managed Domain
 
 In a managed domain, deployments are associated with a `server-group`
 (see ﻿ link:Core_management_concepts.html[Core management concepts]).
@@ -18,7 +17,7 @@ The domain and host controller components manage the distribution of
 binaries across network boundaries.
 
 [[deployment-commands]]
-== Deployment Commands
+=== Deployment Commands
 
 Distributing deployment binaries involves two steps: uploading the
 deployment to the repository the domain controller will use to
@@ -114,7 +113,7 @@ Managing deployments through the web interface provides an alternate,
 sometimes simpler approach.
 
 [[exploded-managed-deployments]]
-== Exploded managed deployments
+=== Exploded managed deployments
 
 Managed and unmanaged deployments can be 'exploded', i.e. on the
 filesystem in the form of a directory structure whose structure
@@ -383,7 +382,7 @@ File saved to /home/mjurc/wildfly/build/target/wildfly-11.0.0.Alpha1-SNAPSHOT/ex
 ----
 
 [[xml-configuration-file]]
-== XML Configuration File
+=== XML Configuration File
 
 When you deploy content, the domain controller adds two types of entries
 to the `domain.xml` configuration file, one showing global information
@@ -414,14 +413,14 @@ how it is used by that server group:
 ~(See domain/configuration/domain.xml)~
 
 [[standalone-server]]
-= Standalone Server
+== Standalone Server
 
 Deployments on a standalone server work in a similar way to those on
 managed domains. The main difference is that there are no server group
 associations.
 
 [[deployment-commands-1]]
-== Deployment Commands
+=== Deployment Commands
 
 The same CLI commands used for managed domains work for standalone
 servers when deploying and removing an application:
@@ -436,7 +435,7 @@ Successfully undeployed test-application.war.
 ----
 
 [[deploying-using-the-deployment-scanner]]
-== Deploying Using the Deployment Scanner
+=== Deploying Using the Deployment Scanner
 
 Deployment content (for example, war, ear, jar, and sar files) can be
 placed in the standalone/deployments directory of the WildFly
@@ -453,7 +452,7 @@ that periodically scans the directory, particularly if running
 production systems.
 
 [[deployment-scanner-modes]]
-=== Deployment Scanner Modes
+==== Deployment Scanner Modes
 
 The WildFly filesystem deployment scanner operates in one of two
 different modes, depending on whether it will directly monitor the
@@ -499,7 +498,7 @@ for exploded content, as exploded content is inherently vulnerable to
 the scanner trying to auto-deploy partially copied content.
 
 [[marker-files]]
-=== Marker Files
+==== Marker Files
 
 The marker files always have the same name as the deployment content to
 which they relate, but with an additional file suffix appended. For
@@ -557,7 +556,7 @@ instruct theserver to deploy or undeploy any content (not just
 thedirectly affected content) as long as this condition holds.
 |=======================================================================
 
-=== Basic workflows:
+==== Basic workflows:
 
 All examples assume variable $JBOSS_HOME points to the root of the
 WildFly distribution.
@@ -620,7 +619,7 @@ Note that the behavior of 'touch' and 'echo' are different but the
 differences are not relevant to the usages in the examples above.
 
 [[managed-and-unmanaged-deployments]]
-= Managed and Unmanaged Deployments
+== Managed and Unmanaged Deployments
 
 WildFly supports two mechanisms for dealing with deployment content –
 managed and unmanaged deployments.
@@ -658,7 +657,7 @@ deployments. In WildFly 10 and earlier exploded deployments are always
 unmanaged, this is no longer the case since WildFly 11.
 
 [[content-repository]]
-== Content Repository
+=== Content Repository
 
 For a managed deployment, the actual file the server uses when creating
 runtime services is not the file provided to the CLI `deploy` command or
@@ -710,7 +709,7 @@ controller and slave host controller processes take responsibility for
 ensuring each host has the needed content.
 
 [[unmanaged-deployments]]
-== Unmanaged Deployments
+=== Unmanaged Deployments
 
 An unmanaged deployment is one where the server directly deploys the
 content at a path you specify instead of making an internal copy and

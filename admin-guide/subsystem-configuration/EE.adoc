@@ -1,5 +1,4 @@
-EE Subsystem Configuration
-==========================
+= EE Subsystem Configuration
 
 The EE subsystem provides common functionality in the Java EE platform,
 such as the EE Concurrency Utilities (JSR 236) and `@Resource`

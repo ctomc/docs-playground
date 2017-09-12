@@ -1,5 +1,4 @@
-EJB3 subsystem configuration guide
-==================================
+= EJB3 subsystem configuration guide
 
 This page lists the options that are available for configuring the EJB
 subsystem.
@@ -57,10 +56,10 @@ of each
 ----
 
 [[session-bean]]
-= <session-bean>
+== <session-bean>
 
 [[stateless]]
-== <stateless>
+=== <stateless>
 
 This element is used to configure the instance pool that is used by
 default for stateless session beans. If it is not present stateless
@@ -71,7 +70,7 @@ deployment or per bean level using `jboss-ejb3.xml` or the
 themselves are configured in the `<pools>` element.
 
 [[stateful]]
-== <stateful>
+=== <stateful>
 
 This element is used to configure Stateful Session Beans.
 
@@ -88,7 +87,7 @@ the `org.jboss.ejb3.annotation.Cache` annotation.
 for clustered beans.
 
 [[singleton]]
-== <singleton>
+=== <singleton>
 
 This element is used to configure Singleton Session Beans.
 
@@ -98,15 +97,15 @@ overridden via the deployment descriptor or via the
 `javax.ejb.AccessTimeout` annotation.
 
 [[mdb]]
-= <mdb>
+== <mdb>
 
 [[resource-adaptor-ref]]
-== <resource-adaptor-ref>
+=== <resource-adaptor-ref>
 
 This element sets the default resource adaptor for Message Driven Beans.
 
 [[bean-instance-pool-ref]]
-== <bean-instance-pool-ref>
+=== <bean-instance-pool-ref>
 
 This element is used to configure the instance pool that is used by
 default for Message Driven Beans. If it is not present they are not
@@ -117,12 +116,12 @@ annotation. The instance pools themselves are configured in the
 `<pools>` element.
 
 [[entity-bean]]
-= <entity-bean>
+== <entity-bean>
 
 This element is used to configure the behavior for EJB2 EntityBeans.
 
 [[bean-instance-pool-ref-1]]
-== <bean-instance-pool-ref>
+=== <bean-instance-pool-ref>
 
 This element is used to configure the instance pool that is used by
 default for Entity Beans. If it is not present they are not pooled, but
@@ -132,47 +131,47 @@ can be overridden on a per deployment or per bean level using
 instance pools themselves are configured in the `<pools>` element.
 
 [[pools]]
-= <pools>
+== <pools>
 
 [[caches]]
-= <caches>
+== <caches>
 
 [[passivation-stores]]
-= <passivation-stores>
+== <passivation-stores>
 
 [[async]]
-= <async>
+== <async>
 
 This element enables async EJB invocations. It is also used to specify
 the thread pool that these invocations will use.
 
 [[timer-service]]
-= <timer-service>
+== <timer-service>
 
 This element enables the EJB timer service. It is also used to specify
 the thread pool that these invocations will use.
 
 [[data-store]]
-== <data-store>
+=== <data-store>
 
 This is used to configure the directory that persistent timer
 information is saved to.
 
 [[remote]]
-= <remote>
+== <remote>
 
 This is used to enable remote EJB invocations. It specifies the remoting
 connector to use (as defined in the remoting subsystem configuration),
 and the thread pool to use for remote invocations.
 
 [[thread-pools]]
-= <thread-pools>
+== <thread-pools>
 
 This is used to configure the thread pools used by async, timer and
 remote invocations.
 
 [[iiop]]
-= <iiop>
+== <iiop>
 
 This is used to enable IIOP (i.e. CORBA) invocation of EJB's. If this
 element is present then the JacORB subsystem must also be installed. It
@@ -188,7 +187,7 @@ modules name of the deployment (e.g. myear/myejbjar/MyBean), if this is
 false the default binding name is simply the bean name.
 
 [[in-vm-remote-interface-invocation]]
-= <in-vm-remote-interface-invocation>
+== <in-vm-remote-interface-invocation>
 
 By default remote interface invocations use pass by value, as required
 by the EJB spec. This element can use used to enable pass by reference,

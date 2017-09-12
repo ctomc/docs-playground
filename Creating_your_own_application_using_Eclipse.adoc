@@ -1,5 +1,4 @@
-Creating your own application using Eclipse
-===========================================
+= Creating your own application using Eclipse
 
 This page has moved to
 http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/Archetype/

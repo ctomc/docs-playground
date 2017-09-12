@@ -1,5 +1,4 @@
-SOAP over JMS
-=============
+= SOAP over JMS
 
 JBoss Web Services allows communication over the _JMS_ transport. The
 functionality comes from Apache CXF support for the
@@ -15,7 +14,7 @@ _JMS_ enpdoints in the deployed archive and starts them delegating to
 the Apache CXF core similarly as with _HTTP_ endpoints.
 
 [[configuring-soap-over-jms]]
-= Configuring SOAP over JMS
+== Configuring SOAP over JMS
 
 As per specification, the _SOAP over JMS_ transport configuration is
 controlled by proper elements and attributes in the `binding` and
@@ -74,10 +73,10 @@ The _web.xml_ descriptor in _war_ archives doesn't need any entry for
 JMS endpoints.
 
 [[examples]]
-= Examples
+== Examples
 
 [[jms-endpoint-only-deployment]]
-== JMS endpoint only deployment
+=== JMS endpoint only deployment
 
 In this example we create a simple endpoint relying on _SOAP over JMS_
 and deploy it as part of a jar archive.
@@ -334,7 +333,7 @@ sender.close();
 ----
 
 [[jms-and-http-endpoints-deployment]]
-== JMS and HTTP endpoints deployment
+=== JMS and HTTP endpoints deployment
 
 In this example we create a deployment containing an endpoint that
 serves over both HTTP and JMS transports.
@@ -561,7 +560,7 @@ finally
 ----
 
 [[use-of-endpoint.publish-api]]
-== Use of Endpoint.publish() API
+=== Use of Endpoint.publish() API
 
 An alternative to deploying an archive containing JMS endpoints is in
 starting them directly using the JAX-WS `Endpoint.publish(..)` API.

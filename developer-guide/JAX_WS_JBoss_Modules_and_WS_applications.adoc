@@ -1,5 +1,4 @@
-JBoss Modules and WS applications
-=================================
+= JBoss Modules and WS applications
 
 The JBoss Web Services functionalities are provided by a given set of
 modules / libraries installed on WildFly, which are organized into JBoss
@@ -12,7 +11,7 @@ custom needs, below is a brief collection of suggestions and hints
 around modules and webservices development on WildFly.
 
 [[setting-module-dependencies]]
-= Setting module dependencies
+== Setting module dependencies
 
 On WildFly the user deployment classloader does not have any visibility
 over JBoss internals; so for instance you can't _directly_ use JBossWS
@@ -27,7 +26,7 @@ webservices subsystem is available on AS7. So users just use them, no
 need for explicit dependencies declaration for those modules.
 
 [[using-manifest.mf]]
-== Using MANIFEST.MF
+=== Using MANIFEST.MF
 
 The convenient method for configuring deployment dependencies is adding
 them into the MANIFEST.MF file:
@@ -53,7 +52,7 @@ up and added to the annotation index by WildFly, resulting in them being
 completely and silently ignored.
 
 [[using-jaxb]]
-=== Using JAXB
+==== Using JAXB
 
 In order for successfully directly using JAXB contexts, etc. in your
 client or endpoint running in-container, you need to properly setup a
@@ -64,7 +63,7 @@ Dependencies: com.sun.xml.bind services export
 ....
 
 [[using-apache-cxf]]
-=== Using Apache CXF
+==== Using Apache CXF
 
 In order for using Apache CXF APIs and implementation classes you need
 to add a dependency to the _org.apache.cxf_ (API) module and / or
@@ -80,7 +79,7 @@ speaking for simplifying user configuration, a client side aggregation
 module is available with all the WS dependencies users might need.
 
 [[client-side-ws-aggregation-module]]
-=== Client side WS aggregation module
+==== Client side WS aggregation module
 
 Whenever you simply want to use all the JBoss Web Services
 feature/functionalities, you can set a dependency to the convenient
@@ -111,7 +110,7 @@ wire most of the JBossWS components as well as all Apache CXF Bus
 extensions.
 
 [[annotation-scanning]]
-=== Annotation scanning
+==== Annotation scanning
 
 The application server uses an annotation index for detecting JAX-WS
 endpoints in user deployments. When declaring WS endpoints whose class
@@ -126,7 +125,7 @@ Dependencies: org.foo annotations
 ----
 
 [[using-jboss-deployment-descriptor.xml]]
-== Using jboss-deployment-descriptor.xml
+=== Using jboss-deployment-descriptor.xml
 
 In some circumstances, the convenient approach of setting module
 dependencies in MANIFEST.MF might not work. An example is the need for

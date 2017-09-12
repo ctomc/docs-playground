@@ -1,5 +1,4 @@
-Security Vault Migration
-========================
+= Security Vault Migration
 
 Security Vault is primarily used in legacy configurations, a vault is
 used to store sensitive strings outside of the configuration files.
@@ -20,7 +19,7 @@ dependent on your platform of choice. One can use also simple form "java
 it better suites ones needs.
 
 [[single-security-vault-conversion]]
-= Single Security Vault Conversion
+== Single Security Vault Conversion
 
 To convert *single* security vault credential store use following
 example:
@@ -52,7 +51,7 @@ Output:
 Use elytron-tool.sh vault --help to get description of all parameters.
 
 [[notes]]
-== Notes:
+=== Notes:
 
 - Elytron Tool cannot handle very first version of Security Vault data
 file. +
@@ -66,7 +65,7 @@ CLI command to be used in WildFly console to add converted credential
 store to the configuration.
 
 [[bulk-security-vault-conversion]]
-= Bulk Security Vault Conversion
+== Bulk Security Vault Conversion
 
 There is possibility to convert multiple vaults to credential store
 using --bulk-convert parameter with description file. +
@@ -144,7 +143,7 @@ Output:
 The result is conversion of all vaults with proper CLI commands.
 
 [[references]]
-= References:
+== References:
 
 [1]
 https://github.com/wildfly-security/wildfly-elytron-tool/tree/master/src/test/resources/vault-v1 +

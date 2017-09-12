@@ -1,13 +1,12 @@
-EJB Services
-============
+= EJB Services
 
 This chapter explains how clustering of EJBs works in WildFly {wildflyVersion}.
 
 [[ejb-subsystem]]
-= EJB Subsystem
+== EJB Subsystem
 
 [[ejb-timer]]
-= EJB Timer
+== EJB Timer
 
 Wildfly now supports clustered database backed timers. For details have
 a look to the
@@ -15,7 +14,7 @@ https://docs.jboss.org/author/display/WFLY/EJB3+Clustered+Database+Timers[EJB3
 reference section]
 
 [[marking-an-ejb-as-clustered]]
-== Marking an EJB as clustered
+=== Marking an EJB as clustered
 
 WildFly {wildflyVersion} allows clustering of stateful session beans. A stateful
 session bean can be marked with `@org.jboss.ejb3.annotation.Clustered`
@@ -55,7 +54,7 @@ jboss-ejb3.xml
 ----
 
 [[deploying-clustered-ejbs]]
-== Deploying clustered EJBs
+=== Deploying clustered EJBs
 
 Clustering support is available in the HA profiles of WildFly {wildflyVersion}. In this
 chapter we'll be using the standalone server for explaining the details.
@@ -107,7 +106,7 @@ the instances, the EJBs are now capable of making use of the clustering
 features.
 
 [[failover-for-clustered-ejbs]]
-== Failover for clustered EJBs
+=== Failover for clustered EJBs
 
 Clustered EJBs have failover capability. The state of the @Stateful
 @Clustered EJBs is replicated across the cluster nodes so that if one of
@@ -120,7 +119,7 @@ we'll still explain it separately so as to make sure there aren't any
 unanswered questions.
 
 [[remote-standalone-clients]]
-=== Remote standalone clients
+==== Remote standalone clients
 
 In this section we'll consider a remote standalone client (i.e. a client
 which runs in a separate JVM and _isn't_ running within another WildFly
@@ -151,7 +150,7 @@ remote.cluster.ejb.connect.options.org.xnio.Options.SSL_ENABLED=false
 ----
 
 [[cluster-topology-communication]]
-=== Cluster topology communication
+==== Cluster topology communication
 
 When a client connects to a server, the JBoss EJB client implementation
 (internally) communicates with the server for cluster topology
@@ -211,7 +210,7 @@ Effectively, the invocation has now failed over to a different node
 within the cluster.
 
 [[remote-clients-on-another-instance-of-wildfly-8]]
-=== Remote clients on another instance of WildFly {wildflyVersion}
+==== Remote clients on another instance of WildFly {wildflyVersion}
 
 So far we discussed remote standalone clients which typically use either
 the EJB client API or the jboss-ejb-client.properties based approach to
@@ -251,7 +250,7 @@ As can be seen both remote standalone client and remote clients on
 another WildFly {wildflyVersion} instance act similar in terms of failover.
 
 [[testcases-for-failover-of-stateful-beans]]
-=== Testcases for failover of stateful beans
+==== Testcases for failover of stateful beans
 
 We have testcases in WildFly {wildflyVersion} testsuite which test that whatever is
 explained above works as expected. The

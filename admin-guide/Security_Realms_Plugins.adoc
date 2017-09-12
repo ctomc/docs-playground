@@ -1,5 +1,4 @@
-Plug Ins
-========
+= Plug Ins
 
 Within WildFly {wildflyVersion} for communication with the management interfaces and
 for other services exposed using Remoting where username / password
@@ -46,7 +45,7 @@ of the 'org.jboss.as.domain-management' module but for simplicity for
 the rest of this section only the short names will be shown._
 
 [[authenticationplugin]]
-= AuthenticationPlugIn
+== AuthenticationPlugIn
 
 To implement an `AuthenticationPlugIn` the following interface needs to
 be implemened: -
@@ -80,7 +79,7 @@ implementation although it will not currently be used, the key piece of
 information here is the Credential that will be returned - this needs to
 be one of the following: -
 
-== PasswordCredential
+=== PasswordCredential
 
 [source, java]
 ----
@@ -97,7 +96,7 @@ secured interfaces will be able to continue using the Digest mechanism
 for authentication.
 
 [[digestcredential]]
-== DigestCredential
+=== DigestCredential
 
 [source, java]
 ----
@@ -112,7 +111,7 @@ of the plain text password you already have a pre-prepared hash of the
 username, realm and password.
 
 
-== ValidatePasswordCredential
+=== ValidatePasswordCredential
 
 [source, java]
 ----
@@ -134,7 +133,7 @@ If you use this type of credential be sure to force the mechanism choice
 to Plain as described in the configuration section below.
 
 [[authorizationplugin]]
-= AuthorizationPlugIn
+== AuthorizationPlugIn
 
 If you are implementing a custom mechanism to load a users roles you
 need to implement the `AuthorizationPlugIn`
@@ -151,7 +150,7 @@ users userName and realm - the return type is an array of Strings with
 each entry representing a role the user is a member of.
 
 [[pluginconfigurationsupport]]
-= PlugInConfigurationSupport
+== PlugInConfigurationSupport
 
 In addition to the specific interfaces above there is an additional
 interface that a plug-in can implement to receive configuration
@@ -168,7 +167,7 @@ public interface PlugInConfigurationSupport {
 ----
 
 [[installing-and-configuring-a-plug-in]]
-= Installing and Configuring a Plug-In
+== Installing and Configuring a Plug-In
 
 The next step of this article describes the steps to implement a plug-in
 provider and how to make it available within WildFly {wildflyVersion} and how to
@@ -204,7 +203,7 @@ that interface is responsible for making PlugIn instances available at
 runtime to handle the requests.
 
 [[pluginprovider]]
-== PlugInProvider
+=== PlugInProvider
 
 [source, java]
 ----
@@ -274,7 +273,7 @@ org.jboss.as.sample.SamplePluginProvider
 ----
 
 [[package-as-a-module]]
-== Package as a Module
+=== Package as a Module
 
 To make the `PlugInProvider` available to the application it is bundled
 as a module and added to the modules already shipped with WildFly {wildflyVersion}.
@@ -324,7 +323,7 @@ is a lazy search so don't expect a definition to a non existant module
 or to a module that does not contain a plug-in to report an error.
 
 [[the-authenticationplugin]]
-== The AuthenticationPlugIn
+=== The AuthenticationPlugIn
 
 The example `AuthenticationPlugIn` is implemented as: -
 
@@ -388,7 +387,7 @@ were defined in the configuration are passed in as a Map and importantly
 for this sample the plug-in adds itself to the shared state map.
 
 [[the-authorizationplugin]]
-== The AuthorizationPlugIn
+=== The AuthorizationPlugIn
 
 The example implementation of the authentication plug in is as follows:
 -
@@ -421,7 +420,7 @@ place this in the shared state map - the `AuthorizationPlugIn` can
 retrieve this and return the roles.
 
 [[forcing-plain-text-authentication]]
-== Forcing Plain Text Authentication
+=== Forcing Plain Text Authentication
 
 As mentioned earlier in this article if the `ValidatePasswordCredential`
 is going to be used then the authentication used at the transport level

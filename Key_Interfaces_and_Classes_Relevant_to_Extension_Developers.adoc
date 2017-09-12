@@ -1,5 +1,4 @@
-Key Interfaces and Classes Relevant to Extension Developers
-===========================================================
+= Key Interfaces and Classes Relevant to Extension Developers
 
 In the first major section of this guide, we provided an example of how
 to implement an extension to the AS. The emphasis there was learning by
@@ -13,7 +12,7 @@ Before digging into this section, readers are encouraged to read the
 "Core Management Concepts" section of the Admin Guide.
 
 [[extension-interface]]
-= Extension Interface
+== Extension Interface
 
 The `org.jboss.as.controller.Extension` interface is the hook by which
 your extension to the AS kernel is able to integrate with the AS. During
@@ -63,7 +62,7 @@ interface in detail, let's describe how it (and the related `Resource`
 interface) relate to the notion of managed resources in the AS.
 
 [[wildfly-managed-resources]]
-= WildFly Managed Resources
+== WildFly Managed Resources
 
 Each subsystem is responsible for managing one or more management
 resources. The conceptual characteristics of a management resource are
@@ -97,7 +96,7 @@ instance is encapsulated in an implementation of the
 `org.jboss.as.controller.registry.Resource` interface.
 
 [[managementresourceregistration-interface]]
-= ManagementResourceRegistration Interface
+== ManagementResourceRegistration Interface
 
 In the Java analogy used above, the `ManagementResourceRegistration` is
 analogous to the "class", while the `Resource` discussed below is
@@ -162,7 +161,7 @@ the change to record the resource type's attributes, operations and
 children.
 
 [[resourcedefinition-interface]]
-= ResourceDefinition Interface
+== ResourceDefinition Interface
 
 An implementation of `ResourceDefinition` is the primary class used by
 an extension developer when defining a managed resource type. It
@@ -226,7 +225,7 @@ To register a child resource type:
 ----
 
 [[resourcedescriptionresolver]]
-== ResourceDescriptionResolver
+=== ResourceDescriptionResolver
 
 One of the things a `ResourceDefinition` must be able to do is provide a
 `DescriptionProvider` that provides a proper DMR description of the
@@ -261,7 +260,7 @@ as your `Extension` implementation, in a file named
 `LocalDescriptions.properties`.
 
 [[attributedefinition-class]]
-= AttributeDefinition Class
+== AttributeDefinition Class
 
 The `AttributeDefinition` class is used to create the static definition
 of one of a managed resource's attributes. It's a bit poorly named
@@ -346,7 +345,7 @@ uses it to seed the `allowed-values` metadata in
 `read-resource-description` output.
 
 [[key-uses-of-attributedefinition]]
-== Key Uses of AttributeDefinition
+=== Key Uses of AttributeDefinition
 
 Your `AttributeDefinition` instances will be some of the most commonly
 used objects in your extension code. Following are the most typical
@@ -364,7 +363,7 @@ utility code that handles this for you. For example
 the User to the Configuration Model" case.
 
 [[use-in-xml-parsing]]
-=== Use in XML Parsing
+==== Use in XML Parsing
 
 Here we have your extension's implementation of
 `XMLElementReader<List<ModelNode>>` that is being used to parse the xml
@@ -405,7 +404,7 @@ If you use `PersistentResourceXMLParser` this parsing logic is handled
 for you and you don't need to write it yourself.
 
 [[use-in-storing-data-provided-by-the-user-to-the-configuration-model]]
-=== Use in Storing Data Provided by the User to the Configuration Model
+==== Use in Storing Data Provided by the User to the Configuration Model
 
 Here we illustrate code in an `OperationStepHandler` that extracts a
 value from a user-provided `operation` and stores it in the internal
@@ -442,7 +441,7 @@ your handler implementations on the standard classes provided by WildFly
 Core, this part of the work will be handled for you.
 
 [[use-in-extracting-data-from-the-configuration-model-for-use-in-runtime-services]]
-=== Use in Extracting Data from the Configuration Model for Use in
+==== Use in Extracting Data from the Configuration Model for Use in
 Runtime Services
 
 This is the example you are most likely to use in your code, as this is
@@ -501,7 +500,7 @@ defined value, you need to guard against that, e.g.:
 ----
 
 [[use-in-marshaling-configuration-model-data-to-xml]]
-=== Use in Marshaling Configuration Model Data to XML
+==== Use in Marshaling Configuration Model Data to XML
 
 Your `Extension` must register an
 `XMLElementWriter<SubsystemMarshallingContext>` for each subsystem. This
@@ -532,7 +531,7 @@ child resources, create child xml elements for those and continue down
 the tree.
 
 [[operationdefinition-and-operationstephandler-interfaces]]
-= OperationDefinition and OperationStepHandler Interfaces
+== OperationDefinition and OperationStepHandler Interfaces
 
 `OperationDefinition` defines an operation, particularly its name, its
 parameters and the details of any result value, with
@@ -605,7 +604,7 @@ to do further handling, the OSH will create another OSH to execute that
 step. This second OSH is typically an inner class of the first OSH.
 
 [[operation-execution-and-the-operationcontext]]
-= Operation Execution and the OperationContext
+== Operation Execution and the OperationContext
 
 When the `ModelController` at the heart of the WildFly Core management
 layer handles a request to execute an operation, it instantiates an
@@ -634,7 +633,7 @@ and as the interface provided to `OperationStepHandler` implementations
 to let them interact with the rest of the system.
 
 [[execution-process]]
-== Execution Process
+=== Execution Process
 
 Operation execution proceeds via execution by the `OperationContext` of
 a series of "steps" with an `OperationStepHandler` doing the key work
@@ -661,7 +660,7 @@ processing of the next stage's steps begins.
 Here is some brief information about each stage:
 
 [[stage.model]]
-=== Stage.MODEL
+==== Stage.MODEL
 
 This stage is concerned with interacting with the persistent
 configuration model, either making changes to it or reading information
@@ -685,7 +684,7 @@ model validation work before proceeding on to the next stage. Validation
 failures will result in rollback.
 
 [[stage.runtime]]
-=== Stage.RUNTIME
+==== Stage.RUNTIME
 
 This stage is concerned with interacting with the server runtime, either
 reading from it or modifying it (e.g. installing or removing services or
@@ -710,7 +709,7 @@ the MSC service container to stabilize (i.e. for all services to have
 reached a rest state) before moving on to the next stage.
 
 [[stage.verify]]
-=== Stage.VERIFY
+==== Stage.VERIFY
 
 Service container verification work is performed in this stage, checking
 that any MSC changes made in `Stage.RUNTIME` had the expected effect.
@@ -732,7 +731,7 @@ by a handler will trigger rollback.
 There is no special transition work at the end of this stage.
 
 [[stage.domain]]
-=== Stage.DOMAIN
+==== Stage.DOMAIN
 
 Extension authors should not add steps in this stage; it is only for use
 by the kernel.
@@ -742,7 +741,7 @@ affects multiple processes in a managed domain run here. This stage is
 only run on Host Contoller processes, never on servers.
 
 [[stage.done-and-resulthandler-rollbackhandler-execution]]
-=== Stage.DONE and ResultHandler / RollbackHandler Execution
+==== Stage.DONE and ResultHandler / RollbackHandler Execution
 
 This stage doesn't maintain a queue of steps; no `OperationStepHandler`
 executes here. What does happen here is persistence of any configuration
@@ -761,7 +760,7 @@ because if an operation rolls back the updated model produced by the
 operation is simply never published and is discarded.)
 
 [[tips-about-adding-steps]]
-=== Tips About Adding Steps
+==== Tips About Adding Steps
 
 Here are some useful tips about how to add steps:
 
@@ -799,7 +798,7 @@ chance to do their work. *Rule of thumb: always doing any extra
 validation work in an added step.*
 
 [[passing-data-to-an-added-step]]
-==== Passing Data to an Added Step
+===== Passing Data to an Added Step
 
 Often a handler author will want to share state between the handler for
 a step it adds and the handler that added it. There are a number of ways
@@ -822,7 +821,7 @@ what the `OperationContext` sees as the target of operation when that
 added step's handler executes.
 
 [[controlling-output-from-an-added-step]]
-==== Controlling Output from an Added Step
+===== Controlling Output from an Added Step
 
 When an `OperationStepHandler` wants to report an operation result, it
 calls the `OperationContext.getResult()` method and manipulates the
@@ -863,7 +862,7 @@ great care needs to be taken if it is done. It is often done in some of
 the kernel handlers.
 
 [[operationstephandler-use-of-the-operationcontext]]
-== OperationStepHandler use of the OperationContext
+=== OperationStepHandler use of the OperationContext
 
 All useful work an `OperationStepHandler` performs is done by invoking
 methods on the `OperationContext`. The `OperationContext` interface is
@@ -903,7 +902,7 @@ overview. The OSH can use the `OperationContext` to:
 `completeStep`)
 
 [[locking-and-change-visibility]]
-== Locking and Change Visibility
+=== Locking and Change Visibility
 
 The `ModelController` and `OperationContext` work together to ensure
 that only one operation at a time is modifying the state of the system.
@@ -952,7 +951,7 @@ by an operation to either of those are immediately visible to other
 threads.
 
 [[resource-interface]]
-= Resource Interface
+== Resource Interface
 
 An instance of the `Resource` interface holds the state for a particular
 instance of a type defined by a `ManagementResourceRegistration`.
@@ -970,7 +969,7 @@ attributes and whose values are the attribute values
 * Links to child resources such that the resources form a tree
 
 [[creating-resources]]
-== Creating Resources
+=== Creating Resources
 
 Typically extensions create resources via `OperationStepHandler` calls
 to the `OperationContext.createResource` method. However it is allowed
@@ -979,7 +978,7 @@ instantiating the resource and invoking `OperationContext.addResource`.
 The `AbstractModelResource` class can be used as a base class.
 
 [[runtime-only-and-synthetic-resources-and-the-placeholderresourceentry-class]]
-== Runtime-Only and Synthetic Resources and the PlaceholderResourceEntry
+=== Runtime-Only and Synthetic Resources and the PlaceholderResourceEntry
 Class
 
 A runtime-only resource is one whose state is not persisted to the xml
@@ -1050,12 +1049,12 @@ example of this kind of thing. Searching for other uses of
 `PlaceholderResourceEntry` will show other examples.
 
 [[deploymentunitprocessor-interface]]
-= DeploymentUnitProcessor Interface
+== DeploymentUnitProcessor Interface
 
 TODO
 
 [[useful-classes-for-implementing-operationstephandler]]
-= Useful classes for implementing OperationStepHandler
+== Useful classes for implementing OperationStepHandler
 
 The WildFly Core `controller` module includes a number of
 `OperationStepHandler` implementations that in some cases you can use
@@ -1065,7 +1064,7 @@ eliminate the need for your code to do anything in `Stage.MODEL` while
 providing support for whatever is appropriate for `Stage.RUNTIME`.
 
 [[add-handlers]]
-== Add Handlers
+=== Add Handlers
 
 `AbstractAddStepHandler` is a base class for handlers for `add`
 operations. There are a number of ways you can configure its behavior,
@@ -1131,17 +1130,17 @@ registers one or more `DeploymentUnitProcessor` s.
 ----
 
 [[remove-handlers]]
-== Remove Handlers
+=== Remove Handlers
 
 TODO `AbstractRemoveStepHandler` `ServiceRemoveStepHandler`
 
 [[write-attribute-handlers]]
-== Write attribute handlers
+=== Write attribute handlers
 
 TODO `AbstractWriteAttributeHandler`
 
 [[reload-required-handlers]]
-== Reload-required handlers
+=== Reload-required handlers
 
 `ReloadRequiredAddStepHandler` `ReloadRequiredRemoveStepHandler`
 `ReloadRequiredWriteAttributeHandler`
@@ -1152,7 +1151,7 @@ process is reloaded. These handle the mechanics of recording the need
 for reload and reverting it if the operation rolls back.
 
 [[restart-parent-resource-handlers]]
-== Restart Parent Resource Handlers
+=== Restart Parent Resource Handlers
 
 `RestartParentResourceAddHandler` `RestartParentResourceRemoveHandler`
 `RestartParentWriteAttributeHandler`
@@ -1170,7 +1169,7 @@ post-boot, any change to the child resource likely requires a restart of
 the service provided by the parent.
 
 [[model-only-handlers]]
-== Model Only Handlers
+=== Model Only Handlers
 
 `ModelOnlyAddStepHandler` `ModelOnlyRemoveStepHandler`
 `ModelOnlyWriteAttributeHandler`
@@ -1187,7 +1186,7 @@ handlers allow the DC to maintain the configuration model for the
 subsystem.
 
 [[misc]]
-== Misc
+=== Misc
 
 `AbstractRuntimeOnlyHandler` is used for custom operations that don't
 involve the configuration model. Create a subclass and implement the
