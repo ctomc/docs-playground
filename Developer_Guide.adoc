@@ -1,7 +1,7 @@
 = Developer Guide
 WildFly developer team;
-:revnumber: {version.adoc[]
-:revdate: {localdate.adoc[]
+:revnumber: {version}
+:revdate: {localdate}
 :toc: macro
 :toclevels: 2
 :toc-title: WildFly Developer guide
@@ -22,15 +22,12 @@ ifdef::basebackend-html[toc::[]]
 :numbered:
 
 
-[[wildfly-developer-guide]]
-== WildFly Developer Guide
-
 [[target-audience]]
 === Target Audience
 
 Java Developers
 
-:leveloffset: +1
+:leveloffset: 1
 
 include::developer-guide/Class_Loading_in_WildFly.adoc[]
 
