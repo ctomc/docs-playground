@@ -1,6 +1,4 @@
-= Remote EJB invocations via JNDI - EJB client API or remote-naming
-project
-=========================================================================
+= Remote EJB invocations via JNDI - EJB client API or remote-naming project
 
 [[purpose]]
 == Purpose
@@ -228,7 +226,7 @@ to it. However, _not_ all of those are exposed remotely. The two
 conditions that are to be satisfied by the objects bound to JNDI, to be
 remotely accessible are:
 
-\1) Such objects should be bound under the `java:jboss/exported/`
+1) Such objects should be bound under the `java:jboss/exported/`
 namespace. For example, `java:jboss/exported/foo/bar` +
 2) Objects bound to the `java:jboss/exported/` namespace are expected to
 be serializable. This allows the objects to be sent over the wire to the
