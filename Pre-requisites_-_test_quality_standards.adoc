@@ -101,7 +101,7 @@ IPv6 adress. +
 Always use the configurable values provided by Arquillian or as a system
 property. +
 If you come across a value which is not configurable but you think it
-should be, file an WildFly 8 jira issue with component "Test suite". +
+should be, file an WildFly {wildflyVersion} jira issue with component "Test suite". +
 See
 https://github.com/arquillian/arquillian/blob/master/examples/junit/src/test/java/com/acme/web/LocalRunServletTestCase.java[@ArquillianResourrce
 usage example].

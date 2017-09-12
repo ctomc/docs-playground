@@ -3,7 +3,7 @@ Security subsystem configuration
 
 The security subsystem is the subsystem that brings the security
 services provided by http://www.jboss.org/picketbox[PicketBox] to the
-WildFly 8 server instances.
+WildFly {wildflyVersion} server instances.
 
 If you are looking to secure the management interfaces for the
 management of the domain then you should read the

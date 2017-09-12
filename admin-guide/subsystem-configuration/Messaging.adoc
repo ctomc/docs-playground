@@ -337,7 +337,7 @@ the command line.
 [[deployment-of--jms.xml-files]]
 = Deployment of -jms.xml files
 
-Starting with WildFly 8, you have the ability to deploy a -jms.xml file
+Starting with WildFly {wildflyVersion}, you have the ability to deploy a -jms.xml file
 defining JMS destinations, e.g.:
 
 [source, java]

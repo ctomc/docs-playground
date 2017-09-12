@@ -12,12 +12,12 @@ local JNDI. To use it, you must have the appropriate jars on the class
 path, if you are maven user can be done simply by adding the following
 to your `pom.xml` dependencies:
 
-[source, java]
+[source, xml]
 ----
 <dependency>
   <groupId>org.wildfly</groupId>
   <artifactId>wildfly-ejb-client-bom</artifactId>
-  <version>8.0.0.Final</version>
+  <version>11.0.0.Final</version>
   <type>pom</type>
 </dependency>
 ----
@@ -54,12 +54,12 @@ module name, ejb name and interface type. To use it, you must have the
 appropriate jars on the class path, if you are maven user can be done
 simply by adding the following to your `pom.xml` dependencies:
 
-[source, java]
+[source, xml]
 ----
 <dependency>
   <groupId>org.wildfly</groupId>
   <artifactId>wildfly-ejb-client-bom</artifactId>
-  <version>8.0.0.Final</version>
+  <version>11.0.0.Final</version>
   <type>pom</type>
 </dependency>
 ----
@@ -100,5 +100,4 @@ session.
 
 For more details on how the server connections are configured, including
 the *required* jboss ejb client setup, please see
-link:EJB_invocations_from_a_remote_client_using_JNDI.html[EJB
-invocations from a remote client using JNDI].
+link:EJB_invocations_from_a_remote_client_using_JNDI.adoc[EJB invocations from a remote client using JNDI].

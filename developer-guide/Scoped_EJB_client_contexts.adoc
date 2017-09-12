@@ -4,7 +4,7 @@ Scoped EJB client contexts
 [[overview]]
 = Overview
 
-WildFly 8 introduced the EJB client API for managing remote EJB
+WildFly {wildflyVersion} introduced the EJB client API for managing remote EJB
 invocations. The EJB client API works off EJBClientContext(s). An
 EJBClientContext can potentially contain any number of EJB receivers. An
 EJB receiver is a component which knows how to communicate with a server
@@ -12,7 +12,7 @@ which is capable of handling the EJB invocation. Typically EJB remote
 applications can be classified into:
 
 * A remote client which runs as a standalone Java application
-* A remote client which runs within another WildFly 8 instance
+* A remote client which runs within another WildFly {wildflyVersion} instance
 
 Depending on the kind of remote client, from an EJB client API point of
 view, there can potentially be more than 1 EJBClientContext(s) within a
@@ -24,7 +24,7 @@ mandatory. Certain standalone applications can potentially have more
 than one EJBClientContext(s) and a EJB client context selector will be
 responsible for returning the appropriate context.
 
-In case of remote clients which run within another WildFly 8 instance,
+In case of remote clients which run within another WildFly {wildflyVersion} instance,
 each deployed application will have a corresponding EJB client context.
 Whenever that application invokes on another EJB, the corresponding EJB
 client context will be used for finding the right EJB receiver and
@@ -35,7 +35,7 @@ letting it handle the invocation.
 
 In the Overview section we briefly looked at the different types of
 remote clients. Let's focus on the standalone remote clients (the ones
-that don't run within another WildFly 8 instance) for some of the next
+that don't run within another WildFly {wildflyVersion} instance) for some of the next
 sections. Like mentioned earlier, typically a remote standalone client
 has just one EJB client context backed by any number of EJB receivers.
 Consider this example:
@@ -68,7 +68,7 @@ invocation request. Since we just have a single EJB client context, that
 context is used by the above code to invoke the bean.
 
 Now let's consider a case where the user application wants to invoke on
-the bean more than once, but wants to connect to the WildFly 8 server
+the bean more than once, but wants to connect to the WildFly {wildflyVersion} server
 using different security credentials. Let's take a look at the following
 code:
 
@@ -182,7 +182,7 @@ This scoping of the EJB client context helps the user applications to
 have more control over which JNDI context "talks to" which server and
 connects to that server in "what way". This gives the user applications
 the flexibility that was associated with the JNP based JNDI invocations
-prior to WildFly 8 versions.
+prior to WildFly {wildflyVersion} versions.
 
 [IMPORTANT]
 

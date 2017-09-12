@@ -3,7 +3,7 @@ Backward & Forward Compatibility
 
 WildFly 10 supports both backwards and forwards compatibility with
 legacy versions that were using HornetQ as their messaging brokers (such
-as JBoss AS7, WildFly 8 & 9). +
+as JBoss AS7, WildFly {wildflyVersion} & 9). +
 These two compatibility modes are provided by the ActiveMQ Artemis
 project that supports the HornetQ's CORE protocol:
 

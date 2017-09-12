@@ -52,15 +52,7 @@ libraries) into this invocation flow so that they do run some
 application specific logic before the control reaches step#5 above. For
 example, AS5 allowed the use of JBoss AOP interceptors to do this.
 
-WildFly 8 doesn't have such a feature.
-
-[[feature-request-for-wildfly]]
-= Feature request for WildFly
-
-There were many community users who requested for this feature to be
-made available in WildFly. As a result,
-https://issues.jboss.org/browse/AS7-5897 JIRA was raised. This feature
-is now implemented.
+As of WildFly 8, this feature was implemented.
 
 [[configuring-container-interceptors]]
 = Configuring container interceptors
@@ -93,7 +85,7 @@ container interceptor(s) can be configured in jboss-ejb3.xml:
 
 jboss-ejb3.xml
 
-[source, java]
+[source, xml]
 ----
 <jboss xmlns="http://www.jboss.com/xml/ns/javaee"
        xmlns:jee="http://java.sun.com/xml/ns/javaee"
@@ -146,7 +138,7 @@ EJB3.1 xsd allows for standard Java EE interceptors
 (using the the * wildcard) or individual bean level (using the specific
 EJB name) or at specific method level for the EJBs.
 
-[IMPORTANT]
+[TIP]
 
 The xsd for the urn:container-interceptors:1.0 namespace is available
 here
@@ -195,4 +187,4 @@ the EJB components are setup or instantiated.
 
 This testcase in the WildFly codebase can be used for reference for
 implementing container interceptors in user applications
-https://github.com/jbossas/jboss-as/blob/master/testsuite/integration/basic/src/test/java/org/jboss/as/test/integration/ejb/container/interceptor/ContainerInterceptorsTestCase.java
+https://github.com/wildfly/wildfly/blob/master/testsuite/integration/basic/src/test/java/org/jboss/as/test/integration/ejb/container/interceptor/ContainerInterceptorsTestCase.java

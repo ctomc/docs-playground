@@ -62,7 +62,7 @@ Context Service, which may be retrieved through `@Resource` injection:
 private ContextService contextService;
 ----
 
-[IMPORTANT]
+[NOTE]
 
 To retrieve instead a non default Context Service instance,
 `@Resource`'s `lookup` attribute needs to specify the JNDI name used in
@@ -77,7 +77,7 @@ Applications may alternatively use instead the standard JNDI API:
 ContextService contextService = InitialContext.doLookup("java:comp/DefaultContextService");
 ----
 
-[IMPORTANT]
+[NOTE]
 
 As mandated by the Java EE specification, the default Context Service
 instance's JNDI name is `java:comp/DefaultContextService`.
@@ -126,7 +126,7 @@ injection:
 private ManagedThreadFactory managedThreadFactory;
 ----
 
-[IMPORTANT]
+[NOTE]
 
 To retrieve instead a non default Managed Thread Factory instance,
 `@Resource`'s `lookup` attribute needs to specify the JNDI name used in
@@ -262,7 +262,7 @@ Applications may alternatively use instead the standard JNDI API:
 ManagedScheduledExecutorService managedScheduledExecutorService = InitialContext.doLookup("java:comp/DefaultManagedScheduledExecutorService");
 ----
 
-[IMPORTANT]
+[NOTE]
 
 As mandated by the Java EE specification, the default Managed Scheduled
 Executor Service instance's JNDI name is

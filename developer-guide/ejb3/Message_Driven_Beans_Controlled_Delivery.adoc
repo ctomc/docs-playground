@@ -27,7 +27,7 @@ In the jboss-ejb3 xml file, configure the value of active as false to
 mark that the MDB will not be receiving messages as soon as it is
 deployed:
 
-[source, java]
+[source, xml]
 ----
 <?xml version="1.1" encoding="UTF-8"?>
 <jboss:ejb-jar xmlns:jboss="http://www.jboss.com/xml/ns/javaee"

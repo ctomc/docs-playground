@@ -1,5 +1,5 @@
-Class Loading in WildFly
-========================
+= Class Loading in WildFly
+
 
 Since JBoss AS 7, Class loading is considerably different to previous
 versions of JBoss AS. Class loading is based on the
@@ -83,7 +83,7 @@ them access to classes in `EAR/lib`, however they do not always have an
 automatic dependency on each other. This behaviour is controlled via the
 `ear-subdeployments-isolated` setting in the ee subsystem configuration:
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:ee:1.0" >            
   <ear-subdeployments-isolated>false</ear-subdeployments-isolated>
@@ -95,7 +95,7 @@ classes belonging to other sub-deployments within the .ear.
 
 For example, consider the following .ear deployment:
 
-[source, java]
+[source]
 ----
 myapp.ear
  |
@@ -198,7 +198,7 @@ your pom.xml:
 
 pom.xml
 
-[source, java]
+[source, xml]
 ----
 <build>
    ...
@@ -245,7 +245,7 @@ following XML:
 
 standalone.xml/domain.xml
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:ee:1.0" >            
   <global-modules>
@@ -275,7 +275,7 @@ ear deployment is as follows:
 
 jboss-deployment-structure.xml
 
-[source, java]
+[source, xml]
 ----
 <jboss-deployment-structure>
   <!-- Make sub deployments isolated by default, so they cannot see each others classes without a Class-Path entry -->
@@ -348,7 +348,7 @@ jboss-deployment-structure.xml
 [IMPORTANT]
 
 The xsd for jboss-deployment-structure.xml is available at
-https://github.com/wildfly/wildfly-core/blob/e737eff554ee433ca54835154fd67725fd52f63e/server/src/main/resources/schema/jboss-deployment-structure-1_2.xsd[https://github.com/wildfly/wildfly/blob/master/build/src/main/resources/docs/schema/jboss-deployment-structure-1_2.xsd]
+https://github.com/wildfly/wildfly-core/blob/master/server/src/main/resources/schema/jboss-deployment-structure-1_2.xsd[https://github.com/wildfly/wildfly/blob/master/build/src/main/resources/docs/schema/jboss-deployment-structure-1_2.xsd]
 
 [[accessing-jdk-classes]]
 = Accessing JDK classes
@@ -359,9 +359,9 @@ them using jboss-deployment-structure.xml with system dependencies:
 
 Using jboss-deployment-structure.xml to access JDK classes
 
-[source, java]
+[source, xml]
 ----
-<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.1">
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
     <deployment>
         <dependencies>
             <system export="true">
@@ -389,9 +389,9 @@ module's module.xml file can tell you:
 
 Example declaration of the jboss.api property
 
-[source, java]
+[source, xml]
 ----
-<module xmlns="urn:jboss:module:1.3" name="com.google.guava">
+<module xmlns="urn:jboss:module:1.5" name="com.google.guava">
     <properties>
         <property name="jboss.api" value="private"/>
     </properties>
@@ -403,7 +403,7 @@ equivalent to one with a value of "public".
 Following are the meanings of the various values you may see for the
 jboss.api property:
 
-[cols=",",]
+[cols="1,3",options="header"]
 |=======================================================================
 |Value |Meaning
 

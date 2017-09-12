@@ -8,6 +8,7 @@ WildFly developer team;
 :doctype: book
 :icons: font
 :source-highlighter: coderay
+:wildflyVersion: 11
 
 :leveloffset: +1
 

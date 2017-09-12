@@ -12,13 +12,12 @@ see the below links:
 http://docs.jboss.org/cdi/spec/1.2/cdi-spec.html[CDI Specification] +
 http://docs.jboss.org/weld/reference/latest/en-US/html/[Weld Reference
 Guide] +
-http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/[The AS7
-Quickstarts]
+https://github.com/wildfly/quickstart/[The WildFly Quickstarts]
 
 [[using-cdi-beans-from-outside-the-deployment]]
 = Using CDI Beans from outside the deployment
 
-For WildFly 8 onwards, it is now possible have classes outside the
+For WildFly {wildflyVersion} onwards, it is now possible have classes outside the
 deployment be picked up as CDI beans. In order for this to work you must
 add a dependency on the external deployment that your beans are coming
 from, and make sure the META-INF directory of this deployment is
@@ -40,7 +39,7 @@ Dependencies: com.my-cdi-module meta-inf, com.my-other-cdi-module meta-inf
 Using `jboss-deployment-structure.xml` you need to add a dependency
 entry with `meta-inf="import"`, e.g.
 
-[source, java]
+[source, xml]
 ----
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
     <deployment>

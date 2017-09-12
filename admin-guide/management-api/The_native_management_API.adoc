@@ -242,7 +242,7 @@ client.close();
 [[format-of-a-detyped-operation-request]]
 = Format of a Detyped Operation Request
 
-The basic method a user of the WildFly 8 programmatic management API
+The basic method a user of the WildFly {wildflyVersion} programmatic management API
 would use is very simple:
 
 [source, java]
@@ -664,7 +664,7 @@ deploy /quickstart/ejb-in-war/target/wildfly-ejb-in-war.war --all-server-groups 
 [[format-of-a-detyped-operation-response]]
 = Format of a Detyped Operation Response
 
-As noted previously, the basic method a user of the WildFly 8
+As noted previously, the basic method a user of the WildFly {wildflyVersion}
 programmatic management API would use is very simple:
 
 [source, java]

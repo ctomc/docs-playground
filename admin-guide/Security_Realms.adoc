@@ -61,7 +61,7 @@ we add role based authorization checks to the management model.
 
 After a realm has been defined it needs to be associated with an inbound
 or outbound connection for it to be used, the following are some
-examples where these associations are used within the WildFly 8
+examples where these associations are used within the WildFly {wildflyVersion}
 configuration.
 
 [[inbound-connections]]

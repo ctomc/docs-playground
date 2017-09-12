@@ -3,23 +3,23 @@ Spring applications development and migration guide
 
 This document details the main points that need to be considered by
 Spring developers that wish to develop new applications or to migrate
-existing applications to be run into WildFly 8.
+existing applications to be run into WildFly {wildflyVersion}.
 
 [[dependencies-and-modularity]]
 = Dependencies and Modularity
 
-WildFly 8 has a modular class loading strategy, different from previous
+WildFly {wildflyVersion} has a modular class loading strategy, different from previous
 versions of JBoss AS, which enforces a better class loading isolation
 between deployments and the application server itself. A detailed
 description can be found in the documentation dedicated to
 https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7[class
-loading in WildFly 8].
+loading in WildFly {wildflyVersion}].
 
 This reduces significantly the risk of running into a class loading
 conflict and allows applications to package their own dependencies if
 they choose to do so. This makes it easier for Spring applications that
 package their own dependencies - such as logging frameworks or
-persistence providers to run on WildFly 8.
+persistence providers to run on WildFly {wildflyVersion}.
 
 At the same time, this does not mean that duplications and conflicts
 cannot exist on the classpath. Some module dependencies are implicit,
@@ -42,7 +42,7 @@ Applications that use the Hibernate API directly with Spring (i.e.
 through either one of LocalSessionFactoryBean or
 AnnotationSessionFactoryBean) may use a version of Hibernate 3 packaged
 inside the application. Hibernate 4 (which is provided through the
-'org.hibernate' module of WildFly 8) is not supported by Spring 3.0 and
+'org.hibernate' module of WildFly {wildflyVersion}) is not supported by Spring 3.0 and
 Spring 3.1 (and may be supported by Spring 3.2 as described in
 https://jira.springsource.org/browse/SPR-8096[SPR-8096]), so adding this
 module as a dependency is not a solution.
@@ -113,7 +113,7 @@ JNDI binding via persistence.xml properties is not supported in WildFly
 [[using-spring-managed-persistence-units]]
 == Using Spring-managed persistence units
 
-Spring applications running in WildFly 8 may also create persistence
+Spring applications running in WildFly {wildflyVersion} may also create persistence
 units on their own, using the LocalContainerEntityManagerFactoryBean.
 This is what these applications need to consider:
 

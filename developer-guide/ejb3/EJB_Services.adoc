@@ -1,7 +1,7 @@
 EJB Services
 ============
 
-This chapter explains how clustering of EJBs works in WildFly 8.
+This chapter explains how clustering of EJBs works in WildFly {wildflyVersion}.
 
 [[ejb-subsystem]]
 = EJB Subsystem
@@ -17,7 +17,7 @@ reference section]
 [[marking-an-ejb-as-clustered]]
 == Marking an EJB as clustered
 
-WildFly 8 allows clustering of stateful session beans. A stateful
+WildFly {wildflyVersion} allows clustering of stateful session beans. A stateful
 session bean can be marked with `@org.jboss.ejb3.annotation.Clustered`
 annotation or be marked as clustered using the jboss-ejb3.xml's
 `<clustered>` element.
@@ -57,7 +57,7 @@ jboss-ejb3.xml
 [[deploying-clustered-ejbs]]
 == Deploying clustered EJBs
 
-Clustering support is available in the HA profiles of WildFly 8. In this
+Clustering support is available in the HA profiles of WildFly {wildflyVersion}. In this
 chapter we'll be using the standalone server for explaining the details.
 However, the same applies to servers in a domain mode. Starting the
 standalone server with HA capabilities enabled, involves starting it
@@ -112,7 +112,7 @@ features.
 Clustered EJBs have failover capability. The state of the @Stateful
 @Clustered EJBs is replicated across the cluster nodes so that if one of
 the nodes in the cluster goes down, some other node will be able to take
-over the invocations. Let's see how it's implemented in WildFly 8. In
+over the invocations. Let's see how it's implemented in WildFly {wildflyVersion}. In
 the next few sections we'll see how it works for remote (standalone)
 clients and for clients in another remote WildFly server instance.
 Although, there isn't a difference in how it works in both these cases,
@@ -211,14 +211,14 @@ Effectively, the invocation has now failed over to a different node
 within the cluster.
 
 [[remote-clients-on-another-instance-of-wildfly-8]]
-=== Remote clients on another instance of WildFly 8
+=== Remote clients on another instance of WildFly {wildflyVersion}
 
 So far we discussed remote standalone clients which typically use either
 the EJB client API or the jboss-ejb-client.properties based approach to
 configure and communicate with the servers where the clustered beans are
 deployed. Now let's consider the case where the client is an application
 deployed another AS7 instance and it wants to invoke on a clustered
-stateful bean which is deployed on another instance of WildFly 8. In
+stateful bean which is deployed on another instance of WildFly {wildflyVersion}. In
 this example let's consider a case where we have 3 servers involved.
 Server X and Server Y both belong to a cluster and have clustered EJB
 deployed on them. Let's consider another server instance Server C (which
@@ -248,12 +248,12 @@ down, as explained earlier, a different node from the cluster will be
 selected and the invocation will be forwarded to that node.
 
 As can be seen both remote standalone client and remote clients on
-another WildFly 8 instance act similar in terms of failover.
+another WildFly {wildflyVersion} instance act similar in terms of failover.
 
 [[testcases-for-failover-of-stateful-beans]]
 === Testcases for failover of stateful beans
 
-We have testcases in WildFly 8 testsuite which test that whatever is
+We have testcases in WildFly {wildflyVersion} testsuite which test that whatever is
 explained above works as expected. The
 https://github.com/wildfly/wildfly/blob/master/testsuite/integration/clust/src/test/java/org/jboss/as/test/clustering/cluster/ejb3/stateful/remote/failover/RemoteEJBClientStatefulBeanFailoverTestCase.java[RemoteEJBClientStatefulBeanFailoverTestCase]
 tests the case where a stateful EJB uses @Clustered annotation to mark

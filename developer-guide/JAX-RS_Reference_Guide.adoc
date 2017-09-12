@@ -2,8 +2,8 @@ JAX-RS Reference Guide
 ======================
 
 This page outlines the three options you have for deploying JAX-RS
-applications in WildFly 8. These three methods are specified in the
-JAX-RS 1.1 specification in section 2.3.2.
+applications in WildFly {wildflyVersion}. These three methods are specified in the
+JAX-RS 2.0 specification in section 2.3.2.
 
 [[subclassing-javax.ws.rs.core.application-and-using-applicationpath]]
 = Subclassing javax.ws.rs.core.Application and using @ApplicationPath
@@ -39,7 +39,7 @@ public class MyApplication extends Application {
 }
 ----
 
-[source, java]
+[source, xml]
 ----
 <servlet-mapping>
    <servlet-name>com.acme.MyApplication</servlet-name>
@@ -61,7 +61,7 @@ the `@ApplicationPath` annotation.
 If you don't wan't to subclass `Application` you can set the JAX-RS
 mapping in web.xml as follows:
 
-[source, java]
+[source, xml]
 ----
 <servlet-mapping>
    <servlet-name>javax.ws.rs.core.Application</servlet-name>
@@ -72,7 +72,7 @@ mapping in web.xml as follows:
 This will make your JAX-RS resources available under `/`
 `mywebappcontext` `/hello`.
 
-[IMPORTANT]
+[TIP]
 
 Note that you only have to add the mapping, not the corresponding
 servlet. The server is responsible for adding the corresponding servlet

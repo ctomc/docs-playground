@@ -3,7 +3,7 @@ WildFly
 =========================================================================
 
 This is a step-by-step how-to guide on porting the Seam Booking
-application binaries from EAP5.1 to WildFly 8. Although there are better
+application binaries from EAP5.1 to WildFly {wildflyVersion}. Although there are better
 approaches for migrating applications, the purpose of this document is
 to show the types of issues you might encounter when migrating an
 application and how to debug and resolve those issues.
@@ -487,7 +487,7 @@ The "/em" indicates an Entity Manager and datasource issue.
 [[how-to-resolve-it-6]]
 === How to resolve it:
 
-In WildFly 8, datasource configuration has changed and needs to be
+In WildFly {wildflyVersion}, datasource configuration has changed and needs to be
 defined in the `standalone/configuration/standalone.xml` file. Since
 WildFly ships with an example database that is already defined in the
 standalone.xml file, we will modify the `persistence.xml` file to use

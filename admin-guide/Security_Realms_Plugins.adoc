@@ -1,7 +1,7 @@
 Plug Ins
 ========
 
-Within WildFly 8 for communication with the management interfaces and
+Within WildFly {wildflyVersion} for communication with the management interfaces and
 for other services exposed using Remoting where username / password
 authentication is used the use of Digest authentication is preferred
 over the use of HTTP Basic or SASL Plain so that we can avoid the
@@ -24,7 +24,7 @@ support loading a users password, hash and roles from a custom store to
 allow different stores to be implemented without forcing the
 authentication back to plain text variant, this article describes the
 requirements for a plug in and shows a simple example plug-in for use
-with WildFly 8.
+with WildFly {wildflyVersion}.
 
 When implementing a plug in there are two steps to the authentication
 process, the first step is to load the users identity and credential
@@ -171,7 +171,7 @@ public interface PlugInConfigurationSupport {
 = Installing and Configuring a Plug-In
 
 The next step of this article describes the steps to implement a plug-in
-provider and how to make it available within WildFly 8 and how to
+provider and how to make it available within WildFly {wildflyVersion} and how to
 configure it. Example configuration and an example implementation are
 shown to illustrate this.
 
@@ -277,7 +277,7 @@ org.jboss.as.sample.SamplePluginProvider
 == Package as a Module
 
 To make the `PlugInProvider` available to the application it is bundled
-as a module and added to the modules already shipped with WildFly 8.
+as a module and added to the modules already shipped with WildFly {wildflyVersion}.
 
 To add as a module we first need a `module.xml`: -
 

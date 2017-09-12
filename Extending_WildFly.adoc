@@ -3133,7 +3133,7 @@ of 1.0.0, and its resource description was as follows:
                 },
 ----
 
-In WildFly 8, it has a ModelVersion of 2.0.0 and has added two
+In WildFly {wildflyVersion}, it has a ModelVersion of 2.0.0 and has added two
 attributes, `require-bean-descriptor` and `non-portable` mode:
 
 [source, java]
@@ -3198,7 +3198,7 @@ attributes, `require-bean-descriptor` and `non-portable` mode:
 ----
 
 In the rest of this section we will assume that we are running a DC
-running WildFly 8 so it will have ModelVersion 2.0.0 of the weld
+running WildFly {wildflyVersion} so it will have ModelVersion 2.0.0 of the weld
 subsystem, and that we are running a slave using ModelVersion 1.0.0 of
 the weld subsystem.
 
@@ -3310,7 +3310,7 @@ rollback the operation across the whole domain.
 
 Now for the `weld` example we have been using there is a slight twist.
 We have the new `require-bean-descriptor` and `non-portable-mode`
-attributes. These have been added in WildFly 8 which supports Java EE 7,
+attributes. These have been added in WildFly {wildflyVersion} which supports Java EE 7,
 and thus CDI 1.1. JBoss AS 7.x supports Java EE 6, and thus CDI 1.0. In
 CDI 1.1 the values of these attributes are tweakable, so they can be set
 to either `true` or `false`. The default behaviour for these in CDI 1.1,
@@ -3338,7 +3338,7 @@ This removal is fine since they have the values which would result in
 the behavior assumed on the legacy slave HC.
 
 That way the older slave HCs will work fine. However, we might also have
-WildFly 8 slave HCs in our domain, and they are missing out on the new
+WildFly {wildflyVersion} slave HCs in our domain, and they are missing out on the new
 features introduced by the attributes introduced in ModelVersion 2.0.0.
 If we do
 
@@ -3382,9 +3382,9 @@ The solution is to put these in two different profiles in `domain.xml`
 </domain>
 ----
 
-Then have the HCs using WildFly 8 make their servers reference the
+Then have the HCs using WildFly {wildflyVersion} make their servers reference the
 `main-server-group` server group, and the HCs using older versions of
-WildFly 8 make their servers reference the `main-server-group-legacy`
+WildFly {wildflyVersion} make their servers reference the `main-server-group-legacy`
 server group.
 
 [[ignoring-resources-on-legacy-hosts]]
@@ -4735,7 +4735,7 @@ transformers]
 [[the-old-way]]
 === The old way
 
-This is the way that has been used up to WildFly 8.x. However, in
+This is the way that has been used up to WildFly {wildflyVersion}.x. However, in
 WildFly 9 and later, it is strongly recommended to migrate to what is
 mentioned in
 link:#src-557102_ExtendingWildFly-Chainedtransformers[#Chained
@@ -5182,7 +5182,7 @@ Missing parameters for operation 'add' in current: []; missing in legacy [protoc
 This difference also affects the `add` operation. Looking at the current
 model the valid values for the `protocol` attribute are `remote`,
 `http-remoting` and `https-remoting`. The last two are new protocols
-introduced in WildFly 8, meaning that the _implied behaviour_ in JBoss
+introduced in WildFly {wildflyVersion}, meaning that the _implied behaviour_ in JBoss
 7.2.0 and earlier is the `remote` protocol. Since this attribute does
 not exist in the legacy model we want to discard this attribute if it is
 `undefined` or if it has the value `remote`, both of which are in line

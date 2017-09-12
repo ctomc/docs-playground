@@ -8,4 +8,13 @@ The latest project documentation is available
 https://docs.jboss.org/author/display/JBWS[here].
 
 This section covers the most relevant topics for the JBossWS version
-available on WildFly 9.
+available on WildFly {wildflyVersion}.
+
+
+include::JAX-WS_User_Guide.adoc[]
+
+include::JAX-WS_Tools.adoc[]
+
+include::JAX_WS_Advanced_User_Guide.adoc[]
+
+include::JAX_WS_JBoss_Modules_and_WS_applications.adoc[]

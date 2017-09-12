@@ -638,12 +638,12 @@ go on cluster configuration.
 = Cluster Configuration
 
 We will use mod_cluster + apache httpd on master as our cluster
-controller here. Because WildFly 8 has been configured to support
+controller here. Because WildFly {wildflyVersion} has been configured to support
 mod_cluster out of box so it's the easiest way.
 
 [IMPORTANT]
 
-The WildFly 8 domain controller and httpd are not necessary to be on
+The WildFly {wildflyVersion} domain controller and httpd are not necessary to be on
 same host. But in this article I just install them all on master for
 convenience.
 

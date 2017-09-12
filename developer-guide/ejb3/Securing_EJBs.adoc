@@ -18,7 +18,7 @@ specific extensions to the security configurations.
 
 The Java EE spec doesn't mandate a specific way to configure security
 domain for a bean. It leaves it to the vendor implementations to allow
-such configurations, the way they wish. In WildFly 8, the use of
+such configurations, the way they wish. In WildFly {wildflyVersion}, the use of
 `@org.jboss.ejb3.annotation.SecurityDomain` annotation allows the
 developer to configure the security domain for a bean. Here's an
 example:
@@ -37,7 +37,7 @@ import javax.ejb.Stateless;
  
 {
  
-....
+...
 ----
 
 The use of @SecurityDomain annotation lets the developer to point the
@@ -50,7 +50,7 @@ An alternate way of configuring a security domain, instead of using
 annotation, is to use jboss-ejb3.xml deployment descriptor. Here's an
 example of how the configuration will look like:
 
-[source, java]
+[source, xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss:jboss
@@ -100,13 +100,13 @@ public class FooBean {
 
 As you can see the `doSomething` method is configured to be accessible
 for users with role "bar". However, the bean isn't configured for any
-specific security domain. Prior to WildFly 8, the absence of an
+specific security domain. Prior to WildFly {wildflyVersion}, the absence of an
 explicitly configured security domain on the bean would leave the bean
 unsecured, which meant that even if the `doSomething` method was
 configured with `@RolesAllowed("bar")` anyone even without the "bar"
 role could invoke on the bean.
 
-In WildFly 8, the presence of any security metadata (like @RolesAllowed,
+In WildFly {wildflyVersion}, the presence of any security metadata (like @RolesAllowed,
 @PermitAll, @DenyAll, @RunAs, @RunAsPrincipal) on the bean or any
 business method of the bean, makes the bean secure, even in the absence
 of an explicitly configured security domain. In such cases, the security
@@ -142,14 +142,14 @@ users with role "bar". That enables security on the bean (with security
 domain defaulted to "other"). However, notice that the method
 `helloWorld` doesn't have any specific security configurations.
 
-In WildFly 8, such methods which have no explicit security
+In WildFly {wildflyVersion}, such methods which have no explicit security
 configurations, in a secured bean, will be treated similar to a method
 with `@DenyAll` configuration. What that means is, no one is allowed
 access to the `helloWorld` method. This behaviour can be controlled via
 the jboss-ejb3.xml deployment descriptor at a per bean level or a per
 deployment level as follows:
 
-[source, java]
+[source, xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss:jboss
@@ -180,7 +180,7 @@ similar to `@PermitAll`.
 This behaviour can also be configured at the EJB3 subsystem level so
 that it applies to all EJB3 deployments on the server, as follows:
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:ejb3:1.4">
 ...

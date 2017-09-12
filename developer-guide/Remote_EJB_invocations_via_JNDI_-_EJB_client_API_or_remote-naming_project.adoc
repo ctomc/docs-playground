@@ -13,14 +13,14 @@ these projects is.
 [[history]]
 = History
 
-Previous versions of JBoss AS (versions < WildFly 8) used JNP project (
+Previous versions of JBoss AS (versions < WildFly {wildflyVersion}) used JNP project (
 http://anonsvn.jboss.org/repos/jbossas/projects/naming/) as the JNDI
 naming implementation. Developers of client applications of previous
 versions of JBoss AS will be familiar with the `jnp:// PROVIDER_URL` URL
 they used to use in their applications for communicating with the JNDI
 server on the JBoss server.
 
-Starting WildFly 8, the JNP project is _not_ used. Neither on the server
+Starting WildFly {wildflyVersion}, the JNP project is _not_ used. Neither on the server
 side nor on the client side. The client side of the JNP project has now
 been replaced by jboss-remote-naming project (
 https://github.com/jbossas/jboss-remote-naming). There were various
@@ -79,7 +79,7 @@ they used `jnp://localhost:1099` (just an example). In WildFly, the URI
 protocol scheme for jboss-remote-naming project is `remote://`. The rest
 of the PROVIDER_URL part is the server hostname or IP and the port on
 which the remoting connector is exposed on the server side. By default
-the http-remoting connector port in WildFly 8 is 8080. That's what we
+the http-remoting connector port in WildFly {wildflyVersion} is 8080. That's what we
 have used in our example. The hostname we have used is localhost but
 that should point to the server IP or hostname where the server is
 running.
@@ -93,7 +93,7 @@ jboss-remote-naming project has similar support starting 1.0.3.Final
 version of that project (which is available in a WildFly release *after*
 7.1.1.Final).
 
-WildFly 8 can use the PROVIDER_URL like:
+WildFly {wildflyVersion} can use the PROVIDER_URL like:
 
 java.naming.provider.url=http-remoting://server1:8080,http-remoting://server2:8080
 
@@ -145,7 +145,7 @@ port.
 
 We previously mentioned that remote-naming, backed by jboss-remoting
 project, has increased support for security configurations. Starting
-WildFly 8, every service including the http remoting connector (which
+WildFly {wildflyVersion}, every service including the http remoting connector (which
 listens by default on port 8080), is secured (see
 https://community.jboss.org/wiki/AS710Beta1-SecurityEnabledByDefault for
 details). This means that when trying to do JNDI operations like a
@@ -161,7 +161,7 @@ named " `peter`" whose password is expected to be " `lois`".
 
 Note: The server side configurations for the remoting connector to allow
 "peter" to access the connector, is out of the scope of this
-documentation. The WildFly 8 documentation already has chapters on how
+documentation. The WildFly {wildflyVersion} documentation already has chapters on how
 to set that up.
 
 [source, java]
@@ -216,7 +216,7 @@ exposed by the javax.naming.Context class. The remote-naming project
 only supports the read-only kind of methods (like the lookup() method)
 and does not support any write kind of methods (like the bind() method).
 The client applications are expected to use the remote-naming project
-mainly for lookups of JNDI objects. Neither WildFly 8 nor remote-naming
+mainly for lookups of JNDI objects. Neither WildFly {wildflyVersion} nor remote-naming
 project allows writing/binding to the JNDI server from a remote
 application.
 

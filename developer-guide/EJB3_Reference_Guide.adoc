@@ -2,7 +2,7 @@ EJB 3 Reference Guide
 =====================
 
 This chapter details the extensions that are available when developing
-Enterprise Java Beans ^tm^ on WildFly 8.
+Enterprise Java Beans ^tm^ on WildFly {wildflyVersion}.
 
 Currently there is no support for configuring the extensions using an
 implementation specific descriptor file.
@@ -138,7 +138,7 @@ to EJB 3.1 FR 13.3.7.2.1.
 
 jboss-ejb3.xml
 
-[source, java]
+[source, xml]
 ----
 <jboss:ejb-jar xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
                xmlns="http://java.sun.com/xml/ns/javaee"
@@ -171,7 +171,7 @@ urn:trans-timeout http://www.jboss.org/j2ee/schema/trans-timeout-1_0.xsd"
 The service is responsible to call the registered timeout methods of the
 different session beans.
 
-[IMPORTANT]
+[NOTE]
 
 A persistent timer will be identified by the name of the EAR, the name
 of the sub-deployment JAR and the Bean's name. +
@@ -214,10 +214,11 @@ expiration possible, i.e. If you set a specific year.
 
 For example:
 
-________________________________________________________
+[source, java]
+----
 @Schedule( ... dayOfMonth="1", month="1", year="2012") +
 // start once at 01-01-2012 00:00:00
-________________________________________________________
+----
 
 [[programmatic-calendar-timer]]
 === Programmatic calendar timer
@@ -249,3 +250,20 @@ method is called concurrent.
 
 *TODO*: clarify whether this should happen concurrently/blocked or even
 fired only once like a recurring timer!
+
+
+include::ejb3/Container_interceptors.adoc[]
+
+include::ejb3/EJB3_Clustered_Database_Timers.adoc[]
+
+include::../admin-guide/subsystem-configuration/EJB3.adoc[]
+
+include::ejb3/EJB_IIOP_Guide.adoc[]
+
+include::ejb3/EJB_over_HTTP.adoc[]
+
+include::ejb3/jboss-ejb3.xml_Reference.adoc[]
+
+include::ejb3/Message_Driven_Beans_Controlled_Delivery.adoc[]
+
+include::ejb3/Securing_EJBs.adoc[]
