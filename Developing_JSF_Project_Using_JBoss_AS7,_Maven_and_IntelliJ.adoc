@@ -254,8 +254,7 @@ Finally click 'Finish':
 
 image:images/download/attachments/557129/91e40cd0b1545cff4622857d6dc9959f96faf056.jpg[images/download/attachments/557129/91e40cd0b1545cff4622857d6dc9959f96faf056.jpg]
 
-Hooray! We've imported the project into IntelliJ now
-image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png]
+Hooray! We've imported the project into IntelliJ now icon:smile-o[role="yellow"]
 
 [[adding-intellij-jsf-support-to-project]]
 == Adding IntelliJ JSF support to project
@@ -409,8 +408,7 @@ And we could inspect our project now.
 In this article I've shown to you how to use maven to create a project
 using JSF and deploy it in JBoss AS7, and I've also talked about the
 usage of IntelliJ during project development phase. Hope the contents
-are practical and helpful to you
-image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/smile.png]
+are practical and helpful to you icon:smile-o[role="yellow"]
 
 [[references]]
 == References

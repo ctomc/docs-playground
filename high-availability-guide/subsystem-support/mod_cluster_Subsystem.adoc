@@ -1,20 +1,4 @@
-= Load Balancing
-
-This section describes load balancing via Apache + mod_jk and Apache +
-mod_cluster.
-
-[[load-balancing-with-apache-mod_jk]]
-== Load balancing with Apache + mod_jk
-
-Describe load balancing with Apache using mod_jk.
-
-[[load-balancing-with-apache-mod_cluster]]
-== Load balancing with Apache + mod_cluster
-
-Describe load balancing with Apache using mod_cluster.
-
-[[mod_cluster-subsystem]]
-=== mod_cluster Subsystem
+= mod_cluster Subsystem
 
 The mod_cluster integration is done via the
 http://docs.jboss.org/mod_cluster/1.1.0/html/java.AS7config.html[modcluster
@@ -29,7 +13,7 @@ subsystem].
 The instance-id or JVMRoute defaults to jboss.node.name property passed
 on server startup (e.g. via -Djboss.node.name=XYZ).
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9990 /] /subsystem=undertow/:read-attribute(name=instance-id)
 {
@@ -41,7 +25,7 @@ on server startup (e.g. via -Djboss.node.name=XYZ).
 To configure instance-id statically, configure the corresponding
 property in Undertow subsystem:
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9990 /] /subsystem=undertow/:write-attribute(name=instance-id,value=myroute)
 {
@@ -61,7 +45,7 @@ specify a static list of proxies, create a remote-socket-binding for
 each proxy and then reference them in the 'proxies' attribute. See the
 following example for configuration in the domain mode:
 
-[source, java]
+[source, ruby]
 ----
 [domain@localhost:9990 /] /socket-binding-group=ha-sockets/remote-destination-outbound-socket-binding=proxy1:add(host=10.21.152.86, port=6666)
 {
@@ -94,7 +78,7 @@ following example for configuration in the domain mode:
 
 The modcluster subsystem supports several operations:
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9999 subsystem=modcluster] :read-operation-names
 {
@@ -148,7 +132,7 @@ There are 2 operations that display how Apache httpd sees the node:
 Send a DUMP message to all Apache httpd the node is connected to and
 display the message received from Apache httpd.
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9999 subsystem=modcluster] :read-proxies-configuration
 {
@@ -182,7 +166,7 @@ context: 2 [/myapp] vhost: 1 node: 1 status: 1
 Send a INFO message to all Apache httpd the node is connected to and
 display the message received from Apache httpd.
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9999 subsystem=modcluster] :read-proxies-info
 {
@@ -220,7 +204,7 @@ Apache httpd the node is connected too.
 Displays the httpd that are connected to the node. The httpd could be
 discovered via the Advertise protocol or via the proxy-list attribute.
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9999 subsystem=modcluster] :list-proxies
 {
@@ -238,7 +222,7 @@ discovered via the Advertise protocol or via the proxy-list attribute.
 Remove a proxy from the discovered proxies or temporarily from the
 proxy-list attribute.
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9999 subsystem=modcluster] :remove-proxy(host=jfcpc, port=6666)
 {"outcome" => "success"}
@@ -267,7 +251,7 @@ They are send automatically when deploying or undeploying webapps.
 
 Tell Apache httpd that the context is ready receive requests.
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9999 subsystem=modcluster] :enable-context(context=/myapp, virtualhost=default-host)
 {"outcome" => "success"}
@@ -323,7 +307,7 @@ There are 4 metric operations corresponding to add and remove load
 metrics to the dynamic-load-provider. Note that when nothing is defined
 a simple-load-provider is use with a fixed load factor of one.
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9999 subsystem=modcluster] :read-resource(name=mod-cluster-config)
 {
@@ -334,7 +318,7 @@ a simple-load-provider is use with a fixed load factor of one.
 
 that corresponds to the following configuration:
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:modcluster:1.0">
             <mod-cluster-config>
@@ -349,7 +333,7 @@ that corresponds to the following configuration:
 Add a metric to the dynamic-load-provider, the dynamic-load-provider in
 configuration is created if needed.
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9999 subsystem=modcluster] :add-metric(type=cpu)
 {"outcome" => "success"}
@@ -373,7 +357,7 @@ configuration is created if needed.
 
 Remove a metric from the dynamic-load-provider.
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9999 subsystem=modcluster] :remove-metric(type=cpu)
 {"outcome" => "success"}
@@ -386,7 +370,7 @@ like the add-metric and remove-metric except they require a class
 parameter instead the type. Usually they needed additional properties
 which can be specified
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9999 subsystem=modcluster] :add-custom-metric(class=myclass, property=[("pro1" => "value1"), ("pro2" => "value2")]
 {"outcome" => "success"}
@@ -394,7 +378,7 @@ which can be specified
 
 which corresponds the following in the xml configuration file:
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:modcluster:1.0">
             <mod-cluster-config>
@@ -407,3 +391,5 @@ which corresponds the following in the xml configuration file:
             </mod-cluster-config>
 </subsystem>
 ----
+
+include::SSL_Configuration_using_Elytron_Subsystem.adoc[leveloffset=+1]
