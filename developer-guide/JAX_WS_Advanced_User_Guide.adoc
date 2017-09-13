@@ -370,3 +370,5 @@ include::jax-ws/WS-Discovery.adoc[]
 include::jax-ws/WS-Policy.adoc[]
 
 include::jax-ws/Published_WSDL_customization.adoc[]
+
+:leveloffset: -1

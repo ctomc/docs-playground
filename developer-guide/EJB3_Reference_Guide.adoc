@@ -267,3 +267,5 @@ include::ejb3/jboss-ejb3.xml_Reference.adoc[]
 include::ejb3/Message_Driven_Beans_Controlled_Delivery.adoc[]
 
 include::ejb3/Securing_EJBs.adoc[]
+
+:leveloffset: -1

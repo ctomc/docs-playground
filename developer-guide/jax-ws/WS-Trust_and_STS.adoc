@@ -1438,7 +1438,7 @@ The `@WebServiceProvider` annotation references the following WS-Policy
 enabled wsdl contract; please note the wsdl operations, messages and
 such must match the `PicketLinkSTS` implementation:
 
-[source, java]
+[source, xml]
 ----
 <?xml version="1.0"?>
 <wsdl:definitions name="PicketLinkSTS" targetNamespace="urn:picketlink:identity-federation:sts"
@@ -1644,7 +1644,7 @@ PicketLink based STS gets its configuration from a picketlink-sts.xml
 descriptor which must be added in WEB-INF into the deployment; please
 refer to the PicketLink documentation for further information:
 
-[source, java]
+[source, xml]
 ----
 <PicketLinkSTS xmlns="urn:picketlink:identity-federation:config:1.0"
     STSName="PicketLinkSTS" TokenTimeout="7200" EncryptToken="false">
@@ -1681,7 +1681,7 @@ Dependencies: org.apache.ws.security,org.apache.cxf,org.picketlink
 
 Here is how the PicketLink STS endpoint is packaged:
 
-[source, java]
+[source, bash]
 ----
 alessio@inuyasha /dati/jbossws/stack/cxf/trunk $ jar -tvf ./modules/testsuite/cxf-tests/target/test-libs/jaxws-samples-wsse-policy-trustPicketLink-sts.war
      0 Mon Sep 03 17:38:38 CEST 2012 META-INF/
@@ -1706,3 +1706,12 @@ alessio@inuyasha /dati/jbossws/stack/cxf/trunk $ jar -tvf ./modules/testsuite/cx
   1054 Mon Sep 03 16:35:50 CEST 2012 WEB-INF/classes/stsKeystore.properties
   3978 Mon Sep 03 16:35:50 CEST 2012 WEB-INF/classes/stsstore.jks
 ----
+
+:leveloffset: +1
+
+include::ActAs_WS-Trust_Scenario.adoc[]
+include::OnBehalfOf_WS-Trust_Scenario.adoc[]
+include::SAML_Bearer_Assertion_Scenario.adoc[]
+include::SAML_Holder-Of-Key_Assertion_Scenario.adoc[]
+
+:leveloffset: -1
