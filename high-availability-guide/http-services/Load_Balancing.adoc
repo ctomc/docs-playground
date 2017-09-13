@@ -407,3 +407,7 @@ which corresponds the following in the xml configuration file:
             </mod-cluster-config>
 </subsystem>
 ----
+
+:leveloffset: +1
+include::Apache_httpd.adoc[]
+:leveloffset: -1
