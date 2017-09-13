@@ -1,5 +1,5 @@
 = add-user utility
-:imagesdir: ../
+ifdef::env-github[:imagesdir: ../]
 
 For use with the default configuration we supply a utility `add-user`
 which can be used to manage the properties files for the default realms

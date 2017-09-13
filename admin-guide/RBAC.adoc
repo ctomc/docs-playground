@@ -1,5 +1,5 @@
 = Authorizing management actions with Role Based Access Control
-:imagesdir: ../
+ifdef::env-github[:imagesdir: ../]
 
 WildFly introduces a Role Based Access Control scheme that allows
 different administrative users to have different sets of permissions to

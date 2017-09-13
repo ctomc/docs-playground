@@ -1,5 +1,5 @@
 = Java API for RESTful Web Services (JAX-RS)
-:imagesdir: ../
+ifdef::env-github[:imagesdir: ../]
 
 [[content]]
 == Content

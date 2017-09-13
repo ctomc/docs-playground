@@ -1,5 +1,5 @@
 = WS-Security
-:imagesdir: ../../
+ifdef::env-github[:imagesdir: ../../]
 
 [[ws-security-overview]]
 == WS-Security overview

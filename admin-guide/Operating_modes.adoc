@@ -1,5 +1,5 @@
 = Operating mode
-:imagesdir: ../
+ifdef::env-github[:imagesdir: ../]
 
 WildFly can be booted in two different modes. A _managed domain_ allows
 you to run and manage a multi-server topology. Alternatively, you can

@@ -12,6 +12,9 @@ WildFly developer team;
 
 :leveloffset: +1
 
+ifdef::env-github[:outfilesuffix: .adoc]
+
+
 
 ifndef::ebook-format[:leveloffset: 1]
 

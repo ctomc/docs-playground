@@ -1,5 +1,5 @@
 = Developing JSF Project Using JBoss AS7, Maven and IntelliJ
-:imagesdir: ../
+ifdef::env-github[:imagesdir: ../]
 
 JBoss AS7 is a very 'modern' application server that has very fast
 startup speed. So it's an excellent container to test your JSF project.
