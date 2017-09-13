@@ -26,4 +26,4 @@ https://github.com/wildfly/quickstart.
 == Contributing
 
 If you want to contribute to the quickstarts, check out our
-link:Contributing_a_Quickstart.html[Contributing a Quickstart] page.
+link:https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONTRIBUTING.md#contribute-a-quickstart[Contributing a Quickstart] page.

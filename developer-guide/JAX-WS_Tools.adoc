@@ -417,3 +417,8 @@ EchoService service = new EchoService();
  
       System.out.println("Server said: " + echo.echo(args0));
 ----
+
+
+include::wsconsume.adoc[]
+
+include::wsprovide.adoc[]

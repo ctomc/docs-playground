@@ -516,7 +516,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="details">
 <span id="author" class="author">WildFly developer team</span><br>
 <span id="revnumber">version {version},</span>
-<span id="revdate">2017-09-12</span>
+<span id="revdate">2017-09-13</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">WildFly Developer guide</div>
@@ -717,80 +717,94 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#client-side">25.2. Client Side</a></li>
 </ul>
 </li>
-<li><a href="#_advanced_user_guide">26. Advanced User Guide</a>
+<li><a href="#_wsconsume">26. wsconsume</a>
 <ul class="sectlevel2">
-<li><a href="#logging">26.1. Logging</a></li>
-<li><a href="#ws--support">26.2. WS-* support</a></li>
-<li><a href="#address-rewrite">26.3. Address rewrite</a></li>
-<li><a href="#configuration-through-deployment-descriptor">26.4. Configuration through deployment descriptor</a></li>
-<li><a href="#schema-validation-of-soap-messages">26.5. Schema validation of SOAP messages</a></li>
-<li><a href="#jaxb-introductions">26.6. JAXB Introductions</a></li>
-<li><a href="#wsdl-system-properties-expansion">26.7. WSDL system properties expansion</a></li>
+<li><a href="#command-line-tool">26.1. Command Line Tool</a></li>
+<li><a href="#maven-plugin">26.2. Maven Plugin</a></li>
+<li><a href="#ant-task">26.3. Ant Task</a></li>
 </ul>
 </li>
-<li><a href="#_jboss_modules_and_ws_applications">27. JBoss Modules and WS applications</a>
+<li><a href="#_wsprovide">27. wsprovide</a>
 <ul class="sectlevel2">
-<li><a href="#setting-module-dependencies">27.1. Setting module dependencies</a></li>
+<li><a href="#command-line-tool">27.1. Command Line Tool</a></li>
+<li><a href="#maven-plugin">27.2. Maven Plugin</a></li>
+<li><a href="#ant-task">27.3. Ant Task</a></li>
 </ul>
 </li>
-<li><a href="#_scoped_ejb_client_contexts">28. Scoped EJB client contexts</a>
+<li><a href="#_advanced_user_guide">28. Advanced User Guide</a>
 <ul class="sectlevel2">
-<li><a href="#overview">28.1. Overview</a></li>
-<li><a href="#potential-shortcomings-of-a-single-ejb-client-context">28.2. Potential shortcomings of a single EJB client context</a></li>
-<li><a href="#scoped-ejb-client-contexts">28.3. Scoped EJB client contexts</a></li>
-<li><a href="#lifecycle-management-of-scoped-ejb-client-contexts">28.4. Lifecycle management of scoped EJB client contexts</a></li>
+<li><a href="#logging">28.1. Logging</a></li>
+<li><a href="#ws--support">28.2. WS-* support</a></li>
+<li><a href="#address-rewrite">28.3. Address rewrite</a></li>
+<li><a href="#configuration-through-deployment-descriptor">28.4. Configuration through deployment descriptor</a></li>
+<li><a href="#schema-validation-of-soap-messages">28.5. Schema validation of SOAP messages</a></li>
+<li><a href="#jaxb-introductions">28.6. JAXB Introductions</a></li>
+<li><a href="#wsdl-system-properties-expansion">28.7. WSDL system properties expansion</a></li>
 </ul>
 </li>
-<li><a href="#_ejb_invocations_from_a_remote_client_using_jndi">29. EJB invocations from a remote client using JNDI</a>
+<li><a href="#_jboss_modules_and_ws_applications">29. JBoss Modules and WS applications</a>
 <ul class="sectlevel2">
-<li><a href="#deploying-your-ejbs-on-the-server-side">29.1. Deploying your EJBs on the server side:</a></li>
-<li><a href="#writing-a-remote-client-application-for-accessing-and-invoking-the-ejbs-deployed-on-the-server">29.2. Writing a remote client application for accessing and invoking the</a></li>
-<li><a href="#setting-up-ejb-client-context-properties">29.3. Setting up EJB client context properties</a></li>
-<li><a href="#summary">29.4. Summary</a></li>
+<li><a href="#setting-module-dependencies">29.1. Setting module dependencies</a></li>
 </ul>
 </li>
-<li><a href="#_ejb_invocations_from_a_remote_server_instance">30. EJB invocations from a remote server instance</a>
+<li><a href="#_scoped_ejb_client_contexts">30. Scoped EJB client contexts</a>
 <ul class="sectlevel2">
-<li><a href="#application-packaging">30.1. Application packaging</a></li>
-<li><a href="#beans">30.2. Beans</a></li>
-<li><a href="#security">30.3. Security</a></li>
-<li><a href="#configuring-a-user-on-the-destination-server">30.4. Configuring a user on the "Destination Server"</a></li>
-<li><a href="#start-the-destination-server">30.5. Start the "Destination Server"</a></li>
-<li><a href="#deploying-the-application">30.6. Deploying the application</a></li>
-<li><a href="#configuring-the-client-server-to-point-to-the-ejb-remoting-connector-on-the-destination-server">30.7. Configuring the "Client Server" to point to the EJB remoting connector</a></li>
-<li><a href="#start-the-client-server">30.8. Start the "Client Server"</a></li>
-<li><a href="#create-a-security-realm-on-the-client-server">30.9. Create a security realm on the client server</a></li>
-<li><a href="#create-a-outbound-socket-binding-on-the-client-server">30.10. Create a outbound-socket-binding on the "Client Server"</a></li>
-<li><a href="#create-a-remote-outbound-connection-which-uses-this-newly-created-outbound-socket-binding">30.11. Create a "remote-outbound-connection" which uses this newly created</a></li>
-<li><a href="#packaging-the-client-application-on-the-client-server">30.12. Packaging the client application on the "Client Server"</a></li>
-<li><a href="#contents-on-jboss-ejb-client.xml">30.13. Contents on jboss-ejb-client.xml</a></li>
-<li><a href="#deploy-the-client-application">30.14. Deploy the client application</a></li>
-<li><a href="#client-code-invoking-the-bean">30.15. Client code invoking the bean</a></li>
+<li><a href="#overview">30.1. Overview</a></li>
+<li><a href="#potential-shortcomings-of-a-single-ejb-client-context">30.2. Potential shortcomings of a single EJB client context</a></li>
+<li><a href="#scoped-ejb-client-contexts">30.3. Scoped EJB client contexts</a></li>
+<li><a href="#lifecycle-management-of-scoped-ejb-client-contexts">30.4. Lifecycle management of scoped EJB client contexts</a></li>
 </ul>
 </li>
-<li><a href="#_remote_ejb_invocations_via_jndi_ejb_client_api_or_remote_naming_project">31. Remote EJB invocations via JNDI - EJB client API or remote-naming project</a>
+<li><a href="#_ejb_invocations_from_a_remote_client_using_jndi">31. EJB invocations from a remote client using JNDI</a>
 <ul class="sectlevel2">
-<li><a href="#purpose">31.1. Purpose</a></li>
-<li><a href="#history">31.2. History</a></li>
-<li><a href="#overview">31.3. Overview</a></li>
+<li><a href="#deploying-your-ejbs-on-the-server-side">31.1. Deploying your EJBs on the server side:</a></li>
+<li><a href="#writing-a-remote-client-application-for-accessing-and-invoking-the-ejbs-deployed-on-the-server">31.2. Writing a remote client application for accessing and invoking the</a></li>
+<li><a href="#setting-up-ejb-client-context-properties">31.3. Setting up EJB client context properties</a></li>
 <li><a href="#summary">31.4. Summary</a></li>
-<li><a href="#remote-ejb-invocations-backed-by-the-remote-naming-project">31.5. Remote EJB invocations backed by the remote-naming project</a></li>
-<li><a href="#why-use-the-ejb-client-api-approach-then">31.6. Why use the EJB client API approach then?</a></li>
 </ul>
 </li>
-<li><a href="#_example_applications_migrated_to_wildfly">32. Example Applications - Migrated to WildFly</a>
+<li><a href="#_ejb_invocations_from_a_remote_server_instance">32. EJB invocations from a remote server instance</a>
 <ul class="sectlevel2">
-<li><a href="#example-applications-migrated-from-previous-releases">32.1. Example Applications Migrated from Previous Releases</a></li>
-<li><a href="#example-applications-based-on-ee6">32.2. Example Applications Based on EE6</a></li>
+<li><a href="#application-packaging">32.1. Application packaging</a></li>
+<li><a href="#beans">32.2. Beans</a></li>
+<li><a href="#security">32.3. Security</a></li>
+<li><a href="#configuring-a-user-on-the-destination-server">32.4. Configuring a user on the "Destination Server"</a></li>
+<li><a href="#start-the-destination-server">32.5. Start the "Destination Server"</a></li>
+<li><a href="#deploying-the-application">32.6. Deploying the application</a></li>
+<li><a href="#configuring-the-client-server-to-point-to-the-ejb-remoting-connector-on-the-destination-server">32.7. Configuring the "Client Server" to point to the EJB remoting connector</a></li>
+<li><a href="#start-the-client-server">32.8. Start the "Client Server"</a></li>
+<li><a href="#create-a-security-realm-on-the-client-server">32.9. Create a security realm on the client server</a></li>
+<li><a href="#create-a-outbound-socket-binding-on-the-client-server">32.10. Create a outbound-socket-binding on the "Client Server"</a></li>
+<li><a href="#create-a-remote-outbound-connection-which-uses-this-newly-created-outbound-socket-binding">32.11. Create a "remote-outbound-connection" which uses this newly created</a></li>
+<li><a href="#packaging-the-client-application-on-the-client-server">32.12. Packaging the client application on the "Client Server"</a></li>
+<li><a href="#contents-on-jboss-ejb-client.xml">32.13. Contents on jboss-ejb-client.xml</a></li>
+<li><a href="#deploy-the-client-application">32.14. Deploy the client application</a></li>
+<li><a href="#client-code-invoking-the-bean">32.15. Client code invoking the bean</a></li>
 </ul>
 </li>
-<li><a href="#_porting_the_order_application_from_eap_5_1_to_wildfly_11">33. Porting the Order Application from EAP 5.1 to WildFly 11</a>
+<li><a href="#_remote_ejb_invocations_via_jndi_ejb_client_api_or_remote_naming_project">33. Remote EJB invocations via JNDI - EJB client API or remote-naming project</a>
 <ul class="sectlevel2">
-<li><a href="#overview-of-the-application">33.1. Overview of the application</a></li>
-<li><a href="#summary-of-changes">33.2. Summary of changes</a></li>
+<li><a href="#purpose">33.1. Purpose</a></li>
+<li><a href="#history">33.2. History</a></li>
+<li><a href="#overview">33.3. Overview</a></li>
+<li><a href="#summary">33.4. Summary</a></li>
+<li><a href="#remote-ejb-invocations-backed-by-the-remote-naming-project">33.5. Remote EJB invocations backed by the remote-naming project</a></li>
+<li><a href="#why-use-the-ejb-client-api-approach-then">33.6. Why use the EJB client API approach then?</a></li>
 </ul>
 </li>
-<li><a href="#_seam_2_booking_application_migration_of_binaries_from_eap5_1_to">34. Seam 2 Booking Application - Migration of Binaries from EAP5.1 to</a></li>
+<li><a href="#_example_applications_migrated_to_wildfly">34. Example Applications - Migrated to WildFly</a>
+<ul class="sectlevel2">
+<li><a href="#example-applications-migrated-from-previous-releases">34.1. Example Applications Migrated from Previous Releases</a></li>
+<li><a href="#example-applications-based-on-ee6">34.2. Example Applications Based on EE6</a></li>
+</ul>
+</li>
+<li><a href="#_porting_the_order_application_from_eap_5_1_to_wildfly_11">35. Porting the Order Application from EAP 5.1 to WildFly 11</a>
+<ul class="sectlevel2">
+<li><a href="#overview-of-the-application">35.1. Overview of the application</a></li>
+<li><a href="#summary-of-changes">35.2. Summary of changes</a></li>
+</ul>
+</li>
+<li><a href="#_seam_2_booking_application_migration_of_binaries_from_eap5_1_to">36. Seam 2 Booking Application - Migration of Binaries from EAP5.1 to</a></li>
 </ul>
 </div>
 </div>
@@ -7882,16 +7896,905 @@ setting the <em>ENDPOINT_ADDRESS_PROPERTY</em> as shown below:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_advanced_user_guide">26. Advanced User Guide</h2>
+<h2 id="_wsconsume">26. wsconsume</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>wsconsume</em> is a command line tool and ant task that "consumes" the
+abstract contract (WSDL file) and produces portable JAX-WS service and
+client artifacts.</p>
+</div>
+<div class="sect2">
+<h3 id="command-line-tool">26.1. Command Line Tool</h3>
+<div class="paragraph">
+<p>The command line tool has the following usage:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>usage: wsconsume [options] &lt;wsdl-url&gt;
+options:
+  -h, --help                  Show this help message
+  -b, --binding=&lt;file&gt;        One or more JAX-WS or JAXB binding files
+  -k, --keep                  Keep/Generate Java source
+  -c  --catalog=&lt;file&gt;        Oasis XML Catalog file for entity resolution
+  -j  --clientjar=&lt;name&gt;      Create a jar file of the generated artifacts for calling the webservice
+  -p  --package=&lt;name&gt;        The target package for generated source
+  -w  --wsdlLocation=&lt;loc&gt;    Value to use for @WebServiceClient.wsdlLocation
+  -o, --output=&lt;directory&gt;    The directory to put generated artifacts
+  -s, --source=&lt;directory&gt;    The directory to put Java source
+  -t, --target=&lt;2.0|2.1|2.2&gt;  The JAX-WS specification target
+  -q, --quiet                 Be somewhat more quiet
+  -v, --verbose               Show full exception stack traces
+  -l, --load-consumer         Load the consumer and exit (debug utility)
+  -e, --extension             Enable SOAP 1.2 binding extension
+  -a, --additionalHeaders     Enables processing of implicit SOAP headers
+  -n, --nocompile             Do not compile generated sources</pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The wsdlLocation is used when creating the Service to be used by clients
+and will be added to the @WebServiceClient annotation, for an endpoint
+implementation based on the generated service endpoint interface you
+will need to manually add the wsdlLocation to the @WebService annotation
+on your web service implementation and not the service endpoint
+interface.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="examples">26.1.1. Examples</h4>
+<div class="paragraph">
+<p>Generate artifacts in Java class form only:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>wsconsume Example.wsdl</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Generate source and class files:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>wsconsume -k Example.wsdl</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Generate source and class files in a custom directory:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>wsconsume -k -o custom Example.wsdl</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Generate source and class files in the org.foo package:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>wsconsume -k -p org.foo Example.wsdl</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Generate source and class files using multiple binding files:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>wsconsume -k -b wsdl-binding.xml -b schema1-binding.xml -b schema2-binding.xml</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="maven-plugin">26.2. Maven Plugin</h3>
+<div class="paragraph">
+<p>The wsconsume tools is included in the
+<strong>org.jboss.ws.plugins:jaxws-tools-maven-plugin</strong> plugin. The plugin has
+two goals for running the tool, <em>wsconsume</em> and <em>wsconsume-test</em>, which
+basically do the same during different maven build phases (the former
+triggers the sources generation during <em>generate-sources</em> phase, the
+latter during the <em>generate-test-sources</em> one).</p>
+</div>
+<div class="paragraph">
+<p>The <em>wsconsume</em> plugin has the following parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bindingFiles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JAXWS or JAXB binding file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">classpathElements</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each classpathElement provides alibrary file to be
+added to classpath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$\{project.compileClasspathElements}or$\{project.testClasspathElements}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">catalog</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Oasis XML Catalog file for entity resolution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">targetPackage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The target Java package for generated code.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">generated</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bindingFiles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One or more JAX-WS or JAXB binding file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wsdlLocation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value to use for @WebServiceClient.wsdlLocation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">generated</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">outputDirectory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The output directory for generated artifacts.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$\{project.build.outputDirectory}or$\{project.build.testOutputDirectory}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sourceDirectory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The output directory for Java source.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$\{project.build.directory}/wsconsume/java</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">verbose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables more informational output about command progress.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wsdls</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The WSDL files or URLs to consume</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n/a</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extension</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable SOAP 1.2 binding extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The charset encoding to use for generated sources.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$\{project.build.sourceEncoding}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">argLine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An optional additional argline to be used when running in fork
+mode;can be used to set endorse dir, enable debugging,
+etc.Example&lt;argLine&gt;-Djava.endorsed.dirs=&#8230;&#8203;&lt;/argLine&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fork</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not to run the generation task in a separate VM.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">target</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A preference for the JAX-WS specification target</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Depends on
+the underlying stack and endorsed dirs if any</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="examples-1">26.2.1. Examples</h4>
+<div class="paragraph">
+<p>You can use <em>wsconsume</em> in your own project build simply referencing the
+<em>jaxws-tools-maven-plugin</em> in the configured plugins in your pom.xml
+file.</p>
+</div>
+<div class="paragraph">
+<p>The following example makes the plugin consume the test.wsdl file and
+generate SEI and wrappers' java sources. The generated sources are then
+compiled together with the other project classes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.jboss.ws.plugins&lt;/groupId&gt;
+      &lt;artifactId&gt;jaxws-tools-maven-plugin&lt;/artifactId&gt;
+      &lt;version&gt;<span class="float">1.2</span><span class="float">.0</span>.Beta1&lt;/version&gt;
+      &lt;configuration&gt;
+        &lt;wsdls&gt;
+          &lt;wsdl&gt;<span class="error">$</span>{basedir}/test.wsdl&lt;/wsdl&gt;
+        &lt;/wsdls&gt;
+      &lt;/configuration&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;wsconsume&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also specify multiple wsdl files, as well as force the target
+package, enable SOAP 1.2 binding and turn the tool&#8217;s verbose mode on:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.jboss.ws.plugins&lt;/groupId&gt;
+      &lt;artifactId&gt;jaxws-tools-maven-plugin&lt;/artifactId&gt;
+      &lt;version&gt;<span class="float">1.2</span><span class="float">.0</span>.Beta1&lt;/version&gt;
+      &lt;configuration&gt;
+       &lt;wsdls&gt;
+        &lt;wsdl&gt;<span class="error">$</span>{basedir}/test.wsdl&lt;/wsdl&gt;
+        &lt;wsdl&gt;<span class="error">$</span>{basedir}/test2.wsdl&lt;/wsdl&gt;
+       &lt;/wsdls&gt;
+       &lt;targetPackage&gt;foo.bar&lt;/targetPackage&gt;
+       &lt;extension&gt;<span class="predefined-constant">true</span>&lt;/extension&gt;
+       &lt;verbose&gt;<span class="predefined-constant">true</span>&lt;/verbose&gt;
+      &lt;/configuration&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;wsconsume&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally, if the wsconsume invocation is required for consuming a wsdl to
+be used in your testsuite only, you might want to use the
+<em>wsconsume-test</em> goal as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.jboss.ws.plugins&lt;/groupId&gt;
+      &lt;artifactId&gt;jaxws-tools-maven-plugin&lt;/artifactId&gt;
+      &lt;version&gt;<span class="float">1.2</span><span class="float">.0</span>.Beta1&lt;/version&gt;
+      &lt;configuration&gt;
+        &lt;wsdls&gt;
+          &lt;wsdl&gt;<span class="error">$</span>{basedir}/test.wsdl&lt;/wsdl&gt;
+        &lt;/wsdls&gt;
+      &lt;/configuration&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;wsconsume-test&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Plugin stack dependencyThe plugin itself does not have an explicit
+dependency to a JBossWS stack, as it&#8217;s meant for being used with
+implementations of any supported version of the <em>JBossWS SPI</em>. So the
+user is expected to set a dependency in his own <code>pom.xml</code> to the desired
+<em>JBossWS</em> stack version. The plugin will rely on the that for using the
+proper tooling.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.jboss.ws.cxf&lt;/groupId&gt;
+    &lt;artifactId&gt;jbossws-cxf-client&lt;/artifactId&gt;
+    &lt;version&gt;<span class="float">4.0</span><span class="float">.0</span>.GA&lt;/version&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Be careful when using this plugin with the Maven War Plugin as that
+include any project dependency into the generated application war
+archive. You might want to set <code>&lt;scope&gt;provided&lt;/scope&gt;</code> for the
+<em>JBossWS</em> stack dependency to avoid that.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Up to version 1.1.2.Final, the <em>artifactId</em> of the plugin was
+<strong>maven-jaxws-tools-plugin</strong>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ant-task">26.3. Ant Task</h3>
+<div class="paragraph">
+<p>The <em>wsconsume</em> Ant task ( <em>org.jboss.ws.tools.ant.WSConsumeTask</em>) has
+the following attributes:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fork</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not to run the generation task in a separate VM.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keep/Enable Java source code generation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">catalog</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Oasis XML Catalog file for entity resolution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">package</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The target Java package for generated code.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">generated</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">binding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A JAX-WS or JAXB binding file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wsdlLocation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value to use for @WebServiceClient.wsdlLocation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">generated</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">encoding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The charset encoding to use for generated sources</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n/a</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">destdir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The output directory for generated artifacts.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"output"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sourcedestdir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The output directory for Java source.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value of destdir</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">target</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The JAX-WS specification target. Allowed values are 2.0, 2.1
+and 2.2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">verbose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables more informational output about command progress.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wsdl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The WSDL file or URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n/a</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extension</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable SOAP 1.2 binding extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">additionalHeaders</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables processing of implicit SOAP headers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Users also need to put streamBuffer.jar and stax-ex.jar to the classpath
+of the ant task to generate the appropriate artefacts.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The wsdlLocation is used when creating the Service to be used by clients
+and will be added to the @WebServiceClient annotation, for an endpoint
+implementation based on the generated service endpoint interface you
+will need to manually add the wsdlLocation to the @WebService annotation
+on your web service implementation and not the service endpoint
+interface.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Also, the following nested elements are supported:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Element</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">binding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A JAXWS or JAXB binding file</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">none</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jvmarg</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows setting of custom jvm arguments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="examples-2">26.3.1. Examples</h4>
+<div class="paragraph">
+<p>Generate JAX-WS source and classes in a separate JVM with separate
+directories, a custom wsdl location attribute, and a list of binding
+files from foo.wsdl:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;wsconsume
+  fork=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+  verbose=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+  destdir=<span class="string"><span class="delimiter">&quot;</span><span class="content">output</span><span class="delimiter">&quot;</span></span>
+  sourcedestdir=<span class="string"><span class="delimiter">&quot;</span><span class="content">gen-src</span><span class="delimiter">&quot;</span></span>
+  keep=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+  wsdllocation=<span class="string"><span class="delimiter">&quot;</span><span class="content">handEdited.wsdl</span><span class="delimiter">&quot;</span></span>
+  wsdl=<span class="string"><span class="delimiter">&quot;</span><span class="content">foo.wsdl</span><span class="delimiter">&quot;</span></span>&gt;
+  &lt;binding dir=<span class="string"><span class="delimiter">&quot;</span><span class="content">binding-files</span><span class="delimiter">&quot;</span></span> includes=<span class="string"><span class="delimiter">&quot;</span><span class="content">*.xml</span><span class="delimiter">&quot;</span></span> excludes=<span class="string"><span class="delimiter">&quot;</span><span class="content">bad.xml</span><span class="delimiter">&quot;</span></span>/&gt;
+&lt;/wsconsume&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_wsprovide">27. wsprovide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>wsprovide</em> is a command line tool, Maven plugin and Ant task that
+generates portable JAX-WS artifacts for a service endpoint
+implementation. It also has the option to "provide" the abstract
+contract for offline usage.</p>
+</div>
+<div class="sect2">
+<h3 id="command-line-tool">27.1. Command Line Tool</h3>
+<div class="paragraph">
+<p>The command line tool has the following usage:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>usage: wsprovide [options] &lt;endpoint class name&gt;
+options:
+  -h, --help                  Show this help message
+  -k, --keep                  Keep/Generate Java source
+  -w, --wsdl                  Enable WSDL file generation
+  -a, --address The generated port soap:address in wsdl
+  -c. --classpath=&lt;path&gt;      The classpath that contains the endpoint
+  -o, --output=&lt;directory&gt;    The directory to put generated artifacts
+  -r, --resource=&lt;directory&gt;  The directory to put resource artifacts
+  -s, --source=&lt;directory&gt;    The directory to put Java source
+  -e, --extension             Enable SOAP 1.2 binding extension
+  -q, --quiet                 Be somewhat more quiet
+  -t, --show-traces           Show full exception stack traces</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="examples">27.1.1. Examples</h4>
+<div class="paragraph">
+<p>Generating wrapper classes for portable artifacts in the "generated"
+directory:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>wsprovide -o generated foo.Endpoint</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Generating wrapper classes and WSDL in the "generated" directory</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>wsprovide -o generated -w foo.Endpoint</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Using an endpoint that references other jars</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>wsprovide -o generated -c application1.jar:application2.jar foo.Endpoint</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="maven-plugin">27.2. Maven Plugin</h3>
+<div class="paragraph">
+<p>The <em>wsprovide</em> tools is included in the
+<strong>org.jboss.ws.plugins:jaxws-tools-</strong> <strong>maven-</strong> <strong>plugin</strong> plugin. The plugin
+has two goals for running the tool, <em>wsprovide</em> and <em>wsprovide-test</em>,
+which basically do the same during different Maven build phases (the
+former triggers the sources generation during <em>process-classes</em> phase,
+the latter during the <em>process-test-classes</em> one).</p>
+</div>
+<div class="paragraph">
+<p>The <em>wsprovide</em> plugin has the following parameters:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">testClasspathElements</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each classpathElement provides alibrary file to
+be added to classpath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$\{project.compileClasspathElements}or$\{project.testClasspathElements}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">outputDirectory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The output directory for generated artifacts.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$\{project.build.outputDirectory}or$\{project.build.testOutputDirectory}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resourceDirectory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The output directory for resource artifacts
+(WSDL/XSD).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$\{project.build.directory}/wsprovide/resources</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sourceDirectory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The output directory for Java source.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$\{project.build.directory}/wsprovide/java</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extension</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable SOAP 1.2 binding extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">generateWsdl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not to generate WSDL.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">verbose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables more informational output about command progress.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">portSoapAddress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The generated port soap:address in the WSDL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">endpointClass</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service Endpoint Implementation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="examples-1">27.2.1. Examples</h4>
+<div class="paragraph">
+<p>You can use <em>wsprovide</em> in your own project build simply referencing the
+<em>maven-jaxws-tools-plugin</em> in the configured plugins in your <em>pom.xml</em>
+file.</p>
+</div>
+<div class="paragraph">
+<p>The following example makes the plugin provide the wsdl file and
+artifact sources for the specified endpoint class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.jboss.ws.plugins&lt;/groupId&gt;
+      &lt;artifactId&gt;jaxws-tools-maven-plugin&lt;/artifactId&gt;
+      &lt;version&gt;<span class="float">1.2</span><span class="float">.0</span>.Beta1&lt;/version&gt;
+      &lt;configuration&gt;
+        &lt;verbose&gt;<span class="predefined-constant">true</span>&lt;/verbose&gt;
+        &lt;endpointClass&gt;org.jboss.test.ws.plugins.tools.wsprovide.TestEndpoint&lt;/endpointClass&gt;
+        &lt;generateWsdl&gt;<span class="predefined-constant">true</span>&lt;/generateWsdl&gt;
+      &lt;/configuration&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;wsprovide&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following example does the same, but is meant for use in your own
+testsuite:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.jboss.ws.plugins&lt;/groupId&gt;
+      &lt;artifactId&gt;jaxws-tools-maven-plugin&lt;/artifactId&gt;
+      &lt;version&gt;<span class="float">1.2</span><span class="float">.0</span>.Beta1&lt;/version&gt;
+      &lt;configuration&gt;
+        &lt;verbose&gt;<span class="predefined-constant">true</span>&lt;/verbose&gt;
+        &lt;endpointClass&gt;org.jboss.test.ws.plugins.tools.wsprovide.TestEndpoint2&lt;/endpointClass&gt;
+        &lt;generateWsdl&gt;<span class="predefined-constant">true</span>&lt;/generateWsdl&gt;
+      &lt;/configuration&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;wsprovide-test&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Plugin stack dependencyThe plugin itself does not have an explicit
+dependency to a JBossWS stack, as it&#8217;s meant for being used with
+implementations of any supported version of the <em>JBossWS SPI</em>. So the
+user is expected to set a dependency in his own <code>pom.xml</code> to the desired
+<em>JBossWS</em> stack version. The plugin will rely on the that for using the
+proper tooling.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.jboss.ws.cxf&lt;/groupId&gt;
+    &lt;artifactId&gt;jbossws-cxf-client&lt;/artifactId&gt;
+    &lt;version&gt;<span class="float">5.0</span><span class="float">.0</span>.CR1&lt;/version&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Be careful when using this plugin with the Maven War Plugin as that
+include any project dependency into the generated application war
+archive. You might want to set <code>&lt;scope&gt;provided&lt;/scope&gt;</code> for the
+<em>JBossWS</em> stack dependency to avoid that.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Up to version 1.1.2.Final, the <em>artifactId</em> of the plugin was
+<strong>maven-jaxws-tools-plugin</strong>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ant-task">27.3. Ant Task</h3>
+<div class="paragraph">
+<p>The wsprovide ant task ( <em>org.jboss.ws.tools.ant.WSProvideTask</em>) has the
+following attributes:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fork</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not to run the generation task in a separate VM.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keep/Enable Java source code generation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">destdir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The output directory for generated artifacts.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"output"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">resourcedestdir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The output directory for resource artifacts
+(WSDL/XSD).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value of destdir</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sourcedestdir</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The output directory for Java source.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value of destdir</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extension</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable SOAP 1.2 binding extension.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">genwsdl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether or not to generate WSDL.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">address</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The generated port soap:address in wsdl.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">verbose</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enables more informational output about command progress.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sei</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service Endpoint Implementation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">classpath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The classpath that contains the service endpoint
+implementation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"."</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="examples-2">27.3.1. Examples</h4>
+<div class="paragraph">
+<p>Executing wsprovide in verbose mode with separate output directories for
+source, resources, and classes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;target name=<span class="string"><span class="delimiter">&quot;</span><span class="content">test-wsproivde</span><span class="delimiter">&quot;</span></span> depends=<span class="string"><span class="delimiter">&quot;</span><span class="content">init</span><span class="delimiter">&quot;</span></span>&gt;
+  &lt;taskdef name=<span class="string"><span class="delimiter">&quot;</span><span class="content">wsprovide</span><span class="delimiter">&quot;</span></span> classname=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.jboss.ws.tools.ant.WSProvideTask</span><span class="delimiter">&quot;</span></span>&gt;
+    &lt;classpath refid=<span class="string"><span class="delimiter">&quot;</span><span class="content">core.classpath</span><span class="delimiter">&quot;</span></span>/&gt;
+  &lt;/taskdef&gt;
+  &lt;wsprovide
+    fork=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span>
+    keep=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+    destdir=<span class="string"><span class="delimiter">&quot;</span><span class="content">out</span><span class="delimiter">&quot;</span></span>
+    resourcedestdir=<span class="string"><span class="delimiter">&quot;</span><span class="content">out-resource</span><span class="delimiter">&quot;</span></span>
+    sourcedestdir=<span class="string"><span class="delimiter">&quot;</span><span class="content">out-source</span><span class="delimiter">&quot;</span></span>
+    genwsdl=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+    verbose=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+    sei=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.jboss.test.ws.jaxws.jsr181.soapbinding.DocWrappedServiceImpl</span><span class="delimiter">&quot;</span></span>&gt;
+    &lt;classpath&gt;
+      &lt;pathelement path=<span class="string"><span class="delimiter">&quot;</span><span class="content">${tests.output.dir}/classes</span><span class="delimiter">&quot;</span></span>/&gt;
+    &lt;/classpath&gt;
+  &lt;/wsprovide&gt;
+&lt;/target&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_advanced_user_guide">28. Advanced User Guide</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="logging">26.1. Logging</h3>
+<h3 id="logging">28.1. Logging</h3>
 <div class="paragraph">
 <p>Logging of inbound and outbound messages is a common need. Different
 approaches are available for achieving that:</p>
 </div>
 <div class="sect3">
-<h4 id="jax-ws-handler-approach">26.1.1. JAX-WS Handler approach</h4>
+<h4 id="jax-ws-handler-approach">28.1.1. JAX-WS Handler approach</h4>
 <div class="paragraph">
 <p>A portable way of performing logging is writing a simple JAX-WS handler
 dumping the messages that are passed in it; the handler can be added to
@@ -7906,7 +8809,7 @@ or to some of them only (in which case the <code>@EndpointConfig</code> annotati
 </div>
 </div>
 <div class="sect3">
-<h4 id="apache-cxf-approach">26.1.2. Apache CXF approach</h4>
+<h4 id="apache-cxf-approach">28.1.2. Apache CXF approach</h4>
 <div class="paragraph">
 <p>Apache CXF also comes with logging interceptors that can be easily used
 to log messages to the console or configured client/server log files.
@@ -7967,7 +8870,7 @@ CXF documentation</a> for more details.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="ws--support">26.2. WS-* support</h3>
+<h3 id="ws--support">28.2. WS-* support</h3>
 <div class="paragraph">
 <p>JBossWS includes most of the WS-* specification functionalities through
 the integration with Apache CXF. In particular, the whole WS-Security
@@ -7980,13 +8883,13 @@ book.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="address-rewrite">26.3. Address rewrite</h3>
+<h3 id="address-rewrite">28.3. Address rewrite</h3>
 <div class="paragraph">
 <p>JBossWS allows users to configure the <em>soap:address</em> attribute in the
 wsdl contract of deployed services.</p>
 </div>
 <div class="sect3">
-<h4 id="server-configuration-options">26.3.1. Server configuration options</h4>
+<h4 id="server-configuration-options">28.3.1. Server configuration options</h4>
 <div class="paragraph">
 <p>The configuration options are part of the
 <a href="https://docs.jboss.org/author/display/WFLY8/Web+services+configuration">webservices
@@ -8022,7 +8925,7 @@ of the first connector is used.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="dynamic-rewrite">26.3.2. Dynamic rewrite</h4>
+<h4 id="dynamic-rewrite">28.3.2. Dynamic rewrite</h4>
 <div class="paragraph">
 <p>When the application server is bound to multiple addresses or
 non-trivial real-world network architectures cause request for different
@@ -8049,7 +8952,7 @@ currently configured for the https/ssl connector.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuration-through-deployment-descriptor">26.4. Configuration through deployment descriptor</h3>
+<h3 id="configuration-through-deployment-descriptor">28.4. Configuration through deployment descriptor</h3>
 <div class="paragraph">
 <p>The <code>jboss-webservices.xml</code> deployment descriptor can be used to provide
 additional configuration for a given deployment. The expected location
@@ -8096,7 +8999,7 @@ EJB webservice endpoints bundled in <code>war</code> archives</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="context-root-element">26.4.1. context-root element</h4>
+<h4 id="context-root-element">28.4.1. context-root element</h4>
 <div class="paragraph">
 <p>Element <code>&lt;context-root&gt;</code> can be used to customize context root of
 webservices deployment.</p>
@@ -8110,7 +9013,7 @@ webservices deployment.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="config-name-and-config-file-elements">26.4.2. config-name and config-file elements</h4>
+<h4 id="config-name-and-config-file-elements">28.4.2. config-name and config-file elements</h4>
 <div class="paragraph">
 <p>Elements <code>&lt;config-name&gt;</code> and <code>&lt;config-file&gt;</code> can be used to associate
 any endpoint provided in the deployment with a given
@@ -8131,7 +9034,7 @@ related
 </div>
 </div>
 <div class="sect3">
-<h4 id="property-element">26.4.3. property element</h4>
+<h4 id="property-element">28.4.3. property element</h4>
 <div class="paragraph">
 <p><code>&lt;property&gt;</code> elements can be used to setup simple property values to
 configure the ws stack behavior. Allowed property names and values are
@@ -8147,7 +9050,7 @@ mentioned in the guide under related topics.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="port-component-element">26.4.4. port-component element</h4>
+<h4 id="port-component-element">28.4.4. port-component element</h4>
 <div class="paragraph">
 <p>Element <code>&lt;port-component&gt;</code> can be used to customize EJB endpoint target
 URI or to configure security related properties.</p>
@@ -8168,7 +9071,7 @@ URI or to configure security related properties.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="webservice-description-element">26.4.5. webservice-description element</h4>
+<h4 id="webservice-description-element">28.4.5. webservice-description element</h4>
 <div class="paragraph">
 <p>Element <code>&lt;webservice-description&gt;</code> can be used to customize (override)
 webservice WSDL publish location.</p>
@@ -8186,7 +9089,7 @@ webservice WSDL publish location.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="schema-validation-of-soap-messages">26.5. Schema validation of SOAP messages</h3>
+<h3 id="schema-validation-of-soap-messages">28.5. Schema validation of SOAP messages</h3>
 <div class="paragraph">
 <p>Apache CXF has a feature for validating incoming and outgoing SOAP
 messages on both client and server side. The validation is performed
@@ -8247,7 +9150,7 @@ them)</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="jaxb-introductions">26.6. JAXB Introductions</h3>
+<h3 id="jaxb-introductions">28.6. JAXB Introductions</h3>
 <div class="paragraph">
 <p>As Kohsuke Kawaguchi wrote on
 <a href="http://weblogs.java.net/blog/kohsuke/archive/2007/07/binding_3rd_par.html">his
@@ -8273,7 +9176,7 @@ Introductions page</a> on the wiki and at the examples in the sources.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="wsdl-system-properties-expansion">26.7. WSDL system properties expansion</h3>
+<h3 id="wsdl-system-properties-expansion">28.7. WSDL system properties expansion</h3>
 <div class="paragraph">
 <p>See <a href="#src-557254">Published WSDL customization</a></p>
 </div>
@@ -8281,7 +9184,7 @@ Introductions page</a> on the wiki and at the examples in the sources.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_jboss_modules_and_ws_applications">27. JBoss Modules and WS applications</h2>
+<h2 id="_jboss_modules_and_ws_applications">29. JBoss Modules and WS applications</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The JBoss Web Services functionalities are provided by a given set of
@@ -8296,7 +9199,7 @@ custom needs, below is a brief collection of suggestions and hints
 around modules and webservices development on WildFly.</p>
 </div>
 <div class="sect2">
-<h3 id="setting-module-dependencies">27.1. Setting module dependencies</h3>
+<h3 id="setting-module-dependencies">29.1. Setting module dependencies</h3>
 <div class="paragraph">
 <p>On WildFly the user deployment classloader does not have any visibility
 over JBoss internals; so for instance you can&#8217;t <em>directly</em> use JBossWS
@@ -8319,7 +9222,7 @@ need for explicit dependencies declaration for those modules.
 </table>
 </div>
 <div class="sect3">
-<h4 id="using-manifest.mf">27.1.1. Using MANIFEST.MF</h4>
+<h4 id="using-manifest.mf">29.1.1. Using MANIFEST.MF</h4>
 <div class="paragraph">
 <p>The convenient method for configuring deployment dependencies is adding
 them into the MANIFEST.MF file:</p>
@@ -8454,7 +9357,7 @@ won&#8217;t appear as annotated classes to the webservices subsystem.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="using-jboss-deployment-descriptor.xml">27.1.2. Using jboss-deployment-descriptor.xml</h4>
+<h4 id="using-jboss-deployment-descriptor.xml">29.1.2. Using jboss-deployment-descriptor.xml</h4>
 <div class="paragraph">
 <p>In some circumstances, the convenient approach of setting module
 dependencies in MANIFEST.MF might not work. An example is the need for
@@ -8467,10 +9370,10 @@ their deployment and set module dependencies in it.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_scoped_ejb_client_contexts">28. Scoped EJB client contexts</h2>
+<h2 id="_scoped_ejb_client_contexts">30. Scoped EJB client contexts</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="overview">28.1. Overview</h3>
+<h3 id="overview">30.1. Overview</h3>
 <div class="paragraph">
 <p>WildFly 11 introduced the EJB client API for managing remote EJB
 invocations. The EJB client API works off EJBClientContext(s). An
@@ -8510,7 +9413,7 @@ letting it handle the invocation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="potential-shortcomings-of-a-single-ejb-client-context">28.2. Potential shortcomings of a single EJB client context</h3>
+<h3 id="potential-shortcomings-of-a-single-ejb-client-context">30.2. Potential shortcomings of a single EJB client context</h3>
 <div class="paragraph">
 <p>In the Overview section we briefly looked at the different types of
 remote clients. Let&#8217;s focus on the standalone remote clients (the ones
@@ -8594,7 +9497,7 @@ are typically used for EJB invocations.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="scoped-ejb-client-contexts">28.3. Scoped EJB client contexts</h3>
+<h3 id="scoped-ejb-client-contexts">30.3. Scoped EJB client contexts</h3>
 <div class="paragraph">
 <p>Developers familiar with earlier versions of JBoss AS would remember
 that for invoking an EJB, you would typically create a JNDI context
@@ -8700,7 +9603,7 @@ the lifecycle management of such scoped contexts.</strong></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="lifecycle-management-of-scoped-ejb-client-contexts">28.4. Lifecycle management of scoped EJB client contexts</h3>
+<h3 id="lifecycle-management-of-scoped-ejb-client-contexts">30.4. Lifecycle management of scoped EJB client contexts</h3>
 <div class="paragraph">
 <p>Like you saw in the previous sections, in case of scoped EJB client
 contexts, the EJB client context is tied to the JNDI context. It&#8217;s very
@@ -8742,14 +9645,14 @@ EJB client context is closed.
 </table>
 </div>
 <div class="sect3">
-<h4 id="how-to-close-ejb-client-contexts">28.4.1. How to close EJB client contexts?</h4>
+<h4 id="how-to-close-ejb-client-contexts">30.4.1. How to close EJB client contexts?</h4>
 <div class="paragraph">
 <p>The answer to that is simple. Use the close() method on the appropriate
 EJB client context.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="how-to-close-scoped-ejb-client-contexts">28.4.2. How to close scoped EJB client contexts?</h4>
+<h4 id="how-to-close-scoped-ejb-client-contexts">30.4.2. How to close scoped EJB client contexts?</h4>
 <div class="paragraph">
 <p>The answer is the same, use the close() method on the EJB client
 context. But the real question is how do you get the relevant scoped EJB
@@ -8933,7 +9836,7 @@ lookups. So it depends on your application and how it&#8217;s coded.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cant-the-scoped-ejb-client-context-be-automatically-closed-by-the-ejb-client-api-when-the-jndi-context-is-no-longer-in-scope-i.e.-on-gc">28.4.3. Can&#8217;t the scoped EJB client context be automatically closed by the</h4>
+<h4 id="cant-the-scoped-ejb-client-context-be-automatically-closed-by-the-ejb-client-api-when-the-jndi-context-is-no-longer-in-scope-i.e.-on-gc">30.4.3. Can&#8217;t the scoped EJB client context be automatically closed by the</h4>
 <div class="paragraph">
 <p>EJB client API when the JNDI context is no longer in scope (i.e. on GC)?</p>
 </div>
@@ -8988,7 +9891,7 @@ EJB client context.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_ejb_invocations_from_a_remote_client_using_jndi">29. EJB invocations from a remote client using JNDI</h2>
+<h2 id="_ejb_invocations_from_a_remote_client_using_jndi">31. EJB invocations from a remote client using JNDI</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This chapter explains how to invoke EJBs from a remote client by using
@@ -9021,7 +9924,7 @@ just concentrate on the traditional JNDI based invocation on EJBs. So
 let&#8217;s get started:</p>
 </div>
 <div class="sect2">
-<h3 id="deploying-your-ejbs-on-the-server-side">29.1. Deploying your EJBs on the server side:</h3>
+<h3 id="deploying-your-ejbs-on-the-server-side">31.1. Deploying your EJBs on the server side:</h3>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -9143,7 +10046,7 @@ successfully and there aren&#8217;t any errors.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="writing-a-remote-client-application-for-accessing-and-invoking-the-ejbs-deployed-on-the-server">29.2. Writing a remote client application for accessing and invoking the</h3>
+<h3 id="writing-a-remote-client-application-for-accessing-and-invoking-the-ejbs-deployed-on-the-server">31.2. Writing a remote client application for accessing and invoking the</h3>
 <div class="paragraph">
 <p>EJBs deployed on the server</p>
 </div>
@@ -9515,7 +10418,7 @@ EJB client context properties.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-up-ejb-client-context-properties">29.3. Setting up EJB client context properties</h3>
+<h3 id="setting-up-ejb-client-context-properties">31.3. Setting up EJB client context properties</h3>
 <div class="paragraph">
 <p>A EJB client context is a context which contains contextual information
 for carrying out remote invocations on EJBs. This is a WildFly-specific
@@ -9757,7 +10660,7 @@ this jar as a Maven dependency.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="summary">29.4. Summary</h3>
+<h3 id="summary">31.4. Summary</h3>
 <div class="paragraph">
 <p>In the above examples, we saw what it takes to invoke a EJB from a
 remote client. To summarize:</p>
@@ -9797,7 +10700,7 @@ the client classpath</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_ejb_invocations_from_a_remote_server_instance">30. EJB invocations from a remote server instance</h2>
+<h2 id="_ejb_invocations_from_a_remote_server_instance">32. EJB invocations from a remote server instance</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The purpose of this chapter is to demonstrate how to lookup and invoke
@@ -9825,7 +10728,7 @@ the "Destination Server" but <strong>not</strong> on the "Client Server".
 </table>
 </div>
 <div class="sect2">
-<h3 id="application-packaging">30.1. Application packaging</h3>
+<h3 id="application-packaging">32.1. Application packaging</h3>
 <div class="paragraph">
 <p>In this example, we&#8217;ll consider a EJB which is packaged in a myejb.jar
 which is within a myapp.ear. Here&#8217;s how it would look like:</p>
@@ -9855,7 +10758,7 @@ article. You can deploy the EJBs in any standard way (.ear, .war or
 </div>
 </div>
 <div class="sect2">
-<h3 id="beans">30.2. Beans</h3>
+<h3 id="beans">32.2. Beans</h3>
 <div class="paragraph">
 <p>In our example, we&#8217;ll consider a simple stateless session bean which is
 as follows:</p>
@@ -9890,7 +10793,7 @@ as follows:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="security">30.3. Security</h3>
+<h3 id="security">32.3. Security</h3>
 <div class="paragraph">
 <p>WildFly 11 is secure by default. What this means is that no communication
 can happen with an WildFly instance from a remote client (irrespective
@@ -9904,7 +10807,7 @@ this.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuring-a-user-on-the-destination-server">30.4. Configuring a user on the "Destination Server"</h3>
+<h3 id="configuring-a-user-on-the-destination-server">32.4. Configuring a user on the "Destination Server"</h3>
 <div class="paragraph">
 <p>As a first step we&#8217;ll configure a user on the destination server who
 will be allowed to access the destination server. We create the user
@@ -9974,7 +10877,7 @@ add-user script.
 </div>
 </div>
 <div class="sect2">
-<h3 id="start-the-destination-server">30.5. Start the "Destination Server"</h3>
+<h3 id="start-the-destination-server">32.5. Start the "Destination Server"</h3>
 <div class="paragraph">
 <p>As a next step towards running this example, we&#8217;ll start the
 "Destination Server". In this example, we&#8217;ll use the standalone server
@@ -10012,7 +10915,7 @@ to the startup script:
 </div>
 </div>
 <div class="sect2">
-<h3 id="deploying-the-application">30.6. Deploying the application</h3>
+<h3 id="deploying-the-application">32.6. Deploying the application</h3>
 <div class="paragraph">
 <p>The application ( <em>myapp.ear</em> in our case) will be deployed to
 "Destination Server". The process of deploying the application is out of
@@ -10028,7 +10931,7 @@ as the client for the deployed EJBs on the "Destination Server".</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuring-the-client-server-to-point-to-the-ejb-remoting-connector-on-the-destination-server">30.7. Configuring the "Client Server" to point to the EJB remoting connector</h3>
+<h3 id="configuring-the-client-server-to-point-to-the-ejb-remoting-connector-on-the-destination-server">32.7. Configuring the "Client Server" to point to the EJB remoting connector</h3>
 <div class="paragraph">
 <p>on the "Destination Server"</p>
 </div>
@@ -10046,7 +10949,7 @@ we create these configurations.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="start-the-client-server">30.8. Start the "Client Server"</h3>
+<h3 id="start-the-client-server">32.8. Start the "Client Server"</h3>
 <div class="paragraph">
 <p>In this example, we&#8217;ll start the "Client Server" on the same machine as
 the "Destination Server". We have copied the entire server installation
@@ -10060,7 +10963,7 @@ port-offset (of 100 in this example) to avoid port conflicts:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-a-security-realm-on-the-client-server">30.9. Create a security realm on the client server</h3>
+<h3 id="create-a-security-realm-on-the-client-server">32.9. Create a security realm on the client server</h3>
 <div class="paragraph">
 <p>Remember that we need to communicate with a secure destination server.
 In order to do that the client server has to pass the user credentials
@@ -10170,7 +11073,7 @@ client server. Now let&#8217;s move on to the next step.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-a-outbound-socket-binding-on-the-client-server">30.10. Create a outbound-socket-binding on the "Client Server"</h3>
+<h3 id="create-a-outbound-socket-binding-on-the-client-server">32.10. Create a outbound-socket-binding on the "Client Server"</h3>
 <div class="paragraph">
 <p>Let&#8217;s first create a <em>outbound-socket-binding</em> which points the
 "Destination Server"'s host and port. We&#8217;ll use the CLI to create this
@@ -10205,7 +11108,7 @@ outbound-socket-binding in the socket-binding-group:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-a-remote-outbound-connection-which-uses-this-newly-created-outbound-socket-binding">30.11. Create a "remote-outbound-connection" which uses this newly created</h3>
+<h3 id="create-a-remote-outbound-connection-which-uses-this-newly-created-outbound-socket-binding">32.11. Create a "remote-outbound-connection" which uses this newly created</h3>
 <div class="paragraph">
 <p>"outbound-socket-binding"</p>
 </div>
@@ -10283,7 +11186,7 @@ configuration will be created in the remoting subsystem:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="packaging-the-client-application-on-the-client-server">30.12. Packaging the client application on the "Client Server"</h3>
+<h3 id="packaging-the-client-application-on-the-client-server">32.12. Packaging the client application on the "Client Server"</h3>
 <div class="paragraph">
 <p>Like on the "Destination Server", we&#8217;ll use .ear packaging for the
 client application too. But like previously mentioned, that&#8217;s not
@@ -10334,7 +11237,7 @@ jboss-ejb-client.xml is expected to be placed in .war/WEB-INF/ folder
 </div>
 </div>
 <div class="sect2">
-<h3 id="contents-on-jboss-ejb-client.xml">30.13. Contents on jboss-ejb-client.xml</h3>
+<h3 id="contents-on-jboss-ejb-client.xml">32.13. Contents on jboss-ejb-client.xml</h3>
 <div class="paragraph">
 <p>The jboss-ejb-client.xml will look like:</p>
 </div>
@@ -10359,7 +11262,7 @@ connector on the "Destination Server".</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deploy-the-client-application">30.14. Deploy the client application</h3>
+<h3 id="deploy-the-client-application">32.14. Deploy the client application</h3>
 <div class="paragraph">
 <p>Let&#8217;s deploy the client application on the "Client Server". The process
 of deploying the application is out of scope, of this chapter. You can
@@ -10369,7 +11272,7 @@ application is deployed successfully.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="client-code-invoking-the-bean">30.15. Client code invoking the bean</h3>
+<h3 id="client-code-invoking-the-bean">32.15. Client code invoking the bean</h3>
 <div class="paragraph">
 <p>We mentioned that we&#8217;ll be using a servlet to invoke on the bean, but
 the code to invoke the bean isn&#8217;t servlet specific and can be used in
@@ -10412,10 +11315,10 @@ public <span class="type">void</span> invokeOnBean() {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_remote_ejb_invocations_via_jndi_ejb_client_api_or_remote_naming_project">31. Remote EJB invocations via JNDI - EJB client API or remote-naming project</h2>
+<h2 id="_remote_ejb_invocations_via_jndi_ejb_client_api_or_remote_naming_project">33. Remote EJB invocations via JNDI - EJB client API or remote-naming project</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="purpose">31.1. Purpose</h3>
+<h3 id="purpose">33.1. Purpose</h3>
 <div class="paragraph">
 <p>WildFly provides EJB client API project as well as remote-naming project
 for invoking on remote objects exposed via JNDI. This article explains
@@ -10424,7 +11327,7 @@ these projects is.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="history">31.2. History</h3>
+<h3 id="history">33.2. History</h3>
 <div class="paragraph">
 <p>Previous versions of JBoss AS (versions &lt; WildFly 11) used JNP project (
 <a href="http://anonsvn.jboss.org/repos/jbossas/projects/naming/" class="bare">http://anonsvn.jboss.org/repos/jbossas/projects/naming/</a>) as the JNDI
@@ -10447,14 +11350,14 @@ and better control over security.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="overview">31.3. Overview</h3>
+<h3 id="overview">33.3. Overview</h3>
 <div class="paragraph">
 <p>Now that we know that for remote client JNDI communication with WildFly
 8 requires jboss-remote-naming project, let&#8217;s quickly see what the code
 looks like.</p>
 </div>
 <div class="sect3">
-<h4 id="client-code-relying-on-jndi.properties-in-classpath">31.3.1. Client code relying on jndi.properties in classpath</h4>
+<h4 id="client-code-relying-on-jndi.properties-in-classpath">33.3.1. Client code relying on jndi.properties in classpath</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java"><span class="type">void</span> doLookup() {
@@ -10551,7 +11454,7 @@ client application to decide which approach they want to follow.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="how-does-remoting-naming-work">31.3.2. How does remoting naming work</h4>
+<h4 id="how-does-remoting-naming-work">33.3.2. How does remoting naming work</h4>
 <div class="paragraph">
 <p>We have so far had an overview of how the client code looks like when
 using the jboss-remote-naming (henceforth referred to as remote-naming -
@@ -10641,7 +11544,7 @@ implementation details to see what other ways are allowed.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="jndi-operations-allowed-using-remote-naming-project">31.3.3. JNDI operations allowed using remote-naming project</h4>
+<h4 id="jndi-operations-allowed-using-remote-naming-project">33.3.3. JNDI operations allowed using remote-naming project</h4>
 <div class="paragraph">
 <p>So far we have mainly concentrated on how the naming context is created
 and what it internally does when an instance is created. Let&#8217;s now take
@@ -10665,7 +11568,7 @@ application.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="pre-requisites-of-remotely-accessible-jndi-objects">31.3.4. Pre-requisites of remotely accessible JNDI objects</h4>
+<h4 id="pre-requisites-of-remotely-accessible-jndi-objects">33.3.4. Pre-requisites of remotely accessible JNDI objects</h4>
 <div class="paragraph">
 <p>On the server side, the JNDI can contain numerous objects that are bound
 to it. However, <em>not</em> all of those are exposed remotely. The two
@@ -10685,7 +11588,7 @@ be remotely accessible via JNDI.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="jndi-lookup-strings-for-remote-clients-backed-by-the-remote-naming-project">31.3.5. JNDI lookup strings for remote clients backed by the remote-naming</h4>
+<h4 id="jndi-lookup-strings-for-remote-clients-backed-by-the-remote-naming-project">33.3.5. JNDI lookup strings for remote clients backed by the remote-naming</h4>
 <div class="paragraph">
 <p>project</p>
 </div>
@@ -10739,7 +11642,7 @@ go into that here.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="how-does-remote-naming-project-implementation-transfer-the-jndi-objects-to-the-clients">31.3.6. How does remote-naming project implementation transfer the JNDI</h4>
+<h4 id="how-does-remote-naming-project-implementation-transfer-the-jndi-objects-to-the-clients">33.3.6. How does remote-naming project implementation transfer the JNDI</h4>
 <div class="paragraph">
 <p>objects to the clients</p>
 </div>
@@ -10770,7 +11673,7 @@ remote-naming project for doing the same thing.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="summary">31.4. Summary</h3>
+<h3 id="summary">33.4. Summary</h3>
 <div class="paragraph">
 <p>That pretty much covers whatever is important to know, in the
 remote-naming project, for a typical client application. Don&#8217;t close the
@@ -10787,7 +11690,7 @@ interested in those details.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="remote-ejb-invocations-backed-by-the-remote-naming-project">31.5. Remote EJB invocations backed by the remote-naming project</h3>
+<h3 id="remote-ejb-invocations-backed-by-the-remote-naming-project">33.5. Remote EJB invocations backed by the remote-naming project</h3>
 <div class="paragraph">
 <p>In previous sections of this article we saw that whatever is exposed in
 the java:jboss/exported/ namespace is accessible remotely to the client
@@ -10992,7 +11895,7 @@ invocations against WildFly is possible!</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="why-use-the-ejb-client-api-approach-then">31.6. Why use the EJB client API approach then?</h3>
+<h3 id="why-use-the-ejb-client-api-approach-then">33.6. Why use the EJB client API approach then?</h3>
 <div class="paragraph">
 <p>I can guess that some of you might already question why/when would one
 use the EJB client API style lookups as explained in the
@@ -11072,7 +11975,7 @@ the EJB client API <em>does</em> communicate with the server to carry out the
 invocation.</p>
 </div>
 <div class="sect3">
-<h4 id="is-the-lookup-optimization-applicable-for-all-bean-types">31.6.1. Is the lookup optimization applicable for all bean types?</h4>
+<h4 id="is-the-lookup-optimization-applicable-for-all-bean-types">33.6.1. Is the lookup optimization applicable for all bean types?</h4>
 <div class="paragraph">
 <p>In the previous section we (intentionally) mentioned that the lookup
 optimization by the EJB client API project happens for stateless beans.
@@ -11122,7 +12025,7 @@ project.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="restrictions-for-ejbs">31.6.2. Restrictions for EJB&#8217;s</h4>
+<h4 id="restrictions-for-ejbs">33.6.2. Restrictions for EJB&#8217;s</h4>
 <div class="paragraph">
 <p>If the remote-naming is used there are some restrictions as there is no
 full support of the ejb-client features.</p>
@@ -11164,10 +12067,10 @@ application deployed on another JBoss instance</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_applications_migrated_to_wildfly">32. Example Applications - Migrated to WildFly</h2>
+<h2 id="_example_applications_migrated_to_wildfly">34. Example Applications - Migrated to WildFly</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="example-applications-migrated-from-previous-releases">32.1. Example Applications Migrated from Previous Releases</h3>
+<h3 id="example-applications-migrated-from-previous-releases">34.1. Example Applications Migrated from Previous Releases</h3>
 <div class="paragraph">
 <p>The applications in this section were written for a previous version of
 the server but have been modified to run on WildFly 11. Changes were made
@@ -11177,7 +12080,7 @@ changes that were made to get the application to run successfully on
 WildFly.</p>
 </div>
 <div class="sect3">
-<h4 id="seam-2-dvd-store-example">32.1.1. Seam 2 DVD Store example</h4>
+<h4 id="seam-2-dvd-store-example">34.1.1. Seam 2 DVD Store example</h4>
 <div class="paragraph">
 <p>For details on how to migrate this demo application, see
 <a href="https://community.jboss.org/blogs/marek-novotny/2011/12/16/dvdstore-migration-for-jboss-as-710beta">Seam
@@ -11185,7 +12088,7 @@ WildFly.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="seam-2-booking-example">32.1.2. Seam 2 Booking example</h4>
+<h4 id="seam-2-booking-example">34.1.2. Seam 2 Booking example</h4>
 <div class="paragraph">
 <p>For details on how to migrate this demo application, see
 <a href="http://community.jboss.org/blogs/marek-novotny/2011/07/29/seam-2-booking-example-on-jboss-as-7">Seam
@@ -11193,7 +12096,7 @@ WildFly.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="seam-2-booking---step-by-step-migration-of-binaries">32.1.3. Seam 2 Booking - step-by-step migration of binaries</h4>
+<h4 id="seam-2-booking---step-by-step-migration-of-binaries">34.1.3. Seam 2 Booking - step-by-step migration of binaries</h4>
 <div class="paragraph">
 <p>This document takes a somewhat different "brute force" approach. The
 idea is to deploy the binaries to WildFly, then see what issues you hit
@@ -11201,21 +12104,21 @@ and learn how debug and resolve them. See <a href="Migrate_Seam_2_Booking_EAR_Bi
 </div>
 </div>
 <div class="sect3">
-<h4 id="jbpm-console-application">32.1.4. jBPM-Console application</h4>
+<h4 id="jbpm-console-application">34.1.4. jBPM-Console application</h4>
 <div class="paragraph">
 <p>Kris Verlaenen migrated this application from AS 5 to WildFly 11. For
 details about this migration, see <a href="http://kverlaen.blogspot.com/2011/07/jbpm5-on-as7-lightning.html">jBPM5 on WildFly</a> on his Kris&#8217;s Blog.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="order-application-used-for-performance-testing">32.1.5. Order application used for performance testing</h4>
+<h4 id="order-application-used-for-performance-testing">34.1.5. Order application used for performance testing</h4>
 <div class="paragraph">
 <p>Andy Miller migrated this application from AS 5 to WildFly. For details
 about this migration, see <a href="Migrate_Order_Application_from_EAP5.1_to_WildFly.adoc">Order Application Migration from EAP5.1 to WildFly</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="migrate-example-application">32.1.6. Migrate example application</h4>
+<h4 id="migrate-example-application">34.1.6. Migrate example application</h4>
 <div class="paragraph">
 <p>A step by step work through of issues, and their solutions, that might
 crop up when migrating applications to WildFly 11. See the following
@@ -11224,7 +12127,7 @@ crop up when migrating applications to WildFly 11. See the following
 </div>
 </div>
 <div class="sect2">
-<h3 id="example-applications-based-on-ee6">32.2. Example Applications Based on EE6</h3>
+<h3 id="example-applications-based-on-ee6">34.2. Example Applications Based on EE6</h3>
 <div class="paragraph">
 <p>Applications in this section were designed and written specifically to
 use the features and functions of EE6.</p>
@@ -11244,7 +12147,7 @@ your own project. For more information about the quickstarts, see
 </div>
 </div>
 <div class="sect1">
-<h2 id="_porting_the_order_application_from_eap_5_1_to_wildfly_11">33. Porting the Order Application from EAP 5.1 to WildFly 11</h2>
+<h2 id="_porting_the_order_application_from_eap_5_1_to_wildfly_11">35. Porting the Order Application from EAP 5.1 to WildFly 11</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Andy Miller ported an example Order application that was used for
@@ -11252,7 +12155,7 @@ performance testing from EAP 5.1 to WildFly 11. These are the notes he
 made during the migration process.</p>
 </div>
 <div class="sect2">
-<h3 id="overview-of-the-application">33.1. Overview of the application</h3>
+<h3 id="overview-of-the-application">35.1. Overview of the application</h3>
 <div class="paragraph">
 <p>The application is relatively simple. it contains three servlets, some
 stateless session beans, a stateful session bean, and some entities.</p>
@@ -11264,9 +12167,9 @@ some proprietary features that were available in EAP 5.1.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="summary-of-changes">33.2. Summary of changes</h3>
+<h3 id="summary-of-changes">35.2. Summary of changes</h3>
 <div class="sect3">
-<h4 id="code-changes">33.2.1. Code Changes</h4>
+<h4 id="code-changes">35.2.1. Code Changes</h4>
 <div class="sect4">
 <h5 id="modify-jndi-lookup-code">Modify JNDI lookup code</h5>
 <div class="paragraph">
@@ -11344,7 +12247,7 @@ on the portable JNDI names described in EE 6.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="modify-logging-code">33.2.2. Modify logging code</h4>
+<h4 id="modify-logging-code">35.2.2. Modify logging code</h4>
 <div class="paragraph">
 <p>The next major change was to logging within the application. The old
 version was using the commons logging infrastructure and Log4J that is
@@ -11407,7 +12310,7 @@ Dependencies: org.jboss.logmanager</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="modify-the-code-to-use-infinispan-for-2nd-level-cache">33.2.3. Modify the code to use Infinispan for 2nd level cache</h4>
+<h4 id="modify-the-code-to-use-infinispan-for-2nd-level-cache">35.2.3. Modify the code to use Infinispan for 2nd level cache</h4>
 <div class="paragraph">
 <p>Jboss Cache has been replaced by Infinispan for 2nd level cache. This
 requires modification of the <code>persistence.xml</code> file.</p>
@@ -11453,7 +12356,7 @@ application to AS7.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="ear-packaging-changes">33.2.4. EAR Packaging Changes</h4>
+<h4 id="ear-packaging-changes">35.2.4. EAR Packaging Changes</h4>
 <div class="paragraph">
 <p>Due to modular class loading changes, the structure of the existing EAR
 failed to deploy successfully in WildFly.</p>
@@ -11524,7 +12427,7 @@ Dependencies: org.jboss.logmanager
 </div>
 </div>
 <div class="sect3">
-<h4 id="summary">33.2.5. Summary</h4>
+<h4 id="summary">35.2.5. Summary</h4>
 <div class="paragraph">
 <p>Although the existing EAR structure could have worked with additional
 modifications to the <code>MANIFEST.MF</code> file, this approach seemed more
@@ -11540,7 +12443,7 @@ changes that were made to the application.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_seam_2_booking_application_migration_of_binaries_from_eap5_1_to">34. Seam 2 Booking Application - Migration of Binaries from EAP5.1 to</h2>
+<h2 id="_seam_2_booking_application_migration_of_binaries_from_eap5_1_to">36. Seam 2 Booking Application - Migration of Binaries from EAP5.1 to</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>WildFly</p>
