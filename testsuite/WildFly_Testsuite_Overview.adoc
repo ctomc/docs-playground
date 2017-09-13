@@ -89,8 +89,6 @@ testsuite submodules.
 * basic.integration.tests.profile
 * clustering.integration.tests.profile
 
-include::Modules_details.adoc[]
-
 == Integration tests
 
 [[smoke--dts.smoke--dts.nosmoke]]

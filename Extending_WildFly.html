@@ -520,63 +520,68 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Extending WildFly</div>
+<ul class="sectlevel1">
+<li><a href="#target-audience">1. Target Audience</a>
 <ul class="sectlevel2">
-<li><a href="#target-audience">1. Target Audience</a></li>
-<li><a href="#_example_subsystem">1. Example subsystem</a>
-<ul class="sectlevel2">
-<li><a href="#create-the-skeleton-project">1.1. Create the skeleton project</a></li>
-<li><a href="#create-the-schema">1.2. Create the schema</a></li>
-<li><a href="#design-and-define-the-model-structure">1.3. Design and define the model structure</a></li>
-<li><a href="#parsing-and-marshalling-of-the-subsystem-xml">1.4. Parsing and marshalling of the subsystem xml</a></li>
-<li><a href="#add-the-deployers">1.5. Add the deployers</a></li>
-<li><a href="#integrate-with-wildfly">1.6. Integrate with WildFly</a></li>
-<li><a href="#expressions">1.7. Expressions</a></li>
+<li><a href="#prerequisites">1.1. Prerequisites</a></li>
+<li><a href="#examples-in-this-guide">1.2. Examples in this guide</a></li>
 </ul>
 </li>
-<li><a href="#_working_with_wildfly_capabilities">2. Working with WildFly Capabilities</a>
+<li><a href="#_example_subsystem">2. Example subsystem</a>
 <ul class="sectlevel2">
-<li><a href="#capabilities">2.1. Capabilities</a></li>
-<li><a href="#capability-contract">2.2. Capability Contract</a></li>
-<li><a href="#capability-registry">2.3. Capability Registry</a></li>
-<li><a href="#using-capabilities">2.4. Using Capabilities</a></li>
+<li><a href="#create-the-skeleton-project">2.1. Create the skeleton project</a></li>
+<li><a href="#create-the-schema">2.2. Create the schema</a></li>
+<li><a href="#design-and-define-the-model-structure">2.3. Design and define the model structure</a></li>
+<li><a href="#parsing-and-marshalling-of-the-subsystem-xml">2.4. Parsing and marshalling of the subsystem xml</a></li>
+<li><a href="#add-the-deployers">2.5. Add the deployers</a></li>
+<li><a href="#integrate-with-wildfly">2.6. Integrate with WildFly</a></li>
+<li><a href="#expressions">2.7. Expressions</a></li>
 </ul>
 </li>
-<li><a href="#_domain_mode_subsystem_transformers">3. Domain Mode Subsystem Transformers</a>
+<li><a href="#_working_with_wildfly_capabilities">3. Working with WildFly Capabilities</a>
 <ul class="sectlevel2">
-<li><a href="#abstract">3.1. Abstract</a></li>
-<li><a href="#background">3.2. Background</a></li>
-<li><a href="#versions-and-backward-compatibility">3.3. Versions and backward compatibility</a></li>
-<li><a href="#the-role-of-transformers">3.4. The role of transformers</a></li>
-<li><a href="#how-do-i-know-what-needs-to-be-transformed">3.5. How do I know what needs to be transformed?</a></li>
-<li><a href="#how-do-i-write-a-transformer">3.6. How do I write a transformer?</a></li>
-<li><a href="#evolving-transformers-with-subsystem-modelversions">3.7. Evolving transformers with subsystem ModelVersions</a></li>
-<li><a href="#testing-transformers">3.8. Testing transformers</a></li>
-<li><a href="#common-transformation-use-cases">3.9. Common transformation use-cases</a></li>
+<li><a href="#capabilities">3.1. Capabilities</a></li>
+<li><a href="#capability-contract">3.2. Capability Contract</a></li>
+<li><a href="#capability-registry">3.3. Capability Registry</a></li>
+<li><a href="#using-capabilities">3.4. Using Capabilities</a></li>
 </ul>
 </li>
-<li><a href="#_key_interfaces_and_classes_relevant_to_extension_developers">4. Key Interfaces and Classes Relevant to Extension Developers</a>
+<li><a href="#_domain_mode_subsystem_transformers">4. Domain Mode Subsystem Transformers</a>
 <ul class="sectlevel2">
-<li><a href="#extension-interface">4.1. Extension Interface</a></li>
-<li><a href="#wildfly-managed-resources">4.2. WildFly Managed Resources</a></li>
-<li><a href="#managementresourceregistration-interface">4.3. ManagementResourceRegistration Interface</a></li>
-<li><a href="#resourcedefinition-interface">4.4. ResourceDefinition Interface</a></li>
-<li><a href="#attributedefinition-class">4.5. AttributeDefinition Class</a></li>
-<li><a href="#operationdefinition-and-operationstephandler-interfaces">4.6. OperationDefinition and OperationStepHandler Interfaces</a></li>
-<li><a href="#operation-execution-and-the-operationcontext">4.7. Operation Execution and the OperationContext</a></li>
-<li><a href="#resource-interface">4.8. Resource Interface</a></li>
-<li><a href="#deploymentunitprocessor-interface">4.9. DeploymentUnitProcessor Interface</a></li>
-<li><a href="#useful-classes-for-implementing-operationstephandler">4.10. Useful classes for implementing OperationStepHandler</a></li>
+<li><a href="#abstract">4.1. Abstract</a></li>
+<li><a href="#background">4.2. Background</a></li>
+<li><a href="#versions-and-backward-compatibility">4.3. Versions and backward compatibility</a></li>
+<li><a href="#the-role-of-transformers">4.4. The role of transformers</a></li>
+<li><a href="#how-do-i-know-what-needs-to-be-transformed">4.5. How do I know what needs to be transformed?</a></li>
+<li><a href="#how-do-i-write-a-transformer">4.6. How do I write a transformer?</a></li>
+<li><a href="#evolving-transformers-with-subsystem-modelversions">4.7. Evolving transformers with subsystem ModelVersions</a></li>
+<li><a href="#testing-transformers">4.8. Testing transformers</a></li>
+<li><a href="#common-transformation-use-cases">4.9. Common transformation use-cases</a></li>
 </ul>
 </li>
-<li><a href="#_wildfly_9_jndi_implementation">5. WildFly 9 JNDI Implementation</a>
+<li><a href="#_key_interfaces_and_classes_relevant_to_extension_developers">5. Key Interfaces and Classes Relevant to Extension Developers</a>
 <ul class="sectlevel2">
-<li><a href="#introduction">5.1. Introduction</a></li>
-<li><a href="#architecture">5.2. Architecture</a></li>
-<li><a href="#binding-apis">5.3. Binding APIs</a></li>
-<li><a href="#resource-ref-processing">5.4. Resource Ref Processing</a></li>
+<li><a href="#extension-interface">5.1. Extension Interface</a></li>
+<li><a href="#wildfly-managed-resources">5.2. WildFly Managed Resources</a></li>
+<li><a href="#managementresourceregistration-interface">5.3. ManagementResourceRegistration Interface</a></li>
+<li><a href="#resourcedefinition-interface">5.4. ResourceDefinition Interface</a></li>
+<li><a href="#attributedefinition-class">5.5. AttributeDefinition Class</a></li>
+<li><a href="#operationdefinition-and-operationstephandler-interfaces">5.6. OperationDefinition and OperationStepHandler Interfaces</a></li>
+<li><a href="#operation-execution-and-the-operationcontext">5.7. Operation Execution and the OperationContext</a></li>
+<li><a href="#resource-interface">5.8. Resource Interface</a></li>
+<li><a href="#deploymentunitprocessor-interface">5.9. DeploymentUnitProcessor Interface</a></li>
+<li><a href="#useful-classes-for-implementing-operationstephandler">5.10. Useful classes for implementing OperationStepHandler</a></li>
 </ul>
 </li>
-<li><a href="#_cli_extensibility_for_layered_products">6. CLI extensibility for layered products</a></li>
+<li><a href="#_wildfly_9_jndi_implementation">6. WildFly 9 JNDI Implementation</a>
+<ul class="sectlevel2">
+<li><a href="#introduction">6.1. Introduction</a></li>
+<li><a href="#architecture">6.2. Architecture</a></li>
+<li><a href="#binding-apis">6.3. Binding APIs</a></li>
+<li><a href="#resource-ref-processing">6.4. Resource Ref Processing</a></li>
+</ul>
+</li>
+<li><a href="#_cli_extensibility_for_layered_products">7. CLI extensibility for layered products</a></li>
 </ul>
 </div>
 </div>
@@ -608,14 +613,11 @@ and forth between the sections is also a good strategy.</p>
 <!-- toc disabled -->
 </div>
 </div>
+<div class="sect1">
+<h2 id="target-audience">1. Target Audience</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="target-audience">1. Target Audience</h3>
-<div class="paragraph">
-<p>This document is intended for people who want to extend WildFly to
-introduce new capabilities.</p>
-</div>
-<div class="sect3">
-<h4 id="prerequisites">1.1. Prerequisites</h4>
+<h3 id="prerequisites">1.1. Prerequisites</h3>
 <div class="paragraph">
 <p>You should know how to download, install and run WildFly. If not please
 consult the <a href="Getting_Started_Guide.html">Getting Started Guide</a>. You
@@ -626,8 +628,8 @@ you need Java development experience to follow the example in this
 guide.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="examples-in-this-guide">1.2. Examples in this guide</h4>
+<div class="sect2">
+<h3 id="examples-in-this-guide">1.2. Examples in this guide</h3>
 <div class="paragraph">
 <p>Most of the examples in this guide are being expressed as excerpts of
 the XML configuration files or by using a representation of the de-typed
@@ -635,8 +637,9 @@ management model.</p>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="_example_subsystem">1. Example subsystem</h2>
+<h2 id="_example_subsystem">2. Example subsystem</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Our example subsystem will keep track of all deployments of certain
@@ -644,7 +647,7 @@ types containing a special marker file, and expose operations to see how
 long these deployments have been deployed.</p>
 </div>
 <div class="sect2">
-<h3 id="create-the-skeleton-project">1.1. Create the skeleton project</h3>
+<h3 id="create-the-skeleton-project">2.1. Create the skeleton project</h3>
 <div class="paragraph">
 <p>To make your life easier we have provided a maven archetype which will
 create a skeleton project for implementing subsystems.</p>
@@ -791,7 +794,7 @@ parsers</a> section.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-the-schema">1.2. Create the schema</h3>
+<h3 id="create-the-schema">2.2. Create the schema</h3>
 <div class="paragraph">
 <p>First, let us define the schema for our subsystem. Rename
 <code>src/main/resources/schema/mysubsystem.xsd</code> to
@@ -848,7 +851,7 @@ class to contain the new namespace.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="design-and-define-the-model-structure">1.3. Design and define the model structure</h3>
+<h3 id="design-and-define-the-model-structure">2.3. Design and define the model structure</h3>
 <div class="paragraph">
 <p>The following example xml contains a valid subsystem configuration, we
 will see how to plug this in to WildFly later in this tutorial.</p>
@@ -932,7 +935,7 @@ subsystem&#8217;s model back to the main configuration file when it is
 modified. We will add more functionality to this method later.</p>
 </div>
 <div class="sect3">
-<h4 id="registering-the-core-subsystem-model">1.3.1. Registering the core subsystem model</h4>
+<h4 id="registering-the-core-subsystem-model">2.3.1. Registering the core subsystem model</h4>
 <div class="paragraph">
 <p>Next we obtain a <code>ManagementResourceRegistration</code> by registering the
 subsystem model. This is a <strong>compulsory</strong> step for every new subsystem.</p>
@@ -1158,7 +1161,7 @@ changes.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="registering-the-subsystem-child">1.3.2. Registering the subsystem child</h4>
+<h4 id="registering-the-subsystem-child">2.3.2. Registering the subsystem child</h4>
 <div class="paragraph">
 <p>The <code>type</code> child does not exist in our skeleton project so we need to
 implement the operations to add and remove them from the model.</p>
@@ -1543,7 +1546,7 @@ when you are done.
 </div>
 </div>
 <div class="sect2">
-<h3 id="parsing-and-marshalling-of-the-subsystem-xml">1.4. Parsing and marshalling of the subsystem xml</h3>
+<h3 id="parsing-and-marshalling-of-the-subsystem-xml">2.4. Parsing and marshalling of the subsystem xml</h3>
 <div class="paragraph">
 <p>WildFly uses the Stax API to parse the xml files. This is initialized in
 <code>SubsystemExtension</code> by mapping our parser onto our namespace:</p>
@@ -1732,7 +1735,7 @@ that you can do it by implementing it like this.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="testing-the-parsers">1.4.1. Testing the parsers</h4>
+<h4 id="testing-the-parsers">2.4.1. Testing the parsers</h4>
 <div class="paragraph">
 <p>Changes to tests between 7.0.0 and 7.0.1</p>
 </div>
@@ -2179,7 +2182,7 @@ the kernel services and make sure it has the right value</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-the-deployers">1.5. Add the deployers</h3>
+<h3 id="add-the-deployers">2.5. Add the deployers</h3>
 <div class="paragraph">
 <p>When discussing <code>SubsystemAddHandler</code> we did not mention the work done
 to install the deployers, which is done in the following method:</p>
@@ -2275,7 +2278,7 @@ instance for the deployment&#8217;s suffix, we remove the deployment&#8217;s nam
 from it.</p>
 </div>
 <div class="sect3">
-<h4 id="deployment-phases-and-attachments">1.5.1. Deployment phases and attachments</h4>
+<h4 id="deployment-phases-and-attachments">2.5.1. Deployment phases and attachments</h4>
 <div class="paragraph">
 <p>The code in the SubsystemDeploymentProcessor uses an <em>attachment</em>, which
 is the means of communication between the individual deployment
@@ -2353,7 +2356,7 @@ may be removed here.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="integrate-with-wildfly">1.6. Integrate with WildFly</h3>
+<h3 id="integrate-with-wildfly">2.6. Integrate with WildFly</h3>
 <div class="paragraph">
 <p>Now that we have all the code needed for our subsystem, we can build our
 project by running <code>mvn install</code></p>
@@ -2671,7 +2674,7 @@ that our subsystem entry reflects the current state of the subsystem:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="expressions">1.7. Expressions</h3>
+<h3 id="expressions">2.7. Expressions</h3>
 <div class="paragraph">
 <p>Expressions are mechanism that enables you to support variables in your
 attributes, for instance when you want the value of attribute to be
@@ -2691,7 +2694,7 @@ resolved using system / environment properties.</p>
 <code>127.0.0.1</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="what-expression-types-are-supported">1.7.1. What expression types are supported</h4>
+<h4 id="what-expression-types-are-supported">2.7.1. What expression types are supported</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2730,7 +2733,7 @@ above.)</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="how-to-support-expressions-in-subsystems">1.7.2. How to support expressions in subsystems</h4>
+<h4 id="how-to-support-expressions-in-subsystems">2.7.2. How to support expressions in subsystems</h4>
 <div class="paragraph">
 <p>The easiest way is by using AttributeDefinition, which provides support
 for expressions just by using it correctly.</p>
@@ -2838,7 +2841,7 @@ unresolved value.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_working_with_wildfly_capabilities">2. Working with WildFly Capabilities</h2>
+<h2 id="_working_with_wildfly_capabilities">3. Working with WildFly Capabilities</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>An extension to WildFly will likely want to make use of services
@@ -2884,7 +2887,7 @@ configuration model.</p>
 </ol>
 </div>
 <div class="sect2">
-<h3 id="capabilities">2.1. Capabilities</h3>
+<h3 id="capabilities">3.1. Capabilities</h3>
 <div class="paragraph">
 <p>A capability is a piece of functionality used in a WildFly Core based
 process that is exposed via the WildFly Core management layer.
@@ -2937,7 +2940,7 @@ runtime services provided by a capability for which it has registered a
 requirement are available.</p>
 </div>
 <div class="sect3">
-<h4 id="comparison-to-other-concepts">2.1.1. Comparison to other concepts</h4>
+<h4 id="comparison-to-other-concepts">3.1.1. Comparison to other concepts</h4>
 <div class="sect4">
 <h5 id="capabilities-vs-modules">Capabilities vs modules</h5>
 <div class="paragraph">
@@ -2966,7 +2969,7 @@ itself may register a number of different capabilities.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="capability-names">2.1.2. Capability Names</h4>
+<h4 id="capability-names">3.1.2. Capability Names</h4>
 <div class="paragraph">
 <p>Capability names are simple strings, with the dot character serving as a
 separator to allow namespacing.</p>
@@ -2977,7 +2980,7 @@ WildFly organization on github ( <a href="https://github.com/wildfly" class="bar
 </div>
 </div>
 <div class="sect3">
-<h4 id="statically-vs-dynamically-named-capabilities">2.1.3. Statically vs Dynamically Named Capabilities</h4>
+<h4 id="statically-vs-dynamically-named-capabilities">3.1.3. Statically vs Dynamically Named Capabilities</h4>
 <div class="paragraph">
 <p>The full name of a capability is either statically known, or it may
 include a statically known base element and then a dynamic element. The
@@ -2997,7 +3000,7 @@ requirements.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="service-provided-by-a-capability">2.1.4. Service provided by a capability</h4>
+<h4 id="service-provided-by-a-capability">3.1.4. Service provided by a capability</h4>
 <div class="paragraph">
 <p>Typically a capability functions by registering a service with the
 WildFly process' MSC ServiceContainer, and then dependent capabilities
@@ -3007,7 +3010,7 @@ means to discover service names.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="custom-integration-apis-provided-by-a-capability">2.1.5. Custom integration APIs provided by a capability</h4>
+<h4 id="custom-integration-apis-provided-by-a-capability">3.1.5. Custom integration APIs provided by a capability</h4>
 <div class="paragraph">
 <p>Instead of or in addition to providing MSC services, a capability may
 expose some other API to dependent capabilities. This API must be
@@ -3016,7 +3019,7 @@ non-JRE classes as method parameters or return types).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="capability-requirements">2.1.6. Capability Requirements</h4>
+<h4 id="capability-requirements">3.1.6. Capability Requirements</h4>
 <div class="paragraph">
 <p>A capability may rely on other capabilities in order to provide its
 functionality at runtime. The management operation handlers that
@@ -3090,7 +3093,7 @@ process reload has not occurred.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="capability-contract">2.2. Capability Contract</h3>
+<h3 id="capability-contract">3.2. Capability Contract</h3>
 <div class="paragraph">
 <p>A capability provides a stable contract to users of the capability. The
 contract includes the following:</p>
@@ -3122,7 +3125,7 @@ provide by reading the WildFly <em>capabilty registry</em>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="capability-registry">2.3. Capability Registry</h3>
+<h3 id="capability-registry">3.3. Capability Registry</h3>
 <div class="paragraph">
 <p>The WildFly organization on github maintains a git repo where
 information about available capabilities is published.</p>
@@ -3154,13 +3157,13 @@ name collisions.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="using-capabilities">2.4. Using Capabilities</h3>
+<h3 id="using-capabilities">3.4. Using Capabilities</h3>
 <div class="paragraph">
 <p>Now that all the background information is presented, here are some
 specifics about how to use WildFly capabilities in your code.</p>
 </div>
 <div class="sect3">
-<h4 id="basics-of-using-your-own-capability">2.4.1. Basics of Using Your Own Capability</h4>
+<h4 id="basics-of-using-your-own-capability">3.4.1. Basics of Using Your Own Capability</h4>
 <div class="sect4">
 <h5 id="creating-your-capability">Creating your capability</h5>
 <div class="paragraph">
@@ -3401,7 +3404,7 @@ when it executes.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="basics-of-using-other-capabilities">2.4.2. Basics of Using Other Capabilities</h4>
+<h4 id="basics-of-using-other-capabilities">3.4.2. Basics of Using Other Capabilities</h4>
 <div class="paragraph">
 <p>When a capability needs another capability, it only refers to it by its
 string name. A capability should not reference the <code>RuntimeCapability</code>
@@ -3668,7 +3671,7 @@ handle the exception.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="detailed-api">2.4.3. Detailed API</h4>
+<h4 id="detailed-api">3.4.3. Detailed API</h4>
 <div class="paragraph">
 <p>The WildFly Core kernel&#8217;s API for using capabilities is covered in
 detail in the javadoc for the
@@ -3693,10 +3696,10 @@ these in an extension, please read the javadoc thoroughly.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_domain_mode_subsystem_transformers">3. Domain Mode Subsystem Transformers</h2>
+<h2 id="_domain_mode_subsystem_transformers">4. Domain Mode Subsystem Transformers</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="abstract">3.1. Abstract</h3>
+<h3 id="abstract">4.1. Abstract</h3>
 <div class="paragraph">
 <p>A WildFly domain may consist of a new Domain Controller (DC) controlling
 slave Host Controllers (HC) running older versions. Each slave HC
@@ -3708,7 +3711,7 @@ something the slave HCs can understand.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="background">3.2. Background</h3>
+<h3 id="background">4.2. Background</h3>
 <div class="paragraph">
 <p>WildFly comes with a <a href="Domain_Setup.html">domain mode</a> which allows
 you to have one Host Controller acting as the Domain Controller. The
@@ -3826,7 +3829,7 @@ domain configuration in sync with the centralized domain configuration.</p>
 <p>Let&#8217;s look a bit closer at what happens in each of these steps.</p>
 </div>
 <div class="sect3">
-<h4 id="getting-the-initial-domain-model">3.2.1. Getting the initial domain model</h4>
+<h4 id="getting-the-initial-domain-model">4.2.1. Getting the initial domain model</h4>
 <div class="paragraph">
 <p>When a slave HC connects to the DC it obtains a copy of the domain model
 from the DC. This is done in a simpler serialized format, different from
@@ -3898,7 +3901,7 @@ servers.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="an-operation-changes-something-in-the-domain-configuration">3.2.2. An operation changes something in the domain configuration</h4>
+<h4 id="an-operation-changes-something-in-the-domain-configuration">4.2.2. An operation changes something in the domain configuration</h4>
 <div class="paragraph">
 <p>Once a domain is up and running we can still change things in the domain
 configuration. These changes must happen when connected to the DC, and
@@ -3953,7 +3956,7 @@ propagates the change to its <code>server-one</code> which belongs to
 </div>
 </div>
 <div class="sect2">
-<h3 id="versions-and-backward-compatibility">3.3. Versions and backward compatibility</h3>
+<h3 id="versions-and-backward-compatibility">4.3. Versions and backward compatibility</h3>
 <div class="paragraph">
 <p>A HC and its servers will always be the same version of WildFly (they
 use the same module path and jars). However, the DC and the slave HCs do
@@ -3982,7 +3985,7 @@ with slave HCs running WildFly 10. The opposite is not true, the DC must
 be the same or the newest version in the domain.</p>
 </div>
 <div class="sect3">
-<h4 id="versioning-of-subsystems">3.3.1. Versioning of subsystems</h4>
+<h4 id="versioning-of-subsystems">4.3.1. Versioning of subsystems</h4>
 <div class="paragraph">
 <p>To help with being able to know what is compatible we have versions
 within the subsystems, this is stored in the subsystem&#8217;s extension. When
@@ -4104,7 +4107,7 @@ extension:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="the-role-of-transformers">3.4. The role of transformers</h3>
+<h3 id="the-role-of-transformers">4.4. The role of transformers</h3>
 <div class="paragraph">
 <p>Now that we have mentioned the slave HCs registration process with the
 DC, and know about ModelVersions, it is time to mention that when
@@ -4266,7 +4269,7 @@ operations to legacy slave HCs.
 </table>
 </div>
 <div class="sect3">
-<h4 id="resource-transformers">3.4.1. Resource transformers</h4>
+<h4 id="resource-transformers">4.4.1. Resource transformers</h4>
 <div class="paragraph">
 <p>When copying over the centralized domain configuration as mentioned in
 <a href="#src-557181_DomainModeSubsystemTransformers-Gettingtheinitialdomainmodel">#Getting
@@ -4335,7 +4338,7 @@ HC to fail to start up.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="operation-transformers">3.4.2. Operation transformers</h4>
+<h4 id="operation-transformers">4.4.2. Operation transformers</h4>
 <div class="paragraph">
 <p>When
 <a href="#src-557181_DomainModeSubsystemTransformers-Anoperationchangessomethinginthedomainconfiguration">#An
@@ -4375,7 +4378,7 @@ rollback the operation across the whole domain.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="different-profiles-for-different-versions">3.4.3. Different profiles for different versions</h4>
+<h4 id="different-profiles-for-different-versions">4.4.3. Different profiles for different versions</h4>
 <div class="paragraph">
 <p>Now for the <code>weld</code> example we have been using there is a slight twist.
 We have the new <code>require-bean-descriptor</code> and <code>non-portable-mode</code>
@@ -4517,7 +4520,7 @@ and all its children.
 </div>
 </div>
 <div class="sect2">
-<h3 id="how-do-i-know-what-needs-to-be-transformed">3.5. How do I know what needs to be transformed?</h3>
+<h3 id="how-do-i-know-what-needs-to-be-transformed">4.5. How do I know what needs to be transformed?</h3>
 <div class="paragraph">
 <p>There is a set of related classes in the <code>org.wildfly.legacy.util</code>
 package to help you determine this. These now live at
@@ -4526,7 +4529,7 @@ They are all runnable in your IDE, just start the WildFly or JBoss AS 7
 instances as described below.</p>
 </div>
 <div class="sect3">
-<h4 id="getting-data-for-a-previous-version">3.5.1. Getting data for a previous version</h4>
+<h4 id="getting-data-for-a-previous-version">4.5.1. Getting data for a previous version</h4>
 <div class="paragraph">
 <p><a href="https://github.com/wildfly/wildfly-legacy-test/tree/master/tools/src/main/resources/legacy-models" class="bare">https://github.com/wildfly/wildfly-legacy-test/tree/master/tools/src/main/resources/legacy-models</a>
 contains the output for the previous WildFly/JBoss AS 7 versions, so
@@ -4557,7 +4560,7 @@ which will output the full resource definition to
 </div>
 </div>
 <div class="sect3">
-<h4 id="see-what-changed">3.5.2. See what changed</h4>
+<h4 id="see-what-changed">4.5.2. See what changed</h4>
 <div class="paragraph">
 <p>To do this follow the following steps</p>
 </div>
@@ -4570,7 +4573,8 @@ which will output the full resource definition to
 <li>
 <p>Run <code>org.wildfly.legacy.util.CompareModelVersionsUtil</code> and answer
 the following questions"</p>
-</li>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
 <li>
 <p>Enter Legacy AS version:</p>
 <div class="ulist">
@@ -4594,6 +4598,9 @@ last step, enter ' `running&#8217;</p>
 <p>Answer ' `S&#8217;</p>
 </li>
 </ul>
+</div>
+</li>
+</ol>
 </div>
 </li>
 <li>
@@ -4630,45 +4637,45 @@ everything down to <code>======= Comparing subsystem models ======</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">Enter legacy AS version: <span class="float">7.2</span><span class="float">.0</span>.Final
-Using target model: <span class="float">7.2</span><span class="float">.0</span>.Final
+<pre class="CodeRay highlight"><code data-lang="bash">Enter legacy AS version: 7.2.0.Final
+Using target model: 7.2.0.Final
 Enter type [S](standalone)/H(host)/D(domain)/F(domain + host):S
 Read from target directory or from the legacy-models directory - t/[l]:
 Report on differences in the model when the management versions are different? y/[n]: y
 Reporting on differences in the model when the management versions are different
-Loading legacy model versions <span class="keyword">for</span> <span class="float">7.2</span><span class="float">.0</span>.Final....
+Loading legacy model versions for 7.2.0.Final....
 Loaded legacy model versions
-Loading model versions <span class="keyword">for</span> currently running server...
-Oct <span class="octal">01</span>, <span class="integer">2013</span> <span class="integer">6</span>:<span class="integer">26</span>:<span class="octal">03</span> PM org.xnio.Xnio &lt;clinit&gt;
-INFO: XNIO version <span class="float">3.1</span><span class="float">.0</span>.CR7
-Oct <span class="octal">01</span>, <span class="integer">2013</span> <span class="integer">6</span>:<span class="integer">26</span>:<span class="octal">03</span> PM org.xnio.nio.NioXnio &lt;clinit&gt;
-INFO: XNIO NIO Implementation Version <span class="float">3.1</span><span class="float">.0</span>.CR7
-Oct <span class="octal">01</span>, <span class="integer">2013</span> <span class="integer">6</span>:<span class="integer">26</span>:<span class="octal">03</span> PM org.jboss.remoting3.EndpointImpl &lt;clinit&gt;
-INFO: JBoss Remoting version <span class="float">4.0</span><span class="float">.0</span>.Beta1
+Loading model versions for currently running server...
+Oct 01, 2013 6:26:03 PM org.xnio.Xnio &lt;clinit&gt;
+INFO: XNIO version 3.1.0.CR7
+Oct 01, 2013 6:26:03 PM org.xnio.nio.NioXnio &lt;clinit&gt;
+INFO: XNIO NIO Implementation Version 3.1.0.CR7
+Oct 01, 2013 6:26:03 PM org.jboss.remoting3.EndpointImpl &lt;clinit&gt;
+INFO: JBoss Remoting version 4.0.0.Beta1
 Loaded current model versions
-Loading legacy resource descriptions <span class="keyword">for</span> <span class="float">7.2</span><span class="float">.0</span>.Final....
+Loading legacy resource descriptions for 7.2.0.Final....
 Loaded legacy resource descriptions
-Loading resource descriptions <span class="keyword">for</span> currently running STANDALONE...
+Loading resource descriptions for currently running STANDALONE...
 Loaded current resource descriptions
 Starting comparison of the current....
-<span class="error"> </span>
+ 
 ======= Comparing core models ======
 -- SNIP --
-<span class="error"> </span>
+ 
 ======= Comparing subsystem models ======
 -- SNIP --
-======= Resource root address: [<span class="string"><span class="delimiter">&quot;</span><span class="content">subsystem</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">remoting</span><span class="delimiter">&quot;</span></span>] - Current version: <span class="float">2.0</span><span class="float">.0</span>; legacy version: <span class="float">1.2</span><span class="float">.0</span> =======
---- Problems <span class="keyword">for</span> relative address to root <span class="type">[]</span>:
-Missing child types in current: <span class="type">[]</span>; missing in legacy [http-connector]
---- Problems <span class="keyword">for</span> relative address to root [<span class="string"><span class="delimiter">&quot;</span><span class="content">remote-outbound-connection</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">*</span><span class="delimiter">&quot;</span></span>]:
-Missing attributes in current: <span class="type">[]</span>; missing in legacy [protocol]
-Missing parameters <span class="keyword">for</span> operation <span class="string"><span class="delimiter">'</span><span class="content">add</span><span class="delimiter">'</span></span> in current: <span class="type">[]</span>; missing in legacy [protocol]
+======= Resource root address: [&quot;subsystem&quot; =&gt; &quot;remoting&quot;] - Current version: 2.0.0; legacy version: 1.2.0 =======
+--- Problems for relative address to root []:
+Missing child types in current: []; missing in legacy [http-connector]
+--- Problems for relative address to root [&quot;remote-outbound-connection&quot; =&gt; &quot;*&quot;]:
+Missing attributes in current: []; missing in legacy [protocol]
+Missing parameters for operation 'add' in current: []; missing in legacy [protocol]
 -- SNIP --
-======= Resource root address: [<span class="string"><span class="delimiter">&quot;</span><span class="content">subsystem</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">weld</span><span class="delimiter">&quot;</span></span>] - Current version: <span class="float">2.0</span><span class="float">.0</span>; legacy version: <span class="float">1.0</span><span class="float">.0</span> =======
---- Problems <span class="keyword">for</span> relative address to root <span class="type">[]</span>:
-Missing attributes in current: <span class="type">[]</span>; missing in legacy [require-bean-descriptor, non-portable-mode]
-Missing parameters <span class="keyword">for</span> operation <span class="string"><span class="delimiter">'</span><span class="content">add</span><span class="delimiter">'</span></span> in current: <span class="type">[]</span>; missing in legacy [require-bean-descriptor, non-portable-mode]
-<span class="error"> </span>
+======= Resource root address: [&quot;subsystem&quot; =&gt; &quot;weld&quot;] - Current version: 2.0.0; legacy version: 1.0.0 =======
+--- Problems for relative address to root []:
+Missing attributes in current: []; missing in legacy [require-bean-descriptor, non-portable-mode]
+Missing parameters for operation 'add' in current: []; missing in legacy [require-bean-descriptor, non-portable-mode]
+ 
 Done comparison of STANDALONE!</code></pre>
 </div>
 </div>
@@ -4716,7 +4723,7 @@ transformation is needed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="how-do-i-write-a-transformer">3.6. How do I write a transformer?</h3>
+<h3 id="how-do-i-write-a-transformer">4.6. How do I write a transformer?</h3>
 <div class="paragraph">
 <p>There are two APIs available to write transformers for a resource. There
 is the original low-level API where you register transformers directly,
@@ -4875,7 +4882,7 @@ sent to the legacy HC.</p>
 features/most commonly needed tasks.</p>
 </div>
 <div class="sect3">
-<h4 id="resourcetransformationdescriptionbuilder">3.6.1. ResourceTransformationDescriptionBuilder</h4>
+<h4 id="resourcetransformationdescriptionbuilder">4.6.1. ResourceTransformationDescriptionBuilder</h4>
 <div class="paragraph">
 <p>The <code>ResourceTransformationDescriptionBuilder</code> contains transformations
 for a resource type. The initial one is for the subsystem, obtained by
@@ -5056,7 +5063,7 @@ the child resource.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="attributetransformationdescriptionbuilder">3.6.2. AttributeTransformationDescriptionBuilder</h4>
+<h4 id="attributetransformationdescriptionbuilder">4.6.2. AttributeTransformationDescriptionBuilder</h4>
 <div class="paragraph">
 <p>To transform attributes you call
 <code>ResourceTransformationDescriptionBuilder.getAttributeBuilder()</code> which
@@ -5895,7 +5902,7 @@ the operations involving this attribute are affected, so</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="operationtransformationoverridebuilder">3.6.3. OperationTransformationOverrideBuilder</h4>
+<h4 id="operationtransformationoverridebuilder">4.6.3. OperationTransformationOverrideBuilder</h4>
 <div class="paragraph">
 <p>All operations on a resource automatically get the same transformations
 on their parameters as set up by the
@@ -5937,7 +5944,7 @@ to the legacy slave HC.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="evolving-transformers-with-subsystem-modelversions">3.7. Evolving transformers with subsystem ModelVersions</h3>
+<h3 id="evolving-transformers-with-subsystem-modelversions">4.7. Evolving transformers with subsystem ModelVersions</h3>
 <div class="paragraph">
 <p>Say you have a subsystem with ModelVersions 1.0.0 and 1.1.0. There will
 (hopefully!) already be transformers in place for 1.1.0 to 1.0.0
@@ -6019,7 +6026,7 @@ transformers</a></p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="the-old-way">3.7.1. The old way</h4>
+<h4 id="the-old-way">4.7.1. The old way</h4>
 <div class="paragraph">
 <p>This is the way that has been used up to WildFly 11.x. However, in
 WildFly 9 and later, it is strongly recommended to migrate to what is
@@ -6078,7 +6085,7 @@ versions.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="chained-transformers">3.7.2. Chained transformers</h4>
+<h4 id="chained-transformers">4.7.2. Chained transformers</h4>
 <div class="paragraph">
 <p>Since 'The old way' had a lot of duplication of code, since WildFly 9 we
 now have chained transformers. You obtain a
@@ -6177,7 +6184,7 @@ model tests.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="testing-transformers">3.8. Testing transformers</h3>
+<h3 id="testing-transformers">4.8. Testing transformers</h3>
 <div class="paragraph">
 <p>To test transformation you need to extend
 <code>org.jboss.as.subsystem.test.AbstractSubsystemTest</code> or
@@ -6211,7 +6218,7 @@ subsystem#Testing the parsers</a>, but we will only talk about the parts
 relevant to transformers here.</p>
 </div>
 <div class="sect3">
-<h4 id="testing-a-configuration-that-works">3.8.1. Testing a configuration that works</h4>
+<h4 id="testing-a-configuration-that-works">4.8.1. Testing a configuration that works</h4>
 <div class="paragraph">
 <p>To test a configuration xxx</p>
 </div>
@@ -6334,7 +6341,7 @@ resources.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="testing-a-configuration-that-does-not-work">3.8.2. Testing a configuration that does not work</h4>
+<h4 id="testing-a-configuration-that-does-not-work">4.8.2. Testing a configuration that does not work</h4>
 <div class="paragraph">
 <p>The <code>threads</code> subsystem (like several others) did not support the use of
 expression values in the version that came with JBoss AS 7.1.2.Final. So
@@ -6418,7 +6425,7 @@ help testing rejection of other scenarios.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="common-transformation-use-cases">3.9. Common transformation use-cases</h3>
+<h3 id="common-transformation-use-cases">4.9. Common transformation use-cases</h3>
 <div class="paragraph">
 <p>Most transformations are quite similar, so this section covers some of
 the actual transformation patterns found in the WildFly codebase. We
@@ -6429,7 +6436,7 @@ being explained in an attempt to keep things as clear/simple as
 possible.</p>
 </div>
 <div class="sect3">
-<h4 id="child-resource-type-does-not-exist-in-legacy-model">3.9.1. Child resource type does not exist in legacy model</h4>
+<h4 id="child-resource-type-does-not-exist-in-legacy-model">4.9.1. Child resource type does not exist in legacy model</h4>
 <div class="paragraph">
 <p>Looking at the model comparison between WildFly and JBoss AS 7.2.0,
 there is a change to the <code>remoting</code> subsystem. The relevant part of the
@@ -6479,7 +6486,7 @@ we need to reject it there as well using a similar mechanism.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="attribute-does-not-exist-in-the-legacy-subsystem">3.9.2. Attribute does not exist in the legacy subsystem</h4>
+<h4 id="attribute-does-not-exist-in-the-legacy-subsystem">4.9.2. Attribute does not exist in the legacy subsystem</h4>
 <div class="sect4">
 <h5 id="default-value-of-the-attribute-is-the-same-as-legacy-implied-behavior">Default value of the attribute is the same as legacy implied</h5>
 <div class="paragraph">
@@ -6664,7 +6671,7 @@ with the names of the attributes having been rejected substituting the
 </div>
 </div>
 <div class="sect3">
-<h4 id="attribute-has-a-different-default-value">3.9.3. Attribute has a different default value</h4>
+<h4 id="attribute-has-a-different-default-value">4.9.3. Attribute has a different default value</h4>
 <div class="paragraph">
 <p>– TODO</p>
 </div>
@@ -6694,7 +6701,7 @@ when they were created. It does not help with CLI scripts though.)</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="attribute-has-a-different-type">3.9.4. Attribute has a different type</h4>
+<h4 id="attribute-has-a-different-type">4.9.4. Attribute has a different type</h4>
 <div class="paragraph">
 <p>Here the example comes from the <code>capacity</code> parameter some way into the
 <code>modcluster</code> subsystem, and the legacy version is AS 7.1.2.Final. There
@@ -6824,7 +6831,7 @@ possible:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_key_interfaces_and_classes_relevant_to_extension_developers">4. Key Interfaces and Classes Relevant to Extension Developers</h2>
+<h2 id="_key_interfaces_and_classes_relevant_to_extension_developers">5. Key Interfaces and Classes Relevant to Extension Developers</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In the first major section of this guide, we provided an example of how
@@ -6840,7 +6847,7 @@ introduction of the key items and how they relate to each other.</p>
 "Core Management Concepts" section of the Admin Guide.</p>
 </div>
 <div class="sect2">
-<h3 id="extension-interface">4.1. Extension Interface</h3>
+<h3 id="extension-interface">5.1. Extension Interface</h3>
 <div class="paragraph">
 <p>The <code>org.jboss.as.controller.Extension</code> interface is the hook by which
 your extension to the AS kernel is able to integrate with the AS. During
@@ -6907,7 +6914,7 @@ interface) relate to the notion of managed resources in the AS.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="wildfly-managed-resources">4.2. WildFly Managed Resources</h3>
+<h3 id="wildfly-managed-resources">5.2. WildFly Managed Resources</h3>
 <div class="paragraph">
 <p>Each subsystem is responsible for managing one or more management
 resources. The conceptual characteristics of a management resource are
@@ -6955,7 +6962,7 @@ instance is encapsulated in an implementation of the
 </div>
 </div>
 <div class="sect2">
-<h3 id="managementresourceregistration-interface">4.3. ManagementResourceRegistration Interface</h3>
+<h3 id="managementresourceregistration-interface">5.3. ManagementResourceRegistration Interface</h3>
 <div class="paragraph">
 <p>In the Java analogy used above, the <code>ManagementResourceRegistration</code> is
 analogous to the "class", while the <code>Resource</code> discussed below is
@@ -7044,7 +7051,7 @@ children.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="resourcedefinition-interface">4.4. ResourceDefinition Interface</h3>
+<h3 id="resourcedefinition-interface">5.4. ResourceDefinition Interface</h3>
 <div class="paragraph">
 <p>An implementation of <code>ResourceDefinition</code> is the primary class used by
 an extension developer when defining a managed resource type. It
@@ -7112,7 +7119,7 @@ superclasses.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="resourcedescriptionresolver">4.4.1. ResourceDescriptionResolver</h4>
+<h4 id="resourcedescriptionresolver">5.4.1. ResourceDescriptionResolver</h4>
 <div class="paragraph">
 <p>One of the things a <code>ResourceDefinition</code> must be able to do is provide a
 <code>DescriptionProvider</code> that provides a proper DMR description of the
@@ -7153,7 +7160,7 @@ as your <code>Extension</code> implementation, in a file named
 </div>
 </div>
 <div class="sect2">
-<h3 id="attributedefinition-class">4.5. AttributeDefinition Class</h3>
+<h3 id="attributedefinition-class">5.5. AttributeDefinition Class</h3>
 <div class="paragraph">
 <p>The <code>AttributeDefinition</code> class is used to create the static definition
 of one of a managed resource&#8217;s attributes. It&#8217;s a bit poorly named
@@ -7246,7 +7253,7 @@ uses it to seed the <code>allowed-values</code> metadata in
 <code>read-resource-description</code> output.</p>
 </div>
 <div class="sect3">
-<h4 id="key-uses-of-attributedefinition">4.5.1. Key Uses of AttributeDefinition</h4>
+<h4 id="key-uses-of-attributedefinition">5.5.1. Key Uses of AttributeDefinition</h4>
 <div class="paragraph">
 <p>Your <code>AttributeDefinition</code> instances will be some of the most commonly
 used objects in your extension code. Following are the most typical
@@ -7463,7 +7470,7 @@ the tree.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="operationdefinition-and-operationstephandler-interfaces">4.6. OperationDefinition and OperationStepHandler Interfaces</h3>
+<h3 id="operationdefinition-and-operationstephandler-interfaces">5.6. OperationDefinition and OperationStepHandler Interfaces</h3>
 <div class="paragraph">
 <p><code>OperationDefinition</code> defines an operation, particularly its name, its
 parameters and the details of any result value, with
@@ -7565,7 +7572,7 @@ step. This second OSH is typically an inner class of the first OSH.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="operation-execution-and-the-operationcontext">4.7. Operation Execution and the OperationContext</h3>
+<h3 id="operation-execution-and-the-operationcontext">5.7. Operation Execution and the OperationContext</h3>
 <div class="paragraph">
 <p>When the <code>ModelController</code> at the heart of the WildFly Core management
 layer handles a request to execute an operation, it instantiates an
@@ -7603,7 +7610,7 @@ and as the interface provided to <code>OperationStepHandler</code> implementatio
 to let them interact with the rest of the system.</p>
 </div>
 <div class="sect3">
-<h4 id="execution-process">4.7.1. Execution Process</h4>
+<h4 id="execution-process">5.7.1. Execution Process</h4>
 <div class="paragraph">
 <p>Operation execution proceeds via execution by the <code>OperationContext</code> of
 a series of "steps" with an <code>OperationStepHandler</code> doing the key work
@@ -7886,7 +7893,7 @@ the kernel handlers.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="operationstephandler-use-of-the-operationcontext">4.7.2. OperationStepHandler use of the OperationContext</h4>
+<h4 id="operationstephandler-use-of-the-operationcontext">5.7.2. OperationStepHandler use of the OperationContext</h4>
 <div class="paragraph">
 <p>All useful work an <code>OperationStepHandler</code> performs is done by invoking
 methods on the <code>OperationContext</code>. The <code>OperationContext</code> interface is
@@ -7964,7 +7971,7 @@ overview. The OSH can use the <code>OperationContext</code> to:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="locking-and-change-visibility">4.7.3. Locking and Change Visibility</h4>
+<h4 id="locking-and-change-visibility">5.7.3. Locking and Change Visibility</h4>
 <div class="paragraph">
 <p>The <code>ModelController</code> and <code>OperationContext</code> work together to ensure
 that only one operation at a time is modifying the state of the system.
@@ -8032,7 +8039,7 @@ threads.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="resource-interface">4.8. Resource Interface</h3>
+<h3 id="resource-interface">5.8. Resource Interface</h3>
 <div class="paragraph">
 <p>An instance of the <code>Resource</code> interface holds the state for a particular
 instance of a type defined by a <code>ManagementResourceRegistration</code>.
@@ -8060,7 +8067,7 @@ attributes and whose values are the attribute values</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="creating-resources">4.8.1. Creating Resources</h4>
+<h4 id="creating-resources">5.8.1. Creating Resources</h4>
 <div class="paragraph">
 <p>Typically extensions create resources via <code>OperationStepHandler</code> calls
 to the <code>OperationContext.createResource</code> method. However it is allowed
@@ -8070,7 +8077,7 @@ The <code>AbstractModelResource</code> class can be used as a base class.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="runtime-only-and-synthetic-resources-and-the-placeholderresourceentry-class">4.8.2. Runtime-Only and Synthetic Resources and the PlaceholderResourceEntry</h4>
+<h4 id="runtime-only-and-synthetic-resources-and-the-placeholderresourceentry-class">5.8.2. Runtime-Only and Synthetic Resources and the PlaceholderResourceEntry</h4>
 <div class="paragraph">
 <p>Class</p>
 </div>
@@ -8152,13 +8159,13 @@ example of this kind of thing. Searching for other uses of
 </div>
 </div>
 <div class="sect2">
-<h3 id="deploymentunitprocessor-interface">4.9. DeploymentUnitProcessor Interface</h3>
+<h3 id="deploymentunitprocessor-interface">5.9. DeploymentUnitProcessor Interface</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="useful-classes-for-implementing-operationstephandler">4.10. Useful classes for implementing OperationStepHandler</h3>
+<h3 id="useful-classes-for-implementing-operationstephandler">5.10. Useful classes for implementing OperationStepHandler</h3>
 <div class="paragraph">
 <p>The WildFly Core <code>controller</code> module includes a number of
 <code>OperationStepHandler</code> implementations that in some cases you can use
@@ -8168,7 +8175,7 @@ eliminate the need for your code to do anything in <code>Stage.MODEL</code> whil
 providing support for whatever is appropriate for <code>Stage.RUNTIME</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="add-handlers">4.10.1. Add Handlers</h4>
+<h4 id="add-handlers">5.10.1. Add Handlers</h4>
 <div class="paragraph">
 <p><code>AbstractAddStepHandler</code> is a base class for handlers for <code>add</code>
 operations. There are a number of ways you can configure its behavior,
@@ -8249,19 +8256,19 @@ registers one or more <code>DeploymentUnitProcessor</code> s.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="remove-handlers">4.10.2. Remove Handlers</h4>
+<h4 id="remove-handlers">5.10.2. Remove Handlers</h4>
 <div class="paragraph">
 <p>TODO <code>AbstractRemoveStepHandler</code> <code>ServiceRemoveStepHandler</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="write-attribute-handlers">4.10.3. Write attribute handlers</h4>
+<h4 id="write-attribute-handlers">5.10.3. Write attribute handlers</h4>
 <div class="paragraph">
 <p>TODO <code>AbstractWriteAttributeHandler</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="reload-required-handlers">4.10.4. Reload-required handlers</h4>
+<h4 id="reload-required-handlers">5.10.4. Reload-required handlers</h4>
 <div class="paragraph">
 <p><code>ReloadRequiredAddStepHandler</code> <code>ReloadRequiredRemoveStepHandler</code>
 <code>ReloadRequiredWriteAttributeHandler</code></p>
@@ -8274,7 +8281,7 @@ for reload and reverting it if the operation rolls back.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="restart-parent-resource-handlers">4.10.5. Restart Parent Resource Handlers</h4>
+<h4 id="restart-parent-resource-handlers">5.10.5. Restart Parent Resource Handlers</h4>
 <div class="paragraph">
 <p><code>RestartParentResourceAddHandler</code> <code>RestartParentResourceRemoveHandler</code>
 <code>RestartParentWriteAttributeHandler</code></p>
@@ -8295,7 +8302,7 @@ the service provided by the parent.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="model-only-handlers">4.10.6. Model Only Handlers</h4>
+<h4 id="model-only-handlers">5.10.6. Model Only Handlers</h4>
 <div class="paragraph">
 <p><code>ModelOnlyAddStepHandler</code> <code>ModelOnlyRemoveStepHandler</code>
 <code>ModelOnlyWriteAttributeHandler</code></p>
@@ -8314,7 +8321,7 @@ subsystem.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="misc">4.10.7. Misc</h4>
+<h4 id="misc">5.10.7. Misc</h4>
 <div class="paragraph">
 <p><code>AbstractRuntimeOnlyHandler</code> is used for custom operations that don&#8217;t
 involve the configuration model. Create a subclass and implement the
@@ -8340,10 +8347,10 @@ be poor practice as it&#8217;s just redundant data.)</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_wildfly_9_jndi_implementation">5. WildFly 9 JNDI Implementation</h2>
+<h2 id="_wildfly_9_jndi_implementation">6. WildFly 9 JNDI Implementation</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="introduction">5.1. Introduction</h3>
+<h3 id="introduction">6.1. Introduction</h3>
 <div class="paragraph">
 <p>This page proposes a reworked WildFly JNDI implementation, and
 new/updated APIs for WildFly subsystem and EE deployment processors
@@ -8357,7 +8364,7 @@ interact with JNDI at subsystem level.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="architecture">5.2. Architecture</h3>
+<h3 id="architecture">6.2. Architecture</h3>
 <div class="paragraph">
 <p>WildFly relies on MSC to provide the data source for the JNDI tree. Each
 resource bound in JNDI is stored in a MSC service (BinderService), and
@@ -8421,14 +8428,14 @@ will always be available.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="binding-apis">5.3. Binding APIs</h3>
+<h3 id="binding-apis">6.3. Binding APIs</h3>
 <div class="paragraph">
 <p>WildFly Naming subsystem exposes high level APIs to bind new JNDI
 resources, there is no need to deal with the low level BinderService
 type anymore.</p>
 </div>
 <div class="sect3">
-<h4 id="subsystem">5.3.1. Subsystem</h4>
+<h4 id="subsystem">6.3.1. Subsystem</h4>
 <div class="paragraph">
 <p>At the lowest level a JNDI entry is bound by installing a BinderService
 to a ServiceTarget:</p>
@@ -8503,7 +8510,7 @@ service right away:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="ee-deployment">5.3.2. EE Deployment</h4>
+<h4 id="ee-deployment">6.3.2. EE Deployment</h4>
 <div class="paragraph">
 <p>With respect to EE deployments, the subsystem API should not be used,
 since bindings may need to be discarded/overridden, thus a EE deployment
@@ -8724,7 +8731,7 @@ submitted through WFLY-3292&#8217;s PR.
 </div>
 </div>
 <div class="sect2">
-<h3 id="resource-ref-processing">5.4. Resource Ref Processing</h3>
+<h3 id="resource-ref-processing">6.4. Resource Ref Processing</h3>
 <div class="paragraph">
 <p>TODO for now no changes on this in the reworked WildFly Naming.</p>
 </div>
@@ -8732,7 +8739,7 @@ submitted through WFLY-3292&#8217;s PR.
 </div>
 </div>
 <div class="sect1">
-<h2 id="_cli_extensibility_for_layered_products">6. CLI extensibility for layered products</h2>
+<h2 id="_cli_extensibility_for_layered_products">7. CLI extensibility for layered products</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In addition to supporting the ServiceLoader extension mechanism to load
@@ -8820,7 +8827,7 @@ the JAR file containing the classes above with value
 <div id="footer">
 <div id="footer-text">
 Version {version}<br>
-Last updated 2017-09-13 16:41:48 CEST
+Last updated 2017-09-13 22:38:51 CEST
 </div>
 </div>
 </body>

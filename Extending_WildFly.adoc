@@ -38,13 +38,12 @@ ifdef::basebackend-html[toc::[]]
 :numbered:
 
 [[target-audience]]
-== Target Audience
+= Target Audience
 
-This document is intended for people who want to extend WildFly to
-introduce new capabilities.
+
 
 [[prerequisites]]
-=== Prerequisites
+== Prerequisites
 
 You should know how to download, install and run WildFly. If not please
 consult the link:Getting_Started_Guide.html[Getting Started Guide]. You
@@ -55,7 +54,7 @@ you need Java development experience to follow the example in this
 guide.
 
 [[examples-in-this-guide]]
-=== Examples in this guide
+== Examples in this guide
 
 Most of the examples in this guide are being expressed as excerpts of
 the XML configuration files or by using a representation of the de-typed

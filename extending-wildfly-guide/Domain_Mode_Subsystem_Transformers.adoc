@@ -692,30 +692,30 @@ which will output the full resource definition to
 
 To do this follow the following steps
 
-1.  Start the *new* version of WildFly using
+.  Start the *new* version of WildFly using
 `--server-config=standalone-full-ha.xml`
-2.  Run `org.wildfly.legacy.util.CompareModelVersionsUtil` and answer
+.  Run `org.wildfly.legacy.util.CompareModelVersionsUtil` and answer
 the following questions"
-1.  Enter Legacy AS version:
+..  Enter Legacy AS version:
 * If it is known version in the `tools/src/test/resources/legacy-models`
 folder, enter the version number.
 * If it is a not known version, and you got the data yourself in the
 last step, enter ' `running`'
-2.  Enter type:
+..  Enter type:
 * Answer ' `S`'
-3.  Read from target directory or from the legacy-models directory:
+.  Read from target directory or from the legacy-models directory:
 * If it is known version in the
 `controller/src/test/resources/legacy-models` folder, enter ' `l`'.
 * If it is a not known version, and you got the data yourself in the
 last step, enter ' `t`'
-4.  Report on differences in the model when the management versions are
+.  Report on differences in the model when the management versions are
 different?:
 * Answer ' `y`'
 
 Here is some example output, as a subsystem developer you can ignore
 everything down to `======= Comparing subsystem models ======`:
 
-[source, java]
+[source, bash]
 ----
 Enter legacy AS version: 7.2.0.Final
 Using target model: 7.2.0.Final
