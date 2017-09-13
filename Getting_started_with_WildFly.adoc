@@ -1,4 +1,0 @@
-= Getting started with WildFly
-
-This page has moved to
-https://github.com/wildfly/quickstart/blob/10.x/guide/GettingStarted.asciidoc

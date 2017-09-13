@@ -1,4 +1,0 @@
-= The helloworld example in depth
-
-This page has moved to
-http://www.jboss.org/jdf/quickstarts/jboss-as-quickstart/guide/HelloworldQuickstart/#_the_helloworld_quickstart_in_depth
