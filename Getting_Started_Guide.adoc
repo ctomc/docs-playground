@@ -1,15 +1,32 @@
 = Getting Started Guide
+WildFly team;
+:revnumber: {version}
+:revdate: {localdate}
+:toc: macro
+:toclevels: 3
+:toc-title: Getting Started Guide
+:doctype: book
+:icons: font
+:source-highlighter: coderay
+:wildflyVersion: 11
 
-[[getting-started-with-wildfly-10]]
-== Getting Started with WildFly 10
+ifndef::ebook-format[:leveloffset: 1]
 
-WildFly 10 is the latest release in a series of JBoss open-source
-application server offerings. WildFly 10 is an exceptionally fast,
+(C) 2017 The original authors.
+
+ifdef::basebackend-html[toc::[]]
+:numbered:
+
+[[getting-started-with-wildfly]]
+== Getting Started with WildFly {wildflyVersion}
+
+WildFly {wildflyVersion} is the latest release in a series of JBoss open-source
+application server offerings. WildFly {wildflyVersion} is an exceptionally fast,
 lightweight and powerful implementation of the Java Enterprise Edition 7
 Platform specifications. The state-of-the-art architecture built on the
 Modular Service Container enables services on-demand when your
 application requires them. The table below lists the Java Enterprise
-Edition 7 technologies and the technologies available in WildFly 10
+Edition 7 technologies and the technologies available in WildFly {wildflyVersion}
 server configuration profiles.
 
 [cols=",,,,",]
@@ -87,7 +104,7 @@ Profile |WildFly 10Full Profile |WildFly 10Web Profile
 
 Missing HornetQ and JMS?
 
-[IMPORTANT]
+[WARNING]
 
 The WildFly Web Profile doesn't include JMS (provided by HornetQ) by
 default. If you want to use messaging, make sure you start the server
@@ -104,11 +121,11 @@ WildFly 10 distributions can be obtained from:
 
 http://www.wildfly.org/downloads/[wildfly.org/downloads]
 
-WildFly 10 provides a single distribution available in zip or tar file
+WildFly {wildflyVersion} provides a single distribution available in zip or tar file
 formats.
 
-* *wildfly-10.0.0.Final.zip*
-* *wildfly-10.0.0.Final.tar.gz*
+* *wildfly-{wildflyVersion}.0.0.Final.zip*
+* *wildfly-{wildflyVersion}.0.0.Final.tar.gz*
 
 [[requirements]]
 === Requirements
@@ -133,8 +150,8 @@ key configuration files, log files, user deployments and so on. It's
 worth familiarizing yourself with the layout so that you'll be able to
 find your way around when it comes to deploying your own applications.
 
-[[wildfly-10-directory-structure]]
-==== WildFly 10 Directory Structure
+[[wildfly-directory-structure]]
+==== WildFly Directory Structure
 
 [cols=",",]
 |=======================================================================
@@ -157,7 +174,7 @@ specific use cases
 |domain |Configuration files, deployment content, and writable areas
 used by the domain mode processes run from this installation.
 
-|modules |WildFly 10 is based on a modular classloading architecture.
+|modules |WildFly is based on a modular classloading architecture.
 The various modules used in the server are stored here.
 
 |standalone |Configuration files, deployment content, and writable areas
@@ -297,7 +314,7 @@ provide.
 To start WildFly 10 using the default web profile configuration in "
 _standalone_" mode, change directory to $JBOSS_HOME/bin.
 
-[source, java]
+[source]
 ----
 ./standalone.sh
 ----
@@ -305,13 +322,13 @@ _standalone_" mode, change directory to $JBOSS_HOME/bin.
 To start the default web profile configuration using domain management
 capabilities,
 
-[source, java]
+[source]
 ----
 ./domain.sh
 ----
 
-[[starting-wildfly-10-with-an-alternate-configuration]]
-==== Starting WildFly 10 with an Alternate Configuration
+[[starting-wildfly-with-an-alternate-configuration]]
+==== Starting WildFly with an Alternate Configuration
 
 If you choose to start your server with one of the other provided
 configurations, they can be accessed by passing the --server-config
@@ -320,14 +337,14 @@ argument with the server-config file to be used.
 To use the full profile with clustering capabilities, use the following
 syntax from $JBOSS_HOME/bin:
 
-[source, java]
+[source, bash]
 ----
 ./standalone.sh --server-config=standalone-full-ha.xml
 ----
 
 Similarly to start an alternate configuration in _domain_ mode:
 
-[source, java]
+[source, bash]
 ----
 ./domain.sh --domain-config=my-domain-configuration.xml
 ----
@@ -341,7 +358,7 @@ subsystems you want to add, remove, or modify.
 After executing one of the above commands, you should see output similar
 to what's shown below.
 
-[source, java]
+[source, bash]
 ----
 =========================================================================
  
@@ -412,7 +429,7 @@ servers so select option a.
 You will then be prompted to enter the details of the new user being
 added: -
 
-[source, java]
+[source, bash]
 ----
 Enter the details of the new user to add.
 Realm (ManagementRealm) :
@@ -446,7 +463,7 @@ point your browser at:
 
 NOTE: port 9990 is the default port configured.
 
-[source, java]
+[source, xml]
 ----
 <management-interfaces>
    <native-interface security-realm="ManagementRealm">
@@ -476,7 +493,7 @@ the _jboss-cli.sh_ script provides the same capabilities available via
 the web-based UI. This script is accessed from $JBOSS_HOME/bin
 directory; e.g.,
 
-[source, java]
+[source, bash]
 ----
 $JBOSS_HOME/bin/jboss-cli.sh --connect
 Connected to standalone controller at localhost:9990
@@ -511,7 +528,7 @@ In the provided configurations, H2 is configured as a module. The module
 is located in the $JBOSS_HOME/modules/com/h2database/h2 directory. The
 H2 datasource configuration is shown below.
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:datasources:1.0">
     <datasources>
@@ -560,16 +577,16 @@ the project documentation.
 * Schema description:
 http://docs.jboss.org/ironjacamar/userguide/1.0/en-US/html/deployment.html#deployingds_descriptor
 
-[[configure-logging-in-wildfly-10]]
-===== Configure Logging in WildFly 10
+[[configure-logging-in-wildfly]]
+===== Configure Logging in WildFly
 
-WildFly 10 logging can be configured with the web console or the command
+WildFly logging can be configured with the web console or the command
 line interface. You can get more detail on the link:#src-557127[Logging
 Configuration] page.
 
 Turn on debugging for a specific category with CLI:
 
-[source, java]
+[source, ruby]
 ----
 /subsystem=logging/logger=org.jboss.as:add(level=DEBUG)
 ----
