@@ -64,7 +64,7 @@ public void test() {
 }
 ----
 
-[source, java]
+[source, xml]
 ----
 <arquillian>
     <container qualifier="test" mode="manual" />
@@ -248,3 +248,11 @@ mail from GitHub.
 your branch.
 ** You are now safe to delete both your local and remote branches:
 `git branch -D WFLY-1234-your-branch; git push origin :WFLY-1234-your-branch`
+
+
+include::How_to_Add_a_Test_Case.adoc[]
+
+include::Pre-requisites_-_test_quality_standards.adoc[]
+
+include::Shared_Test_Classes_and_Resources.adoc[]
+

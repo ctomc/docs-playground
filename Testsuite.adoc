@@ -1,15 +1,25 @@
-= Testsuite
+= WildFly Testsuite
+WildFly team;
+:revnumber: {version}
+:revdate: {localdate}
+:toc: macro
+:toclevels: 3
+:toc-title: WildFly testsuite
+:doctype: book
+:icons: font
+:source-highlighter: coderay
+:wildflyVersion: 11
 
-== WildFly Testsuite
+:leveloffset: +1
 
-Where to go next?
+ifndef::ebook-format[:leveloffset: 1]
 
+(C) 2017 The original authors.
 
-* *link:WildFly_Integration_Testsuite_User_Guide.html[WildFly
-Integration Testsuite User Guide]* if you changed JBoss AS 7 code and
-want to check for regressions.
-* *link:#src-557183[AS 7 Testsuite Harness Developer Guide]* to learn
-how the testsuite works (shell scripts, Ant scripts, pom.xml files)
-* *link:#src-557183[AS 7 Testsuite Test Developer Guide]* if you want to
-add a new test case to the testsuite (to increase code coverage or to
-reproduce a bug)
+ifdef::basebackend-html[toc::[]]
+:numbered:
+
+include::testsuite/WildFly_Testsuite_Overview.adoc[]
+include::testsuite/WildFly_Integration_Testsuite_User_Guide.adoc[]
+include::testsuite/WildFly_Testsuite_Harness_Developer_Guide.adoc[]
+include::testsuite/WildFly_Testsuite_Test_Developer_Guide.adoc[]

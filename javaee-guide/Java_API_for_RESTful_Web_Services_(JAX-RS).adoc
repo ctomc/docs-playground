@@ -1,4 +1,5 @@
 = Java API for RESTful Web Services (JAX-RS)
+:imagesdir: ../
 
 [[content]]
 == Content

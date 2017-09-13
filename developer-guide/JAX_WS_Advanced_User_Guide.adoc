@@ -304,7 +304,7 @@ _Standard-Client-Config_ special configurations (which apply to any
 client / endpoint unless a different configuration is specified for
 them)
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:webservices:1.2">
     ...
@@ -344,3 +344,29 @@ Introductions page] on the wiki and at the examples in the sources.
 == WSDL system properties expansion
 
 See link:#src-557254[Published WSDL customization]
+
+:leveloffset: +1
+
+include::jax-ws/Predefined_client_and_endpoint_configurations.adoc[]
+
+include::jax-ws/Authentication.adoc[]
+
+include::jax-ws/Apache_CXF_integration.adoc[]
+
+include::jax-ws/WS-Addressing.adoc[]
+
+include::jax-ws/WS-Security.adoc[]
+
+include::jax-ws/WS-Trust_and_STS.adoc[]
+
+include::jax-ws/WS-Reliable_Messaging.adoc[]
+
+include::jax-ws/SOAP_over_JMS.adoc[]
+
+include::jax-ws/HTTP_Proxy.adoc[]
+
+include::jax-ws/WS-Discovery.adoc[]
+
+include::jax-ws/WS-Policy.adoc[]
+
+include::jax-ws/Published_WSDL_customization.adoc[]

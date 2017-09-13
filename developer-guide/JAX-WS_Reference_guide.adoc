@@ -9,6 +9,7 @@ https://docs.jboss.org/author/display/JBWS[here].
 This section covers the most relevant topics for the JBossWS version
 available on WildFly {wildflyVersion}.
 
+:leveloffset: +1
 
 include::JAX-WS_User_Guide.adoc[]
 

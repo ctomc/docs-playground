@@ -1,4 +1,5 @@
 = Default HTTP Interface Security
+:imagesdir: ../
 
 WildFly is distributed secured by default. The default security
 mechanism is username / password based making use of HTTP Digest for the

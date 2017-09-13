@@ -1,4 +1,5 @@
 = WS-Security
+:imagesdir: ../../
 
 [[ws-security-overview]]
 == WS-Security overview

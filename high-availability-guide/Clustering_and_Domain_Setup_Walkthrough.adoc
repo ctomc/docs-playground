@@ -1,4 +1,5 @@
 = Clustering and Domain Setup Walkthrough
+:imagesdir: ../
 
 In this article, I'd like to show you how to setup WildFly 9 in domain
 mode and enable clustering so we could get HA and session replication

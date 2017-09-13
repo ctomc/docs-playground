@@ -558,9 +558,11 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_the_kitchensink_quickstart_in_depth">6.2. The kitchensink quickstart in depth</a></li>
 </ul>
 </li>
-<li><a href="#_creating_your_own_application">7. Creating your own application</a>
+<li><a href="#_creating_your_own_application">7. Creating your own application</a></li>
+<li><a href="#_more_resources">8. More Resources</a>
 <ul class="sectlevel2">
-<li><a href="#_more_resources">7.1. More Resources</a></li>
+<li><a href="#_developing_jsf_project_using_jboss_as7_maven_and_intellij">8.1. Developing JSF Project Using JBoss AS7, Maven and IntelliJ</a></li>
+<li><a href="#_getting_started_developing_applications_presentation_demo">8.2. Getting Started Developing Applications Presentation &amp; Demo</a></li>
 </ul>
 </li>
 </ul>
@@ -3907,8 +3909,11 @@ as your archetype id (or if you want a blank EAR, then
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_more_resources">7.1. More Resources</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_more_resources">8. More Resources</h2>
+<div class="sectionbody">
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 50%;">
@@ -3932,6 +3937,1683 @@ JBoss AS 7, but with Ruby.</p></td>
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="_developing_jsf_project_using_jboss_as7_maven_and_intellij">8.1. Developing JSF Project Using JBoss AS7, Maven and IntelliJ</h3>
+<div class="paragraph">
+<p>JBoss AS7 is a very 'modern' application server that has very fast
+startup speed. So it&#8217;s an excellent container to test your JSF project.
+In this article, I&#8217;d like to show you how to use AS7, maven and IntelliJ
+together to develop your JSF project.</p>
+</div>
+<div class="paragraph">
+<p>In this article I&#8217;d like to introduce the following things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a project using Maven</p>
+</li>
+<li>
+<p>Add JSF into project</p>
+</li>
+<li>
+<p>Writing Code</p>
+</li>
+<li>
+<p>Add JBoss AS 7 deploy plugin into project</p>
+</li>
+<li>
+<p>Deploy project to JBoss AS 7</p>
+</li>
+<li>
+<p>Import project into IntelliJ</p>
+</li>
+<li>
+<p>Add IntelliJ JSF support to project</p>
+</li>
+<li>
+<p>Add JBoss AS7 to IntelliJ</p>
+</li>
+<li>
+<p>Debugging project with IntelliJ and AS7</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>I won&#8217;t explain many basic concepts about AS7, maven and IntelliJ in
+this article because there are already many good introductions on these
+topics. So before doing the real work, there some preparations should be
+done firstly:</p>
+</div>
+<div class="paragraph">
+<p><strong>Download JBoss AS7</strong></p>
+</div>
+<div class="paragraph">
+<p>It could be downloaded from here:
+<a href="http://www.jboss.org/jbossas/downloads/" class="bare">http://www.jboss.org/jbossas/downloads/</a></p>
+</div>
+<div class="paragraph">
+<p>Using the latest release would be fine. When I&#8217;m writing this article
+the latest version is 7.1.1.Final.</p>
+</div>
+<div class="paragraph">
+<p><strong>Install Maven</strong></p>
+</div>
+<div class="paragraph">
+<p>Please make sure you have maven installed on your machine. Here is my
+environment:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">weli@power:~$ mvn -version
+Apache Maven 3.0.3 (r1075438; 2011-03-01 01:31:09+0800)
+Maven home: /usr/share/maven
+Java version: 1.6.0_33, vendor: Apple Inc.
+Java home: /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+Default locale: en_US, platform encoding: MacRoman
+OS name: &quot;mac os x&quot;, version: &quot;10.8&quot;, arch: &quot;x86_64&quot;, family: &quot;mac&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Get IntelliJ</strong></p>
+</div>
+<div class="paragraph">
+<p>In this article I&#8217;d like to use IntelliJ Ultimate Edition as the IDE for
+development, it&#8217;s a commercial software and can be downloaded from:
+<a href="http://www.jetbrains.com/idea/" class="bare">http://www.jetbrains.com/idea/</a></p>
+</div>
+<div class="paragraph">
+<p>The version I&#8217;m using is IntelliJ IDEA Ultimate 11.1</p>
+</div>
+<div class="paragraph">
+<p>After all of these prepared, we can dive into the real work:</p>
+</div>
+<div class="sect3">
+<h4 id="create-a-project-using-maven">8.1.1. Create a project using Maven</h4>
+<div class="paragraph">
+<p>Use the following maven command to create a web project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">mvn archetype:create -DarchetypeGroupId=org.apache.maven.archetypes \
+-DarchetypeArtifactId=maven-archetype-webapp \
+-DarchetypeVersion=1.0 \
+-DgroupId=net.bluedash \
+-DartifactId=jsfdemo \
+-Dversion=1.0-SNAPSHOT</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If everything goes fine maven will generate the project for us:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/8108c4f111aab2c3465472eb84cf1d9b7cf912d0.jpg" alt="images/download/attachments/557129/8108c4f111aab2c3465472eb84cf1d9b7cf912d0.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>The contents of the project is shown as above.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-jsf-into-project">8.1.2. Add JSF into project</h4>
+<div class="paragraph">
+<p>The JSF library is now included in maven repo, so we can let maven to
+manage the download for us. First is to add repository into our pom.xml:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;repository&gt;
+  &lt;id&gt;jvnet-nexus-releases&lt;/id&gt;
+  &lt;name&gt;jvnet-nexus-releases&lt;/name&gt;
+  &lt;url&gt;https:<span class="comment">//maven.java.net/content/repositories/releases/&lt;/url&gt;</span>
+&lt;/repository&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then we add JSF dependency into pom.xml:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>javax.faces<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>jsf-api<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>2.1<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;scope&gt;</span>provided<span class="tag">&lt;/scope&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Please note the 'scope' is 'provided', because we don&#8217;t want to bundle
+the jsf.jar into the war produced by our project later, as JBoss AS7
+already have jsf bundled in.</p>
+</div>
+<div class="paragraph">
+<p>Then we run 'mvn install' to update the project, and maven will download
+jsf-api for us automatically.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="writing-code">8.1.3. Writing Code</h4>
+<div class="paragraph">
+<p>Writing JSF code in this article is trivial, so I&#8217;ve put written a
+project called 'jsfdemo' onto github:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/liweinan/jsfdemo" class="bare">https://github.com/liweinan/jsfdemo</a></p>
+</div>
+<div class="paragraph">
+<p>Please clone this project into your local machine, and import it into
+IntelliJ following the steps described as above.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-jboss-as-7-deploy-plugin-into-project">8.1.4. Add JBoss AS 7 deploy plugin into project</h4>
+<div class="paragraph">
+<p>JBoss AS7 has provide a set of convenient maven plugins to perform daily
+tasks such as deploying project into AS7. In this step let&#8217;s see how to
+use it in our project.</p>
+</div>
+<div class="paragraph">
+<p>We should put AS7&#8217;s repository into pom.xml:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;repository&gt;</span>
+    <span class="tag">&lt;id&gt;</span>jboss-public-repository-group<span class="tag">&lt;/id&gt;</span>
+    <span class="tag">&lt;name&gt;</span>JBoss Public Repository Group<span class="tag">&lt;/name&gt;</span>
+    <span class="tag">&lt;url&gt;</span>http://repository.jboss.org/nexus/content/groups/public/<span class="tag">&lt;/url&gt;</span>
+    <span class="tag">&lt;layout&gt;</span>default<span class="tag">&lt;/layout&gt;</span>
+    <span class="tag">&lt;releases&gt;</span>
+        <span class="tag">&lt;enabled&gt;</span>true<span class="tag">&lt;/enabled&gt;</span>
+        <span class="tag">&lt;updatePolicy&gt;</span>never<span class="tag">&lt;/updatePolicy&gt;</span>
+    <span class="tag">&lt;/releases&gt;</span>
+    <span class="tag">&lt;snapshots&gt;</span>
+        <span class="tag">&lt;enabled&gt;</span>true<span class="tag">&lt;/enabled&gt;</span>
+        <span class="tag">&lt;updatePolicy&gt;</span>never<span class="tag">&lt;/updatePolicy&gt;</span>
+    <span class="tag">&lt;/snapshots&gt;</span>
+<span class="tag">&lt;/repository&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And also the plugin repository:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;pluginRepository&gt;
+    &lt;id&gt;jboss-<span class="directive">public</span>-repository-group&lt;/id&gt;
+    &lt;name&gt;JBoss Public Repository <span class="predefined-type">Group</span>&lt;/name&gt;
+    &lt;url&gt;http:<span class="comment">//repository.jboss.org/nexus/content/groups/public/&lt;/url&gt;</span>
+    &lt;releases&gt;
+        &lt;enabled&gt;<span class="predefined-constant">true</span>&lt;/enabled&gt;
+    &lt;/releases&gt;
+    &lt;snapshots&gt;
+        &lt;enabled&gt;<span class="predefined-constant">true</span>&lt;/enabled&gt;
+    &lt;/snapshots&gt;
+&lt;/pluginRepository&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And put jboss deploy plugin into 'build' section:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;plugin&gt;
+    &lt;groupId&gt;org.jboss.as.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;jboss-as-maven-plugin&lt;/artifactId&gt;
+    &lt;executions&gt;
+        &lt;execution&gt;
+            &lt;phase&gt;<span class="keyword">package</span>&lt;/<span class="namespace">phase</span>&gt;
+            &lt;<span class="namespace">goals</span>&gt;
+                &lt;<span class="namespace">goal</span>&gt;<span class="namespace">deploy</span>&lt;/<span class="namespace">goal</span>&gt;
+            &lt;/<span class="namespace">goals</span>&gt;
+        &lt;/<span class="namespace">execution</span>&gt;
+    &lt;/<span class="namespace">executions</span>&gt;
+&lt;/<span class="namespace">plugin</span>&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>I&#8217;ve put the final version pom.xml here to check whether your
+modification is correct:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/liweinan/jsfdemo/blob/master/pom.xml" class="bare">https://github.com/liweinan/jsfdemo/blob/master/pom.xml</a></p>
+</div>
+<div class="paragraph">
+<p>Now we have finished the setup work for maven.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deploy-project-to-jboss-as-7">8.1.5. Deploy project to JBoss AS 7</h4>
+<div class="paragraph">
+<p>To deploy the project to JBoss AS7, we should start AS7 firstly. In
+JBoss AS7 directory, run following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">bin/standalone.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>AS7 should start in a short time. Then let&#8217;s go back to our project
+directory and run maven command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">mvn -q jboss-as:deploy</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Maven will use some time to download necessary components for a while,
+so please wait patiently. After a while, we can see the result:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/97d781c6be9db755aef80a110f1d9b29590610d6.jpg" alt="images/download/attachments/557129/97d781c6be9db755aef80a110f1d9b29590610d6.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>And if you check the console output of AS7, you can see the project is
+deployed:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/2._java.jpg" alt="images/download/attachments/557129/2._java.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Now we have learnt how to create a JSF project and deploy it to AS7
+without any help from graphical tools. Next let&#8217;s see how to use
+IntelliJ IDEA to go on developing/debugging our project.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="import-project-into-intellij">8.1.6. Import project into IntelliJ</h4>
+<div class="paragraph">
+<p>Now it&#8217;s time to import the project into IntelliJ. Now let&#8217;s open
+IntelliJ, and choose 'New Project&#8230;&#8203;':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/05222f3059e387df96ce04d2aea156c82af15096.jpg" alt="images/download/attachments/557129/05222f3059e387df96ce04d2aea156c82af15096.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>The we choose 'Import project from external model':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/d68a0cdbc8c90db3db8af998f34616f73c7fe809.jpg" alt="images/download/attachments/557129/d68a0cdbc8c90db3db8af998f34616f73c7fe809.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Next step is choosing 'Maven':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/0b3d1cb5794fb54a2465da93648b5a0d1a6643f3.jpg" alt="images/download/attachments/557129/0b3d1cb5794fb54a2465da93648b5a0d1a6643f3.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Then IntelliJ will ask you the position of the project you want to
+import. In 'Root directory' input your project&#8217;s directory and leave
+other options as default:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/2f192d02993248c97e2ac42ea8f3105d855e5cdf.jpg" alt="images/download/attachments/557129/2f192d02993248c97e2ac42ea8f3105d855e5cdf.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>For next step, just click 'Next':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/3a3ee36eb581930822c4a66362795345f5d2f9a7.jpg" alt="images/download/attachments/557129/3a3ee36eb581930822c4a66362795345f5d2f9a7.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Finally click 'Finish':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/91e40cd0b1545cff4622857d6dc9959f96faf056.jpg" alt="images/download/attachments/557129/91e40cd0b1545cff4622857d6dc9959f96faf056.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Hooray! We&#8217;ve imported the project into IntelliJ now <span class="icon yellow"><i class="fa fa-smile-o"></i></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="adding-intellij-jsf-support-to-project">8.1.7. Adding IntelliJ JSF support to project</h4>
+<div class="paragraph">
+<p>Let&#8217;s see how to use IntelliJ and AS7 to debug the project. First we
+need to add 'JSF' facet into project. Open project setting:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/8b8d0051f4f15033f17cb859c65f2d8481914678.jpg" alt="images/download/attachments/557129/8b8d0051f4f15033f17cb859c65f2d8481914678.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Click on 'Facets' section on left; Select 'Web' facet that we already
+have, and click the '+' on top, choose 'JSF':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/e6947b84a56a698ca1392a440081bddfb5cae284.jpg" alt="images/download/attachments/557129/e6947b84a56a698ca1392a440081bddfb5cae284.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Select 'Web' as parent facet:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/6b2296be1bb2d8a81952caef0f025a139a39b381.jpg" alt="images/download/attachments/557129/6b2296be1bb2d8a81952caef0f025a139a39b381.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Click 'Ok':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/9988c572bad281146f405e9287f645a3da201885.jpg" alt="images/download/attachments/557129/9988c572bad281146f405e9287f645a3da201885.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Now we have enabled IntelliJ&#8217;s JSF support for project.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-jboss-as7-to-intellij">8.1.8. Add JBoss AS7 to IntelliJ</h4>
+<div class="paragraph">
+<p>Let&#8217;s add JBoss AS7 into IntelliJ and use it to debug our project. First
+please choose 'Edit Configuration' in menu tab:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/dc0550785aae11f9d3eb439fdc0c51069affd25d.jpg" alt="images/download/attachments/557129/dc0550785aae11f9d3eb439fdc0c51069affd25d.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Click '+' and choose 'JBoss Server' &#8594; 'Local':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/1231420c938f087030cb3dcd37237b5585beb154.jpg" alt="images/download/attachments/557129/1231420c938f087030cb3dcd37237b5585beb154.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Click 'configure':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/d7e6ab58230b2d31fdcd8fd5f14cd4eb47b05f64.jpg" alt="images/download/attachments/557129/d7e6ab58230b2d31fdcd8fd5f14cd4eb47b05f64.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>and choose your JBoss AS7:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/f7b29ac8009f04fc7f209222ced0bcf54f4b8d9a.jpg" alt="images/download/attachments/557129/f7b29ac8009f04fc7f209222ced0bcf54f4b8d9a.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Now we need to add our project into deployment. Click the 'Deployment'
+tab:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/6802fb7e29283d0e064a7cc4466b918995ba5645.jpg" alt="images/download/attachments/557129/6802fb7e29283d0e064a7cc4466b918995ba5645.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Choose 'Artifact', and add our project:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/359484b8f6f2c655d94132e9cb6f9dbe5a058656.jpg" alt="images/download/attachments/557129/359484b8f6f2c655d94132e9cb6f9dbe5a058656.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Leave everything as default and click 'Ok', now we&#8217;ve added JBoss AS7
+into IntelliJ</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="debugging-project-with-intellij-and-as7">8.1.9. Debugging project with IntelliJ and AS7</h4>
+<div class="paragraph">
+<p>Now comes the fun part. To debug our project, we cannot directly use the
+'debug' feature provided by IntelliJ right now(maybe in the future
+version this problem could be fixed). So now we should use the debugging
+config provided by AS7 itself to enable JPDA feature, and then use the
+remote debug function provided by IntelliJ to get things done. Let&#8217;s
+dive into the details now:</p>
+</div>
+<div class="paragraph">
+<p>First we need to enable JPDA config inside AS7, open
+'bin/standalone.conf' and find following lines:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="error">#</span> Sample JPDA settings <span class="keyword">for</span> remote socket debugging
+<span class="error">#</span>JAVA_OPTS=<span class="string"><span class="delimiter">&quot;</span><span class="content">$JAVA_OPTS -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enable the above config by removing the leading hash sign:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="error">#</span> Sample JPDA settings <span class="keyword">for</span> remote socket debugging
+JAVA_OPTS=<span class="string"><span class="delimiter">&quot;</span><span class="content">$JAVA_OPTS -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n</span><span class="delimiter">&quot;</span></span></code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+With WildFly you can directly start the server in debug mode:
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">bin/standalone.sh --debug --server-config=standalone.xml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we start AS7 in IntelliJ:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/52369d67f9117c924213de24dd6642b48e47a436.png" alt="images/download/attachments/557129/52369d67f9117c924213de24dd6642b48e47a436.png"></span></p>
+</div>
+<div class="paragraph">
+<p>Please note we should undeploy the existing 'jsfdemo' project in AS7 as
+we&#8217;ve added by maven jboss deploy plugin before. Or AS7 will tell us
+there is already existing project with same name so IntelliJ could not
+deploy the project anymore.</p>
+</div>
+<div class="paragraph">
+<p>If the project start correctly we can see from the IntelliJ console
+window, and please check the debug option is enabled:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/eaac5cb1a836809ab29513346b527fe051b7c7ac.png" alt="images/download/attachments/557129/eaac5cb1a836809ab29513346b527fe051b7c7ac.png"></span></p>
+</div>
+<div class="paragraph">
+<p>Now we will setup the debug configuration, click 'debug' option on menu:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/b8323caf6980c40c3d635db5e308b03847618d06.jpg" alt="images/download/attachments/557129/b8323caf6980c40c3d635db5e308b03847618d06.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Choose 'Edit Configurations':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/8327bbe0e83cb7170dd84767631c98956e91c42c.jpg" alt="images/download/attachments/557129/8327bbe0e83cb7170dd84767631c98956e91c42c.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Then we click 'Add' and choose Remote:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/7103da6b6323e515a03a04cafe111aa7c6b3169d.jpg" alt="images/download/attachments/557129/7103da6b6323e515a03a04cafe111aa7c6b3169d.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Set the 'port' to the one you used in AS7 config file 'standalone.conf':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/30bbef45137c7d45ae300ba8d551423d1feefc96.png" alt="images/download/attachments/557129/30bbef45137c7d45ae300ba8d551423d1feefc96.png"></span></p>
+</div>
+<div class="paragraph">
+<p>Leave other configurations as default and click 'Ok'. Now we need to set
+breakpoints in project, let&#8217;s choose TimeBean.java and set a breakpoint
+on 'getNow()' method by clicking the left side of that line of code:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/a96b7d32e04aa67956bd00a187f09b75a5af241e.jpg" alt="images/download/attachments/557129/a96b7d32e04aa67956bd00a187f09b75a5af241e.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Now we can use the profile to do debug:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/5ea6987d1635c2c58d3ccdb1f5718f29d6a0fac3.png" alt="images/download/attachments/557129/5ea6987d1635c2c58d3ccdb1f5718f29d6a0fac3.png"></span></p>
+</div>
+<div class="paragraph">
+<p>If everything goes fine we can see the console output:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/1096ebbbf2b29e694e300e02a48d0fa4207cb746.jpg" alt="images/download/attachments/557129/1096ebbbf2b29e694e300e02a48d0fa4207cb746.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>Now we go to web browser and see our project&#8217;s main page, try to click
+on 'Get current time':</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/5ad5d0216d3326e9bc29705042db59f11c3c1e70.png" alt="images/download/attachments/557129/5ad5d0216d3326e9bc29705042db59f11c3c1e70.png"></span></p>
+</div>
+<div class="paragraph">
+<p>Then IntelliJ will popup and the code is pausing on break point:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/download/attachments/557129/2499d43c0dce2cab72ba472c8452a2b57999ac84.jpg" alt="images/download/attachments/557129/2499d43c0dce2cab72ba472c8452a2b57999ac84.jpg"></span></p>
+</div>
+<div class="paragraph">
+<p>And we could inspect our project now.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="conclusion">8.1.10. Conclusion</h4>
+<div class="paragraph">
+<p>In this article I&#8217;ve shown to you how to use maven to create a project
+using JSF and deploy it in JBoss AS7, and I&#8217;ve also talked about the
+usage of IntelliJ during project development phase. Hope the contents
+are practical and helpful to you <span class="icon yellow"><i class="fa fa-smile-o"></i></span></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="references">8.1.11. References</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><em><a href="https://community.jboss.org/wiki/JBossAS7UsingJPDAToDebugTheASSourceCode">JBoss
+AS7: Using JPDA to debug the AS source code</a></em></p>
+</li>
+<li>
+<p><em><a href="http://navinpeiris.com/2011/07/19/importing-jboss-7-dependencies-through-maven/">Importing
+JBoss 7 Bundled Dependency Versions Through Maven</a></em></p>
+</li>
+<li>
+<p><em><a href="https://community.jboss.org/wiki/MavenGettingStarted-Developers">Maven
+Getting Started - Developers</a></em></p>
+</li>
+<li>
+<p><em><a href="http://localhost:8090/blog.v-s-f.co.uk/2010/09/jsf-2-1-project-using-eclipse-and-maven-2/">JSF
+2.1 project using Eclipse and Maven 2:http</a></em></p>
+</li>
+<li>
+<p><em><a href="http://www.amazon.com/Practical-RichFaces-Max-Katz/dp/1430234490/ref=dp_ob_title_bk">Practical
+RichFaces</a></em></p>
+</li>
+<li>
+<p><em><a href="http://javaserverfaces.java.net/download.html">Oracle Mojarra
+JavaServer Faces</a></em></p>
+</li>
+<li>
+<p><em><a href="https://github.com/jbossas/jboss-as-maven-plugin">JBoss AS7 Maven
+Plugin</a></em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_getting_started_developing_applications_presentation_demo">8.2. Getting Started Developing Applications Presentation &amp; Demo</h3>
+<div class="paragraph">
+<p>This document is a "script" for use with the quickstarts associated with
+the <a href="Getting_Started_Developing_Applications_Guide.html">Getting
+Started Developing Applications Guide</a>. It can be used as the basis for
+demoing/explaining the Java EE 6 programming model with JBoss AS 7.</p>
+</div>
+<div class="paragraph">
+<p>There is an associated presentation – JBoss AS - Getting Started
+Developing Applications – which can be used to introduce the Java EE 6
+ecosystem.</p>
+</div>
+<div class="paragraph">
+<p>The emphasis here is on the programming model, not on OAM/dev-ops,
+performance etc.</p>
+</div>
+<div class="sect3">
+<h4 id="prerequisites-for-using-the-script">8.2.1. Prerequisites for using the script</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>JBoss AS 7 downloaded and installed</p>
+</li>
+<li>
+<p>Eclipse Indigo with m2eclipse and JBoss Tools installed</p>
+</li>
+<li>
+<p>The quickstarts downloaded and imported into Eclipse</p>
+</li>
+<li>
+<p>Make sure <code>$JBOSS_HOME</code> is set.</p>
+</li>
+<li>
+<p>Make sure <code>src/test/resources/arquillian.xml</code> has the correct path to
+your JBoss AS install for kitchensink</p>
+</li>
+<li>
+<p>Make sure your font size is set in Eclipse so everyone can read the
+text!</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="import-examples-into-eclipse-and-set-up-jboss-as">8.2.2. Import examples into Eclipse and set up JBoss AS</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="the-helloworld-quickstart">8.2.3. The Helloworld Quickstart</h4>
+<div class="sect4">
+<h5 id="introduction-1">Introduction</h5>
+<div class="paragraph">
+<p>This quickstart is extremely basic, and is really useful for nothing
+more than showing than the app server is working properly, and our
+deployment mechanism is working. We recommend you use this quickstart to
+demonstrate the various ways you can deploy apps to JBoss AS 7.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="using-maven">Using Maven</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start JBoss AS 7 from the console</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span>JBOSS_HOME/bin/standalone.sh</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Deploy the app using Maven</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">mvn clean <span class="keyword">package</span> <span class="namespace">jboss</span>-<span class="namespace">as</span>:<span class="namespace">deploy</span></code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The quickstarts use the jboss-as maven plugin to deploy and undeploy
+applications. This plugin uses the JBoss AS Native Java Detyped
+Management API to communicate with the server. The Detyped API is used
+by management tools to control an entire domain of servers, and exposes
+only a small number of types, allowing for backwards and forwards
+compatibility.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Show the app has deployed in the terminal</p>
+</div>
+<div class="paragraph">
+<p>Visit <a href="http://localhost:8080/jboss-as-helloworld" class="bare">http://localhost:8080/jboss-as-helloworld</a></p>
+</div>
+<div class="paragraph">
+<p>Undeploy the app using Maven</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">mvn jboss-as:undeploy</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="using-the-command-line-interface-cli">Using the Command Line Interface (CLI)</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start JBoss AS 7 from the console (if not already running)</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span>JBOSS_HOME/bin/standalone.sh</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Build the war</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">mvn clean <span class="keyword">package</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Start the CLI</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span>JBOSS_HOME/bin/jboss-admin.sh --connect</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The command line also uses the Deptyped Management API to communicate
+with the server. It&#8217;s designed to be as "unixy" as possible, allowing
+you to "cd" into nodes, with full tab completion etc. The CLI allows you
+to deploy and undeploy applications, create JMS queues, topics etc.,
+create datasources (normal and XA). It also fully supports the domain
+node.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Deploy the app</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">deploy target/jboss-as-helloworld.war</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Show the app has deployed</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">undeploy jboss-as-helloworld.war</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="using-the-web-management-interface">Using the web management interface</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start JBoss AS 7 from the console (if not already running)</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span>JBOSS_HOME/bin/standalone.sh</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Build the war</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">mvn clean <span class="keyword">package</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open up the web management interface <a href="http://localhost:9990/console" class="bare">http://localhost:9990/console</a></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The web maangement interface offers the same functionality as the CLI
+(and again uses the Detyped Management API), but does so using a pretty
+GWT interface! You can set up virtual servers, interrogate sub systems
+and more.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Navigate <code>Manage Deployments &#8594; Add content</code>. Click on choose file and
+locate <code>helloworld/target/jboss-as-helloworld.war</code>.</p>
+</div>
+<div class="paragraph">
+<p>Click <code>Next</code> and <code>Finish</code> to upload the war to the server.</p>
+</div>
+<div class="paragraph">
+<p>Now click <code>Enable</code> and <code>Ok</code> to start the application</p>
+</div>
+<div class="paragraph">
+<p>Switch to the console to show it deployed</p>
+</div>
+<div class="paragraph">
+<p>Now click <code>Remove</code></p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="using-the-filesystem">Using the filesystem</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start JBoss AS 7 from the console (if not already running)</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span>JBOSS_HOME/bin/standalone.sh</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Build the war</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">mvn clean <span class="keyword">package</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Of course, you can still use the good ol' file system to deploy. Just
+copy the file to <code>$JBOSS_HOME/standalone/deployments</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Copy the war</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">cp target/jboss-as-helloworld.war <span class="error">$</span>JBOSS_HOME/standalone/deployments</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Show the war deployed</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The filesystem deployment uses marker files to indicate the status of a
+deployment. As this deployment succeeded we get a
+<code>$JBOSS_HOME/standalone/deployments/jboss-as-helloworld.war.deployed</code>
+file. If the deployment failed, you would get a <code>.failed</code> file etc.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Undeploy the war</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">rm <span class="error">$</span>JBOSS_HOME/standalone/deployments/jboss-as-helloworld.war.deployed</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Show the deployment stopping!</p>
+</div>
+<div class="paragraph">
+<p>Start and stop the appserver, show that the deployment really is gone!</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+This gives you much more precise control over deployments than before
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="using-eclipse">Using Eclipse</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add a JBoss AS server</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Bring up the Server view</p>
+</li>
+<li>
+<p>Right click in it, and choose <code>New &#8594; Server</code></p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Choose JBoss AS 7.0 and hit Next</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Locate the server on your disc</p>
+</li>
+<li>
+<p>Hit Finish</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Start JBoss AS in Eclipse</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Select the server</p>
+</li>
+<li>
+<p>Click the Run button</p>
+</li>
+<li>
+<p>Deploy the app</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>right click on the app, choose <code>Run As &#8594; Run On Server</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Select the AS 7 instance you want to use</p>
+</li>
+<li>
+<p>Hit finish</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Load the app at <a href="http://localhost:8080/jboss-as-helloworld" class="bare">http://localhost:8080/jboss-as-helloworld</a></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="digging-into-the-app">Digging into the app</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open up the helloworld quickstart in Eclipse, and open up
+<code>src/main/webapp</code>.</p>
+</li>
+<li>
+<p>Point out that we don&#8217;t require a <code>web.xml</code> anymore!</p>
+</li>
+<li>
+<p>Show <code>beans.xml</code> and explain it&#8217;s a marker file used to JBoss AS to
+enable CDI (open it, show that it is empty)</p>
+</li>
+<li>
+<p>Show <code>index.html</code>, and explain it is just used to kick the user into
+the app (open it, show the meta-refresh)</p>
+</li>
+<li>
+<p>Open up the <code>pom.xm</code> - and emphasise that it&#8217;s pretty simple.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>There is no parent pom, everything for the build is <strong>here</strong></p>
+</li>
+<li>
+<p>Show that we are enabling the JBoss Maven repo - explain you can do
+this in your POM or in system wide ( <code>settings.xml</code>)</p>
+</li>
+<li>
+<p>Show the <code>dependencyManagement</code> section. Here we import the JBoss AS
+7 Web Profile API. Explain that this gives you all the versions for all
+of the JBoss AS 7 APIs that are in the web profile. Explain we could
+also depend on this directly, which would give us the whole set of APIs,
+but that here we&#8217;ve decided to go for slightly tighter control and
+specify each dependency ourselves</p>
+</li>
+<li>
+<p>Show the import for CDI, JSR-250 and Servlet API. Show that these
+are all provided - we are depending on build in server implementations,
+not packaging this stuff!</p>
+</li>
+<li>
+<p>Show the plugin sections - nothing that exciting here, the war
+plugin is out of date and requires you to provide <code>web.xml</code> <span class="icon yellow"><i class="fa fa-smile-o"></i></span>
+, configure the JBoss AS Maven Plugin, set the Java version to 6.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Open up <code>src/main/java</code> and open up the <code>HelloWorldServlet</code>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Point out the <code>@WebServlet</code> - explain this one annotation removes
+about 8 lines of XML - no need to separately map a path either. This is
+much more refactor safe</p>
+</li>
+<li>
+<p>Show that we can inject services into a Servlet</p>
+</li>
+<li>
+<p>Show that we use the service (line 41)<br>
+#Cmd-click on <code>HelloService</code></p>
+</li>
+<li>
+<p>This is a CDI bean - very simple, no annotations required!</p>
+</li>
+<li>
+<p>Explain injection</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Probably used to string based bean resolution</p>
+</li>
+<li>
+<p>This is typesafe (refactor safe, take advantage of the compiler and
+the IDE - we just saw that!)</p>
+</li>
+<li>
+<p>When CDI needs to inject something, the first thing it looks at is
+the type - and if the type of the injection point is assignable from a
+bean, CDI will inject that bean</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="the-numberguess-quickstart">8.2.4. The numberguess quickstart</h4>
+<div class="sect4">
+<h5 id="introduction-2">Introduction</h5>
+<div class="paragraph">
+<p>This quickstart adds in a "complete" view layer into the mix. Java EE
+ships with a JSF. JSF is a server side rendering, component orientated
+framework, where you write markup using an HTML like language, adding in
+dynamic behavior by binding components to beans in the back end. The
+quickstart also makes more use of CDI to wire the application together.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="run-the-app">Run the app</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start JBoss AS in Eclipse</p>
+</li>
+<li>
+<p>Deploy it using Eclipse - just right click on the app, choose
+<code>Run As &#8594; Run On Server</code></p>
+</li>
+<li>
+<p>Select the AS 7 instance you want to use</p>
+</li>
+<li>
+<p>Hit finish</p>
+</li>
+<li>
+<p>Load the app at <a href="http://localhost:8080/jboss-as-numberguess" class="bare">http://localhost:8080/jboss-as-numberguess</a></p>
+</li>
+<li>
+<p>Make a few guesses</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="deployment-descriptors-srcmainwebappweb-inf">Deployment descriptors src/main/webapp/WEB-INF</h5>
+<div class="paragraph">
+<p>Emphasize the lack of them!</p>
+</div>
+<div class="paragraph">
+<p>No need to open any of them, just point them out</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>web.xml</code> - don&#8217;t need it!</p>
+</li>
+<li>
+<p><code>beans.xml</code> - as before, marker file</p>
+</li>
+<li>
+<p><code>faces-config.xml</code> - nice feature from AS7 - we can just put
+<code>faces-config.xml</code> into the WEB-INF and it enables JSF (inspiration from
+CDI)</p>
+</li>
+<li>
+<p><code>pom.xml</code> we saw this before, this time it&#8217;s the same but adds in
+JSF API</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="views">Views</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>index.html</code> - same as before, just kicks us into the app</p>
+</li>
+<li>
+<p><code>home.xhtml</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Lines 19 - 25 – these are messages output depending on state of
+beans (minimise coupling between controller and view layer by
+interrogating state, not pushing)</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Line 20 – output any messages pushed out by the controller</p>
+</li>
+<li>
+<p>Line 39 - 42 – the input field is bound to the guess field on the
+game bean. We validate the input by calling a method on the game bean.</p>
+</li>
+<li>
+<p>Line 43 - 45 – the command button is used to submit the form, and
+calls a method on the game bean</p>
+</li>
+<li>
+<p>Line 48, 49, The reset button again calls a method on the game bean</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="beans">Beans</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Game.java</code> – this is the main controller for the game. App has no
+persistence etc.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>@Named</code> – As we discussed CDI is typesafe, (beans are injected by
+type) but sometimes need to access in a non-typesafe fashion. @Named
+exposes the Bean in EL - and allows us to access it from JSF</p>
+</li>
+<li>
+<p><code>@SessionScoped</code> – really simple app, we keep the game data in the
+session - to play two concurrent games, need two sessions. This is not a
+limitation of CDI, but simply keeps this demo very simple. CDI will
+create a bean instance the first time the game bean is accessed, and
+then always load that for you</p>
+</li>
+<li>
+<p><code>@Inject maxNumber</code> – here we inject the maximum number we can
+guess. This allows us to externalize the config of the game</p>
+</li>
+<li>
+<p><code>@Inject rnadomNumber</code> – here we inject the random number we need to
+guess. Two things to discuss here</p>
+</li>
+<li>
+<p>Instance - normally we can inject the object itself, but sometimes
+it&#8217;s useful to inject a "provider" of the object (in this case so that
+we can get a new random number when the game is reset!). Instance allows
+us to <code>get()</code> a new instance when needed</p>
+</li>
+<li>
+<p>Qualifiers - now we have two types of Integer (CDI auto-boxes types
+when doing injection) so we need to disambiguate. Explain qualifiers and
+development time approach to disambiguation. You will want to open up
+<code>@MaxNumber</code> and <code>@Random</code> here.</p>
+</li>
+<li>
+<p><code>@PostConstruct</code> – here is our reset method - we also call it on
+startup to set up initial values. Show use of <code>Instance.get()</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><code>Generator.java</code> This bean acts as our random number generator.</p>
+</li>
+<li>
+<p><code>@ApplicationScoped</code> explain about other scopes available in CDI<br>
+extensibility.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>next()</code> Explain about producers being useful for determining bean
+instance at runtime</p>
+</li>
+<li>
+<p><code>getMaxNumber()</code> Explain about producers allowing for loose coupling</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="the-login-quickstart">8.2.5. The login quickstart</h4>
+<div class="sect4">
+<h5 id="introduction-3">Introduction</h5>
+<div class="paragraph">
+<p>The login quickstart builds on the knowledge of CDI and JSF we have got
+from numberguess. New stuff we will learn about is how to use JPA to
+store data in a database, how to use JTA to control transactions, and
+how to use EJB for declarative TX control.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="run-the-app-1">Run the app</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start JBoss AS in Eclipse</p>
+</li>
+<li>
+<p>Deploy it using Eclipse - just right click on the app, choose
+<code>Run As &#8594; Run On Server</code></p>
+</li>
+<li>
+<p>Select the AS 7 instance you want to use</p>
+</li>
+<li>
+<p>Hit finish</p>
+</li>
+<li>
+<p>Load the app at <a href="http://localhost:8080/jboss-as-login" class="bare">http://localhost:8080/jboss-as-login</a></p>
+</li>
+<li>
+<p>Login as admin/admin</p>
+</li>
+<li>
+<p>Create a new user</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="deployment-descriptors">Deployment Descriptors</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Show that we have the same ones we are used in <code>src/main/webapp</code> –
+<code>beans.xml</code>, <code>faces-config.xml</code></p>
+</li>
+<li>
+<p>We have a couple of new ones in <code>src/main/resources</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>persistence.xml</code>. Not too exciting. We are using a datasource that
+AS7 ships with. It&#8217;s backed by the H2 database and is purely a sample
+datasource to use in sample applications. We also tell Hibernate to
+auto-create tables - as you always have.</p>
+</li>
+<li>
+<p><code>import.sql</code> Again, the same old thing you are used to in Hibernate</p>
+<div class="ulist">
+<ul>
+<li>
+<p>auto-import data when the app starts.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><code>pom.xml</code> is the same again, but just adds in dependencies for JPA,
+JTA and EJB</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="views-1">Views</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>template.xhtml</code> One of the updates added to JSF 2.0 was templating
+ability. We take advantage of that in this app, as we have multiple
+views</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Actually nothing too major here, we define the app "title" and we
+could easily define a common footer etc. (we can see this done in the
+kitchensink app)</p>
+</li>
+<li>
+<p>The <code>ui:insert</code> command inserts the actual content from the
+templated page.<br>
+# <code>home.xhtml</code></p>
+</li>
+<li>
+<p>Uses the template</p>
+</li>
+<li>
+<p>Has some input fields for the login form, button to login and
+logout, link to add users.</p>
+</li>
+<li>
+<p>Binds fields to credentials bean}}</p>
+</li>
+<li>
+<p>Buttons link to login bean which is the controller</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><code>users.xhtml</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Uses the template</p>
+</li>
+<li>
+<p>Displays all users using a table</p>
+</li>
+<li>
+<p>Has a form with input fields to add users.</p>
+</li>
+<li>
+<p>Binds fields to the newUser bean</p>
+</li>
+<li>
+<p>Methods call on userManager bean</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="beans-1">Beans</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>Credentials.java</code> Backing bean for the login form field, pretty
+trivial. It&#8217;s request scoped (natural for a login field) and named so we
+can get it from JSF.</p>
+</li>
+<li>
+<p><code>Login.java</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Is session scoped (a user is logged in for the length of their
+session or until they log out}}</p>
+</li>
+<li>
+<p>Is accessible from EL</p>
+</li>
+<li>
+<p>Injects the current credentials</p>
+</li>
+<li>
+<p>Uses the userManager service to load the user, and sends any
+messages to JSF as needed</p>
+</li>
+<li>
+<p>Uses a producer method to expose the @LoggedIn user (producer
+methods used as we don&#8217;t know which user at development time)</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><code>User.java</code> Is a pretty straightforward JPA entity. Mapped with
+<code>@Entity</code>, has an natural id.</p>
+</li>
+<li>
+<p><code>UserManager.java</code> This is an interface, and by default we use the
+ManagedBean version, which requires manual TX control</p>
+</li>
+<li>
+<p><code>ManagedBeanUserManager.java</code> - accessible from EL, request scoped.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Injects a logger (we&#8217;ll see how that is produced in a minute)</p>
+</li>
+<li>
+<p>Injects the entity manager (again, just a min)</p>
+</li>
+<li>
+<p>Inject the UserTransaction (this is provided by CDI)</p>
+</li>
+<li>
+<p><code>getUsers()</code> standard JPA-QL that we know and love - but lots of
+ugly TX handling code.</p>
+</li>
+<li>
+<p>Same for <code>addUser()</code> and <code>findUser()</code> methods - very simple JPA
+but&#8230;&#8203;</p>
+</li>
+<li>
+<p>Got a couple of producer methods.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><code>getUsers()</code> is obvious - loads all the users in the database. No
+ambiguity - CDI takes into account generic types when injecting. Also
+note that CDI names respect JavaBean naming conventions</p>
+</li>
+<li>
+<p><code>getNewUser()</code> is used to bind the new user form to from the view
+layer - very nice as it decreases coupling - we could completely change
+the wiring on the server side (different approach to creating the
+newUser bean) and no need to change the view layer.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><code>EJBUserManager.java</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>It&#8217;s an alternative – explain alternatives, and that they allow
+selection of beans at deployment time</p>
+</li>
+<li>
+<p>Much simple now we have declarative TX control.</p>
+</li>
+<li>
+<p>Start to see how we can introduce EJB to get useful enterprise
+services such as declarative TX control</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><code>Resources.java</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>{EntityManager}</code> - explain resource producer pattern</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="the-kitchensink-quickstart">8.2.6. The kitchensink quickstart</h4>
+<div class="sect4">
+<h5 id="introduction-4">Introduction</h5>
+<div class="paragraph">
+<p>The kitchensink quickstart is generated from an archetype available for
+JBoss AS (tell people to check the
+<a href="/pages/createpage.action?spaceKey=WFLY&amp;title=Getting+Started+Developing+Applications&amp;linkCreation=true&amp;fromPageId=557131">Getting
+Started Developing Applications</a> Guide for details). It demonstrates
+CDI, JSF, EJB, JPA (which we&#8217;ve seen before) and JAX-RS and Bean
+Validation as well. We add in Arquillian for testing.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="run-the-app-2">Run the app</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start JBoss AS in Eclipse</p>
+</li>
+<li>
+<p>Deploy it using Eclipse - just right click on the app, choose
+<code>Run As &#8594; Run On Server</code></p>
+</li>
+<li>
+<p>Select the AS 7 instance you want to use</p>
+</li>
+<li>
+<p>Hit finish</p>
+</li>
+<li>
+<p>Load the app at <a href="http://localhost:8080/jboss-as-kitchensink" class="bare">http://localhost:8080/jboss-as-kitchensink</a></p>
+</li>
+<li>
+<p>Register a member - make sure to enter an invalid email and phone -
+show bean validation at work</p>
+</li>
+<li>
+<p>Click on the member URL and show the output from JAX-RS</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="bean-validation">Bean Validation</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Explain the benefits of bean validation - need your data always
+valid (protect your data) AND good errors for your user. BV allows you
+to express once, apply often.</p>
+</li>
+<li>
+<p><code>index.xhtml</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Show the input fields – no validators attached</p>
+</li>
+<li>
+<p>Show the message output</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><code>Member.java</code></p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Hightlight the various validation annotations</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Java EE automatically applies the validators in both the persistence
+layer and in your views</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="jax-rs">JAX-RS</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>index.xhtml</code> - Show that URL generation is just manual</p>
+</li>
+<li>
+<p><code>JaxRsActivator.java</code> - simply activates JAX-RS</p>
+</li>
+<li>
+<p><code>Member.java</code> - add JAXB annotation to make JAXB process the class properly</p>
+</li>
+<li>
+<p><code>MemberResourceRESTService.java</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><code>@Path</code> sets the JAX-RS resource</p>
+</li>
+<li>
+<p>JAX-RS services can use injection</p>
+</li>
+<li>
+<p><code>@GET</code> methods are auto transformed to XML using JAXB</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>And that is it!</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="arquillian">Arquillian</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make sure JBoss AS is running</p>
+</li>
+<li>
+<p>[source, bash]</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>mvn clean test -Parq-jbossas-remote</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Explain the difference between managed and remote</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Make sure JBoss AS is stopped</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">mvn clean test -Parq-jbossas-managed</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Start JBoss AS in Eclipse</p>
+</div>
+<div class="paragraph">
+<p>Update the project to use the <code>arq-jbossas-remote</code> profile</p>
+</div>
+<div class="paragraph">
+<p>Run the test from Eclipse</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right click on test, <code>Run As &#8594; JUnit Test</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><code>MemberRegistrationTest.java</code></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Discuss micro deployments</p>
+</li>
+<li>
+<p>Explain Arquilian allows you to use injection</p>
+</li>
+<li>
+<p>Explain that Arquillian allows you to concentrate just on your test
+logic</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -3939,7 +5621,7 @@ JBoss AS 7, but with Ruby.</p></td>
 <div id="footer">
 <div id="footer-text">
 Version {version}<br>
-Last updated 2017-09-13 16:06:58 CEST
+Last updated 2017-09-13 22:08:51 CEST
 </div>
 </div>
 </body>

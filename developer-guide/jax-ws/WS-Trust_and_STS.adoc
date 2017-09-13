@@ -140,7 +140,7 @@ the SOAP request and response messages are declared. A detailed
 explanation of the security settings are provided in the comments in the
 listing below.
 
-[source, java]
+[source, xml]
 ----
  <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions targetNamespace="http://www.jboss.org/jbossws/ws-extensions/wssecuritypolicy" name="SecurityService"

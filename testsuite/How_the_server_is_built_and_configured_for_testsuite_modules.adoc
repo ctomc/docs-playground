@@ -1,4 +1,4 @@
-= How the JBoss AS instance is built and configured for testsuite modules.
+= How the WildFly is built and configured for testsuite modules.
 
 Refer to link:#src-557167[Shortened Maven Run Overview] to see the
 mentioned build steps.
@@ -19,7 +19,7 @@ phase generate-test-resources: resource-plugin, goal copy-resources
 
 phase process-test-resources: antrun-plugin:
 
-[source, java]
+[source, xml]
 ----
 <ant antfile="$\{basedir}/src/test/scripts/basic-integration-build.xml">
     <target name="build-basic-integration"/>
@@ -29,7 +29,7 @@ phase process-test-resources: antrun-plugin:
 
 Which invokes
 
-[source, java]
+[source, xml]
 ----
 <target name="build-basic-integration" description="Builds server configuration for basic-integration tests">
       <build-server-config name="jbossas"/>
@@ -37,7 +37,7 @@ Which invokes
 
 Which invokes
 
-[source, java]
+[source, xml]
 ----
 <!-- Copy the base distribution. -->
 <!-- We exclude modules and bundles as they are read-only and we locate the via sys props. -->
@@ -63,7 +63,7 @@ Which invokes
 [[arquillian-config-file-location]]
 == Arquillian config file location
 
-[source, java]
+[source, bash]
 ----
 -Darquillian.xml=some-file-or-classpath-resource.xml
 ----

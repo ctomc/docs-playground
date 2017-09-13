@@ -43,7 +43,7 @@ include::https://raw.githubusercontent.com/wildfly/quickstart/11.x/guide/Kitchen
 include::https://raw.githubusercontent.com/wildfly/quickstart/11.x/guide/Archetype.asciidoc[]
 
 
-== More Resources
+= More Resources
 
 [cols=",",]
 |=======================================================================
@@ -56,3 +56,10 @@ JBoss AS 7, but with Ruby.
 
 | link:https://developer.jboss.org/wiki/JBossAS7FAQ[JBoss AS 7 FAQ] |Frequently Asked Questions for JBoss AS 7
 |=======================================================================
+
+:leveloffset: +1
+
+include::extras/Developing_JSF_Project_Using,_Maven_and_IntelliJ.adoc[]
+
+include::extras/Getting_Started_Developing_Applications_Presentation_Demo.adoc[]
+

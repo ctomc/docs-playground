@@ -35,7 +35,7 @@ Users should hence develop endpoints using the _contract-first_
 approach, that is explicitly providing the contract for their services.
 Here is a excerpt taken from a wsdl including a WS-Addressing policy:
 
-[source, java]
+[source, xml]
 ----
 <wsdl:definitions name="Foo" targetNamespace="http://ws.jboss.org/foo"
 ...

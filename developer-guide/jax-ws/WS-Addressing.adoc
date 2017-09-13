@@ -104,7 +104,7 @@ public class ServiceImpl implements ServiceIface
 The WSDL contract that's generated at deploy time and published looks
 like this:
 
-[source, java]
+[source, xml]
 ----
 <wsdl:definitions ....>
 ...

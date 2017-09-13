@@ -123,8 +123,7 @@ client application to decide which approach they want to follow.
 
 We have so far had an overview of how the client code looks like when
 using the jboss-remote-naming (henceforth referred to as remote-naming -
-too tired of typing jboss-remote-naming everytime
-image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/wink0.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/wink0.png]
+too tired of typing jboss-remote-naming everytime icon:smile-o[role="yellow"]
 ) project. Let's now have a brief look at how the remote-naming project
 internally establishes the communication with the server and allows JNDI
 operations from the client side.

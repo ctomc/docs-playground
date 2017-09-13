@@ -1,8 +1,5 @@
 = Getting Started Developing Applications Presentation & Demo
 
-[[introduction]]
-== Introduction
-
 This document is a "script" for use with the quickstarts associated with
 the link:Getting_Started_Developing_Applications_Guide.html[Getting
 Started Developing Applications Guide]. It can be used as the basis for
@@ -220,20 +217,20 @@ This gives you much more precise control over deployments than before
 [[using-eclipse]]
 === Using Eclipse
 
-1.  Add a JBoss AS server
-1.  Bring up the Server view
-2.  Right click in it, and choose `New -> Server`
-3.  Choose JBoss AS 7.0 and hit Next
-4.  Locate the server on your disc
-5.  Hit Finish
-2.  Start JBoss AS in Eclipse
-1.  Select the server
-2.  Click the Run button
-3.  Deploy the app
-1.  right click on the app, choose `Run As -> Run On Server`
-2.  Select the AS 7 instance you want to use
-3.  Hit finish
-4.  Load the app at http://localhost:8080/jboss-as-helloworld
+. Add a JBoss AS server
+.. Bring up the Server view
+..  Right click in it, and choose `New -> Server`
+.  Choose JBoss AS 7.0 and hit Next
+..  Locate the server on your disc
+..  Hit Finish
+.  Start JBoss AS in Eclipse
+..  Select the server
+..  Click the Run button
+..  Deploy the app
+.  right click on the app, choose `Run As -> Run On Server`
+..  Select the AS 7 instance you want to use
+..  Hit finish
+.  Load the app at http://localhost:8080/jboss-as-helloworld
 
 [[digging-into-the-app]]
 === Digging into the app
@@ -246,35 +243,34 @@ enable CDI (open it, show that it is empty)
 4.  Show `index.html`, and explain it is just used to kick the user into
 the app (open it, show the meta-refresh)
 5.  Open up the `pom.xm` - and emphasise that it's pretty simple.
-1.  There is no parent pom, everything for the build is *here*
-2.  Show that we are enabling the JBoss Maven repo - explain you can do
+..  There is no parent pom, everything for the build is *here*
+..  Show that we are enabling the JBoss Maven repo - explain you can do
 this in your POM or in system wide ( `settings.xml`)
-3.  Show the `dependencyManagement` section. Here we import the JBoss AS
+..  Show the `dependencyManagement` section. Here we import the JBoss AS
 7 Web Profile API. Explain that this gives you all the versions for all
 of the JBoss AS 7 APIs that are in the web profile. Explain we could
 also depend on this directly, which would give us the whole set of APIs,
 but that here we've decided to go for slightly tighter control and
 specify each dependency ourselves
-4.  Show the import for CDI, JSR-250 and Servlet API. Show that these
+..  Show the import for CDI, JSR-250 and Servlet API. Show that these
 are all provided - we are depending on build in server implementations,
 not packaging this stuff!
-5.  Show the plugin sections - nothing that exciting here, the war
-plugin is out of date and requires you to provide `web.xml`
-image:images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/wink0.png[images/s/en_GB/7202/8bb4a7d7a43e6723fe7875221f32b3124c55e6e1/_/images/icons/emoticons/wink0.png]
+..  Show the plugin sections - nothing that exciting here, the war
+plugin is out of date and requires you to provide `web.xml` icon:smile-o[role="yellow"]
 , configure the JBoss AS Maven Plugin, set the Java version to 6.
 6.  Open up `src/main/java` and open up the `HelloWorldServlet`.
-1.  Point out the `@WebServlet` - explain this one annotation removes
+..  Point out the `@WebServlet` - explain this one annotation removes
 about 8 lines of XML - no need to separately map a path either. This is
 much more refactor safe
-2.  Show that we can inject services into a Servlet
-3.  Show that we use the service (line 41) +
+..  Show that we can inject services into a Servlet
+..  Show that we use the service (line 41) +
 #Cmd-click on `HelloService`
-4.  This is a CDI bean - very simple, no annotations required!
-5.  Explain injection
-1.  Probably used to string based bean resolution
-2.  This is typesafe (refactor safe, take advantage of the compiler and
+..  This is a CDI bean - very simple, no annotations required!
+..  Explain injection
+...  Probably used to string based bean resolution
+...  This is typesafe (refactor safe, take advantage of the compiler and
 the IDE - we just saw that!)
-3.  When CDI needs to inject something, the first thing it looks at is
+...  When CDI needs to inject something, the first thing it looks at is
 the type - and if the type of the injection point is assignable from a
 bean, CDI will inject that bean
 
@@ -293,13 +289,13 @@ quickstart also makes more use of CDI to wire the application together.
 [[run-the-app]]
 === Run the app
 
-1.  Start JBoss AS in Eclipse
-2.  Deploy it using Eclipse - just right click on the app, choose
+.  Start JBoss AS in Eclipse
+.  Deploy it using Eclipse - just right click on the app, choose
 `Run As -> Run On Server`
-3.  Select the AS 7 instance you want to use
-4.  Hit finish
-5.  Load the app at http://localhost:8080/jboss-as-numberguess
-6.  Make a few guesses
+.  Select the AS 7 instance you want to use
+.  Hit finish
+.  Load the app at http://localhost:8080/jboss-as-numberguess
+.  Make a few guesses
 
 [[deployment-descriptors-srcmainwebappweb-inf]]
 === Deployment descriptors src/main/webapp/WEB-INF
@@ -319,51 +315,51 @@ JSF API
 [[views]]
 === Views
 
-1.  `index.html` - same as before, just kicks us into the app
-2.  `home.xhtml`
-1.  Lines 19 - 25 – these are messages output depending on state of
+.  `index.html` - same as before, just kicks us into the app
+.  `home.xhtml`
+..  Lines 19 - 25 – these are messages output depending on state of
 beans (minimise coupling between controller and view layer by
 interrogating state, not pushing)
-3.  Line 20 – output any messages pushed out by the controller
-4.  Line 39 - 42 – the input field is bound to the guess field on the
+.  Line 20 – output any messages pushed out by the controller
+.  Line 39 - 42 – the input field is bound to the guess field on the
 game bean. We validate the input by calling a method on the game bean.
-5.  Line 43 - 45 – the command button is used to submit the form, and
+.  Line 43 - 45 – the command button is used to submit the form, and
 calls a method on the game bean
-6.  Line 48, 49, The reset button again calls a method on the game bean
+.  Line 48, 49, The reset button again calls a method on the game bean
 
 [[beans]]
 === Beans
 
-1.  `Game.java` – this is the main controller for the game. App has no
+.  `Game.java` – this is the main controller for the game. App has no
 persistence etc.
-1.  `@Named` – As we discussed CDI is typesafe, (beans are injected by
+..  `@Named` – As we discussed CDI is typesafe, (beans are injected by
 type) but sometimes need to access in a non-typesafe fashion. @Named
 exposes the Bean in EL - and allows us to access it from JSF
-2.  `@SessionScoped` – really simple app, we keep the game data in the
+..  `@SessionScoped` – really simple app, we keep the game data in the
 session - to play two concurrent games, need two sessions. This is not a
 limitation of CDI, but simply keeps this demo very simple. CDI will
 create a bean instance the first time the game bean is accessed, and
 then always load that for you
-3.  `@Inject maxNumber` – here we inject the maximum number we can
+..  `@Inject maxNumber` – here we inject the maximum number we can
 guess. This allows us to externalize the config of the game
-4.  `@Inject rnadomNumber` – here we inject the random number we need to
+..  `@Inject rnadomNumber` – here we inject the random number we need to
 guess. Two things to discuss here
-1.  Instance - normally we can inject the object itself, but sometimes
+..  Instance - normally we can inject the object itself, but sometimes
 it's useful to inject a "provider" of the object (in this case so that
 we can get a new random number when the game is reset!). Instance allows
 us to `get()` a new instance when needed
-2.  Qualifiers - now we have two types of Integer (CDI auto-boxes types
+..  Qualifiers - now we have two types of Integer (CDI auto-boxes types
 when doing injection) so we need to disambiguate. Explain qualifiers and
 development time approach to disambiguation. You will want to open up
 `@MaxNumber` and `@Random` here.
-5.  `@PostConstruct` – here is our reset method - we also call it on
+..  `@PostConstruct` – here is our reset method - we also call it on
 startup to set up initial values. Show use of `Instance.get()`.
-2.  `Generator.java` This bean acts as our random number generator.
-3.  `@ApplicationScoped` explain about other scopes available in CDI +
+.  `Generator.java` This bean acts as our random number generator.
+.  `@ApplicationScoped` explain about other scopes available in CDI +
 extensibility.
-1.  `next()` Explain about producers being useful for determining bean
+..  `next()` Explain about producers being useful for determining bean
 instance at runtime
-2.  `getMaxNumber()` Explain about producers allowing for loose coupling
+..  `getMaxNumber()` Explain about producers allowing for loose coupling
 
 [[the-login-quickstart]]
 == The login quickstart
@@ -391,85 +387,85 @@ how to use EJB for declarative TX control.
 [[deployment-descriptors]]
 === Deployment Descriptors
 
-1.  Show that we have the same ones we are used in `src/main/webapp` –
+.  Show that we have the same ones we are used in `src/main/webapp` –
 `beans.xml`, `faces-config.xml`
-2.  We have a couple of new ones in `src/main/resources`
-1.  `persistence.xml`. Not too exciting. We are using a datasource that
+.  We have a couple of new ones in `src/main/resources`
+..  `persistence.xml`. Not too exciting. We are using a datasource that
 AS7 ships with. It's backed by the H2 database and is purely a sample
 datasource to use in sample applications. We also tell Hibernate to
 auto-create tables - as you always have.
-2.  `import.sql` Again, the same old thing you are used to in Hibernate
+..  `import.sql` Again, the same old thing you are used to in Hibernate
 - auto-import data when the app starts.
-3.  `pom.xml` is the same again, but just adds in dependencies for JPA,
+.  `pom.xml` is the same again, but just adds in dependencies for JPA,
 JTA and EJB
 
 [[views-1]]
 === Views
 
-1.  `template.xhtml` One of the updates added to JSF 2.0 was templating
+.  `template.xhtml` One of the updates added to JSF 2.0 was templating
 ability. We take advantage of that in this app, as we have multiple
 views
-1.  Actually nothing too major here, we define the app "title" and we
+..  Actually nothing too major here, we define the app "title" and we
 could easily define a common footer etc. (we can see this done in the
 kitchensink app)
-2.  The `ui:insert` command inserts the actual content from the
+..  The `ui:insert` command inserts the actual content from the
 templated page. +
 # `home.xhtml`
-3.  Uses the template
-4.  Has some input fields for the login form, button to login and
+..  Uses the template
+..  Has some input fields for the login form, button to login and
 logout, link to add users.
-5.  Binds fields to credentials bean}}
-6.  Buttons link to login bean which is the controller
-2.  `users.xhtml`
-1.  Uses the template
-2.  Displays all users using a table
-3.  Has a form with input fields to add users.
-4.  Binds fields to the newUser bean
-5.  Methods call on userManager bean
+..  Binds fields to credentials bean}}
+..  Buttons link to login bean which is the controller
+.  `users.xhtml`
+..  Uses the template
+..  Displays all users using a table
+..  Has a form with input fields to add users.
+..  Binds fields to the newUser bean
+..  Methods call on userManager bean
 
 [[beans-1]]
 === Beans
 
-1.  `Credentials.java` Backing bean for the login form field, pretty
+.  `Credentials.java` Backing bean for the login form field, pretty
 trivial. It's request scoped (natural for a login field) and named so we
 can get it from JSF.
-2.  `Login.java`
-1.  Is session scoped (a user is logged in for the length of their
+.  `Login.java`
+..  Is session scoped (a user is logged in for the length of their
 session or until they log out}}
-2.  Is accessible from EL
-3.  Injects the current credentials
-4.  Uses the userManager service to load the user, and sends any
+..  Is accessible from EL
+..  Injects the current credentials
+..  Uses the userManager service to load the user, and sends any
 messages to JSF as needed
-5.  Uses a producer method to expose the @LoggedIn user (producer
+..  Uses a producer method to expose the @LoggedIn user (producer
 methods used as we don't know which user at development time)
-3.  `User.java` Is a pretty straightforward JPA entity. Mapped with
+.  `User.java` Is a pretty straightforward JPA entity. Mapped with
 `@Entity`, has an natural id.
-4.  `UserManager.java` This is an interface, and by default we use the
+.  `UserManager.java` This is an interface, and by default we use the
 ManagedBean version, which requires manual TX control
-5.  `ManagedBeanUserManager.java` - accessible from EL, request scoped.
-1.  Injects a logger (we'll see how that is produced in a minute)
-2.  Injects the entity manager (again, just a min)
-3.  Inject the UserTransaction (this is provided by CDI)
-4.  `getUsers()` standard JPA-QL that we know and love - but lots of
+.  `ManagedBeanUserManager.java` - accessible from EL, request scoped.
+..  Injects a logger (we'll see how that is produced in a minute)
+..  Injects the entity manager (again, just a min)
+..  Inject the UserTransaction (this is provided by CDI)
+..  `getUsers()` standard JPA-QL that we know and love - but lots of
 ugly TX handling code.
-5.  Same for `addUser()` and `findUser()` methods - very simple JPA
+..  Same for `addUser()` and `findUser()` methods - very simple JPA
 but...
-6.  Got a couple of producer methods.
-1.  `getUsers()` is obvious - loads all the users in the database. No
+..  Got a couple of producer methods.
+...  `getUsers()` is obvious - loads all the users in the database. No
 ambiguity - CDI takes into account generic types when injecting. Also
 note that CDI names respect JavaBean naming conventions
-2.  `getNewUser()` is used to bind the new user form to from the view
+...  `getNewUser()` is used to bind the new user form to from the view
 layer - very nice as it decreases coupling - we could completely change
 the wiring on the server side (different approach to creating the
 newUser bean) and no need to change the view layer.
-6.  `EJBUserManager.java`
-1.  It's an alternative – explain alternatives, and that they allow
+.  `EJBUserManager.java`
+..  It's an alternative – explain alternatives, and that they allow
 selection of beans at deployment time
-2.  Much simple now we have declarative TX control.
-3.  Start to see how we can introduce EJB to get useful enterprise
+..  Much simple now we have declarative TX control.
+..  Start to see how we can introduce EJB to get useful enterprise
 services such as declarative TX control
-7.  `Resources.java`
-1.  \{EntityManager}} - explain resource producer pattern
+.  `Resources.java`
+..  `{EntityManager}` - explain resource producer pattern
 
 [[the-kitchensink-quickstart]]
 == The kitchensink quickstart
@@ -500,35 +496,34 @@ show bean validation at work
 [[bean-validation]]
 === Bean Validation
 
-1.  Explain the benefits of bean validation - need your data always
+.  Explain the benefits of bean validation - need your data always
 valid (protect your data) AND good errors for your user. BV allows you
 to express once, apply often.
-2.  `index.xhtml`
-1.  Show the input fields – no validators attached
-2.  Show the message output
-3.  `Member.java`
-1.  Hightlight the various validation annotations
-4.  Java EE automatically applies the validators in both the persistence
+.  `index.xhtml`
+..  Show the input fields – no validators attached
+..  Show the message output
+.  `Member.java`
+...  Hightlight the various validation annotations
+.  Java EE automatically applies the validators in both the persistence
 layer and in your views
 
 [[jax-rs]]
 === JAX-RS
 
-1.  `index.xhtml` - Show that URL generation is just manual
-2.  `JaxRsActivator.java` - simply activates JAX-RS
-3.  `Member.java` - add JAXB annotation to make JAXB process the class
-properly
-4.  `MemberResourceRESTService.java`
-1.  `@Path` sets the JAX-RS resource
-2.  JAX-RS services can use injection
-3.  `@GET` methods are auto transformed to XML using JAXB
-5.  And that is it!
+.  `index.xhtml` - Show that URL generation is just manual
+.  `JaxRsActivator.java` - simply activates JAX-RS
+.  `Member.java` - add JAXB annotation to make JAXB process the class properly
+.  `MemberResourceRESTService.java`
+..  `@Path` sets the JAX-RS resource
+..  JAX-RS services can use injection
+..  `@GET` methods are auto transformed to XML using JAXB
+.  And that is it!
 
 [[arquillian]]
 === Arquillian
 
 1.  Make sure JBoss AS is running
-2.  [source, java]
+2.  [source, bash]
 ----
 mvn clean test -Parq-jbossas-remote
 ----
@@ -537,7 +532,7 @@ mvn clean test -Parq-jbossas-remote
 
 Make sure JBoss AS is stopped
 
-[source, java]
+[source, bash]
 ----
 mvn clean test -Parq-jbossas-managed
 ----

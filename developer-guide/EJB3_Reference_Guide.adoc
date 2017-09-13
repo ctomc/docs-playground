@@ -250,6 +250,7 @@ method is called concurrent.
 *TODO*: clarify whether this should happen concurrently/blocked or even
 fired only once like a recurring timer!
 
+:leveloffset: +1
 
 include::ejb3/Container_interceptors.adoc[]
 

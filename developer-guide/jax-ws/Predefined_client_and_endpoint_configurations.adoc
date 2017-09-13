@@ -89,7 +89,7 @@ configuration name can't be referred to by endpoint/client
 implementations outside the application. Here is an example of a
 descriptor, containing two endpoint configurations:
 
-[source, java]
+[source, xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <jaxws-config xmlns="urn:jboss:jbossws-jaxws-config:4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:javaee="http://java.sun.com/xml/ns/javaee"

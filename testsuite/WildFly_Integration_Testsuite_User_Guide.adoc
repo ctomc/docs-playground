@@ -239,14 +239,14 @@ Platform 6.x (EAP), special steps are needed.
 Assuming you already have the sources available, and the distributed EAP
 maven repository unzipped in e.g. `/opt/jboss/eap6-maven-repo/` :
 
-\1) Configure maven in settings.xml to use only the EAP repository. This
+1) Configure maven in settings.xml to use only the EAP repository. This
 repo contains all artifacts necessary for building EAP, including maven
 plugins. +
 The build (unlike running testsuite) may be done offline. +
 The recommended way of configuring is to use special settings.xml, not
 your local one (typically in .m2/settings.xml).
 
-[source, java]
+[source, xml]
 ----
    <mirror>
       <id>eap6-mirror-setting</id>
@@ -315,7 +315,7 @@ only).
 Listening for transport dt_socket at address: 4040
 ----
 
-[source, java]
+[source, bash]
 ----
 ./integration-tests.sh install -DdebugClient -Ddebug.port.surefire
  
@@ -463,18 +463,10 @@ simply run the testsuite, which will create Surefire XML files.
 Creation of the reports is bound to the `site` Maven phase, so it must
 be run separatedly afterwards. Use one of these:
 
-[source, java]
+[source, bash]
 ----
 ./integration-tests.sh site
-----
-
-[source, java]
-----
 cd testsuite; mvn site
-----
-
-[source, java]
-----
 mvn -pl testsuite site
 ----
 
@@ -501,7 +493,7 @@ target/classes.
 [[usage]]
 ==== Usage
 
-[source, java]
+[source, bash]
 ----
 ./build.sh clean install -DskipTests
 ./integration-tests.sh clean install -DallTests -Dcoverage
@@ -510,7 +502,7 @@ target/classes.
 
 Alternative:
 
-[source, java]
+[source, bash]
 ----
 mvn clean install -DskipTests
 mvn -rf testsuite clean install -DallTests -Dcoverage

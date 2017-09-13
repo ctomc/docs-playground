@@ -43,7 +43,7 @@ We go with a contract-first approach, so we start by creating a proper
 WSDL contract, containing the WS-Reliable Messaging and WS-Addressing
 policies (the latter is a requirement of the former):
 
-[source, java]
+[source, xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions name="SimpleService" targetNamespace="http://www.jboss.org/jbossws/ws-extensions/wsrm"
