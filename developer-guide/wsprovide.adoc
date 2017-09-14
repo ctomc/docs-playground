@@ -60,7 +60,7 @@ the latter during the _process-test-classes_ one).
 
 The _wsprovide_ plugin has the following parameters:
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Attribute |Description |Default
 
@@ -188,7 +188,7 @@ Up to version 1.1.2.Final, the _artifactId_ of the plugin was
 The wsprovide ant task ( _org.jboss.ws.tools.ant.WSProvideTask_) has the
 following attributes:
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Attribute |Description |Default
 

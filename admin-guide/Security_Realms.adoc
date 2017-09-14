@@ -170,7 +170,7 @@ the realm is used for each of these.
 
 At the transport level we support the following authentication mechanisms.
 
-[cols=",",]
+[cols=",",options="header"]
 |========================
 |HTTP |Remoting (SASL)
 |None |Anonymous

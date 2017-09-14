@@ -241,7 +241,7 @@ name of the generated sources.
 [[the-generated-artifacts-explained]]
 ==== The generated artifacts explained
 
-[cols=",",]
+[cols=",",options="header"]
 |======================================================
 |File |Purpose
 |ProfileMgmt.java |Service Endpoint Interface

@@ -100,7 +100,7 @@ configuring these elements either through Spring xml descriptors or
 using the client API / annotations. Below is the list of supported
 configuration properties:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |ws-security.username |The username used for UsernameToken policy
 assertions

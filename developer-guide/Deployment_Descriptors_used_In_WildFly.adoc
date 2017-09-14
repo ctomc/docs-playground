@@ -4,7 +4,7 @@ This page gives a list and a description of all the valid deployment
 descriptors that a WildFly deployment can use. This document is a work
 in progress.
 
-[cols=",,,,",]
+[cols=",,,,",options="header"]
 |=======================================================================
 |Descriptor |Location |Specification |Description |Info
 

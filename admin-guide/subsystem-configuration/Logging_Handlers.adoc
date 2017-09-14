@@ -178,7 +178,7 @@ this will no longer be necessary.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Description: |Indicates whether a flush should happen after each write.
 |Type: |boolean
@@ -193,7 +193,7 @@ this will no longer be necessary.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Description: |If set to true the handler is enabled and functioning as
 normal, if set to false the handler is ignored when processing log
@@ -213,7 +213,7 @@ messages.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |==========================================================
 |Description: |The character encoding used by this Handler.
 |Type: |string
@@ -228,7 +228,7 @@ messages.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Description: |An object describing the file the handler should write
 to.
@@ -248,7 +248,7 @@ and a path. The path is a required property of the object.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Description: |The name of a defined formatter to be used on the
 handler.
@@ -267,7 +267,7 @@ handler.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |========================================================
 |Description: |Defines a pattern for a pattern formatter.
 |Type: |string
@@ -282,7 +282,7 @@ handler.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |===========================================================
 |Description: |A filter expression value to define a filter.
 |Type: |string
@@ -297,7 +297,7 @@ handler.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Description : |The log level specifying which message levels will be
 logged by this logger. Message levels lower than this value will be
@@ -318,7 +318,7 @@ WARNING ERROR SEVERE FATAL OFF
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |==========================================================
 |Description: |The maximum number of rotated files to keep.
 |Type: |integer
@@ -333,7 +333,7 @@ WARNING ERROR SEVERE FATAL OFF
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |===============================================================
 |Description: |Specify what action to take when the overflowing.
 |Type: |string
@@ -348,7 +348,7 @@ WARNING ERROR SEVERE FATAL OFF
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |=============================================================
 |Description: |The queue length to use before flushing writing
 |Type: |integer
@@ -363,7 +363,7 @@ WARNING ERROR SEVERE FATAL OFF
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Description: |Indicates whether or not the file should be rotated each
 time the #file attribute is changed. If set to true will rotate on each
@@ -383,7 +383,7 @@ boot of the server.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Description: |The size at which the file should be rotated.
 
@@ -403,7 +403,7 @@ for gigabytes or t for terabytes. Type character is not case sensitive.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |==============================================================
 |Description: |The handlers to associate with the async handler
 |Type: |list of strings
@@ -418,7 +418,7 @@ for gigabytes or t for terabytes. Type character is not case sensitive.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Description: |The pattern used to determine when the file should be
 rotated.
@@ -437,7 +437,7 @@ rotated.
 
 --
 
-[cols=",",]
+[cols=",",options="header"]
 |========================================================
 |Description: |Defines the target of the console handler.
 |Type: |string

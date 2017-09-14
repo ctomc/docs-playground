@@ -10,7 +10,7 @@ It suppose you have already configured SSL using legacy
 link:Admin_Guide.html#src-557075_AdminGuide-EnableSSL[Admin Guide#Enable
 SSL], and your configuration looks like:
 
-[source, java]
+[source, xml]
 ----
 <security-realm name="ApplicationRealm">
   <server-identities>
@@ -27,42 +27,42 @@ To switch to Elytron you need to:
 stored and password by which it is encrypted. Default type of keystore
 generated using keytool is JKS:
 +
-[source, java]
+[source, ruby]
 ----
 /subsystem=elytron/key-store=LocalhostKeyStore:add(path=server.keystore,relative-to=jboss.server.config.dir,credential-reference={clear-text="keystore_password"},type=JKS)
 ----
 2.  Create Elytron `key-manager` - specifying keystore, alias (using
 `alias-filter`) and password of key:
 +
-[source, java]
+[source, ruby]
 ----
 /subsystem=elytron/key-manager=LocalhostKeyManager:add(key-store=LocalhostKeyStore,alias-filter=server,credential-reference={clear-text="key_password"})
 ----
 3.  Create Elytron `server-ssl-context` - specifying only reference to
 `key-manager` defined above:
 +
-[source, java]
+[source, ruby]
 ----
 /subsystem=elytron/server-ssl-context=LocalhostSslContext:add(key-manager=LocalhostKeyManager)
 ----
 4.  Switch `https-listener` from legacy `security-realm` to newly
 created Elytron `ssl-context`:
 +
-[source, java]
+[source, ruby]
 ----
 /subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
 /subsystem=undertow/server=default-server/https-listener=https:write-attribute(name=ssl-context,value=LocalhostSslContext)
 ----
 5.  And reload the server:
 +
-[source, java]
+[source, ruby]
 ----
 reload
 ----
 
 Output XML configuration of Elytron subsystem should look like:
 
-[source, java]
+[source, xml]
 ----
         <subsystem xmlns="urn:wildfly:elytron:1.0" ...>
             ...
@@ -88,7 +88,7 @@ Output XML configuration of Elytron subsystem should look like:
 
 Output `https-listener` in Undertow subsystem should be:
 
-[source, java]
+[source, ruby]
 ----
 <https-listener name="https" socket-binding="https" ssl-context="LocalhostSslContext" enable-http2="true"/>
 ----
@@ -101,7 +101,7 @@ using `truststore` in legacy `security-realm`, for example by
 link:Admin_Guide.html#src-557075_AdminGuide-AddClient-CerttoSSL[Admin
 Guide#Add Client-Cert to SSL], and your configuration looks like:
 
-[source, java]
+[source, xml]
 ----
 <security-realm name="ApplicationRealm">
   <server-identities>
@@ -130,66 +130,66 @@ Then continue by following:
 
 1.  Create `key-store` of truststore - like for keystore above:
 +
-[source, java]
+[source, ruby]
 ----
 /subsystem=elytron/key-store=TrustStore:add(path=server.truststore,relative-to=jboss.server.config.dir,credential-reference={clear-text="truststore_password"},type=JKS)
 ----
 2.  Create `trust-manager` - specifying `key-store` of trustore, created
 above:
 +
-[source, java]
+[source, ruby]
 ----
 /subsystem=elytron/trust-manager=TrustManager:add(key-store=TrustStore)
 ----
 3.  Modify `server-ssl-context` to use newly created trustmanager:
 +
-[source, java]
+[source, ruby]
 ----
 /subsystem=elytron/server-ssl-context=LocalhostSslContext:write-attribute(name=trust-manager,value=TrustManager)
 ----
 4.  Enable client authentication for `server-ssl-context`:
 +
-[source, java]
+[source, ruby]
 ----
 /subsystem=elytron/server-ssl-context=LocalhostSslContext:write-attribute(name=need-client-auth,value=true)
 ----
 5.  And reload the server:
 +
-[source, java]
+[source, ruby]
 ----
 reload
 ----
 
 Output XML configuration of Elytron subsystem should look like:
 
-[source, java]
+[source, xml]
 ----
-        <subsystem xmlns="urn:wildfly:elytron:1.0" ...>
-            ...
-            <tls>
-                <key-stores>
-                    <key-store name="LocalhostKeyStore">
-                        <credential-reference clear-text="keystore_password"/>
-                        <implementation type="JKS"/>
-                        <file path="server.keystore" relative-to="jboss.server.config.dir"/>
-                    </key-store>
-                    <key-store name="TrustStore">
-                        <credential-reference clear-text="truststore_password"/>
-                        <implementation type="JKS"/>
-                        <file path="server.truststore" relative-to="jboss.server.config.dir"/>
-                    </key-store>
-                </key-stores>
-                <key-managers>
-                    <key-manager name="LocalhostKeyManager" key-store="LocalhostKeyStore" alias-filter="server">
-                        <credential-reference clear-text="key_password"/>
-                    </key-manager>
-                </key-managers>
-                <trust-managers>
-                    <trust-manager name="TrustManager" key-store="TrustStore"/>
-                </trust-managers>
-                <server-ssl-contexts>
-                    <server-ssl-context name="LocalhostSslContext" need-client-auth="true" key-manager="LocalhostKeyManager" trust-manager="TrustManager"/>
-                </server-ssl-contexts>
-            </tls>
-        </subsystem>
+<subsystem xmlns="urn:wildfly:elytron:1.0" ...>
+    ...
+    <tls>
+        <key-stores>
+            <key-store name="LocalhostKeyStore">
+                <credential-reference clear-text="keystore_password"/>
+                <implementation type="JKS"/>
+                <file path="server.keystore" relative-to="jboss.server.config.dir"/>
+            </key-store>
+            <key-store name="TrustStore">
+                <credential-reference clear-text="truststore_password"/>
+                <implementation type="JKS"/>
+                <file path="server.truststore" relative-to="jboss.server.config.dir"/>
+            </key-store>
+        </key-stores>
+        <key-managers>
+            <key-manager name="LocalhostKeyManager" key-store="LocalhostKeyStore" alias-filter="server">
+                <credential-reference clear-text="key_password"/>
+            </key-manager>
+        </key-managers>
+        <trust-managers>
+            <trust-manager name="TrustManager" key-store="TrustStore"/>
+        </trust-managers>
+        <server-ssl-contexts>
+            <server-ssl-context name="LocalhostSslContext" need-client-auth="true" key-manager="LocalhostKeyManager" trust-manager="TrustManager"/>
+        </server-ssl-contexts>
+    </tls>
+</subsystem>
 ----

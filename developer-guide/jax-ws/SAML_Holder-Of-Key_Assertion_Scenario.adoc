@@ -448,7 +448,7 @@ jboss-web.xml
 </jboss-web>
 ----
 
-[cols="",]
+[cols="",options="header"]
 |====
 | 
 |====
@@ -461,7 +461,7 @@ jbossws-users.properties
 alice=clarinet
 ----
 
-[cols="",]
+[cols="",options="header"]
 |====
 | 
 |====

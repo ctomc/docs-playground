@@ -146,7 +146,7 @@ For subsequent server starts it may be desirable to take the state of
 the server back to one of the previously known states, for a number of
 items an abbreviated reverence to the file can be used:
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Abreviation |Parameter |Description
 

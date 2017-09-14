@@ -143,7 +143,7 @@ Each host will have its own variant `host.xml`, with settings
 appropriate for its role in the domain. WildFly ships with three
 standard variants:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |host-master.xml |A configuration that specifies the Host Controller
 should become the master, aka the Domain Controller. No servers will be

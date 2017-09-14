@@ -807,7 +807,7 @@ attributes or operations to which the classification applies.
 Several of the core sensitivity classifications are commonly used across
 the management model and deserve special mention.
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Name |Description
 
@@ -961,7 +961,7 @@ Deployer role, set the `configured-application` attribute to true.
 The subsystems shipped with the full WildFly distribution include the
 following application classifications:
 
-[cols=",",]
+[cols=",",options="header"]
 |===================================
 |Subsystem |Classification
 |datasources |data-source

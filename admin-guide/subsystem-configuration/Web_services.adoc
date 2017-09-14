@@ -21,7 +21,7 @@ endpoint.
 The following elements are available and can be modified (all are
 optional):
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Name |Type |Description
 

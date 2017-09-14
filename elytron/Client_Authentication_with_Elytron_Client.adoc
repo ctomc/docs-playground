@@ -4,7 +4,7 @@ WildFly Elytron uses the Elytron Client project to enable remote clients
 to authenticate using Elytron. Elytron Client has the following
 components:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Component |Description
 
@@ -117,7 +117,7 @@ Rules are evaluated in the order in which they are configured.
 
 *Common Rules*
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Rule |Description
 
@@ -224,7 +224,7 @@ context = context.with(MatchRule.ALL.matchHost("localhost"), monitor);
 
 *Common Rules*
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Rule |Description
 

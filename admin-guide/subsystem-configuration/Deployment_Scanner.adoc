@@ -38,7 +38,7 @@ specified in the xml:
 
 The attributes are
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Name |Type |Description
 

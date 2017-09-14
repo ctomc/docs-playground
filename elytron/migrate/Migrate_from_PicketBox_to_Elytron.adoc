@@ -1,0 +1,7 @@
+= Migrate from PicketBox to Elytron
+
+== Migrate from PicketBox or Legacy Security to Elytron
+
+How to migrate application which uses different identity store for authentication and authorization (migration to Elytron aggregate-realm).
+How to migrate using cache (migration to caching-realm).
+Identify use cases where migration from PicketBox to Elytron is not possible.

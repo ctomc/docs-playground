@@ -67,7 +67,7 @@ the classpath as required to connect over Remoting.
 In addition to the standard JVM MBeans, the WildFly MBean server
 contains the following MBeans:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |JMX ObjectName |Description
 
@@ -95,7 +95,7 @@ attributes are similar to the ones mentioned for
 `/core-service=management/access=audit/logger=audit-log` in
 link:Audit_logging.html[Audit logging].
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -152,7 +152,7 @@ the core management layer.
 It includes an optional timestamp and then the following information in
 the json record
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Field name |Description
 

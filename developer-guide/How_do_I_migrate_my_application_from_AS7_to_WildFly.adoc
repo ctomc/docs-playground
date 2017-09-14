@@ -391,7 +391,7 @@ subsystem's `migrate` operation do that too.
 
 Here is a list of those valves and their corresponding Undertow handler:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Valve |Handler
 
@@ -541,7 +541,7 @@ In most cases, an effort was made to keep resource and attribute names
 as similar as possible to those used in previous releases. The following
 table lists some of the changes.
 
-[cols=",",]
+[cols=",",options="header"]
 |=====================================
 |HornetQ name |ActiveMQ name
 |hornetq-server |server

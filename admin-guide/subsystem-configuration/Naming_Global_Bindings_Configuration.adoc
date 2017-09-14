@@ -163,7 +163,7 @@ Some JNDI providers may fail when their resources are looked up if they
 do not implement properly the lookup(Name) method. Their errors would
 look like:
 
-[cols="",]
+[cols="",options="header"]
 |=======================================================================
 |11:31:49,047 ERROR org.jboss.resource.adapter.jms.inflow.JmsActivation
 (default-threads -1) javax.naming.InvalidNameException: Only support

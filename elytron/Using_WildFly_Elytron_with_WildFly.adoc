@@ -45,7 +45,7 @@ SSL/TLS]
 In addition to securing applications and management interfaces, Elytron
 also integrates with other subsystems in WildFly.
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Subsystem |Details
 
@@ -77,14 +77,14 @@ and application authentication.
 Configuration can be added to the EJB subsystem to map a security domain
 name referenced in a deployment to an Elytron security domain:
 
-[source, java]
+[source, ruby]
 ----
 /subsystem=ejb3/application-security-domain=MyAppSecurity:add(security-domain=ApplicationDomain)
 ----
 
 Which results in:
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:ejb3:5.0">
 ...

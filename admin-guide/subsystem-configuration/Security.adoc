@@ -93,7 +93,7 @@ some of this behaviour.
 The element can have any or the following attributes set, all of which
 are optional.
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |authentication-manager-class-name |Specifies the AuthenticationManager
 implementation class name to use.
@@ -143,7 +143,7 @@ specific to a deployment.
 The security-domains element can contain numerous <security-domain>
 definitions, a security-domain can have the following attributes set:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |name |The unique name of this security domain.
 
@@ -177,7 +177,7 @@ The code attribute is used to specify the implementing class of the
 login module which can either be the full class name or one of the
 abbreviated names from the following list:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Code |Classname
 
@@ -296,7 +296,7 @@ The code attribute is used to specify the implementing class of the
 policy module which can either be the full class name or one of the
 abbreviated names from the following list:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Code |Classname
 
@@ -351,7 +351,7 @@ The code attribute is used to specify the implementing class of the
 login module which can either be the full class name or one of the
 abbreviated names from the following list:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Code |Classname
 
@@ -414,7 +414,7 @@ storing/retrieving.
 
 The set of attributes (all of them optional) of this element are:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |keystore-password |Password of the keystore
 

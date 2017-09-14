@@ -469,7 +469,7 @@ takes precedence if the same parameter is given in all places.
 
 Following these rules the jvm parameters to start each server would be
 
-[cols=",",]
+[cols=",",options="header"]
 |==============================
 |Server |JVM parameters
 |server-one |-Xms64m -Xmx128m

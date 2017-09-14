@@ -68,7 +68,7 @@ regions.
   </buffer-caches>
 ----
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -92,7 +92,7 @@ a set of connectors and some configured handlers.
 <server name="default-server" default-host="default-host" servlet-container="default" >
 ----
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -114,7 +114,7 @@ per server.
 
 The following settings are common to all connectors:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -177,7 +177,7 @@ allowed. HTTP TRACE is disabled by default.
 <http-listener name="default" socket-binding="http"  />
 ----
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -208,7 +208,7 @@ configuration option is security realm which defines SSL secure context.
 <https-listener name="default" socket-binding="https" security-realm="ssl-realm" />
 ----
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -234,7 +234,7 @@ client cert auth is in use this should be either REQUESTED or REQUIRED.
 
 The host element corresponds to a virtual host.
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -259,7 +259,7 @@ RequestDispatcher. You can also use multiple Servlet containers to serve
 different applications from the same context path on different virtual
 hosts).
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -295,7 +295,7 @@ be the same as that used by the listener that received the request.
 
 This allows you to change the attributes of the session cookie.
 
-[cols=",",]
+[cols=",",options="header"]
 |======================================
 |Attribute |Description
 |name |The cookie name
@@ -317,7 +317,7 @@ development time feature.
 If the path is not specified then session data is stored in memory, and
 will only be persistent across redeploys, rather than restarts.
 
-[cols=",",]
+[cols=",",options="header"]
 |======================================================
 |Attribute |Description
 |path |The path to the persistent sessions data

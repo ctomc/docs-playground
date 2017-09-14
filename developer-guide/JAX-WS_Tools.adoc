@@ -35,7 +35,7 @@ developed by hand up front
 
 The following JAX-WS command line tools are included in JBossWS:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Command |Description
 
@@ -209,7 +209,7 @@ echo/package-info.java
 
 The following table shows the purpose of each generated file:
 
-[cols=",",]
+[cols=",",options="header"]
 |======================================================
 |File |Purpose
 |Echo.java |Service Endpoint Interface

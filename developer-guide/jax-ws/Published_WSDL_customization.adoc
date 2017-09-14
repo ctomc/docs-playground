@@ -12,7 +12,7 @@ model. Please refer to the container documentation for details on the
 options supported in the selected container version. Below is a list of
 the elements available in the latest WildFly sources:
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Name |Type |Description
 
@@ -65,7 +65,7 @@ requesting a specific rewrite behavior for a given endpoint deployment.
 That is achieved by setting one of the following properties within a
 _jboss-webservices.xml_ descriptor:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Property |Corresponding server option
 |wsdl.soapAddress.rewrite.modify-wsdl-address |modify-wsdl-address

@@ -25,7 +25,7 @@ To convert *single* security vault credential store use following
 example:
 
 - to get sample vault use testing resources of Elytron Tool project from
-GitHub [1]
+link:https://github.com/wildfly-security/wildfly-elytron-tool/tree/master/src/test/resources/vault-v1[GitHub]
 
 Command to run actual conversion:
 
@@ -69,7 +69,7 @@ store to the configuration.
 
 There is possibility to convert multiple vaults to credential store
 using --bulk-convert parameter with description file. +
-Example of description file from our tests [2]:
+Example of description file from our link:https://github.com/wildfly-security/wildfly-elytron-tool/blob/master/src/test/java/org/wildfly/security/tool/VaultCommandTest.java[tests]:
 
 --
 
@@ -142,10 +142,3 @@ Output:
 
 The result is conversion of all vaults with proper CLI commands.
 
-[[references]]
-== References:
-
-[1]
-https://github.com/wildfly-security/wildfly-elytron-tool/tree/master/src/test/resources/vault-v1 +
-[2]
-https://github.com/wildfly-security/wildfly-elytron-tool/blob/master/src/test/java/org/wildfly/security/tool/VaultCommandTest.java

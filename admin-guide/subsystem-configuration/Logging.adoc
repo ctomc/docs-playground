@@ -133,7 +133,7 @@ For the sake of simplicity we look at the default setup for managed
 domain. In this case, both the domain controller components and the
 servers are located on the same host:
 
-[cols=",",]
+[cols=",",options="header"]
 |============================================================
 |Process |Log File
 |Host Controller |./domain/log/host-controller.log
@@ -149,7 +149,7 @@ servers are located on the same host:
 The default log files for a standalone server can be found in the log
 subdirectory of the distribution:
 
-[cols=",",]
+[cols=",",options="header"]
 |===================================
 |Process |Log File
 |Server |./standalone/log/server.log
@@ -158,7 +158,7 @@ subdirectory of the distribution:
 [[filter-expressions]]
 == Filter Expressions
 
-[cols=",,,,",]
+[cols=",,,,",options="header"]
 |=======================================================================
 |Filter Type |Expression |Description |Parameter(s) |Examples
 
@@ -256,7 +256,7 @@ CLI command and output
 The `read-log-file` operation is available on each `log-file` resource.
 This operation has 4 optional parameters.
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Name |Description
 

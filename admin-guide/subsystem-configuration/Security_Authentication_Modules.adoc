@@ -9,7 +9,7 @@ This login module is designed to establish caller identity and
 credentials when WildFly is acting a client. It should never be used as
 part of a security domain used for actual server authentication.
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Options |Usage |Description
 
@@ -34,7 +34,7 @@ modules with this one. Default is false
 This login module is designed to be used for authenticating users
 against a database backend.
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Options |Usage |Description
 
@@ -62,7 +62,7 @@ This login module is designed to authenticate users based on
 X509Certificates. A use case for this is CLIENT-CERT authentication of a
 web application.
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Options |Usage |Description
 
@@ -86,7 +86,7 @@ This login module extends the Certificate login module to add role
 mapping capabilities from a properties file. It has the same options
 plus these additional options:
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Options |Usage |Description
 

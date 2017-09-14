@@ -4,7 +4,7 @@ x - runs in this module +
 xx - runs in this and all successive modules +
 x! - runs but should not.
 
-[cols=",,,,,,,,,,",]
+[cols=",,,,,,,,,,",options="header"]
 |=======================================================================
 |  |TS |integ |smoke |basic |clust |iiop |comp |domain |bench |stress
 

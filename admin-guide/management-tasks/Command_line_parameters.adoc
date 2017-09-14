@@ -70,7 +70,7 @@ property are:
 [[standalone]]
 ==== Standalone
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Property name |Usage |Default value
 
@@ -101,7 +101,7 @@ storage. |jboss.server.base.dir/data
 [[managed-domain]]
 ==== Managed Domain
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Property name |Usage |Default value
 
@@ -178,7 +178,7 @@ available in standalone and domain mode.
 [[standalone-1]]
 === Standalone
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Name |Default if absent |Value
 
@@ -200,7 +200,7 @@ versioned history is maintained of the file.
 [[managed-domain-1]]
 === Managed Domain
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Name |Default if absent |Value
 
@@ -234,7 +234,7 @@ The following parameters take no value and are only usable on slave host
 controllers (i.e. hosts configured to connect to a `remote` domain
 controller.)
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Name |Function
 
@@ -264,7 +264,7 @@ configuration, but it may launch servers and handlerequests to deployed
 applications etc.
 |=======================================================================
 
-[cols=",",]
+[cols=",",options="header"]
 |====
 |  | 
 |====
@@ -274,7 +274,7 @@ applications etc.
 
 These parameters apply in both standalone or managed domain mode:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Name |Function
 

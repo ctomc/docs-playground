@@ -29,7 +29,7 @@ application requires them. The table below lists the Java Enterprise
 Edition 7 technologies and the technologies available in WildFly {wildflyVersion}
 server configuration profiles.
 
-[cols=",,,,",]
+[cols=",,,,",options="header"]
 |=======================================================================
 |Java EE 7 Platform Technology |Java EE 7Full Profile |Java EE 7Web
 Profile |WildFly 10Full Profile |WildFly 10Web Profile
@@ -153,7 +153,7 @@ find your way around when it comes to deploying your own applications.
 [[wildfly-directory-structure]]
 ==== WildFly Directory Structure
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |DIRECTORY |DESCRIPTION
 
@@ -193,7 +193,7 @@ used by the single standalone server run from a WildFly installation are
 found in the following subdirectories under the top level "standalone"
 directory:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |DIRECTORY |DESCRIPTION
 
@@ -237,7 +237,7 @@ configuration files, deployment content and writeable areas used by
 domain mode processes run from a WildFly installation are found in the
 following subdirectories under the top level "domain" directory:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |DIRECTORY |DESCRIPTION
 

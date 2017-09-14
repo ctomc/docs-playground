@@ -149,7 +149,7 @@ public class Library {
 
 The Library root resource uses these JAX-RS annotations:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Annotation |Description
 

@@ -33,7 +33,7 @@ A custom Java-based client should have the maven artifact
 `org.jboss.as:jboss-as-controller-client` and its dependencies on the
 classpath. The other dependencies are:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Maven Artifact |Purpose
 

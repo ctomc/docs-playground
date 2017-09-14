@@ -153,7 +153,7 @@ fragments for each set are also stored in the same artifact at
 
 Here is a list of the available policy sets:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Label |Description
 

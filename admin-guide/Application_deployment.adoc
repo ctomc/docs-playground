@@ -508,7 +508,7 @@ have different meanings.
 
 The relevant marker file types are:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |File |Purpose
 

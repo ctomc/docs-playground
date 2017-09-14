@@ -13,7 +13,7 @@ element in the configuration
 
 The presence of each of these turns on a piece of functionality:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Name |Description
 

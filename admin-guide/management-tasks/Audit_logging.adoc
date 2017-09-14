@@ -115,7 +115,7 @@ presented:
 It includes an optional timestamp and then the following information in
 the json record
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Field name |Description
 
@@ -157,7 +157,7 @@ single entry
 
 The json formatter resource has the following attributes:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -198,7 +198,7 @@ information.
 The file handlers log the audit log records to a file on the server. The
 attributes for the file handler are
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Attribute |Description |Read Only
 
@@ -247,7 +247,7 @@ reference they can be found at: +
 
 The syslog handler resource has the following attributes:
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |formatter |The name of a JSON formatter to use to format the log
 records |false
@@ -289,7 +289,7 @@ The address of the `UDP` resource is
 `/core-service=management/access=audit/syslog-handler=*/protocol=udp`.
 The attributes of the `UDP` resource are:
 
-[cols=",",]
+[cols=",",options="header"]
 |==================================================================
 |Attribute |Description
 |host |The host of the syslog server for the udp requests
@@ -304,7 +304,7 @@ The address of the `TCP` resource is
 `/core-service=management/access=audit/syslog-handler=*/protocol=tcp`.
 The attributes of the `TCP` resource are:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -326,7 +326,7 @@ syslog server. The address of the `TLS` resource is
 `/core-service=management/access=audit/syslog-handler=*/protocol=tls`.
 The attributes of the `TLS` resource are the same as for `TCP`:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -347,7 +347,7 @@ resource, and the full address is
 `/core-service=management/access=audit/syslog-handler=*/protocol=tls/authentication=truststore`.
 The attributes of the truststore resource are:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -372,7 +372,7 @@ is
 `/core-service=management/access=audit/syslog-handler=*/protocol=tls/authentication=client-certificate-store`
 and its attributes are:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 
@@ -396,7 +396,7 @@ operations. This references one or more handlers and is configured at
 `/core-service=management/access=audit/logger=audit-log`. The attributes
 for this resource are:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Attribute |Description
 

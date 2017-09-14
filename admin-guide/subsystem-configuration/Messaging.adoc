@@ -354,7 +354,7 @@ defining JMS destinations, e.g.:
 </messaging-deployment>
 ----
 +
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 | |This feature is primarily intended for development as destinations
 deployed this way can not be managed with any of the provided management

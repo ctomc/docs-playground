@@ -45,7 +45,7 @@ the client application's `META-INF` directory:
 
 *wildfly-config.xml*
 
-[source, java]
+[source, xml]
 ----
 <configuration>
     <authentication-client xmlns="urn:elytron:1.0">
@@ -165,7 +165,7 @@ connect to the remote server can be added to the client application's
 
 *wildfly-config.xml*
 
-[source, java]
+[source, xml]
 ----
 <configuration>
     <authentication-client xmlns="urn:elytron:1.0">

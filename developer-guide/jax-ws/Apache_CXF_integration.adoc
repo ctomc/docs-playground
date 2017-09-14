@@ -296,7 +296,7 @@ Users can request a given Bus selection strategy to be used for the
 client being built by specifying one of the following JBossWS features
 (which extend `javax` `.` `xml` `.` `ws` `.` `WebServiceFeature`):
 
-[cols=",",]
+[cols=",",options="header"]
 |==============================================================
 |Feature |Strategy
 |org.jboss.wsf.stack.cxf.client.UseThreadBusFeature |THREAD_BUS
@@ -374,7 +374,7 @@ used to fill in parameter into the
 http://cxf.apache.org/javadoc/latest-2.5.x/org/apache/cxf/workqueue/AutomaticWorkQueueImpl.html#AutomaticWorkQueueImpl(int,%20int,%20int,%20int,%20long,%20java.lang.String)[AutomaticWorkQueueImpl
 constructor]:
 
-[cols=",",]
+[cols=",",options="header"]
 |=============================================
 |Property |Default value
 |cxf.queue.<queue-name>.maxQueueSize |256
@@ -585,7 +585,7 @@ starting with `##`. Property reference keys are used to specify the bean
 class name and the value for for each attribute. So for instance the
 following properties:
 
-[cols=",",]
+[cols=",",options="header"]
 |==========================
 |Key |Value
 |cxf.features |##foo, ##bar
@@ -644,7 +644,7 @@ Users can also control the default values for the most common
 HTTPConduit parameters by setting specific system properties; the
 provided values will override Apache CXF defaut values.
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Property |Description
 

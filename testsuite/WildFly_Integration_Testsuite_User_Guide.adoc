@@ -286,7 +286,7 @@ only).
 [[running-with-a-debugger]]
 === Running with a debugger
 
-[cols=",,,",]
+[cols=",,,",options="header"]
 |=======================================================================
 |Argument |What will start with debugger |Default port |Port change arg.
 
@@ -409,7 +409,7 @@ Where database-identifier is one of: `h2`, `mysql51`
 
 and the following defaults, overridable by respective parameter:
 
-[cols=",,,",]
+[cols=",,,",options="header"]
 |=======================================================================
 |Parameter |IPv4 default |IPv6 default | 
 

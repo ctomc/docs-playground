@@ -739,7 +739,7 @@ import org.hibernate.SessionFactory;
 WildFly automatically sets the following Hibernate (5.x) properties (if
 not already set in persistence unit definition):
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Property |Purpose
 
@@ -806,7 +806,7 @@ org.hibernate.id.MultipleHiLoPerTableGenerator
 The following properties are supported in the persistence unit
 definition (in the persistence.xml file):
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Property |Purpose
 
@@ -893,7 +893,7 @@ As mentioned above, if the *jboss.as.jpa.providerModule* property is not
 specified, the provider module name is determined by the *provider* name
 specified in the persistence.xml. The mapping is:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Provider Name |Module name
 

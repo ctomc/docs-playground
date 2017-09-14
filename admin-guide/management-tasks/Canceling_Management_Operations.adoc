@@ -117,7 +117,7 @@ that can be queried:
 
 The response includes the following attributes:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Field |Meaning
 
@@ -148,7 +148,7 @@ nanoseconds.
 
 The following are the values for the `exclusive-running-time` attribute:
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Value |Meaning
 

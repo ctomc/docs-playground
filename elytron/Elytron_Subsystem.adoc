@@ -79,7 +79,7 @@ _elytron_ subsystem.
 [[factories]]
 === Factories
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Component |Description
 
@@ -135,7 +135,7 @@ using a ServiceLoader
 [[principal-transformers]]
 === Principal Transformers
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Component |Description
 
@@ -163,7 +163,7 @@ name.
 [[principal-decoders]]
 === Principal Decoders
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Component |Description
 
@@ -185,7 +185,7 @@ principal decoder.
 [[realm-mappers]]
 === Realm Mappers
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Component |Description
 
@@ -207,7 +207,7 @@ realm mapper is used instead.
 [[realms]]
 === Realms
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Component |Description
 
@@ -257,7 +257,7 @@ TrustManager list as used to create an SSL context.
 [[permission-mappers]]
 === Permission Mappers
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Component |Description
 
@@ -275,7 +275,7 @@ always returns the same constant.
 [[role-decoders]]
 === Role Decoders
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Component |Description
 
@@ -288,7 +288,7 @@ single attribute and maps it directly to roles.
 [[role-mappers]]
 === Role Mappers
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Component |Description
 
@@ -313,7 +313,7 @@ performs a logical operation using two referenced role mappers.
 [[ssl-components]]
 === SSL Components
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Component |Description
 
@@ -338,7 +338,7 @@ connection.
 [[other]]
 === Other
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Component |Description
 
@@ -376,7 +376,7 @@ WildFly to use the these configured components as well as create new
 ones, see the link:Using_the_Elytron_Subsystem.html[Using the Elytron
 Subsystem] section.
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Default Component |Description
 
@@ -1060,7 +1060,7 @@ the _management-http-authentication_ http-authentication-factory.
 [[comparing-legacy-approaches-to-elytron-approaches]]
 == Comparing Legacy Approaches to Elytron Approaches
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 |Legacy Approach |Elytron Approach
 

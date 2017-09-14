@@ -7,7 +7,7 @@ purpose of these examples I define system properties - these properties
 are applicable to both the legacy configuration and the migrated Elytron
 configuration.
 
-[source, java]
+[source, ruby]
 ----
 ./system-property=sun.security.krb5.debug:add(value=true)
 ./system-property=java.security.krb5.realm:add(value=ELYTRON.ORG)
@@ -17,7 +17,7 @@ configuration.
 The first line makes debugging easier but the last two lines specify the
 Kerberos realm in use and the address of the KDC.
 
-[source, java]
+[source, xml]
 ----
   <system-properties>
     <property name="sun.security.krb5.debug" value="true"/>
@@ -35,7 +35,7 @@ Kerberos realm in use and the address of the KDC.
 A legacy security realm can be define so that SPNEGO authentication can
 be enabled for the HTTP management interface.
 
-[source, java]
+[source, ruby]
 ----
 ./core-service=management/security-realm=Kerberos:add
 ./core-service=management/security-realm=Kerberos/server-identity=kerberos:add
@@ -45,7 +45,7 @@ be enabled for the HTTP management interface.
 
 This results in the following configuration: -
 
-[source, java]
+[source, xml]
 ----
   <security-realms>
     ...
@@ -75,7 +75,7 @@ domains.
 ./subsystem=security/security-domain=host/authentication=classic/login-module=1:add(code=Kerberos, flag=Required, module-options={storeKey=true, useKeyTab=true, principal=HTTP/test-server.elytron.org@ELYTRON.ORG, keyTab=/home/darranl/src/kerberos/test-server.keytab, debug=true}
 ----
 
-[source, java]
+[source, ruby]
 ----
 ./subsystem=security/security-domain=SPNEGO:add
 ./subsystem=security/security-domain=SPNEGO/authentication=classic:add
@@ -86,7 +86,7 @@ domains.
 
 This results in: -
 
-[source, java]
+[source, xml]
 ----
   <subsystem xmlns="urn:jboss:domain:security:2.0">
     <security-domains>
@@ -131,7 +131,7 @@ The equivalent configuration can be achieved with WildFly Elytron by
 first defining a security realm which will be used to load identity
 information.
 
-[source, java]
+[source, ruby]
 ----
 ./subsystem=elytron/properties-realm=spnego-properties:add(users-properties={path=/home/darranl/src/kerberos/spnego-users.properties, plain-text=true, digest-realm-name=ELYTRON.ORG}, groups-properties={path=/home/darranl/src/kerberos/spnego-roles.properties})
 ----
@@ -139,7 +139,7 @@ information.
 Next a Kerberos security factory is defined which allows the server to
 load it's own Kerberos identity.
 
-[source, java]
+[source, ruby]
 ----
 ./subsystem=elytron/kerberos-security-factory=test-server:add(path=/home/darranl/src/kerberos/test-server.keytab, principal=HTTP/test-server.elytron.org@ELYTRON.ORG, debug=true)
 ----
@@ -148,7 +148,7 @@ As with the previous examples we define a security realm to pull
 together the policy as well as a HTTP authentication factory for the
 authentication policy.
 
-[source, java]
+[source, ruby]
 ----
 ./subsystem=elytron/security-domain=SPNEGODomain:add(default-realm=spnego-properties, realms=[{realm=spnego-properties, role-decoder=groups-to-roles}], permission-mapper=default-permission-mapper)
 ./subsystem=elytron/http-authentication-factory=spnego-http-authentication:add(security-domain=SPNEGODomain, http-server-mechanism-factory=global,mechanism-configurations=[{mechanism-name=SPNEGO, credential-security-factory=test-server}])
@@ -156,7 +156,7 @@ authentication policy.
 
 Overall this results in the following configuration: -
 
-[source, java]
+[source, xml]
 ----
   <subsystem xmlns="urn:wildfly:elytron:1.0" final-providers="combined-providers" disallowed-providers="OracleUcrypto">
     ...
@@ -213,7 +213,7 @@ It is also possible to define a legacy security realm for Kerberos /
 GSSAPI SASL authenticatio for Remoting authentication such as the native
 management interface.
 
-[source, java]
+[source, ruby]
 ----
 ./core-service=management/security-realm=Kerberos:add
 ./core-service=management/security-realm=Kerberos/server-identity=kerberos:add
@@ -221,7 +221,7 @@ management interface.
 ./core-service=management/security-realm=Kerberos/authentication=kerberos:add(remove-realm=true)
 ----
 
-[source, java]
+[source, xml]
 ----
   <management>
     <security-realms>
@@ -249,7 +249,7 @@ similar to the HTTP example.
 
 First define the security realm to load the identity from: -
 
-[source, java]
+[source, ruby]
 ----
 ./path=kerberos:add(relative-to=user.home, path=src/kerberos)
 ./subsystem=elytron/properties-realm=kerberos-properties:add(users-properties={path=kerberos-users.properties, relative-to=kerberos, digest-realm-name=ELYTRON.ORG}, groups-properties={path=kerberos-groups.properties, relative-to=kerberos})
@@ -257,7 +257,7 @@ First define the security realm to load the identity from: -
 
 Then define the Kerberos security factory for the server's identity.
 
-[source, java]
+[source, ruby]
 ----
 ./subsystem=elytron/kerberos-security-factory=test-server:add(relative-to=kerberos, path=remote-test-server.keytab, principal=remote/test-server.elytron.org@ELYTRON.ORG)
 ----
@@ -265,7 +265,7 @@ Then define the Kerberos security factory for the server's identity.
 Finally define the security domain and this time a SASL authentication
 factory.
 
-[source, java]
+[source, ruby]
 ----
 ./subsystem=elytron/security-domain=KerberosDomain:add(default-realm=kerberos-properties, realms=[{realm=kerberos-properties, role-decoder=groups-to-roles}], permission-mapper=default-permission-mapper)
 ./subsystem=elytron/sasl-authentication-factory=gssapi-authentication-factory:add(security-domain=KerberosDomain, sasl-server-factory=elytron, mechanism-configurations=[{mechanism-name=GSSAPI, credential-security-factory=test-server}])
@@ -273,7 +273,7 @@ factory.
 
 This results in the following subsystem configuration: -
 
-[source, java]
+[source, xml]
 ----
   <subsystem xmlns="urn:wildfly:elytron:1.0" final-providers="combined-providers" disallowed-providers="OracleUcrypto">
     ...

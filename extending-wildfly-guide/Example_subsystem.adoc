@@ -62,7 +62,7 @@ name: WildFly subsystem project
 $
 ----
 
-[cols=",",]
+[cols=",",options="header"]
 |=======================================================================
 | |Instruction
 

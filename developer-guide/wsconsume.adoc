@@ -84,7 +84,7 @@ latter during the _generate-test-sources_ one).
 
 The _wsconsume_ plugin has the following parameters:
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Attribute |Description |Default
 
@@ -263,7 +263,7 @@ Up to version 1.1.2.Final, the _artifactId_ of the plugin was
 The _wsconsume_ Ant task ( _org.jboss.ws.tools.ant.WSConsumeTask_) has
 the following attributes:
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=======================================================================
 |Attribute |Description |Default
 
@@ -315,7 +315,7 @@ interface.
 
 Also, the following nested elements are supported:
 
-[cols=",,",]
+[cols=",,",options="header"]
 |=================================================
 |Element |Description |Default
 |binding |A JAXWS or JAXB binding file |none
