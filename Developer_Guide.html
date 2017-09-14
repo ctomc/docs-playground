@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.4">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
 <meta name="author" content="WildFly developer team">
 <title>Developer Guide</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
@@ -18,7 +18,6 @@ audio:not([controls]){display:none;height:0}
 [hidden],template{display:none}
 script{display:none!important}
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
-body{margin:0}
 a{background:transparent}
 a:focus{outline:thin dotted}
 a:active,a:hover{outline:0}
@@ -53,7 +52,7 @@ textarea{overflow:auto;vertical-align:top}
 table{border-collapse:collapse;border-spacing:0}
 *,*:before,*:after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
 html,body{font-size:100%}
-body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
 a:hover{cursor:pointer}
 img,object,embed{max-width:100%;height:auto}
 object,embed{height:100%}
@@ -65,7 +64,6 @@ img{-ms-interpolation-mode:bicubic}
 .text-center{text-align:center!important}
 .text-justify{text-align:justify!important}
 .hide{display:none}
-body{-webkit-font-smoothing:antialiased}
 img,object,svg{display:inline-block;vertical-align:middle}
 textarea{height:auto;min-height:50px}
 select{width:100%}
@@ -92,13 +90,12 @@ strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
 code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
 ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
-ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
+ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
 ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
 ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
-ul.no-bullet{list-style:none}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -120,18 +117,25 @@ table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:
 table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
 table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
 table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
-body{tab-size:4}
 h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
 h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
 .clearfix:before,.clearfix:after,.float-group:before,.float-group:after{content:" ";display:table}
 .clearfix:after,.float-group:after{clear:both}
-*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+*:not(pre)>code.nobreak{word-wrap:normal}
+*:not(pre)>code.nowrap{white-space:nowrap}
 pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
+em em{font-style:normal}
+strong strong{font-weight:400}
 .keyseq{color:rgba(51,51,51,.8)}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
-.menuseq,.menu{color:rgba(0,0,0,.8)}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
 b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
 b.button:before{content:"[";padding:0 3px 0 2px}
 b.button:after{content:"]";padding:0 2px 0 3px}
@@ -198,7 +202,7 @@ table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
 table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
 .admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
 .admonitionblock>table td.icon{text-align:center;width:80px}
-.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon img{max-width:initial}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
@@ -254,13 +258,13 @@ table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
 table.tableblock{max-width:100%;border-collapse:separate}
 table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
-table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
-table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
-table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
-table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
-table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
-table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
-table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px 0}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
 table.frame-all{border-width:1px}
 table.frame-sides{border-width:0 1px}
 table.frame-topbot{border-width:1px 0}
@@ -281,10 +285,12 @@ ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
 ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
-ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
-ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
-ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
-ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
 ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
 ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
 ul.inline>li>*{display:block}
@@ -301,7 +307,8 @@ ol.lowergreek{list-style-type:lower-greek}
 td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
 td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
-.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
+.colist>table tr>td:first-of-type{padding:.4em .75em 0 .75em;line-height:1;vertical-align:top}
+.colist>table tr>td:first-of-type img{max-width:initial}
 .colist>table tr>td:last-of-type{padding:.25em 0}
 .thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
 .imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
@@ -364,6 +371,7 @@ div.unbreakable{page-break-inside:avoid}
 .yellow{color:#bfbf00}
 .yellow-background{background-color:#fafa00}
 span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
 .admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
@@ -417,7 +425,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .hide-for-print{display:none!important}
 .show-for-print{display:inherit!important}}
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
 /*pre.CodeRay {background-color:#f7f7f8;}*/
@@ -516,7 +524,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="details">
 <span id="author" class="author">WildFly developer team</span><br>
 <span id="revnumber">version {version},</span>
-<span id="revdate">2017-09-13</span>
+<span id="revdate">2017-09-14</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">WildFly Developer guide</div>
@@ -662,7 +670,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#deploying-your-ejbs-on-the-server-side">17.1. Deploying your EJBs on the server side:</a></li>
 <li><a href="#writing-a-remote-client-application-for-accessing-and-invoking-the-ejbs-deployed-on-the-server">17.2. Writing a remote client application for accessing and invoking the</a></li>
 <li><a href="#setting-up-ejb-client-context-properties">17.3. Setting up EJB client context properties</a></li>
-<li><a href="#summary">17.4. Summary</a></li>
+<li><a href="#summary">Summary</a></li>
 </ul>
 </li>
 <li><a href="#_ejb_invocations_from_a_remote_server_instance">18. EJB invocations from a remote server instance</a>
@@ -1422,24 +1430,24 @@ being added</th>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Core Server</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">javax.api sun.jdk org.jboss.vfs</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Batch Subsystem</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">javax.batch.api</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EE Subsystem</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">javaee.api</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EJB3 subsystem</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">javaee.api</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The presence of ejb-jar.xml (in valid
 locations in the deployment, as specified by spec) or the presence of
@@ -1480,12 +1488,12 @@ org.jboss.as.jpa org.hibernate</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Logging Subsystem</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.jboss.logging org.apache.commons.logging
 org.apache.log4j org.slf4j org.jboss.logging.jul-to-slf4j-stub</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SAR Subsystem</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.jboss.logging org.jboss.modules</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The deployment
 is a SAR archive</p></td>
@@ -1493,12 +1501,12 @@ is a SAR archive</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Security Subsystem</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.picketbox</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web Subsystem</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">javaee.api com.sun.jsf-impl org.hibernate.validator
 org.jboss.as.web org.jboss.logging</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The deployment is a WAR archive. JSF
@@ -1507,12 +1515,12 @@ is only added if used. Multiple version options exist for mojarra.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Web Services Subsystem</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.jboss.ws.api org.jboss.ws.spi</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Weld (CDI) Subsystem</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">javax.persistence.api javaee.api org.javassist
 org.jboss.interceptor org.jboss.as.weld org.jboss.logging
 org.jboss.weld.core org.jboss.weld.api org.jboss.weld.spi</p></td>
@@ -1554,7 +1562,7 @@ in progress.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">jboss-deployment-structure.xml</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">META-INF or WEB-INF of the top level
 deployment</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This file can be used to control class loading for the
 deployment</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Class Loading in WildFly</p></td>
@@ -1577,7 +1585,7 @@ deployment</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">jboss-web.xml</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WEB-INF</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JBoss Web deployment descriptor. This can be
 use to override settings from web.xml, and to set WildFly specific
 options</p></td>
@@ -1594,7 +1602,7 @@ spec deployment descriptor</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">jboss-ejb3.xml</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WEB-INF of a war, or META-INF of an EJB jar</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The
 JBoss EJB deployment descriptor, this can be used to override settings
 from ejb-jar.xml, and to set WildFly specific settings</p></td>
@@ -1610,7 +1618,7 @@ from ejb-jar.xml, and to set WildFly specific settings</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">jboss-app.xml</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">META-INF of an EAR</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JBoss application deployment
 descriptor, can be used to override settings application.xml, and to set
 WildFly specific settings</p></td>
@@ -1636,7 +1644,7 @@ invocations from a remote server instance</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">jbosscmp-jdbc.xml</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">META-INF of an EJB jar</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CMP deployment
 descriptor. Used to map CMP entity beans to a database. The format is
 largely unchanged from previous versions.</p></td>
@@ -1645,7 +1653,7 @@ largely unchanged from previous versions.</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ra.xml</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">META-INF of a rar archive</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Spec deployment descriptor for
 resource adaptor deployments</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IronJacamar Reference Guide Schema</p></td>
@@ -1653,7 +1661,7 @@ resource adaptor deployments</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ironjacamar.xml</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">META-INF of a rar archive</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JBoss deployment
 descriptor for resource adaptor deployments</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IronJacamar Reference Guide</p></td>
@@ -1661,7 +1669,7 @@ descriptor for resource adaptor deployments</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">*-jms.xml</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">META-INF or WEB-INF</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">JMS message destination deployment
 descriptor, used to deploy message destinations with a deployment</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
@@ -1669,7 +1677,7 @@ descriptor, used to deploy message destinations with a deployment</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">*-ds.xml</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">META-INF or WEB-INF</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Datasource deployment descriptor, use
 to bundle datasources with a deployment</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DataSource Configuration</p></td>
@@ -1686,7 +1694,7 @@ client deployments</p></td>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">jboss-client.xml</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">META-INF of an application client jar</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The WildFly
 specific deployment descriptor for application client deployments</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
@@ -1696,7 +1704,7 @@ specific deployment descriptor for application client deployments</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">META-INF for EJB webservice deployments or
 WEB-INF for POJO webservice deployments/EJB webservice endpoints bundled
 in .war</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The JBossWS 4.0.x specific deployment descriptor for
 webservice endpoints</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
@@ -7523,11 +7531,13 @@ echo/package-info.java</pre>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">File</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Purpose</p></td>
+<th class="tableblock halign-left valign-top">File</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Echo.java</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Service Endpoint Interface</p></td>
@@ -8259,12 +8269,14 @@ interface.
 <col style="width: 33.3333%;">
 <col style="width: 33.3334%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Element</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Default</p></td>
+<th class="tableblock halign-left valign-top">Element</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">binding</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A JAXWS or JAXB binding file</p></td>
@@ -10184,11 +10196,13 @@ client being built by specifying one of the following JBossWS features
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Feature</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Strategy</p></td>
+<th class="tableblock halign-left valign-top">Feature</th>
+<th class="tableblock halign-left valign-top">Strategy</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">org.jboss.wsf.stack.cxf.client.UseThreadBusFeature</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">THREAD_BUS</p></td>
@@ -10286,11 +10300,13 @@ constructor</a>:</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Default value</p></td>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Default value</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cxf.queue.&lt;queue-name&gt;.maxQueueSize</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">256</p></td>
@@ -10553,11 +10569,13 @@ following properties:</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Key</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Value</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cxf.features</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><mark>foo, </mark>bar</p></td>
@@ -10915,7 +10933,7 @@ of public and private keys. These are generated using a large prime
 number and a key function.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="../..//images/download/attachments/557274/Public_key_making.png" alt="images/download/attachments/557274/Public_key_making.png"></span></p>
+<p><span class="image"><img src="images/download/attachments/557274/Public_key_making.png" alt="images/download/attachments/557274/Public_key_making.png"></span></p>
 </div>
 <div class="paragraph">
 <p>The keys are related mathematically, but cannot be derived from one
@@ -10926,7 +10944,7 @@ Only Alice can decrypt this message as she is the only one with the
 private key.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="../..//images/download/attachments/557274/Public_key_encryption-mod.svg.png" alt="images/download/attachments/557274/Public_key_encryption-mod.svg.png"></span></p>
+<p><span class="image"><img src="images/download/attachments/557274/Public_key_encryption-mod.svg.png" alt="images/download/attachments/557274/Public_key_encryption-mod.svg.png"></span></p>
 </div>
 <div class="paragraph">
 <p>Messages can also be signed. This allows you to ensure the authenticity
@@ -10936,7 +10954,7 @@ private key. Bob can then verify that the message is from Alice by using
 her public key.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="../..//images/download/attachments/557274/250px-Public_key_making.svg.png" alt="images/download/attachments/557274/250px-Public_key_making.svg.png"></span></p>
+<p><span class="image"><img src="images/download/attachments/557274/250px-Public_key_making.svg.png" alt="images/download/attachments/557274/250px-Public_key_making.svg.png"></span></p>
 </div>
 </div>
 <div class="sect4">
@@ -11007,12 +11025,14 @@ configuration properties:</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ws-security.username</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The username used for UsernameToken policy
-assertions</p></td>
+<th class="tableblock halign-left valign-top">ws-security.username</th>
+<th class="tableblock halign-left valign-top">The username used for UsernameToken policy
+assertions</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ws-security.password</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The password used for UsernameToken policy
@@ -16732,8 +16752,8 @@ configuration file.</p>
 </div>
 <div class="paragraph">
 <p>Follow the directions in the, " <em>Using the pure Java implementation
-supplied by JSSE</em>" section in the <a href="#">SSL Setup
-Guide|../../../../../../../../../../display/WFLY8/SSL+setup+guide|||\</a>.</p>
+supplied by JSSE</em>" section in the link:#[SSL Setup
+Guide|../../../../../../../../../../display/WFLY8/SSL+setup+guide|||\].</p>
 </div>
 <div class="paragraph">
 <p>Here is an example of an SSL connector declaration.</p>
@@ -16958,11 +16978,11 @@ information.</p>
 <colgroup>
 <col style="width: 100%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
+<th class="tableblock halign-left valign-top"> </th>
 </tr>
-</tbody>
+</thead>
 </table>
 <div class="paragraph">
 <p>jbossws-users.properties</p>
@@ -16977,11 +16997,11 @@ alice=clarinet</code></pre>
 <colgroup>
 <col style="width: 100%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"> </p></td>
+<th class="tableblock halign-left valign-top"> </th>
 </tr>
-</tbody>
+</thead>
 </table>
 <div class="paragraph">
 <p>jbossws-roles.properties</p>
@@ -19324,11 +19344,13 @@ That is achieved by setting one of the following properties within a
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Property</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Corresponding server option</p></td>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Corresponding server option</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wsdl.soapAddress.rewrite.modify-wsdl-address</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">modify-wsdl-address</p></td>
@@ -20904,7 +20926,7 @@ this jar as a Maven dependency.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="summary">17.4. Summary</h3>
+<h3 id="summary">Summary</h3>
 <div class="paragraph">
 <p>In the above examples, we saw what it takes to invoke a EJB from a
 remote client. To summarize:</p>
@@ -24004,14 +24026,11 @@ to be looked up in JNDI, as follows:</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-
+JNDI binding via persistence.xml properties is not supported in WildFly
+8.
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>JNDI binding via persistence.xml properties is not supported in WildFly
-8.</p>
 </div>
 <div id="using-spring-managed-persistence-units" class="paragraph">
 <p>=== Using Spring-managed persistence units</p>
@@ -24802,11 +24821,13 @@ table lists some of the changes.</p>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">HornetQ name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ActiveMQ name</p></td>
+<th class="tableblock halign-left valign-top">HornetQ name</th>
+<th class="tableblock halign-left valign-top">ActiveMQ name</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">hornetq-server</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">server</p></td>
@@ -25789,14 +25810,11 @@ WildFly.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-
+Feel free to add content in any way you prefer. You do not need to
+follow the template below. This is a work in progress.
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>Feel free to add content in any way you prefer. You do not need to
-follow the template below. This is a work in progress.</p>
 </div>
 <div id="introduction" class="paragraph">
 <p>== Introduction</p>
@@ -25824,14 +25842,11 @@ WildFly.</p>
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-
+Feel free to add content in any way you prefer. You do not need to
+follow the template below. This is a work in progress.
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>Feel free to add content in any way you prefer. You do not need to
-follow the template below. This is a work in progress.</p>
 </div>
 <div id="introduction" class="paragraph">
 <p>== Introduction</p>
@@ -25852,7 +25867,7 @@ applications to WildFly.</p>
 <div id="footer">
 <div id="footer-text">
 Version {version}<br>
-Last updated 2017-09-12 23:01:19 CEST
+Last updated 2017-09-14 14:41:41 CEST
 </div>
 </div>
 </body>

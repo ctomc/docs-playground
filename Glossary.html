@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>Documentation</title>
+<title>Glossary</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -425,161 +425,41 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .show-for-print{display:inherit!important}}
 </style>
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
-<h1>Documentation</h1>
+<h1>Glossary</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#module">Module</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="module">Module</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image"><img src="images/www.jboss.org/dms/wildfly_splash/splash_wildflylogo_small.png" alt="images/www.jboss.org/dms/wildfly_splash/splash_wildflylogo_small.png"></span></p>
+<p>A logical grouping of classes used for classloading and dependency
+management in WildFly 10. Modules can be <em>dynamic</em> or <em>static</em>.</p>
 </div>
 <div class="paragraph">
-<p>Welcome to the WildFly Documentation. The documentation for WildFly is
-split into two categories:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><em>Administrator Guides</em> for those wanting to understand how to install
-and configure the server</p>
-</li>
-<li>
-<p><em>Developer Guides</em> for those wanting to understand how to develop
-applications for the server</p>
-</li>
-</ul>
+<p><em>Static Modules</em> are the predefined modules installed in the modules/
+directory of the application server.</p>
 </div>
 <div class="paragraph">
-<p>There is also the <a href="http://wildscribe.github.io/">WildFly Model Reference</a>
-that provides information about all subsystem configuration options
-generated directly from the management model.</p>
+<p><em>Dynamic Modules</em> are created by the application server for each
+deployment (or sub-deployment in an EAR).</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="administrator-guides">Administrator Guides</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>The <a href="Getting_Started_Guide.html">Getting Started Guide</a> shows you
-how to install and start the server, how to configure logging, how to
-deploy an application, how to deploy a datasource, and how to get
-started using the command line interface and web management interface</p>
-</li>
-<li>
-<p>The <a href="Admin_Guide.html">Admin Guide</a> provides detailed information
-on using the CLI and Web Management interface, how to use the domain
-configuration, and shows you how to configure key subsystems</p>
-</li>
-<li>
-<p>The <a href="High_Availability_Guide.html">High Availability Guide</a> shows
-you how to create a cluster, how configure the web container and EJB
-container for clustering, and shows you how to configure load balancing
-and failover</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="developer-guides">Developer Guides</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>The <a href="Getting_Started_Developing_Applications_Guide.html">Getting
-Started Developing Applications Guide</a> shows you how to build Java EE
-applications and deploy them to WildFly. The guide starts by showing you
-the simplest <em>helloworld</em> application using just Servlet and CDI, and
-then adds in JSF, persistence and transactions, EJB, Bean Validation,
-RESTful web services and more. You&#8217;ll also discover how to deploy an
-OSGi bundle to WildFly. Finally, you&#8217;ll get the opportunity to create
-your own skeleton project. Each tutorial is accompanied by a quickstart,
-which contains the source code, deployment descriptors and a Maven based
-build.</p>
-</li>
-<li>
-<p>The <a href="Developer_Guide.html">Developer Guide</a> ( <em>in progress</em>) takes
-you through every deployment descriptor and every annotation offered by
-WildFly.</p>
-</li>
-<li>
-<p>The <a href="JavaEE_Tutorial.html">JavaEE Tutorial</a> ( <em>in progress</em>)
-builds on what you learnt in the
-<a href="Getting_Started_Developing_Applications_Guide.html">Getting Started
-Developing Applications Guide</a>, and shows you how to build a complex
-application using Java EE and portable extensions.</p>
-</li>
-<li>
-<p>The <a href="Extending_WildFly.html">Extending WildFly</a> guide walks you
-through creating a new WildFly subsystem extension, in order to add more
-functionality to WildFly, and shows how to test it before plugging it
-into WildFly.</p>
-</li>
-<li>
-<p>The <a href="Testsuite.adoc">WildFly Testsuite</a> guide walks you trough testing WildFly</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_security_guide">Security Guide</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>The <a href="WildFly_Elytron_Security.adoc">WildFly Elytron Security</a> guide walks you trough new security layer of WildFly</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="quickstarts">Quickstarts</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>WildFly comes with a number of quickstarts, examples which introduce to
-a particular technology or feature of the application server. The
-<a href="https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONTRIBUTING.md#contribute-a-quickstart">Contributing a Quickstart</a> section
-of the documentation details the available quickstarts</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="more-resources">More Resources</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="Glossary.html">Glossary</a></p>
-</li>
-<li>
-<p><a href="http://www.wildfly.org">WildFly project page</a></p>
-</li>
-<li>
-<p><a href="https://issues.jboss.org/browse/WFLY">WildFly issue tracker</a></p>
-</li>
-<li>
-<p><a href="https://community.jboss.org/en/wildfly">WildFly user forum</a></p>
-</li>
-<li>
-<p><a href="https://community.jboss.org/en/wildfly/dev">WildFly wiki</a></p>
-</li>
-<li>
-<p><a href="https://github.com/wildfly/wildfly/">WildFly source</a></p>
-</li>
-</ul>
+<p>Reference: <a href="admin-guide.adoc">Class Loading in WildFly</a></p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-14 15:57:21 CEST
+Last updated 2017-09-13 16:54:59 CEST
 </div>
 </div>
 </body>
