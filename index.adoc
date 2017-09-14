@@ -1,4 +1,5 @@
 = Documentation
+:ext-relative: {outfilesuffix}
 
 image:images/www.jboss.org/dms/wildfly_splash/splash_wildflylogo_small.png[images/www.jboss.org/dms/wildfly_splash/splash_wildflylogo_small.png]
 
@@ -61,11 +62,11 @@ through creating a new WildFly subsystem extension, in order to add more
 functionality to WildFly, and shows how to test it before plugging it
 into WildFly.
 
-* The link:Testsuite.adoc[WildFly Testsuite] guide walks you trough testing WildFly
+* The link:Testsuite{outfilesuffix}[WildFly Testsuite] guide walks you trough testing WildFly
 
 == Security Guide
 
-* The link:WildFly_Elytron_Security.adoc[WildFly Elytron Security] guide walks you trough new security layer of WildFly
+* The link:WildFly_Elytron_Security{outfilesuffix}[WildFly Elytron Security] guide walks you trough new security layer of of WildFly
 
 
 [[quickstarts]]
