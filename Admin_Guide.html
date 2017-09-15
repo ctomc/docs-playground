@@ -11552,6 +11552,9 @@ subsystem.</p>
 <ol class="arabic">
 <li>
 <p>Undefine the legacy security domain.</p>
+</li>
+</ol>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">/subsystem=messaging-activemq/server=<span class="keyword">default</span>:undefine-attribute(name=security-domain)</code></pre>
@@ -11561,31 +11564,32 @@ subsystem.</p>
 <ul>
 <li>
 <p>Set an Elytron security domain.</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="java">/subsystem=messaging-activemq/server=<span class="keyword">default</span>:write-attribute(name=elytron-domain, value=myElytronSecurityDomain)</code></pre>
 </div>
 </div>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>To prevent this error, you must specify a value for
 <code>&lt;cluster-password&gt;</code>. It is possible to encrypt this value by following
 <a href="https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.1/html/Security_Guide/sect-Password_Vaults_for_Sensitive_Strings.html">this
 guide</a>.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p>Alternatively, you can use the system property
 jboss.messaging.cluster.password to specify the cluster password from
 the command line.</p>
 </div>
-<div id="deployment-of--jms.xml-files" class="paragraph">
-<p>== Deployment of -jms.xml files</p>
 </div>
-</li>
-</ul>
-</div>
-</li>
-</ol>
-</div>
+<div class="sect3">
+<h4 id="deployment-of--jms.xml-files">9.7.9. Deployment of -jms.xml files</h4>
 <div class="paragraph">
 <p>Starting with WildFly 10.1, you have the ability to deploy a -jms.xml file
 defining JMS destinations, e.g.:</p>
@@ -11605,9 +11609,6 @@ defining JMS destinations, e.g.:</p>
 &lt;/messaging-deployment&gt;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>+</p>
-</div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 50%;">
@@ -11622,16 +11623,13 @@ tools (e.g. console, CLI, etc).</th>
 </tr>
 </thead>
 </table>
-<div class="paragraph">
-<p>+</p>
-</div>
 </div>
 <div class="sect3">
-<h4 id="jms-bridge">9.7.9. JMS Bridge</h4>
+<h4 id="jms-bridge">9.7.10. JMS Bridge</h4>
 <div class="paragraph">
 <p>The function of a JMS bridge is to consume messages from a source JMS
 destination, and send them to a target JMS destination. Typically either
-the source or the target destinations are on different servers.<br>
+the source or the target destinations are on different servers.
 The bridge can also be used to bridge messages from other non Artemis
 JMS servers, as long as they are JMS 1.1 compliant.</p>
 </div>
@@ -11644,7 +11642,7 @@ the project documentation.</p>
 <h5 id="modules-for-other-messaging-brokers">Modules for other messaging brokers</h5>
 <div class="paragraph">
 <p>Source and target JMS resources (destination and connection factories)
-are looked up using JNDI.<br>
+are looked up using JNDI.
 If either the source or the target resources are managed by another
 messaging server than WildFly, the required client classes must be
 bundled in a module. The name of the module must then be declared when
@@ -11714,9 +11712,6 @@ module:</p>
 &lt;/module&gt;</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>+</p>
-</div>
 </div>
 <div class="sect4">
 <h5 id="configuration">Configuration</h5>
@@ -11753,21 +11748,17 @@ module:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>+
-The <code>source</code> and <code>target</code> sections contain the name of the JMS resource
+<p>The <code>source</code> and <code>target</code> sections contain the name of the JMS resource
 ( <code>connection-factory</code> and <code>destination</code>) that will be looked up in
-JNDI.<br>
+JNDI.
 It optionally defines the <code>user</code> and <code>password</code> credentials. If they are
 set, they will be passed as arguments when creating the JMS connection
-from the looked up ConnectionFactory.<br>
+from the looked up ConnectionFactory.
 It is also possible to define JNDI context properties in the
 <code>source-context</code> and <code>target-context</code> sections. If these sections are
 absent, the JMS resources will be looked up in the local WildFly
 instance (as it is the case in the <code>target</code> section in the example
 above).</p>
-</div>
-<div class="paragraph">
-<p>+</p>
 </div>
 </div>
 <div class="sect4">
@@ -11797,12 +11788,8 @@ interface:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>+
-You can also see the complete JMS Bridge resource description from the
+<p>You can also see the complete JMS Bridge resource description from the
 CLI:</p>
-</div>
-<div class="paragraph">
-<p>+</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -11824,13 +11811,10 @@ CLI:</p>
 }</span></span></code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>+</p>
-</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="component-reference">9.7.10. Component Reference</h4>
+<h4 id="component-reference">9.7.11. Component Reference</h4>
 <div class="paragraph">
 <p>The messaging-activemq subsystem is provided by the Artemis project. For
 a detailed description of the available configuration properties, please
@@ -11853,7 +11837,7 @@ consult the project documentation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_connect_a_pooled_connection_factory_to_a_remote_artemis_server">9.7.11. Connect a pooled-connection-factory to a Remote Artemis Server</h4>
+<h4 id="_connect_a_pooled_connection_factory_to_a_remote_artemis_server">9.7.12. Connect a pooled-connection-factory to a Remote Artemis Server</h4>
 <div class="paragraph">
 <p>The <code>messaging-activemq</code> subsystem allows to configure a
 <code>pooled-connection-factory</code> resource to let a local client deployed in
@@ -11983,7 +11967,7 @@ subsystem (which allows to inject the JMS resources using the
 </div>
 </div>
 <div class="sect3">
-<h4 id="_backward_forward_compatibility">9.7.12. Backward &amp; Forward Compatibility</h4>
+<h4 id="_backward_forward_compatibility">9.7.13. Backward &amp; Forward Compatibility</h4>
 <div class="paragraph">
 <p>WildFly 10 supports both backwards and forwards compatibility with
 legacy versions that were using HornetQ as their messaging brokers (such
@@ -12119,7 +12103,7 @@ the legacy server.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_aio_nio_for_messaging_journal">9.7.13. AIO - NIO for messaging journal</h4>
+<h4 id="_aio_nio_for_messaging_journal">9.7.14. AIO - NIO for messaging journal</h4>
 <div class="paragraph">
 <p>Apache ActiveMQ Artemis (like HornetQ beforehand) ships with a <strong>high
 performance journal</strong>. Since Apache ActiveMQ Artemis handles its own
@@ -12242,7 +12226,7 @@ trace in your server console :</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_jdbc_store_for_messaging_journal">9.7.14. JDBC Store for Messaging Journal</h4>
+<h4 id="_jdbc_store_for_messaging_journal">9.7.15. JDBC Store for Messaging Journal</h4>
 <div class="paragraph">
 <p>The Artemis server that are integrated to WildFly can be configured to
 use a JDBC store for its messaging journal instead of its file-based
