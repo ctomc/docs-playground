@@ -312,14 +312,14 @@ subsystem.
 To use an Elytron security domain:
 
 1.  Undefine the legacy security domain.
-+
+
 [source, java]
 ----
 /subsystem=messaging-activemq/server=default:undefine-attribute(name=security-domain)
 ----
 
 * Set an Elytron security domain.
-+
+
 [source, java]
 ----
 /subsystem=messaging-activemq/server=default:write-attribute(name=elytron-domain, value=myElytronSecurityDomain)
@@ -328,11 +328,11 @@ To use an Elytron security domain:
 `<cluster-password>`. It is possible to encrypt this value by following
 https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.1/html/Security_Guide/sect-Password_Vaults_for_Sensitive_Strings.html[this
 guide].
-+
+
 Alternatively, you can use the system property
 jboss.messaging.cluster.password to specify the cluster password from
 the command line.
-+
+
 [[deployment-of--jms.xml-files]]
 == Deployment of -jms.xml files
 
@@ -353,20 +353,20 @@ defining JMS destinations, e.g.:
    </server>
 </messaging-deployment>
 ----
-+
+
 [cols=",",options="header"]
 |=======================================================================
 | |This feature is primarily intended for development as destinations
 deployed this way can not be managed with any of the provided management
 tools (e.g. console, CLI, etc).
 |=======================================================================
-+
+
 [[jms-bridge]]
 == JMS Bridge
 
 The function of a JMS bridge is to consume messages from a source JMS
 destination, and send them to a target JMS destination. Typically either
-the source or the target destinations are on different servers. +
+the source or the target destinations are on different servers.
 The bridge can also be used to bridge messages from other non Artemis
 JMS servers, as long as they are JMS 1.1 compliant.
 
@@ -378,7 +378,7 @@ the project documentation.
 === Modules for other messaging brokers
 
 Source and target JMS resources (destination and connection factories)
-are looked up using JNDI. +
+are looked up using JNDI.
 If either the source or the target resources are managed by another
 messaging server than WildFly, the required client classes must be
 bundled in a module. The name of the module must then be declared when
@@ -442,7 +442,7 @@ We define the module in `module.xml`:
     </dependencies>
 </module>
 ----
-+
+
 [[configuration]]
 === Configuration
 
@@ -476,19 +476,19 @@ A JMS bridge is defined inside a `jms-bridge` section of the
    </jms-bridge>
 </subsystem>
 ----
-+
+
 The `source` and `target` sections contain the name of the JMS resource
 ( `connection-factory` and `destination`) that will be looked up in
-JNDI. +
+JNDI.
 It optionally defines the `user` and `password` credentials. If they are
 set, they will be passed as arguments when creating the JMS connection
-from the looked up ConnectionFactory. +
+from the looked up ConnectionFactory.
 It is also possible to define JNDI context properties in the
 `source-context` and `target-context` sections. If these sections are
 absent, the JMS resources will be looked up in the local WildFly
 instance (as it is the case in the `target` section in the example
 above).
-+
+
 [[management-commands]]
 === Management commands
 
@@ -514,10 +514,10 @@ interface:
       add-messageID-in-header=true)
 {"outcome" => "success"}
 ----
-+
+
 You can also see the complete JMS Bridge resource description from the
 CLI:
-+
+
 [source, ruby]
 ----
 [standalone@localhost:9990 /] /subsystem=messaging/jms-bridge=*/:read-resource-description
@@ -537,7 +537,7 @@ CLI:
     }]
 }
 ----
-+
+
 [[component-reference]]
 == Component Reference
 
