@@ -506,5 +506,8 @@ need to be defined.
 
 Each property specified is set on the `java.security.Security` class.
 
+:leveloffset: +1
 
 include::Security_Authentication_Modules.adoc[]
+
+:leveloffset: -1

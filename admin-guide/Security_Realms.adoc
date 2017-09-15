@@ -429,8 +429,11 @@ delegating to the realm.
 
 [[add-user.sh]]
 
+:leveloffset: +1
+
 include::add-user-utility.adoc[]
 
+:leveloffset: -1
 
 [[jmx-security]]
 == JMX Security
@@ -486,8 +489,12 @@ individual MBeanServers by proxying through the host controllers native
 interface https://issues.jboss.org/browse/AS7-4009[AS7-4009], if this is
 a feature you would use please add your vote to the issue.
 
+:leveloffset: +1
+
 include::Security_Realms_Detailed_Configuration.adoc[]
 
 include::Security_Realms_Plugins.adoc[]
 
 include::Security_Realms_Examples.adoc[]
+
+:leveloffset: -1

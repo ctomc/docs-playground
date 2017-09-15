@@ -324,7 +324,10 @@ will only be persistent across redeploys, rather than restarts.
 |relative-to |The location that the path is relevant to
 |======================================================
 
+:leveloffset: +1
 
 include::Undertow_AJP_listeners.adoc[]
 
 include::Undertow_using_as_a_Load_Balancer.adoc[]
+
+:leveloffset: -1

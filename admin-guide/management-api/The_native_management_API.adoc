@@ -337,7 +337,7 @@ System.out.println(op);
 
 This produces:
 
-[source, java]
+[source, ruby]
 ----
 {
     "operation" => "write-attribute",
@@ -407,7 +407,7 @@ The structure of the request for the " `composite`" operation has the
 same fundamental structure as a simple operation (i.e. operation name,
 address, params as key value pairs).
 
-[source, java]
+[source, ruby]
 ----
 {
     "operation" => "composite",

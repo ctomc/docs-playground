@@ -314,8 +314,12 @@ operations will be persisted to the `logging.properties` file and used
 on the next boot.
 
 
+:leveloffset: +1
+
 include::Logging_Handlers.adoc[]
 
 include::Logging_How_To.adoc[]
 
 include::Logging_Loggers.adoc[]
+
+:leveloffset: -1

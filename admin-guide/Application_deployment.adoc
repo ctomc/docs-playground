@@ -759,5 +759,8 @@ different, the server is using the file you want to replace. You should
 undeploy the deployment, replace the content, and then deploy again. Or
 you can stop the server, replace the deployment and deploy again.
 
+:leveloffset: +1
 
 include::Deployment_Overlays.adoc[]
+
+:leveloffset: -1

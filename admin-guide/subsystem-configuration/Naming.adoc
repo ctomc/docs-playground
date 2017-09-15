@@ -36,6 +36,10 @@ specified:
 </subsystem>
 ----
 
+:leveloffset: +1
+
 include::Naming_Global_Bindings_Configuration.adoc[]
 
 include::Naming_Remote_JNDI_Configuration.adoc[]
+
+:leveloffset: -1

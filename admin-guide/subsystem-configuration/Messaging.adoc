@@ -553,6 +553,8 @@ http://activemq.apache.org/artemis/docs.html
 
 --
 
+:leveloffset: +1
+
 include::Messaging_Connect_a_pooled-connection-factory_to_a_Remote_Artemis_Server.adoc[]
 
 include::Messaging_Backward_&_Forward_Compatibility.adoc[]
@@ -561,3 +563,4 @@ include::Mesaging_AIO_-_NIO_for_messaging_journal.adoc[]
 
 include::Messaging_JDBC_Store_for_Messaging_Journal.adoc[]
 
+:leveloffset: -1

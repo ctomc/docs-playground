@@ -2,12 +2,17 @@
 :toclevels: 2
 :toc-title: Core management concepts
 :doctype: article
+:toc: macro
+:leveloffset: +1
+
+ifdef::basebackend-html[toc::[]]
+:numbered:
 
 
-include::Operating_modes.adoc[]
+include::Operating_modes.adoc[leveloffset=+1]
 
+include::General_configuration_concepts.adoc[leveloffset=+1]
 
-include::General_configuration_concepts.adoc[]
+include::Management_resources.adoc[leveloffset=+1]
 
-
-include::Management_resources.adoc[]
+:leveloffset: -1

@@ -2,7 +2,7 @@
 :icons: font
 :source-highlighter: coderay
 
-
+:leveloffset: +1
 include::management-tasks/Command_line_parameters.adoc[]
 
 include::management-tasks/Suspend,_resume_and_graceful_shutdown.adoc[]
@@ -16,3 +16,5 @@ include::management-tasks/Audit_logging.adoc[]
 include::management-tasks/Canceling_Management_Operations.adoc[]
 
 include::management-tasks/Configuration_file_history.adoc[]
+
+:leveloffset: -1

@@ -10,10 +10,7 @@ WildFly developer team;
 :source-highlighter: coderay
 :wildflyVersion: 11
 
-:leveloffset: +1
-
 ifdef::env-github[:outfilesuffix: .adoc]
-
 
 
 ifndef::ebook-format[:leveloffset: 1]
@@ -24,16 +21,20 @@ ifdef::basebackend-html[toc::[]]
 
 :numbered:
 
+:leveloffset: 1
 
-include::admin-guide//Target_Audience.adoc[]
+
+include::admin-guide/Target_Audience.adoc[]
 
 include::admin-guide/Management_Clients.adoc[]
 
 include::admin-guide/Core_management_concepts.adoc[]
 
+
 include::admin-guide/Interfaces_and_ports.adoc[]
 
-=== Administrative security
+== Administrative security
+
 
 include::admin-guide/Security_Realms.adoc[]
 
@@ -50,4 +51,3 @@ include::admin-guide/Management_tasks.adoc[]
 include::admin-guide/Management_API_reference.adoc[]
 
 include::admin-guide/CLI_Recipes.adoc[]
-
