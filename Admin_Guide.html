@@ -524,7 +524,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="details">
 <span id="author" class="author">WildFly developer team</span><br>
 <span id="revnumber">version {version},</span>
-<span id="revdate">2017-09-15</span>
+<span id="revdate">2017-09-16</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">WildFly Admin guide</div>
@@ -603,15 +603,16 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_ejb3_subsystem_configuration_guide">9.5. EJB3 subsystem configuration guide</a></li>
 <li><a href="#_undertow_subsystem_configuration">9.6. Undertow subsystem configuration</a></li>
 <li><a href="#_messaging_configuration">9.7. Messaging configuration</a></li>
-<li><a href="#_security_subsystem_configuration">9.8. Security subsystem configuration</a></li>
-<li><a href="#_web_services_configuration">9.9. Web services configuration</a></li>
-<li><a href="#_resource_adapters">9.10. Resource adapters</a></li>
-<li><a href="#_batch_jsr_352_subsystem_configuration">9.11. Batch (JSR-352) Subsystem Configuration</a></li>
-<li><a href="#_jsf_configuration">9.12. JSF Configuration</a></li>
-<li><a href="#_jmx_subsystem_configuration">9.13. JMX subsystem configuration</a></li>
-<li><a href="#_deployment_scanner_configuration">9.14. Deployment Scanner configuration</a></li>
-<li><a href="#_core_management_subsystem_configuration">9.15. Core Management Subsystem Configuration</a></li>
-<li><a href="#_simple_configuration_subsystems">9.16. Simple configuration subsystems</a></li>
+<li><a href="#cluster-authentication">9.8. Cluster Authentication</a></li>
+<li><a href="#_security_subsystem_configuration">9.9. Security subsystem configuration</a></li>
+<li><a href="#_web_services_configuration">9.10. Web services configuration</a></li>
+<li><a href="#_resource_adapters">9.11. Resource adapters</a></li>
+<li><a href="#_batch_jsr_352_subsystem_configuration">9.12. Batch (JSR-352) Subsystem Configuration</a></li>
+<li><a href="#_jsf_configuration">9.13. JSF Configuration</a></li>
+<li><a href="#_jmx_subsystem_configuration">9.14. JMX subsystem configuration</a></li>
+<li><a href="#_deployment_scanner_configuration">9.15. Deployment Scanner configuration</a></li>
+<li><a href="#_core_management_subsystem_configuration">9.16. Core Management Subsystem Configuration</a></li>
+<li><a href="#_simple_configuration_subsystems">9.17. Simple configuration subsystems</a></li>
 </ul>
 </li>
 <li><a href="#_domain_setup">10. Domain Setup</a>
@@ -625,11 +626,12 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_management_tasks">11. Management tasks</a>
 <ul class="sectlevel2">
 <li><a href="#_command_line_parameters">11.1. Command line parameters</a></li>
-<li><a href="#_starting_stopping_servers_in_a_managed_domain">11.2. Starting &amp; stopping Servers in a Managed Domain</a></li>
-<li><a href="#_jvm_settings">11.3. JVM settings</a></li>
-<li><a href="#_audit_logging">11.4. Audit logging</a></li>
-<li><a href="#_canceling_management_operations">11.5. Canceling Management Operations</a></li>
-<li><a href="#_configuration_file_history">11.6. Configuration file history</a></li>
+<li><a href="#_suspend_resume_and_graceful_shutdown">11.2. Suspend, Resume and Graceful shutdown</a></li>
+<li><a href="#_starting_stopping_servers_in_a_managed_domain">11.3. Starting &amp; stopping Servers in a Managed Domain</a></li>
+<li><a href="#_jvm_settings">11.4. JVM settings</a></li>
+<li><a href="#_audit_logging">11.5. Audit logging</a></li>
+<li><a href="#_canceling_management_operations">11.6. Canceling Management Operations</a></li>
+<li><a href="#_configuration_file_history">11.7. Configuration file history</a></li>
 </ul>
 </li>
 <li><a href="#_management_api_reference">12. Management API reference</a>
@@ -11560,36 +11562,64 @@ subsystem.</p>
 <pre class="CodeRay highlight"><code data-lang="java">/subsystem=messaging-activemq/server=<span class="keyword">default</span>:undefine-attribute(name=security-domain)</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Set an Elytron security domain.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=messaging-activemq</span><span class="delimiter">/</span><span class="modifier">se</span></span>rver=<span class="key">default</span>:write-attribute(name=elytron-domain, value=myElytronSecurityDomain)</code></pre>
+</div>
+</div>
 </li>
-</ul>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+You can only define either <code>security-domain</code> or <code>elytron-domain</code>, but
+you cannot have both defined at the same time. If neither is defined,
+WildFly will use the <code>security-domain</code> default value of <code>other</code>, which
+maps to the <code>other</code> legacy security domain.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cluster-authentication">9.8. Cluster Authentication</h3>
+<div class="paragraph">
+<p>If the Artemis server is configured to be clustered, it will use the
+<code>cluster</code> 's <code>user</code> and <code>password</code> attributes to connect to other
+Artemis nodes in the cluster.</p>
+</div>
+<div class="paragraph">
+<p>If you do not change the default value of &lt;cluster-password&gt;, Artemis
+will fail to authenticate with the error:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=messaging-activemq/server=<span class="keyword">default</span>:write-attribute(name=elytron-domain, value=myElytronSecurityDomain)</code></pre>
+<pre class="CodeRay highlight"><code>HQ224018: Failed to create session: HornetQExceptionerrorType=CLUSTER_SECURITY_EXCEPTION message=HQ119099: Unable to authenticate cluster user: HORNETQ.CLUSTER.ADMIN.USER</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
+<div class="paragraph">
 <p>To prevent this error, you must specify a value for
 <code>&lt;cluster-password&gt;</code>. It is possible to encrypt this value by following
 <a href="https://access.redhat.com/site/documentation/en-US/JBoss_Enterprise_Application_Platform/6.1/html/Security_Guide/sect-Password_Vaults_for_Sensitive_Strings.html">this
 guide</a>.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>Alternatively, you can use the system property
 jboss.messaging.cluster.password to specify the cluster password from
 the command line.</p>
 </div>
-</div>
 <div class="sect3">
-<h4 id="deployment-of--jms.xml-files">9.7.9. Deployment of -jms.xml files</h4>
+<h4 id="deployment-of--jms.xml-files">9.8.1. Deployment of -jms.xml files</h4>
 <div class="paragraph">
 <p>Starting with WildFly 10.1, you have the ability to deploy a -jms.xml file
 defining JMS destinations, e.g.:</p>
@@ -11625,7 +11655,7 @@ tools (e.g. console, CLI, etc).</th>
 </table>
 </div>
 <div class="sect3">
-<h4 id="jms-bridge">9.7.10. JMS Bridge</h4>
+<h4 id="jms-bridge">9.8.2. JMS Bridge</h4>
 <div class="paragraph">
 <p>The function of a JMS bridge is to consume messages from a source JMS
 destination, and send them to a target JMS destination. Typically either
@@ -11814,7 +11844,7 @@ CLI:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="component-reference">9.7.11. Component Reference</h4>
+<h4 id="component-reference">9.8.3. Component Reference</h4>
 <div class="paragraph">
 <p>The messaging-activemq subsystem is provided by the Artemis project. For
 a detailed description of the available configuration properties, please
@@ -11837,7 +11867,7 @@ consult the project documentation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_connect_a_pooled_connection_factory_to_a_remote_artemis_server">9.7.12. Connect a pooled-connection-factory to a Remote Artemis Server</h4>
+<h4 id="_connect_a_pooled_connection_factory_to_a_remote_artemis_server">9.8.4. Connect a pooled-connection-factory to a Remote Artemis Server</h4>
 <div class="paragraph">
 <p>The <code>messaging-activemq</code> subsystem allows to configure a
 <code>pooled-connection-factory</code> resource to let a local client deployed in
@@ -11967,7 +11997,7 @@ subsystem (which allows to inject the JMS resources using the
 </div>
 </div>
 <div class="sect3">
-<h4 id="_backward_forward_compatibility">9.7.13. Backward &amp; Forward Compatibility</h4>
+<h4 id="_backward_forward_compatibility">9.8.5. Backward &amp; Forward Compatibility</h4>
 <div class="paragraph">
 <p>WildFly 10 supports both backwards and forwards compatibility with
 legacy versions that were using HornetQ as their messaging brokers (such
@@ -12103,7 +12133,7 @@ the legacy server.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_aio_nio_for_messaging_journal">9.7.14. AIO - NIO for messaging journal</h4>
+<h4 id="_aio_nio_for_messaging_journal">9.8.6. AIO - NIO for messaging journal</h4>
 <div class="paragraph">
 <p>Apache ActiveMQ Artemis (like HornetQ beforehand) ships with a <strong>high
 performance journal</strong>. Since Apache ActiveMQ Artemis handles its own
@@ -12226,7 +12256,7 @@ trace in your server console :</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_jdbc_store_for_messaging_journal">9.7.15. JDBC Store for Messaging Journal</h4>
+<h4 id="_jdbc_store_for_messaging_journal">9.8.7. JDBC Store for Messaging Journal</h4>
 <div class="paragraph">
 <p>The Artemis server that are integrated to WildFly can be configured to
 use a JDBC store for its messaging journal instead of its file-based
@@ -12303,7 +12333,7 @@ yet).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_security_subsystem_configuration">9.8. Security subsystem configuration</h3>
+<h3 id="_security_subsystem_configuration">9.9. Security subsystem configuration</h3>
 <div class="paragraph">
 <p>The security subsystem is the subsystem that brings the security
 services provided by <a href="http://www.jboss.org/picketbox">PicketBox</a> to the
@@ -12317,7 +12347,7 @@ management interfaces themselves are not run within a WildFly process so
 use a custom configuration.</p>
 </div>
 <div class="sect3">
-<h4 id="structure-of-the-security-subsystem">9.8.1. Structure of the Security Subsystem</h4>
+<h4 id="structure-of-the-security-subsystem">9.9.1. Structure of the Security Subsystem</h4>
 <div class="paragraph">
 <p>When deploying applications to WildFly most of the time it is likely
 that you would be deploying a web application or EJBs and just require a
@@ -12370,7 +12400,7 @@ credentials, roles or attributes to the authenticated subject.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="security-subsystem-configuration">9.8.2. Security Subsystem Configuration</h4>
+<h4 id="security-subsystem-configuration">9.9.2. Security Subsystem Configuration</h4>
 <div class="paragraph">
 <p>By default a lot of defaults have already been selected for the security
 subsystem and unless there is a specific implementation detail you need
@@ -13032,7 +13062,7 @@ need to be defined.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_authentication_modules">9.8.3. Authentication Modules</h4>
+<h4 id="_authentication_modules">9.9.3. Authentication Modules</h4>
 <div class="paragraph">
 <p>In this section we will describe each login module&#8217;s options available.</p>
 </div>
@@ -13285,7 +13315,7 @@ select Role, RoleGroup from Roles where PrincipalID=?</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_web_services_configuration">9.9. Web services configuration</h3>
+<h3 id="_web_services_configuration">9.10. Web services configuration</h3>
 <div class="paragraph">
 <p>JBossWS components are provided to the application server through the
 webservices subsystem. JBossWS components handle the processing of WS
@@ -13295,7 +13325,7 @@ subsystem is provided in the server&#8217;s domain and standalone
 configuration files.</p>
 </div>
 <div class="sect3">
-<h4 id="structure-of-the-webservices-subsystem">9.9.1. Structure of the webservices subsystem</h4>
+<h4 id="structure-of-the-webservices-subsystem">9.10.1. Structure of the webservices subsystem</h4>
 <div class="sect4">
 <h5 id="published-endpoint-address">Published endpoint address</h5>
 <div class="paragraph">
@@ -13596,7 +13626,7 @@ deployment classloader must to be able to load the handler class.
 </div>
 </div>
 <div class="sect3">
-<h4 id="runtime-information">9.9.2. Runtime information</h4>
+<h4 id="runtime-information">9.10.2. Runtime information</h4>
 <div class="paragraph">
 <p>Each web service endpoint is exposed through the deployment that
 provides the endpoint implementation. Each endpoint can be queried as a
@@ -13606,7 +13636,7 @@ context and a WSDL Url:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9999</span> /] /deployment=<span class="string"><span class="delimiter">&quot;</span><span class="content">*</span><span class="delimiter">&quot;</span></span>/subsystem=webservices/endpoint=<span class="key"><span class="delimiter">&quot;</span><span class="content">*</span><span class="delimiter">&quot;</span></span>:read-resource
+<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9999</span> /] /deployment=<span class="string"><span class="delimiter">&quot;</span><span class="content">*</span><span class="delimiter">&quot;</span></span>/subsystem=webservices/endpoint=<span class="string"><span class="delimiter">&quot;</span><span class="content">*</span><span class="delimiter">&quot;</span></span><span class="symbol">:read</span>-resource
 {
    <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
    <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; [{
@@ -13629,7 +13659,7 @@ context and a WSDL Url:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="component-reference">9.9.3. Component Reference</h4>
+<h4 id="component-reference">9.10.3. Component Reference</h4>
 <div class="paragraph">
 <p>The web service subsystem is provided by the JBossWS project. For a
 detailed description of the available configuration properties, please
@@ -13652,7 +13682,7 @@ consult the project documentation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_resource_adapters">9.10. Resource adapters</h3>
+<h3 id="_resource_adapters">9.11. Resource adapters</h3>
 <div class="paragraph">
 <p>Resource adapters are configured through the <em>resource-adapters</em>
 subsystem. Declaring a new resource adapter consists of two separate
@@ -13660,7 +13690,7 @@ steps: You would need to deploy the .rar archive and define a resource
 adapter entry in the subsystem.</p>
 </div>
 <div class="sect3">
-<h4 id="resource-adapter-definitions">9.10.1. Resource Adapter Definitions</h4>
+<h4 id="resource-adapter-definitions">9.11.1. Resource Adapter Definitions</h4>
 <div class="paragraph">
 <p>The resource adapter itself is defined within the subsystem
 <em>resource-adapters</em>:</p>
@@ -13709,14 +13739,14 @@ adapter entry in the subsystem.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="using-security-domains">9.10.2. Using security domains</h4>
+<h4 id="using-security-domains">9.11.2. Using security domains</h4>
 <div class="paragraph">
 <p>Information about using security domains can be found at
 <a href="https://community.jboss.org/wiki/JBossAS7SecurityDomainModel" class="bare">https://community.jboss.org/wiki/JBossAS7SecurityDomainModel</a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="automatic-activation-of-resource-adapter-archives">9.10.3. Automatic activation of resource adapter archives</h4>
+<h4 id="automatic-activation-of-resource-adapter-archives">9.11.3. Automatic activation of resource adapter archives</h4>
 <div class="paragraph">
 <p>A resource adapter archive can be automatically activated with a
 configuration by including an META-INF/ironjacamar.xml in the archive.</p>
@@ -13727,7 +13757,7 @@ configuration by including an META-INF/ironjacamar.xml in the archive.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="component-reference">9.10.4. Component Reference</h4>
+<h4 id="component-reference">9.11.4. Component Reference</h4>
 <div class="paragraph">
 <p>The resource adapter subsystem is provided by the
 <a href="http://www.jboss.org/ironjacamar">IronJacamar</a> project. For a detailed
@@ -13751,9 +13781,9 @@ the project documentation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_batch_jsr_352_subsystem_configuration">9.11. Batch (JSR-352) Subsystem Configuration</h3>
+<h3 id="_batch_jsr_352_subsystem_configuration">9.12. Batch (JSR-352) Subsystem Configuration</h3>
 <div class="sect3">
-<h4 id="overview">9.11.1. Overview</h4>
+<h4 id="overview">9.12.1. Overview</h4>
 <div class="paragraph">
 <p>The batch subsystem is used to configure an environment for running
 batch applications. <a href="http://wildfly.org">WildFly</a> uses
@@ -13765,14 +13795,14 @@ is <code>subsystem=batch-jberet</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="default-subsystem-configuration">9.11.2. Default Subsystem Configuration</h4>
+<h4 id="default-subsystem-configuration">9.12.2. Default Subsystem Configuration</h4>
 <div class="paragraph">
 <p>For up to date information about subsystem configuration options see
 <a href="http://wildscribe.github.io/" class="bare">http://wildscribe.github.io/</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="security">9.11.3. Security</h4>
+<h4 id="security">9.12.3. Security</h4>
 <div class="paragraph">
 <p>A new <code>security-domain</code> attribute was added to the <code>batch-jberet</code>
 subsystem to allow batch jobs to be executed under that security domain.
@@ -13812,7 +13842,7 @@ deployment resource, for example
 </div>
 </div>
 <div class="sect3">
-<h4 id="deployment-descriptors">9.11.4. Deployment Descriptors</h4>
+<h4 id="deployment-descriptors">9.12.4. Deployment Descriptors</h4>
 <div class="paragraph">
 <p>There are no deployment descriptors for configuring a batch environment
 defined by the <a href="https://www.jcp.org/en/jsr/detail?id=352">JSR-352
@@ -13858,7 +13888,7 @@ deployment descriptor.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="deployment-resources">9.11.5. Deployment Resources</h4>
+<h4 id="deployment-resources">9.12.5. Deployment Resources</h4>
 <div class="paragraph">
 <p>Some subsystems in <a href="http://wildfly.org">WildFly</a> register runtime
 resources for deployments. The batch subsystem registers jobs and
@@ -14062,9 +14092,9 @@ and attributes (arguments) on operations.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_jsf_configuration">9.12. JSF Configuration</h3>
+<h3 id="_jsf_configuration">9.13. JSF Configuration</h3>
 <div class="sect3">
-<h4 id="overview">9.12.1. Overview</h4>
+<h4 id="overview">9.13.1. Overview</h4>
 <div class="paragraph">
 <p>JSF configuration is handled by the JSF subsystem. The JSF subsystem
 allows multiple JSF implementations to be installed on the same WildFly
@@ -14079,7 +14109,7 @@ attribute.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="installing-a-new-jsf-implementation-manually">9.12.2. Installing a new JSF implementation manually</h4>
+<h4 id="installing-a-new-jsf-implementation-manually">9.13.2. Installing a new JSF implementation manually</h4>
 <div class="paragraph">
 <p>A new JSF implementation can be manually installed as follows:</p>
 </div>
@@ -14196,7 +14226,7 @@ The new JSF implementation should appear in the output of this command.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="changing-the-default-jsf-implementation">9.12.3. Changing the default JSF implementation</h4>
+<h4 id="changing-the-default-jsf-implementation">9.13.3. Changing the default JSF implementation</h4>
 <div class="paragraph">
 <p>The following CLI command can be used to make a newly installed JSF
 implementation the default JSF implementation used by WildFly:</p>
@@ -14211,7 +14241,7 @@ implementation the default JSF implementation used by WildFly:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="configuring-a-jsf-app-to-use-a-non-default-jsf-implementation">9.12.4. Configuring a JSF app to use a non-default JSF implementation</h4>
+<h4 id="configuring-a-jsf-app-to-use-a-non-default-jsf-implementation">9.13.4. Configuring a JSF app to use a non-default JSF implementation</h4>
 <div class="paragraph">
 <p>A JSF app can be configured to use an installed JSF implementation
 that&#8217;s not the default implementation by adding a
@@ -14235,7 +14265,7 @@ implementation will be used for that app.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_jmx_subsystem_configuration">9.13. JMX subsystem configuration</h3>
+<h3 id="_jmx_subsystem_configuration">9.14. JMX subsystem configuration</h3>
 <div class="paragraph">
 <p>The JMX subsystem registers a service with the Remoting endpoint so that
 remote access to JMX can be obtained over the exposed Remoting
@@ -14350,7 +14380,7 @@ dependencies</p></td>
 </tbody>
 </table>
 <div class="sect3">
-<h4 id="audit-logging">9.13.1. Audit logging</h4>
+<h4 id="audit-logging">9.14.1. Audit logging</h4>
 <div class="paragraph">
 <p>Audit logging for the JMX MBean server managed by the JMX subsystem. The
 resource is at <code>/subsystem=jmx/configuration=audit-log</code> and its
@@ -14506,7 +14536,7 @@ field will be populated with Throwable.getMessage()</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_deployment_scanner_configuration">9.14. Deployment Scanner configuration</h3>
+<h3 id="_deployment_scanner_configuration">9.15. Deployment Scanner configuration</h3>
 <div class="paragraph">
 <p>The deployment scanner is only used in standalone mode. Its job is to
 monitor a directory for new files and to deploy those files. It can be
@@ -14665,7 +14695,7 @@ off scanning you can do</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_core_management_subsystem_configuration">9.15. Core Management Subsystem Configuration</h3>
+<h3 id="_core_management_subsystem_configuration">9.16. Core Management Subsystem Configuration</h3>
 <div class="paragraph">
 <p>The core management subsystem is composed services used to manage the
 server or monitor its status.<br>
@@ -14682,7 +14712,7 @@ The core management subsystem configuration may be used to:</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="lifecycle-listener">9.15.1. Lifecycle listener</h4>
+<h4 id="lifecycle-listener">9.16.1. Lifecycle listener</h4>
 <div class="paragraph">
 <p>You can create an implementation of
 <em>org.wildfly.extension.core.management.client.ProcessStateListener</em>
@@ -14766,7 +14796,7 @@ let&#8217;s add the module to the wildfly modules :</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="configuration-changes">9.15.2. Configuration changes</h4>
+<h4 id="configuration-changes">9.16.2. Configuration changes</h4>
 <div class="paragraph">
 <p>You can use the core management subsystem to enable and configure an
 <strong>in-memory</strong> history of the last configuration changes.<br>
@@ -14810,7 +14840,7 @@ For example to track the last 5 configuration changes let&#8217;s active this
 </div>
 </div>
 <div class="sect2">
-<h3 id="_simple_configuration_subsystems">9.16. Simple configuration subsystems</h3>
+<h3 id="_simple_configuration_subsystems">9.17. Simple configuration subsystems</h3>
 <div class="paragraph">
 <p>The following subsystems currently have no configuration beyond its root
 element in the configuration</p>
@@ -16158,13 +16188,250 @@ by <code>-u</code>, then setting <code>-u</code> in your launch command will hav
 </tr>
 </table>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_suspend_resume_and_graceful_shutdown">11.2. Suspend, Resume and Graceful shutdown</h3>
+<div class="sect3">
+<h4 id="core-concepts">11.2.1. Core Concepts</h4>
 <div class="paragraph">
-<p>Unresolved directive in admin-guide/Management_tasks.adoc - include::management-tasks/Suspend,_resume_and_graceful_shutdown.adoc[]</p>
+<p>Wildfly introduces the ability to suspend and resume servers. This can
+be combined with shutdown to enable the server to gracefully finish
+processing all active requests and then shut down. When a server is
+suspended it will immediately stop accepting new requests, but wait for
+existing request to complete. A suspended server can be resumed at any
+point, and will begin processing requests immediately. Suspending and
+resuming has no effect on deployment state (e.g. if a server is
+suspended singleton EJB&#8217;s will not be destroyed). As of Wildfly 11 it is
+also possible to start a server in suspended mode which means it will
+not accept requests until it has been resumed, servers will also be
+suspended during the boot process, so no requests will be accepted until
+the startup process is 100% complete.</p>
+</div>
+<div class="paragraph">
+<p>Suspend/Resume has no effect on management operations, management
+operations can still be performed while a server is suspended. If you
+wish to perform a management operation that will affect the operation of
+the server (e.g. changing a datasource) you can suspend the server,
+perform the operation, then resume the server. This allows all requests
+to finish, and makes sure that no requests are running while the
+management changes are taking place.</p>
+</div>
+<div class="paragraph">
+<p>When a server is suspending it goes through four different phases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>RUNNING</strong> - The normal state, the server is accepting requests and
+running normally</p>
+</li>
+<li>
+<p><strong>PRE_SUSPEND</strong> - In PRE_SUSPEND the server will notify external parties
+that it is about to suspend, for example mod_cluster will notify the
+load balancer that the deployment is suspending. Requests are still
+accepted in this phase.</p>
+</li>
+<li>
+<p><strong>SUSPENDING</strong> - All new requests are rejected, and the server is
+waiting for all active requests to finish. If there are no active
+requests at suspend time this phase will be skipped.</p>
+</li>
+<li>
+<p><strong>SUSPENDED</strong> - All requests have completed, and the server is
+suspended.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="starting-suspended">11.2.2. Starting Suspended</h4>
+<div class="paragraph">
+<p>In order to start into suspended mode when using a standalone server you
+need to add <strong>--start-mode=suspend</strong> to the command line. It is also
+possible to specify the start-mode in the <strong>reload</strong> operation to cause
+the server to reload into suspended mode (other possible values for
+start-mode are <strong>normal</strong> and <strong>admin-only</strong>).</p>
+</div>
+<div class="paragraph">
+<p>In domain mode servers can be started in suspended mode by passing the
+<strong>suspend=true</strong> parameter to any command that causes a server to start,
+restart or reload (e.g. :start-servers(suspend=true)).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="the-request-controller-subsystem">11.2.3. The Request Controller Subsystem</h4>
+<div class="paragraph">
+<p>Wildfly introduces a new subsystem called the Request Controller
+Subsystem. This optional subsystem tracks all requests at their entry
+point, which how the graceful shutdown mechanism know when all requests
+are done (it also allows you to provide a global limit on the total
+number of running requests).</p>
+</div>
+<div class="paragraph">
+<p>If this subsystem is not present suspend/resume will be limited, in
+general things that happen in the PRE_SUSPEND phase will work as normal
+(stopping message delivery, notifying the load balancer), however the
+server will not wait for all requests to complete and instead move
+straight to SUSPENDED mode.</p>
+</div>
+<div class="paragraph">
+<p>There is a small performance penalty associated with the request
+controller subsystem (about on par with enabling statistics), so if you
+do not require the suspend/resume functionality this subsystem can be
+removed to get a small performance boost.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="subsystem-integrations">11.2.4. Subsystem Integrations</h4>
+<div class="paragraph">
+<p>Suspend/Resume is a service provided by the Wildfly platform that any
+subsystem may choose to integrate with. Some subsystems integrate
+directly with the suspend controller, while others integrate through the
+request controller subsystem.</p>
+</div>
+<div class="paragraph">
+<p>The following subsystems support graceful shutdown. Note that only
+subsystems that provide an external entry point to the server need
+graceful shutdown support, for example the JAX-RS subsystem does not
+require suspend/resume support as all access to JAX-RS is through the
+web connector.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Undertow</strong> - Undertow will wait for all requests to finish</p>
+</li>
+<li>
+<p><strong>mod_cluster</strong> - The mod_cluster subsystem will notify the load
+balancer that the server is suspending in the PRE_SUSPEND phase.</p>
+</li>
+<li>
+<p><strong>EJB</strong> - EJB will wait for all remote EJB requests and MDB message
+deliveries to finish. Delivery to MDB&#8217;s is stopped in the PRE_SUSPEND
+phase. EJB timers are suspended, and missed timers will be activated
+when the server is resumed.</p>
+</li>
+<li>
+<p><strong>Batch</strong> - Batch jobs will be stopped at a checkpoint while the server
+is suspending. They will be restarted from that checkpoint when the
+server returns to running mode.</p>
+</li>
+<li>
+<p><strong>EE Concurrency</strong> - The server will wait for all active jobs to finish.
+All jobs that have already been queued will be skipped.</p>
+</li>
+<li>
+<p><strong>Transactions</strong> - transaction subsystem waits for all running
+transactions to finish while server is suspending. During that time
+server refuses to start any new transaction. But any in-flight
+transaction will be serviced - e.g. it means that server accepts any
+incoming remote call which carries context of the transaction already
+started at the suspending server.<br>
+When you work with EJBs you have to enable the graceful shutdown
+functionality by setting attribute <code>enable-graceful-txn-shutdown</code> to
+<code>true</code>.<br>
+(at the <code>ejb3 subsystem</code> xml, for example):<br>
+<code>&lt;enable-graceful-txn-shutdown value="false"/&gt;</code><br>
+By <strong>default</strong> graceful shutdown it&#8217;s <strong>disabled</strong> for ejb subsystem.<br>
+The reason is that the behavior might be unwelcome in cluster
+environments, as the server notifies remote clients that the node is no
+longer available for remote calls only after the transactions are
+finished. During that brief window of time, the client of a cluster may
+send a new request to a node that is shutting down and will refuse the
+request because it is not related to an existing transaction.<br>
+If this attribute <code>enable-graceful-txn-shutdown</code> is set to <code>false</code>, we
+disable the graceful behavior and EJB clients will not attempt to invoke
+the node when it suspends, regardless of active transactions.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="standalone-mode">11.2.5. Standalone Mode</h4>
+<div class="paragraph">
+<p>Suspend/Resume can be controlled via the following CLI operations in
+standalone mode:</p>
+</div>
+<div class="paragraph">
+<p><code>:suspend(timeout=z)</code></p>
+</div>
+<div class="paragraph">
+<p>Suspends the server. If the timeout is specified it will wait up to the
+specified number of seconds for all requests to finish. If there is no
+timeout specified or the value is less than zero it will wait
+indefinitely.</p>
+</div>
+<div class="paragraph">
+<p><code>:resume</code></p>
+</div>
+<div class="paragraph">
+<p>Resumes a previously suspended server. The server should be able to
+begin serving requests immediately.</p>
+</div>
+<div class="paragraph">
+<p><code>:read-attribute(name=suspend-state)</code></p>
+</div>
+<div class="paragraph">
+<p>Returns the current suspend state of the server.</p>
+</div>
+<div class="paragraph">
+<p><code>:shutdown(timeout=x)</code></p>
+</div>
+<div class="paragraph">
+<p>If a timeout parameter is passed to the shutdown command then a graceful
+shutdown will be performed. The server will be suspended, and will wait
+up to the specified number of seconds for all requests to finish before
+shutting down. A timeout value of less than zero means it will wait
+indefinitely.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="domain-mode">11.2.6. Domain Mode</h4>
+<div class="paragraph">
+<p>Domain mode has similar commands as standalone mode, however they can be
+applied at both the global and server group levels:</p>
+</div>
+<div class="paragraph">
+<p><strong>Whole Domain</strong></p>
+</div>
+<div class="paragraph">
+<p><code>:suspend-servers(timeout=x)</code></p>
+</div>
+<div class="paragraph">
+<p>:resume-servers</p>
+</div>
+<div class="paragraph">
+<p>:stop-servers(timeout=x)</p>
+</div>
+<div class="paragraph">
+<p><strong>Server Group</strong></p>
+</div>
+<div class="paragraph">
+<p><code>/server-group=main-server-group:suspend-servers(timeout=x)</code></p>
+</div>
+<div class="paragraph">
+<p><code>/server-group=main-server-group:resume-servers</code></p>
+</div>
+<div class="paragraph">
+<p><code>/server-group=main-server-group:stop-servers(timeout=x)</code></p>
+</div>
+<div class="paragraph">
+<p><strong>Server</strong></p>
+</div>
+<div class="paragraph">
+<p><code>/host=master/server-config=server-one:suspend(timeout=x)</code></p>
+</div>
+<div class="paragraph">
+<p>/host=master/server-config=server-one:resume</p>
+</div>
+<div class="paragraph">
+<p>/host=master/server-config=server-one:stop(timeout=x)</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_starting_stopping_servers_in_a_managed_domain">11.2. Starting &amp; stopping Servers in a Managed Domain</h3>
+<h3 id="_starting_stopping_servers_in_a_managed_domain">11.3. Starting &amp; stopping Servers in a Managed Domain</h3>
 <div class="paragraph">
 <p>Starting a standalone server is done through the <code>bin/standalone.sh</code>
 script. However in a managed domain server instances are managed by the
@@ -16246,7 +16513,7 @@ the web interface.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_jvm_settings">11.3. JVM settings</h3>
+<h3 id="_jvm_settings">11.4. JVM settings</h3>
 <div class="paragraph">
 <p>Configuration of the JVM settings is different for a managed domain and
 a standalone server. In a managed domain, the domain controller
@@ -16256,7 +16523,7 @@ responsibility of the process that started the server (e.g. passing them
 as command line arguments).</p>
 </div>
 <div class="sect3">
-<h4 id="managed-domain">11.3.1. Managed Domain</h4>
+<h4 id="managed-domain">11.4.1. Managed Domain</h4>
 <div class="paragraph">
 <p>In a managed domain the JVM settings can be declared at different
 scopes: For a specific server group, for a host or for a particular
@@ -16334,7 +16601,7 @@ heap size.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="standalone-server">11.3.2. Standalone Server</h4>
+<h4 id="standalone-server">11.4.2. Standalone Server</h4>
 <div class="paragraph">
 <p>For a standalone sever you have to pass in the JVM settings either as
 command line arguments when executing the
@@ -16346,7 +16613,7 @@ be declared in <code>%JBOSS_HOME%/bin/standalone.conf.bat.)</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_audit_logging">11.4. Audit logging</h3>
+<h3 id="_audit_logging">11.5. Audit logging</h3>
 <div class="paragraph">
 <p>WildFly comes with audit logging built in for management operations
 affecting the management model. By default it is turned off. The
@@ -16443,7 +16710,7 @@ step. Similarly if you are using a file handler, and want to change its
 </table>
 </div>
 <div class="sect3">
-<h4 id="json-formatter">11.4.1. JSON Formatter</h4>
+<h4 id="json-formatter">11.5.1. JSON Formatter</h4>
 <div class="paragraph">
 <p>The first thing that needs configuring is the formatter, we currently
 support outputting log records as JSON. You can define several
@@ -16598,7 +16865,7 @@ code in octal, e.g. "#012".</p></td>
 </table>
 </div>
 <div class="sect3">
-<h4 id="handlers">11.4.2. Handlers</h4>
+<h4 id="handlers">11.5.2. Handlers</h4>
 <div class="paragraph">
 <p>A handler is responsible for taking the formatted data and logging it to
 a location. There are currently two types of handlers, File and Syslog.
@@ -16949,7 +17216,7 @@ attribute is treated as relative to the path specified by this attribute</p></td
 </div>
 </div>
 <div class="sect3">
-<h4 id="logger-configuration">11.4.3. Logger configuration</h4>
+<h4 id="logger-configuration">11.5.3. Logger configuration</h4>
 <div class="paragraph">
 <p>The final part that needs configuring is the logger for the management
 operations. This references one or more handlers and is configured at
@@ -16990,7 +17257,7 @@ configured as <code>handler=*</code> children of the logger.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="domain-mode-host-specific-configuration">11.4.4. Domain Mode (host specific configuration)</h4>
+<h4 id="domain-mode-host-specific-configuration">11.5.4. Domain Mode (host specific configuration)</h4>
 <div class="paragraph">
 <p>In domain mode audit logging is configured for each host in its
 <code>host.xml</code> file. This means that when connecting to the DC, the
@@ -17059,13 +17326,13 @@ independently.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_canceling_management_operations">11.5. Canceling Management Operations</h3>
+<h3 id="_canceling_management_operations">11.6. Canceling Management Operations</h3>
 <div class="paragraph">
 <p>WildFly includes the ability to use the CLI to cancel management
 requests that are not proceeding normally.</p>
 </div>
 <div class="sect3">
-<h4 id="the-cancel-non-progressing-operation-operation">11.5.1. The cancel-non-progressing-operation operation</h4>
+<h4 id="the-cancel-non-progressing-operation-operation">11.6.1. The cancel-non-progressing-operation operation</h4>
 <div class="paragraph">
 <p>The <code>cancel-non-progressing-operation</code> operation instructs the target
 process to find any operation that isn&#8217;t proceeding normally and cancel
@@ -17137,7 +17404,7 @@ will be a failure response:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="the-find-non-progressing-operation-operation">11.5.2. The find-non-progressing-operation operation</h4>
+<h4 id="the-find-non-progressing-operation-operation">11.6.2. The find-non-progressing-operation operation</h4>
 <div class="paragraph">
 <p>To simply learn the id of an operation that isn&#8217;t proceeding normally,
 but not cancel it, use the <code>find-non-progressing-operation</code> operation:</p>
@@ -17161,7 +17428,7 @@ operation can be examined to learn more about its status.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="examining-the-status-of-an-active-operation">11.5.3. Examining the status of an active operation</h4>
+<h4 id="examining-the-status-of-an-active-operation">11.6.3. Examining the status of an active operation</h4>
 <div class="paragraph">
 <p>There is a management resource for any currently executing operation
 that can be queried:</p>
@@ -17321,7 +17588,7 @@ the <code>read-children-resources</code> operation:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="canceling-a-specific-operation">11.5.4. Canceling a specific operation</h4>
+<h4 id="canceling-a-specific-operation">11.6.4. Canceling a specific operation</h4>
 <div class="paragraph">
 <p>The <code>cancel-non-progressing-operation</code> operation is a convenience
 operation for identifying and canceling an operation. However, an
@@ -17340,7 +17607,7 @@ operation on the resource for the desired operation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="controlling-operation-blocking-time">11.5.5. Controlling operation blocking time</h4>
+<h4 id="controlling-operation-blocking-time">11.6.5. Controlling operation blocking time</h4>
 <div class="paragraph">
 <p>As an operation executes, the execution thread may block at various
 points, particularly while waiting for the service container to
@@ -17373,7 +17640,7 @@ points during operation execution.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_file_history">11.6. Configuration file history</h3>
+<h3 id="_configuration_file_history">11.7. Configuration file history</h3>
 <div class="paragraph">
 <p>The management operations may modify the model. When this occurs the xml
 backing the model is written out again reflecting the latest changes. In
@@ -17459,7 +17726,7 @@ folder within the <code>standalone_xml_history</code>, and a new <code>current</
 is created. These timestamped folders are kept for 30 days.</p>
 </div>
 <div class="sect3">
-<h4 id="snapshots">11.6.1. Snapshots</h4>
+<h4 id="snapshots">11.7.1. Snapshots</h4>
 <div class="paragraph">
 <p>In addition to the backups taken by the server as described above you
 can manually take take snapshots which will be stored in the <code>snapshot</code>
@@ -17545,7 +17812,7 @@ to navigate to the host in question:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="subsequent-starts">11.6.2. Subsequent Starts</h4>
+<h4 id="subsequent-starts">11.7.2. Subsequent Starts</h4>
 <div class="paragraph">
 <p>For subsequent server starts it may be desirable to take the state of
 the server back to one of the previously known states, for a number of
@@ -21953,7 +22220,7 @@ allows to display or save the content of the attached streams.</p>
 <div id="footer">
 <div id="footer-text">
 Version {version}<br>
-Last updated 2017-09-15 11:42:58 DST
+Last updated 2017-09-15 11:42:58 CEST
 </div>
 </div>
 </body>
