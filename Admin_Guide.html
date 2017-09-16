@@ -11453,7 +11453,7 @@ simply "jms/queue/test":</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">[standalone<span class="annotation">@localhost</span>:<span class="integer">9990</span> /] /subsystem=messaging-activemq/server=<span class="keyword">default</span>/jms-queue=myQueue:read-resource
+<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /subsystem=messaging-activemq/server=default/jms-queue=<span class="key">myQueue</span>:read-resource
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
@@ -11470,11 +11470,11 @@ available as well:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">[standalone<span class="annotation">@localhost</span>:<span class="integer">9990</span> /] jms-queue --help --commands
+<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] jms-queue --help --commands
 add
 ...
 remove
-To read the description of a specific command execute <span class="string"><span class="delimiter">'</span><span class="content">jms-queue command_name --help</span><span class="delimiter">'</span></span>.</code></pre>
+<span class="constant">To</span> read the description of a specific command execute <span class="string"><span class="delimiter">'</span><span class="content">jms-queue command_name --help</span><span class="delimiter">'</span></span>.</code></pre>
 </div>
 </div>
 </div>
@@ -11487,13 +11487,13 @@ settings belong into this group:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:messaging-activemq:1.0</span><span class="delimiter">&quot;</span></span>&gt;
-   &lt;server name=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>&gt;
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:messaging-activemq:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+   <span class="tag">&lt;server</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
       [...]
-      &lt;address-setting name=<span class="string"><span class="delimiter">&quot;</span><span class="content">#</span><span class="delimiter">&quot;</span></span>
-                       dead-letter-address=<span class="string"><span class="delimiter">&quot;</span><span class="content">jms.queue.DLQ</span><span class="delimiter">&quot;</span></span>
-                       expiry-address=<span class="string"><span class="delimiter">&quot;</span><span class="content">jms.queue.ExpiryQueue</span><span class="delimiter">&quot;</span></span>
-                       [...] /&gt;</code></pre>
+      <span class="tag">&lt;address-setting</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#</span><span class="delimiter">&quot;</span></span>
+                       <span class="attribute-name">dead-letter-address</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">jms.queue.DLQ</span><span class="delimiter">&quot;</span></span>
+                       <span class="attribute-name">expiry-address</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">jms.queue.ExpiryQueue</span><span class="delimiter">&quot;</span></span>
+                       <span class="error">[</span><span class="attribute-name">...</span><span class="error">]</span> <span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -11508,15 +11508,15 @@ the DLQ and redelivery settings.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:messaging-activemq:1.0</span><span class="delimiter">&quot;</span></span>&gt;
-   &lt;server name=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>&gt;
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:messaging-activemq:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+   <span class="tag">&lt;server</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
       [...]
-      &lt;security-setting name=<span class="string"><span class="delimiter">&quot;</span><span class="content">#</span><span class="delimiter">&quot;</span></span>&gt;
-          &lt;role name=<span class="string"><span class="delimiter">&quot;</span><span class="content">guest</span><span class="delimiter">&quot;</span></span>
-                send=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
-                consume=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
-                create-non-durable-queue=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
-                delete-non-durable-queue=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>/&gt;</code></pre>
+      <span class="tag">&lt;security-setting</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+          <span class="tag">&lt;role</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">guest</span><span class="delimiter">&quot;</span></span>
+                <span class="attribute-name">send</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+                <span class="attribute-name">consume</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+                <span class="attribute-name">create-non-durable-queue</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+                <span class="attribute-name">delete-non-durable-queue</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -11534,9 +11534,9 @@ changed by using the <code>security-domain</code>, e.g.:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:messaging-activemq:1.0</span><span class="delimiter">&quot;</span></span>&gt;
-   &lt;server name=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>&gt;
-       &lt;security domain=<span class="string"><span class="delimiter">&quot;</span><span class="content">mySecurityDomain</span><span class="delimiter">&quot;</span></span> /&gt;
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:messaging-activemq:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+   <span class="tag">&lt;server</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+       <span class="tag">&lt;security</span> <span class="attribute-name">domain</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">mySecurityDomain</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
       [...]</code></pre>
 </div>
 </div>
@@ -11559,7 +11559,7 @@ subsystem.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=messaging-activemq/server=<span class="keyword">default</span>:undefine-attribute(name=security-domain)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=messaging-activemq</span><span class="delimiter">/</span><span class="modifier">se</span></span>rver=<span class="key">default</span>:undefine-attribute(name=security-domain)</code></pre>
 </div>
 </div>
 <div class="olist arabic">
@@ -11626,17 +11626,17 @@ defining JMS destinations, e.g.:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;?xml version=<span class="string"><span class="delimiter">&quot;</span><span class="content">1.0</span><span class="delimiter">&quot;</span></span> encoding=<span class="string"><span class="delimiter">&quot;</span><span class="content">UTF-8</span><span class="delimiter">&quot;</span></span>?&gt;
-&lt;messaging-deployment xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:messaging-activemq-deployment:1.0</span><span class="delimiter">&quot;</span></span>&gt;
-   &lt;server name=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>&gt;
-      &lt;jms-destinations&gt;
-         &lt;jms-queue name=<span class="string"><span class="delimiter">&quot;</span><span class="content">sample</span><span class="delimiter">&quot;</span></span>&gt;
-            &lt;entry name=<span class="string"><span class="delimiter">&quot;</span><span class="content">jms/queue/sample</span><span class="delimiter">&quot;</span></span>/&gt;
-            &lt;entry name=<span class="string"><span class="delimiter">&quot;</span><span class="content">java:jboss/exported/jms/queue/sample</span><span class="delimiter">&quot;</span></span>/&gt;
-         &lt;/jms-queue&gt;
-      &lt;/jms-destinations&gt;
-   &lt;/server&gt;
-&lt;/messaging-deployment&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="tag">&lt;messaging-deployment</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:messaging-activemq-deployment:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+   <span class="tag">&lt;server</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="tag">&lt;jms-destinations&gt;</span>
+         <span class="tag">&lt;jms-queue</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">sample</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+            <span class="tag">&lt;entry</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">jms/queue/sample</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;entry</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java:jboss/exported/jms/queue/sample</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+         <span class="tag">&lt;/jms-queue&gt;</span>
+      <span class="tag">&lt;/jms-destinations&gt;</span>
+   <span class="tag">&lt;/server&gt;</span>
+<span class="tag">&lt;/messaging-deployment&gt;</span></code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -11700,13 +11700,13 @@ module:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">modules/
-<span class="error">`</span>-- org
-    <span class="error">`</span>-- acmemq
-        <span class="error">`</span>-- main
-            |-- acmemq-<span class="float">1.2</span><span class="float">.3</span>.jar
-            |-- mylogapi-<span class="float">0.0</span><span class="float">.1</span>.jar
-            <span class="error">`</span>-- module.xml</code></pre>
+<pre class="CodeRay highlight"><code>modules/
+`-- org
+    `-- acmemq
+        `-- main
+            |-- acmemq-1.2.3.jar
+            |-- mylogapi-0.0.1.jar
+            `-- module.xml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -11714,32 +11714,32 @@ module:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;?xml version=<span class="string"><span class="delimiter">&quot;</span><span class="content">1.0</span><span class="delimiter">&quot;</span></span> encoding=<span class="string"><span class="delimiter">&quot;</span><span class="content">UTF-8</span><span class="delimiter">&quot;</span></span>?&gt;
-&lt;module xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:module:1.1</span><span class="delimiter">&quot;</span></span> name=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.acmemq</span><span class="delimiter">&quot;</span></span>&gt;
-    &lt;properties&gt;
-        &lt;property name=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.api</span><span class="delimiter">&quot;</span></span> value=<span class="string"><span class="delimiter">&quot;</span><span class="content">private</span><span class="delimiter">&quot;</span></span>/&gt;
-    &lt;/properties&gt;
-<span class="error"> </span>
-<span class="error"> </span>
-    &lt;resources&gt;
-        &lt;!-- insert resources required to connect to the source or target   --&gt;
-        &lt;!-- messaging brokers <span class="keyword">if</span> it not another WildFly instance           --&gt;
-        &lt;resource-root path=<span class="string"><span class="delimiter">&quot;</span><span class="content">acmemq-1.2.3.jar</span><span class="delimiter">&quot;</span></span> /&gt;
-        &lt;resource-root path=<span class="string"><span class="delimiter">&quot;</span><span class="content">mylogapi-0.0.1.jar</span><span class="delimiter">&quot;</span></span> /&gt;
-    &lt;/resources&gt;
-<span class="error"> </span>
-<span class="error"> </span>
-    &lt;dependencies&gt;
-       &lt;!-- add the dependencies required by JMS Bridge code                --&gt;
-       &lt;module name=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.api</span><span class="delimiter">&quot;</span></span> /&gt;
-       &lt;module name=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.jms.api</span><span class="delimiter">&quot;</span></span> /&gt;
-       &lt;module name=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.transaction.api</span><span class="delimiter">&quot;</span></span>/&gt;
-       &lt;module name=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.jboss.remote-naming</span><span class="delimiter">&quot;</span></span>/&gt;
-       &lt;!-- we depend on org.apache.activemq.artemis module since we will send messages to  --&gt;
-       &lt;!-- the Artemis server embedded in the local WildFly instance       --&gt;
-       &lt;module name=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.apache.activemq.artemis</span><span class="delimiter">&quot;</span></span> /&gt;
-    &lt;/dependencies&gt;
-&lt;/module&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="tag">&lt;module</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:module:1.1</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.acmemq</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;properties&gt;</span>
+        <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.api</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">private</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/properties&gt;</span>
+ 
+ 
+    <span class="tag">&lt;resources&gt;</span>
+        <span class="comment">&lt;!-- insert resources required to connect to the source or target   --&gt;</span>
+        <span class="comment">&lt;!-- messaging brokers if it not another WildFly instance           --&gt;</span>
+        <span class="tag">&lt;resource-root</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">acmemq-1.2.3.jar</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+        <span class="tag">&lt;resource-root</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">mylogapi-0.0.1.jar</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/resources&gt;</span>
+ 
+ 
+    <span class="tag">&lt;dependencies&gt;</span>
+       <span class="comment">&lt;!-- add the dependencies required by JMS Bridge code                --&gt;</span>
+       <span class="tag">&lt;module</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.api</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+       <span class="tag">&lt;module</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.jms.api</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+       <span class="tag">&lt;module</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">javax.transaction.api</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+       <span class="tag">&lt;module</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.jboss.remote-naming</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+       <span class="comment">&lt;!-- we depend on org.apache.activemq.artemis module since we will send messages to  --&gt;</span>
+       <span class="comment">&lt;!-- the Artemis server embedded in the local WildFly instance       --&gt;</span>
+       <span class="tag">&lt;module</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.apache.activemq.artemis</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/dependencies&gt;</span>
+<span class="tag">&lt;/module&gt;</span></code></pre>
 </div>
 </div>
 </div>
@@ -11751,30 +11751,30 @@ module:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:messaging-activemq:1.0</span><span class="delimiter">&quot;</span></span>&gt;
-   &lt;jms-bridge name=<span class="string"><span class="delimiter">&quot;</span><span class="content">myBridge</span><span class="delimiter">&quot;</span></span> module=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.acmemq</span><span class="delimiter">&quot;</span></span>&gt;
-      &lt;source connection-factory=<span class="string"><span class="delimiter">&quot;</span><span class="content">ConnectionFactory</span><span class="delimiter">&quot;</span></span>
-              destination=<span class="string"><span class="delimiter">&quot;</span><span class="content">sourceQ</span><span class="delimiter">&quot;</span></span>
-              user=<span class="string"><span class="delimiter">&quot;</span><span class="content">user1</span><span class="delimiter">&quot;</span></span>
-              password=<span class="string"><span class="delimiter">&quot;</span><span class="content">pwd1</span><span class="delimiter">&quot;</span></span>
-              quality-of-service=<span class="string"><span class="delimiter">&quot;</span><span class="content">AT_MOST_ONCE</span><span class="delimiter">&quot;</span></span>
-              failure-retry-interval=<span class="string"><span class="delimiter">&quot;</span><span class="content">500</span><span class="delimiter">&quot;</span></span>
-              max-retries=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span>
-              max-batch-size=<span class="string"><span class="delimiter">&quot;</span><span class="content">500</span><span class="delimiter">&quot;</span></span>
-              max-batch-time=<span class="string"><span class="delimiter">&quot;</span><span class="content">500</span><span class="delimiter">&quot;</span></span>
-              add-messageID-in-header=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>&gt;
-         &lt;source-context&gt;
-            &lt;property name=<span class="string"><span class="delimiter">&quot;</span><span class="content">java.naming.factory.initial</span><span class="delimiter">&quot;</span></span>
-                      value=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.acmemq.jndi.AcmeMQInitialContextFactory</span><span class="delimiter">&quot;</span></span>/&gt;
-            &lt;property name=<span class="string"><span class="delimiter">&quot;</span><span class="content">java.naming.provider.url</span><span class="delimiter">&quot;</span></span>
-                      value=<span class="string"><span class="delimiter">&quot;</span><span class="content">tcp://127.0.0.1:9292</span><span class="delimiter">&quot;</span></span>/&gt;
-         &lt;/source-context&gt;
-      &lt;/source&gt;
-      &lt;target connection-factory<span class="string"><span class="delimiter">&quot;</span><span class="content">/jms/invmTargetCF</span><span class="delimiter">&quot;</span></span>
-              destination=<span class="string"><span class="delimiter">&quot;</span><span class="content">/jms/targetQ</span><span class="delimiter">&quot;</span></span> /&gt;
-      &lt;/target&gt;
-   &lt;/jms-bridge&gt;
-&lt;/subsystem&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:messaging-activemq:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+   <span class="tag">&lt;jms-bridge</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">myBridge</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">module</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.acmemq</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="tag">&lt;source</span> <span class="attribute-name">connection-factory</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ConnectionFactory</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">destination</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">sourceQ</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">user</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">user1</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">password</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">pwd1</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">quality-of-service</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">AT_MOST_ONCE</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">failure-retry-interval</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">500</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">max-retries</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">max-batch-size</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">500</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">max-batch-time</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">500</span><span class="delimiter">&quot;</span></span>
+              <span class="attribute-name">add-messageID-in-header</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+         <span class="tag">&lt;source-context&gt;</span>
+            <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java.naming.factory.initial</span><span class="delimiter">&quot;</span></span>
+                      <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.acmemq.jndi.AcmeMQInitialContextFactory</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;property</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java.naming.provider.url</span><span class="delimiter">&quot;</span></span>
+                      <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">tcp://127.0.0.1:9292</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+         <span class="tag">&lt;/source-context&gt;</span>
+      <span class="tag">&lt;/source&gt;</span>
+      <span class="tag">&lt;target</span> <span class="attribute-name">connection-factory</span><span class="error">&quot;</span><span class="error">/</span><span class="attribute-name">jms</span><span class="error">/</span><span class="attribute-name">invmTargetCF</span><span class="error">&quot;</span>
+              <span class="attribute-name">destination</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/jms/targetQ</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+      <span class="tag">&lt;/target&gt;</span>
+   <span class="tag">&lt;/jms-bridge&gt;</span>
+<span class="tag">&lt;/subsystem&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -11799,22 +11799,22 @@ interface:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /subsystem=messaging/jms-bridge=myBridge/<span class="symbol">:add</span>(<span class="keyword">module</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.acmemq</span><span class="delimiter">&quot;</span></span>,      \
-      source-destination=<span class="string"><span class="delimiter">&quot;</span><span class="content">sourceQ</span><span class="delimiter">&quot;</span></span>,                                                                   \
-      source-connection-factory=<span class="string"><span class="delimiter">&quot;</span><span class="content">ConnectionFactory</span><span class="delimiter">&quot;</span></span>,                                                  \
-      source-user=<span class="string"><span class="delimiter">&quot;</span><span class="content">user1</span><span class="delimiter">&quot;</span></span>,                                                                            \
-      source-password=<span class="string"><span class="delimiter">&quot;</span><span class="content">pwd1</span><span class="delimiter">&quot;</span></span>,                                                                         \
-      source-context={<span class="string"><span class="delimiter">&quot;</span><span class="content">java.naming.factory.initial</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">org.acmemq.jndi.AcmeMQInitialContextFactory</span><span class="delimiter">&quot;</span></span>, \
-                      <span class="string"><span class="delimiter">&quot;</span><span class="content">java.naming.provider.url</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp://127.0.0.1:9292</span><span class="delimiter">&quot;</span></span>},                          \
-      target-destination=<span class="string"><span class="delimiter">&quot;</span><span class="content">/jms/targetQ</span><span class="delimiter">&quot;</span></span>,                                                              \
-      target-connection-factory=<span class="string"><span class="delimiter">&quot;</span><span class="content">/jms/invmTargetCF</span><span class="delimiter">&quot;</span></span>,                                                  \
-      quality-of-service=<span class="constant">AT_MOST_ONCE</span>,                                                                \
-      failure-<span class="keyword">retry</span>-interval=<span class="integer">500</span>,                                                                     \
-      max-retries=<span class="integer">1</span>,                                                                                  \
-      max-batch-size=<span class="integer">500</span>,                                                                             \
-      max-batch-time=<span class="integer">500</span>,                                                                             \
-      add-messageID-<span class="keyword">in</span>-header=<span class="predefined-constant">true</span>)
-{<span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>}</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">[standalone@localhost:9990 /] /subsystem=messaging/jms-bridge=myBridge/:add(module=&quot;org.acmemq&quot;,
+      source-destination=&quot;sourceQ&quot;,
+      source-connection-factory=&quot;ConnectionFactory&quot;,
+      source-user=&quot;user1&quot;,
+      source-password=&quot;pwd1&quot;,
+      source-context={&quot;java.naming.factory.initial&quot; =&gt; &quot;org.acmemq.jndi.AcmeMQInitialContextFactory&quot;,
+                      &quot;java.naming.provider.url&quot; =&gt; &quot;tcp://127.0.0.1:9292&quot;},
+      target-destination=&quot;/jms/targetQ&quot;,
+      target-connection-factory=&quot;/jms/invmTargetCF&quot;,
+      quality-of-service=AT_MOST_ONCE,
+      failure-retry-interval=500,
+      max-retries=1,
+      max-batch-size=500,
+      max-batch-time=500,
+      add-messageID-in-header=true)
+{&quot;outcome&quot; =&gt; &quot;success&quot;}</code></pre>
 </div>
 </div>
 <div class="paragraph">

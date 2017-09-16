@@ -220,7 +220,7 @@ JMS endpoints can easily be created through the CLI:
 [standalone@localhost:9990 /] jms-queue add --queue-address=myQueue --entries=queues/myQueue
 ----
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9990 /] /subsystem=messaging-activemq/server=default/jms-queue=myQueue:read-resource
 {
@@ -236,7 +236,7 @@ JMS endpoints can easily be created through the CLI:
 A number of additional commands to maintain the JMS subsystem are
 available as well:
 
-[source, java]
+[source, ruby]
 ----
 [standalone@localhost:9990 /] jms-queue --help --commands
 add
@@ -252,7 +252,7 @@ Some of the settings are applied against an address wild card instead of
 a specific messaging destination. The dead letter queue and redelivery
 settings belong into this group:
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
    <server name="default">
@@ -271,7 +271,7 @@ settings belong into this group:
 Security constraints are matched against an address wildcard, similar to
 the DLQ and redelivery settings.
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
    <server name="default">
@@ -295,7 +295,7 @@ then they are authorized to perform specific functions based on their
 role(s) and the `security-settings` described above. This domain can be
 changed by using the `security-domain`, e.g.:
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
    <server name="default">
@@ -313,7 +313,7 @@ To use an Elytron security domain:
 
 1.  Undefine the legacy security domain.
 
-[source, java]
+[source, ruby]
 ----
 /subsystem=messaging-activemq/server=default:undefine-attribute(name=security-domain)
 ----
@@ -361,7 +361,7 @@ the command line.
 Starting with WildFly {wildflyVersion}, you have the ability to deploy a -jms.xml file
 defining JMS destinations, e.g.:
 
-[source, java]
+[source, xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <messaging-deployment xmlns="urn:jboss:messaging-activemq-deployment:1.0">
@@ -422,7 +422,7 @@ module:
 
 in JBOSS_HOME/modules, we create the layout:
 
-[source, java]
+[source]
 ----
 modules/
 `-- org
@@ -435,7 +435,7 @@ modules/
 
 We define the module in `module.xml`:
 
-[source, java]
+[source, xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="urn:jboss:module:1.1" name="org.acmemq">
@@ -471,7 +471,7 @@ We define the module in `module.xml`:
 A JMS bridge is defined inside a `jms-bridge` section of the
 `messaging-activemq` subsystem in the XML configuration files.
 
-[source, java]
+[source, xml]
 ----
 <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
    <jms-bridge name="myBridge" module="org.acmemq">
@@ -517,22 +517,22 @@ above).
 A JMS Bridge can also be managed using the WildFly command line
 interface:
 
-[source, ruby]
+[source, bash]
 ----
-[standalone@localhost:9990 /] /subsystem=messaging/jms-bridge=myBridge/:add(module="org.acmemq",      \
-      source-destination="sourceQ",                                                                   \
-      source-connection-factory="ConnectionFactory",                                                  \
-      source-user="user1",                                                                            \
-      source-password="pwd1",                                                                         \
-      source-context={"java.naming.factory.initial" => "org.acmemq.jndi.AcmeMQInitialContextFactory", \
-                      "java.naming.provider.url" => "tcp://127.0.0.1:9292"},                          \
-      target-destination="/jms/targetQ",                                                              \
-      target-connection-factory="/jms/invmTargetCF",                                                  \
-      quality-of-service=AT_MOST_ONCE,                                                                \
-      failure-retry-interval=500,                                                                     \
-      max-retries=1,                                                                                  \
-      max-batch-size=500,                                                                             \
-      max-batch-time=500,                                                                             \
+[standalone@localhost:9990 /] /subsystem=messaging/jms-bridge=myBridge/:add(module="org.acmemq",
+      source-destination="sourceQ",
+      source-connection-factory="ConnectionFactory",
+      source-user="user1",
+      source-password="pwd1",
+      source-context={"java.naming.factory.initial" => "org.acmemq.jndi.AcmeMQInitialContextFactory",
+                      "java.naming.provider.url" => "tcp://127.0.0.1:9292"},
+      target-destination="/jms/targetQ",
+      target-connection-factory="/jms/invmTargetCF",
+      quality-of-service=AT_MOST_ONCE,
+      failure-retry-interval=500,
+      max-retries=1,
+      max-batch-size=500,
+      max-batch-time=500,                                                                             
       add-messageID-in-header=true)
 {"outcome" => "success"}
 ----
