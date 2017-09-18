@@ -288,9 +288,9 @@ The web service subsystem is provided by the JBossWS project. For a
 detailed description of the available configuration properties, please
 consult the project documentation.
 
---
+****
 
 * JBossWS homepage: http://www.jboss.org/jbossws
 * Project Documentation: https://docs.jboss.org/author/display/JBWS
 
---
+****

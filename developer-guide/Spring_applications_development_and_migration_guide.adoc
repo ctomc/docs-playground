@@ -104,7 +104,7 @@ or
 
 JNDI binding
 
-[IMPORTANT]
+[NOTE]
 
 JNDI binding via persistence.xml properties is not supported in WildFly
 8.
@@ -139,7 +139,7 @@ bean class.
 Assuming that the persistence unit is in the
 META-INF/jpa-persistence.xml, the corresponding definition can be:
 
-[source, java]
+[source,xml]
 ----
 <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
        <property name="persistenceXmlLocation" value="classpath*:META-INF/jpa-persistence.xml"/> 
@@ -163,7 +163,7 @@ the deployment's list of dependencies. In order to do so, include a
 META-INF/jboss-deployment-structure.xml or, for web applications,
 WEB-INF/jboss-deployment-structure.xml with the following content:
 
-[source, java]
+[source,xml]
 ----
 <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
   <deployment>

@@ -183,7 +183,7 @@ connects to that server in "what way". This gives the user applications
 the flexibility that was associated with the JNP based JNDI invocations
 prior to WildFly {wildflyVersion} versions.
 
-[IMPORTANT]
+[NOTE]
 
 *IMPORTANT:* *It is very important to remember that scoped EJB client
 contexts which are scoped to the JNDI contexts are NOT fire and forget
@@ -223,7 +223,7 @@ context to be usable for EJB invocations. The connections associated
 with the EJB client context are closed when the EJB client context
 itself is closed.
 
-[IMPORTANT]
+[NOTE]
 
 The connections that were manually added by the application to the EJB
 client context are *not* managed by the EJB client context. i.e. they

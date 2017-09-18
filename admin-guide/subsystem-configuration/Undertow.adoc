@@ -1,9 +1,10 @@
 = Undertow subsystem configuration
 
-[IMPORTANT]
+****
 
-Web subsystem was replaced in WildFly {wildflyVersion} with Undertow.
+*Web subsystem was replaced in WildFly 8 with Undertow.*
 
+****
 
 There are two main parts to the undertow subsystem, which are server and
 Servlet container configuration, as well as some ancillary items.

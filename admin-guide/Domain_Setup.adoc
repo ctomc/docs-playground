@@ -81,7 +81,7 @@ domain controller to connect.
 Make use of the `add-user` utility to add a new user, for this example I
 am adding a new user called slave.
 
-[IMPORTANT]
+[NOTE]
 
 `add-user` MUST be run on the master domain controller and NOT the
 slave.
@@ -172,7 +172,7 @@ The username attribute here is optional, if it is omitted then the name
 of the host will be used instead, in this example that was already set
 to name.
 
-[IMPORTANT]
+[TIP]
 
 The name of each host needs to be unique when registering with the
 domain controller, however the username does not - using the username

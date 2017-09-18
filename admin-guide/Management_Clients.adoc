@@ -86,7 +86,7 @@ one per server for standalone servers and, for managed domains, one per
 host with an additional domain wide policy controlled by the master
 host. These files are meant to be human-readable and human editable.
 
-[IMPORTANT]
+[TIP]
 
 The XML configuration files act as a central, authoritative source of
 configuration. Any configuration changes made via the web interface or
@@ -164,7 +164,7 @@ aka the Domain Controller, but it also launches a couple of servers.
 Which host-specific configuration should be used can be controlled via
 the _ _--host-config__ command line argument:
 
-
+[source,bash]
 ----
 $ bin/domain.sh --host-config=host-master.xml
 ----

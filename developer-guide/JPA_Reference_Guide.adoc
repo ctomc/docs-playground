@@ -380,7 +380,7 @@ anything on top of that. The Infinispan version that is included in
 WildFly is expected to work with the Hibernate version that is included
 with WildFly. Example persistence.xml settings:
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?><persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
 <persistence-unit name="2lc_example_pu">
@@ -397,7 +397,7 @@ with WildFly. Example persistence.xml settings:
 Here is an example of enabling the second level cache for a Hibernate
 native API hibernate.cfg.xml file:
 
-[source, java]
+[source,xml]
 ----
 <property name="hibernate.cache.region.factory_class" value="org.jboss.as.jpa.hibernate5.infinispan.InfinispanRegionFactory"/>
 <property name="hibernate.cache.infinispan.cachemanager" value="java:jboss/infinispan/container/hibernate"/>
@@ -426,7 +426,7 @@ second level cache.
 Here is an example of what the Hibernate cache settings may currently be
 in your standalone.xml:
 
-[source, java]
+[source,xml]
 ----
  <cache-container name="hibernate" default-cache="local-query" module="org.hibernate.infinispan">
     <local-cache name="entity">
@@ -446,7 +446,7 @@ Below is an example of customizing the "entity", "immutable-entity",
 "local-query", "pending-puts", "timestamps" cache configuration may look
 like:
 
-[source, java]
+[source,xml]
 ----
  <cache-container name="hibernate" module="org.hibernate.infinispan" default-cache="immutable-entity">
     <local-cache name="entity">
@@ -477,7 +477,7 @@ like:
 
 Persistence.xml to use the above custom settings:
 
-[source, java]
+[source,xml]
 ----
 <properties>
     <property name="hibernate.cache.use_second_level_cache" value="true"/>
@@ -650,7 +650,7 @@ https://bugs.eclipse.org/bugs/show_bug.cgi?id=414974[id=414974], set
 command (WildFly server needs to be running when this command is
 issued):
 
-[source, java]
+[source,ruby]
 ----
 jboss-cli.sh --connect '/system-property=eclipselink.archive.factory:add(value=org.jipijapa.eclipselink.JBossArchiveFactoryImpl)'
 ----
@@ -659,7 +659,7 @@ jboss-cli.sh --connect '/system-property=eclipselink.archive.factory:add(value=o
 configuration you are using) file might look like after updating the
 system properties:
 
-[source, java]
+[source,xml]
 ----
 <system-properties>
    ...
@@ -670,7 +670,7 @@ system properties:
 You should then be able to deploy applications with persistence.xml that
 include;
 
-[source, java]
+[source,xml]
 ----
 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 ----

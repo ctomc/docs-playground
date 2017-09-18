@@ -50,7 +50,7 @@ port needs to be provided if the server is listening on some other port.
 
 To terminate the session type _quit_.
 
-[IMPORTANT]
+[TIP]
 
 The jboss-cli script accepts a --connect parameter: ./jboss-cli.sh
 --connect
@@ -225,7 +225,7 @@ For example:
 
 Tab Completion
 
-[IMPORTANT]
+[TIP]
 
 Tab-completion is supported for all commands and options, i.e.
 node-types and node-names, operation names and parameter names. We are
@@ -353,7 +353,7 @@ through the description:
 
 Full model
 
-[IMPORTANT]
+[TIP]
 
 To see the full model enter `:read-resource(recursive=true)`.
 
@@ -367,7 +367,7 @@ preserved between command line sessions. The history file name is
 directory. When the command line interface is launched this file is read
 and the in-memory history is initialized with its content.
 
-[IMPORTANT]
+[TIP]
 
 While in the command line session, you can use the arrow keys to go back
 and forth in the history of commands and operations.
@@ -401,7 +401,7 @@ actually, is executed as a composite operation request.
 
 The batch mode is entered by executing command _batch_.
 
-[source, java]
+[source,ruby]
 ----
 [standalone@localhost:9990 /] batch
 [standalone@localhost:9990 / #] /subsystem=datasources/data-source="java\:\/H2DS":enable
@@ -410,7 +410,7 @@ The batch mode is entered by executing command _batch_.
 
 You can execute a batch using the _run-batch_ command:
 
-[source, java]
+[source,ruby]
 ----
 [standalone@localhost:9990 / #] run-batch
 The batch executed successfully.
@@ -418,7 +418,7 @@ The batch executed successfully.
 
 Exit the batch edit mode without losing your changes:
 
-[source, java]
+[source,ruby]
 ----
 [standalone@localhost:9990 / #] holdback-batch
 [standalone@localhost:9990 /]
@@ -426,7 +426,7 @@ Exit the batch edit mode without losing your changes:
 
 Then activate it later on again:
 
-[source, java]
+[source,ruby]
 ----
 [standalone@localhost:9990 /] batch
 Re-activated batch

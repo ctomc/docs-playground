@@ -72,7 +72,7 @@ operation. For example, to learn the names of the operations exposed by
 the root resource for a standalone server, and then learn the full
 details of one of them, via the CLI one would:
 
-[source, yaml]
+[source,ruby]
 ----
 [standalone@localhost:9990 /] :read-operation-names
 {

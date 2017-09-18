@@ -129,7 +129,7 @@ use this to verify the remote server.
                             security-realm="PasswordRealm">
 ----
 
-[TIP]
+[IMPORTANT]
 
 The security realm is only used to obtain the password for this example,
 as you can see here the username is specified separately.

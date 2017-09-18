@@ -21,7 +21,7 @@ running mode of the server, these files contain the users username along
 with a pre-prepared hash of the username along with the name of the
 realm and the users password.
 
-[IMPORTANT]
+[NOTE]
 
 Although the properties files do not contain the plain text passwords
 they should still be guarded as the pre-prepared hashes could be used to

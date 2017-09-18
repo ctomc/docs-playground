@@ -72,7 +72,7 @@ To enable it via CLI you need just
 
 Audit data are stored in standalone/data/audit-log.log.
 
-[IMPORTANT]
+[NOTE]
 
 The audit logging subsystem has a lot of internal dependencies, and it
 logs operations changing, enabling and disabling its components. When

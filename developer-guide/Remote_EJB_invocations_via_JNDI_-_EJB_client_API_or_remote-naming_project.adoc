@@ -82,7 +82,7 @@ have used in our example. The hostname we have used is localhost but
 that should point to the server IP or hostname where the server is
 running.
 
-[IMPORTANT]
+[NOTE]
 
 JNP client project in previous AS versions allowed a comma separated
 list for PROVIDER_URL value, so that if one of the server isn't
@@ -154,7 +154,7 @@ of the ways how we pass the user credentials. Let's at the moment just
 assume that the remoting connector on port 8080 is accessible to a user
 named " `peter`" whose password is expected to be " `lois`".
 
-[IMPORTANT]
+[NOTE]
 
 Note: The server side configurations for the remoting connector to allow
 "peter" to access the connector, is out of the scope of this
@@ -252,7 +252,7 @@ remote-naming project expects it to *always* be relative to the "
 the remote-naming project will lookup for "foo/bar" JNDI name under the
 " `java:jboss/exported/`" namespace of the server.
 
-[IMPORTANT]
+[NOTE]
 
 Note: Since the JNDI name that you use on the client side is *always*
 relative to java:jboss/exported namespace, you *shouldn't* be prefixing
@@ -377,7 +377,7 @@ EJBs under the `java:jboss/exported/` namespace, *in addition to* the
 java:global/ java:app/ java:module/ namespaces mandated by the EJB 3.1
 spec.
 
-[IMPORTANT]
+[NOTE]
 
 Note that only the java:jboss/exported/ namespace is available to remote
 clients.

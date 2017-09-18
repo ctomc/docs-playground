@@ -140,7 +140,7 @@ Applications may alternatively use instead the standard JNDI API:
 ManagedThreadFactory managedThreadFactory = InitialContext.doLookup("java:comp/DefaultManagedThreadFactory");
 ----
 
-[IMPORTANT]
+[NOTE]
 
 As mandated by the Java EE specification, the default Managed Thread
 Factory instance's JNDI name is `java:comp/DefaultManagedThreadFactory`.
@@ -185,7 +185,7 @@ injection:
 private ManagedExecutorService managedExecutorService;
 ----
 
-[IMPORTANT]
+[NOTE]
 
 To retrieve instead a non default Managed Executor Service instance,
 `@Resource`'s `lookup` attribute needs to specify the JNDI name used in
@@ -200,7 +200,7 @@ Applications may alternatively use instead the standard JNDI API:
 ManagedExecutorService managedExecutorService = InitialContext.doLookup("java:comp/DefaultManagedExecutorService");
 ----
 
-[IMPORTANT]
+[NOTE]
 
 As mandated by the Java EE specification, the default Managed Executor
 Service instance's JNDI name is
@@ -246,7 +246,7 @@ Managed Scheduled Executor Service, which may be retrieved through
 private ManagedScheduledExecutorService managedScheduledExecutorService;
 ----
 
-[IMPORTANT]
+[NOTE]
 
 To retrieve instead a non default Managed Scheduled Executor Service
 instance, `@Resource`'s `lookup` attribute needs to specify the JNDI

@@ -89,7 +89,7 @@ be a valid pattern recognized by the
 http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[`java.text.SimpleDateFormat`]
 and must not rotate on seconds or milliseconds.
 
-[IMPORTANT]
+[NOTE]
 
 The rotate happens before the next message is written by the handler.
 
@@ -119,7 +119,7 @@ reached. Once the
 link:#src-557084_Handlers-max-backup-index[#max-backup-index] is
 reached, the indexed files will be overwritten.
 
-[IMPORTANT]
+[NOTE]
 
 The rotate happens before the next message is written by the handler.
 
@@ -157,7 +157,7 @@ http://www.ietf.org/rfc/rfc5424.txt[RFC5424] formats.
 * link:#src-557084_Handlers-hostname[#hostname]
 * link:#src-557084_Handlers-syslog-format[#syslog-format]
 
-[IMPORTANT]
+[TIP]
 
 The syslog-handler is missing some configuration properties that may be
 useful in some scenarios like setting a formatter. Use the
@@ -176,7 +176,7 @@ this will no longer be necessary.
 [[autoflush]]
 ==== autoflush
 
---
+****
 
 [cols=",",options="header"]
 |=======================================================================
@@ -186,12 +186,12 @@ this will no longer be necessary.
 |Allowed Values: |true or false
 |=======================================================================
 
---
+****
 
 [[enabled]]
 ==== enabled
 
---
+****
 
 [cols=",",options="header"]
 |=======================================================================
@@ -206,12 +206,12 @@ messages.
 |Allowed Values: |true or false
 |=======================================================================
 
---
+****
 
 [[encoding]]
 ==== encoding
 
---
+****
 
 [cols=",",options="header"]
 |==========================================================
@@ -221,12 +221,12 @@ messages.
 |Allowed Values: |Any valid encoding
 |==========================================================
 
---
+****
 
 [[file]]
 ==== file
 
---
+****
 
 [cols=",",options="header"]
 |=======================================================================
@@ -241,12 +241,12 @@ to.
 and a path. The path is a required property of the object.
 |=======================================================================
 
---
+****
 
 [[named-formatter]]
 ==== named-formatter
 
---
+****
 
 [cols=",",options="header"]
 |=======================================================================
@@ -260,12 +260,12 @@ handler.
 |Allowed Values: |TODO add link
 |=======================================================================
 
---
+****
 
 [[formatter]]
 ==== formatter
 
---
+****
 
 [cols=",",options="header"]
 |========================================================
@@ -275,12 +275,12 @@ handler.
 |Allowed Values: |TODO add link
 |========================================================
 
---
+****
 
 [[filter-spec]]
 ==== filter-spec
 
---
+****
 
 [cols=",",options="header"]
 |===========================================================
@@ -290,12 +290,12 @@ handler.
 |Allowed Values: |See Filter Expression
 |===========================================================
 
---
+****
 
 [[level]]
 ==== level
 
---
+****
 
 [cols=",",options="header"]
 |=======================================================================
@@ -311,12 +311,12 @@ discarded.
 WARNING ERROR SEVERE FATAL OFF
 |=======================================================================
 
---
+****
 
 [[max-backup-index]]
 ==== max-backup-index
 
---
+****
 
 [cols=",",options="header"]
 |==========================================================
@@ -326,12 +326,12 @@ WARNING ERROR SEVERE FATAL OFF
 |Allowed Values: |any integer greater than 0
 |==========================================================
 
---
+****
 
 [[overflow-action]]
 ==== overflow-action
 
---
+****
 
 [cols=",",options="header"]
 |===============================================================
@@ -341,12 +341,12 @@ WARNING ERROR SEVERE FATAL OFF
 |Allowed Values: |BLOCK or DISCARD
 |===============================================================
 
---
+****
 
 [[queue-length]]
 ==== queue-length
 
---
+****
 
 [cols=",",options="header"]
 |=============================================================
@@ -356,12 +356,12 @@ WARNING ERROR SEVERE FATAL OFF
 |Allowed Values: |any positive integer
 |=============================================================
 
---
+****
 
 [[rotate-on-boot]]
 ==== rotate-on-boot
 
---
+****
 
 [cols=",",options="header"]
 |=======================================================================
@@ -376,12 +376,12 @@ boot of the server.
 |Allowed Values: |true or false
 |=======================================================================
 
---
+****
 
 [[rotate-size]]
 ==== rotate-size
 
---
+****
 
 [cols=",",options="header"]
 |=======================================================================
@@ -396,12 +396,12 @@ end. Valid types are b for bytes, k for kilobytes, m for megabytes, g
 for gigabytes or t for terabytes. Type character is not case sensitive.
 |=======================================================================
 
---
+****
 
 [[subhandlers]]
 ==== subhandlers
 
---
+****
 
 [cols=",",options="header"]
 |==============================================================
@@ -411,12 +411,12 @@ for gigabytes or t for terabytes. Type character is not case sensitive.
 |Allowed Values: |An array of valid handler names
 |==============================================================
 
---
+****
 
 [[suffix]]
 ==== suffix
 
---
+****
 
 [cols=",",options="header"]
 |=======================================================================
@@ -430,12 +430,12 @@ rotated.
 |Allowed Values: |Any valid java.text.SimpleDateFormat pattern.
 |=======================================================================
 
---
+****
 
 [[target]]
 ==== target
 
---
+****
 
 [cols=",",options="header"]
 |========================================================
@@ -445,4 +445,4 @@ rotated.
 |Allowed Values: |System.out or System.err
 |========================================================
 
---
+****

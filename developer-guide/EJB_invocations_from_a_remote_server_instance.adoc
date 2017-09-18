@@ -10,7 +10,7 @@ Let's call the server, from which the invocation happens to the EJB, as
 "Client Server" and the server on which the bean is deployed as the
 "Destination Server".
 
-[IMPORTANT]
+[NOTE]
 
 Note that this chapter deals with the case where the bean is deployed on
 the "Destination Server" but *not* on the "Client Server".
@@ -30,7 +30,7 @@ myapp.ear
 |        |---- <org.myapp.ejb.*> // EJB classes
 ----
 
-[IMPORTANT]
+[NOTE]
 
 Note that packaging itself isn't really important in the context of this
 article. You can deploy the EJBs in any standard way (.ear, .war or
@@ -125,11 +125,11 @@ this user credentials later on in the client server for communicating
 with this server. The important bits to remember are the user we have
 created in this example is `ejb` and the password is `test.`
 
-[IMPORTANT]
+[NOTE]
 
 Note that you can use any username and password combination you want to.
 
-[IMPORTANT]
+[NOTE]
 
 You do *not* require the server to be started to add a user using the
 add-user script.
@@ -149,7 +149,7 @@ will look like:
 
 Ensure that the server has started without any errors.
 
-[IMPORTANT]
+[NOTE]
 
 It's very important to note that if you are starting both the server
 instances on the same machine, then each of those server instances
@@ -223,13 +223,13 @@ string. I used http://www.base64encode.org/[this online site] which
 generates the base64 encoded string. So for the `test` password, the
 base64 encoded version is `dGVzdA==`
 
-[IMPORTANT]
+[TIP]
 
 While generating the base64 encoded string make sure that you don't have
 any trailing or leading spaces for the original password. That can lead
 to incorrect encoded versions being generated.
 
-[IMPORTANT]
+[TIP]
 
 With new versions the add-user script will show the base64 password if
 you type 'y' if you've been ask
@@ -253,7 +253,7 @@ Now let's create a " _security-realm_" for the base64 encoded password.
 /core-service=management/security-realm=ejb-security-realm/server-identity=secret:add(value=dGVzdA==)
 ----
 
-[IMPORTANT]
+[NOTE]
 
 Notice that the CLI show the message _"process-state" =>
 "reload-required"_, so you have to restart the server before you can use
@@ -421,7 +421,7 @@ be used during the EJB invocations for finding the appropriate
 destinations (also known as, EJB receivers). The contents of the
 jboss-ejb-client.xml are explained next.
 
-[IMPORTANT]
+[NOTE]
 
 If your application is deployed as a top level .war deployment, then the
 jboss-ejb-client.xml is expected to be placed in .war/WEB-INF/ folder

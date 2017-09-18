@@ -111,7 +111,7 @@ web.war can access classes belonging to ejb1.jar and ejb2.jar.
 Similarly, classes from ejb1.jar can access classes from ejb2.jar (and
 vice-versa).
 
-[IMPORTANT]
+[NOTE]
 
 The ear-subdeployments-isolated element value has no effect on the
 isolated classloader of the .war file(s). i.e. irrespective of whether
@@ -126,7 +126,7 @@ up explicit module dependencies.
 
 Portability
 
-[IMPORTANT]
+[TIP]
 
 The Java EE specification says that portable applications should not
 rely on sub deployments having access to other sub deployments unless an
@@ -191,7 +191,7 @@ sub deployments in an ear. If a module is exported from a
 `ear/lib` directory) it will be available to all sub deployments as
 well.
 
-[IMPORTANT]
+[TIP]
 
 To generate a MANIFEST.MF entry when using maven put the following in
 your pom.xml:

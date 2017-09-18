@@ -19,7 +19,7 @@ You can add the extension to a configuration without it either by adding
 an `<extension module="org.wildfly.extension.messaging-activemq"/>`
 element to the xml or by using the following CLI operation:
 
-[source, ruby]
+[source,ruby]
 ----
 [standalone@localhost:9990 /]/extension=org.wildfly.extension.messaging-activemq:add
 ----
@@ -147,7 +147,7 @@ on this `pooled-connection-factory` will be take into account by any EE
 application looking the default JMS provider under the JNDI name
 `java:comp/DefaultJMSConnectionFactory.`
 
-[source, java]
+[source,xml]
 ----
 <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
     <server name="default">
@@ -199,7 +199,7 @@ a remote client would look-up this \{\{kms-queue} using
 "java:jboss/exported/jms/queue/test", "java:jms/queue/test", or more
 simply "jms/queue/test":
 
-[source, java]
+[source,xml]
 ----
 <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
     <server name="default">
@@ -215,12 +215,12 @@ simply "jms/queue/test":
 
 JMS endpoints can easily be created through the CLI:
 
-[source, java]
+[source,ruby]
 ----
 [standalone@localhost:9990 /] jms-queue add --queue-address=myQueue --entries=queues/myQueue
 ----
 
-[source, ruby]
+[source,ruby]
 ----
 [standalone@localhost:9990 /] /subsystem=messaging-activemq/server=default/jms-queue=myQueue:read-resource
 {
@@ -236,7 +236,7 @@ JMS endpoints can easily be created through the CLI:
 A number of additional commands to maintain the JMS subsystem are
 available as well:
 
-[source, ruby]
+[source,ruby]
 ----
 [standalone@localhost:9990 /] jms-queue --help --commands
 add
@@ -252,7 +252,7 @@ Some of the settings are applied against an address wild card instead of
 a specific messaging destination. The dead letter queue and redelivery
 settings belong into this group:
 
-[source, xml]
+[source,xml]
 ----
 <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
    <server name="default">
@@ -332,7 +332,7 @@ WildFly will use the `security-domain` default value of `other`, which
 maps to the `other` legacy security domain.
 
 [[cluster-authentication]]
-= Cluster Authentication
+== Cluster Authentication
 
 If the Artemis server is configured to be clustered, it will use the
 `cluster` 's `user` and `password` attributes to connect to other
@@ -376,7 +376,7 @@ defining JMS destinations, e.g.:
 </messaging-deployment>
 ----
 
-[cols=",",options="header"]
+[cols="]
 |=======================================================================
 | |This feature is primarily intended for development as destinations
 deployed this way can not be managed with any of the provided management
@@ -517,7 +517,7 @@ above).
 A JMS Bridge can also be managed using the WildFly command line
 interface:
 
-[source, bash]
+[source,ruby]
 ----
 [standalone@localhost:9990 /] /subsystem=messaging/jms-bridge=myBridge/:add(module="org.acmemq",
       source-destination="sourceQ",
@@ -532,7 +532,7 @@ interface:
       failure-retry-interval=500,
       max-retries=1,
       max-batch-size=500,
-      max-batch-time=500,                                                                             
+      max-batch-time=500,
       add-messageID-in-header=true)
 {"outcome" => "success"}
 ----
@@ -567,13 +567,13 @@ The messaging-activemq subsystem is provided by the Artemis project. For
 a detailed description of the available configuration properties, please
 consult the project documentation.
 
---
+****
 
-** Artemis Homepage: http://activemq.apache.org/artemis/
-** Artemis User Documentation:
+* Artemis Homepage: http://activemq.apache.org/artemis/
+* Artemis User Documentation:
 http://activemq.apache.org/artemis/docs.html
 
---
+****
 
 :leveloffset: +1
 

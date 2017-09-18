@@ -23,7 +23,7 @@ let's get started:
 [[deploying-your-ejbs-on-the-server-side]]
 == Deploying your EJBs on the server side:
 
-[IMPORTANT]
+[NOTE]
 
 Users who already have EJBs deployed on the server side can just skip to
 the next section.
@@ -298,7 +298,7 @@ public class RemoteEJBClient {
 }
 ----
 
-[IMPORTANT]
+[NOTE]
 
 The entire server side and client side code is hosted at the github repo
 here
@@ -506,7 +506,7 @@ remote.connection.default.username=appuser
 remote.connection.default.password=apppassword
 ----
 
-[IMPORTANT]
+[NOTE]
 
 This file includes a reference to a default password. Be sure to change
 this as soon as possible.
@@ -515,7 +515,7 @@ The above properties file is just an example. The actual file that was
 used for this sample program is available here for reference
 https://github.com/wildfly/quickstart/blob/master/ejb-remote/client/src/main/resources/jboss-ejb-client.properties[jboss-ejb-client.properties]
 
-[IMPORTANT]
+[NOTE]
 
 We'll see what each of it means.
 
@@ -589,7 +589,7 @@ communicating with the server for remote invocations, so that's the port
 we use in our client programs (unless the server is configured for some
 other http port)
 
-[IMPORTANT]
+[NOTE]
 
 [source, java]
 ----
@@ -607,7 +607,7 @@ attribute security-realm in the configuration.
 
 security-realm is enabled by default.
 
-[IMPORTANT]
+[NOTE]
 
 We then use the "remote.connection.<connection-name>.connect.options."
 property prefix to setup options that will be used during the connection
@@ -659,7 +659,7 @@ If you are using Maven to build the client application, then please
 follow the instructions in the WILDFLY_HOME/bin/client/README.txt to add
 this jar as a Maven dependency.
 
-[IMPORTANT]
+[NOTE]
 
 [[summary]]
 == Summary

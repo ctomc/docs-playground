@@ -22,7 +22,7 @@ public class MyApplication extends Application {
 This will make your JAX-RS resources available under `/`
 `mywebappcontext` `/mypath`.
 
-[IMPORTANT]
+[WARNING]
 
 Note that that the path is `/mypath` not `/mypath/*`
 
@@ -49,7 +49,7 @@ public class MyApplication extends Application {
 This will make your JAX-RS resources available under `/`
 `mywebappcontext` `/hello`.
 
-[IMPORTANT]
+[NOTE]
 
 You can also use this approach to override an application path set with
 the `@ApplicationPath` annotation.
@@ -71,7 +71,7 @@ mapping in web.xml as follows:
 This will make your JAX-RS resources available under `/`
 `mywebappcontext` `/hello`.
 
-[TIP]
+[NOTE]
 
 Note that you only have to add the mapping, not the corresponding
 servlet. The server is responsible for adding the corresponding servlet

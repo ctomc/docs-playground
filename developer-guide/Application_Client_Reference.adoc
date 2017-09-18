@@ -5,7 +5,7 @@ client. An application client is essentially a cut down server instance,
 that allow you to use EE features such as injection in a client side
 program.
 
-[IMPORTANT]
+[NOTE]
 
 This article is not a tutorial on application client development, rather
 it covers the specifics of the WildFly application client. There are
@@ -27,7 +27,7 @@ library directly.
 To launch the application client use the `appclient.sh` or
 `appclient.bat` script in the bin directory. For example:
 
-[source, java]
+[source,bash]
 ----
 ./appclient.sh --host=10.0.0.1 myear.ear#appClient.jar arg1
 ----
@@ -48,7 +48,7 @@ If you want to connect to more than one host or make use of the
 clustering functionality then you need to specify a
 jboss-ejb-client.properties file rather than a host:
 
-[source, java]
+[source,bash]
 ----
 ./appclient.sh --ejb-client-properties=my-jboss-ejb-client.properties myear.ear#appClient.jar arg1
 ----
