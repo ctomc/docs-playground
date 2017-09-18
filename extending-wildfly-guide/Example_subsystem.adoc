@@ -94,7 +94,7 @@ something more useful.
 
 The rest of this section modifies the skeleton project created by the
 archetype to do something more useful, and the full code can be found in
-link:attachments_852137_1_acme-subsystem.zip[acme-subsystem.zip].
+link:downloads/acme-subsystem.zip[acme-subsystem.zip].
 
 If you do a `mvn install` in the created project, you will see some
 tests being run
@@ -1746,8 +1746,8 @@ and the WildFly console should show the messages coming from the war
 `TrackerService` again.
 
 Now let us deploy something. You can find two maven projects for test
-wars already built at link:attachments_852154_1_test1.zip[test1.zip] and
-link:attachments_852153_1_test2.zip[test2.zip]. If you download them and
+wars already built at link:downloads/test1.zip[test1.zip] and
+link:downloads/test2.zip[test2.zip]. If you download them and
 extract them to `/Downloads/test1` and `/Downloads/test2`, you can see
 that `/Downloads/test1/target/test1.war` contains a `META-INF/cool.txt`
 while `/Downloads/test2/target/test2.war` does not contain that file.

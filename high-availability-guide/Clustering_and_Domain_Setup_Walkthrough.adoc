@@ -38,7 +38,7 @@ domain controller, slave will under the domain management of master.
 mod_cluster module. The WildFly 9 on master and slave will form a
 cluster and discovered by httpd.
 
-image:images/download/attachments/557290/Clustering.jpg[images/download/attachments/557290/Clustering.jpg]
+image:images/clustering/Clustering.jpg[images/clustering/Clustering.jpg]
 
 * We will deploy a demo project into domain, and verify that the project
 is deployed into both master and slave by domain controller. Thus we
@@ -60,7 +60,7 @@ it. We should see the master is registered back into cluster, also we
 should see slave sees master as domain controller again and connect to
 it.
 
-image:images/download/attachments/557290/test_scenario.jpg[images/download/attachments/557290/test_scenario.jpg]
+image:images/clustering/test_scenario.jpg[images/clustering/test_scenario.jpg]
 
 Please don't worry if you cannot digest so many details currently. Let's
 move on and you will get the points step by step.
@@ -530,7 +530,7 @@ After server-three on both master and slave are started, we will add our
 cluster-demo.war for deployment. Click on the 'Manage Deployments' link
 at the bottom of left menu list.
 
-image:images/download/attachments/557290/JBoss_Management.png[images/download/attachments/557290/JBoss_Management.png] +
+image:images/clustering/JBoss_Management.png[images/clustering/JBoss_Management.png] +
 (We should ensure the server-three should be started on both master and
 slave)
 
@@ -544,7 +544,7 @@ button and add the war to 'other-server-group' and then click 'save'.
 Wait a few seconds, management console will tell you that the project is
 deployed into 'other-server-group'.：
 
-image:images/download/attachments/557290/JBoss_Management_2.png[images/download/attachments/557290/JBoss_Management_2.png]
+image:images/clustering/JBoss_Management_2.png[images/clustering/JBoss_Management_2.png]
 
 Please note we have two hosts participate in this server group, so the
 project should be deployed in both master and slave now - that's the
@@ -558,14 +558,14 @@ and slave, and they should all work now:
 http://10.211.55.7:8330/cluster-demo/
 ----
 
-image:images/download/attachments/557290/http---10.211.55.7-8330-cluster-demo-.png[images/download/attachments/557290/http---10.211.55.7-8330-cluster-demo-.png]
+image:images/clustering/http---10.211.55.7-8330-cluster-demo-.png[images/clustering/http---10.211.55.7-8330-cluster-demo-.png]
 
 [source]
 ----
 http://10.211.55.2:8330/cluster-demo/
 ----
 
-image:images/download/attachments/557290/http---10.211.55.2-8330-cluster-demo-.png[images/download/attachments/557290/http---10.211.55.2-8330-cluster-demo-.png]
+image:images/clustering/http---10.211.55.2-8330-cluster-demo-.png[images/clustering/http---10.211.55.2-8330-cluster-demo-.png]
 
 Now that we have finished the project deployment and see the usages of
 domain controller, we will then head up for using these two hosts to
@@ -778,7 +778,7 @@ Now we access the cluster:
 http://10.211.55.7/cluster-demo/put.jsp
 ----
 
-image:images/download/attachments/557290/http---10.211.55.7-cluster-demo-put.jsp.png[images/download/attachments/557290/http---10.211.55.7-cluster-demo-put.jsp.png]
+image:images/clustering/http---10.211.55.7-cluster-demo-put.jsp.png[images/clustering/http---10.211.55.7-cluster-demo-put.jsp.png]
 
 We should see the request is distributed to one of the hosts(master or
 slave) from the WildFly log. For me the request is sent to master:
@@ -804,7 +804,7 @@ Then wait for a few seconds and access cluster:
 http://10.211.55.7/cluster-demo/get.jsp
 ----
 
-image:images/download/attachments/557290/http---10.211.55.7-cluster-demo-get.jsp.png[images/download/attachments/557290/http---10.211.55.7-cluster-demo-get.jsp.png]
+image:images/clustering/http---10.211.55.7-cluster-demo-get.jsp.png[images/clustering/http---10.211.55.7-cluster-demo-get.jsp.png]
 
 Now the request should be served by slave and we should see the log from
 slave:

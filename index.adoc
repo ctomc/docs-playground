@@ -1,7 +1,7 @@
 = Documentation
 :ext-relative: {outfilesuffix}
 
-image:images/www.jboss.org/dms/wildfly_splash/splash_wildflylogo_small.png[images/www.jboss.org/dms/wildfly_splash/splash_wildflylogo_small.png]
+image:images/splash_wildflylogo_small.png[WildFly, align="center"]
 
 Welcome to the WildFly Documentation. The documentation for WildFly is
 split into two categories:

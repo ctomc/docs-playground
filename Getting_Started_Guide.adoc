@@ -383,7 +383,7 @@ As with previous WildFly releases, you can point your browser to
 *_http://localhost:8080_* (if using the default configured http port)
 which brings you to the Welcome Screen:
 
-image:images/download/attachments/557127/wildfly.png[images/download/attachments/557127/wildfly.png]
+image:images/wildfly.png[wildfly.png]
 
 From here you can access links to the WildFly community documentation
 set, stay up-to-date on the latest project information, have a
