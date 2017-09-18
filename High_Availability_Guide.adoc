@@ -18,19 +18,19 @@ ifndef::ebook-format[:leveloffset: 1]
 ifdef::basebackend-html[toc::[]]
 :numbered:
 
-include::high-availability-guide/Introduction_To_High_Availability_Services.adoc[]
+include::high-availability/Introduction_To_High_Availability_Services.adoc[]
 
-include::high-availability-guide/HTTP_Services.adoc[]
+include::high-availability/HTTP_Services.adoc[]
 
-include::high-availability-guide/EJB_Services.adoc[]
+include::high-availability/EJB_Services.adoc[]
 
-include::high-availability-guide/Hibernate.adoc[]
+include::high-availability/Hibernate.adoc[]
 
-include::high-availability-guide/HA_Singleton_Features.adoc[]
+include::high-availability/HA_Singleton_Features.adoc[]
 
-include::high-availability-guide/Related_Topics.adoc[]
+include::high-availability/Related_Topics.adoc[]
 
-include::high-availability-guide/Changes From Previous Versions}
+include::high-availability/Changes From Previous Versions}
 
-include::high-availability-guide/Clustering_and_Domain_Setup_Walkthrough.adoc[]
+include::high-availability/Clustering_and_Domain_Setup_Walkthrough.adoc[]
 

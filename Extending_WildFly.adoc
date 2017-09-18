@@ -53,22 +53,22 @@ link:Core_management_concepts.adoc[Core management concepts] section and
 you need Java development experience to follow the example in this
 guide.
 
-[[examples-in-this-guide]]
+[[examples-in-this]]
 == Examples in this guide
 
 Most of the examples in this guide are being expressed as excerpts of
 the XML configuration files or by using a representation of the de-typed
 management model.
 
-include::extending-wildfly-guide/Example_subsystem.adoc[]
+include::extending-wildfly/Example_subsystem.adoc[]
 
-include::extending-wildfly-guide/Working_with_WildFly_Capabilities.adoc[]
+include::extending-wildfly/Working_with_WildFly_Capabilities.adoc[]
 
-include::extending-wildfly-guide/Domain_Mode_Subsystem_Transformers.adoc[]
+include::extending-wildfly/Domain_Mode_Subsystem_Transformers.adoc[]
 
-include::extending-wildfly-guide/Key_Interfaces_and_Classes_Relevant_to_Extension_Developers.adoc[]
+include::extending-wildfly/Key_Interfaces_and_Classes_Relevant_to_Extension_Developers.adoc[]
 
-include::extending-wildfly-guide/WildFly_JNDI_Implementation.adoc[]
+include::extending-wildfly/WildFly_JNDI_Implementation.adoc[]
 
-include::extending-wildfly-guide/CLI_extensibility_for_layered_products.adoc[]
+include::extending-wildfly/CLI_extensibility_for_layered_products.adoc[]
 
