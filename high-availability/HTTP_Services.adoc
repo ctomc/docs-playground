@@ -2,7 +2,7 @@
 
 This section summarizes the HTTP-based clustering features.
 
-include::Subsystem_support.adoc[]
+include::Subsystem_Support.adoc[]
 
 include::http-services/Clustered_Web_Sessions.adoc[]
 

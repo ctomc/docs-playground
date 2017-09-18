@@ -539,57 +539,83 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </li>
 <li><a href="#_http_services">2. HTTP Services</a></li>
-<li><a href="#_clustered_web_sessions">3. Clustered Web Sessions</a></li>
-<li><a href="#_clustered_sso">4. Clustered SSO</a></li>
-<li><a href="#_load_balancing">5. Load Balancing</a>
+<li><a href="#_subsystem_support">3. Subsystem Support</a></li>
+<li><a href="#_infinispan_subsystem">4. Infinispan Subsystem</a>
 <ul class="sectlevel2">
-<li><a href="#load-balancing-with-apache-mod_jk">5.1. Load balancing with Apache + mod_jk</a></li>
-<li><a href="#load-balancing-with-apache-mod_cluster">5.2. Load balancing with Apache + mod_cluster</a></li>
-<li><a href="#configuration">5.3. Configuration</a></li>
-<li><a href="#runtime-operations">5.4. Runtime Operations</a></li>
-<li><a href="#_apache_httpd">5.5. Apache httpd</a></li>
+<li><a href="#purpose">4.1. Purpose</a></li>
+<li><a href="#configuration-example">4.2. Configuration Example</a></li>
+<li><a href="#use-cases">4.3. Use Cases</a></li>
 </ul>
 </li>
-<li><a href="#_ejb_services">6. EJB Services</a>
+<li><a href="#_jgroups_subsystem">5. JGroups Subsystem</a>
 <ul class="sectlevel2">
-<li><a href="#ejb-subsystem">6.1. EJB Subsystem</a></li>
-<li><a href="#ejb-timer">6.2. EJB Timer</a></li>
+<li><a href="#purpose">5.1. Purpose</a></li>
+<li><a href="#configuration-example">5.2. Configuration example</a></li>
+<li><a href="#use-cases">5.3. Use Cases</a></li>
 </ul>
 </li>
-<li><a href="#_hibernate">7. Hibernate</a></li>
-<li><a href="#_ha_singleton_features">8. HA Singleton Features</a></li>
-<li><a href="#_singleton_subsystem">9. Singleton subsystem</a>
+<li><a href="#mod_cluster-subsystem">6. mod_cluster Subsystem</a>
 <ul class="sectlevel2">
-<li><a href="#configuration">9.1. Configuration</a></li>
-<li><a href="#non-ha-environments">9.2. Non-HA environments</a></li>
+<li><a href="#configuration">6.1. Configuration</a></li>
+<li><a href="#runtime-operations">6.2. Runtime Operations</a></li>
+<li><a href="#_ssl_configuration_using_elytron_subsystem">6.3. SSL Configuration using Elytron Subsystem</a></li>
 </ul>
 </li>
-<li><a href="#_singleton_deployments">10. Singleton deployments</a>
+<li><a href="#_clustered_web_sessions">7. Clustered Web Sessions</a></li>
+<li><a href="#_clustered_sso">8. Clustered SSO</a></li>
+<li><a href="#_load_balancing">9. Load Balancing</a>
 <ul class="sectlevel2">
-<li><a href="#usage">10.1. Usage</a></li>
+<li><a href="#load-balancing-with-apache-mod_jk">9.1. Load balancing with Apache + mod_jk</a></li>
+<li><a href="#load-balancing-with-apache-mod_cluster">9.2. Load balancing with Apache + mod_cluster</a></li>
+<li><a href="#_apache_httpd">9.3. Apache httpd</a></li>
 </ul>
 </li>
-<li><a href="#_singleton_msc_services">11. Singleton MSC services</a>
+<li><a href="#_ejb_services">10. EJB Services</a>
 <ul class="sectlevel2">
-<li><a href="#installing-an-msc-service-using-an-existing-singleton-policy">11.1. Installing an MSC service using an existing singleton policy</a></li>
-<li><a href="#installing-an-msc-service-using-dynamic-singleton-policy">11.2. Installing an MSC service using dynamic singleton policy</a></li>
+<li><a href="#ejb-subsystem">10.1. EJB Subsystem</a></li>
+<li><a href="#ejb-timer">10.2. EJB Timer</a></li>
 </ul>
 </li>
-<li><a href="#_related_topics">12. Related Topics</a>
+<li><a href="#_hibernate">11. Hibernate</a></li>
+<li><a href="#_ha_singleton_features">12. HA Singleton Features</a></li>
+<li><a href="#_singleton_subsystem">13. Singleton subsystem</a>
 <ul class="sectlevel2">
-<li><a href="#modularity-and-class-loading">12.1. Modularity And Class Loading</a></li>
-<li><a href="#monitoring">12.2. Monitoring</a></li>
+<li><a href="#configuration">13.1. Configuration</a></li>
+<li><a href="#non-ha-environments">13.2. Non-HA environments</a></li>
 </ul>
 </li>
-<li><a href="#_clustering_and_domain_setup_walkthrough">13. Clustering and Domain Setup Walkthrough</a>
+<li><a href="#_singleton_deployments">14. Singleton deployments</a>
 <ul class="sectlevel2">
-<li><a href="#preparation-scenario">13.1. Preparation &amp; Scenario</a></li>
-<li><a href="#download-wildfly-9">13.2. Download WildFly 9</a></li>
-<li><a href="#domain-configuration">13.3. Domain Configuration</a></li>
-<li><a href="#deployment">13.4. Deployment</a></li>
-<li><a href="#cluster-configuration">13.5. Cluster Configuration</a></li>
-<li><a href="#testing">13.6. Testing</a></li>
-<li><a href="#special-thanks">13.7. Special Thanks</a></li>
+<li><a href="#usage">14.1. Usage</a></li>
+</ul>
+</li>
+<li><a href="#_singleton_msc_services">15. Singleton MSC services</a>
+<ul class="sectlevel2">
+<li><a href="#installing-an-msc-service-using-an-existing-singleton-policy">15.1. Installing an MSC service using an existing singleton policy</a></li>
+<li><a href="#installing-an-msc-service-using-dynamic-singleton-policy">15.2. Installing an MSC service using dynamic singleton policy</a></li>
+</ul>
+</li>
+<li><a href="#_related_topics">16. Related Topics</a>
+<ul class="sectlevel2">
+<li><a href="#modularity-and-class-loading">16.1. Modularity And Class Loading</a></li>
+<li><a href="#monitoring">16.2. Monitoring</a></li>
+</ul>
+</li>
+<li><a href="#_changes_from_previous_versions">17. Changes From Previous Versions</a>
+<ul class="sectlevel2">
+<li><a href="#key-changes">17.1. Key changes</a></li>
+<li><a href="#migration-to-wildfly">17.2. Migration to Wildfly</a></li>
+</ul>
+</li>
+<li><a href="#_clustering_and_domain_setup_walkthrough">18. Clustering and Domain Setup Walkthrough</a>
+<ul class="sectlevel2">
+<li><a href="#preparation-scenario">18.1. Preparation &amp; Scenario</a></li>
+<li><a href="#download-wildfly-9">18.2. Download WildFly 9</a></li>
+<li><a href="#domain-configuration">18.3. Domain Configuration</a></li>
+<li><a href="#deployment">18.4. Deployment</a></li>
+<li><a href="#cluster-configuration">18.5. Cluster Configuration</a></li>
+<li><a href="#testing">18.6. Testing</a></li>
+<li><a href="#special-thanks">18.7. Special Thanks</a></li>
 </ul>
 </li>
 </ul>
@@ -776,54 +802,1312 @@ which the feature depends.</p>
 <div class="paragraph">
 <p>This section summarizes the HTTP-based clustering features.</p>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in high-availability-guide/HTTP_Services.adoc - include::Subsystem_support.adoc[]</p>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_clustered_web_sessions">3. Clustered Web Sessions</h2>
+<h2 id="_subsystem_support">3. Subsystem Support</h2>
 <div class="sectionbody">
 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_clustered_sso">4. Clustered SSO</h2>
+<h2 id="_infinispan_subsystem">4. Infinispan Subsystem</h2>
 <div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_load_balancing">5. Load Balancing</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="purpose">4.1. Purpose</h3>
 <div class="paragraph">
-<p>This section describes load balancing via Apache + mod_jk and Apache<br>
-mod_cluster.</p>
+<p>The Infinispan subsystem provides caching support for HA services in the
+form of Infinispan caches: high-performance, transactional caches which
+can operate in both non-distributed and distributed scenarios.
+Distributed caching support is used in the provision of many key HA
+services. For example, the failover of a session-oriented client HTTP
+request from a failing node to a new (failover) node depends on session
+data for the client being available on the new node. In other words, the
+client session data needs to be replicated across nodes in the cluster.
+This is effectively achieved via a distributed Infinispan cache. This
+approach to providing fail-over also applies to EJB SFSB sessions. Over
+and above providing support for fail-over, an underlying cache is also
+required when providing second-level caching for entity beans using
+Hibernate, and this case is also handled through the use of an
+Infinispan cache.</p>
+</div>
+<div class="paragraph">
+<p>The Infinispan subsystem provides the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>allows definition and configuration of named cache containers and
+caches</p>
+</li>
+<li>
+<p>view run-time metrics associated with cache container and cache
+instances</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the following sections, we describe the Infinispan subsystem.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Infiispan cache containers and caches are created transparently as part
+of the clustering functionality (e.g. on clustered application
+deployment, cache containers and their associated caches will be created
+behind the scenes to support clustered features such as session
+replication or caching of entities around the cluster).
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="load-balancing-with-apache-mod_jk">5.1. Load balancing with Apache + mod_jk</h3>
+<h3 id="configuration-example">4.2. Configuration Example</h3>
 <div class="paragraph">
-<p>Describe load balancing with Apache using mod_jk.</p>
+<p>In this section, we provide an example XML configuration of the
+infinispan subsystem and review the configuration elements and
+attributes.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The schema for the subsystem, describing all valid elements and
+attributes, can be found in the Wildfly distribution, in the docs/schema
+directory.
+</td>
+</tr>
+</table>
 </div>
-<div class="sect2">
-<h3 id="load-balancing-with-apache-mod_cluster">5.2. Load balancing with Apache + mod_cluster</h3>
-<div class="paragraph">
-<p>Describe load balancing with Apache using mod_cluster.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:infinispan:2.0</span><span class="delimiter">&quot;</span></span>&gt;
+  &lt;cache-container name=<span class="string"><span class="delimiter">&quot;</span><span class="content">server</span><span class="delimiter">&quot;</span></span> aliases=<span class="string"><span class="delimiter">&quot;</span><span class="content">singleton cluster</span><span class="delimiter">&quot;</span></span> <span class="keyword">default</span>-cache=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> module=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.wildfly.clustering.server</span><span class="delimiter">&quot;</span></span>&gt;
+      &lt;transport lock-timeout=<span class="string"><span class="delimiter">&quot;</span><span class="content">60000</span><span class="delimiter">&quot;</span></span>/&gt;
+      &lt;replicated-cache name=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">SYNC</span><span class="delimiter">&quot;</span></span> batching=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>&gt;
+          &lt;locking isolation=<span class="string"><span class="delimiter">&quot;</span><span class="content">REPEATABLE_READ</span><span class="delimiter">&quot;</span></span>/&gt;
+      &lt;/replicated-cache&gt;
+  &lt;/cache-container&gt;
+  &lt;cache-container name=<span class="string"><span class="delimiter">&quot;</span><span class="content">web</span><span class="delimiter">&quot;</span></span> aliases=<span class="string"><span class="delimiter">&quot;</span><span class="content">standard-session-cache</span><span class="delimiter">&quot;</span></span> <span class="keyword">default</span>-cache=<span class="string"><span class="delimiter">&quot;</span><span class="content">repl</span><span class="delimiter">&quot;</span></span> module=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.wildfly.clustering.web.infinispan</span><span class="delimiter">&quot;</span></span>&gt;
+      &lt;transport lock-timeout=<span class="string"><span class="delimiter">&quot;</span><span class="content">60000</span><span class="delimiter">&quot;</span></span>/&gt;
+      &lt;replicated-cache name=<span class="string"><span class="delimiter">&quot;</span><span class="content">repl</span><span class="delimiter">&quot;</span></span> mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">ASYNC</span><span class="delimiter">&quot;</span></span> batching=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>&gt;
+          &lt;file-store/&gt;
+      &lt;/replicated-cache&gt;
+      &lt;replicated-cache name=<span class="string"><span class="delimiter">&quot;</span><span class="content">sso</span><span class="delimiter">&quot;</span></span> mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">SYNC</span><span class="delimiter">&quot;</span></span> batching=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>/&gt;
+      &lt;distributed-cache name=<span class="string"><span class="delimiter">&quot;</span><span class="content">dist</span><span class="delimiter">&quot;</span></span> mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">ASYNC</span><span class="delimiter">&quot;</span></span> batching=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> l1-lifespan=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>&gt;
+          &lt;file-store/&gt;
+      &lt;/distributed-cache&gt;
+  &lt;/cache-container&gt;
+  &lt;cache-container name=<span class="string"><span class="delimiter">&quot;</span><span class="content">ejb</span><span class="delimiter">&quot;</span></span> aliases=<span class="string"><span class="delimiter">&quot;</span><span class="content">sfsb sfsb-cache</span><span class="delimiter">&quot;</span></span> <span class="keyword">default</span>-cache=<span class="string"><span class="delimiter">&quot;</span><span class="content">repl</span><span class="delimiter">&quot;</span></span> module=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.jboss.as.clustering.ejb3.infinispan</span><span class="delimiter">&quot;</span></span>&gt;
+      &lt;transport lock-timeout=<span class="string"><span class="delimiter">&quot;</span><span class="content">60000</span><span class="delimiter">&quot;</span></span>/&gt;
+      &lt;replicated-cache name=<span class="string"><span class="delimiter">&quot;</span><span class="content">repl</span><span class="delimiter">&quot;</span></span> mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">ASYNC</span><span class="delimiter">&quot;</span></span> batching=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>&gt;
+          &lt;eviction strategy=<span class="string"><span class="delimiter">&quot;</span><span class="content">LRU</span><span class="delimiter">&quot;</span></span> max-entries=<span class="string"><span class="delimiter">&quot;</span><span class="content">10000</span><span class="delimiter">&quot;</span></span>/&gt;
+          &lt;file-store/&gt;
+      &lt;/replicated-cache&gt;
+      &lt;!--
+        ~  Clustered cache used internally by EJB subsytem <span class="keyword">for</span> managing the client-mapping(s) of
+        ~                 the socketbinding referenced by the EJB remoting connector
+        --&gt;
+      &lt;replicated-cache name=<span class="string"><span class="delimiter">&quot;</span><span class="content">remote-connector-client-mappings</span><span class="delimiter">&quot;</span></span> mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">SYNC</span><span class="delimiter">&quot;</span></span> batching=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>/&gt;
+      &lt;distributed-cache name=<span class="string"><span class="delimiter">&quot;</span><span class="content">dist</span><span class="delimiter">&quot;</span></span> mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">ASYNC</span><span class="delimiter">&quot;</span></span> batching=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> l1-lifespan=<span class="string"><span class="delimiter">&quot;</span><span class="content">0</span><span class="delimiter">&quot;</span></span>&gt;
+          &lt;eviction strategy=<span class="string"><span class="delimiter">&quot;</span><span class="content">LRU</span><span class="delimiter">&quot;</span></span> max-entries=<span class="string"><span class="delimiter">&quot;</span><span class="content">10000</span><span class="delimiter">&quot;</span></span>/&gt;
+          &lt;file-store/&gt;
+      &lt;/distributed-cache&gt;
+  &lt;/cache-container&gt;
+  &lt;cache-container name=<span class="string"><span class="delimiter">&quot;</span><span class="content">hibernate</span><span class="delimiter">&quot;</span></span> <span class="keyword">default</span>-cache=<span class="string"><span class="delimiter">&quot;</span><span class="content">local-query</span><span class="delimiter">&quot;</span></span> module=<span class="string"><span class="delimiter">&quot;</span><span class="content">org.hibernate</span><span class="delimiter">&quot;</span></span>&gt;
+      &lt;transport lock-timeout=<span class="string"><span class="delimiter">&quot;</span><span class="content">60000</span><span class="delimiter">&quot;</span></span>/&gt;
+      &lt;local-cache name=<span class="string"><span class="delimiter">&quot;</span><span class="content">local-query</span><span class="delimiter">&quot;</span></span>&gt;
+          &lt;transaction mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">NONE</span><span class="delimiter">&quot;</span></span>/&gt;
+          &lt;eviction strategy=<span class="string"><span class="delimiter">&quot;</span><span class="content">LRU</span><span class="delimiter">&quot;</span></span> max-entries=<span class="string"><span class="delimiter">&quot;</span><span class="content">10000</span><span class="delimiter">&quot;</span></span>/&gt;
+          &lt;expiration max-idle=<span class="string"><span class="delimiter">&quot;</span><span class="content">100000</span><span class="delimiter">&quot;</span></span>/&gt;
+      &lt;/local-cache&gt;
+      &lt;invalidation-cache name=<span class="string"><span class="delimiter">&quot;</span><span class="content">entity</span><span class="delimiter">&quot;</span></span> mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">SYNC</span><span class="delimiter">&quot;</span></span>&gt;
+          &lt;transaction mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">NON_XA</span><span class="delimiter">&quot;</span></span>/&gt;
+          &lt;eviction strategy=<span class="string"><span class="delimiter">&quot;</span><span class="content">LRU</span><span class="delimiter">&quot;</span></span> max-entries=<span class="string"><span class="delimiter">&quot;</span><span class="content">10000</span><span class="delimiter">&quot;</span></span>/&gt;
+          &lt;expiration max-idle=<span class="string"><span class="delimiter">&quot;</span><span class="content">100000</span><span class="delimiter">&quot;</span></span>/&gt;
+      &lt;/invalidation-cache&gt;
+      &lt;replicated-cache name=<span class="string"><span class="delimiter">&quot;</span><span class="content">timestamps</span><span class="delimiter">&quot;</span></span> mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">ASYNC</span><span class="delimiter">&quot;</span></span>&gt;
+          &lt;transaction mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">NONE</span><span class="delimiter">&quot;</span></span>/&gt;
+          &lt;eviction strategy=<span class="string"><span class="delimiter">&quot;</span><span class="content">NONE</span><span class="delimiter">&quot;</span></span>/&gt;
+       &lt;/replicated-cache&gt;
+  &lt;/cache-container&gt;
+&lt;/subsystem&gt;</code></pre>
+</div>
 </div>
 <div class="sect3">
-<h4 id="mod_cluster-subsystem">5.2.1. mod_cluster Subsystem</h4>
+<h4 id="cache-container">4.2.1. &lt;cache-container&gt;</h4>
+<div class="paragraph">
+<p>This element is used to configure a cache container.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code> This attribute is used to specify the name of the cache
+container.</p>
+</li>
+<li>
+<p><code>default-cache</code> This attribute configures the default cache to be
+used, when no cache is otherwise specified.</p>
+</li>
+<li>
+<p><code>listener-executor</code> This attribute references a defined thread pool
+executor in the threads subsystem. It governs the allocation and
+execution of runnable tasks in the replication queue.</p>
+</li>
+<li>
+<p><code>eviction-executor</code> This attribute references a defined thread pool
+executor in the threads subsystem. It governs the allocation and
+execution of runnable tasks to handle evictions.</p>
+</li>
+<li>
+<p><code>replication-queue-executor</code> This attribute references a defined
+thread pool executor in the threads subsystem. It governs the allocation
+and execution of runnable tasks to handle asynchronous cache operations.</p>
+</li>
+<li>
+<p><code>jndi-name</code> This attribute is used to assign a name for the cache
+container in the JNDI name service.</p>
+</li>
+<li>
+<p><code>module</code> This attribute configures the module whose class loader
+should be used when building this cache container&#8217;s configuration.</p>
+</li>
+<li>
+<p><code>start</code> This attribute configured the cache container start mode and
+has since been deprecated, the only supported and the default value is
+LAZY (on-demand start).</p>
+</li>
+<li>
+<p><code>aliases</code> This attribute is used to define aliases for the cache
+container name.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This element has the following child elements: <strong>&lt;transport&gt;</strong>,
+<strong>&lt;local-cache&gt;</strong>, <strong>&lt;invalidation-cache&gt;</strong>, <strong>&lt;replicated-cache&gt;</strong>, and
+<strong>&lt;distributed-cache&gt;</strong>.</p>
+</div>
+<div class="sect4">
+<h5 id="transport">&lt;transport&gt;</h5>
+<div class="paragraph">
+<p>This element is used to configure the JGroups transport used by the
+cache container, when required.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>stack</code> This attribute configures the JGroups stack to be used for the
+transport. If none is specified, the default-stack for the JGroups
+subsystem is used.</p>
+</li>
+<li>
+<p><code>cluster</code> This attribute configures the name of the group
+communication cluster. This is the name which will be seen in debugging
+logs.</p>
+</li>
+<li>
+<p><code>executor</code> This attribute references a defined thread pool executor in
+the threads subsystem. It governs the allocation and execution of
+runnable tasks to handle ? &lt;fill me in &gt;?.</p>
+</li>
+<li>
+<p><code>lock-timeout</code> This attribute configures the time-out to be used when
+obtaining locks for the transport.</p>
+</li>
+<li>
+<p><code>site</code> This attribute configures the site id of the cache container.</p>
+</li>
+<li>
+<p><code>rack</code> This attribute configures the rack id of the cache container.</p>
+</li>
+<li>
+<p><code>machine</code> This attribute configures the machine id of the cache
+container.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The presence of the transport element is required when operating in
+clustered mode
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The remaining child elements of <strong>&lt;cache-container&gt;</strong>, namely
+<strong>&lt;local-cache&gt;</strong>, <strong>&lt;invalidation-cache&gt;</strong>, <strong>&lt;replicated-cache&gt;</strong> and
+<strong>&lt;distributed-cache&gt;</strong>, each configures one of four key cache types or
+classifications.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+These cache-related elements are actually part of an xsd hierarchy with
+abstract complexTypes <strong>cache</strong>, <strong>clustered-cache</strong>, and <strong>shared-cache</strong>. In
+order to simplify the presentation, we notate these as pseudo-elements
+<strong>&lt;abstract cache&gt;</strong>, <strong>&lt;abstract clustered-cache&gt;</strong> and <strong>&lt;abstract
+shared-cache&gt;</strong>. In what follows, we first describe the extension
+hierarchy of base elements, and then show how the cache type elements
+relate to them.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="abstract-cache">&lt;abstract cache&gt;</h5>
+<div class="paragraph">
+<p>This abstract base element defines the attributes and child elements
+common to all non-clustered caches.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code> This attribute configures the name of the cache. This name may
+be referenced by other subsystems.</p>
+</li>
+<li>
+<p><code>start</code> This attribute configured the cache container start mode and
+has since been deprecated, the only supported and the default value is
+LAZY (on-demand start).</p>
+</li>
+<li>
+<p><code>batching</code> This attribute configures batching. If enabled, the
+invocation batching API will be made available for this cache.</p>
+</li>
+<li>
+<p><code>indexing</code> This attribute configures indexing. If enabled, entries
+will be indexed when they are added to the cache. Indexes will be
+updated as entries change or are removed.</p>
+</li>
+<li>
+<p><code>jndi-name</code> This attribute is used to assign a name for the cache in
+the JNDI name service.</p>
+</li>
+<li>
+<p><code>module</code> This attribute configures the module whose class loader
+should be used when building this cache container&#8217;s configuration.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The &lt;abstract cache&gt; abstract base element has the following child
+elements: <strong>&lt;indexing-properties&gt;, &lt;locking&gt;</strong>, <strong>&lt;transaction&gt;</strong>,
+<strong>&lt;eviction&gt;</strong>, <strong>&lt;expiration&gt;</strong>, <strong>&lt;store&gt;</strong>, <strong>&lt;file-store&gt;</strong>,
+<strong>&lt;string-keyed-jdbc-store&gt;</strong>, <strong>&lt;binary-keyed-jdbc-store&gt;</strong>,
+<strong>&lt;mixed-keyed-jdbc-store&gt;</strong>, <strong>&lt;remote-store&gt;</strong>.</p>
+</div>
+<div class="sect5">
+<h6 id="indexing-properties">&lt;indexing-properties&gt;</h6>
+<div class="paragraph">
+<p>This child element defines properties to control indexing behaviour.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="locking">&lt;locking&gt;</h6>
+<div class="paragraph">
+<p>This child element configures the locking behaviour of the cache.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>isolation</code> This attribute the cache locking isolation level.
+Allowable values are NONE, SERIALIZABLE, REPEATABLE_READ,
+READ_COMMITTED, READ_UNCOMMITTED.</p>
+</li>
+<li>
+<p><code>striping</code> If true, a pool of shared locks is maintained for all
+entries that need to be locked. Otherwise, a lock is created per entry
+in the cache. Lock striping helps control memory footprint but may
+reduce concurrency in the system.</p>
+</li>
+<li>
+<p><code>acquire-timeout</code> This attribute configures the maximum time to
+attempt a particular lock acquisition.</p>
+</li>
+<li>
+<p><code>concurrency-level</code> This attribute is used to configure the
+concurrency level. Adjust this value according to the number of
+concurrent threads interacting with Infinispan.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="transaction">&lt;transaction&gt;</h6>
+<div class="paragraph">
+<p>This child element configures the transactional behaviour of the cache.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>mode</code> This attribute configures the transaction mode, setting the
+cache transaction mode to one of NONE, NON_XA, NON_DURABLE_XA, FULL_XA.</p>
+</li>
+<li>
+<p><code>stop-timeout</code> If there are any ongoing transactions when a cache is
+stopped, Infinispan waits for ongoing remote and local transactions to
+finish. The amount of time to wait for is defined by the cache stop
+timeout.</p>
+</li>
+<li>
+<p><code>locking</code> This attribute configures the locking mode for this cache,
+one of OPTIMISTIC or PESSIMISTIC.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="eviction">&lt;eviction&gt;</h6>
+<div class="paragraph">
+<p>This child element configures the eviction behaviour of the cache.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>strategy</code> This attribute configures the cache eviction strategy.
+Available options are 'UNORDERED', 'FIFO', 'LRU', 'LIRS' and 'NONE' (to
+disable eviction).</p>
+</li>
+<li>
+<p><code>max-entries</code> This attribute configures the maximum number of entries
+in a cache instance. If selected value is not a power of two the actual
+value will default to the least power of two larger than selected value.
+-1 means no limit.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="expiration">&lt;expiration&gt;</h6>
+<div class="paragraph">
+<p>This child element configures the expiration behaviour of the cache.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>max-idle</code> This attribute configures the maximum idle time a cache
+entry will be maintained in the cache, in milliseconds. If the idle time
+is exceeded, the entry will be expired cluster-wide. -1 means the
+entries never expire.</p>
+</li>
+<li>
+<p><code>lifespan</code> This attribute configures the maximum lifespan of a cache
+entry, after which the entry is expired cluster-wide, in milliseconds.
+-1 means the entries never expire.</p>
+</li>
+<li>
+<p><code>interval</code> This attribute specifies the interval (in ms) between
+subsequent runs to purge expired entries from memory and any cache
+stores. If you wish to disable the periodic eviction process altogether,
+set wakeupInterval to -1.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The remaining child elements of the abstract base element <strong>&lt;cache&gt;</strong>,
+namely <strong>&lt;store&gt;</strong>, <strong>&lt;file-store&gt;</strong>, <strong>&lt;remote-store&gt;</strong>,
+<strong>&lt;string-keyed-jdbc-store&gt;</strong>, <strong>&lt;binary-keyed-jdbc-store&gt;</strong> and
+<strong>&lt;mixed-keyed-jdbc-store&gt;</strong>, each configures one of six key cache store
+types.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+These cache store-related elements are actually part of an xsd extension
+hierarchy with abstract complexTypes <strong>base-store</strong> and <strong>base-jdbc-store</strong>.
+As before, in order to simplify the presentation, we notate these as
+pseudo-elements <strong>&lt;abstract base-store&gt;</strong> and <strong>&lt;abstract
+base-jdbc-store&gt;</strong>. In what follows, we first describe the extension
+hierarchy of base elements, and then show how the cache store elements
+relate to them.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect5">
+<h6 id="abstract-base-store">&lt;abstract base-store&gt;</h6>
+<div class="paragraph">
+<p>This abstract base element defines the attributes and child elements
+common to all cache stores.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>shared</code> This attribute should be set to true when multiple cache
+instances share the same cache store (e.g. multiple nodes in a cluster
+using a JDBC-based CacheStore pointing to the same, shared database)
+Setting this to true avoids multiple cache instances writing the same
+modification multiple times. If enabled, only the node where the
+modification originated will write to the cache store. If disabled, each
+individual cache reacts to a potential remote update by storing the data
+to the cache store.</p>
+</li>
+<li>
+<p><code>preload</code> This attribute configures whether or not, when the cache
+starts, data stored in the cache loader will be pre-loaded into memory.
+This is particularly useful when data in the cache loader is needed
+immediately after start-up and you want to avoid cache operations being
+delayed as a result of loading this data lazily. Can be used to provide
+a 'warm-cache' on start-up, however there is a performance penalty as
+start-up time is affected by this process. Note that pre-loading is done
+in a local fashion, so any data loaded is only stored locally in the
+node. No replication or distribution of the preloaded data happens.
+Also, Infinispan only pre-loads up to the maximum configured number of
+entries in eviction.</p>
+</li>
+<li>
+<p><code>passivation</code> If true, data is only written to the cache store when it
+is evicted from memory, a phenomenon known as <em>passivation</em>. Next time
+the data is requested, it will be 'activated' which means that data will
+be brought back to memory and removed from the persistent store. If
+false, the cache store contains a copy of the cache contents in memory,
+so writes to cache result in cache store writes. This essentially gives
+you a 'write-through' configuration.</p>
+</li>
+<li>
+<p><code>fetch-state</code> This attribute, if true, causes persistent state to be
+fetched when joining a cluster. If multiple cache stores are chained,
+only one of them can have this property enabled.</p>
+</li>
+<li>
+<p><code>purge</code> This attribute configures whether the cache store is purged
+upon start-up.</p>
+</li>
+<li>
+<p><code>singleton</code> This attribute configures whether or not the singleton
+store cache store is enabled. SingletonStore is a delegating cache store
+used for situations when only one instance in a cluster should interact
+with the underlying store.</p>
+</li>
+<li>
+<p><code>class</code> This attribute configures a custom store implementation class
+to use for this cache store.</p>
+</li>
+<li>
+<p><code>properties</code> This attribute is used to configure a list of cache store
+properties.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The abstract base element has one child element: <strong>&lt;write-behind&gt;</strong></p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="write-behind">&lt;write-behind&gt;</h6>
+<div class="paragraph">
+<p>This element is used to configure a cache store as write-behind instead
+of write-through. In write-through mode, writes to the cache are also
+<em>synchronously</em> written to the cache store, whereas in write-behind
+mode, writes to the cache are followed by <em>asynchronous</em> writes to the
+cache store.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>flush-lock-timeout</code> This attribute configures the time-out for
+acquiring the lock which guards the state to be flushed to the cache
+store periodically.</p>
+</li>
+<li>
+<p><code>modification-queue-size</code> This attribute configures the maximum number
+of entries in the asynchronous queue. When the queue is full, the store
+becomes write-through until it can accept new entries.</p>
+</li>
+<li>
+<p><code>shutdown-timeout</code> This attribute configures the time-out (in ms) to
+stop the cache store.</p>
+</li>
+<li>
+<p><code>thread-pool</code> This attribute is used to configure the size of the
+thread pool whose threads are responsible for applying the modifications
+to the cache store.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="abstract-base-jdbc-store-extends-abstract-base-store">&lt;abstract base-jdbc-store&gt; extends &lt;abstract base-store&gt;</h6>
+<div class="paragraph">
+<p>This abstract base element defines the attributes and child elements
+common to all JDBC-based cache stores.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>datasource</code> This attribute configures the datasource for the
+JDBC-based cache store.</p>
+</li>
+<li>
+<p><code>entry-table</code> This attribute configures the database table used to
+store cache entries.</p>
+</li>
+<li>
+<p><code>bucket-table</code> This attribute configures the database table used to
+store binary cache entries.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="file-store-extends-abstract-base-store">&lt;file-store&gt; extends &lt;abstract base-store&gt;</h6>
+<div class="paragraph">
+<p>This child element is used to configure a file-based cache store. This
+requires specifying the name of the file to be used as backing storage
+for the cache store.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>relative-to</code> This attribute optionally configures a relative path
+prefix for the file store path. Can be null.</p>
+</li>
+<li>
+<p><code>path</code> This attribute configures an absolute path to a file if
+<strong>relative-to</strong> is null; configures a relative path to the file, in
+relation to the value for <strong>relative-to</strong>, otherwise.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="remote-store-extends-abstract-base-store">&lt;remote-store&gt; extends &lt;abstract base-store&gt;</h6>
+<div class="paragraph">
+<p>This child element of cache is used to configure a remote cache store.
+It has a child &lt;remote-servers&gt;.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>cache</code> This attribute configures the name of the remote cache to use
+for this remote store.</p>
+</li>
+<li>
+<p><code>tcp-nodelay</code> This attribute configures a TCP_NODELAY value for
+communication with the remote cache.</p>
+</li>
+<li>
+<p><code>socket-timeout</code> This attribute configures a socket time-out for
+communication with the remote cache.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="remote-servers">&lt;remote-servers&gt;</h6>
+<div class="paragraph">
+<p>This child element of cache configures a list of remote servers for this
+cache store.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="remote-server">&lt;remote-server&gt;</h6>
+<div class="paragraph">
+<p>This element configures a remote server. A remote server is defined
+completely by a locally defined outbound socket binding, through which
+communication is made with the server.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>outbound-socket-binding</code> This attribute configures an outbound socket
+binding for a remote server.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="local-cache-extends-abstract-cache">&lt;local-cache&gt; extends &lt;abstract cache&gt;</h5>
+<div class="paragraph">
+<p>This element configures a local cache.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="abstract-clustered-cache-extends-abstract-cache">&lt;abstract clustered-cache&gt; extends &lt;abstract cache&gt;</h5>
+<div class="paragraph">
+<p>This abstract base element defines the attributes and child elements
+common to all clustered caches. A clustered cache is a cache which spans
+multiple nodes in a cluster. It inherits from &lt;cache&gt;, so that all
+attributes and elements of &lt;cache&gt; are also defined for
+&lt;clustered-cache&gt;.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>async-marshalling</code> This attribute configures async marshalling. If
+enabled, this will cause marshalling of entries to be performed
+asynchronously.</p>
+</li>
+<li>
+<p><code>mode</code> This attribute configures the clustered cache mode, ASYNC for
+asynchronous operation, or SYNC for synchronous operation.</p>
+</li>
+<li>
+<p><code>queue-size</code> In ASYNC mode, this attribute can be used to trigger
+flushing of the queue when it reaches a specific threshold.</p>
+</li>
+<li>
+<p><code>queue-flush-interval</code> In ASYNC mode, this attribute controls how
+often the asynchronous thread used to flush the replication queue runs.
+This should be a positive integer which represents thread wakeup time in
+milliseconds.</p>
+</li>
+<li>
+<p><code>remote-timeout</code> In SYNC mode, this attribute (in ms) used to wait for
+an acknowledgement when making a remote call, after which the call is
+aborted and an exception is thrown.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="invalidation-cache-extends-abstract-clustered-cache">&lt;invalidation-cache&gt; extends &lt;abstract clustered-cache&gt;</h5>
+<div class="paragraph">
+<p>This element configures an invalidation cache.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="abstract-shared-cache-extends-abstract-clustered-cache">&lt;abstract shared-cache&gt; extends &lt;abstract clustered-cache&gt;</h5>
+<div class="paragraph">
+<p>This abstract base element defines the attributes and child elements
+common to all shared caches. A shared cache is a clustered cache which
+shares state with its cache peers in the cluster. It inherits from
+&lt;clustered-cache&gt;, so that all attributes and elements of
+&lt;clustered-cache&gt; are also defined for &lt;shared-cache&gt;.</p>
+</div>
+<div class="sect5">
+<h6 id="state-transfer">&lt;state-transfer&gt;</h6>
+<div class="ulist">
+<ul>
+<li>
+<p><code>enabled</code> If enabled, this will cause the cache to ask neighbouring
+caches for state when it starts up, so the cache starts 'warm', although
+it will impact start-up time.</p>
+</li>
+<li>
+<p><code>timeout</code> This attribute configures the maximum amount of time (ms) to
+wait for state from neighbouring caches, before throwing an exception
+and aborting start-up.</p>
+</li>
+<li>
+<p><code>chunk-size</code> This attribute configures the size, in bytes, in which to
+batch the transfer of cache entries.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="backups">&lt;backups&gt;</h6>
+
+</div>
+<div class="sect5">
+<h6 id="backup">&lt;backup&gt;</h6>
+<div class="ulist">
+<ul>
+<li>
+<p><code>strategy</code> This attribute configures the backup strategy for this
+cache. Allowable values are SYNC, ASYNC.</p>
+</li>
+<li>
+<p><code>failure-policy</code> This attribute configures the policy to follow when
+connectivity to the backup site fails. Allowable values are IGNORE,
+WARN, FAIL, CUSTOM.</p>
+</li>
+<li>
+<p><code>enabled</code> This attribute configures whether or not this backup is
+enabled. If enabled, data will be sent to the backup site; otherwise,
+the backup site will be effectively ignored.</p>
+</li>
+<li>
+<p><code>timeout</code> This attribute configures the time-out for replicating to
+the backup site.</p>
+</li>
+<li>
+<p><code>after-failures</code> This attribute configures the number of failures
+after which this backup site should go off-line.</p>
+</li>
+<li>
+<p><code>min-wait</code> This attribute configures the minimum time (in
+milliseconds) to wait after the max number of failures is reached, after
+which this backup site should go off-line.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="backup-for">&lt;backup-for&gt;</h6>
+<div class="ulist">
+<ul>
+<li>
+<p><code>remote-cache</code> This attribute configures the name of the remote cache
+for which this cache acts as a backup.</p>
+</li>
+<li>
+<p><code>remote-site</code> This attribute configures the site of the remote cache
+for which this cache acts as a backup.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="replicated-cache-extends-abstract-shared-cache">&lt;replicated-cache&gt; extends &lt;abstract shared-cache&gt;</h5>
+<div class="paragraph">
+<p>This element configures a replicated cache. With a replicated cache, all
+contents (key-value pairs) of the cache are replicated on all nodes in
+the cluster.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="distributed-cache-extends-abstract-shared-cache">&lt;distributed-cache&gt; extends &lt;abstract shared-cache&gt;</h5>
+<div class="paragraph">
+<p>This element configures a distributed cache. With a distributed cache,
+contents of the cache are selectively replicated on nodes in the
+cluster, according to the number of owners specified.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>owners</code> This attribute configures the number of cluster-wide replicas
+for each cache entry.</p>
+</li>
+<li>
+<p><code>segments</code> This attribute configures the number of hash space segments
+which is the granularity for key distribution in the cluster. Value must
+be strictly positive.</p>
+</li>
+<li>
+<p><code>l1-lifespan</code> This attribute configures the maximum lifespan of an
+entry placed in the L1 cache. Configures the L1 cache behaviour in
+'distributed' caches instances. In any other cache modes, this element
+is ignored.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-cases">4.3. Use Cases</h3>
+<div class="paragraph">
+<p>In many cases, cache containers and caches will be configured via XML as
+in the example above, so that they will be available upon server
+start-up. However, cache containers and caches may also be added,
+removed or have their configurations changed in a running server by
+making use of the Wildfly management API command-line interface (CLI).
+In this section, we present some key use cases for the Infinispan
+management API.</p>
+</div>
+<div class="paragraph">
+<p>The key use cases covered are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>adding a cache container</p>
+</li>
+<li>
+<p>adding a cache to an existing cache container</p>
+</li>
+<li>
+<p>configuring the transaction subsystem of a cache</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The Wildfly management API command-line interface (CLI) can be used to
+provide extensive information on the attributes and commands available
+in the Infinispan subsystem interface used in these examples.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="add-a-cache-container">4.3.1. Add a cache container</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">/subsystem=infinispan/cache-container=mycontainer:add(<span class="keyword">default</span>-cache=&lt;<span class="keyword">default</span>-cache-name&gt;)
+/subsystem=infinispan/cache-container=mycontainer/transport=TRANSPORT:add(lock-timeout=&lt;timeout&gt;)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-a-cache">4.3.2. Add a cache</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">/subsystem=infinispan/cache-container=mycontainer/local-cache=mylocalcache:add()</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="configure-the-transaction-component-of-a-cache">4.3.3. Configure the transaction component of a cache</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">/subsystem=infinispan/cache-container=mycontainer/local-cache=mylocalcache/transaction=TRANSACTION:add(mode=&lt;transaction-mode&gt;)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jgroups_subsystem">5. JGroups Subsystem</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="purpose">5.1. Purpose</h3>
+<div class="paragraph">
+<p>The JGroups subsystem provides group communication support for HA
+services in the form of JGroups channels.</p>
+</div>
+<div class="paragraph">
+<p>Named channel instances permit application peers in a cluster to
+communicate as a group and in such a way that the communication
+satisfies defined properties (e.g. reliable, ordered,
+failure-sensitive). Communication properties are configurable for each
+channel and are defined by the protocol stack used to create the
+channel. Protocol stacks consist of a base transport layer (used to
+transport messages around the cluster) together with a user-defined,
+ordered stack of protocol layers, where each protocol layer supports a
+given communication property.</p>
+</div>
+<div class="paragraph">
+<p>The JGroups subsystem provides the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>allows definition of named protocol stacks</p>
+</li>
+<li>
+<p>view run-time metrics associated with channels</p>
+</li>
+<li>
+<p>specify a default stack for general use</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the following sections, we describe the JGroups subsystem.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+JGroups channels are created transparently as part of the clustering
+functionality (e.g. on clustered application deployment, channels will
+be created behind the scenes to support clustered features such as
+session replication or transmission of SSO contexts around the cluster).
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuration-example">5.2. Configuration example</h3>
+<div class="paragraph">
+<p>What follows is a sample JGroups subsystem configuration showing all of
+the possible elements and attributes which may be configured. We shall
+use this example to explain the meaning of the various elements and
+attributes.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The schema for the subsystem, describing all valid elements and
+attributes, can be found in the Wildfly distribution, in the docs/schema
+directory.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">&lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:jgroups:2.0</span><span class="delimiter">&quot;</span></span> <span class="keyword">default</span>-stack=<span class="string"><span class="delimiter">&quot;</span><span class="content">udp</span><span class="delimiter">&quot;</span></span>&gt;
+    &lt;stack name=<span class="string"><span class="delimiter">&quot;</span><span class="content">udp</span><span class="delimiter">&quot;</span></span>&gt;
+        &lt;transport type=<span class="string"><span class="delimiter">&quot;</span><span class="content">UDP</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-udp</span><span class="delimiter">&quot;</span></span> diagnostics-socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-diagnostics</span><span class="delimiter">&quot;</span></span>
+            <span class="keyword">default</span>-executor=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups</span><span class="delimiter">&quot;</span></span> oob-executor=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-oob</span><span class="delimiter">&quot;</span></span> timer-executor=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-timer</span><span class="delimiter">&quot;</span></span>
+            shared=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span> thread-factory=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-thread-factory</span><span class="delimiter">&quot;</span></span>
+            machine=<span class="string"><span class="delimiter">&quot;</span><span class="content">machine1</span><span class="delimiter">&quot;</span></span> rack=<span class="string"><span class="delimiter">&quot;</span><span class="content">rack1</span><span class="delimiter">&quot;</span></span> site=<span class="string"><span class="delimiter">&quot;</span><span class="content">site1</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">PING</span><span class="delimiter">&quot;</span></span>&gt;
+            &lt;property name=<span class="string"><span class="delimiter">&quot;</span><span class="content">timeout</span><span class="delimiter">&quot;</span></span>&gt;<span class="integer">100</span>&lt;/property&gt;
+        &lt;/protocol&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">MERGE3</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">FD_SOCK</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-udp-fd</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">FD</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">VERIFY_SUSPECT</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">pbcast.NAKACK2</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">UNICAST2</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">pbcast.STABLE</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">pbcast.GMS</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">UFC</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">MFC</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">FRAG2</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">RSVP</span><span class="delimiter">&quot;</span></span>/&gt;
+    &lt;/stack&gt;
+    &lt;stack name=<span class="string"><span class="delimiter">&quot;</span><span class="content">tcp</span><span class="delimiter">&quot;</span></span>&gt;
+        &lt;transport type=<span class="string"><span class="delimiter">&quot;</span><span class="content">TCP</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-tcp</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">MPING</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-mping</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">MERGE2</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">FD_SOCK</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-tcp-fd</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">FD</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">VERIFY_SUSPECT</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">pbcast.NAKACK2</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">UNICAST2</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">pbcast.STABLE</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">pbcast.GMS</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">MFC</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">FRAG2</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">RSVP</span><span class="delimiter">&quot;</span></span>/&gt;
+    &lt;/stack&gt;
+    &lt;stack name=<span class="string"><span class="delimiter">&quot;</span><span class="content">udp-xsite</span><span class="delimiter">&quot;</span></span>&gt;
+        &lt;transport type=<span class="string"><span class="delimiter">&quot;</span><span class="content">UDP</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-udp</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">PING</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-mping</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">MERGE2</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">FD_SOCK</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">jgroups-tcp-fd</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">FD</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">VERIFY_SUSPECT</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">pbcast.NAKACK2</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">UNICAST2</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">pbcast.STABLE</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">pbcast.GMS</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">MFC</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">FRAG2</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;protocol type=<span class="string"><span class="delimiter">&quot;</span><span class="content">RSVP</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;relay site=<span class="string"><span class="delimiter">&quot;</span><span class="content">LONDON</span><span class="delimiter">&quot;</span></span>&gt;
+            &lt;remote-site name=<span class="string"><span class="delimiter">&quot;</span><span class="content">SFO</span><span class="delimiter">&quot;</span></span> stack=<span class="string"><span class="delimiter">&quot;</span><span class="content">tcp</span><span class="delimiter">&quot;</span></span> cluster=<span class="string"><span class="delimiter">&quot;</span><span class="content">global</span><span class="delimiter">&quot;</span></span>/&gt;
+            &lt;remote-site name=<span class="string"><span class="delimiter">&quot;</span><span class="content">NYC</span><span class="delimiter">&quot;</span></span> stack=<span class="string"><span class="delimiter">&quot;</span><span class="content">tcp</span><span class="delimiter">&quot;</span></span> cluster=<span class="string"><span class="delimiter">&quot;</span><span class="content">global</span><span class="delimiter">&quot;</span></span>/&gt;
+        &lt;/relay&gt;
+    &lt;/stack&gt;
+&lt;/subsystem&gt;</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="subsystem">5.2.1. &lt;subsystem&gt;</h4>
+<div class="paragraph">
+<p>This element is used to configure the subsystem within a Wildfly system
+profile.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>xmlns</code> This attribute specifies the XML namespace of the JGroups
+subsystem and, in particular, its version.</p>
+</li>
+<li>
+<p><code>default-stack</code> This attribute is used to specify a default stack for
+the JGroups subsystem. This default stack will be used whenever a stack
+is required but no stack is specified.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="stack">5.2.2. &lt;stack&gt;</h4>
+<div class="paragraph">
+<p>This element is used to configure a JGroups protocol stack.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code> This attribute is used to specify the name of the stack.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="transport">5.2.3. &lt;transport&gt;</h4>
+<div class="paragraph">
+<p>This element is used to configure the transport layer (required) of the
+protocol stack.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>type</code> This attribute specifies the transport type (e.g. UDP, TCP,
+TCPGOSSIP)</p>
+</li>
+<li>
+<p><code>socket-binding</code> This attribute references a defined socket binding in
+the server profile. It is used when JGroups needs to create general
+sockets internally.</p>
+</li>
+<li>
+<p><code>diagnostics-socket-binding</code> This attribute references a defined
+socket binding in the server profile. It is used when JGroups needs to
+create sockets for use with the diagnostics program. For more about the
+use of diagnostics, see the JGroups documentation for probe.sh.</p>
+</li>
+<li>
+<p><code>default-executor</code> This attribute references a defined thread pool
+executor in the threads subsystem. It governs the allocation and
+execution of runnable tasks to handle incoming JGroups messages.</p>
+</li>
+<li>
+<p><code>oob-executor</code> This attribute references a defined thread pool
+executor in the threads subsystem. It governs the allocation and
+execution of runnable tasks to handle incoming JGroups OOB
+(out-of-bound) messages.</p>
+</li>
+<li>
+<p><code>timer-executor</code> This attribute references a defined thread pool
+executor in the threads subsystem. It governs the allocation and
+execution of runnable timer-related tasks.</p>
+</li>
+<li>
+<p><code>shared</code> This attribute indicates whether or not this transport is
+shared amongst several JGroups stacks or not.</p>
+</li>
+<li>
+<p><code>thread-factory</code> This attribute references a defined thread factory in
+the threads subsystem. It governs the allocation of threads for running
+tasks which are not handled by the executors above.</p>
+</li>
+<li>
+<p><code>site</code> This attribute defines a site (data centre) id for this node.</p>
+</li>
+<li>
+<p><code>rack</code> This attribute defines a rack (server rack) id for this node.</p>
+</li>
+<li>
+<p><code>machine</code> This attribute defines a machine (host) is for this node.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+site, rack and machine ids are used by the Infinispan topology-aware
+consistent hash function, which when using dist mode, prevents dist mode
+replicas from being stored on the same host, rack or site
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>.</p>
+</div>
+<div class="sect4">
+<h5 id="property">&lt;property&gt;</h5>
+<div class="paragraph">
+<p>This element is used to configure a transport property.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code> This attribute specifies the name of the protocol property. The
+value is provided as text for the property element.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="protocol">5.2.4. &lt;protocol&gt;</h4>
+<div class="paragraph">
+<p>This element is used to configure a (non-transport) protocol layer in
+the JGroups stack. Protocol layers are ordered within the stack.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>type</code> This attribute specifies the name of the JGroups protocol
+implementation (e.g. MPING, pbcast.GMS), with the package prefix
+org.jgroups.protocols removed.</p>
+</li>
+<li>
+<p><code>socket-binding</code> This attribute references a defined socket binding in
+the server profile. It is used when JGroups needs to create general
+sockets internally for this protocol instance.</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="property-1">&lt;property&gt;</h5>
+<div class="paragraph">
+<p>This element is used to configure a protocol property.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code> This attribute specifies the name of the protocol property. The
+value is provided as text for the property element.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="relay">5.2.5. &lt;relay&gt;</h4>
+<div class="paragraph">
+<p>This element is used to configure the RELAY protocol for a JGroups
+stack. RELAY is a protocol which provides cross-site replication between
+defined sites (data centres). In the RELAY protocol, defined sites
+specify the names of remote sites (backup sites) to which their data
+should be backed up. Channels are defined between sites to permit the
+RELAY protocol to transport the data from the current site to a backup
+site.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>site</code> This attribute specifies the name of the current site. Site
+names can be referenced elsewhere (e.g. in the JGroups remote-site
+configuration elements, as well as backup configuration elements in the
+Infinispan subsystem)</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="remote-site">&lt;remote-site&gt;</h5>
+<div class="paragraph">
+<p>This element is used to configure a remote site for the RELAY protocol.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code> This attribute specifies the name of the remote site to which
+this configuration applies.</p>
+</li>
+<li>
+<p><code>stack</code> This attribute specifies a JGroups protocol stack to use for
+communication between this site and the remote site.</p>
+</li>
+<li>
+<p><code>cluster</code> This attribute specifies the name of the JGroups channel to
+use for communication between this site and the remote site.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-cases">5.3. Use Cases</h3>
+<div class="paragraph">
+<p>In many cases, channels will be configured via XML as in the example
+above, so that the channels will be available upon server startup.
+However, channels may also be added, removed or have their
+configurations changed in a running server by making use of the Wildfly
+management API command-line interface (CLI). In this section, we present
+some key use cases for the JGroups management API.</p>
+</div>
+<div class="paragraph">
+<p>The key use cases covered are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>adding a stack</p>
+</li>
+<li>
+<p>adding a protocol to an existing stack</p>
+</li>
+<li>
+<p>adding a property to a protocol</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The Wildfly management API command-line interface (CLI) itself can be
+used to provide extensive information on the attributes and commands
+available in the JGroups subsystem interface used in these examples.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="add-a-stack">5.3.1. Add a stack</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">/subsystem=jgroups/stack=mystack:add(transport={}, protocols={})</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-a-protocol-to-a-stack">5.3.2. Add a protocol to a stack</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">/subsystem=jgroups/stack=mystack/transport=TRANSPORT:add(type=&lt;type&gt;, socket-binding=&lt;socketbinding&gt;)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">/subsystem=jgroups/stack=mystack:add-protocol(type=&lt;type&gt;, socket-binding=&lt;socketbinding&gt;)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-a-property-to-a-protocol">5.3.3. Add a property to a protocol</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">/subsystem=jgroups/stack=mystack/transport=TRANSPORT/property=&lt;property&gt;:add(value=&lt;value&gt;)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mod_cluster-subsystem">6. mod_cluster Subsystem</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>The mod_cluster integration is done via the
 <a href="http://docs.jboss.org/mod_cluster/1.1.0/html/java.AS7config.html">modcluster
 subsystem</a>.</p>
 </div>
-</div>
-</div>
 <div class="sect2">
-<h3 id="configuration">5.3. Configuration</h3>
+<h3 id="configuration">6.1. Configuration</h3>
 <div class="sect3">
-<h4 id="instance-id-or-jvmroute">5.3.1. Instance ID or JVMRoute</h4>
+<h4 id="instance-id-or-jvmroute">6.1.1. Instance ID or JVMRoute</h4>
 <div class="paragraph">
 <p>The instance-id or JVMRoute defaults to jboss.node.name property passed
 on server startup (e.g. via -Djboss.node.name=XYZ).</p>
@@ -855,7 +2139,7 @@ property in Undertow subsystem:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="proxies">5.3.2. Proxies</h4>
+<h4 id="proxies">6.1.2. Proxies</h4>
 <div class="paragraph">
 <p>By default, mod_cluster is configured for multicast-based discovery. To
 specify a static list of proxies, create a remote-socket-binding for
@@ -893,7 +2177,7 @@ following example for configuration in the domain mode:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="runtime-operations">5.4. Runtime Operations</h3>
+<h3 id="runtime-operations">6.2. Runtime Operations</h3>
 <div class="paragraph">
 <p>The modcluster subsystem supports several operations:</p>
 </div>
@@ -942,7 +2226,7 @@ of the subsystem, the one that just modify the behaviour temporarily and
 the ones that display information from the httpd part.</p>
 </div>
 <div class="sect3">
-<h4 id="operations-displaying-httpd-informations">5.4.1. operations displaying httpd informations</h4>
+<h4 id="operations-displaying-httpd-informations">6.2.1. operations displaying httpd informations</h4>
 <div class="paragraph">
 <p>There are 2 operations that display how Apache httpd sees the node:</p>
 </div>
@@ -1068,7 +2352,7 @@ attribute.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="context-related-operations">5.4.2. Context related operations</h4>
+<h4 id="context-related-operations">6.2.2. Context related operations</h4>
 <div class="paragraph">
 <p>Those operations allow to send context related commands to Apache httpd.
 They are send automatically when deploying or undeploying webapps.</p>
@@ -1093,8 +2377,8 @@ context of the virtualhost.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9999</span> subsystem=modcluster] <span class="symbol">:disable</span>-context(context=<span class="regexp"><span class="delimiter">/</span><span class="content">myapp, virtualhost=default-host)
-{&quot;outcome&quot; =&gt; &quot;success&quot;}</span></span></code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">[standalone<span class="annotation">@localhost</span>:<span class="integer">9999</span> subsystem=modcluster] :disable-context(context=/myapp, virtualhost=<span class="keyword">default</span>-host)
+{<span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>}</code></pre>
 </div>
 </div>
 </div>
@@ -1106,14 +2390,14 @@ virtualhost.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9999</span> subsystem=modcluster] <span class="symbol">:stop</span>-context(context=<span class="regexp"><span class="delimiter">/</span><span class="content">myapp, virtualhost=default-host, waittime=50)
-{&quot;outcome&quot; =&gt; &quot;success&quot;}</span></span></code></pre>
+<pre class="CodeRay highlight"><code data-lang="java">[standalone<span class="annotation">@localhost</span>:<span class="integer">9999</span> subsystem=modcluster] :stop-context(context=/myapp, virtualhost=<span class="keyword">default</span>-host, waittime=<span class="integer">50</span>)
+{<span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>}</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="node-related-operations">5.4.3. Node related operations</h4>
+<h4 id="node-related-operations">6.2.3. Node related operations</h4>
 <div class="paragraph">
 <p>Those operations are like the context operation but they apply to all
 webapps running on the node and operation that affect the whole node.</p>
@@ -1132,7 +2416,7 @@ webapps running on the node and operation that affect the whole node.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="configuration-1">5.4.4. Configuration</h4>
+<h4 id="configuration-1">6.2.4. Configuration</h4>
 <div class="sect4">
 <h5 id="metric-configuration">Metric configuration</h5>
 <div class="paragraph">
@@ -1234,7 +2518,184 @@ which can be specified</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_apache_httpd">5.5. Apache httpd</h3>
+<h3 id="_ssl_configuration_using_elytron_subsystem">6.3. SSL Configuration using Elytron Subsystem</h3>
+<div class="paragraph">
+<p>This document provides information how to configure mod_cluster
+subsystem to protect communication between mod_cluster and load balancer
+using SSL/TLS using <a href="Elytron_Subsystem.html">Elytron Subsystem</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="overview">6.3.1. Overview</h4>
+<div class="paragraph">
+<p>Elytron subsystem provides a powerful and flexible model to configure
+different security aspects for applications and the application server
+itself. At its core, Elytron subsystem exposes different capabilities to
+the application server in order centralize security related
+configuration in a single place and to allow other subsystems to consume
+these capabilities. One of the security capabilities exposed by Elytron
+subsystem is a Client <code>ssl-context</code> that can be used to configure
+mod_cluster subsystem to communicate with a load balancer using SSL/TLS.</p>
+</div>
+<div class="paragraph">
+<p>When protecting the communication between the application server and the
+load balancer, you need do define a Client <code>ssl-context</code> in order to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Define a trust store holding the certificate chain that will be used
+to validate load balancer&#8217;s certificate</p>
+</li>
+<li>
+<p>Define a trust manager to perform validations against the load
+balancer&#8217;s certificate</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="defining-a-trust-store-with-the-trusted-certificates">6.3.2. Defining a Trust Store with the Trusted Certificates</h4>
+<div class="paragraph">
+<p>To define a trust store in Elytron you can execute the following CLI
+command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">[standalone<span class="annotation">@localhost</span>:<span class="integer">9990</span> /] /subsystem=elytron/key-store=<span class="keyword">default</span>-trust-store:add(type=JKS, relative-to=jboss.server.config.dir, path=application.truststore, credential-reference={clear-text=password})</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to successfully execute the command above you must have a
+<strong>application.truststore</strong> file inside your
+<strong>JBOSS_HOME/standalone/configuration</strong> directory. Where the trust store
+is protected by a password with a value <strong>password</strong>. The trust store must
+contain the certificates associated with the load balancer or a
+certificate chain in case the load balancer&#8217;s certificate is signed by a
+CA.</p>
+</div>
+<div class="paragraph">
+<p>We strongly recommend you to avoid using self-signed certificates with
+your load balancer. Ideally, certificates should be signed by a CA and
+your trust store should contain a certificate chain representing your
+ROOT and Intermediary CAs.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="defining-a-trust-manager-to-validate-certificates">6.3.3. Defining a Trust Manager To Validate Certificates</h4>
+<div class="paragraph">
+<p>To define a trust manager in Elytron you can execute the following CLI
+command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">[standalone<span class="annotation">@localhost</span>:<span class="integer">9990</span> /] /subsystem=elytron/trust-managers=<span class="keyword">default</span>-trust-manager:add(algorithm=PKIX, key-store=<span class="keyword">default</span>-trust-store)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we are setting the <strong>default-trust-store</strong> as the source of the
+certificates that the application server trusts.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="defining-a-client-ssl-context-and-configuring-mod_cluster-subsystem">6.3.4. Defining a Client SSL Context and Configuring mod_cluster Subsystem</h4>
+<div class="paragraph">
+<p>Finally, you can create the Client SSL Context that is going to be used
+by the mod_cluster subsystem when connecting to the load balancer using
+SSL/TLS:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">[standalone<span class="annotation">@localhost</span>:<span class="integer">9990</span> /] /subsystem=elytron/client-ssl-context=modcluster-client-ssl-context:add(trust-managers=<span class="keyword">default</span>-trust-manager)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now that the Client <code>ssl-context</code> is defined you can configure
+mod_cluster subsystem as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">[standalone<span class="annotation">@localhost</span>:<span class="integer">9990</span> /] /subsystem=modcluster/mod-cluster-config=configuration:write-attribute(name=ssl-context, value=modcluster-client-ssl-context)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once you execute the last command above, reload the server:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">[standalone<span class="annotation">@localhost</span>:<span class="integer">9990</span> /] :reload</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-a-certificate-revocation-list">6.3.5. Using a Certificate Revocation List</h4>
+<div class="paragraph">
+<p>In case you want to validate the load balancer certificate against a
+Certificate Revocation List (CRL), you can configure the <code>trust-manager</code>
+in Elytron subsystem as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">[standalone<span class="annotation">@localhost</span>:<span class="integer">9990</span> /] /subsystem=elytron/trust-managers=<span class="keyword">default</span>-trust-manager:write-attribute(name=certificate-revocation-list.path, value=intermediate.crl.pem)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use a CRL your trust store must contain the certificate chain in
+order to check validity of both CRL list and the load balancer`s
+certificate.</p>
+</div>
+<div class="paragraph">
+<p>A different way to configure a CRL is using the <em>Distribution Points</em>
+embedded in your certificates. For that, you need to configure a
+<code>certificate-revocation-list</code> as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/trust-managers=<span class="keyword">default</span>-trust-manager:write-attribute(name=certificate-revocation-list)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clustered_web_sessions">7. Clustered Web Sessions</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clustered_sso">8. Clustered SSO</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_load_balancing">9. Load Balancing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes load balancing via Apache + mod_jk and Apache<br>
+mod_cluster.</p>
+</div>
+<div class="sect2">
+<h3 id="load-balancing-with-apache-mod_jk">9.1. Load balancing with Apache + mod_jk</h3>
+<div class="paragraph">
+<p>Describe load balancing with Apache using mod_jk.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="load-balancing-with-apache-mod_cluster">9.2. Load balancing with Apache + mod_cluster</h3>
+<div class="paragraph">
+<p>Describe load balancing with Apache using mod_cluster.</p>
+</div>
+<div class="sect3">
+<h4 id="mod_cluster-subsystem">9.2.1. mod_cluster Subsystem</h4>
+<div class="paragraph">
+<p>For mod_cluster configuration see <a href="#mod_cluster-subsystem">mod_cluster subsystem configuration</a></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_apache_httpd">9.3. Apache httpd</h3>
 <div class="paragraph">
 <p>The recommended front-end module is mod_cluster but mod_jk or mod_proxy
 could be used as in Tomcat or other AS version.</p>
@@ -1266,17 +2727,17 @@ could be used as in Tomcat or other AS version.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_ejb_services">6. EJB Services</h2>
+<h2 id="_ejb_services">10. EJB Services</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This chapter explains how clustering of EJBs works in WildFly 11.</p>
 </div>
 <div class="sect2">
-<h3 id="ejb-subsystem">6.1. EJB Subsystem</h3>
+<h3 id="ejb-subsystem">10.1. EJB Subsystem</h3>
 
 </div>
 <div class="sect2">
-<h3 id="ejb-timer">6.2. EJB Timer</h3>
+<h3 id="ejb-timer">10.2. EJB Timer</h3>
 <div class="paragraph">
 <p>Wildfly now supports clustered database backed timers. For details have
 a look to the
@@ -1284,7 +2745,7 @@ a look to the
 reference section</a></p>
 </div>
 <div class="sect3">
-<h4 id="marking-an-ejb-as-clustered">6.2.1. Marking an EJB as clustered</h4>
+<h4 id="marking-an-ejb-as-clustered">10.2.1. Marking an EJB as clustered</h4>
 <div class="paragraph">
 <p>WildFly 11 allows clustering of stateful session beans. A stateful
 session bean can be marked with <code>@org.jboss.ejb3.annotation.Clustered</code>
@@ -1327,7 +2788,7 @@ annotation or be marked as clustered using the jboss-ejb3.xml&#8217;s
 </div>
 </div>
 <div class="sect3">
-<h4 id="deploying-clustered-ejbs">6.2.2. Deploying clustered EJBs</h4>
+<h4 id="deploying-clustered-ejbs">10.2.2. Deploying clustered EJBs</h4>
 <div class="paragraph">
 <p>Clustering support is available in the HA profiles of WildFly 11. In this
 chapter we&#8217;ll be using the standalone server for explaining the details.
@@ -1392,7 +2853,7 @@ features.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="failover-for-clustered-ejbs">6.2.3. Failover for clustered EJBs</h4>
+<h4 id="failover-for-clustered-ejbs">10.2.3. Failover for clustered EJBs</h4>
 <div class="paragraph">
 <p>Clustered EJBs have failover capability. The state of the @Stateful
 @Clustered EJBs is replicated across the cluster nodes so that if one of
@@ -1563,13 +3024,13 @@ invocation is routed to a different node in the cluster.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_hibernate">7. Hibernate</h2>
+<h2 id="_hibernate">11. Hibernate</h2>
 <div class="sectionbody">
 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_ha_singleton_features">8. HA Singleton Features</h2>
+<h2 id="_ha_singleton_features">12. HA Singleton Features</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In general, an HA or clustered singleton is a service that exists on
@@ -1582,7 +3043,7 @@ service is always running on one node.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_singleton_subsystem">9. Singleton subsystem</h2>
+<h2 id="_singleton_subsystem">13. Singleton subsystem</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>WildFly 10 introduces a "singleton" subsystem, which defines a set of
@@ -1591,7 +3052,7 @@ policy can be used to instrument singleton deployments or to create
 singleton MSC services.</p>
 </div>
 <div class="sect2">
-<h3 id="configuration">9.1. Configuration</h3>
+<h3 id="configuration">13.1. Configuration</h3>
 <div class="paragraph">
 <p>The
 <a href="https://github.com/wildfly/wildfly/blob/10.0.0.Final/clustering/singleton/extension/src/main/resources/schema/wildfly-singleton_1_0.xsd">default
@@ -1639,7 +3100,7 @@ operation:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="cache-configuration">9.1.1. Cache configuration</h4>
+<h4 id="cache-configuration">13.1.1. Cache configuration</h4>
 <div class="paragraph">
 <p>The cache-container and cache attributes of a singleton policy must
 reference a valid cache from the Infinispan subsystem. If no specific
@@ -1649,7 +3110,7 @@ service and will typically use a replicated-cache configuration.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="election-policies">9.1.2. Election policies</h4>
+<h4 id="election-policies">13.1.2. Election policies</h4>
 <div class="paragraph">
 <p>WildFly 10 includes 2 singleton election policy implementations:</p>
 </div>
@@ -1699,7 +3160,7 @@ e.g.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="quorum">9.1.3. Quorum</h4>
+<h4 id="quorum">13.1.3. Quorum</h4>
 <div class="paragraph">
 <p>Network partitions are particularly problematic for singleton services,
 since they can trigger multiple singleton providers for the same service
@@ -1719,7 +3180,7 @@ e.g.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="non-ha-environments">9.2. Non-HA environments</h3>
+<h3 id="non-ha-environments">13.2. Non-HA environments</h3>
 <div class="paragraph">
 <p>The singleton subsystem can be used in a non-HA profile, so long as the
 cache that it references uses a local-cache configuration. In this
@@ -1733,7 +3194,7 @@ configuration.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_singleton_deployments">10. Singleton deployments</h2>
+<h2 id="_singleton_deployments">14. Singleton deployments</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>WildFly 10 resurrects the ability to start a given deployment on a
@@ -1747,7 +3208,7 @@ a.k.a. "
 feature of AS6 and earlier.</p>
 </div>
 <div class="sect2">
-<h3 id="usage">10.1. Usage</h3>
+<h3 id="usage">14.1. Usage</h3>
 <div class="paragraph">
 <p>A deployment indicates that it should be deployed as a singleton via a
 deployment descriptor. This can either be a standalone
@@ -1782,7 +3243,7 @@ e.g.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_singleton_msc_services">11. Singleton MSC services</h2>
+<h2 id="_singleton_msc_services">15. Singleton MSC services</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>WildFly allows any user MSC service to be installed as a singleton MSC
@@ -1792,7 +3253,7 @@ service is shutdown, or fails, another node on which the service was
 installed will start automatically.</p>
 </div>
 <div class="sect2">
-<h3 id="installing-an-msc-service-using-an-existing-singleton-policy">11.1. Installing an MSC service using an existing singleton policy</h3>
+<h3 id="installing-an-msc-service-using-an-existing-singleton-policy">15.1. Installing an MSC service using an existing singleton policy</h3>
 <div class="paragraph">
 <p>While singleton MSC services have been around since AS7, WildFly 10 adds
 the ability to leverage the singleton subsystem to create singleton MSC
@@ -1825,7 +3286,7 @@ e.g.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="installing-an-msc-service-using-dynamic-singleton-policy">11.2. Installing an MSC service using dynamic singleton policy</h3>
+<h3 id="installing-an-msc-service-using-dynamic-singleton-policy">15.2. Installing an MSC service using dynamic singleton policy</h3>
 <div class="paragraph">
 <p>Alternatively, you can build singleton policy dynamically, which is
 particularly useful if you want to use a custom singleton election
@@ -1862,32 +3323,45 @@ e.g.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_related_topics">12. Related Topics</h2>
+<h2 id="_related_topics">16. Related Topics</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes additional issues related to the clustering
 subsystems.</p>
 </div>
 <div class="sect2">
-<h3 id="modularity-and-class-loading">12.1. Modularity And Class Loading</h3>
+<h3 id="modularity-and-class-loading">16.1. Modularity And Class Loading</h3>
 <div class="paragraph">
 <p>Describe classloading and monitoring framework as it affects clustering
 applications.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="monitoring">12.2. Monitoring</h3>
+<h3 id="monitoring">16.2. Monitoring</h3>
 <div class="paragraph">
 <p>Describe resources available for monitoring clustered applications.</p>
-</div>
-<div class="paragraph">
-<p>include::high-availability-guide/Changes From Previous Versions}</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_clustering_and_domain_setup_walkthrough">13. Clustering and Domain Setup Walkthrough</h2>
+<h2 id="_changes_from_previous_versions">17. Changes From Previous Versions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Describe here key changes between releases.</p>
+</div>
+<div class="sect2">
+<h3 id="key-changes">17.1. Key changes</h3>
+
+</div>
+<div class="sect2">
+<h3 id="migration-to-wildfly">17.2. Migration to Wildfly</h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clustering_and_domain_setup_walkthrough">18. Clustering and Domain Setup Walkthrough</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In this article, I&#8217;d like to show you how to setup WildFly 9 in domain
@@ -1896,9 +3370,9 @@ among the nodes. It&#8217;s a step to step guide so you can follow the
 instructions in this article and build the sandbox by yourself <span class="icon yellow"><i class="fa fa-smile-o"></i></span></p>
 </div>
 <div class="sect2">
-<h3 id="preparation-scenario">13.1. Preparation &amp; Scenario</h3>
+<h3 id="preparation-scenario">18.1. Preparation &amp; Scenario</h3>
 <div class="sect3">
-<h4 id="preparation">13.1.1. Preparation</h4>
+<h4 id="preparation">18.1.1. Preparation</h4>
 <div class="paragraph">
 <p>We need to prepare two hosts (or virtual hosts) to do the experiment. We
 will use these two hosts as following:</p>
@@ -1921,7 +3395,7 @@ or they will cause network problems).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="scenario">13.1.2. Scenario</h4>
+<h4 id="scenario">18.1.2. Scenario</h4>
 <div class="paragraph">
 <p>Here are some details on what we are going to do:</p>
 </div>
@@ -1942,7 +3416,7 @@ cluster and discovered by httpd.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="images/download/attachments/557290/Clustering.jpg" alt="images/download/attachments/557290/Clustering.jpg"></span></p>
+<p><span class="image"><img src="images/clustering/Clustering.jpg" alt="images/clustering/Clustering.jpg"></span></p>
 </div>
 <div class="ulist">
 <ul>
@@ -1973,7 +3447,7 @@ it.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="images/download/attachments/557290/test_scenario.jpg" alt="images/download/attachments/557290/test_scenario.jpg"></span></p>
+<p><span class="image"><img src="images/clustering/test_scenario.jpg" alt="images/clustering/test_scenario.jpg"></span></p>
 </div>
 <div class="paragraph">
 <p>Please don&#8217;t worry if you cannot digest so many details currently. Let&#8217;s
@@ -1982,7 +3456,7 @@ move on and you will get the points step by step.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="download-wildfly-9">13.2. Download WildFly 9</h3>
+<h3 id="download-wildfly-9">18.2. Download WildFly 9</h3>
 <div class="paragraph">
 <p>First we should download WildFly 9 from the website:</p>
 </div>
@@ -2044,9 +3518,9 @@ next step.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="domain-configuration">13.3. Domain Configuration</h3>
+<h3 id="domain-configuration">18.3. Domain Configuration</h3>
 <div class="sect3">
-<h4 id="interface-config-on-master">13.3.1. Interface config on master</h4>
+<h4 id="interface-config-on-master">18.3.1. Interface config on master</h4>
 <div class="paragraph">
 <p>In this section we&#8217;ll setup both master and slave for them to run in
 domain mode. And we will configure master to be the domain controller.</p>
@@ -2101,7 +3575,7 @@ config to:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="interface-config-on-slave">13.3.2. Interface config on slave</h4>
+<h4 id="interface-config-on-slave">18.3.2. Interface config on slave</h4>
 <div class="paragraph">
 <p>Now we will setup interfaces on slave. Let&#8217;s edit host.xml. Similar to
 the steps on master, open host.xml first:</p>
@@ -2198,7 +3672,7 @@ you need to enable the firewall and allow access to the following ports:
 </div>
 </div>
 <div class="sect3">
-<h4 id="security-configuration">13.3.3. Security Configuration</h4>
+<h4 id="security-configuration">18.3.3. Security Configuration</h4>
 <div class="paragraph">
 <p>If you start WildFly on both master and slave now, you will see the
 slave cannot be started with following error:</p>
@@ -2345,7 +3819,7 @@ domain mode now as expected. Hurrah!</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deployment">13.4. Deployment</h3>
+<h3 id="deployment">18.4. Deployment</h3>
 <div class="paragraph">
 <p>Now we can deploy a demo project into the domain. I have created a
 simple project located at:</p>
@@ -2522,7 +3996,7 @@ cluster-demo.war for deployment. Click on the 'Manage Deployments' link
 at the bottom of left menu list.</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="images/download/attachments/557290/JBoss_Management.png" alt="images/download/attachments/557290/JBoss_Management.png"></span><br>
+<p><span class="image"><img src="images/clustering/JBoss_Management.png" alt="images/clustering/JBoss_Management.png"></span><br>
 (We should ensure the server-three should be started on both master and
 slave)</p>
 </div>
@@ -2540,7 +4014,7 @@ button and add the war to 'other-server-group' and then click 'save'.</p>
 deployed into 'other-server-group'.：</p>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="images/download/attachments/557290/JBoss_Management_2.png" alt="images/download/attachments/557290/JBoss_Management_2.png"></span></p>
+<p><span class="image"><img src="images/clustering/JBoss_Management_2.png" alt="images/clustering/JBoss_Management_2.png"></span></p>
 </div>
 <div class="paragraph">
 <p>Please note we have two hosts participate in this server group, so the
@@ -2557,7 +4031,7 @@ and slave, and they should all work now:</p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="images/download/attachments/557290/http---10.211.55.7-8330-cluster-demo-.png" alt="images/download/attachments/557290/http---10.211.55.7-8330-cluster-demo-.png"></span></p>
+<p><span class="image"><img src="images/clustering/http---10.211.55.7-8330-cluster-demo-.png" alt="images/clustering/http---10.211.55.7-8330-cluster-demo-.png"></span></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2565,7 +4039,7 @@ and slave, and they should all work now:</p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="images/download/attachments/557290/http---10.211.55.2-8330-cluster-demo-.png" alt="images/download/attachments/557290/http---10.211.55.2-8330-cluster-demo-.png"></span></p>
+<p><span class="image"><img src="images/clustering/http---10.211.55.2-8330-cluster-demo-.png" alt="images/clustering/http---10.211.55.2-8330-cluster-demo-.png"></span></p>
 </div>
 <div class="paragraph">
 <p>Now that we have finished the project deployment and see the usages of
@@ -2649,7 +4123,7 @@ go on cluster configuration.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cluster-configuration">13.5. Cluster Configuration</h3>
+<h3 id="cluster-configuration">18.5. Cluster Configuration</h3>
 <div class="paragraph">
 <p>We will use mod_cluster + apache httpd on master as our cluster
 controller here. Because WildFly 11 has been configured to support
@@ -2813,7 +4287,7 @@ For more details on mod_cluster configurations please see this document:
 </div>
 </div>
 <div class="sect2">
-<h3 id="testing">13.6. Testing</h3>
+<h3 id="testing">18.6. Testing</h3>
 <div class="paragraph">
 <p>If everything goes fine we can start httpd service now:</p>
 </div>
@@ -2831,7 +4305,7 @@ For more details on mod_cluster configurations please see this document:
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="images/download/attachments/557290/http---10.211.55.7-cluster-demo-put.jsp.png" alt="images/download/attachments/557290/http---10.211.55.7-cluster-demo-put.jsp.png"></span></p>
+<p><span class="image"><img src="images/clustering/http---10.211.55.7-cluster-demo-put.jsp.png" alt="images/clustering/http---10.211.55.7-cluster-demo-put.jsp.png"></span></p>
 </div>
 <div class="paragraph">
 <p>We should see the request is distributed to one of the hosts(master or
@@ -2863,7 +4337,7 @@ the Host-Controller restart the instance imediately!</p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image"><img src="images/download/attachments/557290/http---10.211.55.7-cluster-demo-get.jsp.png" alt="images/download/attachments/557290/http---10.211.55.7-cluster-demo-get.jsp.png"></span></p>
+<p><span class="image"><img src="images/clustering/http---10.211.55.7-cluster-demo-get.jsp.png" alt="images/clustering/http---10.211.55.7-cluster-demo-get.jsp.png"></span></p>
 </div>
 <div class="paragraph">
 <p>Now the request should be served by slave and we should see the log from
@@ -2900,7 +4374,7 @@ is redirect from one host to another and the session is held.
 </div>
 </div>
 <div class="sect2">
-<h3 id="special-thanks">13.7. Special Thanks</h3>
+<h3 id="special-thanks">18.7. Special Thanks</h3>
 <div class="paragraph">
 <p><a href="https://community.jboss.org/people/wdfink">Wolf-Dieter Fink</a> has
 contributed the updated add-user.sh usages and configs in host.xml from
@@ -2917,7 +4391,7 @@ this document readable.</p>
 <div id="footer">
 <div id="footer-text">
 Version {version}<br>
-Last updated 2017-09-13 15:47:36 DST
+Last updated 2017-09-18 22:04:05 DST
 </div>
 </div>
 </body>

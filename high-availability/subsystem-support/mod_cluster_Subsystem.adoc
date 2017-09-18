@@ -1,3 +1,4 @@
+[[mod_cluster-subsystem]]
 = mod_cluster Subsystem
 
 The mod_cluster integration is done via the
