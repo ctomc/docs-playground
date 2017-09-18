@@ -524,7 +524,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="details">
 <span id="author" class="author">WildFly developer team</span><br>
 <span id="revnumber">version {version},</span>
-<span id="revdate">2017-09-16</span>
+<span id="revdate">2017-09-18</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">WildFly Admin guide</div>
@@ -625,12 +625,11 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_management_tasks">11. Management tasks</a>
 <ul class="sectlevel2">
 <li><a href="#_command_line_parameters">11.1. Command line parameters</a></li>
-<li><a href="#_suspend_resume_and_graceful_shutdown">11.2. Suspend, Resume and Graceful shutdown</a></li>
-<li><a href="#_starting_stopping_servers_in_a_managed_domain">11.3. Starting &amp; stopping Servers in a Managed Domain</a></li>
-<li><a href="#_jvm_settings">11.4. JVM settings</a></li>
-<li><a href="#_audit_logging">11.5. Audit logging</a></li>
-<li><a href="#_canceling_management_operations">11.6. Canceling Management Operations</a></li>
-<li><a href="#_configuration_file_history">11.7. Configuration file history</a></li>
+<li><a href="#_starting_stopping_servers_in_a_managed_domain">11.2. Starting &amp; stopping Servers in a Managed Domain</a></li>
+<li><a href="#_jvm_settings">11.3. JVM settings</a></li>
+<li><a href="#_audit_logging">11.4. Audit logging</a></li>
+<li><a href="#_canceling_management_operations">11.5. Canceling Management Operations</a></li>
+<li><a href="#_configuration_file_history">11.6. Configuration file history</a></li>
 </ul>
 </li>
 <li><a href="#_management_api_reference">12. Management API reference</a>
@@ -1456,10 +1455,10 @@ attribute of a socket-binding resource via the CLI:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml">[<span class="error">standalone@localhost:9990 /] /socket-binding-group=standard-sockets/socket-binding=https:read-attribute(name=port)</span>
+<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /socket-binding-group=standard-sockets/socket-binding=<span class="key">https</span>:read-attribute(name=port)
 {
-    <span class="error">&quot;outcome&quot; =&gt; &quot;success&quot;,</span>
-    <span class="error">&quot;result&quot; =&gt; 8443</span>
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">8443</span>
 }</code></pre>
 </div>
 </div>
@@ -1483,8 +1482,8 @@ via the CLI:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml">[<span class="error">standalone@localhost:9990 /] /socket-binding-group=standard-sockets/socket-binding=https:write-attribute(name=port,value=8444)</span>
-{<span class="error">&quot;outcome&quot; =&gt; &quot;success&quot;}</span></code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /socket-binding-group=standard-sockets/socket-binding=<span class="key">https</span>:write-attribute(name=port,value=<span class="integer">8444</span>)
+{<span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1512,49 +1511,49 @@ set to "true". For example, from the CLI:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml">[<span class="error">standalone@localhost:9990 /] /subsystem=undertow/server=default-server/http-listener=default:read-resource(include-runtime=true)</span>
+<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /subsystem=undertow/server=default-server/http-listener=<span class="key">default</span>:read-resource(include-runtime=<span class="predefined-constant">true</span>)
 {
-<span class="error">    &quot;outcome&quot; =&gt; &quot;success&quot;,</span>
-<span class="error">    &quot;result&quot; =&gt; {</span>
-<span class="error">        &quot;allow-encoded-slash&quot; =&gt; false,</span>
-<span class="error">        &quot;allow-equals-in-cookie-value&quot; =&gt; false,</span>
-<span class="error">        &quot;always-set-keep-alive&quot; =&gt; true,</span>
-<span class="error">        &quot;buffer-pipelined-data&quot; =&gt; true,</span>
-<span class="error">        &quot;buffer-pool&quot; =&gt; &quot;default&quot;,</span>
-<span class="error">        &quot;bytes-received&quot; =&gt; 0L,</span>
-<span class="error">        &quot;bytes-sent&quot; =&gt; 0L,</span>
-<span class="error">        &quot;certificate-forwarding&quot; =&gt; false,</span>
-<span class="error">        &quot;decode-url&quot; =&gt; true,</span>
-<span class="error">        &quot;disallowed-methods&quot; =&gt; [&quot;TRACE&quot;],</span>
-<span class="error">        &quot;enable-http2&quot; =&gt; false,</span>
-<span class="error">        &quot;enabled&quot; =&gt; true,</span>
-<span class="error">        &quot;error-count&quot; =&gt; 0L,</span>
-<span class="error">        &quot;max-buffered-request-size&quot; =&gt; 16384,</span>
-<span class="error">        &quot;max-connections&quot; =&gt; undefined,</span>
-<span class="error">        &quot;max-cookies&quot; =&gt; 200,</span>
-<span class="error">        &quot;max-header-size&quot; =&gt; 1048576,</span>
-<span class="error">        &quot;max-headers&quot; =&gt; 200,</span>
-<span class="error">        &quot;max-parameters&quot; =&gt; 1000,</span>
-<span class="error">        &quot;max-post-size&quot; =&gt; 10485760L,</span>
-<span class="error">        &quot;max-processing-time&quot; =&gt; 0L,</span>
-<span class="error">        &quot;no-request-timeout&quot; =&gt; undefined,</span>
-<span class="error">        &quot;processing-time&quot; =&gt; 0L,</span>
-<span class="error">        &quot;proxy-address-forwarding&quot; =&gt; false,</span>
-<span class="error">        &quot;read-timeout&quot; =&gt; undefined,</span>
-<span class="error">        &quot;receive-buffer&quot; =&gt; undefined,</span>
-<span class="error">        &quot;record-request-start-time&quot; =&gt; false,</span>
-<span class="error">        &quot;redirect-socket&quot; =&gt; &quot;https&quot;,</span>
-<span class="error">        &quot;request-count&quot; =&gt; 0L,</span>
-<span class="error">        &quot;request-parse-timeout&quot; =&gt; undefined,</span>
-<span class="error">        &quot;resolve-peer-address&quot; =&gt; false,</span>
-<span class="error">        &quot;send-buffer&quot; =&gt; undefined,</span>
-<span class="error">        &quot;socket-binding&quot; =&gt; &quot;http&quot;,</span>
-<span class="error">        &quot;tcp-backlog&quot; =&gt; undefined,</span>
-<span class="error">        &quot;tcp-keep-alive&quot; =&gt; undefined,</span>
-<span class="error">        &quot;url-charset&quot; =&gt; &quot;UTF-8&quot;,</span>
-<span class="error">        &quot;worker&quot; =&gt; &quot;default&quot;,</span>
-<span class="error">        &quot;write-timeout&quot; =&gt; undefined</span>
-<span class="error">    }</span>
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">allow-encoded-slash</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">allow-equals-in-cookie-value</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">always-set-keep-alive</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">buffer-pipelined-data</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">buffer-pool</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">bytes-received</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">0</span><span class="constant">L</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">bytes-sent</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">0</span><span class="constant">L</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">certificate-forwarding</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">decode-url</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">disallowed-methods</span><span class="delimiter">&quot;</span></span> =&gt; [<span class="string"><span class="delimiter">&quot;</span><span class="content">TRACE</span><span class="delimiter">&quot;</span></span>],
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">enable-http2</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">enabled</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">error-count</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">0</span><span class="constant">L</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-buffered-request-size</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">16384</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-connections</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-cookies</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">200</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-header-size</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">1048576</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-headers</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">200</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-parameters</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">1000</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-post-size</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">10485760</span><span class="constant">L</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-processing-time</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">0</span><span class="constant">L</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">no-request-timeout</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">processing-time</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">0</span><span class="constant">L</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">proxy-address-forwarding</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">read-timeout</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">receive-buffer</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">record-request-start-time</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">redirect-socket</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">https</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">request-count</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">0</span><span class="constant">L</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">request-parse-timeout</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">resolve-peer-address</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">send-buffer</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">socket-binding</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">http</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-backlog</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-keep-alive</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">url-charset</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">UTF-8</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">worker</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">write-timeout</span><span class="delimiter">&quot;</span></span> =&gt; undefined
+    }
 }</code></pre>
 </div>
 </div>
@@ -1565,43 +1564,43 @@ configuration:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="yaml">[<span class="error">standalone@localhost:9990 /] /subsystem=undertow/server=default-server/http-listener=default:read-resource(include-runtime=false</span>
+<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /subsystem=undertow/server=default-server/http-listener=<span class="key">default</span>:read-resource(include-runtime=<span class="predefined-constant">false</span>
 {
-<span class="error">    &quot;outcome&quot; =&gt; &quot;success&quot;,</span>
-<span class="error">    &quot;result&quot; =&gt; {</span>
-<span class="error">        &quot;allow-encoded-slash&quot; =&gt; false,</span>
-<span class="error">        &quot;allow-equals-in-cookie-value&quot; =&gt; false,</span>
-<span class="error">        &quot;always-set-keep-alive&quot; =&gt; true,</span>
-<span class="error">        &quot;buffer-pipelined-data&quot; =&gt; true,</span>
-<span class="error">        &quot;buffer-pool&quot; =&gt; &quot;default&quot;,</span>
-<span class="error">        &quot;certificate-forwarding&quot; =&gt; false,</span>
-<span class="error">        &quot;decode-url&quot; =&gt; true,</span>
-<span class="error">        &quot;disallowed-methods&quot; =&gt; [&quot;TRACE&quot;],</span>
-<span class="error">        &quot;enable-http2&quot; =&gt; false,</span>
-<span class="error">        &quot;enabled&quot; =&gt; true,</span>
-<span class="error">        &quot;max-buffered-request-size&quot; =&gt; 16384,</span>
-<span class="error">        &quot;max-connections&quot; =&gt; undefined,</span>
-<span class="error">        &quot;max-cookies&quot; =&gt; 200,</span>
-<span class="error">        &quot;max-header-size&quot; =&gt; 1048576,</span>
-<span class="error">        &quot;max-headers&quot; =&gt; 200,</span>
-<span class="error">        &quot;max-parameters&quot; =&gt; 1000,</span>
-<span class="error">        &quot;max-post-size&quot; =&gt; 10485760L,</span>
-<span class="error">        &quot;no-request-timeout&quot; =&gt; undefined,</span>
-<span class="error">        &quot;proxy-address-forwarding&quot; =&gt; false,</span>
-<span class="error">        &quot;read-timeout&quot; =&gt; undefined,</span>
-<span class="error">        &quot;receive-buffer&quot; =&gt; undefined,</span>
-<span class="error">        &quot;record-request-start-time&quot; =&gt; false,</span>
-<span class="error">        &quot;redirect-socket&quot; =&gt; &quot;https&quot;,</span>
-<span class="error">        &quot;request-parse-timeout&quot; =&gt; undefined,</span>
-<span class="error">        &quot;resolve-peer-address&quot; =&gt; false,</span>
-<span class="error">        &quot;send-buffer&quot; =&gt; undefined,</span>
-<span class="error">        &quot;socket-binding&quot; =&gt; &quot;http&quot;,</span>
-<span class="error">        &quot;tcp-backlog&quot; =&gt; undefined,</span>
-<span class="error">        &quot;tcp-keep-alive&quot; =&gt; undefined,</span>
-<span class="error">        &quot;url-charset&quot; =&gt; &quot;UTF-8&quot;,</span>
-<span class="error">        &quot;worker&quot; =&gt; &quot;default&quot;,</span>
-<span class="error">        &quot;write-timeout&quot; =&gt; undefined</span>
-<span class="error">    }</span>
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">allow-encoded-slash</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">allow-equals-in-cookie-value</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">always-set-keep-alive</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">buffer-pipelined-data</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">buffer-pool</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">certificate-forwarding</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">decode-url</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">disallowed-methods</span><span class="delimiter">&quot;</span></span> =&gt; [<span class="string"><span class="delimiter">&quot;</span><span class="content">TRACE</span><span class="delimiter">&quot;</span></span>],
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">enable-http2</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">enabled</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-buffered-request-size</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">16384</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-connections</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-cookies</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">200</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-header-size</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">1048576</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-headers</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">200</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-parameters</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">1000</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">max-post-size</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">10485760</span><span class="constant">L</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">no-request-timeout</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">proxy-address-forwarding</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">read-timeout</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">receive-buffer</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">record-request-start-time</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">redirect-socket</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">https</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">request-parse-timeout</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">resolve-peer-address</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">send-buffer</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">socket-binding</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">http</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-backlog</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-keep-alive</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">url-charset</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">UTF-8</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">worker</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">write-timeout</span><span class="delimiter">&quot;</span></span> =&gt; undefined
+    }
 }</code></pre>
 </div>
 </div>
@@ -2060,11 +2059,11 @@ API. It can be accessed by pointing your browser to:</p>
 <div class="paragraph">
 <p>Default URL</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
 By default the web interface can be accessed here:
@@ -2334,7 +2333,7 @@ _ <em>--domain-config_</em> command line argument:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ bin/domain.sh --domain-config=domain-production.xml</pre>
+<pre class="CodeRay highlight"><code data-lang="bash">$ bin/domain.sh --domain-config=domain-production.xml</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4178,8 +4177,8 @@ the remote user.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">interface</span> <span class="class">Identity</span>&lt;T <span class="directive">extends</span> Credential&gt; {
-    <span class="predefined-type">String</span> getUserName();
+<pre class="CodeRay highlight"><code data-lang="xml">public interface Identity<span class="tag">&lt;T</span> <span class="attribute-name">extends</span> <span class="attribute-name">Credential</span><span class="tag">&gt;</span> {
+    String getUserName();
     T getCredential();
 }</code></pre>
 </div>
@@ -4394,9 +4393,9 @@ folder of the jar this project adds a file called '
 a single entry which is the fully qualified class name of the
 PlugInProvider implementation class.</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">org.jboss.as.sample.SamplePluginProvider</code></pre>
+<pre>org.jboss.as.sample.SamplePluginProvider</pre>
 </div>
 </div>
 </div>
@@ -4619,11 +4618,11 @@ of Active Directory to verify the users username and password.</p>
 <span class="tag">&lt;/management&gt;</span></code></pre>
 </div>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 For simplicity the <code>&lt;local/&gt;</code> configuration has been removed from this
@@ -4659,17 +4658,17 @@ Re-enter <span class="keyword">new</span> password:</code></pre>
 <div class="paragraph">
 <p>In this example I choose ' `keystore_password&#8217;.</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">What is your first and last name?
-  [Unknown]:  localhost</code></pre>
+<pre>What is your first and last name?
+  [Unknown]:  localhost</pre>
 </div>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 Of all of the questions asked this is the most important and should
@@ -4689,16 +4688,16 @@ referenced to enable SSL.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;security-realm name=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span>&gt;
-  &lt;server-identities&gt;
-    &lt;ssl&gt;
-      &lt;keystore path=<span class="string"><span class="delimiter">&quot;</span><span class="content">server.keystore</span><span class="delimiter">&quot;</span></span> relative-to=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.server.config.dir</span><span class="delimiter">&quot;</span></span> keystore-password=<span class="string"><span class="delimiter">&quot;</span><span class="content">keystore_password</span><span class="delimiter">&quot;</span></span> alias=<span class="string"><span class="delimiter">&quot;</span><span class="content">server</span><span class="delimiter">&quot;</span></span> key-password=<span class="string"><span class="delimiter">&quot;</span><span class="content">key_password</span><span class="delimiter">&quot;</span></span> /&gt;
-    &lt;/ssl&gt;
-  &lt;/server-identities&gt;
-  &lt;authentication&gt;
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;security-realm</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;server-identities&gt;</span>
+    <span class="tag">&lt;ssl&gt;</span>
+      <span class="tag">&lt;keystore</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">server.keystore</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">relative-to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.server.config.dir</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">keystore-password</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">keystore_password</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">alias</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">server</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">key-password</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">key_password</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/ssl&gt;</span>
+  <span class="tag">&lt;/server-identities&gt;</span>
+  <span class="tag">&lt;authentication&gt;</span>
     ...
-  &lt;/authentication&gt;
-&lt;/security-realm&gt;</code></pre>
+  <span class="tag">&lt;/authentication&gt;</span>
+<span class="tag">&lt;/security-realm&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4716,18 +4715,18 @@ a trust store that has had the certificates or trusted clients imported.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;security-realm name=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span>&gt;
-  &lt;server-identities&gt;
-    &lt;ssl&gt;
-      &lt;keystore path=<span class="string"><span class="delimiter">&quot;</span><span class="content">server.keystore</span><span class="delimiter">&quot;</span></span> relative-to=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.server.config.dir</span><span class="delimiter">&quot;</span></span> keystore-password=<span class="string"><span class="delimiter">&quot;</span><span class="content">keystore_password</span><span class="delimiter">&quot;</span></span> alias=<span class="string"><span class="delimiter">&quot;</span><span class="content">server</span><span class="delimiter">&quot;</span></span> key-password=<span class="string"><span class="delimiter">&quot;</span><span class="content">key_password</span><span class="delimiter">&quot;</span></span> /&gt;
-    &lt;/ssl&gt;
-  &lt;/server-identities&gt;
-  &lt;authentication&gt;
-    &lt;truststore path=<span class="string"><span class="delimiter">&quot;</span><span class="content">server.truststore</span><span class="delimiter">&quot;</span></span> relative-to=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.server.config.dir</span><span class="delimiter">&quot;</span></span> keystore-password=<span class="string"><span class="delimiter">&quot;</span><span class="content">truststore_password</span><span class="delimiter">&quot;</span></span> /&gt;
-    &lt;local <span class="keyword">default</span>-user=<span class="string"><span class="delimiter">&quot;</span><span class="content">$local</span><span class="delimiter">&quot;</span></span>/&gt;
-    &lt;properties path=<span class="string"><span class="delimiter">&quot;</span><span class="content">mgmt-users.properties</span><span class="delimiter">&quot;</span></span> relative-to=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.server.config.dir</span><span class="delimiter">&quot;</span></span>/&gt;
-  &lt;/authentication&gt;
-&lt;/security-realm&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;security-realm</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;server-identities&gt;</span>
+    <span class="tag">&lt;ssl&gt;</span>
+      <span class="tag">&lt;keystore</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">server.keystore</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">relative-to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.server.config.dir</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">keystore-password</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">keystore_password</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">alias</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">server</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">key-password</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">key_password</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/ssl&gt;</span>
+  <span class="tag">&lt;/server-identities&gt;</span>
+  <span class="tag">&lt;authentication&gt;</span>
+    <span class="tag">&lt;truststore</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">server.truststore</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">relative-to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.server.config.dir</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">keystore-password</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">truststore_password</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;local</span> <span class="attribute-name">default-user</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">$local</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;properties</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">mgmt-users.properties</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">relative-to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">jboss.server.config.dir</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;/authentication&gt;</span>
+<span class="tag">&lt;/security-realm&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5800,11 +5799,11 @@ expressions to be security sensitive, you can change that setting:</p>
 }</code></pre>
 </div>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 This vault-expression constraint overlaps somewhat with the
@@ -7196,18 +7195,18 @@ stored in a subdirectory:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>ls domain/data/content/
+<pre class="CodeRay highlight"><code data-lang="bash">ls domain/data/content/
   |---/47
   |-----95cc29338b5049e238941231b36b3946952991
   |---/dd
-  |-----a9881fa7811b22f1424b4c5acccb13c71202bd</pre>
+  |-----a9881fa7811b22f1424b4c5acccb13c71202bd</code></pre>
 </div>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
 The location of the content repository and its internal structure is
@@ -7340,12 +7339,12 @@ below for both standalone and domain mode:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>deployment-overlay add --name=myOverlay --content=/WEB-INF/web.xml=/myFiles/myWeb.xml,/WEB-INF/ejb-jar.xml=/myFiles/myEjbJar.xml --deployments=test.war,*-admin.war --redeploy-affected</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby">deployment-overlay add --name=myOverlay --content=<span class="regexp"><span class="delimiter">/</span><span class="content">WEB-INF</span><span class="delimiter">/</span></span>web.xml=<span class="regexp"><span class="delimiter">/</span><span class="content">myFiles</span><span class="delimiter">/</span><span class="modifier">m</span></span>yWeb.xml,<span class="regexp"><span class="delimiter">/</span><span class="content">WEB-INF</span><span class="delimiter">/</span><span class="modifier">e</span></span>jb-jar.xml=<span class="regexp"><span class="delimiter">/</span><span class="content">myFiles</span><span class="delimiter">/</span><span class="modifier">m</span></span>yEjbJar.xml --deployments=test.war,*-admin.war --redeploy-affected</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>deployment-overlay add --name=myOverlay --content=/WEB-INF/web.xml=/myFiles/myWeb.xml,/WEB-INF/ejb-jar.xml=/myFiles/myEjbJar.xml --deployments=test.war,*-admin.war --server-groups=main-server-group --redeploy-affected</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby">deployment-overlay add --name=myOverlay --content=<span class="regexp"><span class="delimiter">/</span><span class="content">WEB-INF</span><span class="delimiter">/</span></span>web.xml=<span class="regexp"><span class="delimiter">/</span><span class="content">myFiles</span><span class="delimiter">/</span><span class="modifier">m</span></span>yWeb.xml,<span class="regexp"><span class="delimiter">/</span><span class="content">WEB-INF</span><span class="delimiter">/</span><span class="modifier">e</span></span>jb-jar.xml=<span class="regexp"><span class="delimiter">/</span><span class="content">myFiles</span><span class="delimiter">/</span><span class="modifier">m</span></span>yEjbJar.xml --deployments=test.war,*-admin.war --server-groups=main-server-group --redeploy-affected</code></pre>
 </div>
 </div>
 </div>
@@ -7546,15 +7545,15 @@ see classes belonging to other subdeployments within the <code>.ear</code>.</p>
 <div class="paragraph">
 <p>For example:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>myapp.ear
+<pre>myapp.ear
 |
 |--- web.war
 |
 |--- ejb1.jar
 |
-|--- ejb2.jar</code></pre>
+|--- ejb2.jar</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -7563,11 +7562,11 @@ in <code>web.war</code> can access classes belonging to <code>ejb1.jar</code> an
 Similarly, classes from <code>ejb1.jar</code> can access classes from <code>ejb2.jar</code>
 (and vice-versa).</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 This flag has no effect on the isolated classloader of the <code>.war</code>
@@ -7587,11 +7586,11 @@ classes from that <code>.war</code>. This is as per spec.
 system property replacement will be done on XML descriptors and Java
 Annotations included in Java EE deployments.</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 System properties etc are resolved in the security context of the
@@ -7988,11 +7987,11 @@ standard JNDI names, such as <code>java:comp/DefaultManagedExecutorService</code
  <span class="attribute-name">managed-thread-factory</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java:jboss/ee/concurrency/factory/default</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 The default bindings are optional, if the jndi name for a default
@@ -8071,11 +8070,11 @@ following global JNDI namespaces:</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 If WildFly is to be used as a Java EE application server, then it&#8217;s
@@ -8134,7 +8133,7 @@ through the <code>simple</code> XML element. An example of its XML configuration
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;simple name=<span class="string"><span class="delimiter">&quot;</span><span class="content">java:global/a</span><span class="delimiter">&quot;</span></span> value=<span class="string"><span class="delimiter">&quot;</span><span class="content">100</span><span class="delimiter">&quot;</span></span> type=<span class="string"><span class="delimiter">&quot;</span><span class="content">int</span><span class="delimiter">&quot;</span></span> /&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;simple</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">java:global/a</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">100</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">int</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -8157,8 +8156,8 @@ example above:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=naming/binding=java<span class="error">\</span>:global<span class="error">\</span>/a:add(binding-type=simple, type=<span class="type">int</span>, value=<span class="integer">100</span>)
-/subsystem=naming/binding=java<span class="error">\</span>:global<span class="error">\</span>/a:remove</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=naming</span><span class="delimiter">/</span></span>binding=java<span class="error">\</span><span class="symbol">:global</span><span class="error">\</span>/<span class="key">a</span>:add(binding-type=simple, type=int, value=<span class="integer">100</span>)
+<span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=naming</span><span class="delimiter">/</span></span>binding=java<span class="error">\</span><span class="symbol">:global</span><span class="error">\</span>/<span class="key">a</span>:remove</code></pre>
 </div>
 </div>
 </div>
@@ -8336,11 +8335,11 @@ example above:</p>
 remote JNDI interface, which allows clients to lookup entries present in
 a remote WildFly instance.</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 Only entries within the <code>java:jboss/exported</code> context are accessible
@@ -8539,11 +8538,11 @@ please refer to the chapter " <a href="#application-deployment">Application Depl
 }</code></pre>
 </div>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
 Using the web console or the CLI greatly simplifies the deployment of
@@ -8602,7 +8601,7 @@ JDBC drivers and the creation of datasources.
 description of the available configuration properties, please consult
 the project documentation.</p>
 </div>
-<div class="openblock">
+<div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
@@ -8750,10 +8749,10 @@ value of the logging profile id. For example a logging profile defined
 on <code>/subsystem=logging/logging-profile=ejbs</code> the MANIFEST.MF would look
 like:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="predefined-type">Manifest</span>-Version: <span class="float">1.0</span>
-Logging-Profile: ejbs</code></pre>
+<pre>Manifest-Version: 1.0
+Logging-Profile: ejbs</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -8987,10 +8986,8 @@ operations are valid in both standalone and domain modes.</p>
 <p>The logging subsystem has a <code>log-file</code> resource off the subsystem root
 resource and off each <code>logging-profile</code> resource to list each log file.</p>
 </div>
-<div class="paragraph">
-<p>CLI command and output</p>
-</div>
 <div class="listingblock">
+<div class="title">CLI command and output</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /subsystem=<span class="key">logging</span>:read-children-names(child-type=log-file)
 {
@@ -9042,10 +9039,8 @@ down.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>CLI command and output</p>
-</div>
 <div class="listingblock">
+<div class="title">CLI command and output</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /subsystem=logging/log-file=server.log<span class="symbol">:read</span>-log-file
 {
@@ -10033,15 +10028,15 @@ to choose from; <code>file-handler</code>, <code>periodic-rotating-file-handler<
 </div>
 </div>
 </li>
-</ol>
-</div>
-<div class="paragraph">
+<li>
 <p>Now create the log category.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=logging</span><span class="delimiter">/</span></span>logger=org.your.company<span class="symbol">:add</span>(use-parent-handlers=<span class="predefined-constant">false</span>,handlers=[<span class="string"><span class="delimiter">&quot;</span><span class="content">fh</span><span class="delimiter">&quot;</span></span>])</code></pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect4">
@@ -10487,17 +10482,12 @@ top level deployment with a META-INF/jboss-ejb-client.xml containing:</p>
 </div>
 <div class="sect2">
 <h3 id="_undertow_subsystem_configuration">9.6. Undertow subsystem configuration</h3>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-Web subsystem was replaced in WildFly 11 with Undertow.
-</td>
-</tr>
-</table>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Web subsystem was replaced in WildFly 8 with Undertow.</strong></p>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>There are two main parts to the undertow subsystem, which are server and
@@ -10743,7 +10733,7 @@ allowed. HTTP TRACE is disabled by default.</p></td>
 <h6 id="http-connector">HTTP Connector</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;http-listener name=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">http</span><span class="delimiter">&quot;</span></span>  /&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;http-listener</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">socket-binding</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http</span><span class="delimiter">&quot;</span></span>  <span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -10790,7 +10780,7 @@ configuration option is security realm which defines SSL secure context.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;https-listener name=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">https</span><span class="delimiter">&quot;</span></span> security-realm=<span class="string"><span class="delimiter">&quot;</span><span class="content">ssl-realm</span><span class="delimiter">&quot;</span></span> /&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;https-listener</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">socket-binding</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">https</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">security-realm</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ssl-realm</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -10826,7 +10816,7 @@ client cert auth is in use this should be either REQUESTED or REQUIRED.</p></td>
 <h6 id="ajp-listener">AJP listener</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;ajp-listener name=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">ajp</span><span class="delimiter">&quot;</span></span> /&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;ajp-listener</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">socket-binding</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ajp</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
 </div>
@@ -11553,16 +11543,12 @@ subsystem.</p>
 <ol class="arabic">
 <li>
 <p>Undefine the legacy security domain.</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=messaging-activemq</span><span class="delimiter">/</span><span class="modifier">se</span></span>rver=<span class="key">default</span>:undefine-attribute(name=security-domain)</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>Set an Elytron security domain.</p>
 <div class="listingblock">
@@ -11638,20 +11624,20 @@ defining JMS destinations, e.g.:</p>
 <span class="tag">&lt;/messaging-deployment&gt;</span></code></pre>
 </div>
 </div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
+<div class="admonitionblock warning">
+<table>
 <tr>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This feature is primarily intended for development as destinations
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This feature <strong>is primarily intended for development</strong> as destinations
 deployed this way can not be managed with any of the provided management
-tools (e.g. console, CLI, etc).</p></td>
+tools (e.g. console, CLI, etc).
+</td>
 </tr>
-</tbody>
 </table>
+</div>
 </div>
 <div class="sect3">
 <h4 id="jms-bridge">9.7.11. JMS Bridge</h4>
@@ -11900,7 +11886,7 @@ created at step (2).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">  /subsystem=messaging-activemq/server=<span class="keyword">default</span>/pooled-connection-factory=remote-artemis:add(connectors=[remote-artemis], entries=[java:/jms/remoteCF])</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby">  <span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=messaging-activemq</span><span class="delimiter">/</span><span class="modifier">se</span></span>rver=default/pooled-connection-factory=remote-<span class="key">artemis</span>:add(connectors=[remote-artemis], entries=[<span class="key">java</span>:<span class="regexp"><span class="delimiter">/</span><span class="content">jms</span><span class="delimiter">/</span></span>remoteCF])</code></pre>
 </div>
 </div>
 <div class="sect4">
@@ -12197,10 +12183,10 @@ encrypted partitions, thus you have to move to NIO on those.</strong></p>
 <div class="paragraph">
 <p>If you see the following exception in your WildFly log file / console</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>[org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 64) AMQ222010: Critical IO Error, shutting down the server. file=AIOSequentialFile:/home/wildfly/wildfly-10.0.0.Final/standalone/data/activemq/journal/activemq-data-2.amq, message=Cannot open file:The Argument is invalid: java.io.IOException: Cannot open file:The Argument is invalid
- at org.apache.activemq.artemis.jlibaio.LibaioContext.open(Native Method)</code></pre>
+<pre>[org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 64) AMQ222010: Critical IO Error, shutting down the server. file=AIOSequentialFile:/home/wildfly/wildfly-10.0.0.Final/standalone/data/activemq/journal/activemq-data-2.amq, message=Cannot open file:The Argument is invalid: java.io.IOException: Cannot open file:The Argument is invalid
+ at org.apache.activemq.artemis.jlibaio.LibaioContext.open(Native Method)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -12218,18 +12204,18 @@ encrypted partitions, thus you have to move to NIO on those.</strong></p>
 <p>You need to reload or restart your server and you should see the
 following trace in your server console :</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>INFO  [org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 64) AMQ221013: Using NIO Journal</code></pre>
+<pre>INFO  [org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 64) AMQ221013: Using NIO Journal</pre>
 </div>
 </div>
 </div>
 <div class="sect4">
 <h5 id="aio-issue-on-wildfly-9">AIO issue on WildFly 9</h5>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>[org.hornetq.core.server] (ServerService Thread Pool -- 64) HQ222010: Critical IO Error, shutting down the server. file=AIOSequentialFile:/home/wildfly/wildfly-9.0.2.Final/standalone/data/messagingjournal/hornetq-data-1.hq, message=Can't open file: HornetQException[errorType=NATIVE_ERROR_CANT_OPEN_CLOSE_FILE message=Can't open file]
- at org.hornetq.core.libaio.Native.init(Native Method)</code></pre>
+<pre>[org.hornetq.core.server] (ServerService Thread Pool -- 64) HQ222010: Critical IO Error, shutting down the server. file=AIOSequentialFile:/home/wildfly/wildfly-9.0.2.Final/standalone/data/messagingjournal/hornetq-data-1.hq, message=Can't open file: HornetQException[errorType=NATIVE_ERROR_CANT_OPEN_CLOSE_FILE message=Can't open file]
+ at org.hornetq.core.libaio.Native.init(Native Method)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -12240,16 +12226,16 @@ following trace in your server console :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>/subsystem=messaging/hornetq-server=default:write-attribute(name=journal-type,value=NIO)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=messaging</span><span class="delimiter">/</span></span>hornetq-server=<span class="key">default</span>:write-attribute(name=journal-type,value=<span class="constant">NIO</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>You need to reload or restart your server and you see the following
 trace in your server console :</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 64) HQ221013: Using NIO Journal</code></pre>
+<pre>INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 64) HQ221013: Using NIO Journal</pre>
 </div>
 </div>
 </div>
@@ -12283,9 +12269,9 @@ persist its information.<br>
 These SQL commands may differ depending on the type of database. The SQL
 commands used by the JDBC store are located in the file at:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>$JBOSS_HOME/modules/system/layers/base/org/wildfly/extension/messaging-activemq/main/database/journal-sql.properties</code></pre>
+<pre>$JBOSS_HOME/modules/system/layers/base/org/wildfly/extension/messaging-activemq/main/database/journal-sql.properties</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -12316,7 +12302,7 @@ yet).</p>
 </div>
 <div class="sect4">
 <h5 id="reference">Reference</h5>
-<div class="openblock">
+<div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
@@ -12710,14 +12696,14 @@ module. Here is the structure of the authentication-jaspi element:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;login-module-stack name=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span>&gt;
-  &lt;login-module code=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> flag=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> module=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span>&gt;
-    &lt;module-option name=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> value=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span>/&gt;
-  &lt;/login-module&gt;
-&lt;/login-module-stack&gt;
-&lt;auth-module code=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> login-module-stack-ref=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span>&gt;
-  &lt;module-option name=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> value=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span>/&gt;
-&lt;/auth-module&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;login-module-stack</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;login-module</span> <span class="attribute-name">code</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">flag</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">module</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;module-option</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;/login-module&gt;</span>
+<span class="tag">&lt;/login-module-stack&gt;</span>
+<span class="tag">&lt;auth-module</span> <span class="attribute-name">code</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">login-module-stack-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;module-option</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/auth-module&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -12814,9 +12800,9 @@ mapping element is:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;mapping-module type=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span>code=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> module=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span>&gt;
-  &lt;module-option name=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> value=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span>/&gt;
-&lt;/mapping-module&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;mapping-module</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span><span class="attribute-name">code</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">module</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;module-option</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">...</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/mapping-module&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -13606,11 +13592,11 @@ which the chain will be triggered.</p>
 <div class="paragraph">
 <p>Endpoint-config handler classloading</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 The <code>class</code> attribute is used to provide the fully qualified class name
@@ -13635,7 +13621,7 @@ context and a WSDL Url:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9999</span> /] /deployment=<span class="string"><span class="delimiter">&quot;</span><span class="content">*</span><span class="delimiter">&quot;</span></span>/subsystem=webservices/endpoint=<span class="string"><span class="delimiter">&quot;</span><span class="content">*</span><span class="delimiter">&quot;</span></span><span class="symbol">:read</span>-resource
+<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9999</span> /] /deployment=<span class="string"><span class="delimiter">&quot;</span><span class="content">*</span><span class="delimiter">&quot;</span></span>/subsystem=webservices/endpoint=<span class="key"><span class="delimiter">&quot;</span><span class="content">*</span><span class="delimiter">&quot;</span></span>:read-resource
 {
    <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
    <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; [{
@@ -13664,7 +13650,7 @@ context and a WSDL Url:</p>
 detailed description of the available configuration properties, please
 consult the project documentation.</p>
 </div>
-<div class="openblock">
+<div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
@@ -13856,10 +13842,8 @@ repository and named thread pool are resources defined on the batch
 subsystem. Only a named thread pool is allowed to be defined in the
 deployment descriptor.</p>
 </div>
-<div class="paragraph">
-<p>Example Named Job Repository and Thread Pool</p>
-</div>
 <div class="listingblock">
+<div class="title">Example Named Job Repository and Thread Pool</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;jboss</span> <span class="attribute-name">umlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     <span class="tag">&lt;batch</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:batch-jberet:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -13871,10 +13855,8 @@ deployment descriptor.</p>
 <span class="tag">&lt;/jboss&gt;</span></code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Example new Job Repository</p>
-</div>
 <div class="listingblock">
+<div class="title">Example new Job Repository</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;jboss</span> <span class="attribute-name">umlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     <span class="tag">&lt;batch</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:batch-jberet:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
@@ -13894,10 +13876,8 @@ resources for deployments. The batch subsystem registers jobs and
 executions. The jobs are registered using the job name, this is <em>not</em>
 the job XML name. Executions are registered using the execution id.</p>
 </div>
-<div class="paragraph">
-<p>Batch application in a standalone server</p>
-</div>
 <div class="listingblock">
+<div class="title">Batch application in a standalone server</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /deployment=batch-jdbc-chunk.war/subsystem=batch-<span class="key">jberet</span>:read-resource(recursive=<span class="predefined-constant">true</span>,include-runtime=<span class="predefined-constant">true</span>)
 {
@@ -13931,10 +13911,8 @@ interact with batch jobs on the selected deployment. There is a
 <code>start-job</code>, <code>stop-job</code> and <code>restart-job</code> operation. The <code>execution</code>
 resource also has a <code>stop-job</code> and <code>restart-job</code> operation.</p>
 </div>
-<div class="paragraph">
-<p>Example start-job</p>
-</div>
 <div class="listingblock">
+<div class="title">Example start-job</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /deployment=batch-chunk.war/subsystem=batch-<span class="key">jberet</span>:start-job(job-xml-name=simple, properties={writer.sleep=<span class="integer">5000</span>})
 {
@@ -13943,18 +13921,14 @@ resource also has a <code>stop-job</code> and <code>restart-job</code> operation
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Example stop-job</p>
-</div>
 <div class="listingblock">
+<div class="title">Example stop-job</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /deployment=batch-chunk.war/subsystem=batch-<span class="key">jberet</span>:stop-job(execution-id=<span class="integer">2</span>)</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Example restart-job</p>
-</div>
 <div class="listingblock">
+<div class="title">Example restart-job</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /deployment=batch-chunk.war/subsystem=batch-<span class="key">jberet</span>:restart-job(execution-id=<span class="integer">2</span>)
 {
@@ -13963,10 +13937,8 @@ resource also has a <code>stop-job</code> and <code>restart-job</code> operation
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Result of resource after the 3 executions</p>
-</div>
 <div class="listingblock">
+<div class="title">Result of resource after the 3 executions</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /deployment=batch-chunk.war/subsystem=batch-<span class="key">jberet</span>:read-resource(recursive=<span class="predefined-constant">true</span>, include-runtime=<span class="predefined-constant">true</span>)
 {
@@ -14023,10 +13995,8 @@ You can filter jobs by an attribute on the execution resource with the
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>View all stopped jobs</p>
-</div>
 <div class="listingblock">
+<div class="title">View all stopped jobs</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">deployment=batch-chunk.war</span><span class="delimiter">/</span><span class="modifier">su</span></span>bsystem=batch-jberet/job=*<span class="regexp"><span class="delimiter">/</span><span class="content">execution=*:query(where=[&quot;batch-status&quot;, &quot;STOPPED&quot;])</span></span></code></pre>
 </div>
@@ -14051,10 +14021,8 @@ and attributes (arguments) on operations.
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Example start-job operation description</p>
-</div>
 <div class="listingblock">
+<div class="title">Example start-job operation description</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /deployment=batch-chunk.war/subsystem=batch-<span class="key">jberet</span>:read-operation-description(name=start-job)
 {
@@ -14219,7 +14187,7 @@ The new JSF implementation should appear in the output of this command.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">[standalone<span class="annotation">@localhost</span>:<span class="integer">9990</span> /] /subsystem=jsf:list-active-jsf-impls()</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /subsystem=<span class="key">jsf</span>:list-active-jsf-impls()</code></pre>
 </div>
 </div>
 </div>
@@ -14232,7 +14200,7 @@ implementation the default JSF implementation used by WildFly:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=jsf/:write-attribute(name=<span class="keyword">default</span>-jsf-impl-slot,value=&lt;JSF_IMPL_NAME&gt;-&lt;JSF_VERSION&gt;)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml">/subsystem=jsf/:write-attribute(name=default-jsf-impl-slot,value=<span class="tag">&lt;JSF_IMPL_NAME&gt;</span>-<span class="tag">&lt;JSF_VERSION&gt;</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -14326,11 +14294,11 @@ JMXExample</code></pre>
 <div class="paragraph">
 <p>You can also connect using jconsole.</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 If using jconsole use the <code>jconsole.sh</code> and <code>jconsole.bat</code> scripts
@@ -15543,8 +15511,8 @@ calling script.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$JBOSS_HOME/bin/standalone.sh -Djboss.home.dir=some/location/wildFly \
-    -Djboss.server.config.dir=some/location/wildFly/custom-standalone</pre>
+<pre class="CodeRay highlight"><code data-lang="bash">$JBOSS_HOME/bin/standalone.sh -Djboss.home.dir=some/location/wildFly \
+    -Djboss.server.config.dir=some/location/wildFly/custom-standalone</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -15559,8 +15527,8 @@ two examples below.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$JBOSS_HOME/bin/domain.sh --properties=/some/location/jboss.properties
-$JBOSS_HOME/bin/domain.sh -P=/some/location/jboss.properties</pre>
+<pre class="CodeRay highlight"><code data-lang="bash">$JBOSS_HOME/bin/domain.sh --properties=/some/location/jboss.properties
+$JBOSS_HOME/bin/domain.sh -P=/some/location/jboss.properties</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -15581,8 +15549,8 @@ or the Microsoft Windows scripts <code>domain.bat</code> or <code>standalone.bat
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>jboss.home.dir=/some/location/wildFly
-jboss.domain.config.dir=/some/location/wildFly/custom-domain</pre>
+<pre class="CodeRay highlight"><code data-lang="bash">jboss.home.dir=/some/location/wildFly
+jboss.domain.config.dir=/some/location/wildFly/custom-domain</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -15736,7 +15704,7 @@ managed server instances</p></td>
 <p>The first acceptable format for command line arguments to the WildFly
 launch scripts is</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
 <pre>--name=value</pre>
 </div>
@@ -15746,16 +15714,16 @@ launch scripts is</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$JBOSS_HOME/bin/standalone.sh --server-config=standalone-ha.xml</pre>
+<pre class="CodeRay highlight"><code data-lang="bash">$JBOSS_HOME/bin/standalone.sh --server-config=standalone-ha.xml</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>If the parameter name is a single character, it is prefixed by a single
 '-' instead of two. Some parameters have both a long and short option.</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">-x=value</code></pre>
+<pre>-x=value</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -15763,7 +15731,7 @@ launch scripts is</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$JBOSS_HOME/bin/standalone.sh -P=/some/location/jboss.properties</pre>
+<pre class="CodeRay highlight"><code data-lang="bash">$JBOSS_HOME/bin/standalone.sh -P=/some/location/jboss.properties</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -15771,7 +15739,7 @@ launch scripts is</p>
 releases of WildFly, replacing the "=" in the above examples with a
 space is supported, for compatibility.</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
 <pre>-b 192.168.100.10</pre>
 </div>
@@ -16040,7 +16008,7 @@ named "public" to be bound to <code>192.168.100.10</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$JBOSS_HOME/bin/standalone.sh -b=192.168.100.10</pre>
+<pre class="CodeRay highlight"><code data-lang="bash">$JBOSS_HOME/bin/standalone.sh -b=192.168.100.10</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -16171,11 +16139,11 @@ configurations to be communicate over multicast address <code>230.0.1.2</code>.<
 <div class="paragraph">
 <p>Be Careful</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 As with the <code>-b</code> switch, the <code>-u</code> switch only controls the multicast
@@ -16187,250 +16155,13 @@ by <code>-u</code>, then setting <code>-u</code> in your launch command will hav
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_suspend_resume_and_graceful_shutdown">11.2. Suspend, Resume and Graceful shutdown</h3>
-<div class="sect3">
-<h4 id="core-concepts">11.2.1. Core Concepts</h4>
 <div class="paragraph">
-<p>Wildfly introduces the ability to suspend and resume servers. This can
-be combined with shutdown to enable the server to gracefully finish
-processing all active requests and then shut down. When a server is
-suspended it will immediately stop accepting new requests, but wait for
-existing request to complete. A suspended server can be resumed at any
-point, and will begin processing requests immediately. Suspending and
-resuming has no effect on deployment state (e.g. if a server is
-suspended singleton EJB&#8217;s will not be destroyed). As of Wildfly 11 it is
-also possible to start a server in suspended mode which means it will
-not accept requests until it has been resumed, servers will also be
-suspended during the boot process, so no requests will be accepted until
-the startup process is 100% complete.</p>
-</div>
-<div class="paragraph">
-<p>Suspend/Resume has no effect on management operations, management
-operations can still be performed while a server is suspended. If you
-wish to perform a management operation that will affect the operation of
-the server (e.g. changing a datasource) you can suspend the server,
-perform the operation, then resume the server. This allows all requests
-to finish, and makes sure that no requests are running while the
-management changes are taking place.</p>
-</div>
-<div class="paragraph">
-<p>When a server is suspending it goes through four different phases:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>RUNNING</strong> - The normal state, the server is accepting requests and
-running normally</p>
-</li>
-<li>
-<p><strong>PRE_SUSPEND</strong> - In PRE_SUSPEND the server will notify external parties
-that it is about to suspend, for example mod_cluster will notify the
-load balancer that the deployment is suspending. Requests are still
-accepted in this phase.</p>
-</li>
-<li>
-<p><strong>SUSPENDING</strong> - All new requests are rejected, and the server is
-waiting for all active requests to finish. If there are no active
-requests at suspend time this phase will be skipped.</p>
-</li>
-<li>
-<p><strong>SUSPENDED</strong> - All requests have completed, and the server is
-suspended.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="starting-suspended">11.2.2. Starting Suspended</h4>
-<div class="paragraph">
-<p>In order to start into suspended mode when using a standalone server you
-need to add <strong>--start-mode=suspend</strong> to the command line. It is also
-possible to specify the start-mode in the <strong>reload</strong> operation to cause
-the server to reload into suspended mode (other possible values for
-start-mode are <strong>normal</strong> and <strong>admin-only</strong>).</p>
-</div>
-<div class="paragraph">
-<p>In domain mode servers can be started in suspended mode by passing the
-<strong>suspend=true</strong> parameter to any command that causes a server to start,
-restart or reload (e.g. :start-servers(suspend=true)).</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="the-request-controller-subsystem">11.2.3. The Request Controller Subsystem</h4>
-<div class="paragraph">
-<p>Wildfly introduces a new subsystem called the Request Controller
-Subsystem. This optional subsystem tracks all requests at their entry
-point, which how the graceful shutdown mechanism know when all requests
-are done (it also allows you to provide a global limit on the total
-number of running requests).</p>
-</div>
-<div class="paragraph">
-<p>If this subsystem is not present suspend/resume will be limited, in
-general things that happen in the PRE_SUSPEND phase will work as normal
-(stopping message delivery, notifying the load balancer), however the
-server will not wait for all requests to complete and instead move
-straight to SUSPENDED mode.</p>
-</div>
-<div class="paragraph">
-<p>There is a small performance penalty associated with the request
-controller subsystem (about on par with enabling statistics), so if you
-do not require the suspend/resume functionality this subsystem can be
-removed to get a small performance boost.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="subsystem-integrations">11.2.4. Subsystem Integrations</h4>
-<div class="paragraph">
-<p>Suspend/Resume is a service provided by the Wildfly platform that any
-subsystem may choose to integrate with. Some subsystems integrate
-directly with the suspend controller, while others integrate through the
-request controller subsystem.</p>
-</div>
-<div class="paragraph">
-<p>The following subsystems support graceful shutdown. Note that only
-subsystems that provide an external entry point to the server need
-graceful shutdown support, for example the JAX-RS subsystem does not
-require suspend/resume support as all access to JAX-RS is through the
-web connector.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Undertow</strong> - Undertow will wait for all requests to finish</p>
-</li>
-<li>
-<p><strong>mod_cluster</strong> - The mod_cluster subsystem will notify the load
-balancer that the server is suspending in the PRE_SUSPEND phase.</p>
-</li>
-<li>
-<p><strong>EJB</strong> - EJB will wait for all remote EJB requests and MDB message
-deliveries to finish. Delivery to MDB&#8217;s is stopped in the PRE_SUSPEND
-phase. EJB timers are suspended, and missed timers will be activated
-when the server is resumed.</p>
-</li>
-<li>
-<p><strong>Batch</strong> - Batch jobs will be stopped at a checkpoint while the server
-is suspending. They will be restarted from that checkpoint when the
-server returns to running mode.</p>
-</li>
-<li>
-<p><strong>EE Concurrency</strong> - The server will wait for all active jobs to finish.
-All jobs that have already been queued will be skipped.</p>
-</li>
-<li>
-<p><strong>Transactions</strong> - transaction subsystem waits for all running
-transactions to finish while server is suspending. During that time
-server refuses to start any new transaction. But any in-flight
-transaction will be serviced - e.g. it means that server accepts any
-incoming remote call which carries context of the transaction already
-started at the suspending server.<br>
-When you work with EJBs you have to enable the graceful shutdown
-functionality by setting attribute <code>enable-graceful-txn-shutdown</code> to
-<code>true</code>.<br>
-(at the <code>ejb3 subsystem</code> xml, for example):<br>
-<code>&lt;enable-graceful-txn-shutdown value="false"/&gt;</code><br>
-By <strong>default</strong> graceful shutdown it&#8217;s <strong>disabled</strong> for ejb subsystem.<br>
-The reason is that the behavior might be unwelcome in cluster
-environments, as the server notifies remote clients that the node is no
-longer available for remote calls only after the transactions are
-finished. During that brief window of time, the client of a cluster may
-send a new request to a node that is shutting down and will refuse the
-request because it is not related to an existing transaction.<br>
-If this attribute <code>enable-graceful-txn-shutdown</code> is set to <code>false</code>, we
-disable the graceful behavior and EJB clients will not attempt to invoke
-the node when it suspends, regardless of active transactions.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="standalone-mode">11.2.5. Standalone Mode</h4>
-<div class="paragraph">
-<p>Suspend/Resume can be controlled via the following CLI operations in
-standalone mode:</p>
-</div>
-<div class="paragraph">
-<p><code>:suspend(timeout=z)</code></p>
-</div>
-<div class="paragraph">
-<p>Suspends the server. If the timeout is specified it will wait up to the
-specified number of seconds for all requests to finish. If there is no
-timeout specified or the value is less than zero it will wait
-indefinitely.</p>
-</div>
-<div class="paragraph">
-<p><code>:resume</code></p>
-</div>
-<div class="paragraph">
-<p>Resumes a previously suspended server. The server should be able to
-begin serving requests immediately.</p>
-</div>
-<div class="paragraph">
-<p><code>:read-attribute(name=suspend-state)</code></p>
-</div>
-<div class="paragraph">
-<p>Returns the current suspend state of the server.</p>
-</div>
-<div class="paragraph">
-<p><code>:shutdown(timeout=x)</code></p>
-</div>
-<div class="paragraph">
-<p>If a timeout parameter is passed to the shutdown command then a graceful
-shutdown will be performed. The server will be suspended, and will wait
-up to the specified number of seconds for all requests to finish before
-shutting down. A timeout value of less than zero means it will wait
-indefinitely.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="domain-mode">11.2.6. Domain Mode</h4>
-<div class="paragraph">
-<p>Domain mode has similar commands as standalone mode, however they can be
-applied at both the global and server group levels:</p>
-</div>
-<div class="paragraph">
-<p><strong>Whole Domain</strong></p>
-</div>
-<div class="paragraph">
-<p><code>:suspend-servers(timeout=x)</code></p>
-</div>
-<div class="paragraph">
-<p>:resume-servers</p>
-</div>
-<div class="paragraph">
-<p>:stop-servers(timeout=x)</p>
-</div>
-<div class="paragraph">
-<p><strong>Server Group</strong></p>
-</div>
-<div class="paragraph">
-<p><code>/server-group=main-server-group:suspend-servers(timeout=x)</code></p>
-</div>
-<div class="paragraph">
-<p><code>/server-group=main-server-group:resume-servers</code></p>
-</div>
-<div class="paragraph">
-<p><code>/server-group=main-server-group:stop-servers(timeout=x)</code></p>
-</div>
-<div class="paragraph">
-<p><strong>Server</strong></p>
-</div>
-<div class="paragraph">
-<p><code>/host=master/server-config=server-one:suspend(timeout=x)</code></p>
-</div>
-<div class="paragraph">
-<p>/host=master/server-config=server-one:resume</p>
-</div>
-<div class="paragraph">
-<p>/host=master/server-config=server-one:stop(timeout=x)</p>
+<p>Unresolved directive in admin-guide/Management_tasks.adoc - include::management-tasks/Suspend,_resume_and_graceful_shutdown.adoc[]</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_starting_stopping_servers_in_a_managed_domain">11.3. Starting &amp; stopping Servers in a Managed Domain</h3>
+<h3 id="_starting_stopping_servers_in_a_managed_domain">11.2. Starting &amp; stopping Servers in a Managed Domain</h3>
 <div class="paragraph">
 <p>Starting a standalone server is done through the <code>bin/standalone.sh</code>
 script. However in a managed domain server instances are managed by the
@@ -16497,11 +16228,11 @@ operations</p>
 }</code></pre>
 </div>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
 Navigating through the domain topology is much more simple when you use
@@ -16512,7 +16243,7 @@ the web interface.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_jvm_settings">11.4. JVM settings</h3>
+<h3 id="_jvm_settings">11.3. JVM settings</h3>
 <div class="paragraph">
 <p>Configuration of the JVM settings is different for a managed domain and
 a standalone server. In a managed domain, the domain controller
@@ -16522,7 +16253,7 @@ responsibility of the process that started the server (e.g. passing them
 as command line arguments).</p>
 </div>
 <div class="sect3">
-<h4 id="managed-domain">11.4.1. Managed Domain</h4>
+<h4 id="managed-domain">11.3.1. Managed Domain</h4>
 <div class="paragraph">
 <p>In a managed domain the JVM settings can be declared at different
 scopes: For a specific server group, for a host or for a particular
@@ -16600,7 +16331,7 @@ heap size.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="standalone-server">11.4.2. Standalone Server</h4>
+<h4 id="standalone-server">11.3.2. Standalone Server</h4>
 <div class="paragraph">
 <p>For a standalone sever you have to pass in the JVM settings either as
 command line arguments when executing the
@@ -16612,7 +16343,7 @@ be declared in <code>%JBOSS_HOME%/bin/standalone.conf.bat.)</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_audit_logging">11.5. Audit logging</h3>
+<h3 id="_audit_logging">11.4. Audit logging</h3>
 <div class="paragraph">
 <p>WildFly comes with audit logging built in for management operations
 affecting the management model. By default it is turned off. The
@@ -16690,11 +16421,11 @@ follows:</p>
 <div class="paragraph">
 <p>Audit data are stored in standalone/data/audit-log.log.</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 The audit logging subsystem has a lot of internal dependencies, and it
@@ -16709,7 +16440,7 @@ step. Similarly if you are using a file handler, and want to change its
 </table>
 </div>
 <div class="sect3">
-<h4 id="json-formatter">11.5.1. JSON Formatter</h4>
+<h4 id="json-formatter">11.4.1. JSON Formatter</h4>
 <div class="paragraph">
 <p>The first thing that needs configuring is the formatter, we currently
 support outputting log records as JSON. You can define several
@@ -16864,7 +16595,7 @@ code in octal, e.g. "#012".</p></td>
 </table>
 </div>
 <div class="sect3">
-<h4 id="handlers">11.5.2. Handlers</h4>
+<h4 id="handlers">11.4.2. Handlers</h4>
 <div class="paragraph">
 <p>A handler is responsible for taking the formatted data and logging it to
 a location. There are currently two types of handlers, File and Syslog.
@@ -17215,7 +16946,7 @@ attribute is treated as relative to the path specified by this attribute</p></td
 </div>
 </div>
 <div class="sect3">
-<h4 id="logger-configuration">11.5.3. Logger configuration</h4>
+<h4 id="logger-configuration">11.4.3. Logger configuration</h4>
 <div class="paragraph">
 <p>The final part that needs configuring is the logger for the management
 operations. This references one or more handlers and is configured at
@@ -17256,7 +16987,7 @@ configured as <code>handler=*</code> children of the logger.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="domain-mode-host-specific-configuration">11.5.4. Domain Mode (host specific configuration)</h4>
+<h4 id="domain-mode-host-specific-configuration">11.4.4. Domain Mode (host specific configuration)</h4>
 <div class="paragraph">
 <p>In domain mode audit logging is configured for each host in its
 <code>host.xml</code> file. This means that when connecting to the DC, the
@@ -17325,13 +17056,13 @@ independently.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_canceling_management_operations">11.6. Canceling Management Operations</h3>
+<h3 id="_canceling_management_operations">11.5. Canceling Management Operations</h3>
 <div class="paragraph">
 <p>WildFly includes the ability to use the CLI to cancel management
 requests that are not proceeding normally.</p>
 </div>
 <div class="sect3">
-<h4 id="the-cancel-non-progressing-operation-operation">11.6.1. The cancel-non-progressing-operation operation</h4>
+<h4 id="the-cancel-non-progressing-operation-operation">11.5.1. The cancel-non-progressing-operation operation</h4>
 <div class="paragraph">
 <p>The <code>cancel-non-progressing-operation</code> operation instructs the target
 process to find any operation that isn&#8217;t proceeding normally and cancel
@@ -17403,7 +17134,7 @@ will be a failure response:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="the-find-non-progressing-operation-operation">11.6.2. The find-non-progressing-operation operation</h4>
+<h4 id="the-find-non-progressing-operation-operation">11.5.2. The find-non-progressing-operation operation</h4>
 <div class="paragraph">
 <p>To simply learn the id of an operation that isn&#8217;t proceeding normally,
 but not cancel it, use the <code>find-non-progressing-operation</code> operation:</p>
@@ -17427,7 +17158,7 @@ operation can be examined to learn more about its status.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="examining-the-status-of-an-active-operation">11.6.3. Examining the status of an active operation</h4>
+<h4 id="examining-the-status-of-an-active-operation">11.5.3. Examining the status of an active operation</h4>
 <div class="paragraph">
 <p>There is a management resource for any currently executing operation
 that can be queried:</p>
@@ -17587,7 +17318,7 @@ the <code>read-children-resources</code> operation:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="canceling-a-specific-operation">11.6.4. Canceling a specific operation</h4>
+<h4 id="canceling-a-specific-operation">11.5.4. Canceling a specific operation</h4>
 <div class="paragraph">
 <p>The <code>cancel-non-progressing-operation</code> operation is a convenience
 operation for identifying and canceling an operation. However, an
@@ -17606,7 +17337,7 @@ operation on the resource for the desired operation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="controlling-operation-blocking-time">11.6.5. Controlling operation blocking time</h4>
+<h4 id="controlling-operation-blocking-time">11.5.5. Controlling operation blocking time</h4>
 <div class="paragraph">
 <p>As an operation executes, the execution thread may block at various
 points, particularly while waiting for the service container to
@@ -17639,7 +17370,7 @@ points during operation execution.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_file_history">11.7. Configuration file history</h3>
+<h3 id="_configuration_file_history">11.6. Configuration file history</h3>
 <div class="paragraph">
 <p>The management operations may modify the model. When this occurs the xml
 backing the model is written out again reflecting the latest changes. In
@@ -17725,7 +17456,7 @@ folder within the <code>standalone_xml_history</code>, and a new <code>current</
 is created. These timestamped folders are kept for 30 days.</p>
 </div>
 <div class="sect3">
-<h4 id="snapshots">11.7.1. Snapshots</h4>
+<h4 id="snapshots">11.6.1. Snapshots</h4>
 <div class="paragraph">
 <p>In addition to the backups taken by the server as described above you
 can manually take take snapshots which will be stored in the <code>snapshot</code>
@@ -17811,7 +17542,7 @@ to navigate to the host in question:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="subsequent-starts">11.7.2. Subsequent Starts</h4>
+<h4 id="subsequent-starts">11.6.2. Subsequent Starts</h4>
 <div class="paragraph">
 <p>For subsequent server starts it may be desirable to take the state of
 the server back to one of the previously known states, for a number of
@@ -18932,9 +18663,9 @@ bsh % print(salesTerritories.toString());
 <div class="paragraph">
 <p>The normal syntax would be:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">salesTerritories.get(<span class="string"><span class="delimiter">&quot;</span><span class="content">US</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">Missouri</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">St. Louis</span><span class="delimiter">&quot;</span></span>).set(<span class="string"><span class="delimiter">&quot;</span><span class="content">Brian</span><span class="delimiter">&quot;</span></span>);</code></pre>
+<pre>salesTerritories.get("US", "Missouri", "St. Louis").set("Brian");</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -19011,11 +18742,11 @@ substitution feature in previous JBoss AS releases.</p>
 <div class="paragraph">
 <p>For example:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span>{queue.length}
-http:<span class="comment">//${host}</span>
-http:<span class="comment">//${host:localhost}:${port:8080}/index.html</span></code></pre>
+<pre>${queue.length}
+http://${host}
+http://${host:localhost}:${port:8080}/index.html</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -19977,9 +19708,9 @@ becomes subsystem/undertow/server/default-server.</p>
 <div class="paragraph">
 <p>So to read the server-state :</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">http:<span class="comment">//localhost:9990/management?operation=attribute&amp;name=server-state&amp;json.pretty=1</span></code></pre>
+<pre>http://localhost:9990/management?operation=attribute&amp;name=server-state&amp;json.pretty=1</pre>
 </div>
 </div>
 </div>
@@ -19994,40 +19725,40 @@ becomes subsystem/undertow/server/default-server.</p>
 <ul>
 <li>
 <p>Using GET</p>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">http:<span class="comment">//localhost:9990/management?operation=attribute&amp;name=server-state&amp;json.pretty=1</span></code></pre>
+<pre>http://localhost:9990/management?operation=attribute&amp;name=server-state&amp;json.pretty=1</pre>
 </div>
-</div>
-</li>
-</ul>
 </div>
 </li>
 <li>
 <p>Using POST</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span> curl --digest -L -D - http:<span class="comment">//localhost:9990/management --header &quot;Content-Type: application/json&quot; -d '{&quot;operation&quot;:&quot;read-attribute&quot;,&quot;name&quot;:&quot;server-state&quot;,&quot;json.pretty&quot;:1}' -u admin</span>
-Enter host password <span class="keyword">for</span> user <span class="string"><span class="delimiter">'</span><span class="content">admin</span><span class="delimiter">'</span></span>:
-HTTP/<span class="float">1.1</span> <span class="integer">401</span> Unauthorized
-<span class="predefined-type">Connection</span>: keep-alive
-WWW-Authenticate: Digest realm=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span>,domain=<span class="string"><span class="delimiter">&quot;</span><span class="content">/management</span><span class="delimiter">&quot;</span></span>,nonce=<span class="string"><span class="delimiter">&quot;</span><span class="content">P80WU3BANtQNMTQwNjg5Mzc5MDQ2MlpjmRaZ+Vlp1OVeNEGBeXg=</span><span class="delimiter">&quot;</span></span>,opaque=<span class="string"><span class="delimiter">&quot;</span><span class="content">00000000000000000000000000000000</span><span class="delimiter">&quot;</span></span>,algorithm=MD5
-Content-Length: <span class="integer">77</span>
-Content-<span class="predefined-type">Type</span>: text/html
-<span class="predefined-type">Date</span>: Fri, <span class="octal">01</span> Aug <span class="integer">2014</span> <span class="integer">11</span>:<span class="integer">49</span>:<span class="integer">50</span> GMT
-<span class="error"> </span>
-HTTP/<span class="float">1.1</span> <span class="integer">200</span> OK
-<span class="predefined-type">Connection</span>: keep-alive
-Authentication-Info: nextnonce=<span class="string"><span class="delimiter">&quot;</span><span class="content">M+h9aADejeINMTQwNjg5Mzc5MDQ2OPQbHKdAS8pRE8BbGEDY5uI=</span><span class="delimiter">&quot;</span></span>
-Content-<span class="predefined-type">Type</span>: application/json; charset=utf-<span class="integer">8</span>
-Content-Length: <span class="integer">55</span>
-<span class="predefined-type">Date</span>: Fri, <span class="octal">01</span> Aug <span class="integer">2014</span> <span class="integer">11</span>:<span class="integer">49</span>:<span class="integer">50</span> GMT
-<span class="error"> </span>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="error">$</span> curl --digest -<span class="constant">L</span> -<span class="constant">D</span> - <span class="key">http</span>:<span class="regexp"><span class="delimiter">/</span><span class="delimiter">/</span></span><span class="key">localhost</span>:<span class="integer">9990</span>/management --header <span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type: application/json</span><span class="delimiter">&quot;</span></span> -d <span class="string"><span class="delimiter">'</span><span class="content">{&quot;operation&quot;:&quot;read-attribute&quot;,&quot;name&quot;:&quot;server-state&quot;,&quot;json.pretty&quot;:1}</span><span class="delimiter">'</span></span> -u admin
+<span class="constant">Enter</span> host password <span class="keyword">for</span> user <span class="string"><span class="delimiter">'</span><span class="content">admin</span><span class="delimiter">'</span></span>:
+<span class="constant">HTTP</span>/<span class="float">1.1</span> <span class="integer">401</span> <span class="constant">Unauthorized</span>
+<span class="key">Connection</span>: keep-alive
+<span class="constant">WWW</span>-<span class="key">Authenticate</span>: <span class="constant">Digest</span> realm=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span>,domain=<span class="string"><span class="delimiter">&quot;</span><span class="content">/management</span><span class="delimiter">&quot;</span></span>,nonce=<span class="string"><span class="delimiter">&quot;</span><span class="content">P80WU3BANtQNMTQwNjg5Mzc5MDQ2MlpjmRaZ+Vlp1OVeNEGBeXg=</span><span class="delimiter">&quot;</span></span>,opaque=<span class="string"><span class="delimiter">&quot;</span><span class="content">00000000000000000000000000000000</span><span class="delimiter">&quot;</span></span>,algorithm=<span class="constant">MD5</span>
+<span class="constant">Content</span>-<span class="key">Length</span>: <span class="integer">77</span>
+<span class="constant">Content</span>-<span class="key">Type</span>: text/html
+<span class="key">Date</span>: <span class="constant">Fri</span>, <span class="integer">01</span> <span class="constant">Aug</span> <span class="integer">2014</span> <span class="integer">11</span>:<span class="integer">49</span>:<span class="integer">50</span> <span class="constant">GMT</span>
+ 
+<span class="constant">HTTP</span>/<span class="float">1.1</span> <span class="integer">200</span> <span class="constant">OK</span>
+<span class="key">Connection</span>: keep-alive
+<span class="constant">Authentication</span>-<span class="key">Info</span>: nextnonce=<span class="string"><span class="delimiter">&quot;</span><span class="content">M+h9aADejeINMTQwNjg5Mzc5MDQ2OPQbHKdAS8pRE8BbGEDY5uI=</span><span class="delimiter">&quot;</span></span>
+<span class="constant">Content</span>-<span class="key">Type</span>: application/json; charset=utf-<span class="integer">8</span>
+<span class="constant">Content</span>-<span class="key">Length</span>: <span class="integer">55</span>
+<span class="key">Date</span>: <span class="constant">Fri</span>, <span class="integer">01</span> <span class="constant">Aug</span> <span class="integer">2014</span> <span class="integer">11</span>:<span class="integer">49</span>:<span class="integer">50</span> <span class="constant">GMT</span>
+ 
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">running</span><span class="delimiter">&quot;</span></span>
 }</code></pre>
 </div>
+</div>
+</li>
+</ul>
 </div>
 </li>
 <li>
@@ -20039,15 +19770,15 @@ and passed parameters. This is same as if you would run
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span> curl --digest -L -D - http:<span class="comment">//localhost:9990/management --header &quot;Content-Type: application/json&quot; -d '{&quot;operation&quot;:&quot;read-attribute&quot;,&quot;address&quot;:[{&quot;host&quot;:&quot;master&quot;},{&quot;server&quot;:&quot;server-01&quot;}],&quot;name&quot;:&quot;server-state&quot;,&quot;json.pretty&quot;:1}'</span>
-HTTP/<span class="float">1.1</span> <span class="integer">200</span> OK
-Transfer-encoding: chunked
-Content-type: application/json
-<span class="predefined-type">Date</span>: Tue, <span class="integer">17</span> Apr <span class="integer">2012</span> <span class="octal">04</span>:<span class="octal">02</span>:<span class="integer">24</span> GMT
-<span class="error"> </span>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="error">$</span> curl --digest -<span class="constant">L</span> -<span class="constant">D</span> - <span class="key">http</span>:<span class="regexp"><span class="delimiter">/</span><span class="delimiter">/</span></span><span class="key">localhost</span>:<span class="integer">9990</span>/management --header <span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type: application/json</span><span class="delimiter">&quot;</span></span> -d <span class="string"><span class="delimiter">'</span><span class="content">{&quot;operation&quot;:&quot;read-attribute&quot;,&quot;address&quot;:[{&quot;host&quot;:&quot;master&quot;},{&quot;server&quot;:&quot;server-01&quot;}],&quot;name&quot;:&quot;server-state&quot;,&quot;json.pretty&quot;:1}</span><span class="delimiter">'</span></span>
+<span class="constant">HTTP</span>/<span class="float">1.1</span> <span class="integer">200</span> <span class="constant">OK</span>
+<span class="constant">Transfer</span>-<span class="key">encoding</span>: chunked
+<span class="constant">Content</span>-<span class="key">type</span>: application/json
+<span class="key">Date</span>: <span class="constant">Tue</span>, <span class="integer">17</span> <span class="constant">Apr</span> <span class="integer">2012</span> <span class="integer">04</span>:<span class="integer">02</span>:<span class="integer">24</span> <span class="constant">GMT</span>
+ 
 {
-<span class="error"> </span><span class="error"> </span><span class="error"> </span> <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
-<span class="error"> </span><span class="error"> </span><span class="error"> </span> <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">running</span><span class="delimiter">&quot;</span></span>
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">running</span><span class="delimiter">&quot;</span></span>
 }</code></pre>
 </div>
 </div>
@@ -20065,24 +19796,24 @@ in CLI</p>
 <p>Using GET</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">http:<span class="comment">//localhost:9990/management/subsystem/undertow/server/default-server?operation=resource&amp;recursive=true&amp;json.pretty=1</span>
-<span class="error"> </span>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="key">http</span>:<span class="regexp"><span class="delimiter">/</span><span class="delimiter">/</span></span><span class="key">localhost</span>:<span class="integer">9990</span>/management/subsystem/undertow/server/default-server?operation=resource&amp;recursive=<span class="predefined-constant">true</span>&amp;json.pretty=<span class="integer">1</span>
+ 
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">default-host</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">default-host</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">servlet-container</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>,
-    <span class="string"><span class="delimiter">&quot;</span><span class="content">ajp-listener</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">ajp-listener</span><span class="delimiter">&quot;</span></span> : null,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">host</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">default-host</span><span class="delimiter">&quot;</span></span> : {
         <span class="string"><span class="delimiter">&quot;</span><span class="content">alias</span><span class="delimiter">&quot;</span></span> : [<span class="string"><span class="delimiter">&quot;</span><span class="content">localhost</span><span class="delimiter">&quot;</span></span>],
         <span class="string"><span class="delimiter">&quot;</span><span class="content">default-web-module</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">ROOT.war</span><span class="delimiter">&quot;</span></span>,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">filter-ref</span><span class="delimiter">&quot;</span></span> : {
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">server-header</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">predicate</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>},
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">x-powered-by-header</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">predicate</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>}
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">server-header</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">predicate</span><span class="delimiter">&quot;</span></span> : null},
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">x-powered-by-header</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">predicate</span><span class="delimiter">&quot;</span></span> : null}
         },
         <span class="string"><span class="delimiter">&quot;</span><span class="content">location</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span> : {
             <span class="string"><span class="delimiter">&quot;</span><span class="content">handler</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">welcome-content</span><span class="delimiter">&quot;</span></span>,
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">filter-ref</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">filter-ref</span><span class="delimiter">&quot;</span></span> : null
         }},
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">setting</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">setting</span><span class="delimiter">&quot;</span></span> : null
     }},
     <span class="string"><span class="delimiter">&quot;</span><span class="content">http-listener</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> : {
         <span class="string"><span class="delimiter">&quot;</span><span class="content">allow-encoded-slash</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">false</span>,
@@ -20100,19 +19831,19 @@ in CLI</p>
         <span class="string"><span class="delimiter">&quot;</span><span class="content">max-parameters</span><span class="delimiter">&quot;</span></span> : <span class="integer">1000</span>,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">max-post-size</span><span class="delimiter">&quot;</span></span> : <span class="integer">10485760</span>,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">proxy-address-forwarding</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">false</span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">read-timeout</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">receive-buffer</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">read-timeout</span><span class="delimiter">&quot;</span></span> : null,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">receive-buffer</span><span class="delimiter">&quot;</span></span> : null,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">record-request-start-time</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">false</span>,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">redirect-socket</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">https</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">send-buffer</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">send-buffer</span><span class="delimiter">&quot;</span></span> : null,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">socket-binding</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">http</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-backlog</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-keep-alive</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-backlog</span><span class="delimiter">&quot;</span></span> : null,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-keep-alive</span><span class="delimiter">&quot;</span></span> : null,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">url-charset</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">UTF-8</span><span class="delimiter">&quot;</span></span>,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">worker</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">write-timeout</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">write-timeout</span><span class="delimiter">&quot;</span></span> : null
     }},
-    <span class="string"><span class="delimiter">&quot;</span><span class="content">https-listener</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">https-listener</span><span class="delimiter">&quot;</span></span> : null
 }</code></pre>
 </div>
 </div>
@@ -20121,39 +19852,39 @@ in CLI</p>
 <p>Using POST</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span> curl --digest -D - http:<span class="comment">//localhost:9990/management --header &quot;Content-Type: application/json&quot; -d '{&quot;operation&quot;:&quot;read-resource&quot;, &quot;include-runtime&quot;:&quot;true&quot; , &quot;recursive&quot;:&quot;true&quot;, &quot;address&quot;:[&quot;subsystem&quot;,&quot;undertow&quot;,&quot;server&quot;,&quot;default-server&quot;], &quot;json.pretty&quot;:1}' -u admin:admin</span>
-HTTP/<span class="float">1.1</span> <span class="integer">401</span> Unauthorized
-<span class="predefined-type">Connection</span>: keep-alive
-WWW-Authenticate: Digest realm=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span>,domain=<span class="string"><span class="delimiter">&quot;</span><span class="content">/management</span><span class="delimiter">&quot;</span></span>,nonce=<span class="string"><span class="delimiter">&quot;</span><span class="content">a3paQ9E0/l8NMTQwNjg5OTU0NDk4OKjmim2lopZNc5zCevjYWpk=</span><span class="delimiter">&quot;</span></span>,opaque=<span class="string"><span class="delimiter">&quot;</span><span class="content">00000000000000000000000000000000</span><span class="delimiter">&quot;</span></span>,algorithm=MD5
-Content-Length: <span class="integer">77</span>
-Content-<span class="predefined-type">Type</span>: text/html
-<span class="predefined-type">Date</span>: Fri, <span class="octal">01</span> Aug <span class="integer">2014</span> <span class="integer">13</span>:<span class="integer">25</span>:<span class="integer">44</span> GMT
-<span class="error"> </span>
-HTTP/<span class="float">1.1</span> <span class="integer">200</span> OK
-<span class="predefined-type">Connection</span>: keep-alive
-Authentication-Info: nextnonce=<span class="string"><span class="delimiter">&quot;</span><span class="content">nTOSJd3ufO4NMTQwNjg5OTU0NDk5MeUsRw5rKXUT4Qvk1nbrG5c=</span><span class="delimiter">&quot;</span></span>
-Content-<span class="predefined-type">Type</span>: application/json; charset=utf-<span class="integer">8</span>
-Content-Length: <span class="integer">1729</span>
-<span class="predefined-type">Date</span>: Fri, <span class="octal">01</span> Aug <span class="integer">2014</span> <span class="integer">13</span>:<span class="integer">25</span>:<span class="integer">45</span> GMT
-<span class="error"> </span>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="error">$</span> curl --digest -<span class="constant">D</span> - <span class="key">http</span>:<span class="regexp"><span class="delimiter">/</span><span class="delimiter">/</span></span><span class="key">localhost</span>:<span class="integer">9990</span>/management --header <span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type: application/json</span><span class="delimiter">&quot;</span></span> -d <span class="string"><span class="delimiter">'</span><span class="content">{&quot;operation&quot;:&quot;read-resource&quot;, &quot;include-runtime&quot;:&quot;true&quot; , &quot;recursive&quot;:&quot;true&quot;, &quot;address&quot;:[&quot;subsystem&quot;,&quot;undertow&quot;,&quot;server&quot;,&quot;default-server&quot;], &quot;json.pretty&quot;:1}</span><span class="delimiter">'</span></span> -u <span class="key">admin</span>:admin
+<span class="constant">HTTP</span>/<span class="float">1.1</span> <span class="integer">401</span> <span class="constant">Unauthorized</span>
+<span class="key">Connection</span>: keep-alive
+<span class="constant">WWW</span>-<span class="key">Authenticate</span>: <span class="constant">Digest</span> realm=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span>,domain=<span class="string"><span class="delimiter">&quot;</span><span class="content">/management</span><span class="delimiter">&quot;</span></span>,nonce=<span class="string"><span class="delimiter">&quot;</span><span class="content">a3paQ9E0/l8NMTQwNjg5OTU0NDk4OKjmim2lopZNc5zCevjYWpk=</span><span class="delimiter">&quot;</span></span>,opaque=<span class="string"><span class="delimiter">&quot;</span><span class="content">00000000000000000000000000000000</span><span class="delimiter">&quot;</span></span>,algorithm=<span class="constant">MD5</span>
+<span class="constant">Content</span>-<span class="key">Length</span>: <span class="integer">77</span>
+<span class="constant">Content</span>-<span class="key">Type</span>: text/html
+<span class="key">Date</span>: <span class="constant">Fri</span>, <span class="integer">01</span> <span class="constant">Aug</span> <span class="integer">2014</span> <span class="integer">13</span>:<span class="integer">25</span>:<span class="integer">44</span> <span class="constant">GMT</span>
+ 
+<span class="constant">HTTP</span>/<span class="float">1.1</span> <span class="integer">200</span> <span class="constant">OK</span>
+<span class="key">Connection</span>: keep-alive
+<span class="constant">Authentication</span>-<span class="key">Info</span>: nextnonce=<span class="string"><span class="delimiter">&quot;</span><span class="content">nTOSJd3ufO4NMTQwNjg5OTU0NDk5MeUsRw5rKXUT4Qvk1nbrG5c=</span><span class="delimiter">&quot;</span></span>
+<span class="constant">Content</span>-<span class="key">Type</span>: application/json; charset=utf-<span class="integer">8</span>
+<span class="constant">Content</span>-<span class="key">Length</span>: <span class="integer">1729</span>
+<span class="key">Date</span>: <span class="constant">Fri</span>, <span class="integer">01</span> <span class="constant">Aug</span> <span class="integer">2014</span> <span class="integer">13</span>:<span class="integer">25</span>:<span class="integer">45</span> <span class="constant">GMT</span>
+ 
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> : {
         <span class="string"><span class="delimiter">&quot;</span><span class="content">default-host</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">default-host</span><span class="delimiter">&quot;</span></span>,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">servlet-container</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>,
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">ajp-listener</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">ajp-listener</span><span class="delimiter">&quot;</span></span> : null,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">host</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">default-host</span><span class="delimiter">&quot;</span></span> : {
             <span class="string"><span class="delimiter">&quot;</span><span class="content">alias</span><span class="delimiter">&quot;</span></span> : [<span class="string"><span class="delimiter">&quot;</span><span class="content">localhost</span><span class="delimiter">&quot;</span></span>],
             <span class="string"><span class="delimiter">&quot;</span><span class="content">default-web-module</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">ROOT.war</span><span class="delimiter">&quot;</span></span>,
             <span class="string"><span class="delimiter">&quot;</span><span class="content">filter-ref</span><span class="delimiter">&quot;</span></span> : {
-                <span class="string"><span class="delimiter">&quot;</span><span class="content">server-header</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">predicate</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>},
-                <span class="string"><span class="delimiter">&quot;</span><span class="content">x-powered-by-header</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">predicate</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>}
+                <span class="string"><span class="delimiter">&quot;</span><span class="content">server-header</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">predicate</span><span class="delimiter">&quot;</span></span> : null},
+                <span class="string"><span class="delimiter">&quot;</span><span class="content">x-powered-by-header</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">predicate</span><span class="delimiter">&quot;</span></span> : null}
             },
             <span class="string"><span class="delimiter">&quot;</span><span class="content">location</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span> : {
                 <span class="string"><span class="delimiter">&quot;</span><span class="content">handler</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">welcome-content</span><span class="delimiter">&quot;</span></span>,
-                <span class="string"><span class="delimiter">&quot;</span><span class="content">filter-ref</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>
+                <span class="string"><span class="delimiter">&quot;</span><span class="content">filter-ref</span><span class="delimiter">&quot;</span></span> : null
             }},
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">setting</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">setting</span><span class="delimiter">&quot;</span></span> : null
         }},
         <span class="string"><span class="delimiter">&quot;</span><span class="content">http-listener</span><span class="delimiter">&quot;</span></span> : {<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> : {
             <span class="string"><span class="delimiter">&quot;</span><span class="content">allow-encoded-slash</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">false</span>,
@@ -20171,19 +19902,19 @@ Content-Length: <span class="integer">1729</span>
             <span class="string"><span class="delimiter">&quot;</span><span class="content">max-parameters</span><span class="delimiter">&quot;</span></span> : <span class="integer">1000</span>,
             <span class="string"><span class="delimiter">&quot;</span><span class="content">max-post-size</span><span class="delimiter">&quot;</span></span> : <span class="integer">10485760</span>,
             <span class="string"><span class="delimiter">&quot;</span><span class="content">proxy-address-forwarding</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">false</span>,
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">read-timeout</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">receive-buffer</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">read-timeout</span><span class="delimiter">&quot;</span></span> : null,
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">receive-buffer</span><span class="delimiter">&quot;</span></span> : null,
             <span class="string"><span class="delimiter">&quot;</span><span class="content">record-request-start-time</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">false</span>,
             <span class="string"><span class="delimiter">&quot;</span><span class="content">redirect-socket</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">https</span><span class="delimiter">&quot;</span></span>,
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">send-buffer</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">send-buffer</span><span class="delimiter">&quot;</span></span> : null,
             <span class="string"><span class="delimiter">&quot;</span><span class="content">socket-binding</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">http</span><span class="delimiter">&quot;</span></span>,
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-backlog</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-keep-alive</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>,
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-backlog</span><span class="delimiter">&quot;</span></span> : null,
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">tcp-keep-alive</span><span class="delimiter">&quot;</span></span> : null,
             <span class="string"><span class="delimiter">&quot;</span><span class="content">url-charset</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">UTF-8</span><span class="delimiter">&quot;</span></span>,
             <span class="string"><span class="delimiter">&quot;</span><span class="content">worker</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>,
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">write-timeout</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">write-timeout</span><span class="delimiter">&quot;</span></span> : null
         }},
-        <span class="string"><span class="delimiter">&quot;</span><span class="content">https-listener</span><span class="delimiter">&quot;</span></span> : <span class="predefined-constant">null</span>
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">https-listener</span><span class="delimiter">&quot;</span></span> : null
     }
 }</code></pre>
 </div>
@@ -20197,7 +19928,7 @@ Content-Length: <span class="integer">1729</span>
 readable</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">curl --digest -u admin:admin --header <span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type: application/dmr-encoded</span><span class="delimiter">&quot;</span></span> -d bwAAAAMACW9wZXJhdGlvbnMADXJlYWQtcmVzb3VyY2UAB2FkZHJlc3NsAAAAAAAHcmVjdXJzZVoB  http:<span class="comment">//localhost:9990/management</span></code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">curl --digest -u admin:admin --header &quot;Content-Type: application/dmr-encoded&quot; -d bwAAAAMACW9wZXJhdGlvbnMADXJlYWQtcmVzb3VyY2UAB2FkZHJlc3NsAAAAAAAHcmVjdXJzZVoB  http://localhost:9990/management</code></pre>
 </div>
 </div>
 </li>
@@ -20210,7 +19941,7 @@ readable</p>
 have to use <a href="http://localhost:9990/management/" class="bare">http://localhost:9990/management/</a><strong>add-content</strong></p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">curl --digest -u admin:admin --form file=<span class="annotation">@tiny</span>-webapp.war  http:<span class="comment">//localhost:9990/management/add-content</span>
+<pre class="CodeRay highlight"><code data-lang="ruby">curl --digest -u <span class="key">admin</span>:admin --form file=<span class="instance-variable">@tiny</span>-webapp.war  <span class="key">http</span>:<span class="regexp"><span class="delimiter">/</span><span class="delimiter">/</span></span><span class="key">localhost</span>:<span class="integer">9990</span>/management/add-content
 {<span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> : { <span class="string"><span class="delimiter">&quot;</span><span class="content">BYTES_VALUE</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">+QJlHTDrogO9pm/57GkT/vxWNz0=</span><span class="delimiter">&quot;</span></span> }}</code></pre>
 </div>
 </div>
@@ -20219,7 +19950,7 @@ have to use <a href="http://localhost:9990/management/" class="bare">http://loca
 <p>Now let&#8217;s deploy the application</p>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">curl --digest -u admin:admin -L --header <span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type: application/json</span><span class="delimiter">&quot;</span></span> -d <span class="string"><span class="delimiter">'</span><span class="content">{&quot;content&quot;:[{&quot;hash&quot;: {&quot;BYTES_VALUE&quot; : &quot;+QJlHTDrogO9pm/57GkT/vxWNz0=&quot;}}], &quot;address&quot;: [{&quot;deployment&quot;:&quot;tiny-webapp.war&quot;}], &quot;operation&quot;:&quot;add&quot;, &quot;enabled&quot;:&quot;true&quot;}</span><span class="delimiter">'</span></span> http:<span class="comment">//localhost:9990/management</span>
+<pre class="CodeRay highlight"><code data-lang="ruby">curl --digest -u <span class="key">admin</span>:admin -<span class="constant">L</span> --header <span class="string"><span class="delimiter">&quot;</span><span class="content">Content-Type: application/json</span><span class="delimiter">&quot;</span></span> -d <span class="string"><span class="delimiter">'</span><span class="content">{&quot;content&quot;:[{&quot;hash&quot;: {&quot;BYTES_VALUE&quot; : &quot;+QJlHTDrogO9pm/57GkT/vxWNz0=&quot;}}], &quot;address&quot;: [{&quot;deployment&quot;:&quot;tiny-webapp.war&quot;}], &quot;operation&quot;:&quot;add&quot;, &quot;enabled&quot;:&quot;true&quot;}</span><span class="delimiter">'</span></span> <span class="key">http</span>:<span class="regexp"><span class="delimiter">/</span><span class="delimiter">/</span></span><span class="key">localhost</span>:<span class="integer">9990</span>/management
 {<span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>}</code></pre>
 </div>
 </div>
@@ -20261,7 +19992,7 @@ management requests using its "native management interface":</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;<span class="directive">native</span>-<span class="type">interface</span> <span class="class">interface</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">management</span><span class="delimiter">&quot;</span></span> port=<span class="string"><span class="delimiter">&quot;</span><span class="content">9999</span><span class="delimiter">&quot;</span></span> security-realm=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span>/&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;native-interface</span> <span class="attribute-name">interface</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">management</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">port</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">9999</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">security-realm</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -20374,9 +20105,9 @@ classpath.</p>
 <p>To create a management client that can connect to your target process&#8217;s
 native management socket, simply:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">ModelControllerClient client = ModelControllerClient.Factory.create(<span class="predefined-type">InetAddress</span>.getByName(<span class="string"><span class="delimiter">&quot;</span><span class="content">localhost</span><span class="delimiter">&quot;</span></span>), <span class="integer">9999</span>);</code></pre>
+<pre>ModelControllerClient client = ModelControllerClient.Factory.create(InetAddress.getByName("localhost"), 9999);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -20503,7 +20234,7 @@ following low-level CLI command:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">[localhost:<span class="integer">9999</span> /] /subsystem=web/connector=http:read-resource-description(recursive=<span class="predefined-constant">true</span>,operations=<span class="predefined-constant">true</span>)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby">[<span class="key">localhost</span>:<span class="integer">9999</span> /] /subsystem=web/connector=<span class="key">http</span>:read-resource-description(recursive=<span class="predefined-constant">true</span>,operations=<span class="predefined-constant">true</span>)</code></pre>
 </div>
 </div>
 </div>
@@ -20587,7 +20318,7 @@ response.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">{
+<pre class="CodeRay highlight"><code data-lang="ruby">{
     <span class="string"><span class="delimiter">&quot;</span><span class="content">operation</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">write-attribute</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">address</span><span class="delimiter">&quot;</span></span> =&gt; [
         (<span class="string"><span class="delimiter">&quot;</span><span class="content">profile</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">production</span><span class="delimiter">&quot;</span></span>),
@@ -20832,7 +20563,7 @@ be reverted if it fails to execute successfully on some servers.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">{
+<pre class="CodeRay highlight"><code data-lang="ruby">{
     <span class="string"><span class="delimiter">&quot;</span><span class="content">operation</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">write-attribute</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">address</span><span class="delimiter">&quot;</span></span> =&gt; [
         (<span class="string"><span class="delimiter">&quot;</span><span class="content">profile</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">production</span><span class="delimiter">&quot;</span></span>),
@@ -22048,8 +21779,7 @@ WildFly CLI tool.</p>
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /deployment=<span class="key">myapp</span>:add(content=[{empty=<span class="predefined-constant">true</span>}])</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
+</li>
 <li>
 <p>Add an index.html to my app:</p>
 <div class="listingblock">
@@ -22057,49 +21787,46 @@ WildFly CLI tool.</p>
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /deployment=<span class="key">myapp</span>:add-content(content=[{input-stream-index=&lt;press <span class="constant">TAB</span>&gt;</code></pre>
 </div>
 </div>
-</li>
-</ul>
-</div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>Then use completion to navigate to your index.html file.</p>
 </div>
-<div class="paragraph">
-<p>Provide a target name for index.html inside the deployment and execute
-the operation:</p>
-</div>
+</li>
+<li>
+<p>Provide a target name for index.html inside the deployment and
+execute the operation:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /deployment=<span class="key">myapp</span>:add-content(content=[{input-stream-index=./index.html, target-path=index.xhtml}]</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Your content has been added, you can browse the content of a deployment
-using the browse-content operation:</p>
-</div>
+</li>
+<li>
+<p>Your content has been added, you can browse the content of a
+deployment using the browse-content operation:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">[standalone<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /deployment=<span class="key">myapp</span>:browse-content(path=./)</code></pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>You can display (or save) the content of a deployed file using the
 <em>attachement</em> command:</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">attachment display --operation=<span class="regexp"><span class="delimiter">/</span><span class="content">deployment=myapp:read-content(path=index.xhtml)</span></span></code></pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>You can remove content from a deployment:</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">deployment=myapp:remove-content(paths=[.</span><span class="delimiter">/</span><span class="modifier">in</span></span>dex.xhtml])</code></pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Tips</p>
@@ -22183,23 +21910,23 @@ allows to display or save the content of the attached streams.</p>
 </div>
 </div>
 </li>
-</ul>
-</div>
-<div class="paragraph">
+<li>
 <p>Saving locally the server.log file:</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">attachment save --operation=<span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=logging</span><span class="delimiter">/</span></span>log-file=server.log<span class="symbol">:read</span>-resource(include-runtime) --file=./server.log</code></pre>
 </div>
 </div>
-<div class="paragraph">
+</li>
+<li>
 <p>Displaying the content of a deployed file:</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby">attachment display --operation=<span class="regexp"><span class="delimiter">/</span><span class="content">deployment=myapp:read-content(path=index.xhtml)</span></span></code></pre>
 </div>
+</div>
+</li>
+</ul>
 </div>
 <div class="ulist TIP">
 <ul class="TIP">
@@ -22219,7 +21946,7 @@ allows to display or save the content of the attached streams.</p>
 <div id="footer">
 <div id="footer-text">
 Version {version}<br>
-Last updated 2017-09-15 11:42:58 CEST
+Last updated 2017-09-15 11:42:58 DST
 </div>
 </div>
 </body>

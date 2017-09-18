@@ -13,8 +13,7 @@ previous section.
 These configuration examples are developed against a test LDAP sever
 with user entries like: -
 
-[source, java]
-----
+....
 dn: uid=TestUserOne,ou=users,dc=group-to-principal,dc=wildfly,dc=org
 objectClass: top
 objectClass: inetOrgPerson
@@ -25,12 +24,11 @@ cn: Test User One
 sn: Test User One
 uid: TestUserOne
 userPassword: {SSHA}UG8ov2rnrnBKakcARVvraZHqTa7mFWJZlWt2HA==
-----
+....
 
 The group entries then look like: -
 
-[source, java]
-----
+....
 dn: uid=GroupOne,ou=groups,dc=group-to-principal,dc=wildfly,dc=org
 objectClass: top
 objectClass: groupOfUniqueNames
@@ -38,7 +36,7 @@ objectClass: uidObject
 cn: Group One
 uid: GroupOne
 uniqueMember: uid=TestUserOne,ou=users,dc=group-to-principal,dc=wildfly,dc=org
-----
+....
 
 For authentication purposes the username will be matched against the
 'uid' attribute, also the resulting group name will be taken from the

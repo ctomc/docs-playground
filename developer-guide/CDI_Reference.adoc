@@ -30,10 +30,9 @@ There are two ways to do this, either using the `MANIFEST.MF` or using
 Using `MANIFEST.MF` you need to add a `Dependencies` entry, with
 meta-inf specified after the entry, e.g.
 
-[source, java]
-----
+....
 Dependencies: com.my-cdi-module meta-inf, com.my-other-cdi-module meta-inf
-----
+....
 
 Using `jboss-deployment-structure.xml` you need to add a dependency
 entry with `meta-inf="import"`, e.g.

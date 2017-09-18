@@ -50,7 +50,7 @@ ws-provider's WSDL. The wsp:Policy section is the same. There are
 changes to the service endpoint, targetNamespace, portType, binding
 name, and service.
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions targetNamespace="http://www.jboss.org/jbossws/ws-extensions/onbehalfofwssecuritypolicy" name="OnBehalfOfService"

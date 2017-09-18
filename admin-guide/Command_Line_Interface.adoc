@@ -84,7 +84,7 @@ CLI commands to be provided from a text file.
 For example the following command can be used to list all the current
 deployments
 
-[source, java]
+[source,bash]
 ----
 $ ./bin/jboss-cli.sh --connect --commands=ls\ deployment
 sample.war
@@ -94,7 +94,7 @@ osgi-bundle.jar
 The output can be combined with other shell commands for further
 processing, for example to find out what .war files are deployed:
 
-[source, java]
+[source,bash]
 ----
 $ ./bin/jboss-cli.sh --connect --commands=ls\ deployment | grep war
 sample.war
@@ -211,14 +211,13 @@ an _operation name_ and an optional set of _parameters_.
 
 The formal specification for an operation request is:
 
-[source, java]
-----
+....
 [/node-type=node-name (/node-type=node-name)*] : operation-name [( [parameter-name=parameter-value (,parameter-name=parameter-value)*] )]
-----
+....
 
 For example:
 
-[source, java]
+[source,ruby]
 ----
 /subsystem=logging/root-logger=ROOT:change-root-log-level(level=WARN)
 ----
@@ -242,7 +241,7 @@ not significant.
 Operation requests might not always have the address part or the
 parameters. E.g.
 
-[source, java]
+[source,ruby]
 ----
 :read-resource
 ----
@@ -254,7 +253,7 @@ operations require one of the following prefixes:
 
 To execute an operation against the current node, e.g.
 
-[source, java]
+[source,ruby]
 ----
 cd subsystem=logging
 :read-resource(recursive="true")
@@ -262,7 +261,7 @@ cd subsystem=logging
 
 To execute an operation against a child node of the current node, e.g.
 
-[source, java]
+[source,bash]
 ----
 cd subsystem=logging
 ./root-logger=ROOT:change-root-log-level(level=WARN)
@@ -270,7 +269,7 @@ cd subsystem=logging
 
 To execute an operation against the root node, e.g.
 
-[source, java]
+[source,ruby]
 ----
 /:read-resource
 ----
@@ -300,7 +299,7 @@ logging subsystem) you can always query the model itself. For example,
 to read the operations supported by the logging subsystem resource on a
 standalone server:
 
-[source, java]
+[source,ruby]
 ----
 [[standalone@localhost:9990 /] /subsystem=logging:read-operation-names
 {
@@ -333,7 +332,7 @@ _set-root-logger_ and _remove-root-logger_.
 Further documentation about a resource or operation can be retrieved
 through the description:
 
-[source, java]
+[source,ruby]
 ----
 [standalone@localhost:9990 /] /subsystem=logging:read-operation-description(name=change-root-log-level)
 {

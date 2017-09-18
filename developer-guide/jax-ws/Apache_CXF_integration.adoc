@@ -339,7 +339,7 @@ customizations.
 The `jboss-webservices.xml` descriptor can be used to
 link:#src-557252[provide property values].
 
-[source, java]
+[source,xml]
 ----
 <webservices xmlns="http://www.jboss.com/xml/ns/javaee" version="1.2">
   ...
@@ -405,7 +405,7 @@ used to control installation of CXF response time interceptors, which
 are added by default when enabling MBean management, but might not be
 desired in some cases. Here is an example:
 
-[source, java]
+[source,xml]
 ----
 <webservices xmlns="http://www.jboss.com/xml/ns/javaee" version="1.2">
 <property>
@@ -434,7 +434,7 @@ The `jboss-webservices.xml` descriptor also allows specifying the
 allows declaring interceptors to be attached to the Bus instance that's
 created for serving the deployment.
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.1" encoding="UTF-8"?>
 <webservices
@@ -462,7 +462,7 @@ The `jboss-webservices.xml` descriptor also allows specifying the
 to any endpoint belonging to the Bus instance that's created for serving
 the deployment.
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.1" encoding="UTF-8"?>
 <webservices
@@ -504,7 +504,7 @@ interceptors within link:#src-557252[predefined client and endpoint
 configurations] by specifying a list of interceptor class names for the
 `cxf.interceptors.in` and `cxf.interceptors.out` properties.
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <jaxws-config xmlns="urn:jboss:jbossws-jaxws-config:4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:javaee="http://java.sun.com/xml/ns/javaee"
@@ -546,7 +546,7 @@ features within link:#src-557252[predefined client and endpoint
 configurations] by specifying a list of feature class names for the
 `cxf.features` property.
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <jaxws-config xmlns="urn:jboss:jbossws-jaxws-config:4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:javaee="http://java.sun.com/xml/ns/javaee"

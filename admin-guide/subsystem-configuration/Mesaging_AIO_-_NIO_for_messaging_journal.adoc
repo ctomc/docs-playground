@@ -45,11 +45,10 @@ What are the symptoms of an AIO isssue ?
 
 If you see the following exception in your WildFly log file / console
 
-[source]
-----
+....
 [org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 64) AMQ222010: Critical IO Error, shutting down the server. file=AIOSequentialFile:/home/wildfly/wildfly-10.0.0.Final/standalone/data/activemq/journal/activemq-data-2.amq, message=Cannot open file:The Argument is invalid: java.io.IOException: Cannot open file:The Argument is invalid
  at org.apache.activemq.artemis.jlibaio.LibaioContext.open(Native Method)
-----
+....
 
 that means that AIO isn't working properly on your system.
 
@@ -63,25 +62,23 @@ To use NIO instead execute the following commnd using jboss-cli :
 You need to reload or restart your server and you should see the
 following trace in your server console :
 
-[source]
-----
+....
 INFO  [org.apache.activemq.artemis.core.server] (ServerService Thread Pool -- 64) AMQ221013: Using NIO Journal
-----
+....
 
 [[aio-issue-on-wildfly-9]]
 == AIO issue on WildFly 9
 
-[source]
-----
+....
 [org.hornetq.core.server] (ServerService Thread Pool -- 64) HQ222010: Critical IO Error, shutting down the server. file=AIOSequentialFile:/home/wildfly/wildfly-9.0.2.Final/standalone/data/messagingjournal/hornetq-data-1.hq, message=Can't open file: HornetQException[errorType=NATIVE_ERROR_CANT_OPEN_CLOSE_FILE message=Can't open file]
  at org.hornetq.core.libaio.Native.init(Native Method)
-----
+....
 
 that means that AIO isn't working properly on your system.
 
 To use NIO instead execute the following commnd using jboss-cli :
 
-[source]
+[source,ruby]
 ----
 /subsystem=messaging/hornetq-server=default:write-attribute(name=journal-type,value=NIO)
 ----
@@ -89,7 +86,6 @@ To use NIO instead execute the following commnd using jboss-cli :
 You need to reload or restart your server and you see the following
 trace in your server console :
 
-[source]
-----
+....
 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 64) HQ221013: Using NIO Journal
-----
+....

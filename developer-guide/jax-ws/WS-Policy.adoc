@@ -88,7 +88,7 @@ include the policy to be attached; the attachment position in the
 contracts is defined through the `placement` attribute. Here is a
 descriptor example:
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8" ?>
 <wsp:Policy wsu:Id="MyPolicy" xmlns:wsp="http://www.w3.org/ns/ws-policy"
@@ -200,7 +200,7 @@ but using custom Apache CXF algorithm suite including GCM 256 + RSA OAEP
 algorithms
 |=======================================================================
 
-[IMPORTANT]
+[WARNING]
 
 Always verify the contents of the generated wsdl contract, as policy
 sets are potentially subject to updates between JBossWS releases. This
@@ -208,12 +208,12 @@ is especially important when dealing with security related policies; the
 provided sets are to be considered as convenient configuration options
 only; users remain responsible for the policies in their contracts.
 
-[IMPORTANT]
+[TIP]
 
 The `org.jboss.wsf.stack.cxf.extensions.policy.Constants` interface has
 convenient String constants for the available policy set labels.
 
-[IMPORTANT]
+[TIP]
 
 If you feel a new set should be added, just propose it by writing the
 user forum!

@@ -67,7 +67,7 @@ In order to use the server-deployed persistence units from within
 Spring, either the persistence context or the persistence unit need to
 be registered in JNDI via web.xml as follows:
 
-[source, java]
+[source,xml]
 ----
 <persistence-context-ref>
     <persistence-context-ref-name>persistence/petclinic-em</persistence-unit-ref-name>
@@ -77,7 +77,7 @@ be registered in JNDI via web.xml as follows:
 
 or, respectively:
 
-[source, java]
+[source,xml]
 ----
 <persistence-unit-ref>
     <persistence-unit-ref-name>persistence/petclinic-emf</persistence-unit-ref-name>
@@ -88,7 +88,7 @@ or, respectively:
 When doing so, the persistence context or persistence unit are available
 to be looked up in JNDI, as follows:
 
-[source, java]
+[source,xml]
 ----
 <jee:jndi-lookup id="entityManager" jndi-name="java:comp/env/persistence/petclinic-em" 
             expected-type="javax.persistence.EntityManager"/>
@@ -96,7 +96,7 @@ to be looked up in JNDI, as follows:
 
 or
 
-[source, java]
+[source,xml]
 ----
 <jee:jndi-lookup id="entityManagerFactory" jndi-name="java:comp/env/persistence/petclinic-emf" 
             expected-type="javax.persistence.EntityManagerFactory"/>

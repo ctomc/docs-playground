@@ -43,7 +43,7 @@ The ActAs web service provider's WSDL is a clone of the ws-provider's
 WSDL. The wsp:Policy section is the same. There are changes to the
 service endpoint, targetNamespace, portType, binding name, and service.
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions targetNamespace="http://www.jboss.org/jbossws/ws-extensions/actaswssecuritypolicy" name="ActAsService"
@@ -439,14 +439,13 @@ The ActAs service must provide its own credentials. The requisite
 properties file, actasKeystore.properties, and keystore, actasstore.jks,
 were created.
 
-[source, java]
-----
+....
 org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin
 org.apache.ws.security.crypto.merlin.keystore.type=jks
 org.apache.ws.security.crypto.merlin.keystore.password=aapass
 org.apache.ws.security.crypto.merlin.keystore.alias=myactaskey
 org.apache.ws.security.crypto.merlin.keystore.file=actasstore.jks
-----
+....
 
 [[manifest.mf]]
 === MANIFEST.MF
@@ -457,13 +456,12 @@ org.apache.cxf. The Apache CXF internals, org.apache.cxf.impl, are
 needed in handling the ActAs and OnBehalfOf extensions. The dependency
 statement directs the server to provide them at deployment.
 
-[source, java]
-----
+....
 Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.8.2
 Created-By: 1.7.0_25-b15 (Oracle Corporation)
 Dependencies: org.jboss.ws.cxf.jbossws-cxf-client, org.apache.cxf.impl
-----
+....
 
 [[security-token-service]]
 == Security Token Service

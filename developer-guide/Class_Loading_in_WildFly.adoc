@@ -95,8 +95,7 @@ classes belonging to other sub-deployments within the .ear.
 
 For example, consider the following .ear deployment:
 
-[source]
-----
+....
 myapp.ear
  |
  |--- web.war
@@ -104,7 +103,7 @@ myapp.ear
  |--- ejb1.jar
  |
  |--- ejb2.jar
-----
+....
 
 If the ear-subdeployments-isolated is set to false, then the classes in
 web.war can access classes belonging to ejb1.jar and ejb2.jar.
@@ -196,7 +195,7 @@ well.
 To generate a MANIFEST.MF entry when using maven put the following in
 your pom.xml:
 
-pom.xml
+.pom.xml
 
 [source, xml]
 ----
@@ -243,7 +242,7 @@ deployments. This is done by modifying the configuration file
 For example, to add javassist to all deployments you can use the
 following XML:
 
-standalone.xml/domain.xml
+.standalone.xml/domain.xml
 
 [source, xml]
 ----
@@ -273,7 +272,7 @@ manner. It should be placed in the top level deployment, in `META-INF`
 An example of a complete `jboss-deployment-structure.xml` file for an
 ear deployment is as follows:
 
-jboss-deployment-structure.xml
+.jboss-deployment-structure.xml
 
 [source, xml]
 ----
@@ -357,7 +356,7 @@ Not all JDK classes are exposed to a deployment by default. If your
 deployment uses JDK classes that are not exposed you can get access to
 them using jboss-deployment-structure.xml with system dependencies:
 
-Using jboss-deployment-structure.xml to access JDK classes
+.Using jboss-deployment-structure.xml to access JDK classes
 
 [source, xml]
 ----
@@ -387,7 +386,7 @@ is advisable for their application to specify an explicit dependency on
 a module WildFly ships? The "jboss.api" property specified in the
 module's module.xml file can tell you:
 
-Example declaration of the jboss.api property
+.Example declaration of the jboss.api property
 
 [source, xml]
 ----

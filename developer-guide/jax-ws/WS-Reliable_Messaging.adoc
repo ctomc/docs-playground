@@ -269,7 +269,7 @@ public class CustomRMFeature extends RMFeature
 
 ... this is how the `jaxws-client-config.xml` descriptor would look:
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
  

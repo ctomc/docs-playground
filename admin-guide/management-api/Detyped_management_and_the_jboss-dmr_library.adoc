@@ -504,10 +504,9 @@ bsh % print(salesTerritories.toString());
 
 The normal syntax would be:
 
-[source, java]
-----
+....
 salesTerritories.get("US", "Missouri", "St. Louis").set("Brian");
-----
+....
 
 The key/value pairs in the map can be accessed as a `List<Property`:
 
@@ -577,12 +576,11 @@ substitution feature in previous JBoss AS releases.
 
 For example:
 
-[source, java]
-----
+....
 ${queue.length}
 http://${host}
 http://${host:localhost}:${port:8080}/index.html
-----
+....
 
 Use the `setExpression` method to set a node's value to type expression:
 

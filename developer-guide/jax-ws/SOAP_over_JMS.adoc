@@ -30,7 +30,7 @@ The minimum configuration implies:
 the queues [2]
 * setting the transport binding [3]
 
-[source, java]
+[source,xml]
 ----
 <wsdl:definitions name="HelloWorldService" targetNamespace="http://org.jboss.ws/jaxws/cxf/jms"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
@@ -64,7 +64,7 @@ Apache CXF takes care of setting up the JMS transport for endpoint
 implementations whose `@WebService` annotation points to a port declared
 for JMS transport as explained above.
 
-[IMPORTANT]
+[NOTE]
 
 JBossWS currently supports POJO endpoints only for JMS transport use.
 The endpoint classes can be deployed as part of _jar_ or _war_ archives.
@@ -84,7 +84,7 @@ and deploy it as part of a jar archive.
 The endpoint is created using wsconsume tool from a WSDL contract such
 as:
 
-[source, java]
+[source,xml]
 ----
 <?xml version='1.0' encoding='UTF-8'?>
 <wsdl:definitions name="HelloWorldService" targetNamespace="http://org.jboss.ws/jaxws/cxf/jms"
@@ -202,7 +202,7 @@ public class HelloWorldImpl implements HelloWorld
 }
 ----
 
-[IMPORTANT]
+[NOTE]
 
 The endpoint implementation references the `HelloWorldServiceLocal` wsdl
 service, so that the local JNDI connection factory location is used for
@@ -229,7 +229,7 @@ alessio@inuyasha /dati/jbossws/stack/cxf/trunk $ jar -tvf ./modules/testsuite/cx
   3074 Thu Jun 23 15:18:40 CEST 2011 META-INF/wsdl/HelloWorldService.wsdl
 ....
 
-[IMPORTANT]
+[NOTE]
 
 A dependency on `org.hornetq` module needs to be added in MANIFEST.MF
 when deploying to WildFly.
@@ -341,7 +341,7 @@ serves over both HTTP and JMS transports.
 We from a WSDL contract such as below (please note we've two `binding` /
 `portType` for the same `service`):
 
-[source, java]
+[source,xml]
 ----
 <?xml version='1.0' encoding='UTF-8'?>
 <wsdl:definitions name="HelloWorldService" targetNamespace="http://org.jboss.ws/jaxws/cxf/jms"
@@ -509,7 +509,7 @@ alessio@inuyasha /dati/jbossws/stack/cxf/trunk $ jar -tvf ./modules/testsuite/cx
 A trivial web.xml descriptor is also included to trigger the HTTP
 endpoint publish:
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"

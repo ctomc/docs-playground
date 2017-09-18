@@ -37,10 +37,9 @@ to choose from; `file-handler`, `periodic-rotating-file-handler` and
 ----
 /subsystem=logging/file-handler=fh:add(level=INFO, file={"relative-to"=>"jboss.server.log.dir", "path"=>"fh.log"}, append=false, autoflush=true)
 ----
-
-Now create the log category.
-
-[source, ruby]
+2.  Now create the log category.
++
+[source,ruby]
 ----
 /subsystem=logging/logger=org.your.company:add(use-parent-handlers=false,handlers=["fh"])
 ----

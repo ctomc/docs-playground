@@ -242,7 +242,7 @@ JAXWS handler can be added in handler chains:
 
 Endpoint-config handler classloading
 
-[IMPORTANT]
+[NOTE]
 
 The `class` attribute is used to provide the fully qualified class name
 of the handler. At deploy time, an instance of the class is created for

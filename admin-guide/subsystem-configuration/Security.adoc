@@ -256,7 +256,7 @@ not both. We set up JASPI by configuring one or more login modules
 inside the login-module-stack element and setting up an authentication
 module. Here is the structure of the authentication-jaspi element:
 
-[source, java]
+[source,xml]
 ----
 <login-module-stack name="...">
   <login-module code="..." flag="..." module="...">
@@ -336,7 +336,7 @@ The mapping element defines additional mapping of principals,
 credentials, roles and attributes for the subject. The structure of the
 mapping element is:
 
-[source, java]
+[source,xml]
 ----
 <mapping-module type="..."code="..." module="...">
   <module-option name="..." value="..."/>

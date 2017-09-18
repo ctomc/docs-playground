@@ -4,7 +4,7 @@ A standalone WildFly process, or a managed domain Domain Controller or
 slave Host Controller process can be configured to listen for remote
 management requests using its "native management interface":
 
-[source, java]
+[source,xml]
 ----
 <native-interface interface="management" port="9999" security-realm="ManagementRealm"/>
 ----
@@ -85,10 +85,9 @@ classpath.
 To create a management client that can connect to your target process's
 native management socket, simply:
 
-[source, java]
-----
+....
 ModelControllerClient client = ModelControllerClient.Factory.create(InetAddress.getByName("localhost"), 9999);
-----
+....
 
 The address and port are what is configured in the target process'
 `<management><management-interfaces><native-interface.../>` element.
@@ -189,7 +188,7 @@ The example above produces an operation request ModelNode equivalent to
 what the CLI produces internally when it parses and executes the
 following low-level CLI command:
 
-[source, java]
+[source,ruby]
 ----
 [localhost:9999 /] /subsystem=web/connector=http:read-resource-description(recursive=true,operations=true)
 ----
@@ -264,7 +263,7 @@ response.
 
 A text representation of simple operation would look like this:
 
-[source, java]
+[source,ruby]
 ----
 {
     "operation" => "write-attribute",
@@ -470,7 +469,7 @@ be reverted if it fails to execute successfully on some servers.
 
 If the operation includes a rollout plan, the structure is as follows:
 
-[source, java]
+[source,ruby]
 ----
 {
     "operation" => "write-attribute",

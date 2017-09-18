@@ -522,7 +522,7 @@ table.CodeRay td.code>pre{padding:0}
 <h1>WildFly Elytron Security</h1>
 <div class="details">
 <span id="revnumber">version {version},</span>
-<span id="revdate">2017-09-14</span>
+<span id="revdate">2017-09-18</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">WildFly Elytron Security Guide</div>
@@ -2026,7 +2026,7 @@ domain.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=undertow/application-security-domain=exampleApplicationDomain:add(http-authentication-factory=application-http-authentication)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=undertow</span><span class="delimiter">/</span></span>application-security-domain=<span class="key">exampleApplicationDomain</span>:add(http-authentication-factory=application-http-authentication)</code></pre>
 </div>
 </div>
 </div>
@@ -2039,7 +2039,7 @@ authentication.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/http-authentication-factory=application-http-authentication:read-resource()
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>http-authentication-factory=application-http-<span class="key">authentication</span>:read-resource()
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
@@ -2062,7 +2062,7 @@ configured to use the <em>ApplicationDomain</em> security domain.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/security-domain=ApplicationDomain:read-resource()
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span><span class="modifier">se</span></span>curity-domain=<span class="key">ApplicationDomain</span>:read-resource()
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
@@ -2089,7 +2089,7 @@ realm.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/properties-realm=ApplicationRealm:read-resource()
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>properties-realm=<span class="key">ApplicationRealm</span>:read-resource()
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
@@ -2188,7 +2188,7 @@ the management interfaces as well.</p>
 <h5 id="reload-wildfly-for-the-changes-to-take-affect.">Reload WildFly for the changes to take affect.</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">reload</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby">reload</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2206,7 +2206,7 @@ using the web-based management console, WildFly will use the
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/http-authentication-factory=management-http-authentication:read-resource()
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>http-authentication-factory=management-http-<span class="key">authentication</span>:read-resource()
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
@@ -2226,7 +2226,7 @@ configured to use the <em>ManagementDomain</em> security domain.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/security-domain=ManagementDomain:read-resource()
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span><span class="modifier">se</span></span>curity-domain=<span class="key">ManagementDomain</span>:read-resource()
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
@@ -2259,7 +2259,7 @@ realm.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/properties-realm=ManagementRealm:read-resource()
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>properties-realm=<span class="key">ManagementRealm</span>:read-resource()
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
@@ -2289,16 +2289,16 @@ connect over <em>remotehttp</em>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;jboss-cli xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:cli:3.1</span><span class="delimiter">&quot;</span></span>&gt;
-<span class="error"> </span>
-    &lt;<span class="keyword">default</span>-protocol use-legacy-override=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>&gt;remotehttp&lt;/<span class="keyword">default</span>-protocol&gt;
-<span class="error"> </span>
-    &lt;!-- The <span class="keyword">default</span> controller to connect to when <span class="string"><span class="delimiter">'</span><span class="content">connect</span><span class="delimiter">'</span></span> command is executed w/o arguments --&gt;
-    &lt;<span class="keyword">default</span>-controller&gt;
-        &lt;protocol&gt;remotehttp&lt;/protocol&gt;
-        &lt;host&gt;localhost&lt;/host&gt;
-        &lt;port&gt;<span class="integer">9990</span>&lt;/port&gt;
-    &lt;/<span class="keyword">default</span>-controller&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;jboss-cli</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:cli:3.1</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+ 
+    <span class="tag">&lt;default-protocol</span> <span class="attribute-name">use-legacy-override</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>remotehttp<span class="tag">&lt;/default-protocol&gt;</span>
+ 
+    <span class="comment">&lt;!-- The default controller to connect to when 'connect' command is executed w/o arguments --&gt;</span>
+    <span class="tag">&lt;default-controller&gt;</span>
+        <span class="tag">&lt;protocol&gt;</span>remotehttp<span class="tag">&lt;/protocol&gt;</span>
+        <span class="tag">&lt;host&gt;</span>localhost<span class="tag">&lt;/host&gt;</span>
+        <span class="tag">&lt;port&gt;</span>9990<span class="tag">&lt;/port&gt;</span>
+    <span class="tag">&lt;/default-controller&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2340,7 +2340,7 @@ connection is secured in the <em>http-upgrade</em> section of the
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/sasl-authentication-factory=management-sasl-authentication:read-resource()
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span><span class="modifier">s</span></span>asl-authentication-factory=management-sasl-<span class="key">authentication</span>:read-resource()
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
@@ -2369,7 +2369,7 @@ specifies <em>JBOSS-LOCAL-USER</em> and <em>DIGEST-MD5</em> mechanisms.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/identity-realm=local:read-resource()
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span><span class="modifier">i</span></span>dentity-realm=<span class="key">local</span>:read-resource()
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
@@ -2484,20 +2484,20 @@ step: <em>#$REALM_NAME=YOUR_PROPERTIES_REALM_NAME$</em></p>
 <div class="paragraph">
 <p><strong>Example user to password file: example-users.properties</strong></p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="error">#</span><span class="error">$</span>REALM_NAME=examplePropRealm<span class="error">$</span>
+<pre>#$REALM_NAME=examplePropRealm$
 user1=password123
-user2=password123</code></pre>
+user2=password123</pre>
 </div>
 </div>
 <div class="paragraph">
 <p><strong>Example user to roles file: example-roles.properties</strong></p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">user1=Admin
-user2=Guest</code></pre>
+<pre>user1=Admin
+user2=Guest</pre>
 </div>
 </div>
 </div>
@@ -2505,7 +2505,7 @@ user2=Guest</code></pre>
 <h5 id="configure-a-properties-realm-in-wildfly">Configure a properties-realm in WildFly:</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/properties-realm=examplePropRealm:add(groups-attribute=groups,groups-properties={path=example-roles.properties,relative-to=jboss.server.config.dir},users-properties={path=example-users.properties,relative-to=jboss.server.config.dir,plain-text=<span class="predefined-constant">true</span>})</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>properties-realm=<span class="key">examplePropRealm</span>:add(groups-attribute=groups,groups-properties={path=example-roles.properties,relative-to=jboss.server.config.dir},users-properties={path=example-users.properties,relative-to=jboss.server.config.dir,plain-text=<span class="predefined-constant">true</span>})</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2571,7 +2571,7 @@ we are using a directory called <em>fs-realm-users</em> located in
 <h5 id="configure-a-filesystem-realm-in-wildfly">Configure a filesystem-realm in WildFly:</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/filesystem-realm=exampleFsRealm:add(path=fs-realm-users,relative-to=jboss.server.config.dir)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>filesystem-realm=<span class="key">exampleFsRealm</span>:add(path=fs-realm-users,relative-to=jboss.server.config.dir)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2597,7 +2597,7 @@ management CLI.</p>
 <h5 id="add-a-simple-role-decoder">Add a simple-role-decoder:</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/simple-role-decoder=from-roles-attribute:add(attribute=Roles)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span><span class="modifier">sim</span></span>ple-role-decoder=from-roles-<span class="key">attribute</span>:add(attribute=<span class="constant">Roles</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2610,7 +2610,7 @@ attribute.</p>
 <h5 id="configure-a-security-domain-1">Configure a security-domain:</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/security-domain=exampleFsSD:add(realms=[{realm=exampleFsRealm,role-decoder=from-roles-attribute}],<span class="keyword">default</span>-realm=exampleFsRealm,permission-mapper=<span class="keyword">default</span>-permission-mapper)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span><span class="modifier">se</span></span>curity-domain=<span class="key">exampleFsSD</span>:add(realms=[{realm=exampleFsRealm,role-decoder=from-roles-attribute}],default-realm=exampleFsRealm,permission-mapper=default-permission-mapper)</code></pre>
 </div>
 </div>
 </div>
@@ -2723,7 +2723,7 @@ authorization information.</p>
 <h5 id="configure-a-security-domain-2">Configure a security-domain:</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/security-domain=exampleDbSD:add(realms=[{realm=exampleDbRealm,role-decoder=groups-to-roles}],<span class="keyword">default</span>-realm=exampleDbRealm,permission-mapper=<span class="keyword">default</span>-permission-mapper)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span><span class="modifier">se</span></span>curity-domain=<span class="key">exampleDbSD</span>:add(realms=[{realm=exampleDbRealm,role-decoder=groups-to-roles}],default-realm=exampleDbRealm,permission-mapper=default-permission-mapper)</code></pre>
 </div>
 </div>
 </div>
@@ -2731,7 +2731,7 @@ authorization information.</p>
 <h5 id="configure-an-http-authentication-factory-2">Configure an http-authentication-factory:</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/http-authentication-factory=example-db-http-auth:add(http-server-mechanism-factory=global,security-domain=exampleDbSD,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=exampleDbSD}]}])</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>http-authentication-factory=example-db-http-<span class="key">auth</span>:add(http-server-mechanism-factory=global,security-domain=exampleDbSD,mechanism-configurations=[{mechanism-name=<span class="constant">BASIC</span>,mechanism-realm-configurations=[{realm-name=exampleDbSD}]}])</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2771,16 +2771,16 @@ In this example, we are using the following structure:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>dn: dc=wildfly,dc=org
+<pre class="CodeRay highlight"><code data-lang="java">dn: dc=wildfly,dc=org
 dc: wildfly
 objectClass: top
 objectClass: domain
- 
+<span class="error"> </span>
 dn: ou=Users,dc=wildfly,dc=org
 objectClass: organizationalUnit
 objectClass: top
 ou: Users
- 
+<span class="error"> </span>
 dn: uid=jsmith,ou=Users,dc=wildfly,dc=org
 objectClass: top
 objectClass: person
@@ -2789,12 +2789,12 @@ cn: John Smith
 sn: smith
 uid: jsmith
 userPassword: password123
- 
+<span class="error"> </span>
 dn: ou=Roles,dc=wildfly,dc=org
 objectclass: top
 objectclass: organizationalUnit
 ou: Roles
- 
+<span class="error"> </span>
 dn: cn=Admin,ou=Roles,dc=wildfly,dc=org
 objectClass: top
 objectClass: groupOfNames
@@ -2812,7 +2812,7 @@ connect to the server.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/dir-context=exampleDC:add(url=<span class="string"><span class="delimiter">&quot;</span><span class="content">ldap://127.0.0.1:10389</span><span class="delimiter">&quot;</span></span>,principal=<span class="string"><span class="delimiter">&quot;</span><span class="content">uid=admin,ou=system</span><span class="delimiter">&quot;</span></span>,credential-reference={clear-text=<span class="string"><span class="delimiter">&quot;</span><span class="content">secret</span><span class="delimiter">&quot;</span></span>})</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>dir-context=<span class="key">exampleDC</span>:add(url=<span class="string"><span class="delimiter">&quot;</span><span class="content">ldap://127.0.0.1:10389</span><span class="delimiter">&quot;</span></span>,principal=<span class="string"><span class="delimiter">&quot;</span><span class="content">uid=admin,ou=system</span><span class="delimiter">&quot;</span></span>,credential-reference={clear-text=<span class="string"><span class="delimiter">&quot;</span><span class="content">secret</span><span class="delimiter">&quot;</span></span>})</code></pre>
 </div>
 </div>
 </div>
@@ -2844,7 +2844,7 @@ connect to the server.</p>
 <h5 id="configure-an-http-authentication-factory-3">Configure an http-authentication-factory:</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/http-authentication-factory=example-ldap-http-auth:add(http-server-mechanism-factory=global,security-domain=exampleLdapSD,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=exampleApplicationDomain}]}])</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>http-authentication-factory=example-ldap-http-<span class="key">auth</span>:add(http-server-mechanism-factory=global,security-domain=exampleLdapSD,mechanism-configurations=[{mechanism-name=<span class="constant">BASIC</span>,mechanism-realm-configurations=[{realm-name=exampleApplicationDomain}]}])</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2857,7 +2857,7 @@ as <em>FORM</em>.</p>
 <h5 id="configure-an-application-security-domain-in-the-undertow-subsystem-3">Configure an application-security-domain in the Undertow subsystem:</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=undertow/application-security-domain=exampleApplicationDomain:add(http-authentication-factory=example-ldap-http-auth)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=undertow</span><span class="delimiter">/</span></span>application-security-domain=<span class="key">exampleApplicationDomain</span>:add(http-authentication-factory=example-ldap-http-auth)</code></pre>
 </div>
 </div>
 </div>
@@ -2910,7 +2910,7 @@ the principal based on the first <em>CN</em> value.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/x500-attribute-principal-decoder=CNDecoder:add(oid=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.5.4.3</span><span class="delimiter">&quot;</span></span>,maximum-segments=<span class="integer">1</span>)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span><span class="modifier">x</span></span><span class="integer">500</span>-attribute-principal-decoder=<span class="key">CNDecoder</span>:add(oid=<span class="string"><span class="delimiter">&quot;</span><span class="content">2.5.4.3</span><span class="delimiter">&quot;</span></span>,maximum-segments=<span class="integer">1</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3087,7 +3087,7 @@ attribute.</p>
 <h5 id="configure-a-security-domain.-1">Configure a security-domain.</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/security-domain=exampleFsSD:add(realms=[{realm=exampleFsRealm,role-decoder=from-roles-attribute}],<span class="keyword">default</span>-realm=exampleFsRealm,permission-mapper=<span class="keyword">default</span>-permission-mapper)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span><span class="modifier">se</span></span>curity-domain=<span class="key">exampleFsSD</span>:add(realms=[{realm=exampleFsRealm,role-decoder=from-roles-attribute}],default-realm=exampleFsRealm,permission-mapper=default-permission-mapper)</code></pre>
 </div>
 </div>
 </div>
@@ -3098,7 +3098,7 @@ attribute.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/http-authentication-factory=example-krb-http-auth:add(http-server-mechanism-factory=global,security-domain=exampleFsSD,mechanism-configurations=[{mechanism-name=SPNEGO,mechanism-realm-configurations=[{realm-name=exampleFsSD}],credential-security-factory=krbSF}])</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>http-authentication-factory=example-krb-http-<span class="key">auth</span>:add(http-server-mechanism-factory=global,security-domain=exampleFsSD,mechanism-configurations=[{mechanism-name=<span class="constant">SPNEGO</span>,mechanism-realm-configurations=[{realm-name=exampleFsSD}],credential-security-factory=krbSF}])</code></pre>
 </div>
 </div>
 </div>
@@ -3106,7 +3106,7 @@ attribute.</p>
 <h5 id="configure-an-application-security-domain-in-the-undertow-subsystem-4">Configure an application-security-domain in the Undertow subsystem:</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=undertow/application-security-domain=exampleApplicationDomain:add(http-authentication-factory=example-krb-http-auth)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=undertow</span><span class="delimiter">/</span></span>application-security-domain=<span class="key">exampleApplicationDomain</span>:add(http-authentication-factory=example-krb-http-auth)</code></pre>
 </div>
 </div>
 </div>
@@ -3158,7 +3158,7 @@ for kerberos-based authentication and and an additional mechanism for
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/http-authentication-factory=example-krb-http-auth:list-add(name=mechanism-configurations, value={mechanism-name=FORM})</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>http-authentication-factory=example-krb-http-<span class="key">auth</span>:list-add(name=mechanism-configurations, value={mechanism-name=<span class="constant">FORM</span>})</code></pre>
 </div>
 </div>
 </div>
@@ -3174,9 +3174,9 @@ appropriate roles:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=elytron/filesystem-realm=exampleFsRealm/identity=fallbackUser1:add()
-/subsystem=elytron/filesystem-realm=exampleFsRealm/identity=fallbackUser1:set-password(clear={password=<span class="string"><span class="delimiter">&quot;</span><span class="content">password123</span><span class="delimiter">&quot;</span></span>})
-/subsystem=elytron/filesystem-realm=exampleFsRealm/identity=fallbackUser1:add-attribute(name=Roles, value=[<span class="string"><span class="delimiter">&quot;</span><span class="content">Admin</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">Guest</span><span class="delimiter">&quot;</span></span>])</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>filesystem-realm=exampleFsRealm/identity=<span class="key">fallbackUser1</span>:add()
+<span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>filesystem-realm=exampleFsRealm/identity=<span class="key">fallbackUser1</span>:set-password(clear={password=<span class="string"><span class="delimiter">&quot;</span><span class="content">password123</span><span class="delimiter">&quot;</span></span>})
+<span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>filesystem-realm=exampleFsRealm/identity=<span class="key">fallbackUser1</span>:add-attribute(name=<span class="constant">Roles</span>, value=[<span class="string"><span class="delimiter">&quot;</span><span class="content">Admin</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">Guest</span><span class="delimiter">&quot;</span></span>])</code></pre>
 </div>
 </div>
 </div>
@@ -3311,7 +3311,7 @@ one configured in WildFly. To do this, use the
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/subsystem=undertow/application-security-domain=exampleApplicationDomain:write-attribute(name=override-deployment-config,value=<span class="predefined-constant">true</span>)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=undertow</span><span class="delimiter">/</span></span>application-security-domain=<span class="key">exampleApplicationDomain</span>:write-attribute(name=override-deployment-config,value=<span class="predefined-constant">true</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4480,11 +4480,6 @@ default:</p>
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=elytron</span><span class="delimiter">/</span></span>policy=policy-provider-<span class="key">a</span>:add(custom-policy=<span class="error">\</span>[{name=policy-provider-a, <span class="keyword">class</span>-name=<span class="constant">MyPolicyProviderA</span>, <span class="keyword">module</span>=x.y.z}<span class="error">\</span>])</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby"></code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -4753,39 +4748,39 @@ authentication configuration, authentication context, and match rules.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;configuration&gt;
-    &lt;authentication-client xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:elytron:1.0</span><span class="delimiter">&quot;</span></span>&gt;
-        &lt;authentication-rules&gt;
-            &lt;rule use-configuration=<span class="string"><span class="delimiter">&quot;</span><span class="content">monitor</span><span class="delimiter">&quot;</span></span>&gt;
-                &lt;match-host name=<span class="string"><span class="delimiter">&quot;</span><span class="content">127.0.0.1</span><span class="delimiter">&quot;</span></span> /&gt;
-            &lt;/rule&gt;
-            &lt;rule use-configuration=<span class="string"><span class="delimiter">&quot;</span><span class="content">administrator</span><span class="delimiter">&quot;</span></span>&gt;
-                &lt;match-host name=<span class="string"><span class="delimiter">&quot;</span><span class="content">localhost</span><span class="delimiter">&quot;</span></span> /&gt;
-            &lt;/rule&gt;
-        &lt;/authentication-rules&gt;
-        &lt;authentication-configurations&gt;
-            &lt;configuration name=<span class="string"><span class="delimiter">&quot;</span><span class="content">monitor</span><span class="delimiter">&quot;</span></span>&gt;
-                &lt;allow-sasl-mechanisms names=<span class="string"><span class="delimiter">&quot;</span><span class="content">DIGEST-MD5</span><span class="delimiter">&quot;</span></span> /&gt;
-                 &lt;use-service-loader-providers /&gt;
-                 &lt;set-user-name name=<span class="string"><span class="delimiter">&quot;</span><span class="content">monitor</span><span class="delimiter">&quot;</span></span> /&gt;
-                 &lt;credentials&gt;
-                     &lt;clear-password password=<span class="string"><span class="delimiter">&quot;</span><span class="content">password1!</span><span class="delimiter">&quot;</span></span> /&gt;
-                 &lt;/credentials&gt;
-                 &lt;set-mechanism-realm name=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span> /&gt;
-             &lt;/configuration&gt;
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;configuration&gt;</span>
+    <span class="tag">&lt;authentication-client</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:elytron:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;authentication-rules&gt;</span>
+            <span class="tag">&lt;rule</span> <span class="attribute-name">use-configuration</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">monitor</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;match-host</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">127.0.0.1</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+            <span class="tag">&lt;/rule&gt;</span>
+            <span class="tag">&lt;rule</span> <span class="attribute-name">use-configuration</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">administrator</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;match-host</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">localhost</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+            <span class="tag">&lt;/rule&gt;</span>
+        <span class="tag">&lt;/authentication-rules&gt;</span>
+        <span class="tag">&lt;authentication-configurations&gt;</span>
+            <span class="tag">&lt;configuration</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">monitor</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;allow-sasl-mechanisms</span> <span class="attribute-name">names</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">DIGEST-MD5</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+                 <span class="tag">&lt;use-service-loader-providers</span> <span class="tag">/&gt;</span>
+                 <span class="tag">&lt;set-user-name</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">monitor</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+                 <span class="tag">&lt;credentials&gt;</span>
+                     <span class="tag">&lt;clear-password</span> <span class="attribute-name">password</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">password1!</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+                 <span class="tag">&lt;/credentials&gt;</span>
+                 <span class="tag">&lt;set-mechanism-realm</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+             <span class="tag">&lt;/configuration&gt;</span>
 
-             &lt;configuration name=<span class="string"><span class="delimiter">&quot;</span><span class="content">administrator</span><span class="delimiter">&quot;</span></span>&gt;
-                &lt;allow-sasl-mechanisms names=<span class="string"><span class="delimiter">&quot;</span><span class="content">DIGEST-MD5</span><span class="delimiter">&quot;</span></span> /&gt;
-                 &lt;use-service-loader-providers /&gt;
-                 &lt;set-user-name name=<span class="string"><span class="delimiter">&quot;</span><span class="content">administrator</span><span class="delimiter">&quot;</span></span> /&gt;
-                 &lt;credentials&gt;
-                     &lt;clear-password password=<span class="string"><span class="delimiter">&quot;</span><span class="content">password1!</span><span class="delimiter">&quot;</span></span> /&gt;
-                 &lt;/credentials&gt;
-                 &lt;set-mechanism-realm name=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span> /&gt;
-             &lt;/configuration&gt;
-        &lt;/authentication-configurations&gt;
-    &lt;/authentication-client&gt;
-&lt;/configuration&gt;</code></pre>
+             <span class="tag">&lt;configuration</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">administrator</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;allow-sasl-mechanisms</span> <span class="attribute-name">names</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">DIGEST-MD5</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+                 <span class="tag">&lt;use-service-loader-providers</span> <span class="tag">/&gt;</span>
+                 <span class="tag">&lt;set-user-name</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">administrator</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+                 <span class="tag">&lt;credentials&gt;</span>
+                     <span class="tag">&lt;clear-password</span> <span class="attribute-name">password</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">password1!</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+                 <span class="tag">&lt;/credentials&gt;</span>
+                 <span class="tag">&lt;set-mechanism-realm</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+             <span class="tag">&lt;/configuration&gt;</span>
+        <span class="tag">&lt;/authentication-configurations&gt;</span>
+    <span class="tag">&lt;/authentication-client&gt;</span>
+<span class="tag">&lt;/configuration&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4794,7 +4789,7 @@ system property when running your client.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span> java -Dwildfly.config.url=/path/to/the.xml .....</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">$ java -Dwildfly.config.url=/path/to/the.xml .....</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5107,22 +5102,22 @@ outside of the client code.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;configuration&gt;
-  &lt;authentication-client xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:elytron:1.0</span><span class="delimiter">&quot;</span></span>&gt;
-    &lt;authentication-rules&gt;
-      &lt;rule use-configuration=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> /&gt;
-    &lt;/authentication-rules&gt;
-    &lt;authentication-configurations&gt;
-      &lt;configuration name=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span>&gt;
-        &lt;allow-all-sasl-mechanisms /&gt;
-        &lt;set-mechanism-properties&gt;
-          &lt;property key=<span class="string"><span class="delimiter">&quot;</span><span class="content">wildfly.sasl.local-user.quiet-auth</span><span class="delimiter">&quot;</span></span> value=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> /&gt;
-        &lt;/set-mechanism-properties&gt;
-        &lt;use-service-loader-providers /&gt;
-      &lt;/configuration&gt;
-    &lt;/authentication-configurations&gt;
-  &lt;/authentication-client&gt;
-&lt;/configuration&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;configuration&gt;</span>
+  <span class="tag">&lt;authentication-client</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:elytron:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;authentication-rules&gt;</span>
+      <span class="tag">&lt;rule</span> <span class="attribute-name">use-configuration</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/authentication-rules&gt;</span>
+    <span class="tag">&lt;authentication-configurations&gt;</span>
+      <span class="tag">&lt;configuration</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;allow-all-sasl-mechanisms</span> <span class="tag">/&gt;</span>
+        <span class="tag">&lt;set-mechanism-properties&gt;</span>
+          <span class="tag">&lt;property</span> <span class="attribute-name">key</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">wildfly.sasl.local-user.quiet-auth</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">value</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> <span class="tag">/&gt;</span>
+        <span class="tag">&lt;/set-mechanism-properties&gt;</span>
+        <span class="tag">&lt;use-service-loader-providers</span> <span class="tag">/&gt;</span>
+      <span class="tag">&lt;/configuration&gt;</span>
+    <span class="tag">&lt;/authentication-configurations&gt;</span>
+  <span class="tag">&lt;/authentication-client&gt;</span>
+<span class="tag">&lt;/configuration&gt;</span></code></pre>
 </div>
 </div>
 </div>
@@ -5404,13 +5399,13 @@ http authentication factory.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">  &lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:undertow:4.0</span><span class="delimiter">&quot;</span></span>&gt;
+<pre class="CodeRay highlight"><code data-lang="xml">  <span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:undertow:4.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     ...
-    &lt;application-security-domains&gt;
-      &lt;application-security-domain name=<span class="string"><span class="delimiter">&quot;</span><span class="content">application-security</span><span class="delimiter">&quot;</span></span> http-authentication-factory=<span class="string"><span class="delimiter">&quot;</span><span class="content">application-security-http</span><span class="delimiter">&quot;</span></span>/&gt;
-    &lt;<span class="regexp"><span class="delimiter">/</span><span class="content">application-security-domains&gt;
+    <span class="tag">&lt;application-security-domains&gt;</span>
+      <span class="tag">&lt;application-security-domain</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">application-security</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">http-authentication-factory</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">application-security-http</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/application-security-domains&gt;</span>
     ...
-  &lt;</span><span class="delimiter">/</span><span class="modifier">su</span></span>bsystem&gt;</code></pre>
+  <span class="tag">&lt;/subsystem&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5620,10 +5615,10 @@ authentication and the existing security realm reference cleared.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">  &lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:remoting:4.0</span><span class="delimiter">&quot;</span></span>&gt;
+<pre class="CodeRay highlight"><code data-lang="xml">  <span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:remoting:4.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
     ...
-    &lt;http-connector name=<span class="string"><span class="delimiter">&quot;</span><span class="content">http-remoting-connector</span><span class="delimiter">&quot;</span></span> connector-ref=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> sasl-authentication-factory=<span class="string"><span class="delimiter">&quot;</span><span class="content">application-security-sasl</span><span class="delimiter">&quot;</span></span>/&gt;
-  &lt;<span class="regexp"><span class="delimiter">/</span><span class="content">subsystem&gt;</span></span></code></pre>
+    <span class="tag">&lt;http-connector</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">http-remoting-connector</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">connector-ref</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">sasl-authentication-factory</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">application-security-sasl</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;/subsystem&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5669,9 +5664,9 @@ previous section.</p>
 <p>These configuration examples are developed against a test LDAP sever
 with user entries like: -</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">dn: uid=TestUserOne,ou=users,dc=group-to-principal,dc=wildfly,dc=org
+<pre>dn: uid=TestUserOne,ou=users,dc=group-to-principal,dc=wildfly,dc=org
 objectClass: top
 objectClass: inetOrgPerson
 objectClass: uidObject
@@ -5680,21 +5675,21 @@ objectClass: organizationalPerson
 cn: Test User One
 sn: Test User One
 uid: TestUserOne
-userPassword: {SSHA}UG8ov2rnrnBKakcARVvraZHqTa7mFWJZlWt2HA==</code></pre>
+userPassword: {SSHA}UG8ov2rnrnBKakcARVvraZHqTa7mFWJZlWt2HA==</pre>
 </div>
 </div>
 <div class="paragraph">
 <p>The group entries then look like: -</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">dn: uid=GroupOne,ou=groups,dc=group-to-principal,dc=wildfly,dc=org
+<pre>dn: uid=GroupOne,ou=groups,dc=group-to-principal,dc=wildfly,dc=org
 objectClass: top
 objectClass: groupOfUniqueNames
 objectClass: uidObject
-cn: <span class="predefined-type">Group</span> One
+cn: Group One
 uid: GroupOne
-uniqueMember: uid=TestUserOne,ou=users,dc=group-to-principal,dc=wildfly,dc=org</code></pre>
+uniqueMember: uid=TestUserOne,ou=users,dc=group-to-principal,dc=wildfly,dc=org</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6475,14 +6470,14 @@ application&#8217;s <code>META-INF</code> directory:</p>
 <div class="paragraph">
 <p><strong>jboss-ejb-client.properties</strong></p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=<span class="predefined-constant">false</span>
-remote.connections=<span class="keyword">default</span>
-remote.connection.default.host=<span class="float">127.0</span><span class="float">.0</span><span class="float">.1</span>
-remote.connection.default.port = <span class="integer">8080</span>
+<pre>remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
+remote.connections=default
+remote.connection.default.host=127.0.0.1
+remote.connection.default.port = 8080
 remote.connection.default.username=bob
-remote.connection.default.password=secret</code></pre>
+remote.connection.default.password=secret</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6647,7 +6642,7 @@ example:</p>
 <div class="paragraph">
 <p>Command to run actual conversion:</p>
 </div>
-<div class="openblock">
+<div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
 <p><code>./bin/elytron-tool.sh vault --enc-dir vault_data/ --keystore vault-jceks.keystore --keystore-password MASK-2hKo56F1a3jYGnJwhPmiF5 --iteration 34 --salt 12345678 --alias test --location cs-v1.store --summary</code></p>
@@ -6657,7 +6652,7 @@ example:</p>
 <div class="paragraph">
 <p>Output:</p>
 </div>
-<div class="openblock">
+<div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
 <p><code>Vault (enc-dir="vault_data/";keystore="vault-jceks.keystore") converted to credential store "cs-v1.store"</code><br>
@@ -6703,7 +6698,7 @@ store to the configuration.</p>
 using --bulk-convert parameter with description file.<br>
 Example of description file from our <a href="https://github.com/wildfly-security/wildfly-elytron-tool/blob/master/src/test/java/org/wildfly/security/tool/VaultCommandTest.java">tests</a>:</p>
 </div>
-<div class="openblock">
+<div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
 <p><code># Bulk conversion descriptor</code><br>
@@ -6741,7 +6736,7 @@ mandatory except "salt:", "iteration:" and "properties:"</p>
 <div class="paragraph">
 <p>Execute following command:</p>
 </div>
-<div class="openblock">
+<div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
 <p><code>./bin/elytron-tool.sh vault --bulk-convert bulk-vault-conversion-desc --summary</code></p>
@@ -6751,7 +6746,7 @@ mandatory except "salt:", "iteration:" and "properties:"</p>
 <div class="paragraph">
 <p>Output:</p>
 </div>
-<div class="openblock">
+<div class="sidebarblock">
 <div class="content">
 <div class="paragraph">
 <p><code>Vault (enc-dir="vault-v1/vault_data/";keystore="vault-v1/vault-jceks.keystore") converted to credential store "v1-cs-1.store"</code><br>
@@ -6960,7 +6955,7 @@ created Elytron <code>ssl-context</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">&lt;https-listener name=<span class="string"><span class="delimiter">&quot;</span><span class="content">https</span><span class="delimiter">&quot;</span></span> socket-binding=<span class="string"><span class="delimiter">&quot;</span><span class="content">https</span><span class="delimiter">&quot;</span></span> ssl-context=<span class="string"><span class="delimiter">&quot;</span><span class="content">LocalhostSslContext</span><span class="delimiter">&quot;</span></span> enable-http2=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>/&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;https-listener</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">https</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">socket-binding</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">https</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">ssl-context</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">LocalhostSslContext</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">enable-http2</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
 </div>
@@ -7131,7 +7126,7 @@ cannot be used, any others?</p>
 <div id="footer">
 <div id="footer-text">
 Version {version}<br>
-Last updated 2017-09-14 15:47:26 CEST
+Last updated 2017-09-14 15:47:26 DST
 </div>
 </div>
 </body>

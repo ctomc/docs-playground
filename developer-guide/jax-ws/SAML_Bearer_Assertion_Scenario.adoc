@@ -41,7 +41,7 @@ are used to protect the SOAP body of messages that pass back and forth
 between ws-requester and ws-provider. A detailed explanation of the
 security settings are provided in the comments in the listing below.
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <definitions targetNamespace="http://www.jboss.org/jbossws/ws-extensions/bearerwssecuritypolicy"
@@ -255,7 +255,7 @@ Guide].
 
 Here is an example of an SSL connector declaration.
 
-[source, java]
+[source,xml]
 ----
 <subsystem xmlns="urn:jboss:domain:web:1.4" default-virtual-server="default-host" native="false">
   .....
@@ -361,14 +361,13 @@ File servicestore.jks, is a Java KeyStore (JKS) repository. It contains
 self signed certificates for myservicekey and mystskey. _Self signed
 certificates are not appropriate for production use._
 
-[source, java]
-----
+....
 org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin
 org.apache.ws.security.crypto.merlin.keystore.type=jks
 org.apache.ws.security.crypto.merlin.keystore.password=sspass
 org.apache.ws.security.crypto.merlin.keystore.alias=myservicekey
 org.apache.ws.security.crypto.merlin.keystore.file=servicestore.jks
-----
+....
 
 [[manifest.mf]]
 === MANIFEST.MF
@@ -377,13 +376,12 @@ When deployed on WildFly this application requires access to the JBossWs
 and CXF APIs provided in module org.jboss.ws.cxf.jbossws-cxf-client. The
 dependency statement directs the server to provide them at deployment.
 
-[source, java]
-----
+....
 Manifest-Version: 1.0  
 Ant-Version: Apache Ant 1.8.2  
 Created-By: 1.7.0_25-b15 (Oracle Corporation)  
 Dependencies: org.jboss.ws.cxf.jbossws-cxf-client
-----
+....
 
 [[bearer-security-token-service]]
 == Bearer Security Token Service
@@ -416,7 +414,7 @@ following XML must be added to the JBoss security subsystem in the
 server configuration file. Replace " *SOME_PATH*" with appropriate
 information.
 
-[source, java]
+[source,xml]
 ----
 <security-domain name="JBossWS-trust-sts">
   <authentication>
@@ -431,7 +429,7 @@ information.
 
 jboss-web.xml
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>  
 <!DOCTYPE jboss-web PUBLIC "-//JBoss//DTD Web Application 2.4//EN" ">  
@@ -442,24 +440,22 @@ jboss-web.xml
 
 jbossws-users.properties
 
-[source, java]
-----
+....
 # A sample users.properties file for use with the UsersRolesLoginModule  
 alice=clarinet
-----
+....
 
 jbossws-roles.properties
 
-[source, java]
-----
+....
 # A sample roles.properties file for use with the UsersRolesLoginModule  
 alice=friend
-----
+....
 
 [[stss-wsdl]]
 === STS's WSDL
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions
@@ -1038,13 +1034,12 @@ File servicestore.jks, is a Java KeyStore (JKS) repository. It contains
 self signed certificates for myservicekey and mystskey. _Self signed
 certificates are not appropriate for production use._
 
-[source, java]
-----
+....
 org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin  
 org.apache.ws.security.crypto.merlin.keystore.type=jks
 org.apache.ws.security.crypto.merlin.keystore.password=stsspass
 org.apache.ws.security.crypto.merlin.keystore.file=stsstore.jks
-----
+....
 
 [[manifest.mf-1]]
 === MANIFEST.MF
@@ -1056,13 +1051,12 @@ internals, org.apache.cxf.impl, are needed to build the STS
 configuration in the `SampleSTS` constructor. The dependency statement
 directs the server to provide them at deployment.
 
-[source, java]
-----
+....
 Manifest-Version: 1.0  
 Ant-Version: Apache Ant 1.8.2  
 Created-By: 1.7.0_25-b15 (Oracle Corporation)  
 Dependencies: org.jboss.ws.cxf.jbossws-cxf-client,org.apache.cxf.impl
-----
+....
 
 [[web-service-requester]]
 == Web service requester
@@ -1199,11 +1193,10 @@ File clientstore.jks, is a Java KeyStore (JKS) repository. It contains
 self signed certificates for myservicekey and mystskey. _Self signed
 certificates are not appropriate for production use._
 
-[source, java]
-----
+....
 org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin
 org.apache.ws.security.crypto.merlin.keystore.type=jks
 org.apache.ws.security.crypto.merlin.keystore.password=cspass
 org.apache.ws.security.crypto.merlin.keystore.alias=myclientkey
 org.apache.ws.security.crypto.merlin.keystore.file=META-INF/clientstore.jks
-----
+....

@@ -144,7 +144,6 @@ EntityManager em;
 [[extended-persistence-context-inheritance]]
 === Extended Persistence Context Inheritance
 
-[source, java]
 ----
 JPA 2.0 specification section 7.6.2.1
  
@@ -407,10 +406,9 @@ native API hibernate.cfg.xml file:
 
 The Hibernate native API application will also need a MANIFEST.MF:
 
-[source, java]
-----
+....
 Dependencies: org.infinispan,org.hibernate
-----
+....
 
 http://infinispan.org/docs/8.0.x/user_guide/user_guide.html#_using_infinispan_as_jpa_hibernate_second_level_cache_provider[Infinispan
 Hibernate/JPA second level cache provider documentation] contains
@@ -544,8 +542,11 @@ application but we highly recommend the modules approach.
 WildFly allows the packaging of Hibernate persistence provider jars with
 the application. The JPA deployer will detect the presence of a
 persistence provider in the application and
-*jboss.as.jpa.providerModule* needs to be set to *application*.<?xml
-version="1.0" encoding="UTF-8"?> +
+*jboss.as.jpa.providerModule* needs to be set to *application*.
+
+[source, xml]
+----
+<?xml version="1.0" encoding="UTF-8"?> +
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
 version="1.0"> +
 <persistence-unit name="myOwnORMVersion_pu"> +
@@ -556,9 +557,6 @@ version="1.0"> +
 </properties> +
 </persistence-unit> +
 </persistence>
-
-[source, java]
-----
 ----
 
 [[migrating-from-openjpa]]
@@ -613,7 +611,7 @@ you happen to leave the EclipseLink version number in the jar name, the
 module.xml should reflect that. This will help you get your application
 that depends on EclipseLink, to deploy on WildFly.
 
-[source, java]
+[source,xml]
 ----
  <module xmlns="urn:jboss:module:1.1" name="org.eclipse.persistence">
     <resources>
@@ -700,12 +698,11 @@ expect to use the Hibernate jars included in WildFly.
 Example MANIFEST.MF entry to add dependency for Hibernate native
 applications:
 
-[source, java]
-----
+....
 Manifest-Version: 1.0
 ...
 Dependencies: org.hibernate
-----
+....
 
 If you use the Hibernate native api in your application and also use the
 JPA api to access the same entities (from the same Hibernate
@@ -936,7 +933,7 @@ your application by setting the `jboss.entity.manager.factory.jndi.name`
 
 persistence.xml
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0"

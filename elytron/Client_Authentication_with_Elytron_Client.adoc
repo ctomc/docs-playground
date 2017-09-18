@@ -59,7 +59,7 @@ authentication configuration, authentication context, and match rules.
 
 *custom-config.xml*
 
-[source, java]
+[source,xml]
 ----
 <configuration>
     <authentication-client xmlns="urn:elytron:1.0">
@@ -99,7 +99,7 @@ authentication configuration, authentication context, and match rules.
 You can then reference that file in your client's code by setting a
 system property when running your client.
 
-[source, java]
+[source,bash]
 ----
 $ java -Dwildfly.config.url=/path/to/the.xml .....
 ----
@@ -334,7 +334,7 @@ _$WILDFLY_HOME/bin/client/jboss-client.jar_.
 
 *default wildfly-config.xml*
 
-[source, java]
+[source,xml]
 ----
 <configuration>
   <authentication-client xmlns="urn:elytron:1.0">

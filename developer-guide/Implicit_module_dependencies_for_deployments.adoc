@@ -37,7 +37,7 @@ the deployment processor adds a implicit module dependency to that
 deployment. Let's take an example - Consider (again) an EJB3 deployment
 which has the following class:
 
-MySuperDuperBean.java
+.MySuperDuperBean.java
 
 [source, java]
 ----

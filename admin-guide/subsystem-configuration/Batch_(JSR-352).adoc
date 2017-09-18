@@ -56,7 +56,7 @@ repository and named thread pool are resources defined on the batch
 subsystem. Only a named thread pool is allowed to be defined in the
 deployment descriptor.
 
-Example Named Job Repository and Thread Pool
+.Example Named Job Repository and Thread Pool
 
 [source, xml]
 ----
@@ -70,7 +70,7 @@ Example Named Job Repository and Thread Pool
 </jboss>
 ----
 
-Example new Job Repository
+.Example new Job Repository
 
 [source, xml]
 ----
@@ -91,7 +91,7 @@ resources for deployments. The batch subsystem registers jobs and
 executions. The jobs are registered using the job name, this is _not_
 the job XML name. Executions are registered using the execution id.
 
-Batch application in a standalone server
+.Batch application in a standalone server
 
 [source, ruby]
 ----
@@ -126,7 +126,7 @@ interact with batch jobs on the selected deployment. There is a
 `start-job`, `stop-job` and `restart-job` operation. The `execution`
 resource also has a `stop-job` and `restart-job` operation.
 
-Example start-job
+.Example start-job
 
 [source, ruby]
 ----
@@ -137,14 +137,14 @@ Example start-job
 }
 ----
 
-Example stop-job
+.Example stop-job
 
 [source, ruby]
 ----
 [standalone@localhost:9990 /] /deployment=batch-chunk.war/subsystem=batch-jberet:stop-job(execution-id=2)
 ----
 
-Example restart-job
+.Example restart-job
 
 [source, ruby]
 ----
@@ -155,7 +155,7 @@ Example restart-job
 }
 ----
 
-Result of resource after the 3 executions
+.Result of resource after the 3 executions
 
 [source, ruby]
 ----
@@ -205,7 +205,7 @@ Pro Tip
 You can filter jobs by an attribute on the execution resource with the
 `query` operation.
 
-View all stopped jobs
+.View all stopped jobs
 
 [source, ruby]
 ----
@@ -222,7 +222,7 @@ Tab completion
 Don't forget that CLI has tab completion which will complete operations
 and attributes (arguments) on operations.
 
-Example start-job operation description
+.Example start-job operation description
 
 [source, ruby]
 ----

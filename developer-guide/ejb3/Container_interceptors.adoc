@@ -82,7 +82,7 @@ file, which then gets placed under the META-INF folder of the EJB
 deployment, just like the ejb-jar.xml. Here's an example of how the
 container interceptor(s) can be configured in jboss-ejb3.xml:
 
-jboss-ejb3.xml
+.jboss-ejb3.xml
 
 [source, xml]
 ----
@@ -137,7 +137,7 @@ EJB3.1 xsd allows for standard Java EE interceptors
 (using the the * wildcard) or individual bean level (using the specific
 EJB name) or at specific method level for the EJBs.
 
-[TIP]
+[IMPORTANT]
 
 The xsd for the urn:container-interceptors:1.0 namespace is available
 here
@@ -148,7 +148,7 @@ The interceptor classes themselves are simple POJOs and use the
 will get invoked during the invocation on the bean. Here's an example of
 the interceptor:
 
-Example of container interceptor
+.Example of container interceptor
 
 [source, java]
 ----

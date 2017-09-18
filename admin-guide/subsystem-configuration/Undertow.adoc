@@ -173,7 +173,7 @@ allowed. HTTP TRACE is disabled by default.
 [[http-connector]]
 ==== HTTP Connector
 
-[source, java]
+[source,xml]
 ----
 <http-listener name="default" socket-binding="http"  />
 ----
@@ -204,7 +204,7 @@ real address of the client, rather than the address of the proxy.
 Https listener provides secure access to the server. The most important
 configuration option is security realm which defines SSL secure context.
 
-[source, java]
+[source,xml]
 ----
 <https-listener name="default" socket-binding="https" security-realm="ssl-realm" />
 ----
@@ -225,7 +225,7 @@ client cert auth is in use this should be either REQUESTED or REQUIRED.
 [[ajp-listener]]
 ==== AJP listener
 
-[source, java]
+[source,xml]
 ----
 <ajp-listener name="default" socket-binding="ajp" />
 ----

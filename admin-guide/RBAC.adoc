@@ -874,7 +874,7 @@ expressions to be security sensitive, you can change that setting:
 }
 ----
 
-[IMPORTANT]
+[NOTE]
 
 This vault-expression constraint overlaps somewhat with the
 link:#src-557208_RBAC-common-sensitivity-classifications[core

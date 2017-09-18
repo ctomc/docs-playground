@@ -144,7 +144,7 @@ You can easily query the same information through the CLI:
 }
 ----
 
-[IMPORTANT]
+[TIP]
 
 Using the web console or the CLI greatly simplifies the deployment of
 JDBC drivers and the creation of datasources.
@@ -196,11 +196,11 @@ http://www.jboss.org/ironjacamar[IronJacamar] project. For a detailed
 description of the available configuration properties, please consult
 the project documentation.
 
---
+****
 
 * IronJacamar homepage: http://ironjacamar.org/
 * Project Documentation: http://ironjacamar.org/documentation.html
 * Schema description:
 http://www.ironjacamar.org/doc/userguide/1.1/en-US/html_single/index.html#deployingds_descriptor
 
---
+****

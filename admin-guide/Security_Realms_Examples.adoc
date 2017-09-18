@@ -40,7 +40,7 @@ of Active Directory to verify the users username and password.
 </management>
 ----
 
-[IMPORTANT]
+[NOTE]
 
 For simplicity the `<local/>` configuration has been removed from this
 example, however there it is fine to leave that in place for local
@@ -68,13 +68,12 @@ Re-enter new password:
 
 In this example I choose ' `keystore_password`'.
 
-[source, java]
-----
+....
 What is your first and last name?
   [Unknown]:  localhost
-----
+....
 
-[IMPORTANT]
+[NOTE]
 
 Of all of the questions asked this is the most important and should
 match the host name that will be entered into the web browser to connect
@@ -86,7 +85,7 @@ purpose of this example I set the key password to ' `key_password`'.
 The following example shows how this newly created keystore will be
 referenced to enable SSL.
 
-[source, java]
+[source,xml]
 ----
 <security-realm name="ManagementRealm">
   <server-identities>
@@ -111,7 +110,7 @@ To enable Client-Cert style authentication we just now need to add a
 `<truststore />` element to the `<authentication />` element referencing
 a trust store that has had the certificates or trusted clients imported.
 
-[source, java]
+[source,xml]
 ----
 <security-realm name="ManagementRealm">
   <server-identities>

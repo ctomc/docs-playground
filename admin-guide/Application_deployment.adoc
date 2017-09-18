@@ -667,6 +667,7 @@ content repository. The repository is located in the
 `standalone/data/content` for a standalone server. Actual binaries are
 stored in a subdirectory:
 
+[source,bash]
 ----
 ls domain/data/content/
   |---/47
@@ -675,7 +676,7 @@ ls domain/data/content/
   |-----a9881fa7811b22f1424b4c5acccb13c71202bd
 ----
 
-[IMPORTANT]
+[TIP]
 
 The location of the content repository and its internal structure is
 subject to change at any time and should not be relied upon by end

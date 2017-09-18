@@ -25,7 +25,7 @@ standard JNDI names, such as `java:comp/DefaultManagedExecutorService`:
  managed-thread-factory="java:jboss/ee/concurrency/factory/default" />
 ----
 
-[IMPORTANT]
+[NOTE]
 
 The default bindings are optional, if the jndi name for a default
 binding is not configured then the related resource will not be

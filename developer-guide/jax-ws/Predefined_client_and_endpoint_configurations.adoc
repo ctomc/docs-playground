@@ -130,7 +130,7 @@ xsi:schemaLocation="urn:jboss:jbossws-jaxws-config:4.0 schema/jbossws-jaxws-conf
 Similarly, client configurations can be specified in descriptors (still
 implementing the schema mentioned above):
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <jaxws-config xmlns="urn:jboss:jbossws-jaxws-config:4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:javaee="http://java.sun.com/xml/ns/javaee"
@@ -207,9 +207,9 @@ any deployment, for instance `org.jboss.ws.spi`.
 [[examples]]
 ===== Examples
 
-JBoss AS 7.2 default configurations
+.JBoss AS 7.2 default configurations
 
-[source, java]
+[source,xml]
 ----
 <subsystem xmlns="urn:jboss:domain:webservices:2.0">
 <!-- ... -->
@@ -223,10 +223,10 @@ JBoss AS 7.2 default configurations
 </subsystem>
 ----
 
-A configuration file for a deployment specific ws-security endpoint
+.A configuration file for a deployment specific ws-security endpoint
 setup
 
-[source, java]
+[source,xml]
 ----
 <jaxws-config xmlns="urn:jboss:jbossws-jaxws-config:4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:javaee="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="urn:jboss:jbossws-jaxws-config:4.0 schema/jbossws-jaxws-config_4_0.xsd">
@@ -256,10 +256,10 @@ xmlns:javaee="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="urn:jboss:j
 </jaxws-config>
 ----
 
-JBoss AS 7.2 default configurations modified to default to SOAP messages
-schema-validation on
+.JBoss AS 7.2 default configurations modified to default to SOAP
+messages schema-validation on
 
-[source, java]
+[source,xml]
 ----
 <subsystem xmlns="urn:jboss:domain:webservices:2.0">
 <!-- ... -->

@@ -101,7 +101,7 @@ echo/jaxws/EchoResponse.class
 
 Inspecting the WSDL reveals a service called _EchoService_:
 
-[source, java]
+[source,xml]
 ----
 <service name='EchoService'>
  <port binding='tns:EchoBinding' name='EchoPort'>
@@ -112,7 +112,7 @@ Inspecting the WSDL reveals a service called _EchoService_:
 
 As expected, this service defines one operation, " _echo_":
 
-[source, java]
+[source,xml]
 ----
 <portType name='Echo'>
  <operation name='echo' parameterOrder='echo'>
@@ -122,7 +122,7 @@ As expected, this service defines one operation, " _echo_":
 </portType>
 ----
 
-[IMPORTANT]
+[NOTE]
 
 Remember that when deploying on JBossWS you do not need to run this
 tool. You only need it for generating portable artifacts and/or the
@@ -131,7 +131,7 @@ abstract contract for your service.
 Let's create a POJO endpoint for deployment on WildFly. A simple
 _web.xml_ needs to be created:
 
-[source, java]
+[source,xml]
 ----
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -182,7 +182,7 @@ the service, which includes the WSDL file and zero or more schema files.
 The _wsconsume_ tool is then used to consume this contract, and produce
 annotated Java classes (and optionally sources) that define it.
 
-[IMPORTANT]
+[NOTE]
 
 wsconsume may have problems with symlinks on Unix systems
 
@@ -284,7 +284,7 @@ file yourself, although you need to ensure that the path is correct.
 
 Offline version:
 
-[source, java]
+[source,xml]
 ----
 <service name='EchoService'>
   <port binding='tns:EchoBinding' name='EchoPort'>
@@ -295,7 +295,7 @@ Offline version:
 
 Online version:
 
-[source, java]
+[source,xml]
 ----
 <service name="EchoService">
   <port binding="tns:EchoBinding" name="EchoPort">
@@ -372,7 +372,7 @@ which returns an instance of our Service Endpoint Interface. Any WS
 operation can then be called by just invoking a method on the returned
 interface.
 
-[IMPORTANT]
+[NOTE]
 
 It's not recommended to refer to a remote WSDL URL in a production
 application. This causes network I/O every time you instantiate the

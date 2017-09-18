@@ -826,25 +826,23 @@ The default remote connection port has changed from '4447' to '8080'.
 In JBoss AS7, the *jboss-ejb-client.properties* file looked similar to
 the following:
 
-[source,java]
-----
+....
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
 remote.connections=default
 remote.connection.default.host=localhost
 remote.connection.default.port=4447
 remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
-----
+....
 
 In WildFly, the properties file looks like this:
 
-[source, java]
-----
+....
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
 remote.connections=default
 remote.connection.default.host=localhost
 remote.connection.default.port=8080
 remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
-----
+....
 
 [[default-connector]]
 ===== Default Connector
@@ -864,10 +862,9 @@ server instance does not use the http-remoting connector and instead
 uses a remoting connector. This is achieved by defining a new
 client-side connection property.
 +
-[source, java]
-----
+....
 remote.connection.default.protocol=remote
-----
+....
 
 External applications using JNDI, to remotely lookup up EJBs in a
 WildFly 10 server, may also need to be migrated, please refer to

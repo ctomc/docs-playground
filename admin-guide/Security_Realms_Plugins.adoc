@@ -66,7 +66,7 @@ the remote user.
 
 The Identity interface is also an interface you will implement: -
 
-[source, java]
+[source,xml]
 ----
 public interface Identity<T extends Credential> {
     String getUserName();
@@ -267,10 +267,9 @@ folder of the jar this project adds a file called '
 a single entry which is the fully qualified class name of the
 PlugInProvider implementation class.
 
-[source, java]
-----
+....
 org.jboss.as.sample.SamplePluginProvider
-----
+....
 
 [[package-as-a-module]]
 === Package as a Module

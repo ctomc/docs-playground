@@ -55,7 +55,7 @@ API. It can be accessed by pointing your browser to:
 
 Default URL
 
-[IMPORTANT]
+[TIP]
 
 By default the web interface can be accessed here:
 http://localhost:9990/console.
@@ -184,7 +184,7 @@ deployments should be deployed.
 Which domain-wide configuration should be used can be controlled via the
 _ _--domain-config__ command line argument:
 
-
+[source,bash]
 ----
 $ bin/domain.sh --domain-config=domain-production.xml
 ----

@@ -105,11 +105,10 @@ value of the logging profile id. For example a logging profile defined
 on `/subsystem=logging/logging-profile=ejbs` the MANIFEST.MF would look
 like:
 
-[source, java]
-----
+....
 Manifest-Version: 1.0
 Logging-Profile: ejbs
-----
+....
 
 A logging profile can be assigned to any number of deployments. Using a
 logging profile also allows for runtime changes to the configuration.
@@ -235,7 +234,7 @@ operations are valid in both standalone and domain modes.
 The logging subsystem has a `log-file` resource off the subsystem root
 resource and off each `logging-profile` resource to list each log file.
 
-CLI command and output
+.CLI command and output
 
 [source, ruby]
 ----
@@ -271,7 +270,7 @@ lines should be read.
 down.
 |=======================================================================
 
-CLI command and output
+.CLI command and output
 
 [source, ruby]
 ----

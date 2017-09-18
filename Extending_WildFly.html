@@ -524,7 +524,7 @@ table.CodeRay td.code>pre{padding:0}
 <div class="details">
 <span id="author" class="author">WildFly code development team</span><br>
 <span id="revnumber">version {version},</span>
-<span id="revdate">2017-09-14</span>
+<span id="revdate">2017-09-18</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Extending WildFly</div>
@@ -776,22 +776,22 @@ tests being run</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span>mvn install
-[INFO] Scanning <span class="keyword">for</span> projects...
+<pre class="CodeRay highlight"><code data-lang="bash">$mvn install
+[INFO] Scanning for projects...
 [...]
 [INFO] Surefire report directory: /Users/kabir/sourcecontrol/temp/archetype-test/acme-subsystem/target/surefire-reports
-<span class="error"> </span>
+ 
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
 Running com.acme.corp.tracker.extension.SubsystemBaseParsingTestCase
-Tests run: <span class="integer">1</span>, Failures: <span class="integer">0</span>, Errors: <span class="integer">0</span>, Skipped: <span class="integer">0</span>, <span class="predefined-type">Time</span> elapsed: <span class="float">0.424</span> sec
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.424 sec
 Running com.acme.corp.tracker.extension.SubsystemParsingTestCase
-Tests run: <span class="integer">6</span>, Failures: <span class="integer">0</span>, Errors: <span class="integer">0</span>, Skipped: <span class="integer">0</span>, <span class="predefined-type">Time</span> elapsed: <span class="float">0.074</span> sec
-<span class="error"> </span>
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.074 sec
+ 
 Results :
-<span class="error"> </span>
-Tests run: <span class="integer">3</span>, Failures: <span class="integer">0</span>, Errors: <span class="integer">0</span>, Skipped: <span class="integer">0</span>
+ 
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
 [...]</code></pre>
 </div>
 </div>
@@ -866,12 +866,12 @@ will see how to plug this in to WildFly later in this tutorial.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:com.acme.corp.tracker:1.0</span><span class="delimiter">&quot;</span></span>&gt;
-   &lt;deployment-types&gt;
-      &lt;deployment-type suffix=<span class="string"><span class="delimiter">&quot;</span><span class="content">sar</span><span class="delimiter">&quot;</span></span> tick=<span class="string"><span class="delimiter">&quot;</span><span class="content">10000</span><span class="delimiter">&quot;</span></span>/&gt;
-      &lt;deployment-type suffix=<span class="string"><span class="delimiter">&quot;</span><span class="content">war</span><span class="delimiter">&quot;</span></span> tick=<span class="string"><span class="delimiter">&quot;</span><span class="content">10000</span><span class="delimiter">&quot;</span></span>/&gt;
-   &lt;/deployment-types&gt;
-&lt;/subsystem&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:com.acme.corp.tracker:1.0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+   <span class="tag">&lt;deployment-types&gt;</span>
+      <span class="tag">&lt;deployment-type</span> <span class="attribute-name">suffix</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">sar</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">tick</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">10000</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+      <span class="tag">&lt;deployment-type</span> <span class="attribute-name">suffix</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">war</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">tick</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">10000</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+   <span class="tag">&lt;/deployment-types&gt;</span>
+<span class="tag">&lt;/subsystem&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1085,11 +1085,11 @@ operation " `add-mime`" with two parameters:</p>
 <span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span><span class="error"> </span> <span class="keyword">new</span> DefaultOperationDescriptionProvider(<span class="string"><span class="delimiter">&quot;</span><span class="content">add-mime</span><span class="delimiter">&quot;</span></span>, Extension.getResourceDescriptionResolver(<span class="string"><span class="delimiter">&quot;</span><span class="content">container.mime-mapping</span><span class="delimiter">&quot;</span></span>), MIME_NAME, MIME_VALUE));</code></pre>
 </div>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 When descriping an operation its description provider&#8217;s <code>OPERATION_NAME</code>
@@ -1538,11 +1538,11 @@ tick of the TrackerService for our suffix. This is essential since the
 call to <code>context.getServiceRegistry()</code> will fail unless the step
 accessing it belongs to the <code>RUNTIME</code> stage.</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 When implementing <code>execute()</code>, you <strong>must</strong> call <code>context.completeStep()</code>
@@ -1747,11 +1747,11 @@ that you can do it by implementing it like this.</p>
 <div class="paragraph">
 <p>Changes to tests between 7.0.0 and 7.0.1</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
 The testing framework was moved from the archetype into the core JBoss
@@ -1796,16 +1796,16 @@ we tell the test to parse the xml into operations</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Test</span>
-    <span class="directive">public</span> <span class="type">void</span> testParseSubsystem() <span class="directive">throws</span> <span class="exception">Exception</span> {
-        <span class="comment">//Parse the subsystem xml into operations</span>
-        <span class="predefined-type">String</span> subsystemXml =
-                <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;subsystem xmlns=</span><span class="char">\&quot;</span><span class="delimiter">&quot;</span></span> + SubsystemExtension.NAMESPACE + <span class="string"><span class="delimiter">&quot;</span><span class="char">\&quot;</span><span class="content">&gt;</span><span class="delimiter">&quot;</span></span> +
-                <span class="string"><span class="delimiter">&quot;</span><span class="content">   &lt;deployment-types&gt;</span><span class="delimiter">&quot;</span></span> +
-                <span class="string"><span class="delimiter">&quot;</span><span class="content">       &lt;deployment-type suffix=</span><span class="char">\&quot;</span><span class="content">tst</span><span class="char">\&quot;</span><span class="content"> tick=</span><span class="char">\&quot;</span><span class="content">12345</span><span class="char">\&quot;</span><span class="content">/&gt;</span><span class="delimiter">&quot;</span></span> +
-                <span class="string"><span class="delimiter">&quot;</span><span class="content">   &lt;/deployment-types&gt;</span><span class="delimiter">&quot;</span></span> +
-                <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;/subsystem&gt;</span><span class="delimiter">&quot;</span></span>;
-        <span class="predefined-type">List</span>&lt;ModelNode&gt; operations = <span class="local-variable">super</span>.parse(subsystemXml);</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml">@Test
+    public void testParseSubsystem() throws Exception {
+        //Parse the subsystem xml into operations
+        String subsystemXml =
+                &quot;<span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="error">\</span><span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span> <span class="error">+</span> <span class="attribute-name">SubsystemExtension.NAMESPACE</span> <span class="error">+</span> <span class="error">&quot;</span><span class="error">\</span><span class="error">&quot;</span><span class="tag">&gt;</span>&quot; +
+                &quot;   <span class="tag">&lt;deployment-types&gt;</span>&quot; +
+                &quot;       <span class="tag">&lt;deployment-type</span> <span class="attribute-name">suffix</span>=<span class="error">\</span><span class="string"><span class="delimiter">&quot;</span><span class="content">tst\</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">tick</span>=<span class="error">\</span><span class="string"><span class="delimiter">&quot;</span><span class="content">12345\</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>&quot; +
+                &quot;   <span class="tag">&lt;/deployment-types&gt;</span>&quot; +
+                &quot;<span class="tag">&lt;/subsystem&gt;</span>&quot;;
+        List<span class="tag">&lt;ModelNode&gt;</span> operations = super.parse(subsystemXml);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2486,9 +2486,9 @@ this case you need to modify <code>$WFLY/domain/configuration/domain.xml</code>.
 see messages like these after the server has started, which means our
 subsystem has been added and our <code>TrackerService</code> is working:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>15:27:33,838 INFO  [org.jboss.as] (Controller Boot Thread) JBoss AS 7.0.0.Final "Lightning" started in 2861ms - Started 94 of 149 services (55 services are passive or on-demand)
+<pre>15:27:33,838 INFO  [org.jboss.as] (Controller Boot Thread) JBoss AS 7.0.0.Final "Lightning" started in 2861ms - Started 94 of 149 services (55 services are passive or on-demand)
 15:27:42,966 INFO  [stdout] (Thread-8) Current deployments deployed while sar tracking active:
 15:27:42,966 INFO  [stdout] (Thread-8) []
 15:27:42,967 INFO  [stdout] (Thread-8) Cool: 0
@@ -2497,7 +2497,7 @@ subsystem has been added and our <code>TrackerService</code> is working:</p>
 15:27:42,967 INFO  [stdout] (Thread-9) Cool: 0
 15:27:52,967 INFO  [stdout] (Thread-8) Current deployments deployed while sar tracking active:
 15:27:52,967 INFO  [stdout] (Thread-8) []
-15:27:52,967 INFO  [stdout] (Thread-8) Cool: 0</code></pre>
+15:27:52,967 INFO  [stdout] (Thread-8) Cool: 0</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2586,14 +2586,14 @@ From CLI deploy <code>test1.war</code> first:</p>
 <p>And you should now see the output from the war <code>TrackerService</code> list the
 deployments:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>15:35:03,712 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) Starting deployment of "test1.war"
+<pre>15:35:03,712 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) Starting deployment of "test1.war"
 15:35:03,988 INFO  [org.jboss.web] (MSC service thread 1-1) registering web context: /test1
 15:35:03,996 INFO  [org.jboss.as.server.controller] (pool-2-thread-9) Deployed "test1.war"
 15:35:13,056 INFO  [stdout] (Thread-9) Current deployments deployed while war tracking active:
 15:35:13,056 INFO  [stdout] (Thread-9) [test1.war]
-15:35:13,057 INFO  [stdout] (Thread-9) Cool: 1</code></pre>
+15:35:13,057 INFO  [stdout] (Thread-9) Cool: 1</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2610,14 +2610,14 @@ deploy <code>test2.war</code></p>
 <p>You will see that deployment get picked up as well but since there is no
 <code>META-INF/cool.txt</code> it is not marked as a 'cool' deployment:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>15:37:05,634 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) Starting deployment of "test2.war"
+<pre>15:37:05,634 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) Starting deployment of "test2.war"
 15:37:05,699 INFO  [org.jboss.web] (MSC service thread 1-1) registering web context: /test2
 15:37:05,982 INFO  [org.jboss.as.server.controller] (pool-2-thread-15) Deployed "test2.war"
 15:37:13,075 INFO  [stdout] (Thread-9) Current deployments deployed while war tracking active:
 15:37:13,075 INFO  [stdout] (Thread-9) [test1.war, test2.war]
-15:37:13,076 INFO  [stdout] (Thread-9) Cool: 1</code></pre>
+15:37:13,076 INFO  [stdout] (Thread-9) Cool: 1</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2632,13 +2632,13 @@ Successfully undeployed test1.war.</code></pre>
 <div class="paragraph">
 <p>is also reflected in the <code>TrackerService</code> output:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>15:38:47,901 INFO  [org.jboss.as.server.controller] (pool-2-thread-21) Undeployed "test1.war"
+<pre>15:38:47,901 INFO  [org.jboss.as.server.controller] (pool-2-thread-21) Undeployed "test1.war"
 15:38:47,934 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) Stopped deployment test1.war in 40ms
 15:38:53,091 INFO  [stdout] (Thread-9) Current deployments deployed while war tracking active:
 15:38:53,092 INFO  [stdout] (Thread-9) [test2.war]
-15:38:53,092 INFO  [stdout] (Thread-9) Cool: 0</code></pre>
+15:38:53,092 INFO  [stdout] (Thread-9) Cool: 0</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2655,16 +2655,16 @@ of the <code>type</code> so we can change the frequency</p>
 <p>You should now see the output from the <code>TrackerService</code> happen every
 second</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>15:39:43,100 INFO  [stdout] (Thread-9) Current deployments deployed while war tracking active:
+<pre>15:39:43,100 INFO  [stdout] (Thread-9) Current deployments deployed while war tracking active:
 15:39:43,100 INFO  [stdout] (Thread-9) [test2.war]
 15:39:43,101 INFO  [stdout] (Thread-9) Cool: 0
 15:39:44,101 INFO  [stdout] (Thread-9) Current deployments deployed while war tracking active:
 15:39:44,102 INFO  [stdout] (Thread-9) [test2.war]
 15:39:44,105 INFO  [stdout] (Thread-9) Cool: 0
 15:39:45,106 INFO  [stdout] (Thread-9) Current deployments deployed while war tracking active:
-15:39:45,106 INFO  [stdout] (Thread-9) [test2.war]</code></pre>
+15:39:45,106 INFO  [stdout] (Thread-9) [test2.war]</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2691,9 +2691,9 @@ resolved using system / environment properties.</p>
 <div class="paragraph">
 <p>An example expression is</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span>{jboss.bind.address.management:<span class="float">127.0</span><span class="float">.0</span><span class="float">.1</span>}</code></pre>
+<pre>${jboss.bind.address.management:127.0.0.1}</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2723,9 +2723,9 @@ expression.</p>
 <div class="paragraph">
 <p>In all cases, the syntax for the expression is</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="error">$</span>{expression_to_resolve}</code></pre>
+<pre>${expression_to_resolve}</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3849,8 +3849,8 @@ looks like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">[{
-    <span class="string"><span class="delimiter">&quot;</span><span class="content">domain-resource-address</span><span class="delimiter">&quot;</span></span> =&gt; <span class="type">[]</span>,
+<pre class="CodeRay highlight"><code data-lang="ruby">[{
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">domain-resource-address</span><span class="delimiter">&quot;</span></span> =&gt; [],
     <span class="string"><span class="delimiter">&quot;</span><span class="content">domain-resource-model</span><span class="delimiter">&quot;</span></span> =&gt; {
         <span class="string"><span class="delimiter">&quot;</span><span class="content">management-major-version</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">2</span>,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">management-minor-version</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">0</span>,
@@ -3863,7 +3863,7 @@ looks like this:</p>
     <span class="string"><span class="delimiter">&quot;</span><span class="content">domain-resource-address</span><span class="delimiter">&quot;</span></span> =&gt; [(<span class="string"><span class="delimiter">&quot;</span><span class="content">extension</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">org.jboss.as.clustering.infinispan</span><span class="delimiter">&quot;</span></span>)],
     <span class="string"><span class="delimiter">&quot;</span><span class="content">domain-resource-model</span><span class="delimiter">&quot;</span></span> =&gt; {<span class="string"><span class="delimiter">&quot;</span><span class="content">module</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">org.jboss.as.clustering.infinispan</span><span class="delimiter">&quot;</span></span>}
 },
---SNIP - the rest of the extensions --
+--<span class="constant">SNIP</span> - the rest of the extensions --
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">domain-resource-address</span><span class="delimiter">&quot;</span></span> =&gt; [(<span class="string"><span class="delimiter">&quot;</span><span class="content">extension</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">org.jboss.as.weld</span><span class="delimiter">&quot;</span></span>)],
     <span class="string"><span class="delimiter">&quot;</span><span class="content">domain-resource-model</span><span class="delimiter">&quot;</span></span> =&gt; {<span class="string"><span class="delimiter">&quot;</span><span class="content">module</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">org.jboss.as.weld</span><span class="delimiter">&quot;</span></span>}
@@ -3887,7 +3887,7 @@ looks like this:</p>
     <span class="string"><span class="delimiter">&quot;</span><span class="content">domain-resource-model</span><span class="delimiter">&quot;</span></span> =&gt; {}
 },
 {
-    <span class="string"><span class="delimiter">&quot;</span><span class="content">domain-resource-address</span><span class="delimiter">&quot;</span></span> =&gt; [sss|WFLY8:Example subsystem],
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">domain-resource-address</span><span class="delimiter">&quot;</span></span> =&gt; [sss|<span class="key">WFLY8</span>:<span class="constant">Example</span> subsystem],
     <span class="string"><span class="delimiter">&quot;</span><span class="content">domain-resource-model</span><span class="delimiter">&quot;</span></span> =&gt; {
         <span class="string"><span class="delimiter">&quot;</span><span class="content">level</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">INFO</span><span class="delimiter">&quot;</span></span>,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">enabled</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
@@ -3899,7 +3899,7 @@ looks like this:</p>
         <span class="string"><span class="delimiter">&quot;</span><span class="content">named-formatter</span><span class="delimiter">&quot;</span></span> =&gt; undefined
     }
 },
---SNIP---</code></pre>
+--<span class="constant">SNIP</span>---</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3919,8 +3919,8 @@ made. In this example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">[disconnected /] connect
-[domain<span class="annotation">@localhost</span>:<span class="integer">9990</span> /] /profile=full/subsystem=datasources/data-source=ExampleDS:write-attribute(name=enabled,value=<span class="predefined-constant">false</span>)
+<pre class="CodeRay highlight"><code data-lang="ruby">[disconnected <span class="regexp"><span class="delimiter">/</span><span class="content">] connect
+[domain@localhost:9990 </span><span class="delimiter">/</span></span>] /profile=full/subsystem=datasources/data-source=<span class="key">ExampleDS</span>:write-attribute(name=enabled,value=<span class="predefined-constant">false</span>)
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; undefined,
@@ -4092,7 +4092,7 @@ extension:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">domain<span class="annotation">@localhost</span>:<span class="integer">9990</span> /] /extension=org.jboss.as.clustering.infinispan:read-resource(recursive=<span class="predefined-constant">true</span>)
+<pre class="CodeRay highlight"><code data-lang="ruby">domain<span class="instance-variable">@localhost</span>:<span class="integer">9990</span> /] /extension=org.jboss.as.clustering.infinispan<span class="symbol">:read</span>-resource(recursive=<span class="predefined-constant">true</span>)
 {
     <span class="string"><span class="delimiter">&quot;</span><span class="content">outcome</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">success</span><span class="delimiter">&quot;</span></span>,
     <span class="string"><span class="delimiter">&quot;</span><span class="content">result</span><span class="delimiter">&quot;</span></span> =&gt; {
@@ -4101,12 +4101,12 @@ extension:</p>
             <span class="string"><span class="delimiter">&quot;</span><span class="content">management-major-version</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">2</span>,
             <span class="string"><span class="delimiter">&quot;</span><span class="content">management-micro-version</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">0</span>,
             <span class="string"><span class="delimiter">&quot;</span><span class="content">management-minor-version</span><span class="delimiter">&quot;</span></span> =&gt; <span class="integer">0</span>,
-            <span class="string"><span class="delimiter">&quot;</span><span class="content">xml-namespaces</span><span class="delimiter">&quot;</span></span> =&gt; [jboss:domain:infinispan:<span class="float">1.0</span><span class="string"><span class="delimiter">&quot;</span><span class="content">,
-                </span><span class="delimiter">&quot;</span></span>urn:jboss:domain:infinispan:<span class="float">1.1</span><span class="string"><span class="delimiter">&quot;</span><span class="content">,
-                </span><span class="delimiter">&quot;</span></span>urn:jboss:domain:infinispan:<span class="float">1.2</span><span class="string"><span class="delimiter">&quot;</span><span class="content">,
-                </span><span class="delimiter">&quot;</span></span>urn:jboss:domain:infinispan:<span class="float">1.3</span><span class="string"><span class="delimiter">&quot;</span><span class="content">,
-                </span><span class="delimiter">&quot;</span></span>urn:jboss:domain:infinispan:<span class="float">1.4</span><span class="string"><span class="delimiter">&quot;</span><span class="content">,
-                </span><span class="delimiter">&quot;</span></span>urn:jboss:domain:infinispan:<span class="float">2.0</span><span class="string"><span class="delimiter">&quot;</span><span class="content">]
+            <span class="string"><span class="delimiter">&quot;</span><span class="content">xml-namespaces</span><span class="delimiter">&quot;</span></span> =&gt; [<span class="key">jboss</span>:<span class="key">domain</span>:<span class="key">infinispan</span>:<span class="float">1.0</span><span class="string"><span class="delimiter">&quot;</span><span class="content">,
+                </span><span class="delimiter">&quot;</span></span><span class="key">urn</span>:<span class="key">jboss</span>:<span class="key">domain</span>:<span class="key">infinispan</span>:<span class="float">1.1</span><span class="string"><span class="delimiter">&quot;</span><span class="content">,
+                </span><span class="delimiter">&quot;</span></span><span class="key">urn</span>:<span class="key">jboss</span>:<span class="key">domain</span>:<span class="key">infinispan</span>:<span class="float">1.2</span><span class="string"><span class="delimiter">&quot;</span><span class="content">,
+                </span><span class="delimiter">&quot;</span></span><span class="key">urn</span>:<span class="key">jboss</span>:<span class="key">domain</span>:<span class="key">infinispan</span>:<span class="float">1.3</span><span class="string"><span class="delimiter">&quot;</span><span class="content">,
+                </span><span class="delimiter">&quot;</span></span><span class="key">urn</span>:<span class="key">jboss</span>:<span class="key">domain</span>:<span class="key">infinispan</span>:<span class="float">1.4</span><span class="string"><span class="delimiter">&quot;</span><span class="content">,
+                </span><span class="delimiter">&quot;</span></span><span class="key">urn</span>:<span class="key">jboss</span>:<span class="key">domain</span>:<span class="key">infinispan</span>:<span class="float">2.0</span><span class="string"><span class="delimiter">&quot;</span><span class="content">]
         }}
     }
 }</span></span></code></pre>
@@ -4167,7 +4167,7 @@ of 1.0.0, and its resource description was as follows:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">                {
+<pre class="CodeRay highlight"><code data-lang="ruby">                {
                     <span class="string"><span class="delimiter">&quot;</span><span class="content">description</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">The configuration of the weld subsystem.</span><span class="delimiter">&quot;</span></span>,
                     <span class="string"><span class="delimiter">&quot;</span><span class="content">attributes</span><span class="delimiter">&quot;</span></span> =&gt; {},
                     <span class="string"><span class="delimiter">&quot;</span><span class="content">operations</span><span class="delimiter">&quot;</span></span> =&gt; {
@@ -4194,11 +4194,11 @@ attributes, <code>require-bean-descriptor</code> and <code>non-portable</code> m
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">{
+<pre class="CodeRay highlight"><code data-lang="ruby">{
         <span class="string"><span class="delimiter">&quot;</span><span class="content">description</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">The configuration of the weld subsystem.</span><span class="delimiter">&quot;</span></span>,
         <span class="string"><span class="delimiter">&quot;</span><span class="content">attributes</span><span class="delimiter">&quot;</span></span> =&gt; {
             <span class="string"><span class="delimiter">&quot;</span><span class="content">require-bean-descriptor</span><span class="delimiter">&quot;</span></span> =&gt; {
-                <span class="string"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span> =&gt; BOOLEAN,
+                <span class="string"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span> =&gt; <span class="constant">BOOLEAN</span>,
                 <span class="string"><span class="delimiter">&quot;</span><span class="content">description</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">If true then implicit bean archives without bean descriptor file (beans.xml) are ignored by Weld</span><span class="delimiter">&quot;</span></span>,
                 <span class="string"><span class="delimiter">&quot;</span><span class="content">expressions-allowed</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
                 <span class="string"><span class="delimiter">&quot;</span><span class="content">nillable</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
@@ -4208,7 +4208,7 @@ attributes, <code>require-bean-descriptor</code> and <code>non-portable</code> m
                 <span class="string"><span class="delimiter">&quot;</span><span class="content">restart-required</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">no-services</span><span class="delimiter">&quot;</span></span>
             },
             <span class="string"><span class="delimiter">&quot;</span><span class="content">non-portable-mode</span><span class="delimiter">&quot;</span></span> =&gt; {
-                <span class="string"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span> =&gt; BOOLEAN,
+                <span class="string"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span> =&gt; <span class="constant">BOOLEAN</span>,
                 <span class="string"><span class="delimiter">&quot;</span><span class="content">description</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">If true then the non-portable mode is enabled. The non-portable mode is suggested by the specification to overcome problems with legacy applications that do not use CDI SPI properly and may be rejected by more strict validation in CDI 1.1.</span><span class="delimiter">&quot;</span></span>,
                 <span class="string"><span class="delimiter">&quot;</span><span class="content">expressions-allowed</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
                 <span class="string"><span class="delimiter">&quot;</span><span class="content">nillable</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
@@ -4230,7 +4230,7 @@ attributes, <code>require-bean-descriptor</code> and <code>non-portable</code> m
                 <span class="string"><span class="delimiter">&quot;</span><span class="content">description</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">Operation creating the weld subsystem.</span><span class="delimiter">&quot;</span></span>,
                 <span class="string"><span class="delimiter">&quot;</span><span class="content">request-properties</span><span class="delimiter">&quot;</span></span> =&gt; {
                     <span class="string"><span class="delimiter">&quot;</span><span class="content">require-bean-descriptor</span><span class="delimiter">&quot;</span></span> =&gt; {
-                        <span class="string"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span> =&gt; BOOLEAN,
+                        <span class="string"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span> =&gt; <span class="constant">BOOLEAN</span>,
                         <span class="string"><span class="delimiter">&quot;</span><span class="content">description</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">If true then implicit bean archives without bean descriptor file (beans.xml) are ignored by Weld</span><span class="delimiter">&quot;</span></span>,
                         <span class="string"><span class="delimiter">&quot;</span><span class="content">expressions-allowed</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
                         <span class="string"><span class="delimiter">&quot;</span><span class="content">required</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
@@ -4238,7 +4238,7 @@ attributes, <code>require-bean-descriptor</code> and <code>non-portable</code> m
                         <span class="string"><span class="delimiter">&quot;</span><span class="content">default</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>
                     },
                     <span class="string"><span class="delimiter">&quot;</span><span class="content">non-portable-mode</span><span class="delimiter">&quot;</span></span> =&gt; {
-                        <span class="string"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span> =&gt; BOOLEAN,
+                        <span class="string"><span class="delimiter">&quot;</span><span class="content">type</span><span class="delimiter">&quot;</span></span> =&gt; <span class="constant">BOOLEAN</span>,
                         <span class="string"><span class="delimiter">&quot;</span><span class="content">description</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">If true then the non-portable mode is enabled. The non-portable mode is suggested by the specification to overcome problems with legacy applications that do not use CDI SPI properly and may be rejected by more strict validation in CDI 1.1.</span><span class="delimiter">&quot;</span></span>,
                         <span class="string"><span class="delimiter">&quot;</span><span class="content">expressions-allowed</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">true</span>,
                         <span class="string"><span class="delimiter">&quot;</span><span class="content">required</span><span class="delimiter">&quot;</span></span> =&gt; <span class="predefined-constant">false</span>,
@@ -4301,7 +4301,7 @@ use color:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">            &lt;pattern-formatter pattern=<span class="string"><span class="delimiter">&quot;</span><span class="content">%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n</span><span class="delimiter">&quot;</span></span>/&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml">            <span class="tag">&lt;pattern-formatter</span> <span class="attribute-name">pattern</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4360,7 +4360,7 @@ transformers</a> are true, although operation transformers give you quicker
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">/profile=full/subsystem=weld:write-attribute(name=require-bean-descriptor, value=<span class="predefined-constant">false</span>)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="regexp"><span class="delimiter">/</span><span class="content">profile=full</span><span class="delimiter">/</span><span class="modifier">su</span></span>bsystem=<span class="key">weld</span>:write-attribute(name=require-bean-descriptor, value=<span class="predefined-constant">false</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4404,9 +4404,9 @@ slave HC, the <code>domain.xml</code> configuration for it must look like:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:weld:2.0</span><span class="delimiter">&quot;</span></span>
-      require-bean-descriptor=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
-      non-portable-mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>/&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:weld:2.0</span><span class="delimiter">&quot;</span></span>
+      <span class="attribute-name">require-bean-descriptor</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+      <span class="attribute-name">non-portable-mode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4427,9 +4427,9 @@ If we do</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:weld:2.0</span><span class="delimiter">&quot;</span></span>
-      require-bean-descriptor=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span>
-      non-portable-mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span>/&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:weld:2.0</span><span class="delimiter">&quot;</span></span>
+      <span class="attribute-name">require-bean-descriptor</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span>
+      <span class="attribute-name">non-portable-mode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4438,32 +4438,32 @@ The solution is to put these in two different profiles in <code>domain.xml</code
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;domain&gt;
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;domain&gt;</span>
 ....
-  &lt;profiles&gt;
-    &lt;profile name=<span class="string"><span class="delimiter">&quot;</span><span class="content">full</span><span class="delimiter">&quot;</span></span>&gt;
-      &lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:weld:2.0</span><span class="delimiter">&quot;</span></span>
-        require-bean-descriptor=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span>
-        non-portable-mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span>/&gt;
+  <span class="tag">&lt;profiles&gt;</span>
+    <span class="tag">&lt;profile</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">full</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:weld:2.0</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">require-bean-descriptor</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">non-portable-mode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">false</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
       ...
-    &lt;/profile&gt;
-    &lt;profile name=<span class="string"><span class="delimiter">&quot;</span><span class="content">full-legacy</span><span class="delimiter">&quot;</span></span>&gt;
-      &lt;subsystem xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:weld:2.0</span><span class="delimiter">&quot;</span></span>
-        require-bean-descriptor=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
-        non-portable-mode=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>/&gt;
+    <span class="tag">&lt;/profile&gt;</span>
+    <span class="tag">&lt;profile</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">full-legacy</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="tag">&lt;subsystem</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:weld:2.0</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">require-bean-descriptor</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span>
+        <span class="attribute-name">non-portable-mode</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
       ...
-    &lt;/profile&gt;
-  &lt;/profiles&gt;
+    <span class="tag">&lt;/profile&gt;</span>
+  <span class="tag">&lt;/profiles&gt;</span>
   ...
-  &lt;server-groups&gt;
-    &lt;server-group name=<span class="string"><span class="delimiter">&quot;</span><span class="content">main-server-group</span><span class="delimiter">&quot;</span></span> profile=<span class="string"><span class="delimiter">&quot;</span><span class="content">full</span><span class="delimiter">&quot;</span></span>&gt;
+  <span class="tag">&lt;server-groups&gt;</span>
+    <span class="tag">&lt;server-group</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">main-server-group</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">profile</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">full</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
       ....
-    &lt;server-group&gt;
-    &lt;server-group name=<span class="string"><span class="delimiter">&quot;</span><span class="content">main-server-group-legacy</span><span class="delimiter">&quot;</span></span> profile=<span class="string"><span class="delimiter">&quot;</span><span class="content">full-legacy</span><span class="delimiter">&quot;</span></span>&gt;
+    <span class="tag">&lt;server-group&gt;</span>
+    <span class="tag">&lt;server-group</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">main-server-group-legacy</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">profile</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">full-legacy</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
       ....
-    &lt;server-group&gt;
-  &lt;/server-groups&gt;
-&lt;/domain&gt;</code></pre>
+    <span class="tag">&lt;server-group&gt;</span>
+  <span class="tag">&lt;/server-groups&gt;</span>
+<span class="tag">&lt;/domain&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4494,17 +4494,17 @@ legacy slave HC&#8217;s <code>host.xml</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">&lt;host xmlns=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:1.3</span><span class="delimiter">&quot;</span></span> name=<span class="string"><span class="delimiter">&quot;</span><span class="content">slave</span><span class="delimiter">&quot;</span></span>&gt;
+<pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;host</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">urn:jboss:domain:1.3</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">slave</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
 ...
-    &lt;domain-controller&gt;
-       &lt;remote host=<span class="string"><span class="delimiter">&quot;</span><span class="content">${jboss.test.host.master.address}</span><span class="delimiter">&quot;</span></span> port=<span class="string"><span class="delimiter">&quot;</span><span class="content">${jboss.domain.master.port:9999}</span><span class="delimiter">&quot;</span></span> security-realm=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span>&gt;
-            &lt;ignored-resources type=<span class="string"><span class="delimiter">&quot;</span><span class="content">profile</span><span class="delimiter">&quot;</span></span>&gt;
-                &lt;instance name=<span class="string"><span class="delimiter">&quot;</span><span class="content">full-legacy</span><span class="delimiter">&quot;</span></span>/&gt;
-            &lt;/ignored-resources&gt;
-       &lt;/remote&gt;
-    &lt;/domain-controller&gt;
+    <span class="tag">&lt;domain-controller&gt;</span>
+       <span class="tag">&lt;remote</span> <span class="attribute-name">host</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">${jboss.test.host.master.address}</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">port</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">${jboss.domain.master.port:9999}</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">security-realm</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">ManagementRealm</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+            <span class="tag">&lt;ignored-resources</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">profile</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;instance</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">full-legacy</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;/ignored-resources&gt;</span>
+       <span class="tag">&lt;/remote&gt;</span>
+    <span class="tag">&lt;/domain-controller&gt;</span>
 ....
-&lt;/host&gt;</code></pre>
+<span class="tag">&lt;/host&gt;</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -4699,11 +4699,11 @@ etc.</p>
 <div class="paragraph">
 <p>Warning</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
 Note that CompareModelVersionsUtil simply inspects the raw resource
@@ -4959,11 +4959,11 @@ subsystem. (For brevity this section will leave out the leading
 <div class="paragraph">
 <p>Warning</p>
 </div>
-<div class="admonitionblock important">
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
 Note that discarding, although the simplest option in theory, is <strong>rarely
@@ -5105,9 +5105,9 @@ also the transformation of the following operations will reject:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">    /subsystem=my-subsystem/some-child=test:add(example=<span class="predefined-constant">true</span>)
-    /subsystem=my-subsystem:write-attribute(name=example, value=<span class="predefined-constant">true</span>)
-    /subsystem=my-subsystem:custom-operation(example=<span class="predefined-constant">true</span>)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby">    <span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=my-subsystem</span><span class="delimiter">/</span><span class="modifier">some</span></span>-child=<span class="key">test</span>:add(example=<span class="predefined-constant">true</span>)
+    <span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=my-subsystem:write-attribute(name=example, value=true)
+    </span><span class="delimiter">/</span><span class="modifier">su</span></span>bsystem=my-<span class="key">subsystem</span>:custom-operation(example=<span class="predefined-constant">true</span>)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5116,11 +5116,11 @@ attribute is not getting set to <code>true</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">    /subsystem=my-subsystem/some-child=test:add(example=<span class="predefined-constant">false</span>)
-    /subsystem=my-subsystem/some-child=test:add()             <span class="comment">//Here it 'example' is simply left undefined</span>
-    /subsystem=my-subsystem:write-attribute(name=example, value=<span class="predefined-constant">false</span>)
-    /subsystem=my-subsystem:undefine-attribute(name=example)  <span class="comment">//Again this makes 'example' undefined</span>
-    /subsystem=my-subsystem:custom-operation(example=<span class="predefined-constant">false</span>)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby">    <span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=my-subsystem</span><span class="delimiter">/</span><span class="modifier">some</span></span>-child=<span class="key">test</span>:add(example=<span class="predefined-constant">false</span>)
+    <span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=my-subsystem</span><span class="delimiter">/</span><span class="modifier">some</span></span>-child=<span class="key">test</span>:add()             /<span class="regexp"><span class="delimiter">/</span><span class="content">Here it 'example' is simply left undefined
+    </span><span class="delimiter">/</span><span class="modifier">su</span></span>bsystem=my-<span class="key">subsystem</span>:write-attribute(name=example, value=<span class="predefined-constant">false</span>)
+    <span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=my-subsystem:undefine-attribute(name=example)  </span><span class="delimiter">/</span></span>/<span class="constant">Again</span> this makes <span class="string"><span class="delimiter">'</span><span class="content">example</span><span class="delimiter">'</span></span> undefined
+    <span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=my-subsystem:custom-operation(example=false)</span></span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5899,12 +5899,12 @@ the operations involving this attribute are affected, so</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">    /subsystem=my-subsystem/:add(my-name=<span class="predefined-constant">true</span>)  -&gt;
-         /subsystem=my-subsystem/:add(legacy-name=<span class="predefined-constant">true</span>)
-    /subsystem=my-subsystem:write-attribute(name=my-name, value=<span class="predefined-constant">true</span>) -&gt;
-         /subsystem=my-subsystem:write-attribute(name=legacy-name, value=<span class="predefined-constant">true</span>)
-    /subsystem=my-subsystem:undefine-attribute(name=my-name) -&gt;
-         /subsystem=my-subsystem:undefine-attribute(name=legacy-name)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="ruby">    <span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=my-subsystem</span><span class="delimiter">/</span></span><span class="symbol">:add</span>(my-name=<span class="predefined-constant">true</span>)  -&gt;
+         <span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=my-subsystem</span><span class="delimiter">/</span></span><span class="symbol">:add</span>(legacy-name=<span class="predefined-constant">true</span>)
+    <span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=my-subsystem:write-attribute(name=my-name, value=true) -&gt;
+         </span><span class="delimiter">/</span><span class="modifier">su</span></span>bsystem=my-<span class="key">subsystem</span>:write-attribute(name=legacy-name, value=<span class="predefined-constant">true</span>)
+    <span class="regexp"><span class="delimiter">/</span><span class="content">subsystem=my-subsystem:undefine-attribute(name=my-name) -&gt;
+         </span><span class="delimiter">/</span><span class="modifier">su</span></span>bsystem=my-<span class="key">subsystem</span>:undefine-attribute(name=legacy-name)</code></pre>
 </div>
 </div>
 </div>
@@ -6596,12 +6596,12 @@ guide, but let&#8217;s take a more thorough look. Our comparison tells us that
 we have two new attributes <code>require-bean-descriptor</code> and
 <code>non-portable-mode</code>:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">======= Resource root address: [<span class="string"><span class="delimiter">&quot;</span><span class="content">subsystem</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">weld</span><span class="delimiter">&quot;</span></span>] - Current version: <span class="float">2.0</span><span class="float">.0</span>; legacy version: <span class="float">1.0</span><span class="float">.0</span> =======
---- Problems <span class="keyword">for</span> relative address to root <span class="type">[]</span>:
-Missing attributes in current: <span class="type">[]</span>; missing in legacy [require-bean-descriptor, non-portable-mode]
-Missing parameters <span class="keyword">for</span> operation <span class="string"><span class="delimiter">'</span><span class="content">add</span><span class="delimiter">'</span></span> in current: <span class="type">[]</span>; missing in legacy [require-bean-descriptor, non-portable-mode]</code></pre>
+<pre>====== Resource root address: ["subsystem" =&gt; "weld"] - Current version: 2.0.0; legacy version: 1.0.0 =======
+--- Problems for relative address to root []:
+Missing attributes in current: []; missing in legacy [require-bean-descriptor, non-portable-mode]
+Missing parameters for operation 'add' in current: []; missing in legacy [require-bean-descriptor, non-portable-mode]</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6716,17 +6716,17 @@ when they were created. It does not help with CLI scripts though.)</p>
 are quite a few differences, so I am only showing the ones relevant for
 this example:</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java">======= Resource root address: [<span class="string"><span class="delimiter">&quot;</span><span class="content">subsystem</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">modcluster</span><span class="delimiter">&quot;</span></span>] - Current version: <span class="float">2.0</span><span class="float">.0</span>; legacy version: <span class="float">1.2</span><span class="float">.0</span> =======
+<pre>====== Resource root address: ["subsystem" =&gt; "modcluster"] - Current version: 2.0.0; legacy version: 1.2.0 =======
 ...
---- Problems <span class="keyword">for</span> relative address to root [<span class="string"><span class="delimiter">&quot;</span><span class="content">mod-cluster-config</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">configuration</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">dynamic-load-provider</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">configuration</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">custom-load-m
-etric</span><span class="delimiter">&quot;</span></span> =&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">*</span><span class="delimiter">&quot;</span></span>]:
-Different <span class="string"><span class="delimiter">'</span><span class="content">type</span><span class="delimiter">'</span></span> <span class="keyword">for</span> attribute <span class="string"><span class="delimiter">'</span><span class="content">capacity</span><span class="delimiter">'</span></span>. Current: DOUBLE; legacy: INT
-Different <span class="string"><span class="delimiter">'</span><span class="content">expressions-allowed</span><span class="delimiter">'</span></span> <span class="keyword">for</span> attribute <span class="string"><span class="delimiter">'</span><span class="content">capacity</span><span class="delimiter">'</span></span>. Current: <span class="predefined-constant">true</span>; legacy: <span class="predefined-constant">false</span>
+--- Problems for relative address to root ["mod-cluster-config" =&gt; "configuration","dynamic-load-provider" =&gt; "configuration","custom-load-m
+etric" =&gt; "*"]:
+Different 'type' for attribute 'capacity'. Current: DOUBLE; legacy: INT
+Different 'expressions-allowed' for attribute 'capacity'. Current: true; legacy: false
 ...
-Different <span class="string"><span class="delimiter">'</span><span class="content">type</span><span class="delimiter">'</span></span> <span class="keyword">for</span> parameter <span class="string"><span class="delimiter">'</span><span class="content">capacity</span><span class="delimiter">'</span></span> of operation <span class="string"><span class="delimiter">'</span><span class="content">add</span><span class="delimiter">'</span></span>. Current: DOUBLE; legacy: INT
-Different <span class="string"><span class="delimiter">'</span><span class="content">expressions-allowed</span><span class="delimiter">'</span></span> <span class="keyword">for</span> parameter <span class="string"><span class="delimiter">'</span><span class="content">capacity</span><span class="delimiter">'</span></span> of operation <span class="string"><span class="delimiter">'</span><span class="content">add</span><span class="delimiter">'</span></span>. Current: <span class="predefined-constant">true</span>; legacy: <span class="predefined-constant">false</span></code></pre>
+Different 'type' for parameter 'capacity' of operation 'add'. Current: DOUBLE; legacy: INT
+Different 'expressions-allowed' for parameter 'capacity' of operation 'add'. Current: true; legacy: false</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -8085,10 +8085,7 @@ The <code>AbstractModelResource</code> class can be used as a base class.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="runtime-only-and-synthetic-resources-and-the-placeholderresourceentry-class">5.8.2. Runtime-Only and Synthetic Resources and the PlaceholderResourceEntry</h4>
-<div class="paragraph">
-<p>Class</p>
-</div>
+<h4 id="runtime-only-and-synthetic-resources-and-the-placeholderresourceentry-class">5.8.2. Runtime-Only and Synthetic Resources and the PlaceholderResourceEntry Class</h4>
 <div class="paragraph">
 <p>A runtime-only resource is one whose state is not persisted to the xml
 configuration file. Many runtime-only resources are also "synthetic"
@@ -8835,7 +8832,7 @@ the JAR file containing the classes above with value
 <div id="footer">
 <div id="footer-text">
 Version {version}<br>
-Last updated 2017-09-13 22:38:51 CEST
+Last updated 2017-09-13 22:38:51 DST
 </div>
 </div>
 </body>

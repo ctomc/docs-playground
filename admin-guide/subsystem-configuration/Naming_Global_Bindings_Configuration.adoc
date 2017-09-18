@@ -7,7 +7,7 @@ following global JNDI namespaces:
 * `java:jboss`
 * `java:`
 
-[IMPORTANT]
+[NOTE]
 
 If WildFly is to be used as a Java EE application server, then it's
 recommended to opt for `java:global`, since it is a standard (i.e.
@@ -47,7 +47,7 @@ through the `<bindings />` XML element, as an example:
 A simple binding is a primitive or java.net.URL entry, and it is defined
 through the `simple` XML element. An example of its XML configuration:
 
-[source, java]
+[source,xml]
 ----
 <simple name="java:global/a" value="100" type="int" />
 ----
@@ -66,7 +66,7 @@ Management clients, such as the WildFly CLI, may be used to configure
 simple bindings. An example to `add` and `remove` the one in the XML
 example above:
 
-[source, java]
+[source,ruby]
 ----
 /subsystem=naming/binding=java\:global\/a:add(binding-type=simple, type=int, value=100)
 /subsystem=naming/binding=java\:global\/a:remove

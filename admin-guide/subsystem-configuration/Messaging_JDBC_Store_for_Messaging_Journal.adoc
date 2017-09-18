@@ -24,10 +24,9 @@ persist its information. +
 These SQL commands may differ depending on the type of database. The SQL
 commands used by the JDBC store are located in the file at:
 
-[source]
-----
+....
 $JBOSS_HOME/modules/system/layers/base/org/wildfly/extension/messaging-activemq/main/database/journal-sql.properties
-----
+....
 
 By default, "vanilla" SQL commands are used to communicate with the
 database. However some databases requires specific commands to create
@@ -53,9 +52,9 @@ The name of these tables can be configured with the
 [[reference]]
 == Reference
 
---
+****
 
 * Artemis JDBC Persistence -
 http://activemq.apache.org/artemis/docs/1.5.0/persistence.html#configuring-jdbc-persistence
 
---
+****

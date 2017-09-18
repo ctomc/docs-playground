@@ -88,7 +88,7 @@ Output XML configuration of Elytron subsystem should look like:
 
 Output `https-listener` in Undertow subsystem should be:
 
-[source, ruby]
+[source,xml]
 ----
 <https-listener name="https" socket-binding="https" ssl-context="LocalhostSslContext" enable-http2="true"/>
 ----

@@ -978,8 +978,7 @@ instantiating the resource and invoking `OperationContext.addResource`.
 The `AbstractModelResource` class can be used as a base class.
 
 [[runtime-only-and-synthetic-resources-and-the-placeholderresourceentry-class]]
-=== Runtime-Only and Synthetic Resources and the PlaceholderResourceEntry
-Class
+=== Runtime-Only and Synthetic Resources and the PlaceholderResourceEntry Class
 
 A runtime-only resource is one whose state is not persisted to the xml
 configuration file. Many runtime-only resources are also "synthetic"

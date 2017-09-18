@@ -29,15 +29,15 @@ link:https://github.com/wildfly-security/wildfly-elytron-tool/tree/master/src/te
 
 Command to run actual conversion:
 
---
+****
 
 `./bin/elytron-tool.sh vault --enc-dir vault_data/ --keystore vault-jceks.keystore --keystore-password MASK-2hKo56F1a3jYGnJwhPmiF5 --iteration 34 --salt 12345678 --alias test --location cs-v1.store --summary`
 
---
+****
 
 Output:
 
---
+****
 
 `Vault (enc-dir="vault_data/";keystore="vault-jceks.keystore") converted to credential store "cs-v1.store"` +
 `Vault Conversion summary:` +
@@ -46,7 +46,7 @@ Output:
 `CLI command to add new credential store:` +
 `/subsystem=elytron/credential-store=test:add(relative-to=jboss.server.data.dir,create=true,modifiable=true,location="cs-v1.store",implementation-properties={"keyStoreType"=>"JCEKS"},credential-reference={clear-text="MASK-2hKo56F1a3jYGnJwhPmiF5;12345678;34"})`
 
---
+****
 
 Use elytron-tool.sh vault --help to get description of all parameters.
 
@@ -71,7 +71,7 @@ There is possibility to convert multiple vaults to credential store
 using --bulk-convert parameter with description file. +
 Example of description file from our link:https://github.com/wildfly-security/wildfly-elytron-tool/blob/master/src/test/java/org/wildfly/security/tool/VaultCommandTest.java[tests]:
 
---
+****
 
 `# Bulk conversion descriptor` +
 `keystore:target/test-classes/vault-v1/vault-jceks.keystore` +
@@ -97,22 +97,22 @@ Example of description file from our link:https://github.com/wildfly-security/wi
 `location:target/v1-cs-more.store` +
 `alias:test`
 
---
+****
 
 After each "keystore:" option new conversion starts. All options are
 mandatory except "salt:", "iteration:" and "properties:"
 
 Execute following command:
 
---
+****
 
 `./bin/elytron-tool.sh vault --bulk-convert bulk-vault-conversion-desc --summary`
 
---
+****
 
 Output:
 
---
+****
 
 `Vault (enc-dir="vault-v1/vault_data/";keystore="vault-v1/vault-jceks.keystore") converted to credential store "v1-cs-1.store"` +
 `Vault Conversion summary:` +
@@ -138,7 +138,7 @@ Output:
 `/subsystem=elytron/credential-store=test:add(relative-to=jboss.server.data.dir,create=true,modifiable=true,location="v1-cs-more.store",implementation-properties={"keyStoreType"=>"JCEKS"},credential-reference={clear-text="MASK-2hKo56F1a3jYGnJwhPmiF5;12345678;34"})` +
 `--------------------------------------`
 
---
+****
 
 The result is conversion of all vaults with proper CLI commands.
 

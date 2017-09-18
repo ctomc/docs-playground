@@ -518,14 +518,13 @@ File servicestore.jks, is a Java KeyStore (JKS) repository. It contains
 self signed certificates for myservicekey and mystskey. _Self signed
 certificates are not appropriate for production use._
 
-[source, java]
-----
+....
 org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin
 org.apache.ws.security.crypto.merlin.keystore.type=jks
 org.apache.ws.security.crypto.merlin.keystore.password=sspass
 org.apache.ws.security.crypto.merlin.keystore.alias=myservicekey
 org.apache.ws.security.crypto.merlin.keystore.file=servicestore.jks
-----
+....
 
 [[manifest.mf]]
 ==== MANIFEST.MF
@@ -534,13 +533,12 @@ When deployed on WildFly this application requires access to the JBossWs
 and CXF APIs provided in module org.jboss.ws.cxf.jbossws-cxf-client. The
 dependency statement directs the server to provide them at deployment.
 
-[source, java]
-----
+....
 Manifest-Version: 1.0  
 Ant-Version: Apache Ant 1.8.2  
 Created-By: 1.7.0_25-b15 (Oracle Corporation)  
 Dependencies: org.jboss.ws.cxf.jbossws-cxf-client
-----
+....
 
 [[security-token-service-sts]]
 === Security Token Service (STS)
@@ -569,7 +567,7 @@ keys in the SOAP request and response messages are declared. A detailed
 explanation of the security settings are provided in the comments in the
 listing below.
 
-[source, java]
+[source,xml]
 ----
  <?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions
@@ -1136,13 +1134,12 @@ File servicestore.jks, is a Java KeyStore (JKS) repository. It contains
 self signed certificates for myservicekey and mystskey. _Self signed
 certificates are not appropriate for production use._
 
-[source, java]
-----
+....
 org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin  
 org.apache.ws.security.crypto.merlin.keystore.type=jks
 org.apache.ws.security.crypto.merlin.keystore.password=stsspass
 org.apache.ws.security.crypto.merlin.keystore.file=stsstore.jks
-----
+....
 
 [[manifest.mf-1]]
 ==== MANIFEST.MF
@@ -1154,13 +1151,12 @@ internals, org.apache.cxf.impl, are needed to build the STS
 configuration in the `SampleSTS` constructor. The dependency statement
 directs the server to provide them at deployment.
 
-[source, java]
-----
+....
 Manifest-Version: 1.0  
 Ant-Version: Apache Ant 1.8.2  
 Created-By: 1.7.0_25-b15 (Oracle Corporation)  
 Dependencies: org.jboss.ws.cxf.jbossws-cxf-client,org.apache.cxf.impl
-----
+....
 
 [[security-domain]]
 ==== Security Domain
@@ -1179,7 +1175,7 @@ following XML must be added to the JBoss security subsystem in the
 server configuration file. Replace " *SOME_PATH*" with appropriate
 information.
 
-[source, java]
+[source,xml]
 ----
  <security-domain name="JBossWS-trust-sts">
   <authentication>
@@ -1194,7 +1190,7 @@ information.
 
 jboss-web.xml
 
-[source, java]
+[source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>  
 <!DOCTYPE jboss-web PUBLIC "-//JBoss//DTD Web Application 2.4//EN" ">  
@@ -1205,23 +1201,21 @@ jboss-web.xml
 
 jbossws-users.properties
 
-[source, java]
-----
+....
 # A sample users.properties file for use with the UsersRolesLoginModule  
 alice=clarinet
-----
+....
 
 jbossws-roles.properties
 
-[source, java]
-----
+....
 # A sample roles.properties file for use with the UsersRolesLoginModule  
 alice=friend
-----
+....
 
 WS-MetadataExchange and interoperability
 
-[IMPORTANT]
+[TIP]
 
 To achieve better interoperability, you might consider allowing the STS
 endpoint to reply to WS-MetadataExchange messages directed to the `/mex`
@@ -1380,14 +1374,13 @@ File clientstore.jks, is a Java KeyStore (JKS) repository. It contains
 self signed certificates for myservicekey and mystskey. _Self signed
 certificates are not appropriate for production use._
 
-[source, java]
-----
+....
 org.apache.ws.security.crypto.provider=org.apache.ws.security.components.crypto.Merlin
 org.apache.ws.security.crypto.merlin.keystore.type=jks
 org.apache.ws.security.crypto.merlin.keystore.password=cspass
 org.apache.ws.security.crypto.merlin.keystore.alias=myclientkey
 org.apache.ws.security.crypto.merlin.keystore.file=META-INF/clientstore.jks
-----
+....
 
 [[picketlink-sts]]
 === PicketLink STS
@@ -1671,13 +1664,12 @@ refer to the PicketLink documentation for further information:
 Finally, the PicketLink alternative approach of course requires
 different WildFly module dependencies to be declared in the MANIFEST.MF:
 
-[source, java]
-----
+....
 Manifest-Version: 1.0
 Ant-Version: Apache Ant 1.8.2
 Created-By: 1.6.0_26-b03 (Sun Microsystems Inc.)
 Dependencies: org.apache.ws.security,org.apache.cxf,org.picketlink
-----
+....
 
 Here is how the PicketLink STS endpoint is packaged:
 

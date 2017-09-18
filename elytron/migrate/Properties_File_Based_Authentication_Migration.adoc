@@ -118,7 +118,7 @@ http authentication factory.
 
 Which results in: -
 
-[source, ruby]
+[source,xml]
 ----
   <subsystem xmlns="urn:jboss:domain:undertow:4.0">
     ...
@@ -317,7 +317,7 @@ authentication and the existing security realm reference cleared.
 ./subsystem=remoting/http-connector=http-remoting-connector:undefine-attribute(name=security-realm)
 ----
 
-[source, ruby]
+[source,xml]
 ----
   <subsystem xmlns="urn:jboss:domain:remoting:4.0">
     ...

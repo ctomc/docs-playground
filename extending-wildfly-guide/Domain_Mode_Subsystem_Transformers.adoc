@@ -81,7 +81,7 @@ describe each address that exists in the DC's model, and contain the
 attributes set for the resource at that address. This serialized form
 looks like this:
 
-[source, java]
+[source, ruby]
 ----
 [{
     "domain-resource-address" => [],
@@ -149,7 +149,7 @@ are then propagated to the slave HCs, which then in turn propagate the
 changes to any servers running in a server group affected by the changes
 made. In this example:
 
-[source, java]
+[source,ruby]
 ----
 [disconnected /] connect
 [domain@localhost:9990 /] /profile=full/subsystem=datasources/data-source=ExampleDS:write-attribute(name=enabled,value=false)
@@ -277,7 +277,7 @@ of WildFly and JBoss AS 7.
 You can find the `ModelVersion` of a subsystem by querying its
 extension:
 
-[source, java]
+[source,ruby]
 ----
 domain@localhost:9990 /] /extension=org.jboss.as.clustering.infinispan:read-resource(recursive=true)
 {
@@ -340,7 +340,7 @@ different times. Let us use the `weld` subsystem, which is relatively
 simple, as an example. In JBoss AS 7.2.0 and lower it had a ModelVersion
 of 1.0.0, and its resource description was as follows:
 
-[source, java]
+[source,ruby]
 ----
                 {
                     "description" => "The configuration of the weld subsystem.",
@@ -366,7 +366,7 @@ of 1.0.0, and its resource description was as follows:
 In WildFly {wildflyVersion}, it has a ModelVersion of 2.0.0 and has added two
 attributes, `require-bean-descriptor` and `non-portable` mode:
 
-[source, java]
+[source,ruby]
 ----
 {
         "description" => "The configuration of the weld subsystem.",
@@ -462,7 +462,7 @@ Another, more concrete example from the logging subsystem is that it
 allows a ' `%K{...`}' in the pattern formatter which makes the formatter
 use color:
 
-[source, java]
+[source,xml]
 ----
             <pattern-formatter pattern="%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
 ----
@@ -511,7 +511,7 @@ link:#src-557181_DomainModeSubsystemTransformers-Resourcetransformers[#Resource
 transformers] are true, although operation transformers give you quicker
 'feedback' if something is not valid. If you try to execute:
 
-[source, java]
+[source,ruby]
 ----
 /profile=full/subsystem=weld:write-attribute(name=require-bean-descriptor, value=false)
 ----
@@ -551,7 +551,7 @@ similar to if they are set to `true`.
 The above discussion implies that to use the weld subsystem on a legacy
 slave HC, the `domain.xml` configuration for it must look like:
 
-[source, java]
+[source,xml]
 ----
 <subsystem xmlns="urn:jboss:domain:weld:2.0"
       require-bean-descriptor="true"
@@ -572,7 +572,7 @@ WildFly {wildflyVersion} slave HCs in our domain, and they are missing out on th
 features introduced by the attributes introduced in ModelVersion 2.0.0.
 If we do
 
-[source, java]
+[source,xml]
 ----
 <subsystem xmlns="urn:jboss:domain:weld:2.0"
       require-bean-descriptor="false"
@@ -582,7 +582,7 @@ If we do
 then it will fail when doing transformation for the legacy controller.
 The solution is to put these in two different profiles in `domain.xml`
 
-[source, java]
+[source,xml]
 ----
 <domain>
 ....
@@ -636,7 +636,7 @@ running.
 To ignore the profile we cannot understand we do the following in the
 legacy slave HC's `host.xml`
 
-[source, java]
+[source,xml]
 ----
 <host xmlns="urn:jboss:domain:1.3" name="slave">
 ...
@@ -769,7 +769,7 @@ etc.
 
 Warning
 
-[IMPORTANT]
+[WARNING]
 
 Note that CompareModelVersionsUtil simply inspects the raw resource
 descriptions of the specified legacy and current models. Its results
@@ -998,7 +998,7 @@ subsystem. (For brevity this section will leave out the leading
 
 Warning
 
-[IMPORTANT]
+[WARNING]
 
 Note that discarding, although the simplest option in theory, is *rarely
 the right thing to do*.
@@ -1122,7 +1122,7 @@ you have defined the `example` attribute of
 value is `true`, the inital domain transfer will reject if it is `true`,
 also the transformation of the following operations will reject:
 
-[source, java]
+[source,ruby]
 ----
     /subsystem=my-subsystem/some-child=test:add(example=true)
     /subsystem=my-subsystem:write-attribute(name=example, value=true)
@@ -1132,7 +1132,7 @@ also the transformation of the following operations will reject:
 The following operations will pass in this example, since the `example`
 attribute is not getting set to `true`
 
-[source, java]
+[source,ruby]
 ----
     /subsystem=my-subsystem/some-child=test:add(example=false)
     /subsystem=my-subsystem/some-child=test:add()             //Here it 'example' is simply left undefined
@@ -1842,7 +1842,7 @@ Now, in the initial domain transfer to the legacy slave HC, we rename
 `/subsystem=my-subsystem`'s `my-name` attribute to `legacy-name`. Also,
 the operations involving this attribute are affected, so
 
-[source, java]
+[source,ruby]
 ----
     /subsystem=my-subsystem/:add(my-name=true)  ->
          /subsystem=my-subsystem/:add(legacy-name=true)
@@ -2482,13 +2482,12 @@ guide, but let's take a more thorough look. Our comparison tells us that
 we have two new attributes `require-bean-descriptor` and
 `non-portable-mode`:
 
-[source, java]
-----
-======= Resource root address: ["subsystem" => "weld"] - Current version: 2.0.0; legacy version: 1.0.0 =======
+....
+====== Resource root address: ["subsystem" => "weld"] - Current version: 2.0.0; legacy version: 1.0.0 =======
 --- Problems for relative address to root []:
 Missing attributes in current: []; missing in legacy [require-bean-descriptor, non-portable-mode]
 Missing parameters for operation 'add' in current: []; missing in legacy [require-bean-descriptor, non-portable-mode]
-----
+....
 
 Now when we look at this we see that the default value for both of the
 attributes in the current model is `false`, which allows us more
@@ -2592,9 +2591,8 @@ Here the example comes from the `capacity` parameter some way into the
 are quite a few differences, so I am only showing the ones relevant for
 this example:
 
-[source, java]
-----
-======= Resource root address: ["subsystem" => "modcluster"] - Current version: 2.0.0; legacy version: 1.2.0 =======
+....
+====== Resource root address: ["subsystem" => "modcluster"] - Current version: 2.0.0; legacy version: 1.2.0 =======
 ...
 --- Problems for relative address to root ["mod-cluster-config" => "configuration","dynamic-load-provider" => "configuration","custom-load-m
 etric" => "*"]:
@@ -2603,7 +2601,7 @@ Different 'expressions-allowed' for attribute 'capacity'. Current: true; legacy:
 ...
 Different 'type' for parameter 'capacity' of operation 'add'. Current: DOUBLE; legacy: INT
 Different 'expressions-allowed' for parameter 'capacity' of operation 'add'. Current: true; legacy: false
-----
+....
 
 So as we can see expressions are not allowed for the `capacity`
 attribute, and the current type is `double` while the legacy subsystem

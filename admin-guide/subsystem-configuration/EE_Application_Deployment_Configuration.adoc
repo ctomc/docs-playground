@@ -53,8 +53,7 @@ see classes belonging to other subdeployments within the `.ear`.
 
 For example:
 
-[source]
-----
+....
 myapp.ear
 |
 |--- web.war
@@ -62,14 +61,14 @@ myapp.ear
 |--- ejb1.jar
 |
 |--- ejb2.jar
-----
+....
 
 If the `ear-subdeployments-isolated` is set to false, then the classes
 in `web.war` can access classes belonging to `ejb1.jar` and `ejb2.jar`.
 Similarly, classes from `ejb1.jar` can access classes from `ejb2.jar`
 (and vice-versa).
 
-[IMPORTANT]
+[NOTE]
 
 This flag has no effect on the isolated classloader of the `.war`
 file(s), i.e. irrespective of whether this flag is set to `true` or
@@ -84,7 +83,7 @@ The EE subsystem configuration includes flags to configure whether
 system property replacement will be done on XML descriptors and Java
 Annotations included in Java EE deployments.
 
-[IMPORTANT]
+[NOTE]
 
 System properties etc are resolved in the security context of the
 application server itself, not the deployment that contains the file.

@@ -58,7 +58,7 @@ JMXExample
 
 You can also connect using jconsole.
 
-[IMPORTANT]
+[NOTE]
 
 If using jconsole use the `jconsole.sh` and `jconsole.bat` scripts
 included in the /bin directory of the WildFly distribution as these set

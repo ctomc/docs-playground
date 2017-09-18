@@ -312,11 +312,13 @@ subsystem.
 To use an Elytron security domain:
 
 . Undefine the legacy security domain.
++
 [source, ruby]
 ----
 /subsystem=messaging-activemq/server=default:undefine-attribute(name=security-domain)
 ----
 . Set an Elytron security domain.
++
 [source, ruby]
 ----
 /subsystem=messaging-activemq/server=default:write-attribute(name=elytron-domain, value=myElytronSecurityDomain)

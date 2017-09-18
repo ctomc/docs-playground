@@ -123,15 +123,14 @@ application's `META-INF` directory:
 
 *jboss-ejb-client.properties*
 
-[source, java]
-----
+....
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
 remote.connections=default
 remote.connection.default.host=127.0.0.1
 remote.connection.default.port = 8080
 remote.connection.default.username=bob
 remote.connection.default.password=secret
-----
+....
 
 An EJB can then be looked up and a method can be invoked on it as
 follows:

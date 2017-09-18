@@ -28,10 +28,10 @@ created at step (1).
 \3. create a pooled-connection-factory referencing the remote-connector
 created at step (2).
 
-[source, java]
+[source,ruby]
 ----
   /subsystem=messaging-activemq/server=default/pooled-connection-factory=remote-artemis:add(connectors=[remote-artemis], entries=[java:/jms/remoteCF])
-
+   
 ----
 
 [[configuration-of-a-mdb-using-a-pooled-connection-factory]]

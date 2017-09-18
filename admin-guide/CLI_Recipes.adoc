@@ -355,43 +355,38 @@ Steps to create an empty deployment and add an index html file.
 ----
 [standalone@localhost:9990 /] /deployment=myapp:add(content=[{empty=true}])
 ----
-
-* Add an index.html to my app:
+2.  Add an index.html to my app:
 +
 [source, ruby]
 ----
 [standalone@localhost:9990 /] /deployment=myapp:add-content(content=[{input-stream-index=<press TAB>
 ----
-
++
 Then use completion to navigate to your index.html file.
-
-Provide a target name for index.html inside the deployment and execute
-the operation:
-
-[source, ruby]
+3.  Provide a target name for index.html inside the deployment and
+execute the operation:
++
+[source,ruby]
 ----
 [standalone@localhost:9990 /] /deployment=myapp:add-content(content=[{input-stream-index=./index.html, target-path=index.xhtml}]
 ----
-
-Your content has been added, you can browse the content of a deployment
-using the browse-content operation:
-
-[source, ruby]
+4.  Your content has been added, you can browse the content of a
+deployment using the browse-content operation:
++
+[source,ruby]
 ----
 [standalone@localhost:9990 /] /deployment=myapp:browse-content(path=./)
 ----
-
-You can display (or save) the content of a deployed file using the
+5.  You can display (or save) the content of a deployed file using the
 _attachement_ command:
-
-[source, ruby]
++
+[source,ruby]
 ----
 attachment display --operation=/deployment=myapp:read-content(path=index.xhtml)
 ----
-
-You can remove content from a deployment:
-
-[source, ruby]
+6.  You can remove content from a deployment:
++
+[source,ruby]
 ----
 /deployment=myapp:remove-content(paths=[./index.xhtml])
 ----
@@ -447,17 +442,15 @@ allows to display or save the content of the attached streams.
 ----
 attachment display --operation=/subsystem=logging/log-file=server.log:read-resource(include-runtime)
 ----
-
-Saving locally the server.log file:
-
+* Saving locally the server.log file:
++
 [source, ruby]
 ----
 attachment save --operation=/subsystem=logging/log-file=server.log:read-resource(include-runtime) --file=./server.log
 ----
-
-Displaying the content of a deployed file:
-
-[source, ruby]
+* Displaying the content of a deployed file:
++
+[source,ruby]
 ----
 attachment display --operation=/deployment=myapp:read-content(path=index.xhtml)
 ----

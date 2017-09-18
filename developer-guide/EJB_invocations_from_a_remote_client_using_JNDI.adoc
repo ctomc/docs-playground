@@ -383,10 +383,9 @@ jboss-as-ejb-remote-app.jar (without any ear) and since we are looking
 up the org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator
 remote interface, our JNDI name will be:
 
-[source, java]
-----
+....
 ejb:/jboss-as-ejb-remote-app//CalculatorBean!org.jboss.as.quickstarts.ejb.remote.stateless.RemoteCalculator
-----
+....
 
 That's what the lookupRemoteStatelessCalculator() method in the above
 client code uses.
@@ -396,10 +395,9 @@ jboss-as-ejb-remote-app.jar and which exposes the
 org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter, the JNDI
 name will be:
 
-[source, java]
-----
+....
 ejb:/jboss-as-ejb-remote-app//CounterBean!org.jboss.as.quickstarts.ejb.remote.stateful.RemoteCounter?stateful
-----
+....
 
 That's what the lookupRemoteStatefulCounter() method in the above client
 code uses.
@@ -491,8 +489,7 @@ The client will have to place a jboss-ejb-client.properties file in the
 classpath of the application. The jboss-ejb-client.properties can
 contain the following properties:
 
-[source, java]
-----
+....
 endpoint.name=client-endpoint
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
  
@@ -504,7 +501,7 @@ remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMO
  
 remote.connection.default.username=appuser
 remote.connection.default.password=apppassword
-----
+....
 
 [NOTE]
 
@@ -530,10 +527,9 @@ jboss-ejb-client.properties file, it will default to
 
 Next is the remote.connectionprovider.create.options.<....> properties:
 
-[source, java]
-----
+....
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
-----
+....
 
 The "remote.connectionprovider.create.options." property prefix can be
 used to pass the options that will be used while create the connection
@@ -546,10 +542,9 @@ Similarly other properties can be passed too, just append it to the
 
 Next we'll see:
 
-[source, java]
-----
+....
 remote.connections=default
-----
+....
 
 This is where you define the connections that you want to setup for
 communication with the remote server. The "remote.connections" property
@@ -559,10 +554,9 @@ configuration properties later on in the properties file. The example
 above sets up a single remote connection named "default". There can be
 more than one connections that are configured. For example:
 
-[source, java]
-----
+....
 remote.connections=one, two
-----
+....
 
 Here we are listing 2 connections named "one" and "two". Ultimately,
 each of the connections will map to a EJB receiver. So if you have 2
@@ -570,12 +564,11 @@ connections, that will setup 2 EJB receivers that will be added to the
 EJB client context. Each of these connections will be configured with
 the connection specific properties as follows:
 
-[source, java]
-----
+....
 remote.connection.default.host=10.20.30.40
 remote.connection.default.port = 8080
 remote.connection.default.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
-----
+....
 
 As you can see we are using the "remote.connection.<connection-name>."
 prefix for specifying the connection specific property. The connection
@@ -591,11 +584,10 @@ other http port)
 
 [NOTE]
 
-[source, java]
-----
+....
 remote.connection.default.username=appuser
 remote.connection.default.password=apppassword
-----
+....
 
 The given user/password must be set by using the command bin/add-user.sh
 ﻿(or.bat). +
@@ -616,8 +608,7 @@ creation.
 Here's an example of setting up multiple connections with different
 properties for each of those:
 
-[source, java]
-----
+....
 remote.connectionprovider.create.options.org.xnio.Options.SSL_ENABLED=false
  
 remote.connections=one, two
@@ -629,7 +620,7 @@ remote.connection.one.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=f
 remote.connection.two.host=localhost
 remote.connection.two.port=7999
 remote.connection.two.connect.options.org.xnio.Options.SASL_POLICY_NOANONYMOUS=false
-----
+....
 
 As you can see we setup 2 connections "one" and "two" which both point
 to "localhost" as the "host" but different ports. Each of these
@@ -641,6 +632,7 @@ placed in the classpath.
 
 [[section]]
 =====
+
 The EJB client code will by default look for jboss-ejb-client.properties
 in the classpath. However, you can specify a different file of your
 choice by setting the "jboss.ejb.client.properties.file.path" system
@@ -651,6 +643,7 @@ be
 
 [[section-1]]
 =====
+
 A jboss-client jar is shipped in the distribution. It's available at
 WILDFLY_HOME/bin/client/jboss-client.jar. Place this jar in the
 classpath of your client application.

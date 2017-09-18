@@ -62,7 +62,7 @@ operations
 }
 ----
 
-[IMPORTANT]
+[TIP]
 
 Navigating through the domain topology is much more simple when you use
 the web interface.
