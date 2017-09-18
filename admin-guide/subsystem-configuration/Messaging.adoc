@@ -311,14 +311,12 @@ subsystem.
 
 To use an Elytron security domain:
 
-1.  Undefine the legacy security domain.
-
+. Undefine the legacy security domain.
 [source, ruby]
 ----
 /subsystem=messaging-activemq/server=default:undefine-attribute(name=security-domain)
 ----
-2.  Set an Elytron security domain.
-+
+. Set an Elytron security domain.
 [source, ruby]
 ----
 /subsystem=messaging-activemq/server=default:write-attribute(name=elytron-domain, value=myElytronSecurityDomain)
@@ -376,12 +374,9 @@ defining JMS destinations, e.g.:
 </messaging-deployment>
 ----
 
-[cols="]
-|=======================================================================
-| |This feature is primarily intended for development as destinations
+WARNING: This feature **is primarily intended for development** as destinations
 deployed this way can not be managed with any of the provided management
 tools (e.g. console, CLI, etc).
-|=======================================================================
 
 [[jms-bridge]]
 == JMS Bridge
