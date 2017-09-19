@@ -582,8 +582,6 @@ communicating with the server for remote invocations, so that's the port
 we use in our client programs (unless the server is configured for some
 other http port)
 
-[NOTE]
-
 ....
 remote.connection.default.username=appuser
 remote.connection.default.password=apppassword
